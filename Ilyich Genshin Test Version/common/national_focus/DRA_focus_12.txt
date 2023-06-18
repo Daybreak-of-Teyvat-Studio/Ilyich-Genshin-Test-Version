@@ -1,0 +1,2050 @@
+focus_tree = {
+	id = DRA_focus_12
+	country = {
+		factor = 0
+		modifier = {
+			add = 9
+			tag = DRA
+		}
+	}
+	default = no
+	#砂糖的尝试
+	focus = {
+		id = DRA_Trial_of_Sucrose
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5.00
+		completion_reward = {
+			political_power = 100
+			custom_effect_tooltip = DRA_unlock_research
+			set_country_flag = DRA_Sucrose_Reas
+			country_event = dragonspine.39
+			hidden_effect = {
+				country_event = { id = dragonspine.41 days = 10 }
+			}
+			set_variable = {
+				var = DRA_Sucrose_HP
+				value = 100
+			}
+			set_variable = {
+				var = DRA_Sucrose_MP
+				value = 100
+			}
+			hidden_effect = {
+				strengthen_inno = yes
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 1
+	}
+	#为了人民的面包
+	focus = {
+		id = DRA_For_Peoples_Bread
+		icon = GFX_Goal_For_Bread
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Trial_of_Sucrose
+		}
+		completion_reward = {
+			army_experience = 50
+			country_event = dragonspine.37
+			add_tech_bonus = {
+				name = industry_bonus
+				ahead_reduction = 0
+				bonus = 1
+				uses = 1
+				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				country_event = geneideachange.1005
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 19
+		y = 2
+
+	}
+	#激进农业创新
+	focus = {
+		id = DRA_Radical_Agricultural_Innovation
+		icon = GFX_Goal_develop_Agri
+		cost = 1.00
+		prerequisite = {
+			focus = DRA_For_Peoples_Bread
+		}
+		mutually_exclusive = {
+			focus = DRA_Buy_Food
+		}
+		completion_reward = {
+			set_country_flag = DRA_Sucrose_AAAA
+			custom_effect_tooltip = DRA_SucDec_for_Bread
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 17
+		y = 3
+
+	}
+	#砂糖牌营养膏
+	focus = {
+		id = DRA_Sucrose_Nutrition_Liquid
+		icon = GFX_Goal_Sucrose
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Radical_Agricultural_Innovation
+		}
+		available = {
+			OR = {
+				has_idea = gene_not_enough_farms1
+				has_idea = gene_not_enough_farms2
+			}
+			check_variable = { DRA_Sur_Innovation_Acceptance > 50 }
+			custom_trigger_tooltip = DRA_InnoMed
+		}
+		bypass = {
+				OR = {
+					NOT = {
+						has_idea = gene_not_enough_farms4
+					}
+					NOT = {
+						has_idea = gene_not_enough_farms3
+					}
+					NOT = {
+						has_idea = gene_not_enough_farms2
+					}
+					NOT = {
+						has_idea = gene_not_enough_farms1
+					}
+				}
+		}
+		completion_reward = {
+			custom_effect_tooltip = gene_improve_agri_2
+			Get_three_Civilian = yes
+			Get_three_Civilian = yes
+		    hidden_effect = {
+				country_event = geneideachange.1003
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 17
+		y = 4
+
+	}
+	#购入外界粮食
+	focus = {
+		id = DRA_Buy_Food
+		icon = GFX_goal_generic_consumer_goods
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_For_Peoples_Bread
+		}
+		bypass = {
+			NOT = {
+				has_idea = gene_not_enough_farms4
+				has_idea = gene_not_enough_farms3
+				has_idea = gene_not_enough_farms2
+				has_idea = gene_not_enough_farms1
+			}
+		}
+		mutually_exclusive = {
+			focus = DRA_Radical_Agricultural_Innovation
+		}
+		completion_reward = {
+			custom_effect_tooltip = gene_improve_agri_2
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				country_event = geneideachange.1003
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 19
+		y = 3
+
+	}
+	#开设救济机构
+	focus = {
+		id = DRA_Relief_Agencies
+		icon = GFX_goal_generic_national_unity
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Buy_Food
+		}
+		bypass = {
+			NOT = {
+				has_idea = gene_not_enough_farms4
+				has_idea = gene_not_enough_farms3
+				has_idea = gene_not_enough_farms2
+				has_idea = gene_not_enough_farms1
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = gene_improve_agri_2
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				country_event = geneideachange.1003
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 19
+		y = 4
+
+	}
+	#捧起鸡腿
+	focus = {
+		id = DRA_Chicken_Came_Back
+		icon = GFX_Goal_For_Food
+		cost = 3.00
+		prerequisite = {
+			focus = DRA_Sucrose_Nutrition_Liquid
+			focus = DRA_Relief_Agencies
+		}
+		available = {
+			NOT = {
+				has_idea = gene_not_enough_farms4
+				has_idea = gene_not_enough_farms3
+				has_idea = gene_not_enough_farms2
+				has_idea = gene_not_enough_farms1
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				IF = {
+					limit = {
+						has_completed_focus = DRA_Radical_Agricultural_Innovation
+					}
+					country_event = { id = dragonspine.37 days = 7 }
+				}
+			}
+			custom_effect_tooltip = DRA_zhengming
+			IF = {
+				limit = {
+					has_completed_focus = DRA_Sucrose_Nutrition_Liquid
+				}
+				IF = {
+					limit = {
+						check_variable = {
+							DRA_Sur_Innovation_Acceptance > 60
+						}
+						Agri_Up = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = DRA_Sucrose_AAAA
+				}
+				IF = {
+					limit = {
+						check_variable = {
+							DRA_Sur_Innovation_Acceptance > 100
+						}
+						Agri_Up = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = {
+						DRA_Sur_Innovation_Acceptance > 150
+					}
+				}
+				Agri_Up = yes
+			}
+			DRA_united_improved = yes
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			add_stability = 0.1
+			every_owned_state = {
+			    add_manpower = 200000
+			}
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 18
+		y = 5
+
+	}
+	#砂糖小姐加入宣传
+	focus = {
+		id = DRA_Sucrose_Prop
+		icon = GFX_Goal_Sucrose_Prop
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Chicken_Came_Back
+		}
+		completion_reward = {
+			add_Political_Power = 100
+			custom_effect_tooltip = DRA_Sur_Inno_Up
+			add_to_variable = { DRA_Sur_Innovation_Acceptance = 20 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 16
+		y = 6
+
+	}
+	#砂糖小姐容光焕发
+	focus = {
+		id = DRA_Sucrose_Good
+		icon = GFX_Goal_Sucrose_Good
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Chicken_Came_Back
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Sur_HP_heal1
+			set_variable = { DRA_Sucrose_HP = 100 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 20
+		y = 6
+
+	}
+	#砂糖小姐身体健康
+	focus = {
+		id = DRA_Sucrose_Strong
+		icon = GFX_Goal_Sucrose_Strong
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Sucrose_Good
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Sur_HP_heal2
+			set_country_flag = DRA_Sucrose_Str
+			set_variable = { DRA_Sucrose_HP = 120 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 20
+		y = 7
+
+	}
+	#砂糖防线
+	focus = {
+		id = DRA_Sucrose_Forts
+		icon = GFX_goal_generic_fortify_city
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Trial_of_Sucrose
+		}
+		completion_reward = {
+			
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						is_owned_by = DRA
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 21
+		y = 2
+
+	}
+	#援助同胞
+	focus = {
+		id = DRA_Support_Our_Compatriots
+		icon = GFX_goal_generic_major_alliance
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Trial_of_Sucrose
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 2
+
+	}
+	#改善外在形象
+	focus = {
+		id = DRA_Better_our_Performance
+		icon = GFX_goal_generic_propaganda
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Support_Our_Compatriots
+		}
+		completion_reward = {
+			IF = {
+				limit = {
+					Is_Mond = yes
+				}
+				add_opinion_modifier = {
+					target = DRA
+					modifier = DRA_Good_Fame
+				}
+			}
+			add_timed_ideas = { idea = gene_better_scout days = 300 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 21
+		y = 3
+
+	}
+	#抱团取暖
+	focus = {
+		id = DRA_Cooperate_with_Springvale_and_Wolfendom
+		icon = GFX_goal_generic_national_unity
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Support_Our_Compatriots
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Part_with_SA
+			every_other_country = {
+				limit = {
+					original_tag = SPI
+					original_tag = AND
+				}
+				country_event = dragonspine.30
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 3
+
+	}
+	#扩散对外影响
+	focus = {
+		id = DRA_Expand_our_Influences
+		icon = GFX_goal_generic_radar
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Support_Our_Compatriots
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_SH_BeginProp
+			IF = {
+				limit = {
+					Is_Mond = yes
+				}
+				SH_Prop_One = yes
+			}
+			set_country_flag = DRA_Begin_Prop
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 25
+		y = 3
+
+	}
+	#增加援助人员
+	focus = {
+		id = DRA_More_Support
+		icon = GFX_goal_anschluss
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Better_our_Performance
+		}
+		prerequisite = {
+			focus = DRA_Expand_our_Influences
+		}
+		completion_reward = {
+			SH_Help_All = yes
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 4
+
+	}
+	#签署特殊行动许可
+	focus = {
+		id = DRA_Allow_Speical_Action
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_More_Support
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_SH_BeginStop
+			set_country_flag = DRA_Begin_Stop
+			set_country_flag = DRA_Begin_Break
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 5
+
+	}
+	#紧急防御措施
+	focus = {
+		id = DRA_Urgent_Defense
+		icon = GFX_goal_generic_defence
+		cost = 5.00
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = DRA_Trial_of_Sucrose
+		}
+		completion_reward = {
+			add_ideas = war_economy
+			add_ideas = limited_conscription
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 25
+		y = 2
+
+	}
+	#为了人民的生命
+	focus = {
+		id = DRA_For_Peoples_Live
+		icon = GFX_goal_demand_sudetenland
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Trial_of_Sucrose
+		}
+		completion_reward = {
+			country_event = dragonspine.48
+			army_experience = 50
+			add_tech_bonus = {
+				name = infantry_bonus
+				ahead_reduction = 0
+				bonus = 1
+				uses = 1
+				category = infantry_weapons
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 27
+		y = 2
+
+	}
+	#激进军事创新
+	focus = {
+		id = DRA_Radical_Military_Innovation
+		icon = GFX_goal_generic_build_tank
+		cost = 1.00
+		prerequisite = {
+			focus = DRA_For_Peoples_Live
+		}
+		mutually_exclusive = {
+			focus = DRA_Normal_Reorganize
+		}
+		completion_reward = {
+			set_country_flag = DRA_Sucrose_MMMM
+			custom_effect_tooltip = DRA_SucDec_for_Army
+		}
+		ai_will_do = {
+			base = 0
+		}
+		x = 27
+		y = 3
+
+	}
+	#重装小强出击
+	focus = {
+		id = DRA_CockMon_Go
+		icon = GFX_goal_generic_army_tanks
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Radical_Military_Innovation
+		}
+		bypass = {
+			NOT = {
+				has_idea = gene_down_army4
+				has_idea = gene_down_army3
+				has_idea = gene_down_army2
+				has_idea = gene_down_army1
+			}
+		}
+		completion_reward = {
+			country_event = geneideachange.1002
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_manpower = 100000
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 27
+		y = 4
+
+	}
+	#常规编制重整
+	focus = {
+		id = DRA_Normal_Reorganize
+		icon = GFX_goal_generic_demand_territory
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_For_Peoples_Live
+		}
+		mutually_exclusive = {
+			focus = DRA_Radical_Military_Innovation
+		}
+		completion_reward = {
+			country_event = geneideachange.1002
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 29
+		y = 3
+
+	}
+	#重振作战士气
+	focus = {
+		id = DRA_Restore_Armies_Morale
+		icon = GFX_goal_generic_attack_allies
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Normal_Reorganize
+		}
+		completion_reward = {
+			country_event = geneideachange.1002
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_manpower = 100000
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 29
+		y = 4
+
+	}
+	#拿起武器
+	focus = {
+		id = DRA_Take_our_Arms
+		icon = GFX_goal_generic_small_arms
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_CockMon_Go
+			focus = DRA_Restore_Armies_Morale
+		}
+		available = {
+			NOT = {
+				has_idea = gene_down_army4
+				has_idea = gene_down_army3
+				has_idea = gene_down_army2
+				has_idea = gene_down_army1
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_zhengming
+			IF = {
+				limit = {
+					has_country_flag = DRA_Sucrose_MMMM
+				}
+				country_event = {
+					id = dragonspine.58
+					days = 1
+				}
+			}
+			DRA_united_improved = yes
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			IF = {
+				limit = {
+					has_completed_focus = DRA_CockMon_Go
+				}
+				IF = {
+					limit = {
+						check_variable = {
+							DRA_Sur_Innovation_Acceptance > 60
+						}
+						Army_Up = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = DRA_Sucrose_MMMM
+				}
+				IF = {
+					limit = {
+						check_variable = {
+							DRA_Sur_Innovation_Acceptance > 100
+						}
+						Army_Up = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = {
+						DRA_Sur_Innovation_Acceptance > 150
+					}
+				}
+				Army_Up = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 28
+		y = 5
+
+	}
+	#扫视雪山之外
+	focus = {
+		id = DRA_Look_out_Dragonspine
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Chicken_Came_Back
+		}
+		prerequisite = {
+			focus = DRA_Take_our_Arms
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		    add_political_power = 50
+			DRA_united_improved = yes
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 6
+
+	}
+	#砂糖小姐精神倍佳
+	focus = {
+		id = DRA_Sucrose_Nice
+		icon = GFX_Goal_Sucrose_Good
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Take_our_Arms
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Sur_MP_heal1
+			set_variable = { DRA_Sucrose_MP = 100 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 26
+		y = 6
+
+	}
+	#砂糖小姐接受咨询
+	focus = {
+		id = DRA_Sucrose_Mental_Help
+		icon = GFX_Goal_Political_Coo
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Sucrose_Nice
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Sur_MP_heal2
+			set_variable = { DRA_Sucrose_MP = 120 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 26
+		y = 7
+
+	}
+	#砂糖小姐索要经费
+	focus = {
+		id = DRA_Sucrose_Cash
+		icon = GFX_Goal_Sucrose_Cash
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Take_our_Arms
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_Sur_Cash
+			add_timed_ideas = { idea = gene_low_burden days = 90 }
+			add_to_variable = { DRA_Sucrose_HP = 30 }
+			add_to_variable = { DRA_Sucrose_MP = 30 }
+			add_to_variable = { DRA_Sur_Innovation_Acceptance = 10 }
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 30
+		y = 6
+
+	}
+	#推进军事建设
+	focus = {
+		id = DRA_Promote_our_Army
+		icon = GFX_goal_generic_air_doctrine
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Take_our_Arms
+		}
+		completion_reward = {
+			army_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 28
+		y = 6
+
+	}
+	#精密计划
+	focus = {
+		id = DRA_Better_Planning
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Promote_our_Army
+		}
+		mutually_exclusive = {
+			focus = DRA_Firepower_and_Firepower
+			focus = DRA_Flexible_Fight
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = showdown_plan
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_grand_battle_plan
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 30
+		y = 7
+
+	}
+	#活体信息接收器
+	focus = {
+		id = DRA_Living_Signal_Receiver
+		icon = GFX_goal_generic_radar
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Better_Planning
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Radio
+				bonus = 2.00
+				uses = 2
+				category = electronics
+			}
+			add_ideas = gene_universal_radio
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 30
+		y = 8
+
+	}
+	#火力覆盖
+	focus = {
+		id = DRA_Firepower_and_Firepower
+		icon = GFX_goal_generic_army_artillery2
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Promote_our_Army
+		}
+		mutually_exclusive = {
+			focus = DRA_Better_Planning
+			focus = DRA_Flexible_Fight
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Elite_Artillery
+				bonus = 2.00
+				uses = 2
+				category = artillery
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 28
+		y = 7
+
+	}
+	#薄荷制导系统
+	focus = {
+		id = DRA_Guidance_System_from_Mint
+		icon = GFX_goal_generic_army_artillery
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Firepower_and_Firepower
+		}
+		completion_reward = {
+			add_ideas = gene_artillery_attack
+			add_tech_bonus = {
+				name = Elite_Artillery
+				bonus = 2.00
+				ahead_reduction = 2
+				uses = 1
+				category = artillery
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 28
+		y = 8
+
+	}
+	#机动作战
+	focus = {
+		id = DRA_Flexible_Fight
+		icon = GFX_goal_generic_cavalry
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Promote_our_Army
+		}
+		mutually_exclusive = {
+			focus = DRA_Better_Planning
+			focus = DRA_Firepower_and_Firepower
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Panzer_attack
+				bonus = 2.00
+				uses = 2
+				category = armor
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 32
+		y = 7
+
+	}
+	#自生长式装甲
+	focus = {
+		id = DRA_Alive_Armor
+		icon = GFX_goal_generic_defence
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Flexible_Fight
+		}
+		completion_reward = {
+			add_ideas = gene_more_tanks
+			add_tech_bonus = {
+				name = Metal_Flood
+				bonus = 1.00
+				ahead_reduction = 2
+				uses = 2
+				category = armor
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 32
+		y = 8
+
+	}
+	#尝试人薄协同
+	focus = {
+		id = DRA_Coordinate_with_Mints
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Guidance_System_from_Mint
+			focus = DRA_Living_Signal_Receiver
+			focus = DRA_Alive_Armor
+		}
+		available = {
+			custom_trigger_tooltip = DRA_need_Medium_Innovation
+			check_variable = { DRA_Sur_Innovation_Acceptance > 50 }
+		}
+		completion_reward = {
+			army_experience = 50
+			add_doctrine_cost_reduction = {
+				name = land_bonus
+				cost_reduction = 0.50
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 29
+		y = 9
+
+	}
+	#初级生物工业
+	focus = {
+		id = DRA_Primary_Bio_Industry
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7.00
+		prerequisite = {
+			focus = DRA_Guidance_System_from_Mint
+			focus = DRA_Living_Signal_Receiver
+			focus = DRA_Alive_Armor
+		}
+		available = {
+			custom_trigger_tooltip = DRA_need_Medium_Innovation
+			check_variable = { DRA_Sur_Innovation_Acceptance > 50 }
+		}
+		completion_reward = {
+			
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 31
+		y = 9
+
+	}
+	#军事创新先锋
+	focus = {
+		id = DRA_Pioneer_of_Military
+		icon = GFX_goal_generic_army_doctrines
+		cost = 10.00
+		prerequisite = {
+			focus = DRA_Coordinate_with_Mints
+			focus = DRA_Primary_Bio_Industry
+		}
+		completion_reward = {
+			add_ideas = gene_military_innovation
+			DRA_united_improved = yes
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 30
+		y = 10
+
+	}
+	#继续经济建设
+	focus = {
+		id = DRA_Continue_our_Const
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Chicken_Came_Back
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = DRA_Call_for_Justice
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 18
+		y = 6
+
+	}
+	#扩建商贸港口
+	focus = {
+		id = DRA_Expand_Ports
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Continue_our_Const
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 16
+		y = 7
+
+	}
+	#修建外贸路线
+	focus = {
+		id = DRA_Foreign_Trade
+		icon = GFX_goal_generic_improve_relations
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Expand_Ports
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 16
+		y = 8
+
+	}
+	#扩大工业生产
+	focus = {
+		id = DRA_Larger_Industry
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Foreign_Trade
+		}
+		completion_reward = {
+			
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 16
+		y = 9
+
+	}
+	#投资军工生产
+	focus = {
+		id = DRA_Invest_Military_Pro
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Continue_our_Const
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 18
+		y = 7
+
+	}
+	#改进生产线
+	focus = {
+		id = DRA_Better_Pro
+		icon = GFX_goal_generic_production2
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Invest_Military_Pro
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 18
+		y = 8
+
+	}
+	#加速军备建设
+	focus = {
+		id = DRA_Accelerate_Military_Cons
+		icon = GFX_goal_generic_army_artillery
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Better_Pro
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 18
+		y = 9
+
+	}
+	#星银铁矿牧场
+	focus = {
+		id = DRA_Star_Silvers
+		icon = GFX_goal_generic_construction2
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Continue_our_Const
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_resources_amount = {
+						resource = steel
+						amount > 0
+					}
+				}
+				add_resource = {
+					type = steel
+					amount = 20
+				}
+				
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 14
+		y = 7
+
+	}
+	#史莱姆清农场
+	focus = {
+		id = DRA_Slime_Farms
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Star_Silvers
+		}
+		completion_reward = {
+			
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_resources_amount = {
+						resource = rubber
+						amount > 0
+					}
+				}
+				add_resource = {
+					type = rubber
+					amount = 20
+				}
+				
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 14
+		y = 8
+
+	}
+	#人工合成树脂
+	focus = {
+		id = DRA_Manmade_shuzhi
+		icon = GFX_goal_generic_oil_refinery
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Slime_Farms
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_resources_amount = {
+						resource = oil
+						amount > 0
+					}
+				}
+				add_resource = {
+					type = oil
+					amount = 20
+				}
+				
+			}
+			
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 14
+		y = 9
+
+	}
+	#龙脊雪山经济奇迹
+	focus = {
+		id = DRA_Miracle_of_DRA_Economy
+		icon = GFX_goal_generic_production
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Manmade_shuzhi
+			focus = DRA_Larger_Industry
+			focus = DRA_Accelerate_Military_Cons
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_ideas = gene_better_development
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 16
+		y = 10
+
+	}
+	#不再中立
+	focus = {
+		id = DRA_Not_Stand_Alone
+		icon = GFX_goal_generic_territory_or_war
+		cost = 5.00
+		available = {
+			has_army_manpower = { size > 200000 }
+			OR = {
+				num_of_factories > 50
+				has_built = {
+					type = arms_factory
+					value > 10
+				}
+			}
+			OR = {
+				has_army_manpower = { size > 300000 }
+				date > 1938.6.1
+			}
+		}
+		prerequisite = {
+			focus = DRA_Look_out_Dragonspine
+		}
+		completion_reward = {
+			add_war_support = 0.2
+			remove_ideas = DRA_Keep_Neutral
+			every_other_country = {
+				limit = {
+					Is_MOT = yes
+				}
+				country_event = dragonspine.65
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		x = 23
+		y = 7
+
+	}
+	#发和平之问
+	focus = {
+		id = DRA_Unite_for_Peace
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Not_Stand_Alone
+		}
+		available = {
+			every_other_country = {
+				limit = {
+					original_tag = AND
+					original_tag = SPI
+				}
+				exists = yes
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_ask_for_union
+			every_other_country = {
+				limit = {
+					original_tag = AND
+					original_tag = SPI
+				}
+				country_event = dragonspine.31
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		x = 22
+		y = 8
+
+	}
+	#执战争之剑
+	focus = {
+		id = DRA_Unite_Against_War
+		icon = GFX_goal_generic_military_sphere
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Not_Stand_Alone
+		}
+		completion_reward = {
+			add_timed_idea = { idea = Gene_For_Peace days = 180 }
+		}
+		ai_will_do = {
+			base = 50
+		}
+		x = 24
+		y = 8
+
+	}
+	#打过长河去，解放全蒙德！
+	focus = {
+		id = DRA_Liberate_Mond
+		icon = GFX_goal_generic_major_war
+		cost = 5.00
+		available = {
+			has_war_support > 0.8
+		}
+		prerequisite = {
+			focus = DRA_Not_Stand_Alone
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_begin_war
+			set_country_flag = DRA_ActiveWar_Start
+			add_timed_idea = { idea = Gene_For_Peace days = 120 }
+			create_wargoal = {
+				type = take_state_focus
+				target = AND
+				expire = 50
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		x = 23
+		y = 9
+
+	}
+	#和平重归蒙德！
+	focus = {
+		id = DRA_Bring_Peace_Back
+		icon = GFX_goal_generic_demand_territory
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Liberate_Mond
+		}
+		available = {
+			every_other_country = {
+				limit = {
+					Is_Mond = yes
+				}
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+		}
+		completion_reward = {
+			DRA_Sucrose_Ending = yes
+			custom_effect_tooltip = DRA_REUNION
+			DRA_united_improved = yes
+			IF = {
+				limit = {
+					has_idea = gene_better_development
+				}
+				Industry_Up = yes
+			}
+			IF = {
+				limit = {
+					has_idea = gene_military_innovation
+					NOT = {
+						has_idea = DOT_Government_Army4
+					}
+				}
+				Army_Up = yes
+			}
+			IF = {
+				limit = {
+					NOT = {
+						has_idea = DOT_Government_Size3
+					}
+				}
+				Size_Up = yes
+			}
+		    add_political_power = 200
+			add_stability = 0.1
+			add_war_support = -0.1
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			Add_Mond_Cores = yes
+			Clear_Mond_Cores = yes
+			hidden_effect = {
+				DRA_Clear_Debuff = yes
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 10
+
+	}
+	#迈向未来
+	focus = {
+		id = DRA_To_our_Future
+		icon = GFX_goal_generic_national_unity
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Bring_Peace_Back
+		}
+		completion_reward = {
+			set_global_flag = MOT_REUNITED
+			DRA_united_improved = yes
+			add_research_slots = 1
+			custom_effect_tooltip = DRA_change_country
+			DRA_Sur_Enter_Ending = yes
+			hidden_effect = {
+				country_event = {
+					id = dragonspine.61
+					days = 3
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 23
+		y = 11
+
+	}
+	#通过最终指令许可
+	focus = {
+		id = DRA_Vote_for_Last_Action
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		available = {
+			has_country_flag = DRA_Begin_Stop
+		}
+		prerequisite = {
+			focus = DRA_Not_Stand_Alone
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_SH_BeginWar
+			set_country_flag = DRA_Begin_War
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 20
+		y = 8
+
+	}
+	#专注反战宣传
+	focus = {
+		id = DRA_focuson_Antiwar_Prop
+		icon = GFX_goal_generic_propaganda
+		cost = 5.00
+		prerequisite = {
+			focus = DRA_Not_Stand_Alone
+		}
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					Is_Mond = yes
+				}
+				SH_Prop_One = yes
+			}
+		}
+		ai_will_do = {
+			base = 10
+		}
+		x = 26
+		y = 8
+
+	}
+}

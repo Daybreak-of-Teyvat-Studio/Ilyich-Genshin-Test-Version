@@ -1,0 +1,2244 @@
+focus_tree = {
+	id = DRA_focus_11
+	country = {
+		factor = 0
+		modifier = {
+			add = 9
+			tag = DRA
+		}
+	}
+	default = no
+	
+	#龙脊雪山第1幕阿贝多（1号角色）线国策
+	
+	#（第二幕阿贝多线开头）阿贝多的宏伟蓝图
+	focus = {
+		id = DRA_Albedos_plan
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_unlock_shadow
+		    add_political_power = 100
+			country_event = dragonspien.1
+			set_variable = {
+				var = Power_of_Shadow
+				value = 30
+			}
+			IF = {
+				limit = {
+					is_ai = yes
+				}
+				set_variable = {
+					var = Power_of_Shadow
+					value = 100
+				}
+			}
+			unlock_decision_category_tooltip = DRA_Shadow_of_Dra
+		}
+		x = 13
+		y = 1
+
+	}
+	#（消除debuff前置）处理内部问题
+	focus = {
+		id = DRA_dealt_internal_problem
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_stability = 0.05
+		    add_political_power = 50
+		}
+		prerequisite = {
+			focus = DRA_Albedos_plan
+		}
+		x = 10
+		y = 2
+
+	}
+	#（民用工业线/消除农业Debuff开头）播下雪山农业之种
+	focus = {
+		id = DRA_sow_seeds_of_dragonvale_agriculture
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = dragonspien.2
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				country_event = geneideachange.1005
+			}
+		}
+		prerequisite = {
+			focus = DRA_dealt_internal_problem
+		}
+		x = 2
+		y = 3
+
+	}
+	#（民用工业线/消除农业Debuff-1-蓝分支）粮金炼成
+	focus = {
+		id = DRA_produce_more_food
+		icon = GFX_goal_generic_consumer_goods
+		cost = 5.00
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			country_event = dragonspien.3
+			custom_effect_tooltip = DRA_albedo_demo
+			custom_effect_tooltip = gene_improve_agri_2
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+				country_event = geneideachange.1005
+			}
+		}
+		prerequisite = {
+			focus = DRA_sow_seeds_of_dragonvale_agriculture
+		}
+		mutually_exclusive = {
+			focus = DRA_necessary_compulsory_means
+		}
+		x = 1
+		y = 4
+
+	}
+	#（民用工业线/消除农业Debuff-1-棕分支）必要的强制手段
+	focus = {
+		id = DRA_necessary_compulsory_means
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 5.00
+		ai_will_do = {
+			factor = 12
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			custom_effect_tooltip = gene_improve_agri_2
+			country_event = dragonspien.4
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+				country_event = geneideachange.1005
+			}
+		}
+		prerequisite = {
+			focus = DRA_sow_seeds_of_dragonvale_agriculture
+		}
+		mutually_exclusive = {
+			focus = DRA_produce_more_food
+		}
+		x = 3
+		y = 4
+
+	}
+	#（民用工业线/消除农业Debuff-2-蓝分支）拨动天平
+	focus = {
+		id = DRA_Toggle_the_Balance
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 5.00
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_demo
+			custom_effect_tooltip = gene_improve_agri_2
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+				country_event = geneideachange.1003
+			}
+		}
+		prerequisite = {
+			focus = DRA_produce_more_food
+			focus = DRA_necessary_compulsory_means
+		}
+		mutually_exclusive = {
+			focus = DRA_Visible_Hand
+		}
+		x = 1
+		y = 5
+
+	}
+	#（民用工业线/消除农业Debuff-2-棕分支）经济统制
+	focus = {
+		id = DRA_Visible_Hand
+		icon = GFX_goal_demand_sudetenland
+		cost = 5.00
+		ai_will_do = {
+			factor = 12
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			custom_effect_tooltip = gene_improve_agri_2
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+		    hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+				country_event = geneideachange.1003
+			}
+		}
+		prerequisite = {
+			focus = DRA_produce_more_food
+			focus = DRA_necessary_compulsory_means
+		}
+		mutually_exclusive = {
+			focus = DRA_Toggle_the_Balance
+		}
+		x = 3
+		y = 5
+
+	}
+	#（民用工业线/消除农业Debuff完成奖励）拒绝饥寒之苦
+	focus = {
+		id = DRA_Refuse_Hunger_and_Cold
+		icon = GFX_goal_generic_demand_territory
+		cost = 5.00
+		available = {
+		    NOT = {
+			    OR = {
+					has_idea = gene_not_enough_farms4
+					has_idea = gene_not_enough_farms3
+					has_idea = gene_not_enough_farms2
+					has_idea = gene_not_enough_farms1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		completion_reward = {
+			country_event = dragonspien.5
+			custom_effect_tooltip = DRA_zhengming
+			add_ideas = gene_advanced_large_farms1
+			DRA_union_improved = yes
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			add_stability = 0.1
+			every_owned_state = {
+			    add_manpower = 200000
+			}
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Visible_Hand
+			focus = DRA_Toggle_the_Balance
+		}
+		x = 2
+		y = 6
+
+	}
+	#（工业线/消除积极性低debuff开头）转动雪山工业之轮
+	focus = {
+		id = develop_industry_of_dragonvale
+		icon = GFX_goal_generic_production2
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = dragonspien.7
+		    hidden_effect = {
+				country_event = geneideachange.1006
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_dealt_internal_problem
+		}
+		x = 6
+		y = 3
+
+	}
+	#（工业线/消除积极性低debuff-1-蓝分支）给予物质激励
+	focus = {
+		id = DRA_Material_Incentives
+		icon = GFX_goal_generic_improve_relations
+		cost = 5.00
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			country_event = dragonspien.8
+			custom_effect_tooltip = DRA_albedo_demo
+			custom_effect_tooltip = gene_improve_morale_2
+			country_event = dragonspien.7
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+		    hidden_effect = {
+				country_event = geneideachange.1006
+				add_to_variable = { Power_of_Shadow = 10 }
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = develop_industry_of_dragonvale
+		}
+		mutually_exclusive = {
+			focus = DRA_Strict_Discipline
+		}
+		x = 5
+		y = 4
+
+	}
+	#（工业线/消除积极性低debuff-1-棕分支）严格管理措施
+	focus = {
+		id = DRA_Strict_Discipline
+		icon = GFX_goal_demand_sudetenland
+		cost = 5.00
+		ai_will_do = {
+			factor = 12
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			custom_effect_tooltip = gene_improve_morale_2
+		    hidden_effect = {
+				country_event = geneideachange.1006
+				add_to_variable = { Power_of_Shadow = -5 }
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = develop_industry_of_dragonvale
+		}
+		mutually_exclusive = {
+			focus = DRA_Material_Incentives
+		}
+		x = 7
+		y = 4
+
+	}
+	#（工业线/消除积极性低debuff-2-蓝分支）工人思想教育
+	focus = {
+		id = DRA_Ideological_Education_for_Workers
+		icon = GFX_goal_generic_propaganda
+		cost = 5.00
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_demo
+			custom_effect_tooltip = gene_improve_morale_2
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+		    hidden_effect = {
+				country_event = geneideachange.1001
+				add_to_variable = { Power_of_Shadow = 10 }
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Material_Incentives
+			focus = DRA_Strict_Discipline
+		}
+		mutually_exclusive = {
+			focus = DRA_Aggravate_Involution
+		}
+		x = 5
+		y = 5
+
+	}
+	#（工业线/消除积极性低debuff-2-棕分支）推动内部竞争
+	focus = {
+		id = DRA_Aggravate_Involution
+		icon = GFX_goal_generic_trade
+		cost = 5.00
+		ai_will_do = {
+			factor = 12
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			custom_effect_tooltip = gene_improve_morale_2
+			country_event = dragonspien.8
+		    hidden_effect = {
+				country_event = geneideachange.1001
+				add_to_variable = { Power_of_Shadow = -5 }
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Material_Incentives
+			focus = DRA_Strict_Discipline
+		}
+		mutually_exclusive = {
+			focus = DRA_Ideological_Education_for_Workers
+		}
+		x = 7
+		y = 5
+
+	}
+	#（工业线/消除积极性低debuff结尾奖励）拒绝贫乏懒惰
+	focus = {
+		id = DRA_Refuse_Poverty_and_Laziness
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_zhengming
+			add_ideas = gene_labour_active_22
+			country_event = dragonspien.9
+			DRA_union_improved = yes
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			add_stability = 0.1
+			country_event = dragonspien.9
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			every_owned_state = {
+			    manpower = 100000
+			}
+		}
+		prerequisite = {
+			focus = DRA_Ideological_Education_for_Workers
+			focus = DRA_Aggravate_Involution
+		}
+		x = 6
+		y = 6
+
+	}
+	#处理外界事务
+	focus = {
+		id = DRA_dealt_outside_problem
+		icon = GFX_goal_generic_military_deal
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_war_support = 0.05
+		    add_political_power = 50
+		}
+		prerequisite = {
+			focus = DRA_Albedos_plan
+		}
+		x = 16
+		y = 2
+
+	}
+	#加强军队建设（阿贝多线额外军事buff）
+	focus = {
+		id = DRA_strength_military_construction
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_ideas = gene_better_commander
+		}
+		prerequisite = {
+			focus = DRA_Albedos_plan
+		}
+		x = 13
+		y = 2
+
+	}
+	#（军事线开头）正规化龙脊训练营
+	focus = {
+		id = DRA_Military_school_of_dragonspine
+		icon = GFX_goal_generic_attack_allies
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			army_experience = 50
+			add_doctrine_cost_reduction = {
+				name = militaryschool
+				cost_reduction = 0.50
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		prerequisite = {
+			focus = DRA_strength_military_construction
+		}
+		x = 13
+		y = 3
+
+	}
+	#（军事线-机动作战1）装甲穿插
+	focus = {
+		id = DRA_Panzer_attack
+		icon = GFX_goal_generic_army_tanks
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Panzer_attack
+				bonus = 2.00
+				uses = 2
+				category = armor
+			}
+			add_ideas = gene_panzers_attack
+		}
+		prerequisite = {
+			focus = DRA_Military_school_of_dragonspine
+		}
+		mutually_exclusive = {
+			focus = DRA_Elite_Artillery
+			focus = DRA_thorough_plan
+			focus = DRA_Become_Rising_Tide
+		}
+		x = 9
+		y = 4
+
+	}
+	#（军事线-机动作战2）雪山耕地机考古
+	focus = {
+		id = DRA_study_cultivator
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5.00
+		x = 8
+		y = 6
+
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = study_cultivator
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = cultivator
+			}
+		}
+		prerequisite = {
+			focus = DRA_Panzer_attack
+		}
+	}
+	#（军事线-机动作战3）战车创新
+	focus = {
+		id = DRA_innovation_of_Panzers
+		icon = GFX_goal_generic_army_motorized
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_Panzers
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = armor
+			}
+		}
+		prerequisite = {
+			focus = DRA_Panzer_attack
+		}
+		x = 10
+		y = 5
+
+	}
+	#（军事线-机动作战4）尝试机械化
+	focus = {
+		id = DRA_Try_Mechanization
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Mechanization
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+		prerequisite = {
+			focus = DRA_innovation_of_Panzers
+		}
+		x = 10
+		y = 6
+
+	}
+	#（军事线-火力优势1）火炮洗地
+	focus = {
+		id = DRA_Elite_Artillery
+		icon = GFX_goal_generic_army_artillery2
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Elite_Artillery
+				bonus = 2.00
+				uses = 2
+				category = artillery
+			}
+		}
+		prerequisite = {
+			focus = DRA_Military_school_of_dragonspine
+		}
+		mutually_exclusive = {
+			focus = DRA_Panzer_attack
+			focus = DRA_thorough_plan
+			focus = DRA_Become_Rising_Tide
+		}
+		x = 11
+		y = 4
+
+	}
+	#（军事线-火力优势2）精确火力投射
+	focus = {
+		id = DRA_Predict_and_Shoot
+		icon = GFX_goal_generic_army_artillery
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Elite_Artillery
+				bonus = 2.00
+				ahead_reduction = 2
+				uses = 1
+				category = artillery
+			}
+			add_ideas = gene_artillery_attack
+		}
+		prerequisite = {
+			focus = DRA_Elite_Artillery
+		}
+		x = 12
+		y = 5
+
+	}
+	#（军事线-火力优势3）尝试火箭炮
+	focus = {
+		id = DRA_Try_Rockets
+		icon = GFX_goal_generic_secret_weapon
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = try_Rockets
+				bonus = 2.00
+				ahead_reduction = 2
+				uses = 1
+				category = rocket_artillery
+			}
+		}
+		prerequisite = {
+			focus = DRA_Predict_and_Shoot
+		}
+		x = 12
+		y = 6
+
+	}
+	#（军事线-决战计划1）周密计划
+	focus = {
+		id = DRA_thorough_plan
+		icon = GFX_goal_generic_army_doctrines
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = showdown_plan
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_grand_battle_plan
+			}
+		}
+		prerequisite = {
+			focus = DRA_Military_school_of_dragonspine
+		}
+		mutually_exclusive = {
+			focus = DRA_Panzer_attack
+			focus = DRA_Elite_Artillery
+			focus = DRA_Become_Rising_Tide
+		}
+		x = 15
+		y = 4
+
+	}
+	#（军事线-决战计划2）普及远距通讯手段
+	focus = {
+		id = DRA_Military_LongRange_Communication
+		icon = GFX_goal_generic_radar
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = showdown_plan
+				cost_reduction = 0.50
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+			add_ideas = gene_universal_radio
+		}
+		prerequisite = {
+			focus = DRA_thorough_plan
+		}
+		x = 14
+		y = 5
+
+	}
+	#（军事线-决战计划3）C3I学说构想
+	focus = {
+		id = DRA_Trial_of_C3I_Theory
+		icon = GFX_goal_generic_build_tank
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = showdown_plan
+				cost_reduction = 0.50
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+		}
+		prerequisite = {
+			focus = DRA_Military_LongRange_Communication
+		}
+		x = 14
+		y = 6
+
+	}
+	#（军事线-人海冲锋1）化身浪潮
+	focus = {
+		id = DRA_Become_Rising_Tide
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_weapons
+				bonus = 1.00
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+		prerequisite = {
+			focus = DRA_Military_school_of_dragonspine
+		}
+		mutually_exclusive = {
+			focus = DRA_Panzer_attack
+			focus = DRA_Elite_Artillery
+			focus = DRA_thorough_plan
+		}
+		x = 17
+		y = 4
+
+	}
+	#（军事线-人海冲锋2）量产夜视仪器
+	focus = {
+		id = DRA_Manufacture_Nightvision
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Manufacture_Nightvision
+				bonus = 1.00
+				ahead_reduction = 2
+				uses = 1
+				category = night_vision
+			}
+			add_ideas = gene_night_wolf
+		}
+		prerequisite = {
+			focus = DRA_Become_Rising_Tide
+		}
+		x = 16
+		y = 5
+
+	}
+	#（军事线-人海冲锋3）战地医护
+	focus = {
+		id = DRA_Medical_Help_for_Soldiers
+		icon = GFX_goal_generic_major_alliance
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Medical_Help
+				bonus = 1.00
+				ahead_reduction = 2
+				uses = 1
+				category = hospital_tech
+			}
+			add_ideas = gene_hospital_for_war
+		}
+		prerequisite = {
+			focus = DRA_Become_Rising_Tide
+		}
+		x = 18
+		y = 6
+
+	}
+	#（军事线-人海冲锋4）钢铁洪流
+	focus = {
+		id = DRA_Metal_Flood
+		icon = GFX_goal_generic_cavalry
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Metal_Flood
+				bonus = 1.00
+				ahead_reduction = 2
+				uses = 2
+				category = armor
+			}
+		}
+		prerequisite = {
+			focus = DRA_Manufacture_Nightvision
+		}
+		x = 16
+		y = 6
+
+	}
+	#（军事线结尾奖励）拒绝停滞落后
+	focus = {
+		id = DRA_Refuse_Being_Backward
+		icon = GFX_goal_generic_air_doctrine
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = dragonspien.10
+			army_experience = 100
+			add_war_support = 0.1
+			IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man3
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man3
+					add_idea = gene_united_as_one_man4
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man2
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man2
+					add_idea = gene_united_as_one_man3
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man1
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man1
+					add_idea = gene_united_as_one_man2
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					NOT = {
+						has_ideas = gene_united_as_one_man4
+					}
+					add_ideas = gene_united_as_one_man1
+				}
+				
+			}
+		}
+		prerequisite = {
+			focus = DRA_Try_Mechanization
+			focus = DRA_Trial_of_C3I_Theory
+			focus = DRA_Metal_Flood
+			focus = DRA_Try_Rockets
+		}
+		prerequisite = {
+			focus = DRA_strength_military_construction
+		}
+		x = 13
+		y = 7
+
+	}
+	#（民族精神升级线-开头）执起干涉之刃
+	focus = {
+		id = DRA_Begin_Influence_Warlords
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_war_support = 0.05
+			
+		}
+		prerequisite = {
+			focus = DRA_dealt_outside_problem
+		}
+		x = 20
+		y = 3
+
+	}
+	#（民族精神升级线-1-蓝分支）生存保障
+	focus = {
+		id = DRA_Keep_Them_Alive
+		icon = GFX_goal_generic_defence
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			custom_effect_tooltip = DRA_albedo_demo
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				custom_effect_tooltip = DRA_abeldo_level_max
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = DRA_abeldo_level_up
+			}
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+				IF = {
+					limit = {
+						has_idea = DRA_fight_for_peace1
+					}
+					remove_ideas = DRA_fight_for_peace1
+					add_ideas = DRA_fight_for_peace2
+				}
+				IF = {
+					limit = {
+						has_idea = DRA_fight_for_peace2
+					}
+					remove_ideas = DRA_fight_for_peace2
+					add_ideas = DRA_fight_for_peace3
+				}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				remove_ideas = DRA_fight_for_peace3
+				add_ideas = DRA_fight_for_all_the_good
+			}
+			}
+		    add_war_support = 0.05
+			if = {
+				limit = {
+					has_tech = advanced_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_3
+					amount = 2000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_2
+					amount = 2000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons1
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 2000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = 2000
+					producer = DRA
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Begin_Influence_Warlords
+		}
+		mutually_exclusive = {
+			focus = DRA_Die_But_Win
+		}
+		x = 19
+		y = 4
+
+	}
+	#（民族精神升级线-1-棕分支）视死如归
+	focus = {
+		id = DRA_Die_But_Win
+		icon = GFX_goal_generic_attack_allies
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				custom_effect_tooltip = DRA_abeldo_level_max
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = DRA_abeldo_level_up
+			}
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace2
+				}
+				remove_ideas = DRA_fight_for_peace2
+				add_ideas = DRA_fight_for_peace3
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				remove_ideas = DRA_fight_for_peace3
+				add_ideas = DRA_fight_for_all_the_good
+			}
+			}
+		    add_war_support = 0.05
+			if = {
+				limit = {
+					has_tech = advanced_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_3
+					amount = 3000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_2
+					amount = 3000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons1
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 3000
+					producer = DRA
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = 3000
+					producer = DRA
+				}
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace1
+				}
+				remove_ideas = DRA_fight_for_peace1
+				add_ideas = DRA_fight_for_peace2
+			}
+		}
+		prerequisite = {
+			focus = DRA_Begin_Influence_Warlords
+		}
+		mutually_exclusive = {
+			focus = DRA_Keep_Them_Alive
+		}
+		x = 21
+		y = 4
+
+	}
+	#（民族精神升级线-2-蓝分支）宣传正义性
+	focus = {
+		id = DRA_Publicize_our_Justice
+		icon = GFX_goal_generic_alliance
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			custom_effect_tooltip = DRA_albedo_demo
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				custom_effect_tooltip = DRA_abeldo_level_max
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = DRA_abeldo_level_up
+			}
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+				IF = {
+					limit = {
+						has_idea = DRA_fight_for_peace1
+					}
+					remove_ideas = DRA_fight_for_peace1
+					add_ideas = DRA_fight_for_peace2
+				}
+				IF = {
+					limit = {
+						has_idea = DRA_fight_for_peace2
+					}
+					remove_ideas = DRA_fight_for_peace2
+					add_ideas = DRA_fight_for_peace3
+				}
+				IF = {
+					limit = {
+						has_idea = DRA_fight_for_peace3
+					}
+					remove_ideas = DRA_fight_for_peace3
+					add_ideas = DRA_fight_for_all_the_good
+				}
+			}
+			}
+		    add_manpower = 100000
+		    add_war_support = 0.05
+		prerequisite = {
+			focus = DRA_Keep_Them_Alive
+			focus = DRA_Die_But_Win
+		}
+		mutually_exclusive = {
+			focus = DRA_Compulsory_Recruit_Refugees
+		}
+		x = 19
+		y = 5
+
+	}
+	#（民族精神升级线-2-棕分支）强制征募难民
+	focus = {
+		id = DRA_Compulsory_Recruit_Refugees
+		icon = GFX_goal_generic_political_pressure
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				custom_effect_tooltip = DRA_abeldo_level_max
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = DRA_abeldo_level_up
+			}
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace1
+				}
+				remove_ideas = DRA_fight_for_peace1
+				add_ideas = DRA_fight_for_peace2
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace2
+				}
+				remove_ideas = DRA_fight_for_peace2
+				add_ideas = DRA_fight_for_peace3
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				remove_ideas = DRA_fight_for_peace3
+				add_ideas = DRA_fight_for_all_the_good
+			}
+			}
+		    add_manpower = 200000
+		    add_war_support = 0.05
+		}
+		prerequisite = {
+			focus = DRA_Keep_Them_Alive
+			focus = DRA_Die_But_Win
+		}
+		mutually_exclusive = {
+			focus = DRA_Publicize_our_Justice
+		}
+		x = 21
+		y = 5
+
+	}
+	#（民族精神升级线-最高级）拒绝坐以待毙
+	focus = {
+		id = DRA_Refuse_Awaiting_our_Doom
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_sword
+		    add_war_support = 0.1
+			IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man3
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man3
+					add_idea = gene_united_as_one_man4
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man2
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man2
+					add_idea = gene_united_as_one_man3
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man1
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man1
+					add_idea = gene_united_as_one_man2
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					NOT = {
+						has_ideas = gene_united_as_one_man4
+					}
+					add_ideas = gene_united_as_one_man1
+				}
+				
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace1
+				}
+				remove_ideas = DRA_fight_for_peace1
+				add_ideas = DRA_fight_for_peace2
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace2
+				}
+				remove_ideas = DRA_fight_for_peace2
+				add_ideas = DRA_fight_for_peace3
+			}
+			IF = {
+				limit = {
+					has_idea = DRA_fight_for_peace3
+				}
+				remove_ideas = DRA_fight_for_peace3
+				add_ideas = DRA_fight_for_all_the_good
+			}
+		}
+		prerequisite = {
+			focus = DRA_Publicize_our_Justice
+			focus = DRA_Compulsory_Recruit_Refugees
+		}
+		x = 20
+		y = 6
+
+	}
+	#（呼唤外援/种田科技线-开头）发出呼唤正义之声
+	focus = {
+		id = DRA_Call_for_Justice
+		icon = GFX_goal_generic_propaganda
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_political_power = 100
+			add_tech_bonus = {
+				name = DRA_Call_for_Justice
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = DRA_Call_for_Justice
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+		prerequisite = {
+			focus = DRA_dealt_outside_problem
+		}
+		x = 24
+		y = 3
+
+	}
+	#（呼唤外援/种田科技线-1-蓝分支）穷尽宣传手段
+	focus = {
+		id = DRA_Propaganda_our_Difficulty
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_demo
+			country_event = geneideachange.1004
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+			}
+			add_tech_bonus = {
+				name = Propaganda_our_Difficulty
+				bonus = 2.00
+				uses = 1
+				category = electronics
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			
+		}
+		prerequisite = {
+			focus = DRA_Call_for_Justice
+		}
+		mutually_exclusive = {
+			focus = DRA_Financial_Alchemy
+		}
+		x = 23
+		y = 4
+
+	}
+	#（呼唤外援/种田科技线-1-棕分支）金融炼金术
+	focus = {
+		id = DRA_Financial_Alchemy
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			country_event = geneideachange.1004
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+			}
+			add_tech_bonus = {
+				name = Financial_Alchemy
+				bonus = 1.00
+				uses = 2
+				category = electronics
+			}
+			add_political_power = 100
+		}
+		prerequisite = {
+			focus = DRA_Call_for_Justice
+		}
+		mutually_exclusive = {
+			focus = DRA_Propaganda_our_Difficulty
+		}
+		x = 25
+		y = 4
+
+	}
+	#（呼唤外援/种田科技线-2-蓝分支）博取外国同情
+	focus = {
+		id = DRA_Uitilize_Foreign_Sympathy
+		icon = GFX_goal_generic_improve_relations
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_demo
+			country_event = geneideachange.1004
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = -5 }
+			}
+			add_tech_bonus = {
+				name = Foreign_Sympathy
+				bonus = 1.00
+				uses = 2
+				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Propaganda_our_Difficulty
+			focus = DRA_Financial_Alchemy
+		}
+		mutually_exclusive = {
+			focus = DRA_Uitilize_Foreign_Greed
+		}
+		x = 23
+		y = 5
+
+	}
+	#（呼唤外援/种田科技线-2-棕分支）利用境外势力
+	focus = {
+		id = DRA_Uitilize_Foreign_Greed
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_albedo_fas
+			country_event = geneideachange.1004
+			hidden_effect = {
+				add_to_variable = { Power_of_Shadow = 10 }
+			}
+			add_tech_bonus = {
+				name = Foreign_Greed
+				bonus = 2.00
+				uses = 1
+				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Propaganda_our_Difficulty
+			focus = DRA_Financial_Alchemy
+		}
+		mutually_exclusive = {
+			focus = DRA_Uitilize_Foreign_Sympathy
+		}
+		x = 25
+		y = 5
+
+	}
+	#（呼唤外援/种田科技线-最高级）拒绝孤身奋战
+	focus = {
+		id = DRA_Refuse_Fighting_without_anyone
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = DRA_justice_world
+			IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man3
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man3
+					add_idea = gene_united_as_one_man4
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man2
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man2
+					add_idea = gene_united_as_one_man3
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_ideas = gene_united_as_one_man1
+				}
+				swap_ideas = {
+					remove_ideas = gene_united_as_one_man1
+					add_idea = gene_united_as_one_man2
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					NOT = {
+						has_ideas = gene_united_as_one_man4
+					}
+					add_ideas = gene_united_as_one_man1
+				}
+				
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Uitilize_Foreign_Sympathy
+			focus = DRA_Uitilize_Foreign_Greed
+		}
+		x = 24
+		y = 6
+
+	}
+	#终结内部之隐患（内部问题部分完成）
+	focus = {
+	    id = DRA_End_our_Internal_problem
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_stability = 0.1
+			add_political_power = 100
+			every_owned_state = {
+			    add_manpower = 100000
+			}
+		}
+		prerequisite = {
+			focus = DRA_Refuse_Poverty_and_Laziness
+		}
+		prerequisite = {
+			focus = DRA_Refuse_Hunger_and_Cold
+		}
+		x = 9
+		y = 7
+	}
+	
+	
+	#高举世界之正义（外部问题部分完成）
+	focus = {
+	    id = DRA_End_our_Outside_problem
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+		    add_war_support = 0.1
+			add_political_power = 100
+			add_manpower = 100000
+		}
+		prerequisite = {
+			focus = DRA_Refuse_Awaiting_our_Doom
+		}
+		prerequisite = {
+			focus = DRA_Refuse_Fighting_without_anyone
+		}
+		x = 17
+		y = 7
+	}
+	
+	
+	#（扩张线开头，需要内部或外部部分完成）拒绝蒙德之分裂
+	focus = {
+		id = DRA_Rufuse_Division_of_Mond
+		icon = GFX_goal_generic_major_war
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = dragonspien.13
+			custom_effect_tooltip = DRA_begin_war
+			set_country_flag = DRA_ActiveWar_Start
+			army_experience = 50
+			create_wargoal = {
+				type = take_state_focus
+				target = AND
+				expire = 50
+			}
+		}
+		prerequisite = {
+			focus = DRA_End_our_Internal_problem
+		}
+		prerequisite = {
+			focus = DRA_Refuse_Being_Backward
+			focus = DRA_End_our_Outside_problem
+		}
+		x = 13
+		y = 8
+
+	}
+	#做成决议focus = {
+	#	id = 清泉染血
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 8
+	#	y = 10
+	#
+	#}
+	#做成决议focus = {
+	#	id = 晨曦消退
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 10
+	#	y = 10
+	#
+	#}
+	#做成决议focus = {
+	#	id = 奔狼失声
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 12
+	#	y = 10
+	#
+	#}
+	#做成决议focus = {
+	#	id = 坚冰碎裂
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 14
+	#	y = 10
+	#
+    #}
+	#做成决议focus = {
+	#	id = 西风止息
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 16
+	#	y = 10
+	#
+	#}
+	#做成决议focus = {
+	#	id = 废墟宁静
+	#	icon = GFX_goal_unknown
+	#	cost = 5.00
+	#	completion_reward = {
+	#	}
+	#	prerequisite = {
+	#		focus = 拒绝蒙德之分裂
+	#	}
+	#	x = 18
+	#	y = 10
+    #
+	#}
+	#
+	#（完成统一奖励）蒙德之“白化”
+	focus = {
+		id = DRA_Reason_Returns_to_Mond
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = dragonspien.14
+			custom_effect_tooltip = DRA_REUNION
+		    add_political_power = 200
+			add_stability = 0.1
+			add_war_support = -0.1
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			Add_Mond_Cores = yes
+			Clear_Mond_Cores = yes
+		}
+		available = {
+			MOT = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			RAG = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			GUN = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			FAV = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			SPI = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			DVA = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			LAW = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = DRA_Rufuse_Division_of_Mond
+		}
+		x = 13
+		y = 9
+
+	}
+	#（统一、改名、换颜色、进入第三幕并且分路线）蒙德，迈向未来
+	#（若阴谋力量>60，进入阿贝少线21-F；否则进入阿贝多线21-B。若阴谋力量在30~60间，触发事件使阿贝多得到特质如影随形）
+	focus = {
+		id = DRA_To_be_Continued
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 5.00
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_global_flag = MOT_REUNITED
+			hidden_effect = {
+				DRA_Clear_Debuff = yes
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			add_research_slots = 1
+			custom_effect_tooltip = DRA_change_country
+			IF = {
+				limit = {
+					Power_of_Shadow > 60
+				}
+				custom_effect_tooltip = DRA_build_republic
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = DRA_build_feder
+			}
+			custom_effect_tooltip = DRA_end_shadow
+			IF = {
+				limit = {
+					has_country_flag = DRA_consult_with_shadow
+				}
+				custom_effect_tooltip = DRA_leave_sha
+			}
+			add_ideas = gene_better_development
+			
+			IF = {
+				limit = {
+					check_variable = {
+						 Power_of_Shadow > 60
+					}
+				}
+				hidden_effect = {
+					set_party_name = {
+						ideology = democratic
+						long_name = DRA_Liberist2_long
+						name = DRA_Liberist2
+					}
+					set_party_name = {
+						ideology = communism
+						long_name = DRA_Communist2_long
+						name = DRA_Communist2
+					}
+					set_party_name = {
+						ideology = fascism
+						long_name = DRA_fascist2_long
+						name = DRA_fascist2
+					}
+					set_party_name = {
+						ideology = neutrality
+						long_name = DRA_conservative2_long
+						name = DRA_conservative2
+					}
+					set_party_name = {
+						ideology = genshin
+						long_name = DRA_genshin2_long
+						name = DRA_genshin2
+					}
+					play_song = "SyntheticDreams"
+					set_country_flag = DRA_REUNION_1_F
+					news_event = { days = 2 id = DRA_news.1 }
+					set_country_flag = DRA_flesh_and_blood
+					hidden_effect = {
+						load_focus_tree = DRA_focus_21F
+					}
+					unlock_decision_category_tooltip = DRA_Refine_with_Flesh_and_Blood
+				}
+				country_event = dragonspien.99
+			}
+			ELSE_IF = {
+				hidden_effect = {
+					set_party_name = {
+						ideology = democratic
+						long_name = DRA_Liberist1_long
+						name = DRA_Liberist1
+					}
+					set_party_name = {
+						ideology = communism
+						long_name = DRA_Communist1_long
+						name = DRA_Communist1
+					}
+					set_party_name = {
+						ideology = fascism
+						long_name = DRA_fascist1_long
+						name = DRA_fascist1
+					}
+					set_party_name = {
+						ideology = neutrality
+						long_name = DRA_conservative1_long
+						name = DRA_conservative1
+					}
+					set_party_name = {
+						ideology = genshin
+						long_name = DRA_genshin1_long
+						name = DRA_genshin1
+					}
+					play_song = "我的荣耀"
+					set_country_flag = DRA_REUNION_1_D
+					news_event = { days = 2 id = DRA_news.2 }
+					hidden_effect = {
+						load_focus_tree = DRA_focus_21B
+					}
+					IF = {
+						limit = {
+							has_country_flag = DRA_consultation_with_shadow
+						}
+						country_event = { id = dragonspine.97 days = 1}
+						set_country_flag = DRA_idol_plan
+						unlock_decision_category_tooltip = DRA_Abeldo_idol_plan
+						set_variable = {
+							var = DRA_Basic_RES
+							value = 100
+						}
+						set_variable = {
+							var = DRA_IDOL_EXP
+							value = 0
+						}
+						set_variable = {
+							var = DRA_IDOL_LEVEL
+							value = 1
+						}
+						set_variable = {
+							var = DRA_IDOL_FANS
+							value = 1
+						}
+					}
+				}
+				country_event = dragonspien.98
+			}
+		}
+		prerequisite = {
+			focus = DRA_Reason_Returns_to_Mond
+		}
+		x = 13
+		y = 10
+
+	}
+}

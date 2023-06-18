@@ -1,0 +1,62 @@
+prospect_for_resources = {
+
+#接触地脉 Contact_Ley_Line
+Contact_Ley_Line = {
+		icon = eng_install_government
+		available = { tag = ABY	}
+		visible = { tag = ABY }
+		fire_only_once = yes
+		modifier = { }
+		ai_will_do = { factor = 0 }
+		cost = 99
+		complete_effect = {   
+			add_to_variable = { var = dx value = 5 }	
+			custom_effect_tooltip = Test-in-Process
+			add_ideas = Contact_Ley_Line
+		}		
+	}
+#####################
+#丘丘人远征军
+HIP_Expeditionary_Forces = {
+		icon = eng_install_government
+		available = { tag = ABY	}
+		visible = { tag = ABY }
+		fire_only_once = no
+		modifier = { }
+		cost = 199
+		ai_will_do = { factor = 1 }
+		complete_effect = {
+		add_manpower = -1000
+		random_other_country = {
+		limit = { NOT = { or = { tag = HIL  tag = ABY  tag = PRI } } }
+		random_owned_state = { 
+		limit = { NOT = { or = { is_core_of = ABY  is_core_of = PRI } } }
+		set_state_owner_to = HIP
+		}
+		}
+		HIP = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = ABY } }		
+		HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }	
+		HIP = {
+		division_template = { 
+				name = "Hilichurl_Expeditionary_Forces" 
+				division_names_group = Hilichurl_Expeditionary_Forces
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+			}
+			every_owned_state = {
+			create_unit = {
+			division = "name = \"1. Hilichurl_Expeditionary_Forces\" division_template = \"Hilichurl_Expeditionary_Forces\" start_experience_factor = 0.5 start_equipment_factor = 2.0"
+			owner = HIP
+			count = 3
+				}
+			}
+		}		
+		HIP = { country_event = { id = ABY.2 days = 1  } }		
+		}		
+	}
+#####################
+}

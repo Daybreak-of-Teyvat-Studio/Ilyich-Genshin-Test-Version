@@ -1,0 +1,431 @@
+﻿add_namespace = INA
+country_event = { #战争的宣传？
+	id = INA.1
+	title = INA.1.t
+	desc = INA.1.d
+	picture = GFX_news_event_INA.1
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.1.1 #注重军事宣传
+		add_war_support = 0.15
+	}
+
+	option = {
+		name = INA.1.2 #注重内部稳定
+		add_stability = 0.1
+    }
+}
+country_event = { #寻求帮助
+	id = INA.2
+	title = INA.2.t
+	desc = INA.2.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.2.1#影
+		add_to_variable = {
+        INA_prestige = 1
+       }
+		add_timed_idea = {
+        idea = INA_thegreatwin
+        days = 40
+    }
+	}
+	
+
+	option = {
+		name = INA.2.2#愚人众
+		add_to_variable = {
+         INA_prestige = -1
+       }
+	add_equipment_to_stockpile = { type = infantry_equipment  amount = 8000  producer = SNE }
+    add_equipment_to_stockpile = { type = train_equipment amount = 50 producer = SNE }
+	add_equipment_to_stockpile = { type = artillery_equipment  amount = 800  producer = SNE }
+	add_equipment_to_stockpile = { type = support_equipment  amount = 800  producer = SNE }
+	}
+
+	option = {
+		name = INA.2.3#八重宫司
+	   	add_to_variable = {
+         INA_yaesupport = 1
+       }
+	    add_stability = 0.05
+		recruit_character = INA_yae
+	}
+}
+country_event = { #神社问题
+	id = INA.3
+	title = INA.3.t
+	desc = INA.3.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+    #必须严惩神子
+	option = {
+		name = INA.3.1
+		add_to_variable = {
+        INA_prestige = 2
+       }
+		change_variable = {
+        which = INA_yaesupport
+        value = -10
+       }
+		 #移除雷祸#
+		if = {
+      limit = {
+				has_idea = INA_disaster
+			}
+	   remove_ideas = INA_disaster
+	 }
+	  add_political_power = -50
+			trigger = {}
+	}
+
+	option = {
+		name = INA.3.2#略微惩罚一下社奉行就好
+	   add_to_variable = {
+        INA_prestige = 1
+       }
+		
+			 add_political_power = 10
+		  add_stability = 0.05
+		trigger = {
+		}
+	}
+
+	option = {
+		name = INA.3.3#随她吧
+	 	add_to_variable = {
+         INA_yaesupport = 1
+       }
+		add_political_power = 50
+		trigger = {
+		}
+	}
+}
+country_event = { #奉行丑闻
+	id = INA.4
+	title = INA.4.t
+	desc = INA.4.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.4.1#必须严惩三奉行
+			add_to_variable = {
+        INA_prestige = 2
+       }
+		if = {
+		      limit = {
+				has_idea = INA_government_corruption
+			}
+	   remove_ideas = INA_government_corruption 
+		trigger = {	  	
+	    }
+     #移除腐败政府#	
+	  add_political_power = -50
+		}
+	}
+
+	option = {
+		name = INA.4.2#奉行必须严惩，但看在神子面上，放过社奉行
+		add_to_variable = {
+        INA_prestige = 1
+       }
+		add_to_variable = {
+         INA_yaesupport = 1
+       }
+		add_political_power = 10
+		 add_stability = 0.05
+		trigger = { 
+		}
+	}
+
+	option = {
+		name = INA.4.3#算了，还得依靠他们治国呢
+		add_to_variable = {
+        INA_prestige = -2
+       }
+		 add_political_power = 150
+		trigger = {
+		}
+	}
+	}
+	country_event = { #欺上瞒下
+	id = INA.5
+	title = INA.5.t
+	desc = INA.5.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.5.1#罪己诏，惩戒奉行，废除锁国，眼狩令#
+		add_to_variable = {
+        INA_prestige =0
+       }
+	
+     #移除眼狩锁国#
+	 			if = {
+      limit = {
+				has_idea = INA_eyeseek
+			}
+	   remove_ideas = INA_eyeseek
+	 }			
+	 if = {
+      limit = {
+				has_idea = INA_locked
+			}
+	   remove_ideas = INA_locked
+	 }
+	  add_political_power = -100
+		trigger = {}
+	}
+
+	option = {
+		name = INA.5.2#奉行必须严惩，废除眼狩
+		add_to_variable = {
+        INA_prestige =1
+       }
+
+		
+		#移除眼狩
+			if = {
+      limit = {
+				has_idea = INA_eyeseek
+			}
+	   remove_ideas = INA_eyeseek
+	 }
+		 add_political_power = -50
+
+		trigger = {}
+	}
+	option = {
+		name = INA.5.3#罪己诏，废除锁国#
+		change_variable = {
+      	add_to_variable = {
+        INA_prestige = -2
+       }
+		#移除眼锁国
+			if = {
+		      limit = {
+				has_idea = INA_locked
+			}
+	   remove_ideas = INA_locked
+	    }
+	
+		 add_political_power = -50
+
+			trigger = {}
+	}
+	}
+
+	option = {
+		name = INA.5.4#将军大人永远不会错
+		add_to_variable = {
+        INA_prestige = 2
+       }
+		add_political_power = 250
+		trigger = {
+		}
+	}
+	}
+	country_event = { #行政权力
+	id = INA.6
+	title = INA.6.t
+	desc = INA.6.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.6.1#让三奉行来#
+		add_to_variable = {
+        INA_prestige = -1
+       }
+		add_political_power = 100
+		trigger = {
+		}
+	}
+
+	option = {
+		name = INA.6.2#让神子来#
+	  add_to_variable = {
+         INA_yaesupport = 1
+       }
+      add_political_power = 50
+		trigger = {
+		}
+	}
+	option = {
+		name = INA.6.3#选择那些忠诚的民间人士#
+		add_to_variable = {
+        INA_prestige = 0
+       }
+       add_political_power = 50
+		trigger = {
+		}
+	}
+
+	option = {
+		name = INA.6.4#将军亲政
+		add_to_variable = {
+        INA_prestige = 2
+       }
+		 INA_Raiden = { 
+		 add_logistics = 2
+		trigger = {
+		 }
+
+		}
+	}
+
+    country_event = { #如果你拿到了珊瑚宫
+	id = INA.7
+	title = INA.7.t
+	desc = INA.7.d
+	major = no
+	picture = GFX_news_event_INA.1
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		tag = INA
+		if = {
+			SAN= {
+				is_subject_of = ROOT
+			}
+			controls_state = 188
+		}
+	}
+	option = {
+		name = INA.7.1
+		add_war_support = 0.05
+		army_experience = 5
+		every_owned_state = {
+	        add_building_construction = {
+	          type = infrastructure
+	          level = 1
+	          instant_build = yes
+	        }
+		}
+		188 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+	          type = industrial_complex
+	          level = 1
+	          instant_build = yes
+	        }
+		}
+		if = {
+			limit = {
+				SAN = {
+					exists = yes
+				}
+			}
+			every_country = {
+				limit = {
+					or = {
+						tag = SAN
+						tag = INA
+						tag = ASA
+						tag = TSU
+					}
+				}
+				white_peace = SAN
+				white_peace = INA
+				white_peace = ASA
+				white_peace = TSU
+			}
+		}
+		puppet = SAN
+		transfer_state = 161
+		transfer_state = 162
+		transfer_state = 163
+		transfer_state = 164
+		transfer_state = 165
+		transfer_state = 166
+		transfer_state = 167
+		transfer_state = 168
+		transfer_state = 169
+		transfer_state = 170
+		transfer_state = 171
+		every_country = {
+			limit = {
+				has_war_with = SAN
+			}
+			white_peace = SAN
+		}
+	}
+}
+
+country_event = { #征服鹤观
+	id = INA.8
+	title =  INA.8.t
+	desc = INA.8.d
+	picture =  GFX_news_event_INA.1
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.8.1#妥协
+		puppet = TSU
+		add_political_power = 50
+		ai_chance = {
+			base = 5
+		}
+	}
+
+	option = {
+		name = INA.8.2#宣战
+		declare_war_on = {
+			target = TSU
+			type = puppet_wargoal_focus
+		}
+		ai_chance = {
+			base = 95
+		}
+	}
+}
+country_event = { #征服清籁
+	id = INA.9
+	title =  INA.9.t
+	desc = INA.9.d
+	picture =  GFX_news_event_INA.1
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = INA.9.1#妥协
+		puppet = ASA
+		add_political_power = 50
+		ai_chance = {
+			base = 5
+		}
+	}
+
+	option = {
+		name = INA.9.2#宣战
+		declare_war_on = {
+			target = ASA
+			type = puppet_wargoal_focus
+		}
+		ai_chance = {
+			base = 95
+		}
+	}
+}
+	}

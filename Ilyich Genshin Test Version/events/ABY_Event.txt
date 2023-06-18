@@ -1,0 +1,72 @@
+﻿###########################
+# ABY Events
+###########################
+
+add_namespace = ABY
+
+# ABY
+
+country_event = {
+	id = ABY.1
+	title = ABY.1.t
+	desc = ABY.1.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	is_triggered_only = yes		
+	option = { # INA
+	name = ABY.1.a
+	news_event = { id = Teyvat_News.11  days = 1 }
+		}
+	}
+country_event = {
+	id = ABY.2
+	title = ABY.2.t
+	desc = ABY.1.d
+	picture = GFX_event_ASA
+	fire_only_once = no
+	is_triggered_only = yes	
+	option = { # INA
+	name = ABY.1.a
+		HIP = {
+		division_template = { 
+				name = "Hilichurl_Expeditionary_Forces" 
+				division_names_group = Hilichurl_Expeditionary_Forces
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+			}
+			every_owned_state = {
+			create_unit = {
+			division = "name = \"1. Hilichurl_Expeditionary_Forces\" division_template = \"Hilichurl_Expeditionary_Forces\" start_experience_factor = 0.5 start_equipment_factor = 2.0"
+			owner = HIP
+			count = 4
+				}
+			}
+		}		
+		HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
+		}
+	}
+	
+	
+#登陆天空岛
+country_event = {
+	id = ABY.3
+	title = ABY.3.t
+	desc = ABY.3.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	trigger = {
+	TAG = ROOT
+	355 = { is_controlled_by = ROOT }
+	NOT = { TAG = PRI }
+	}	
+	option = { 
+	name = ABY.3.a
+	PRI = { add_ideas = PRI_Contact_Ley_Line }	
+		}
+	}
+
+

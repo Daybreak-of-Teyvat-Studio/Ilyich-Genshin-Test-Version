@@ -1,0 +1,6725 @@
+focus_tree = {
+	id = AND
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = AND
+		}
+	}
+	default = no
+	
+	focus = {
+		id = lonely_island
+		icon = GFX_goal_anti_comintern_pact
+		cost = 1
+		x = 22
+		y = 0
+		available = {
+			OR = {
+				is_in_faction = no
+				is_puppet = no
+				has_war = yes
+				threat > 0.05
+			}
+		}
+		completion_reward = {
+			add_stability = 0.05
+			hidden_effect = {
+				set_cosmetic_tag = AND_independent
+				get_forts = yes
+				get_poli = yes
+				every_state = {
+					limit = {
+						NOT = {
+							is_controlled_by = AND
+						}
+					}
+					remove_core_of = AND
+				}
+			}
+		}
+	}
+	focus = {
+		id = The_red_star_won
+		icon = GFX_focus_prc_agrarian_socialism
+		cost = 7.2
+		x = 38
+		y = 0
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 100
+			get_poli = yes
+			get_sw = yes
+		}
+	}
+	focus = {
+		id = Immernachtreich
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		x = 46
+		y = 0
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = partial_autonomy
+		icon = GFX_goal_generic_major_alliance
+		cost = 7.2
+		x = 54
+		y = 0
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = the_same_goal_we_have
+		icon = GFX_goal_molotov_ribbentrop_pact
+		cost = 7.2
+		x = 62
+		y = 0
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = In_the_Wolfendom
+		icon = GFX_goal_generic_radar
+		cost = 1
+		prerequisite = {
+			focus = lonely_island
+		}
+		x = 22
+		y = 1
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = Some_Strange_guys_wandering
+		icon = GFX_goal_generic_radar
+		cost = 1
+		prerequisite = {
+			focus = In_the_Wolfendom
+		}
+		x = 22
+		y = 2
+		completion_reward = {
+			add_stability = -0.05
+			add_war_support = 0.05
+			country_event = andrius.1
+		}
+	}
+	focus = {
+		id = connect_with_refugee
+		icon = GFX_goal_generic_political_pressure
+		cost = 1
+		prerequisite = {
+			focus = Some_Strange_guys_wandering
+		}
+		x = 22
+		y = 3
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = receive_mankind
+		icon = GFX_goal_tripartite_pact
+		cost = 2
+		prerequisite = {
+			focus = connect_with_refugee
+		}
+		mutually_exclusive = {
+			focus = expel_mankind
+		}
+		x = 22
+		y = 4
+		completion_reward = {
+			add_stability = 0.1
+			country_event = andrius.2
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AND_Bennett
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AND_Fischl
+			get_poli = yes
+			get_sw = yes
+			get_manp = yes
+			state_level_up = yes
+		}
+	}
+	focus = {
+		id = deal_with_refugees_problem
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 2
+		prerequisite = {
+			focus = receive_mankind
+			focus = expel_mankind
+		}
+		x = 22
+		y = 5
+		completion_reward = {
+			add_political_power = 50
+			get_poli = yes
+			get_sw = yes
+			hidden_effect = {
+				set_variable = {
+					var = and_bennetts_influence
+					value = 0
+				}
+				set_variable = {
+					var = and_fischls_influence
+					value = 0
+				}
+				set_variable = {
+					var = and_dionas_influence
+					value = 0
+				}
+			}
+			unlock_decision_category_tooltip = AND_struggle_from_three_routes
+			custom_effect_tooltip = AND_struggle_from_three_routes_tt
+		}
+	}
+	focus = {
+		id = build_housing
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 2
+		prerequisite = {
+			focus = deal_with_refugees_problem
+		}
+		x = 16
+		y = 6
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_manpower = 2000
+			add_stability = 0.05
+			country_event = andrius.3
+		}
+	}
+	focus = {
+		id = Bennett_simple_designation
+		icon = GFX_goal_generic_air_production
+		cost = 1
+		prerequisite = {
+			focus = build_housing
+		}
+		mutually_exclusive = {
+			focus = Fischl_revolutionary_ideas
+		}
+		x = 15
+		y = 7
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			has_character = AND_Bennett
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+				set_country_flag = AND_bennett_plan
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+		}
+	}
+	focus = {
+		id = Fischl_revolutionary_ideas
+		icon = GFX_goal_generic_position_armies
+		cost = 1
+		prerequisite = {
+			focus = build_housing
+		}
+		mutually_exclusive = {
+			focus = Bennett_simple_designation
+		}
+		x = 17
+		y = 7
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_character = AND_Fischl
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_fischls_influence
+		}
+	}
+	focus = {
+		id = primary_organization
+		icon = GFX_goal_generic_national_unity
+		cost = 3
+		prerequisite = {
+			focus = deal_with_refugees_problem
+		}
+		x = 22
+		y = 6
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = Bennett_theory_of_reciprocity
+		icon = GFX_goal_generic_improve_relations
+		cost = 1
+		prerequisite = {
+			focus = primary_organization
+		}
+		mutually_exclusive = {
+			focus = Fischl_thoughts_of_organization
+		}
+		x = 21
+		y = 7
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_character = AND_Bennett
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+		}
+	}
+	focus = {
+		id = Fischl_thoughts_of_organization
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 1
+		prerequisite = {
+			focus = primary_organization
+		}
+		mutually_exclusive = {
+			focus = Bennett_theory_of_reciprocity
+		}
+		x = 23
+		y = 7
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_character = AND_Fischl
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_fischls_influence
+		}
+	}
+	focus = {
+		id = attract_external_ideologue
+		icon = GFX_goal_generic_radar
+		cost = 4
+		prerequisite = {
+			focus = Fischl_thoughts_of_organization
+		}
+		x = 23
+		y = 8
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			add_timed_idea = { idea = AND_basic_boost_to_morale days = 420 }
+			add_tech_bonus = {
+				name = attract_external_ideologue
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = concentrated_industry_category
+				category = dispersed_industry_category
+			}
+			country_event = andrius.11
+		}
+	}
+	focus = {
+		id = centralize_our_command
+		icon = GFX_goal_generic_demand_territory
+		cost = 3
+		prerequisite = {
+			focus = attract_external_ideologue
+		}
+		x = 23
+		y = 9
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_manpower = -5000
+			division_template = { 
+				name = "Patrols" 
+				division_names_group = AND_INF_01
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+					infantry = { x = 0 y = 4 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 1 y = 3 }
+					infantry = { x = 1 y = 4 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1. Patrols\" division_template = \"Patrols\" start_experience_factor = 0.5 start_equipment_factor = 2.0"
+					owner = ROOT
+					count = 4
+				}
+			}
+			country_event = andrius.13
+		}
+	}
+	focus = {
+		id = develop_our_production
+		icon = GFX_focus_SOV_breadbasket_of_the_union
+		cost = 2
+		prerequisite = {
+			focus = deal_with_refugees_problem
+		}
+		x = 28
+		y = 6
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = Bennett_support_ourselves
+		icon = GFX_goal_generic_demand_territory
+		cost = 3
+		prerequisite = {
+			focus = develop_our_production
+		}
+		mutually_exclusive = {
+			focus = Fischl_call_for_foreign_aid
+		}
+		x = 27
+		y = 7
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			has_character = AND_Bennett
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+				set_country_flag = AND_bennett_plan
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+		}
+	}
+	focus = {
+		id = organize_collective_production
+		icon = GFX_goal_generic_consumer_goods
+		cost = 3
+		prerequisite = {
+			focus = Bennett_support_ourselves
+		}
+		x = 27
+		y = 8
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+			add_stability = 0.05
+			country_event = andrius.7
+		}
+	}
+	focus = {
+		id = Fischl_call_for_foreign_aid
+		icon = GFX_goal_generic_propaganda
+		cost = 3
+		prerequisite = {
+			focus = develop_our_production
+		}
+		mutually_exclusive = {
+			focus = Bennett_support_ourselves
+		}
+		x = 29
+		y = 7
+		available = {
+			has_character = AND_Fischl
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_fischls_influence
+		}
+	}
+	focus = {
+		id = introduction_of_advanced_tools
+		icon = GFX_goal_generic_production2
+		cost = 3
+		prerequisite = {
+			focus = Fischl_call_for_foreign_aid
+		}
+		x = 29
+		y = 8
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = introduction_of_advanced_tools
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = industry
+			}
+			country_event = andrius.8
+		}
+	}
+	focus = {
+		id = full_up_and_warm
+		icon = GFX_goal_generic_major_alliance
+		cost = 2
+		prerequisite = {
+			focus = organize_collective_production
+			focus = introduction_of_advanced_tools
+		}
+		x = 28
+		y = 9
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			get_manp = yes
+			state_level_up = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_timed_idea = { idea = AND_basic_guarantee_of_people days = 140 }
+			remove_ideas = AND_backward_production_mode
+		}
+	}
+	focus = {
+		id = centralize_our_government
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = The_red_star_won
+		}
+		mutually_exclusive = {
+			focus = flat_management
+		}
+		x = 36
+		y = 1
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = AND_bennett_plan
+				}
+				add_ideas = AND_red_star_shining2
+			}
+			else = { add_ideas = AND_red_star_shining1 }
+		}
+	}
+	focus = {
+		id = peoples_commune
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.2
+		prerequisite = {
+			focus = centralize_our_government
+		}
+		x = 36
+		y = 2
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_red_star_shining2
+				}
+				remove_ideas = AND_red_star_shining2
+				add_ideas = AND_red_star_shining3
+			}
+			if = {
+				limit = {
+					has_idea = AND_red_star_shining1
+				}
+				remove_ideas = AND_red_star_shining1
+				add_ideas = AND_red_star_shining2
+			}
+		}
+	}
+	focus = {
+		id = large_scale_intensive_production
+		icon = GFX_goal_generic_soviet_construction
+		cost = 7.2
+		prerequisite = {
+			focus = peoples_commune
+		}
+		x = 36
+		y = 3
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_red_star_shining3
+				}
+				remove_ideas = AND_red_star_shining3
+				add_ideas = AND_the_north_is_red
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_red_star_shining2
+				}
+				remove_ideas = AND_red_star_shining2
+				add_ideas = AND_red_star_shining3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_red_star_shining1
+				}
+				remove_ideas = AND_red_star_shining1
+				add_ideas = AND_red_star_shining2
+			}
+			hidden_effect = {
+				country_event = andrius.38
+			}
+		}
+	}
+	focus = {
+		id = unified_goverment_benefits
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = large_scale_intensive_production
+		}
+		x = 36
+		y = 4
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_high_welfare
+			add_stability = 0.1
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_country_leader_trait = Glorious_guide
+			hidden_effect = {
+				country_event = andrius.31
+			}
+		}
+	}
+	focus = {
+		id = flat_management
+		icon = GFX_goal_tripartite_pact
+		cost = 7.2
+		prerequisite = {
+			focus = The_red_star_won
+		}
+		mutually_exclusive = {
+			focus = centralize_our_government
+		}
+		x = 40
+		y = 1
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = AND_bennett_plan
+				}
+				add_ideas = AND_black_flags_raising2
+			}
+			else = { add_ideas = AND_black_flags_raising1 }
+		}
+	}
+	focus = {
+		id = all_Mondstadt_federation_of_labor_union
+		icon = GFX_focus_spr_torchbearers_of_tomorrow
+		cost = 7.2
+		prerequisite = {
+			focus = flat_management
+		}
+		x = 40
+		y = 2
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_black_flags_raising2
+				}
+				remove_ideas = AND_black_flags_raising2
+				add_ideas = AND_black_flags_raising3
+			}
+			if = {
+				limit = {
+					has_idea = AND_black_flags_raising1
+				}
+				remove_ideas = AND_black_flags_raising1
+				add_ideas = AND_black_flags_raising2
+			}
+		}
+	}
+	focus = {
+		id = voluntary_collectivization
+		icon = GFX_focus_spr_masters_of_our_own_fate
+		cost = 7.2
+		prerequisite = {
+			focus = all_Mondstadt_federation_of_labor_union
+		}
+		x = 40
+		y = 3
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_black_flags_raising3
+				}
+				remove_ideas = AND_black_flags_raising3
+				add_ideas = AND_one_for_all_for_one
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_black_flags_raising2
+				}
+				remove_ideas = AND_black_flags_raising2
+				add_ideas = AND_black_flags_raising3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_black_flags_raising1
+				}
+				remove_ideas = AND_black_flags_raising1
+				add_ideas = AND_black_flags_raising2
+			}
+			hidden_effect = {
+				country_event = andrius.37
+			}
+		}
+	}
+	focus = {
+		id = Subsidies_within_local_communes
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 7.2
+		prerequisite = {
+			focus = voluntary_collectivization
+		}
+		x = 40
+		y = 4
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_middle_welfare
+			add_stability = 0.1
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_country_leader_trait = Enthusiastic_coordinator
+			hidden_effect = {
+				country_event = andrius.32
+			}
+		}
+	}
+	focus = {
+		id = long_live_the_commune_of_wolfendom
+		icon = GFX_goal_support_communism
+		cost = 7.2
+		prerequisite = {
+			focus = unified_goverment_benefits
+			focus = Subsidies_within_local_communes
+		}
+		x = 38
+		y = 5
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.6
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			set_cosmetic_tag = AND_commune
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = stop_all_the_sins
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 7.2
+		prerequisite = {
+			focus = Immernachtreich
+		}
+		mutually_exclusive = {
+			focus = peoples_princess
+		}
+		x = 44
+		y = 1
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			if = {
+				limit = {
+					has_country_flag = AND_fischl_plan
+				}
+				add_ideas = AND_immernachtreich2
+			}
+			else = { add_ideas = AND_immernachtreich1 }
+		}
+	}
+	focus = {
+		id = directed_creation
+		icon = GFX_goal_generic_position_armies
+		cost = 7.2
+		prerequisite = {
+			focus = stop_all_the_sins
+		}
+		x = 44
+		y = 2
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = fascism
+			fascism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.4
+			}
+			if = {
+				limit = {
+					has_idea = AND_immernachtreich2
+				}
+				remove_ideas = AND_immernachtreich2
+				add_ideas = AND_immernachtreich3
+			}
+			if = {
+				limit = {
+					has_idea = AND_immernachtreich1
+				}
+				remove_ideas = AND_immernachtreich1
+				add_ideas = AND_immernachtreich2
+			}
+		}
+	}
+	focus = {
+		id = judgment_to_judgment
+		icon = GFX_goal_demand_sudetenland
+		cost = 7.2
+		prerequisite = {
+			focus = directed_creation
+		}
+		x = 44
+		y = 3
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = fascism
+			fascism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_immernachtreich3
+				}
+				remove_ideas = AND_immernachtreich3
+				add_ideas = AND_final_immernachtreich
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_immernachtreich2
+				}
+				remove_ideas = AND_immernachtreich2
+				add_ideas = AND_immernachtreich3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_immernachtreich1
+				}
+				remove_ideas = AND_immernachtreich1
+				add_ideas = AND_immernachtreich2
+			}
+			hidden_effect = {
+				country_event = andrius.39
+			}
+		}
+	}
+	focus = {
+		id = save_them_all
+		icon = GFX_goal_generic_improve_relations
+		cost = 7.2
+		prerequisite = {
+			focus = judgment_to_judgment
+		}
+		x = 44
+		y = 4
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = fascism
+			fascism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_high_welfare
+			add_stability = 0.1
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			add_country_leader_trait = Accelerationist_leaders
+			hidden_effect = {
+				country_event = andrius.40
+			}
+		}
+	}
+	
+	focus = {
+		id = peoples_princess
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = Immernachtreich
+		}
+		mutually_exclusive = {
+			focus = stop_all_the_sins
+		}
+		x = 48
+		y = 1
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			hidden_effect = {
+				retire_character = AND_Bennett
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			hidden_effect = {
+				retire_character = AND_Bennett
+			}
+			AND_Fischl = {
+				add_country_leader_role = {
+					country_leader = {
+						ideology = marxism
+						traits = { 
+							#
+						}
+					}
+					promote_leader = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = AND_fischl_plan
+				}
+				add_ideas = AND_contextualist_reform2
+			}
+			else = { add_ideas = AND_contextualist_reform1 }
+		}
+	}
+
+	focus = {
+		id = bloom_together
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 7.2
+		prerequisite = {
+			focus = peoples_princess
+		}
+		x = 48
+		y = 2
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = communism
+			communism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.4
+			}
+			if = {
+				limit = {
+					has_idea = AND_contextualist_reform2
+				}
+				remove_ideas = AND_contextualist_reform2
+				add_ideas = AND_contextualist_reform3
+			}
+			if = {
+				limit = {
+					has_idea = AND_contextualist_reform1
+				}
+				remove_ideas = AND_contextualist_reform1
+				add_ideas = AND_contextualist_reform2
+			}
+			add_research_slot = 1
+		}
+	}
+	
+	focus = {
+		id = Contextualism_to_Contextualism
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = bloom_together
+		}
+		x = 48
+		y = 3
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = communism
+			communism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			if = {
+				limit = {
+					has_idea = AND_contextualist_reform3
+				}
+				remove_ideas = AND_contextualist_reform3
+				add_ideas = AND_final_skill_in_the_history
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_contextualist_reform2
+				}
+				remove_ideas = AND_contextualist_reform2
+				add_ideas = AND_contextualist_reform3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_contextualist_reform1
+				}
+				remove_ideas = AND_contextualist_reform1
+				add_ideas = AND_contextualist_reform2
+			}
+			hidden_effect = {
+				country_event = andrius.41
+			}
+		}
+	}
+	focus = {
+		id = material_base
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = Contextualism_to_Contextualism
+		}
+		x = 48
+		y = 4
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			has_government = communism
+			communism > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_middle_welfare
+			add_stability = 0.1
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_country_leader_trait = Pioneer_of_Situationism
+			hidden_effect = {
+				country_event = andrius.33
+			}
+		}
+	}
+	focus = {
+		id = progress_of_the_artistic_zone_without_dawn
+		icon = GFX_goal_generic_propaganda
+		cost = 7.2
+		prerequisite = {
+			focus = material_base
+			focus = save_them_all
+		}
+		x = 46
+		y = 5
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			set_cosmetic_tag = AND_art_zone
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = promote_and_appoint_squires
+		icon = GFX_goal_generic_demand_territory
+		cost = 7.2
+		prerequisite = {
+			focus = partial_autonomy
+		}
+		mutually_exclusive = {
+			focus = encourage_spirit_of_enterpreneur
+		}
+		x = 52
+		y = 1
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			set_party_name = {
+				ideology = democratic
+				long_name = AND_national_front_long
+				name = AND_national_front
+			}
+			if = {
+				limit = {
+					has_country_flag = AND_diona_plan
+				}
+				add_ideas = AND_normal_society2
+			}
+			else = { add_ideas = AND_normal_society1 }
+		}
+	}
+	focus = {
+		id = Restrain_land_annexation
+		icon = GFX_focus_hol_abandon_the_gold_standard
+		cost = 7.2
+		prerequisite = {
+			focus = promote_and_appoint_squires
+		}
+		x = 52
+		y = 2
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = -0.2
+			if = {
+				limit = {
+					has_idea = AND_normal_society2
+				}
+				remove_ideas = AND_normal_society2
+				add_ideas = AND_normal_society3
+			}
+			if = {
+				limit = {
+					has_idea = AND_normal_society1
+				}
+				remove_ideas = AND_normal_society1
+				add_ideas = AND_normal_society2
+			}
+		}
+	}
+	focus = {
+		id = encourage_the_charitiess
+		icon = GFX_goal_generic_improve_relations
+		cost = 7.2
+		prerequisite = {
+			focus = Restrain_land_annexation
+		}
+		x = 52
+		y = 3
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			add_ideas = AND_little_welfare
+			hidden_effect = {
+				country_event = andrius.42
+			}
+		}
+	}
+	focus = {
+		id = smaller_the_government_better_the_governing
+		icon = GFX_goal_generic_consumer_goods
+		cost = 7.2
+		prerequisite = {
+			focus = encourage_the_charitiess
+		}
+		x = 52
+		y = 4
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			if = {
+				limit = {
+					has_idea = AND_normal_society3
+				}
+				remove_ideas = AND_normal_society3
+				add_ideas = AND_super_stable_society
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_normal_society2
+				}
+				remove_ideas = AND_normal_society2
+				add_ideas = AND_normal_society3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_normal_society1
+				}
+				remove_ideas = AND_normal_society1
+				add_ideas = AND_normal_society2
+			}
+			add_country_leader_trait = Hero_of_squire
+			hidden_effect = {
+				country_event = andrius.34
+			}
+		}
+	}
+	focus = {
+		id = encourage_spirit_of_enterpreneur
+		icon = GFX_goal_generic_consumer_goods
+		cost = 7.2
+		prerequisite = {
+			focus = partial_autonomy
+		}
+		mutually_exclusive = {
+			focus = promote_and_appoint_squires
+		}
+		x = 56
+		y = 1
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			set_party_name = {
+				ideology = democratic
+				long_name = AND_SLP_long
+				name = AND_SLP
+			}
+			if = {
+				limit = {
+					has_country_flag = AND_diona_plan
+				}
+				add_ideas = AND_market_liberalization2
+			}
+			else = { add_ideas = AND_market_liberalization1 }
+		}
+	}
+	focus = {
+		id = end_the_interventionism
+		icon = GFX_focus_focus_fra_fascist_threat
+		cost = 7.2
+		prerequisite = {
+			focus = encourage_spirit_of_enterpreneur
+		}
+		x = 56
+		y = 2
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = -0.2
+			if = {
+				limit = {
+					has_idea = AND_market_liberalization2
+				}
+				remove_ideas = AND_market_liberalization2
+				add_ideas = AND_market_liberalization3
+			}
+			if = {
+				limit = {
+					has_idea = AND_market_liberalization1
+				}
+				remove_ideas = AND_market_liberalization1
+				add_ideas = AND_market_liberalization2
+			}
+		}
+	}
+	focus = {
+		id = private_welfare_enterprise
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 7.2
+		prerequisite = {
+			focus = end_the_interventionism
+		}
+		x = 56
+		y = 3
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			add_ideas = AND_little_welfare
+			hidden_effect = {
+				country_event = andrius.43
+			}
+		}
+	}
+	focus = {
+		id = more_free_the_market_happier_the_people
+		icon = GFX_goal_generic_demand_territory
+		cost = 7.2
+		prerequisite = {
+			focus = private_welfare_enterprise
+		}
+		x = 56
+		y = 4
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_political_power = 100
+			add_stability = 0.05
+			add_research_slot = 1
+			if = {
+				limit = {
+					has_idea = AND_market_liberalization3
+				}
+				remove_ideas = AND_market_liberalization3
+				add_ideas = AND_anarchic_capitalism
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_market_liberalization2
+				}
+				remove_ideas = AND_market_liberalization2
+				add_ideas = AND_market_liberalization3
+			}
+			else_if = {
+				limit = {
+					has_idea = AND_market_liberalization1
+				}
+				remove_ideas = AND_market_liberalization1
+				add_ideas = AND_market_liberalization2
+			}
+			add_country_leader_trait = Everyone_a_king
+			hidden_effect = {
+				country_event = andrius.35
+			}
+		}
+	}
+	focus = {
+		id = the_free_zone_of_the_spring_lives_forever
+		icon = GFX_goal_support_democracy
+		cost = 7.2
+		prerequisite = {
+			focus = smaller_the_government_better_the_governing
+			focus = more_free_the_market_happier_the_people
+		}
+		x = 54
+		y = 5
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			set_cosmetic_tag = AND_spring_free_zone
+		}
+	}
+	focus = {
+		id = Bennetts_grass_root_organizations
+		icon = GFX_goal_generic_improve_relations
+		cost = 7.2
+		prerequisite = {
+			focus = the_same_goal_we_have
+		}
+		x = 60
+		y = 1
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_bennetts_help
+		}
+	}
+	focus = {
+		id = Grass_roots_democratic_autonomy
+		icon = GFX_focus_focus_fra_liberte_egalite_solidarite
+		cost = 7.2
+		prerequisite = {
+			focus = Bennetts_grass_root_organizations
+		}
+		x = 60
+		y = 2
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			every_core_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = Grass_roots_democratic_autonomy
+				bonus = 1.00
+				uses = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = fischl_framework_of_the_government
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 7.2
+		prerequisite = {
+			focus = the_same_goal_we_have
+		}
+		x = 62
+		y = 1
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_fischls_help
+		}
+	}
+	focus = {
+		id = publicity_of_Contextualism
+		icon = GFX_goal_generic_propaganda
+		cost = 7.2
+		prerequisite = {
+			focus = fischl_framework_of_the_government
+		}
+		x = 62
+		y = 2
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_war_support = 0.2
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_tech_bonus = {
+				name = publicity_of_Contextualism
+				bonus = 1.00
+				uses = 3
+				category = electronics
+			}
+			hidden_effect = {
+				country_event = andrius.44
+			}
+		}
+	}
+	focus = {
+		id = diona_interventionism
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = the_same_goal_we_have
+		}
+		x = 64
+		y = 1
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_country_flag = AND_diona_available
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_dionas_help
+		}
+	}
+	focus = {
+		id = Collective_enterprises_participate_in_competition
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 7.2
+		prerequisite = {
+			focus = diona_interventionism
+		}
+		x = 64
+		y = 2
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			every_core_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = Collective_enterprises_participate_in_competition
+				bonus = 1.00
+				uses = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = unbreakable_union
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = Grass_roots_democratic_autonomy
+			focus = publicity_of_Contextualism
+			focus = Collective_enterprises_participate_in_competition
+		}
+		x = 62
+		y = 3
+		available = {
+			has_government = democratic
+			OR = {
+				AND_Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+				Razor = {
+					has_trait = Each_according_to_ability
+					is_country_leader = yes
+				}
+			}
+			has_stability > 0.6
+			democratic > 0.4
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_middle_welfare
+			add_stability = 0.1
+			add_war_support = 0.1
+			add_political_power = 100
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			hidden_effect = {
+				country_event = andrius.36
+			}
+		}
+	}
+	focus = {
+		id = AND_Rise_of_United_Wolfendom
+		icon = GFX_goal_generic_improve_relations
+		cost = 7.2
+		prerequisite = {
+			focus = unbreakable_union
+		}
+		x = 62
+		y = 5
+		available = {
+			has_government = democratic
+			AND_Razor = {
+				is_country_leader = yes
+			}
+			has_stability > 0.6
+			democratic > 0.6
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			set_cosmetic_tag = AND_United_Wolfendom
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = Union_of_Socialist_Republics_in_Mondstadt
+		icon = GFX_focus_SOV_proclaim_soviet_hegemony
+		cost = 7.2
+		prerequisite = {
+			focus = sprinkle_roses_all_over_the_world
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_liberated_zone_of_Mondstadt
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_socialist_commonwealth_of_Mondstadt
+		}
+		x = 38
+		y = 11
+		available = {
+			has_government = communism
+			
+			AND_Bennett = {
+				has_trait = Glorious_guide
+				is_country_leader = yes
+			}
+			communism > 0.8
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_political_power = 200
+			set_cosmetic_tag = AND_socialist_republic
+			hidden_effect = {
+				play_song = "我的荣耀"
+				set_country_flag = AND_long_ago_b1
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_socialist_republic_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.1 }
+		}
+	}
+	focus = {
+		id = bring_liberation_back_to_our_hometown
+		icon = GFX_goal_generic_territory_or_war
+		cost = 7.2
+		prerequisite = {
+			focus = the_fate_of_dragonspine
+			focus = the_fate_of_g
+			focus = the_fate_of_the_church
+			focus = the_fate_of_the_springvale
+			focus = the_fate_of_ragnvindr
+			focus = the_fate_of_lawrence
+			focus = the_fate_of_Stormterrors_Lair
+			focus = the_fate_of_knights
+		}
+		x = 50
+		y = 8
+		available = {
+			MOT = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			DRA = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			RAG = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			GUN = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			FAV = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			SPI = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			DVA = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+			LAW = {
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			custom_effect_tooltip = AND_remove_all_the_idea_of_immigrants
+			hidden_effect = {
+				remove_ideas = AND_many_immigrants
+				remove_ideas = AND_more_immigrants
+				remove_ideas = AND_far_more_immigrants
+				remove_ideas = AND_most_immigrants
+				remove_ideas = AND_innocuous_immigrants
+				remove_ideas = AND_innocuous_more_immigrants
+				remove_ideas = AND_innocuous_far_more_immigrants
+				remove_ideas = AND_innocuous_most_immigrants
+			}
+			every_owned_state = {
+				remove_core_of = MOT
+				remove_core_of = SPI
+				remove_core_of = DRA
+				remove_core_of = RAG
+				remove_core_of = GUN
+				remove_core_of = FAV
+				remove_core_of = DVA
+				remove_core_of = LAW
+			}
+			add_stability = 0.2
+			add_war_support = 0.2
+			add_political_power = 200
+			add_research_slot = 1
+			IF = {
+				limit  = {
+					any_owned_state = {
+						is_core_of = FROM.FROM
+						FROM.FROM = { exists = no }
+						NOT = {
+							is_core_of = AND
+							is_core_of = SPI
+						}
+					}
+				}
+				release_puppet = FROM.FROM
+			}
+		}
+	}
+	focus = {
+		id = establishment_of_the_pioneer_nation
+		icon = GFX_goal_generic_alliance
+		cost = 7.2
+		prerequisite = {
+			focus = Contextualist_Manifesto
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_Immernachtreich
+		}
+		x = 47
+		y = 11
+		available = {
+			has_government = communism
+			AND_Fischl = {
+				has_trait = Pioneer_of_Situationism
+				is_country_leader = yes
+			}
+			communism > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = establishment_of_the_pioneer_nation
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = nuclear
+			}
+			set_cosmetic_tag = AND_evernight_royal_court
+			hidden_effect = {
+				play_song = "EstaviusMusicBoxVersion"
+				country_event = andrius.50
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_evernight_royal_court_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.6 }
+		}
+	}
+	focus = {
+		id = establishment_of_the_holy_republic_of_Mondstadt
+		icon = GFX_goal_molotov_ribbentrop_pact
+		cost = 7.2
+		prerequisite = {
+			focus = spread_the_sound_of_freedom
+		}
+		mutually_exclusive = {
+			focus = establishment_of_Free_Enterprise_Consortium
+		}
+		x = 53
+		y = 11
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				has_trait = Hero_of_squire
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			set_cosmetic_tag = AND_central_government
+			hidden_effect = {
+				play_song = "兰斯超战略"
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_central_government_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.7 }
+		}
+	}
+	focus = {
+		id = establishment_of_the_free_federal_of_Mondstadt
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_wolfendomic_model
+		}
+		mutually_exclusive = {
+			focus = establishment_of_united_states_of_Mondstadts_people
+		}
+		x = 61
+		y = 11
+		available = {
+			has_government = democratic
+			AND_Razor = {
+				has_trait = Each_according_to_ability
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			set_cosmetic_tag = AND_federal_government
+			hidden_effect = {
+				play_song = "我的荣耀"
+				set_country_flag = AND_long_ago_l
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_federal_government_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.9 }
+		}
+	}
+	focus = {
+		id = first_MNPC
+		icon = GFX_focus_SOV_the_supreme_soviet
+		cost = 7.2
+		prerequisite = {
+			focus = bring_liberation_back_to_our_hometown
+		}
+		x = 38
+		y = 9
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.8
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = first_MNPC
+				bonus = 1.00
+				uses = 2
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = sprinkle_roses_all_over_the_world
+		icon = GFX_focus_ETH_callout_to_the_world
+		cost = 7.2
+		prerequisite = {
+			focus = first_MNPC
+		}
+		x = 38
+		y = 10
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+			communism > 0.8
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_political_power = 200
+			add_tech_bonus = {
+				name = sprinkle_roses_all_over_the_world
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = industry
+			}
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 4
+						include_locked = yes
+					}
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 5
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = establishment_of_the_liberated_zone_of_Mondstadt
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = sprinkle_roses_all_over_the_world
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_socialist_commonwealth_of_Mondstadt
+		}
+		mutually_exclusive = {
+			focus = Union_of_Socialist_Republics_in_Mondstadt
+		}
+		x = 36
+		y = 11
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				has_trait = Enthusiastic_coordinator
+				is_country_leader = yes
+			}
+			communism > 0.8
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_political_power = 200
+			set_cosmetic_tag = AND_liberated_zone
+			hidden_effect = {
+				play_song = "SAVE Medley"
+				set_country_flag = AND_long_ago_b3
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_liberated_zone_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.3 }
+		}
+	}
+	focus = {
+		id = establishment_of_the_socialist_commonwealth_of_Mondstadt
+		icon = GFX_goal_support_fourth_int
+		cost = 7.2
+		prerequisite = {
+			focus = sprinkle_roses_all_over_the_world
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_liberated_zone_of_Mondstadt
+		}
+		mutually_exclusive = {
+			focus = Union_of_Socialist_Republics_in_Mondstadt
+		}
+		x = 40
+		y = 11
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				OR = {
+					has_trait = Glorious_guide
+					has_trait = Enthusiastic_coordinator
+				}
+				is_country_leader = yes
+			}
+			communism > 0.8
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_political_power = 200
+			set_cosmetic_tag = AND_federal_central
+			hidden_effect = {
+				play_song = "HopesAndDreams"
+				set_country_flag = AND_long_ago_b2
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_federal_central_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.2 }
+		}
+	}
+	focus = {
+		id = peoples_order
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		cost = 7.2
+		prerequisite = {
+			focus = progress_of_the_artistic_zone_without_dawn
+			focus = long_live_the_commune_of_wolfendom
+			focus = the_free_zone_of_the_spring_lives_forever
+			focus = AND_Rise_of_United_Wolfendom
+		}
+		x = 50
+		y = 6
+		available = {
+			has_army_manpower = { size > 399999 }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			army_experience = 10
+			hidden_effect = {
+				if = {
+					limit = {
+						has_government = communism
+					}
+					play_song = "HeroesMarch"
+				}
+				if = {
+					limit = {
+						has_government = democratic
+					}
+					play_song = "SAVE Medley"
+				}
+				if = {
+					limit = {
+						has_government = fascism
+					}
+					play_song = "Geburah"
+				}
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_the_church
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 45
+		y = 7
+		bypass = {
+			FAV = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = FAV
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_ragnvindr
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 55
+		y = 7
+		bypass = {
+			RAG = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = RAG
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_the_springvale
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 57
+		y = 7
+		bypass = {
+			SPI = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = SPI
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = train_advanced_commanders
+		icon = GFX_goal_generic_army_doctrines
+		cost = 5
+		prerequisite = {
+			focus = medical_preparation
+			focus = try_mechanized_infantry
+			focus = advanced_Trench
+			focus = advanced_artillery_production
+		}
+		x = 72
+		y = 22
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_ideas = AND_advanced_command
+		}
+	}
+	focus = {
+		id = seek_the_secret_of_atoms
+		icon = GFX_goal_generic_secret_weapon
+		cost = 7.2
+		prerequisite = {
+			focus = long_range_magical_communication
+		}
+		x = 37
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = seek_the_secret_of_atoms
+				bonus = 1.00
+				uses = 2
+				category = nuclear
+			}
+		}
+	}
+	focus = {
+		id = develop_the_food_industry
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.2
+		prerequisite = {
+			focus = modernize_the_processing_of_agricultural_products
+		}
+		x = 48
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = plans_of_large_scale_camps
+		icon = GFX_goal_generic_construction2
+		cost = 3
+		prerequisite = {
+			focus = Bennett_simple_designation
+		}
+		x = 15
+		y = 8
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_timed_idea = { idea = AND_basic_guarantee_of_people days = 140 }
+			add_tech_bonus = {
+				name = plans_of_large_scale_camps
+				bonus = 1.00
+				uses = 2
+				category = construction_tech
+			}
+			country_event = andrius.4
+		}
+	}
+	focus = {
+		id = AND_dispersive_communes
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 4
+		prerequisite = {
+			focus = Bennett_theory_of_reciprocity
+		}
+		x = 21
+		y = 8
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_timed_idea = { idea = AND_basic_boost_to_morale days = 280 }
+			add_tech_bonus = {
+				name = AND_dispersive_communes
+				bonus = 1.00
+				uses = 2
+				category = concentrated_industry_category
+				category = dispersed_industry_category
+			}
+			country_event = andrius.10
+		}
+	}
+	focus = {
+		id = peoples_milltia
+		icon = GFX_goal_generic_military_sphere
+		cost = 3
+		prerequisite = {
+			focus = AND_dispersive_communes
+		}
+		x = 21
+		y = 9
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_manpower = -10000
+			division_template = { 
+				name = "Village Militia" 
+				division_names_group = AND_INF_01
+				regiments = {
+					militia = { x = 0 y = 0 }
+					militia = { x = 0 y = 1 }
+					militia = { x = 0 y = 2 }
+					militia = { x = 0 y = 3 }
+					militia = { x = 0 y = 4 }
+				}
+				support = {
+					#
+				}
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1. Village Militia\" division_template = \"Village Militia\" start_experience_factor = 0 start_equipment_factor = 2.0"
+					owner = ROOT
+					count = 10
+				}
+			}
+			country_event = andrius.12
+		}
+	}
+	focus = {
+		id = Integrated_building
+		icon = GFX_goal_generic_construction
+		cost = 3
+		prerequisite = {
+			focus = Fischl_revolutionary_ideas
+		}
+		x = 17
+		y = 8
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_timed_idea = { idea = AND_basic_guarantee_of_people days = 280 }
+			add_tech_bonus = {
+				name = Integrated_building
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = construction_tech
+			}
+			country_event = andrius.5
+		}
+	}
+	focus = {
+		id = all_live
+		icon = GFX_goal_generic_major_alliance
+		cost = 2
+		prerequisite = {
+			focus = plans_of_large_scale_camps
+			focus = Integrated_building
+		}
+		x = 16
+		y = 9
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+			get_manp = yes
+			state_level_up = yes
+			remove_ideas = AND_backward_living_rate
+		}
+	}
+	focus = {
+		id = basic_framework_of_administration
+		icon = GFX_goal_tripartite_pact
+		cost = 2
+		prerequisite = {
+			focus = peoples_milltia
+			focus = centralize_our_command
+		}
+		x = 22
+		y = 10
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = receive_more_refugee
+		icon = GFX_focus_generic_population_growth
+		cost = 1
+		prerequisite = {
+			focus = basic_framework_of_administration
+		}
+		x = 22
+		y = 11
+		completion_reward = {
+			remove_ideas = AND_many_immigrants
+			add_ideas = AND_more_immigrants
+			add_research_slot = 1
+			country_event = andrius.14
+			get_manp = yes
+			state_level_up = yes
+		}
+	}
+	focus = {
+		id = external_changes
+		icon = GFX_goal_anti_comintern_pact
+		cost = 3
+		prerequisite = {
+			focus = receive_more_refugee
+		}
+		x = 22
+		y = 12
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			hidden_effect = {
+				play_song = "兰斯超战略"
+			}
+		}
+	}
+	focus = {
+		id = prepare_for_protecting_our_border
+		icon = GFX_goal_generic_military_deal
+		cost = 3
+		prerequisite = {
+			focus = external_changes
+		}
+		x = 26
+		y = 13
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						NOT = { is_owned_by = AND }
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = organize_defensive_armies
+		icon = GFX_goal_generic_small_arms
+		cost = 3
+		prerequisite = {
+			focus = external_changes
+		}
+		x = 18
+		y = 13
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_manpower = 10000
+		}
+	}
+	focus = {
+		id = trade_with_g
+		icon = GFX_goal_generic_trade
+		cost = 1
+		prerequisite = {
+			focus = receive_more_refugee
+		}
+		x = 26
+		y = 12
+		available = {
+			GUN = { exists = yes }
+		}
+		bypass = {
+			GUN = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				has_war_support < 0.6
+				factor = 8
+			}
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = hunt_in_ruin
+		icon = GFX_goal_generic_army_artillery2
+		cost = 3
+		prerequisite = {
+			focus = receive_more_refugee
+		}
+		x = 18
+		y = 12
+		available = {
+			DVA = { exists = yes }
+		}
+		bypass = {
+			DVA = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				has_stability < 0.6
+				factor = 8
+			}
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = dangerous_springvale
+		icon = GFX_goal_molotov_ribbentrop_pact
+		cost = 1
+		prerequisite = {
+			focus = external_changes
+		}
+		x = 22
+		y = 13
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			SPI = {
+				country_event = andrius.21
+			}
+		}
+	}
+	focus = {
+		id = Bennett_Asymmetric_warfare
+		icon = GFX_goal_generic_defence
+		cost = 3
+		prerequisite = {
+			focus = organize_defensive_armies
+		}
+		mutually_exclusive = {
+			focus = firepower_deterrence
+			focus = Fischl_soldier_initiative
+		}
+		x = 16
+		y = 14
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_capture_enemies_equipment
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+			}
+			country_event = andrius.15
+			custom_effect_tooltip = AND_add_bennetts_influence
+		}
+	}
+	focus = {
+		id = invite_diona
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 1
+		prerequisite = {
+			focus = dangerous_springvale
+		}
+		x = 22
+		y = 14
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_character = AND_Diona
+			OR = {
+				SPI = {
+					has_opinion = {
+						target = AND
+						value > 49
+					}
+				}
+				SPI = { exists = no }
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					SPI = { exists = yes }
+				}
+				SPI = {
+					country_event = andrius.22
+				}
+			}
+			else = {
+				set_country_flag = AND_diona_available
+				create_field_marshal = {
+					name = "AND_Diona"
+					portrait_path = "gfx/leaders/LY/Diona.dds"
+					traits = { Cryo_Vision }
+					skill = 4
+					attack_skill = 4
+					defense_skill = 4
+					planning_skill = 4
+					logistics_skill = 4
+				}
+			}
+		}
+	}
+	focus = {
+		id = integrate_springvale
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 1
+		prerequisite = {
+			focus = invite_diona
+		}
+		x = 22
+		y = 15
+		ai_will_do = {
+			factor = 6
+		}
+		available = {
+			has_character = AND_Diona
+			OR = {
+				SPI = {
+					has_opinion = {
+						target = AND
+						value > 79
+					}
+				}
+				SPI = { exists = no }
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					SPI = { exists = yes }
+				}
+				annex_country = {
+					target = SPI
+					transfer_troops = yes
+				}
+			}
+			34 = {
+				add_core_of = AND
+				remove_core_of = SPI 
+			}
+			36 = {
+				add_core_of = AND
+				remove_core_of = SPI 
+			}
+			37 = {
+				add_core_of = AND
+				remove_core_of = SPI 
+			}
+		}
+	}
+	focus = {
+		id = firepower_deterrence
+		icon = GFX_goal_generic_CAS
+		cost = 3
+		prerequisite = {
+			focus = organize_defensive_armies
+		}
+		mutually_exclusive = {
+			focus = Bennett_Asymmetric_warfare
+			focus = Fischl_soldier_initiative
+		}
+		available = {
+			has_country_flag = AND_diona_available
+		}
+		x = 20
+		y = 14
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_simple_artillery
+			hidden_effect = {
+				add_to_variable = { and_dionas_influence = 1 }
+			}
+			country_event = andrius.17
+			custom_effect_tooltip = AND_add_dionas_influence
+		}
+	}
+	focus = {
+		id = Fischl_soldier_initiative
+		icon = GFX_goal_generic_national_unity
+		cost = 3
+		prerequisite = {
+			focus = organize_defensive_armies
+		}
+		mutually_exclusive = {
+			focus = Bennett_Asymmetric_warfare
+			focus = firepower_deterrence
+		}
+		x = 18
+		y = 14
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_military_democracy
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+				set_country_flag = AND_fischl_plan
+			}
+			country_event = andrius.15
+			custom_effect_tooltip = AND_add_fischls_influence
+		}
+	}
+	focus = {
+		id = Bennett_large_scale_fortressization
+		icon = GFX_goal_generic_construct_military
+		cost = 3
+		prerequisite = {
+			focus = prepare_for_protecting_our_border
+		}
+		mutually_exclusive = {
+			focus = Fischl_elastic_defense
+		}
+		mutually_exclusive = {
+			focus = diona_defend_important_areas
+		}
+		x = 24
+		y = 14
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						NOT = { is_owned_by = AND }
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+			add_ideas = AND_no_back
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+		}
+	}
+	###_elastic_ has a bug in land_doctrince elastic_defense, so we use elastics
+	focus = {
+		id = Fischl_elastic_defense
+		icon = GFX_focus_prc_infiltration
+		cost = 3
+		prerequisite = {
+			focus = prepare_for_protecting_our_border
+		}
+		mutually_exclusive = {
+			focus = Bennett_large_scale_fortressization
+		}
+		mutually_exclusive = {
+			focus = diona_defend_important_areas
+		}
+		x = 26
+		y = 14
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_elastics_tactics
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+				set_country_flag = AND_fischl_plan
+			}
+			country_event = andrius.16
+			custom_effect_tooltip = AND_add_fischls_influence
+		}
+	}
+	focus = {
+		id = diona_defend_important_areas
+		icon = GFX_goal_generic_fortify_city
+		cost = 3
+		prerequisite = {
+			focus = prepare_for_protecting_our_border
+		}
+		mutually_exclusive = {
+			focus = Bennett_large_scale_fortressization
+		}
+		mutually_exclusive = {
+			focus = Fischl_elastic_defense
+		}
+		x = 28
+		y = 14
+		available = {
+			has_country_flag = AND_diona_available
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_better_preparation
+			hidden_effect = {
+				add_to_variable = { and_dionas_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_dionas_influence
+		}
+	}
+	focus = {
+		id = conscription_from_refugees
+		icon = GFX_goal_generic_major_alliance
+		cost = 3
+		prerequisite = {
+			focus = firepower_deterrence
+			focus = Fischl_soldier_initiative
+			focus = Bennett_Asymmetric_warfare
+		}
+		x = 18
+		y = 15
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = limited_conscription
+			add_manpower = 50000
+			division_template = { 
+				name = "Village Militia" 
+				division_names_group = AND_INF_01
+				regiments = {
+					militia = { x = 0 y = 0 }
+					militia = { x = 0 y = 1 }
+					militia = { x = 0 y = 2 }
+					militia = { x = 0 y = 3 }
+					militia = { x = 0 y = 4 }
+				}
+				support = {
+					#
+				}
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1. Village Militia\" division_template = \"Village Militia\" start_experience_factor = 0 start_equipment_factor = 2.0"
+					owner = ROOT
+					count = 10
+				}
+			}
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = moblize_the_whole_state
+		icon = GFX_goal_generic_political_pressure
+		cost = 3
+		prerequisite = {
+			focus = Bennett_large_scale_fortressization
+			focus = Fischl_elastic_defense
+			focus = diona_defend_important_areas
+		}
+		x = 26
+		y = 15
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = war_economy
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = give_up_fantasy_and_prepare_for_struggle
+		icon = GFX_goal_generic_secret_weapon
+		cost = 5
+		prerequisite = {
+			focus = moblize_the_whole_state
+		}
+		prerequisite = {
+			focus = conscription_from_refugees
+		}
+		x = 22
+		y = 16
+		available = {
+			OR = {
+				has_war = yes
+				date > 1938.1.1
+			}
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+			country_event = andrius.18
+			if = {
+				limit = {
+					has_war = yes
+				}
+				hidden_effect = {
+					play_song = "Break Free"
+				}
+			}
+		}
+	}
+	focus = {
+		id = large_influx_of_refugees
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5
+		prerequisite = {
+			focus = give_up_fantasy_and_prepare_for_struggle
+		}
+		x = 22
+		y = 17
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			get_manp = yes
+			get_manp = yes
+			state_level_up = yes
+			state_level_up = yes
+			if = {
+				limit = {
+					has_idea = AND_far_more_immigrants
+				}
+				remove_ideas = AND_far_more_immigrants
+				add_ideas = AND_most_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_more_immigrants
+				}
+				remove_ideas = AND_more_immigrants
+				add_ideas = AND_far_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_many_immigrants
+				}
+				remove_ideas = AND_many_immigrants
+				add_ideas = AND_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_far_more_immigrants
+				}
+				remove_ideas = AND_innocuous_far_more_immigrants
+				add_ideas = AND_innocuous_most_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_more_immigrants
+				}
+				remove_ideas = AND_innocuous_more_immigrants
+				add_ideas = AND_innocuous_far_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_immigrants
+				}
+				remove_ideas = AND_innocuous_immigrants
+				add_ideas = AND_innocuous_more_immigrants
+			}
+		}
+	}
+	focus = {
+		id = for_homeland_behind
+		icon = GFX_focus_ETH_freedom_at_gunpoint
+		cost = 7.2
+		prerequisite = {
+			focus = give_up_fantasy_and_prepare_for_struggle
+		}
+		x = 16
+		y = 17
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_great_boost_to_morale days = 210 }
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_great_boost_to_morale days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = for_relatives_behind
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 7.2
+		prerequisite = {
+			focus = give_up_fantasy_and_prepare_for_struggle
+		}
+		x = 28
+		y = 17
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_great_guarantee_of_people days = 210 }
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_existence days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = survive_in_struggle
+		icon = GFX_goal_generic_defence
+		cost = 5
+		prerequisite = {
+			focus = for_homeland_behind
+		}
+		mutually_exclusive = {
+			focus = find_significance_in_struggle
+			focus = look_for_freedom_in_struggle
+		}
+		x = 18
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_seek_existence days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_dionas_influence = 1 }
+				set_country_flag = AND_diona_plan
+			}
+			custom_effect_tooltip = AND_add_dionas_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_existence days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = find_significance_in_struggle
+		icon = GFX_goal_generic_propaganda
+		cost = 5
+		prerequisite = {
+			focus = for_homeland_behind
+		}
+		mutually_exclusive = {
+			focus = survive_in_struggle
+			focus = look_for_freedom_in_struggle
+		}
+		x = 16
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_seek_meaning days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_fischls_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_meaning days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = look_for_freedom_in_struggle
+		icon = GFX_goal_support_communism
+		cost = 5
+		prerequisite = {
+			focus = for_homeland_behind
+		}
+		mutually_exclusive = {
+			focus = survive_in_struggle
+			focus = find_significance_in_struggle
+		}
+		x = 14
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_fight_for_freedom days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_fight_for_freedom days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = find_solidarity_in_defence
+		icon = GFX_goal_generic_national_unity
+		cost = 5
+		prerequisite = {
+			focus = for_relatives_behind
+		}
+		mutually_exclusive = {
+			focus = make_progress_in_defence
+			focus = look_for_peace_in_struggle
+		}
+		x = 26
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_seek_unity days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_bennetts_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_bennetts_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_unity days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = make_progress_in_defence
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5
+		prerequisite = {
+			focus = for_relatives_behind
+		}
+		mutually_exclusive = {
+			focus = find_solidarity_in_defence
+			focus = look_for_peace_in_struggle
+		}
+		x = 28
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_seek_advancement days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_fischls_influence = 1 }
+			}
+			custom_effect_tooltip = AND_add_fischls_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_advancement days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = look_for_peace_in_struggle
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 5
+		prerequisite = {
+			focus = for_relatives_behind
+		}
+		mutually_exclusive = {
+			focus = make_progress_in_defence
+			focus = find_solidarity_in_defence
+		}
+		x = 30
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_seek_peace days = 210 }
+			hidden_effect = {
+				add_to_variable = { and_dionas_influence = 1 }
+				set_country_flag = AND_diona_plan
+			}
+			custom_effect_tooltip = AND_add_dionas_influence
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_seek_peace days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = we_have_only_two_kinds_of_future
+		icon = GFX_goal_generic_demand_territory
+		cost = 5
+		prerequisite = {
+			focus = look_for_freedom_in_struggle
+			focus = find_significance_in_struggle
+			focus = survive_in_struggle
+		}
+		x = 16
+		y = 19
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_great_boost_to_morale days = 210 }
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_great_boost_to_morale days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+			add_stability = 0.1
+			if = {
+				limit = {
+					has_tech = advanced_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_3
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_2
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons1
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = 10000
+					producer = AND
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment_1
+				amount = 500
+				producer = AND
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 500
+				producer = AND
+			}
+			hidden_effect = {
+				play_song = "HopesAndDreams"
+			}
+		}
+	}
+	focus = {
+		id = they_are_victory_or_death
+		icon = GFX_goal_generic_military_sphere
+		cost = 5
+		prerequisite = {
+			focus = find_solidarity_in_defence
+			focus = make_progress_in_defence
+			focus = look_for_peace_in_struggle
+		}
+		x = 28
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_timed_idea = { idea = AND_great_guarantee_of_people days = 210 }
+			hidden_effect = {
+				IF = {
+					limit = {
+						is_ai = yes
+					}
+					add_timed_idea = { idea = AND_great_guarantee_of_people days = 210 }
+					add_manpower = 50000
+					get_weapons = yes
+				}
+			}
+			add_war_support = 0.1
+			division_template = { 
+				name = "Division" 
+				division_names_group = AND_INF_01
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+					infantry = { x = 0 y = 4 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					artillery_brigade = { x = 1 y = 2 }
+					artillery_brigade = { x = 1 y = 3 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+				}
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1. Division\" division_template = \"Division\" start_experience_factor = 0.5 start_equipment_factor = 2.0"
+					owner = ROOT
+					count = 6
+				}
+			}
+			hidden_effect = {
+				play_song = "Alpharise"
+			}
+		}
+	}
+	focus = {
+		id = death_doesnt_belongs_to_free_people
+		icon = GFX_goal_generic_special_forces
+		cost = 5
+		prerequisite = {
+			focus = we_have_only_two_kinds_of_future
+			focus = they_are_victory_or_death
+		}
+		x = 22
+		y = 20
+		available = {
+			OR = {
+				AND = {
+					has_war = yes
+					any_enemy_country = {
+						surrender_progress > 0.2
+					}
+				}
+				date > 1937.6.1
+			}
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			every_enemy_country = {
+				white_peace = {
+					tag = AND
+					message = MOT_ANDWon
+				}
+			}
+			add_stability = 0.1
+			add_war_support = 0.1
+			if = { 
+				limit = {
+					check_variable = {
+						and_bennetts_influence > 1
+					}
+				}
+				country_event = andrius.19
+			}
+			if = { 
+				limit = {
+					check_variable = {
+						and_fischls_influence > 1
+					}
+				}
+				country_event = andrius.20
+			}
+			if = { 
+				limit = {
+					check_variable = {
+						and_dionas_influence > 0
+					}
+				}
+				country_event = andrius.23
+			}
+			country_event = {
+				id = andrius.25
+				days = 7
+			}
+			hidden_effect = {
+				play_song = "我的荣耀"
+			}
+		}
+	}
+	focus = {
+		id = very_large_scale_refugees
+		icon = GFX_goal_generic_CAS
+		cost = 7.2
+		prerequisite = {
+			focus = death_doesnt_belongs_to_free_people
+		}
+		x = 22
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			get_manp = yes
+			state_level_up = yes
+			if = {
+				limit = {
+					has_idea = AND_far_more_immigrants
+				}
+				remove_ideas = AND_far_more_immigrants
+				add_ideas = AND_most_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_more_immigrants
+				}
+				remove_ideas = AND_more_immigrants
+				add_ideas = AND_far_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_many_immigrants
+				}
+				remove_ideas = AND_many_immigrants
+				add_ideas = AND_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_far_more_immigrants
+				}
+				remove_ideas = AND_innocuous_far_more_immigrants
+				add_ideas = AND_innocuous_most_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_more_immigrants
+				}
+				remove_ideas = AND_innocuous_more_immigrants
+				add_ideas = AND_innocuous_far_more_immigrants
+			}
+			if = {
+				limit = {
+					has_idea = AND_innocuous_immigrants
+				}
+				remove_ideas = AND_innocuous_immigrants
+				add_ideas = AND_innocuous_more_immigrants
+			}
+			country_event = andrius.24
+		}
+	}
+	focus = {
+		id = unavoidable_divergence
+		icon = GFX_goal_anti_comintern_pact
+		cost = 7.2
+		prerequisite = {
+			focus = very_large_scale_refugees
+		}
+		x = 22
+		y = 22
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = -0.05
+			if = {
+				limit = {
+					has_country_flag = AND_diona_available
+				}
+				country_event = andrius.111
+			}
+			else = { country_event = andrius.112 }
+			custom_effect_tooltip = AND_add_or_reduce_influence_tt
+			hidden_effect = {
+				play_song = "SyntheticDreams"
+			}
+		}
+	}
+	focus = {
+		id = fischl_become_leader
+		icon = GFX_goal_generic_propaganda
+		cost = 7.2
+		prerequisite = {
+			focus = unavoidable_divergence
+		}
+		mutually_exclusive = {
+			focus = bennett_become_leader
+			focus = diona_become_leader
+			focus = razor_become_leader
+		}
+		x = 21
+		y = 23
+		available = {
+			IF = {
+				limit = {
+					is_ai = yes
+				}
+			}
+			ELSE_IF = {
+				check_variable = {
+					and_fischls_influence > 3
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				add = -100
+				is_historical_focus_on = yes
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				retire_character = Fischl
+			}
+			promote_character = AND_Fischl
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = AND_CPC_long
+				name = AND_CPC
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = AND_CLC_long
+				name = AND_CLC
+			}
+			country_event = andrius.27
+		}
+	}
+	focus = {
+		id = bennett_become_leader
+		icon = GFX_goal_generic_soviet_construction
+		cost = 7.2
+		prerequisite = {
+			focus = unavoidable_divergence
+		}
+		mutually_exclusive = {
+			focus = fischl_become_leader
+			focus = diona_become_leader
+			focus = razor_become_leader
+		}
+		x = 18
+		y = 23
+		available = {
+			IF = {
+				limit = {
+					is_ai = yes
+				}
+			}
+			ELSE_IF = {
+				check_variable = {
+					and_bennetts_influence > 3
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				add = 100
+				is_historical_focus_on = yes
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				retire_character = Bennett
+			}
+			promote_character = AND_Bennett
+			add_popularity = {
+				ideology = communism
+				popularity = 0.4
+			}
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = AND_PC_long
+				name = AND_PC
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = AND_DCP_long
+				name = AND_DCP
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = AND_RPO_long
+				name = AND_RPO
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = AND_TCP_long
+				name = AND_TCP
+			}
+			set_party_name = {
+				ideology = genshin
+				long_name = AND_FLC_long
+				name = AND_FLC
+			}
+			country_event = andrius.26
+		}
+	}
+	focus = {
+		id = diona_become_leader
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = unavoidable_divergence
+		}
+		mutually_exclusive = {
+			focus = fischl_become_leader
+			focus = bennett_become_leader
+			focus = razor_become_leader
+		}
+		x = 23
+		y = 23
+		available = {
+			IF = {
+				limit = {
+					is_ai = yes
+				}
+			}
+			ELSE_IF = {
+				check_variable = {
+					and_dionas_influence > 3
+				}
+			}
+			has_country_flag = AND_diona_available
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				add = -100
+				is_historical_focus_on = yes
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				retire_character = Diona
+			}
+			promote_character = AND_Diona
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.4
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = no
+			}
+			country_event = andrius.28
+		}
+	}
+	focus = {
+		id = razor_become_leader
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = unavoidable_divergence
+		}
+		mutually_exclusive = {
+			focus = diona_become_leader
+			focus = fischl_become_leader
+			focus = bennett_become_leader
+		}
+		x = 26
+		y = 23
+		available = {
+			IF = {
+				limit = {
+					is_ai = yes
+				}
+			}
+			ELSE_IF = {
+				check_variable = {
+					and_bennetts_influence < 5
+				}
+				check_variable = {
+					and_fischls_influence < 5
+				}
+				check_variable = {
+					and_dionas_influence < 5
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				is_historical_focus_on = yes
+				add = -100
+			}
+		}
+		completion_reward = {
+			hidden_effect = {
+				retire_character = AND_Diona
+			}
+			promote_character = AND_Razor
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.4
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = no
+			}
+			AND_Razor = {
+				add_country_leader_trait = Each_according_to_ability
+				remove_country_leader_trait = Ignorant
+			}
+			add_country_leader_trait = Each_according_to_ability
+			set_party_name = {
+				ideology = communism
+				long_name = AND_LRC_long
+				name = AND_LRC
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = AND_PCC_long
+				name = AND_PCC
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = AND_RPC_long
+				name = AND_RPC
+			}
+			country_event = andrius.29
+		}
+	}
+	focus = {
+		id = the_concept_of_communes
+		icon = GFX_goal_support_communism
+		cost = 7.2
+		prerequisite = {
+			focus = bennett_become_leader
+		}
+		x = 18
+		y = 24
+		available = {
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.4
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -0.1
+			}
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = Contextualist_nation
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = fischl_become_leader
+		}
+		x = 21
+		y = 24
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -0.1
+			}
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = Partial_autonomy_of_villages
+		icon = GFX_goal_support_democracy
+		cost = 7.2
+		prerequisite = {
+			focus = diona_become_leader
+		}
+		x = 23
+		y = 24
+		available = {
+			AND_Diona = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.4
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -0.1
+			}
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = each_do_its_best
+		icon = GFX_goal_molotov_ribbentrop_pact
+		cost = 7.2
+		prerequisite = {
+			focus = razor_become_leader
+		}
+		x = 26
+		y = 24
+		available = {
+			AND_Razor = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.4
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -0.1
+			}
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = the_fate_of_g
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 47
+		y = 7
+		bypass = {
+			GUN = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = GUN
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_dragonspine
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 49
+		y = 7
+		bypass = {
+			DRA = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = DRA
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_lawrence
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 51
+		y = 7
+		bypass = {
+			RAG = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = RAG
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_Stormterrors_Lair
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 53
+		y = 7
+		bypass = {
+			DVA = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = DVA
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_fate_of_knights
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = peoples_order
+		}
+		x = 43
+		y = 7
+		bypass = {
+			MOT = { exists = no }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = MOT
+				expire = 0
+			}
+		}
+	}
+	focus = {
+		id = the_idea_of_fun_palace
+		icon = GFX_goal_generic_propaganda
+		cost = 7.2
+		prerequisite = {
+			focus = bring_liberation_back_to_our_hometown
+		}
+		x = 46
+		y = 9
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = the_idea_of_fun_palace
+				bonus = 1.00
+				uses = 2
+				category = industry
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = infrastructure
+							size > 4
+							include_locked = yes
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 4
+							include_locked = yes
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 5
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = raise_the_flag_of_freedom
+		icon = GFX_goal_support_democracy
+		cost = 7.2
+		prerequisite = {
+			focus = bring_liberation_back_to_our_hometown
+		}
+		x = 54
+		y = 9
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = raise_the_flag_of_freedom
+				bonus = 1.00
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+	focus = {
+		id = unbreakable_alliance
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = bring_liberation_back_to_our_hometown
+		}
+		x = 62
+		y = 9
+		available = {
+			has_government = democratic
+			AND_Razor = {
+				has_trait = Each_according_to_ability
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = unbreakable_alliance
+				bonus = 1.00
+				uses = 1
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = Contextualist_Manifesto
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 7.2
+		prerequisite = {
+			focus = the_idea_of_fun_palace
+		}
+		x = 46
+		y = 10
+		available = {
+			AND_Fischl = {
+				is_country_leader = yes
+			}
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = Contextualist_Manifesto
+				ahead_reduction = 2
+				bonus = 1.00
+				uses = 2
+				category = rocketry
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = infrastructure
+							size > 4
+							include_locked = yes
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 4
+							include_locked = yes
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 5
+						instant_build = yes
+					}
+				}
+			}
+			hidden_effect = {
+				play_song = "碎月"
+				set_country_flag = AND_long_ago_f
+			}
+		}
+	}
+	focus = {
+		id = establishment_of_the_Immernachtreich
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = Contextualist_Manifesto
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_pioneer_nation
+		}
+		x = 45
+		y = 11
+		available = {
+			has_government = fascism
+			AND_Fischl = {
+				has_trait = Accelerationist_leaders
+				is_country_leader = yes
+			}
+			fascism > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = establishment_of_the_Immernachtreich
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 2
+				category = electronics
+			}
+			set_cosmetic_tag = AND_immernachtreich
+			every_state = {
+				limit = {
+					controller = {
+						OR = {
+							tag = AND
+							is_subject_of = AND
+						}
+					}
+				}
+				remove_core_of = MOT
+				remove_core_of = SPI
+				remove_core_of = DRA
+				remove_core_of = RAG
+				remove_core_of = GUN
+				remove_core_of = FAV
+				remove_core_of = DVA
+				remove_core_of = LAW
+				add_core_of = AND
+			}
+			every_country = {
+	 		 	limit = {
+	     			is_subject_of = ROOT
+	  			}
+    			ROOT = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+				}
+    		}
+			news_event = { hours = 6 id = andrius_news.5 }
+			hidden_effect = {
+				play_song = "EstaviusMusicBoxVersion"
+				country_event = andrius.50
+			}
+		}
+	}
+	focus = {
+		id = promote_the_wolfendomic_model
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = unbreakable_alliance
+		}
+		x = 62
+		y = 10
+		available = {
+			has_government = democratic
+			AND_Razor = {
+				has_trait = Each_according_to_ability
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					controller = {
+						OR = {
+							tag = AND
+							is_subject_of = AND
+						}
+					}
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = spread_the_sound_of_freedom
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = raise_the_flag_of_freedom
+		}
+		x = 54
+		y = 10
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_political_power = 200
+			add_tech_bonus = {
+				name = spread_the_sound_of_freedom
+				bonus = 2.00
+				uses = 1
+				category = electronics
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = INA
+						tag = SAN
+						tag = ASA
+						tag = TSU
+						tag = LYY
+						tag = GYP
+						tag = KQP
+						tag = SHP
+						tag = SUM
+						tag = VAN
+						tag = SGD
+						tag = BRF
+						tag = SFG
+					}
+				}
+				add_opinion_modifier = { target = ROOT modifier = AND_broadcast_odd_voice } 
+			}
+		}
+	}
+	focus = {
+		id = establishment_of_Free_Enterprise_Consortium
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 7.2
+		prerequisite = {
+			focus = spread_the_sound_of_freedom
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_holy_republic_of_Mondstadt
+		}
+		x = 55
+		y = 11
+		available = {
+			has_government = democratic
+			AND_Diona = {
+				has_trait = Everyone_a_king
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			set_cosmetic_tag = AND_free_cartel
+			hidden_effect = {
+				play_song = "SyntheticDreams"
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_free_cartel_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.8 }
+		}
+	}
+	focus = {
+		id = begin_to_plan_our_development
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5
+		prerequisite = {
+			focus = conscription_from_refugees
+		}
+		prerequisite = {
+			focus = moblize_the_whole_state
+		}
+		x = 55
+		y = 16
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = begin_to_plan_our_development
+				bonus = 1.00
+				uses = 2
+				category = industry
+			}
+			hidden_effect = {
+				play_song = "兰斯超战略"
+			}
+		}
+	}
+	focus = {
+		id = literacy_campaign
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 5
+		prerequisite = {
+			focus = begin_to_plan_our_development
+		}
+		x = 39
+		y = 17
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = develop_our_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 5
+		prerequisite = {
+			focus = begin_to_plan_our_development
+		}
+		x = 50
+		y = 17
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = spread_our_sounds
+		icon = GFX_goal_generic_propaganda
+		cost = 5
+		prerequisite = {
+			focus = begin_to_plan_our_development
+		}
+		x = 60
+		y = 17
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = promote_the_reformation_of_our_armies
+		icon = GFX_goal_generic_air_doctrine
+		cost = 5
+		prerequisite = {
+			focus = begin_to_plan_our_development
+		}
+		x = 71
+		y = 17
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			army_experience = 50
+			remove_ideas = AND_irregular_army
+		}
+	}
+	focus = {
+		id = recruit_alchemist
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5
+		prerequisite = {
+			focus = literacy_campaign
+		}
+		x = 38
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = recruit_alchemist
+				bonus = 1.00
+				uses = 2
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = recruit_engineers
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5
+		prerequisite = {
+			focus = literacy_campaign
+		}
+		x = 40
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = recruit_engineers
+				bonus = 1.00
+				uses = 2
+				category = air_equipment
+			}
+		}
+	}
+	focus = {
+		id = innovation_of_weapons
+		icon = GFX_goal_generic_military_sphere
+		cost = 7.2
+		prerequisite = {
+			focus = recruit_alchemist
+		}
+		prerequisite = {
+			focus = recruit_engineers
+		}
+		x = 39
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_weapons
+				bonus = 1.00
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	focus = {
+		id = innovation_of_industry
+		icon = GFX_goal_generic_air_production
+		cost = 7.2
+		prerequisite = {
+			focus = recruit_engineers
+		}
+		x = 41
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_industry
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = innovation_of_resources_production
+		icon = GFX_goal_generic_construction2
+		cost = 7.2
+		prerequisite = {
+			focus = recruit_alchemist
+		}
+		x = 37
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_resources_production
+				bonus = 1.00
+				uses = 2
+				category = synth_resources
+			}
+		}
+	}
+	focus = {
+		id = innovation_of_construction
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7.2
+		prerequisite = {
+			focus = innovation_of_industry
+		}
+		x = 41
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = innovation_of_construction
+				bonus = 2.00
+				uses = 1
+				category = construction_tech
+			}
+		}
+	}
+	focus = {
+		id = long_range_magical_communication
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = innovation_of_resources_production
+		}
+		x = 37
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = long_range_magical_communication
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+	focus = {
+		id = plan_of_tanks
+		icon = GFX_goal_generic_army_tanks
+		cost = 7.2
+		prerequisite = {
+			focus = innovation_of_weapons
+		}
+		x = 39
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = plan_of_tanks
+				bonus = 1.00
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = death_from_sky
+		icon = GFX_goal_generic_air_fighter
+		cost = 7.2
+		prerequisite = {
+			focus = plan_of_tanks
+		}
+		x = 39
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = death_from_sky
+				ahead_reduction = 2
+				bonus = 1.00
+				uses = 2
+				category = air_equipment
+			}
+		}
+	}
+	focus = {
+		id = design_for_vessels_on_cider_lake
+		icon = GFX_goal_generic_amphibious_assault
+		cost = 7.2
+		prerequisite = {
+			focus = innovation_of_construction
+		}
+		x = 41
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = design_for_vessels_on_cider_lake
+				bonus = 1.00
+				uses = 2
+				category = naval_equipment
+			}
+			add_equipment_to_stockpile = {
+			    type = convoy
+			    amount = 100
+			    producer = AND
+			}
+		}
+	}
+	focus = {
+		id = expand_the_researching_institution
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 5
+		prerequisite = {
+			focus = seek_the_secret_of_atoms
+			focus = death_from_sky
+			focus = design_for_vessels_on_cider_lake
+		}
+		x = 39
+		y = 22
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = expand_the_production_of_marcasite
+		icon = GFX_goal_generic_construction
+		cost = 7.2
+		prerequisite = {
+			focus = develop_our_industry
+		}
+		x = 50
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			55 = {
+				add_resource = {
+					type = steel
+					amount = 20
+				}
+			}
+		}
+	}
+	focus = {
+		id = modernize_the_production_of_crystal_ore
+		icon = GFX_goal_generic_construction2
+		cost = 7.2
+		prerequisite = {
+			focus = expand_the_production_of_marcasite
+		}
+		x = 50
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			55 = {
+				add_resource = {
+					type = tungsten
+					amount = 20
+				}
+			}
+		}
+	}
+	focus = {
+		id = large_scale_slimes_digging
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.2
+		prerequisite = {
+			focus = modernize_the_production_of_crystal_ore
+		}
+		x = 50
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			55 = {
+				add_resource = {
+					type = rubber
+					amount = 20
+				}
+			}
+		}
+	}
+	focus = {
+		id = expand_production_of_resin
+		icon = GFX_goal_generic_military_sphere
+		cost = 7.2
+		prerequisite = {
+			focus = large_scale_slimes_digging
+		}
+		x = 50
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			55 = {
+				add_resource = {
+					type = oil
+					amount = 20
+				}
+			}
+		}
+	}
+	focus = {
+		id = modernize_the_processing_of_agricultural_products
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 7.2
+		prerequisite = {
+			focus = develop_our_industry
+		}
+		x = 48
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = QQmanpower_power_plant
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = develop_the_food_industry
+		}
+		x = 48
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = build_railway
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7.2
+		prerequisite = {
+			focus = QQmanpower_power_plant
+		}
+		x = 48
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			every_owned_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = normalize_weapon_factory
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7.2
+		prerequisite = {
+			focus = develop_our_industry
+		}
+		x = 52
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = attract_refugees_to_arm_factory
+		icon = GFX_focus_SOV_merge_plants
+		cost = 7.2
+		prerequisite = {
+			focus = normalize_weapon_factory
+		}
+		x = 52
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = invest_in_arms_production
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7.2
+		prerequisite = {
+			focus = attract_refugees_to_arm_factory
+		}
+		x = 52
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = Positive_cycle_of_heavy_industry_development
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7.2
+		prerequisite = {
+			focus = invest_in_arms_production
+		}
+		x = 52
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = boom_in_wolfendom
+		icon = GFX_focus_SOV_organize_wreckers
+		cost = 5
+		prerequisite = {
+			focus = build_railway
+			focus = expand_production_of_resin
+			focus = Positive_cycle_of_heavy_industry_development
+		}
+		x = 50
+		y = 22
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_war_support = 0.2
+			add_ideas = AND_brave_home
+		}
+	}
+	focus = {
+		id = attract_refugees
+		icon = GFX_goal_generic_major_alliance
+		cost = 7.2
+		prerequisite = {
+			focus = spread_our_sounds
+		}
+		x = 59
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_tech_bonus = {
+				name = attract_refugees
+				bonus = 1.00
+				uses = 1
+				category = engineers_tech
+			}
+		}
+	}
+	focus = {
+		id = resettle_refugees
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 7.2
+		prerequisite = {
+			focus = attract_refugees
+		}
+		x = 59
+		y = 19
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = improve_management
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 7.2
+		prerequisite = {
+			focus = resettle_refugees
+		}
+		x = 59
+		y = 20
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_tech_bonus = {
+				name = improve_management
+				bonus = 1.00
+				uses = 1
+				category = military_police_tech
+			}
+		}
+	}
+	focus = {
+		id = coordinate_our_management
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = improve_management
+		}
+		x = 59
+		y = 21
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_tech_bonus = {
+				name = coordinate_our_management
+				bonus = 1.00
+				uses = 1
+				category = signal_company_tech
+			}
+		}
+	}
+	focus = {
+		id = call_for_the_whole_world
+		icon = GFX_goal_generic_propaganda
+		cost = 7.2
+		prerequisite = {
+			focus = spread_our_sounds
+		}
+		x = 61
+		y = 18
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_tech_bonus = {
+				name = call_for_the_whole_world
+				bonus = 1.00
+				uses = 1
+				category = train_tech
+			}
+		}
+	}
+	focus = {
+		id = the_food_aid_from_knights
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.2
+		prerequisite = {
+			focus = call_for_the_whole_world
+		}
+		x = 61
+		y = 19
+		available = {
+			MOT = { exists = yes }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		bypass = {
+			MOT = { exists = no }
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_tech_bonus = {
+				name = the_food_aid_from_knights
+				bonus = 1.00
+				uses = 1
+				category = maintenance_company_tech
+			}
+		}
+	}
+	focus = {
+		id = the_medical_aid_from_liyue
+		icon = GFX_goal_generic_alliance
+		cost = 7.2
+		prerequisite = {
+			focus = the_food_aid_from_knights
+		}
+		x = 61
+		y = 20
+		available = {
+			LYY = { exists = yes }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		bypass = {
+			LYY = { exists = no }
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_tech_bonus = {
+				name = the_medical_aid_from_liyue
+				bonus = 1.00
+				uses = 1
+				category = hospital_tech
+			}
+		}
+	}
+	focus = {
+		id = voluntary_elites_from_sumeru
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 7.2
+		prerequisite = {
+			focus = the_medical_aid_from_liyue
+		}
+		x = 61
+		y = 21
+		available = {
+			SUM = { exists = yes }
+		}
+		ai_will_do = {
+			factor = 4
+		}
+		bypass = {
+			SUM = { exists = no }
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_tech_bonus = {
+				name = voluntary_elites_from_sumeru
+				bonus = 1.00
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+	focus = {
+		id = justice_of_the_whole_world
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = coordinate_our_management
+			focus = voluntary_elites_from_sumeru
+		}
+		x = 60
+		y = 22
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_idea = AND_many_immigrants
+					}
+					remove_ideas = AND_many_immigrants
+					add_ideas = AND_innocuous_immigrants
+				}
+				if = {
+					limit = {
+						has_idea = AND_more_immigrants
+					}
+					remove_ideas = AND_more_immigrants
+					add_ideas = AND_innocuous_more_immigrants
+				}
+				if = {
+					limit = {
+						has_idea = AND_far_more_immigrants
+					}
+					remove_ideas = AND_far_more_immigrants
+					add_ideas = AND_innocuous_far_more_immigrants
+				}
+				if = {
+					limit = {
+						has_idea = AND_most_immigrants
+					}
+					remove_ideas = AND_most_immigrants
+					add_ideas = AND_innocuous_most_immigrants
+				}
+			}
+			custom_effect_tooltip = AND_remove_all_the_idea_of_immigrants
+		}
+	}
+	focus = {
+		id = mobile_war_craft
+		icon = GFX_goal_generic_cavalry
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_reformation_of_our_armies
+		}
+		mutually_exclusive = {
+			focus = Fire_coverage
+			focus = showdown_plan
+			focus = military_tactics_of_the_human_sea
+		}
+		x = 74
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = mobile_war_craft
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_mobile_warfare
+			}
+		}
+	}
+	focus = {
+		id = Fire_coverage
+		icon = GFX_goal_generic_army_artillery2
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_reformation_of_our_armies
+		}
+		mutually_exclusive = {
+			focus = mobile_war_craft
+			focus = showdown_plan
+			focus = military_tactics_of_the_human_sea
+		}
+		x = 68
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = Fire_coverage
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_superior_firepower
+			}
+		}
+	}
+	focus = {
+		id = showdown_plan
+		icon = GFX_goal_generic_army_doctrines
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_reformation_of_our_armies
+		}
+		mutually_exclusive = {
+			focus = Fire_coverage
+			focus = mobile_war_craft
+			focus = military_tactics_of_the_human_sea
+		}
+		x = 70
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = showdown_plan
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_grand_battle_plan
+			}
+		}
+	}
+	focus = {
+		id = military_tactics_of_the_human_sea
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_reformation_of_our_armies
+		}
+		mutually_exclusive = {
+			focus = showdown_plan
+			focus = mobile_war_craft
+			focus = Fire_coverage
+		}
+		x = 72
+		y = 18
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = military_tactics_of_the_human_sea
+				cost_reduction = 0.50
+				uses = 2
+				category = cat_mass_assault
+			}
+		}
+	}
+	focus = {
+		id = more_artillery
+		icon = GFX_goal_generic_army_artillery
+		cost = 7.2
+		prerequisite = {
+			focus = Fire_coverage
+		}
+		x = 68
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = AND_simple_artillery
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment_1
+					amount = 500
+					producer = AND
+				}
+			}
+			else = { add_ideas = AND_simple_artillery }
+		}
+	}
+	focus = {
+		id = gun_aiming_training
+		icon = GFX_goal_poland_goal
+		cost = 7.2
+		prerequisite = {
+			focus = more_artillery
+		}
+		x = 68
+		y = 20
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_man_with_gun
+		}
+	}
+	focus = {
+		id = advanced_artillery_production
+		icon = GFX_goal_generic_production2
+		cost = 7.2
+		prerequisite = {
+			focus = gun_aiming_training
+		}
+		x = 68
+		y = 21
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = advanced_artillery_production
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = Mobility_of_motorized_infantry
+		icon = GFX_goal_generic_army_motorized
+		cost = 7.2
+		prerequisite = {
+			focus = mobile_war_craft
+		}
+		mutually_exclusive = {
+			focus = breaching_of_tanks
+		}
+		x = 74
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_motorized_tactics
+		}
+	}
+	focus = {
+		id = breaching_of_tanks
+		icon = GFX_goal_generic_army_tanks
+		cost = 7.2
+		prerequisite = {
+			focus = mobile_war_craft
+		}
+		mutually_exclusive = {
+			focus = Mobility_of_motorized_infantry
+		}
+		x = 76
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = breaching_of_tanks
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = more_infantry_weapons
+		icon = GFX_goal_generic_small_arms
+		cost = 7.2
+		prerequisite = {
+			focus = military_tactics_of_the_human_sea
+		}
+		x = 72
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_tech = advanced_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_3
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_2
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons1
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 10000
+					producer = AND
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = infantry_weapons
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = 10000
+					producer = AND
+				}
+			}
+			add_tech_bonus = {
+				name = more_infantry_weapons
+				bonus = 1.00
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	focus = {
+		id = Infiltration_assault
+		icon = GFX_goal_generic_attack_allies
+		cost = 7.2
+		prerequisite = {
+			focus = more_infantry_weapons
+		}
+		x = 72
+		y = 20
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_infiltration
+		}
+	}
+	focus = {
+		id = medical_preparation
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = Infiltration_assault
+		}
+		x = 72
+		y = 21
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_medical_help
+		}
+	}
+	focus = {
+		id = expand_the_staff
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 7.2
+		prerequisite = {
+			focus = showdown_plan
+		}
+		x = 70
+		y = 19
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = expand_the_staff
+				cost_reduction = 0.50
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = Popularize_telecommunication
+		icon = GFX_goal_generic_radar
+		cost = 7.2
+		prerequisite = {
+			focus = expand_the_staff
+		}
+		x = 70
+		y = 20
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = Popularize_telecommunication
+				bonus = 1.00
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = Popularize_telecommunication
+				bonus = 1.00
+				uses = 1
+				category = signal_company_tech
+			}
+		}
+	}
+	focus = {
+		id = more_trucks
+		icon = GFX_focus_SOV_the_road_of_life
+		cost = 7.2
+		prerequisite = {
+			focus = Mobility_of_motorized_infantry
+		}
+		x = 74
+		y = 20
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_1
+				amount = 6000
+				producer = AND
+			}
+		}
+	}
+	focus = {
+		id = try_mechanized_infantry
+		icon = GFX_goal_generic_cavalry
+		cost = 7.2
+		prerequisite = {
+			focus = more_trucks
+			focus = more_tanks
+		}
+		x = 74
+		y = 21
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = try_mechanized_infantry
+				ahead_reduction = 2
+				bonus = 2.00
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	focus = {
+		id = more_tanks
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7.2
+		prerequisite = {
+			focus = breaching_of_tanks
+		}
+		x = 76
+		y = 20
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_more_tanks
+		}
+	}
+	focus = {
+		id = advanced_Trench
+		icon = GFX_goal_generic_construct_military
+		cost = 7.2
+		prerequisite = {
+			focus = Popularize_telecommunication
+		}
+		x = 70
+		y = 21
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_expanded_center
+		}
+	}
+	focus = {
+		id = establishment_of_united_states_of_Mondstadts_people
+		icon = GFX_goal_generic_improve_relations
+		cost = 7.2
+		prerequisite = {
+			focus = promote_the_wolfendomic_model
+		}
+		mutually_exclusive = {
+			focus = establishment_of_the_free_federal_of_Mondstadt
+		}
+		x = 63
+		y = 11
+		available = {
+			has_government = democratic
+			AND_Razor = {
+				has_trait = Each_according_to_ability
+				is_country_leader = yes
+			}
+			democratic > 0.9
+			has_stability > 0.7
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.2
+			add_political_power = 200
+			set_cosmetic_tag = AND_united_states
+			hidden_effect = {
+				play_song = "我的荣耀"
+				set_country_flag = AND_long_ago_l
+				AND_release_autonomy = yes
+			}
+			every_subject_country = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 1.0
+				}
+				set_cosmetic_tag = CUSTOM_AND_united_states_subject
+			}
+			custom_effect_tooltip = AND_released_autonomy
+			news_event = { hours = 6 id = andrius_news.10 }
+		}
+	}
+	focus = {
+		id = build_our_homeland
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = establishment_of_the_holy_republic_of_Mondstadt
+			focus = establishment_of_Free_Enterprise_Consortium
+			focus = establishment_of_the_free_federal_of_Mondstadt
+			focus = establishment_of_united_states_of_Mondstadts_people
+			focus = establishment_of_the_pioneer_nation
+			focus = establishment_of_the_Immernachtreich
+			focus = establishment_of_the_socialist_commonwealth_of_Mondstadt
+			focus = establishment_of_the_liberated_zone_of_Mondstadt
+			focus = Union_of_Socialist_Republics_in_Mondstadt
+		}
+		x = 50
+		y = 12
+		available = {
+			#
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		completion_reward = {
+			add_ideas = AND_build_our_home
+			every_subject_country = {
+				add_ideas = AND_build_our_home
+			}
+		}
+	}
+	focus = {
+		id = centralized_plan_of_resources
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 7.2
+		prerequisite = {
+			focus = build_our_homeland
+		}
+		x = 50
+		y = 13
+		available = {
+			num_of_controlled_factories > 100
+		}
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			every_subject_country = {
+				remove_ideas = AND_build_our_home
+				add_ideas = AND_centralize_strength
+			}
+			custom_effect_tooltip = AND_give_positive_idea
+			add_political_power = 100
+			hidden_effect = {
+				play_song = "StarsAppear"
+			}
+		}
+	}
+	focus = {
+		id = razors_Special_training
+		icon = GFX_goal_generic_attack_allies
+		cost = 3
+		prerequisite = {
+			focus = moblize_the_whole_state
+		}
+		prerequisite = {
+			focus = conscription_from_refugees
+		}
+		x = 24
+		y = 16
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			add_ideas = AND_elite_armies
+			remove_ideas = AND_fight_and_hunt
+		}
+	}
+	focus = {
+		id = Bicycle_troops
+		icon = GFX_goal_generic_cavalry
+		cost = 3
+		prerequisite = {
+			focus = moblize_the_whole_state
+		}
+		prerequisite = {
+			focus = conscription_from_refugees
+		}
+		x = 20
+		y = 16
+		ai_will_do = {
+			factor = 4
+		}
+		completion_reward = {
+			set_technology = { bicycle_infantry = 1 }
+		}
+	}
+	focus = {
+		id = walk_towards_future
+		icon = GFX_focus_ETH_boots_on_the_shore
+		cost = 7.2
+		prerequisite = {
+			focus = centralized_plan_of_resources
+		}
+		x = 50
+		y = 14
+		available = {
+			num_of_controlled_factories > 200
+			has_army_manpower = { size > 599999 }
+			
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_to_the_dawn
+			hidden_effect = {
+				play_song = "SAVE Medley"
+				if = {
+					limit = {
+						has_country_flag = AND_long_ago_b1
+						AND_Bennett = {
+							is_country_leader = yes
+						}
+					}
+					country_event = andrius.45
+				}
+				if = {
+					limit = {
+						has_country_flag = AND_long_ago_b2
+						AND_Bennett = {
+							is_country_leader = yes
+						}
+					}
+					country_event = andrius.46
+				}
+				if = {
+					limit = {
+						has_country_flag = AND_long_ago_b3
+						AND_Bennett = {
+							is_country_leader = yes
+						}
+					}
+					country_event = andrius.47
+				}
+				if = {
+					limit = {
+						has_country_flag = AND_long_ago_f
+						AND_Fischl = {
+							is_country_leader = yes
+						}
+					}
+					country_event = andrius.48
+				}
+				if = {
+					limit = {
+						has_country_flag = AND_long_ago_l
+						AND_Razor = {
+							is_country_leader = yes
+						}
+					}
+					country_event = andrius.51
+				}
+			}
+		}
+	}
+	focus = {
+		id = art_of_futurism
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = Contextualist_nation
+			focus = Partial_autonomy_of_villages
+		}
+		x = 22
+		y = 25
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_futurism
+		}
+	}
+	focus = {
+		id = art_of_barbarism
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7.2
+		prerequisite = {
+			focus = the_concept_of_communes
+			focus = Contextualist_nation
+		}
+		x = 19
+		y = 25
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_barbarism
+		}
+	}
+	focus = {
+		id = post_fordist_production
+		icon = GFX_goal_generic_consumer_goods
+		cost = 7.2
+		prerequisite = {
+			focus = Partial_autonomy_of_villages
+			focus = each_do_its_best
+		}
+		x = 25
+		y = 25
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_post_fordist
+		}
+	}
+	focus = {
+		id = residents_committee
+		icon = GFX_goal_generic_national_unity
+		cost = 7.2
+		prerequisite = {
+			focus = the_concept_of_communes
+		}
+		x = 17
+		y = 25
+		available = {
+			has_government = communism
+			AND_Bennett = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_re_committee
+		}
+	}
+	focus = {
+		id = Political_Consultative_Conference
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7.2
+		prerequisite = {
+			focus = each_do_its_best
+		}
+		x = 27
+		y = 25
+		available = {
+			AND_Razor = {
+				is_country_leader = yes
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+		completion_reward = {
+			add_ideas = AND_consultative
+		}
+	}
+}

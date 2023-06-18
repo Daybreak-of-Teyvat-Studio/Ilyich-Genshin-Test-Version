@@ -1,0 +1,1836 @@
+DRA_Lisa_Research = {
+	#循环决议：委员会行动
+	DRA_Committee_Action = {
+	
+		icon = GFX_decision_eng_trade_unions_support
+		
+		days_re_enable = 0
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		
+		modifier = {
+		}
+		
+		available = {
+			has_global_flag = MOT_REUNITED
+		}
+		
+		activation = {
+			has_completed_focus = DRA_Goal_of_Lisa
+		}
+		
+		visible = {
+			has_completed_focus = DRA_Goal_of_Lisa
+		}
+		
+		modifier = {
+			political_power_gain = var:DRA_PoliPerMonth
+		}
+		
+		timeout_effect = {
+			activate_mission = DRA_Committee_Action
+			DRA_Lisa_Research_Round = yes
+			get_poli = yes
+		}
+	}
+	##道德伦理委员会相关
+	#与委员会展开沟通（降低反对力度）
+	DRA_Communication_with_Committee = {
+	
+		icon = GFX_decision_SOV_place_hq
+		
+		days_re_enable = 30
+		
+		days_remove = 30
+		
+		fire_only_once = no
+		
+		cost = 20
+		
+		modifier = {
+		}
+		
+		available = {
+			check_variable = {
+				DRA_Disagreement_of_C > 0
+			}
+		}
+		
+		visible = {
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_Down_C1
+			add_to_variable = { DRA_Disagreement_of_C = -5 }
+		}
+		
+		ai_will_do {
+			base = 0
+			modifier = {
+				check_variable = {
+					DRA_Disagreement_of_C > 20
+				}
+				add = 100
+			}
+		}
+		
+	}
+	#安抚委员会（更大地降低反对力度）decision_SOV_place_hq
+	DRA_Placify_Committee = {
+	
+		icon = GFX_decision_SOV_place_hq
+		
+		days_re_enable = 30
+		
+		days_remove = 30
+		
+		fire_only_once = no
+		
+		cost = 100
+		
+		modifier = {
+		}
+		
+		available = {
+			check_variable = {
+				DRA_Disagreement_of_C > 10
+			}
+		}
+		
+		visible = {
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_Down_C2
+			add_to_variable = { DRA_Disagreement_of_C = -20 }
+		}
+		
+		ai_will_do {
+			base = 0
+			modifier = {
+				check_variable = {
+					DRA_Disagreement_of_C > 50
+				}
+				add = 100
+			}
+		}
+		
+	}
+	#掩盖研究进程（设置一个flag，在研究开始、研究结束时若有此flag，反对力度升高程度降低50%）decision_recruit_operative
+	DRA_Cover_Research = {
+		icon = GFX_decision_recruit_operative
+		
+		days_remove = 40
+		
+		fire_only_once = no
+		
+		cost = 30
+		
+		modifier = {
+		}
+		
+		available = {
+		}
+		
+		visible = {
+		}
+		
+		complete_effect = {
+			set_country_flag = DRA_Cover_our_Res
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_Cover
+			remove_country_flag = DRA_Cover_our_Res
+		}
+		
+		ai_will_do {
+			base = 0
+		}
+		
+	}
+	#缓慢削弱委员会decision_oppression
+	DRA_Weaken_Committee = {
+	
+		icon = GFX_decision_oppression
+		
+		days_remove = 30
+		
+		fire_only_once = no
+		
+		cost = 30
+		
+		modifier = {
+		}
+		
+		available = {
+			check_variable = {
+				DRA_Power_of_Committee > 0
+			}
+		}
+		
+		visible = {
+		}
+		
+		complete_effect = {
+			
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_C_Power_Down1
+			add_to_variable = {
+				DRA_Power_of_Committee = -2
+			}
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Power_of_Committee < 1
+					}
+				}
+				set_variable = {
+					DRA_Power_of_Committee = 0
+				}
+			}
+		}
+		
+		ai_will_do {
+			base = 0
+		}
+		
+	}
+	#打击委员会，应有DRA_Lisa_Tech_Level2;decision_oppression
+	DRA_Beat_Committee = {
+	
+		icon = GFX_decision_oppression
+		
+		days_remove = 60
+		
+		fire_only_once = no
+		
+		cost = 60
+		
+		modifier = {
+		}
+		
+		available = {
+			check_variable = {
+				DRA_Power_of_Committee > 0
+			}
+		}
+		
+		visible = {
+			has_country_flag = DRA_Lisa_Tech_Level2
+		}
+		
+		complete_effect = {
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_C_Power_Down2
+			add_to_variable = {
+				DRA_Power_of_Committee = -5
+			}
+			add_to_variable = {
+				DRA_Disagreement_of_C = 10
+			}
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Power_of_Committee < 1
+					}
+				}
+				set_variable = {
+					DRA_Power_of_Committee = 0
+				}
+			}
+		}
+		
+		ai_will_do {
+			base = 0
+		}
+		
+	}
+	#通过新伦理法案decision_SOV_place_hq
+	DRA_New_Law_of_Morality = {
+		icon = GFX_decision_SOV_place_hq
+		days_remove = 10
+		cost = 100
+		fire_only_once = yes
+		modifier = {
+			pollitical_power_gain = -0.5
+		}
+		available = {
+			has_country_flag = DRA_Pre_Lisa_Tech_Level2
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_Law
+			add_to_variable = { DRA_Power_of_Committee = -10 }
+			add_to_variable = { DRA_Disagreement_of_C = 50 }
+			set_country_flag = DRA_Lisa_Tech_Level2
+		}
+	}
+	#架空道德伦理委员会
+	DRA_No_Committee = {
+	
+		icon = GFX_decision_oppression
+		
+		days_remove = 10
+		
+		fire_only_once = yes
+		
+		cost = 100
+		
+		modifier = {
+		}
+		
+		available = {
+			check_variable = {
+				DRA_Power_of_Committee > 0
+			}
+		}
+		
+		visible = {
+			has_country_flag = DRA_LisaComp_Catch_Leaving_Soul
+		}
+		
+		complete_effect = {
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = DRA_Lisa_C_Power_Down3
+			set_variable = {
+				DRA_Power_of_Committee = 0
+			}
+		}
+		
+		ai_will_do {
+			base = 0
+		}
+		
+	}
+	#出售科技点1
+	DRA_Sell_Points = {
+		icon = GFX_decision_SOV_place_hq
+		days_remove = 10
+		days_re_enable = 60
+		fire_only_once = no
+		modifier = {
+		}
+		visible = {
+			has_country_flag = DRA_Sell_Our_Tech
+		}
+		available = {
+			has_country_flag = DRA_Sell_Our_Tech
+			check_variable = { DRA_Reseach_Points > 29 }
+		}
+		complete_effect = {
+			
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					Is_LYY = yes
+					original_tag = SUM
+				}
+				exists = yes
+				NOT = {
+					has_war_with = DRA
+				}
+			}
+		}
+		remove_effect = {
+			FROM = {
+				country_event = dragonspine.61
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	##以下为研究项目ⅠⅡⅢⅣⅤⅥⅦ
+	#Ⅰ模仿虚空系统
+	DRA_Copy_the_Void = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui1
+			set_variable = { DRA_Anti_Gain = 1 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Copy_the_Void
+			add_research_slots = 1
+			set_variable = { DRA_Anti_Gain = 1 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅲ改造忍冬之树
+	DRA_Utilize_the_Tree = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Copy_the_Void
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui4
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Utilize_the_Tree
+			#以下：获得10点奖励宜居度
+			custom_effect_tooltip = DRA_Gain_EnterBonus3
+			set_variable = { DRA_Enter_Gain = 10 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅱ临时意识上传
+	DRA_Up_Our_Sense = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Utilize_the_Tree
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui2
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Up_Our_Sense
+			custom_effect_tooltip = DRA_EnterCost_Less
+			add_to_variable = { DRA_Enter_Cost_Down = 25 }
+			IF = {
+				limit = {
+					check_variable = {
+						DRA_Enter_Cost_Down > 100
+					}
+				}
+				set_variable = { DRA_Enter_Cost_Down = 100 }
+			}
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅱ构筑公共意识空间
+	DRA_Build_the_Space = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Up_Our_Sense
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui2
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Build_the_Space
+			set_country_flag = DRA_Pre_Lisa_Tech_Level2
+			custom_effect_tooltip = DRA_Gain_EnterBonus3
+			set_variable = { DRA_Enter_Gain = 10 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅱ推进构筑军用意识空间
+	DRA_Build_Army_Space = {
+		icon = GFX_decision_generic_research
+		days_remove = 45
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Build_the_Space
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui2
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			country_event = geneideachange.1002
+			set_variable = { DRA_Anti_Gain = 2 }
+			set_technology = {
+				C_Center = 1
+			}
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅱ利用公共意识空间
+	DRA_Better_Our_Space = {
+		icon = GFX_decision_generic_research
+		days_remove = 45
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 19 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Build_the_Space
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC1
+			custom_effect_tooltip = DRA_Lisa_fandui2
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 20 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_More_EnterBonus
+			add_to_variable = {
+				DRA_Enter_Gain_Up = 25
+			}
+			set_variable = { DRA_Anti_Gain = 2 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅰ尝试应用涌现学说
+	DRA_Use_Born_Theory = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 29 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Build_the_Space
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC2
+			custom_effect_tooltip = DRA_Lisa_fandui1
+			set_variable = { DRA_Anti_Gain = 1 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 30 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Use_Born_Theory
+			custom_effect_tooltip = DRA_Get_ResearchPoints_Up
+			add_to_variable = {
+				DRA_Reseach_Points_perMonth = 5
+			}
+			set_variable = { DRA_Anti_Gain = 1 }
+			DRA_CA_More = yes
+			country_event = dragonspine.69
+		}
+	}
+	#第二阶段科技DRA_Lisa_Tech_Level2
+	#Ⅲ解除肉身出力限制
+	DRA_Relieve_Mess = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 29 }
+		}
+		visible = {
+			has_country_flag = DRA_Lisa_Tech_Level2
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC2
+			custom_effect_tooltip = DRA_Lisa_fandui3
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 30 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+			custom_effect_tooltip = DRA_Comp_DRA_Relieve_Mess
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+			set_technology = {
+				C_Center1 = 1
+			}
+		}
+	}
+	#Ⅲ强化集体协同能力
+	DRA_Strengthen_Colle_Ablity = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 39 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC3
+			custom_effect_tooltip = DRA_Lisa_fandui3
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 30 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Strengthen_Colle_Ablity
+			custom_effect_tooltip = DRA_Comp_DRA_Relieve_Mess
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅲ延长意识驻留时间
+	DRA_Stay_Longer = {
+		icon = GFX_decision_generic_research
+		days_remove = 45
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 29 }
+		}
+		visible = {
+			has_country_flag = DRA_Lisa_Tech_Level2
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC2
+			custom_effect_tooltip = DRA_Lisa_fandui3
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 30 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_DRA_Stay_Longer
+			custom_effect_tooltip = DRA_Comp_Stay_Longer
+			custom_effect_tooltip = DRA_Gain_EnterBonus4
+			set_variable = { DRA_Enter_Gain = 20 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅲ利用多余算力
+	DRA_Ultilize_Brain = {
+		icon = GFX_decision_generic_research
+		days_remove = 75
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 39 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_DRA_Stay_Longer
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC3
+			custom_effect_tooltip = DRA_Lisa_fandui3
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 40 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Ultilize_Brain
+			custom_effect_tooltip = DRA_Get_ResearchPoints_Up
+			add_to_variable = {
+				DRA_Reseach_Points_perMonth = 5
+			}
+			set_variable = { DRA_Anti_Gain = 5 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅳ壮大集体意志
+	DRA_Stronger_Sense = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 49 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Ultilize_Brain
+			has_country_flag = DRA_LisaComp_Strengthen_Colle_Ablity
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC4
+			custom_effect_tooltip = DRA_Lisa_fandui4
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 50 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Stronger_Sense
+			custom_effect_tooltip = DRA_EnterCost_Less
+			add_to_variable = { DRA_Enter_Cost_Down = 25 }
+			IF = {
+				limit = {
+					check_variable = {
+						DRA_Enter_Cost_Down > 100
+					}
+				}
+				set_variable = { DRA_Enter_Cost_Down = 100 }
+			}
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+			set_technology = {
+				C_Center3 = 1
+			}
+		}
+	}
+	#Ⅳ灵魂学深入研究
+	DRA_Research_Soul = {
+		icon = GFX_decision_generic_research
+		days_remove = 60
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 49 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stronger_Sense
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC4
+			custom_effect_tooltip = DRA_Lisa_fandui4
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 40 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Research_Soul
+			set_variable = { DRA_Anti_Gain = 10 }
+			DRA_CA_More = yes
+		}
+	}
+	#Ⅴ抓取实验
+	DRA_Catch_Leaving_Soul = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Research_Soul
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			custom_effect_tooltip = DRA_Lisa_fandui5
+			set_variable = { DRA_Anti_Gain = 25 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Catch_Leaving_Soul
+			set_variable = { DRA_Anti_Gain = 25 }
+			DRA_CA_More = yes
+			country_event = dragonspine.75
+		}
+	}
+	#第三阶段科研项目
+	#Ⅵ非自愿容纳技术
+	DRA_Catch_Without_Agreement = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Catch_Leaving_Soul
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			custom_effect_tooltip = DRA_Lisa_fandui6
+			set_variable = { DRA_Anti_Gain = 1000 }
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Catch_Without_Agreement
+			set_variable = { DRA_Anti_Gain = 25 }
+			DRA_CA_More = yes
+			custom_effect_tooltip = DRA_EnterCost_Less
+			add_to_variable = { DRA_Enter_Cost_Down = 25 }
+			IF = {
+				limit = {
+					check_variable = {
+						DRA_Enter_Cost_Down > 100
+					}
+				}
+				set_variable = { DRA_Enter_Cost_Down = 100 }
+			}
+			custom_effect_tooltip = DRA_More_EnterBonus
+			add_to_variable = { DRA_Enter_Gain_Up = 25 }
+		}
+	}
+	#Ⅵ抛弃“身体转向”
+	DRA_Stop_Focus_on_Flesh = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Catch_Without_Agreement
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			custom_effect_tooltip = DRA_Lisa_fandui5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+				
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+			custom_effect_tooltip = DRA_Gain_EnterBonus4
+			set_variable = { DRA_Enter_Gain = 20 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+		}
+	}
+	#Ⅵ工具批量制造技术
+	DRA_Manufacture_more_ToolsTech = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+				
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_Manufacture_more_Tools
+			add_manpower = 10000
+		}
+	}
+	#Ⅵ蜂群去中心化
+	DRA_Decentralize_Us = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+				
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = Can_be_Compl_More
+			set_country_flag = DRA_Manufacture_more_Tools
+			add_political_power = 90
+		}
+	}
+	#Ⅵ极效工具利用
+	DRA_Utilize_Tools_Better = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_Utilize_Tools_Better
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#Ⅵ算力增强技术
+	DRA_Utilize_Brains_Better = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = yes
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+				
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			set_country_flag = DRA_Utilize_Brains_Better
+			custom_effect_tooltip = DRA_Get_ResearchPoints_Up
+			add_to_variable = {
+				DRA_Reseach_Points_perMonth = 10
+			}
+		}
+	}
+	#Ⅵ合众为一
+	DRA_One_Are_All_Are_One = {
+		icon = GFX_decision_generic_research
+		days_remove = 90
+		cost = 0
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Reseach_Points > 89 }
+			check_variable = { DRA_Power_of_Committee = 0 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Stop_Focus_on_Flesh
+		}
+		complete_effect = {
+			custom_effect_tooltip = DRA_Lisa_PC5
+			IF = {
+				LIMIT = {
+					check_variable = {
+						DRA_Disagreement_of_C = 0
+					}
+				}
+			}
+			ELSE_IF = {	
+				custom_effect_tooltip = DRA_Lisa_fandui6
+				set_variable = { DRA_Anti_Gain = 1000 }
+			}
+			DRA_CA_More = yes
+			subtract_from_variable = { DRA_Reseach_Points = 90 }
+		}
+		remove_effect = {
+			DRA_CA_More = yes
+			custom_effect_tooltip = Can_be_Compl_More
+			custom_effect_tooltip = DRA_Lisa_C_Power_Down3
+			set_stability = 1
+			set_war_support = 1
+			set_variable = { DRA_Power_of_Committee = 0 }
+			set_variable = { DRA_Disagreement_of_C = 0 }
+			IF = {
+				limit = {
+					NOT = {
+						has_country_flag = DRA_compleOne_Are_All
+					}
+				}
+				set_technology = {
+					C_Center4 = 1
+				}
+				set_country_flag = DRA_compleOne_Are_All
+			}
+		}
+	}
+}
+
+DRA_Lisa_Refugees_Settlement = {
+	
+	#循环决议：收容难民
+	DRA_Receive_Refugees = {
+	
+		icon = GFX_decision_generic_speech
+		
+		days_re_enable = 0
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		
+		modifier = {
+		}
+		
+		available = {
+			has_global_flag = MOT_REUNITED
+		}
+		
+		activation = {
+			has_completed_focus = DRA_Goal_of_Lisa
+		}
+		
+		visible = {
+			has_country_flag = DRA_Lisa_Settle
+		}
+		
+		timeout_effect = {
+			activate_mission = DRA_Receive_Refugees
+			DRA_Lisa_Get_Refugees = yes
+		}
+	}
+	#吸引难民
+	DRA_Call_Refugees = {
+		icon = GFX_decision_generic_speech
+		days_remove = 30
+		cost = 50
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_GainMan1
+			set_variable = { DRA_Man_Gain = 2000 }
+			DRA_Get_Popu = yes
+			custom_effect_tooltip = DRA_OccupyEnter1
+			set_variable = { DRA_Enter_Cost = 2 }
+			DRA_Entertaiment_cost = yes
+			DRA_Lisa_Entertainment = yes
+		}
+	}
+	#大规模吸引难民
+	DRA_Great_Call_Refugees = {
+		icon = GFX_decision_generic_speech
+		days_remove = 30
+		cost = 50
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_GainMan2
+			set_variable = { DRA_Man_Gain = 5000 }
+			DRA_Get_Popu = yes
+			custom_effect_tooltip = DRA_OccupyEnter2
+			set_variable = { DRA_Enter_Cost = 5 }
+			DRA_Entertaiment_cost = yes
+			DRA_Lisa_Entertainment = yes
+		}
+	}
+	#培训农业工人
+	DRA_Expand_Agri_District = {
+		icon = GFX_decision_generic_construction
+		days_remove = 30
+		cost = 50
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+			has_country_flag = DRA_Lisa_Agri
+			OR = {
+				has_idea = gene_not_enough_farms4
+				has_idea = gene_not_enough_farms3
+				has_idea = gene_not_enough_farms2
+				has_idea = gene_not_enough_farms1
+			}
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+			country_event = geneideachange.1003
+			
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 3000
+			}
+		}
+	}
+	#开展军事训练
+	DRA_Military_Train_Refugees = {
+		icon = GFX_decision_generic_construction
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 1999 }
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -2000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower2
+			add_manpower = 2000
+		}
+	}
+	#扩张消费品生产
+	DRA_Consumer_Goods_Production = {
+		icon = GFX_decision_generic_construction
+		days_remove = 60
+		days_re_enable = 30
+		cost = 70
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+		}
+		ai_will_do = {
+			base = 70
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+			IF = {
+				limit = {
+					OR = {
+						
+					}
+				}
+				country_event = geneideachange.1001
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 5000
+			}
+		}
+	}
+	#扩张军工生产
+	DRA_Military_Arms_Factories = {
+		icon = GFX_decision_generic_construction
+		days_remove = 60
+		days_re_enable = 30
+		cost = 80
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				check_variable = { DRA_All_Entertainment > 15 }
+				add = 50
+			}
+			modifier = {
+				check_variable = { DRA_All_Entertainment < 5 }
+				add = -50
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+			custom_effect_tooltip = DRA_OccupyEnter3
+			set_variable = { DRA_Enter_Cost = 5 }
+			DRA_Entertaiment_cost = yes
+			DRA_Lisa_Entertainment = yes
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 5000
+			}
+		}
+	}
+	#扩张城镇规模
+	DRA_More_Buildi_Slots1 = {
+		icon = GFX_decision_generic_construction
+		days_remove = 30
+		days_re_enable = 30
+		cost = 50
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 2999 }
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -3000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower3
+			
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						NOT = {
+							has_state_category = wasteland
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						NOT = {
+							has_state_category = wasteland
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 3000
+			}
+		}
+	}
+	#改良基础服务
+	DRA_Building_Infras = {
+		icon = GFX_decision_generic_construction
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 2999 }
+		}
+		ai_will_do = {
+			base = 60
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -3000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower3
+			custom_effect_tooltip = DRA_Gain_EnterBonus1
+			set_variable = { DRA_Enter_Gain = 2 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+			custom_effect_tooltip = DRA_More_EnterBonuslow
+			add_to_variable = { DRA_Enter_Gain_Up = 2 }
+			IF = {
+				limit = {
+					check_variable = {
+						DRA_Enter_Cost_Down < 99
+					}
+				}
+				custom_effect_tooltip = DRA_EnterCost_Lesslow
+				add_to_variable = { DRA_Enter_Cost_Down = 2 }
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_LisaComp_DRA_Relieve_Mess
+				}
+				
+				
+				random_owned_state = {
+					limit = {
+						NOT = {
+							has_state_category = wasteland
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_political_power = -10
+				add_to_variable = { DRA_Refugee_Manpower = -1000 }
+				prev = {
+					add_manpower = 1000
+				}
+			}
+			
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 3000
+			}
+		}
+	}
+	#投资福利保障（低价换奖励宜居度）
+	DRA_Invest_for_Enter = {
+		icon = GFX_decision_ger_mefo_bills
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Gain_EnterBonus2
+			set_variable = { DRA_Enter_Gain = 5 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#开展抚慰活动
+	DRA_Invest_for_MoreEnter = {
+		icon = GFX_decision_ger_mefo_bills
+		days_remove = 30
+		days_re_enable = 30
+		cost = 100
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Gain_EnterBonus3
+			set_variable = { DRA_Enter_Gain = 15 }
+			DRA_Entertaiment_gain = yes
+			DRA_Lisa_Entertainment = yes
+		}
+	}
+	#建造研究设施
+	DRA_Build_Research_Const = {
+		icon = GFX_decision_generic_research
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 2999 }
+		}
+		visible = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -3000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower3
+			custom_effect_tooltip = DRA_Get_ResearchPoints_Up
+			add_to_variable = { DRA_Reseach_Points_perMonth = 1 }
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 3000
+			}
+		}
+	}
+	#调用多余算力
+	DRA_Compute_More = {
+		icon = GFX_decision_generic_research
+		days_remove = 50
+		days_re_enable = 0
+		cost = 50
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+			has_country_flag = DRA_LisaComp_Ultilize_Brain
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+			custom_effect_tooltip = DRA_Get_ResearchPoints
+			add_to_variable = { DRA_Reseach_Points = 20 }
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = wasteland
+					}
+				}
+				add_manpower = 5000
+			}
+		}
+	}
+	#极效生产
+	DRA_Lisa_Pro_More = {
+		icon = GFX_decision_generic_wreckers
+		days_remove = 50
+		days_re_enable = 0
+		cost = 50
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+			has_country_flag = DRA_Utilize_Tools_Better
+		}
+		modifier = {
+			industrial_capacity_factory = 0.25
+			production_factory_efficiency_gain_factor = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+		}
+	}
+	#超速建设
+	DRA_Lisa_Cons_More = {
+		icon = GFX_decision_generic_wreckers
+		days_remove = 50
+		days_re_enable = 0
+		cost = 50
+		fire_only_once = no
+		available = {
+			check_variable = { DRA_Refugee_Manpower > 4999 }
+		}
+		visible = {
+			has_country_flag = DRA_Utilize_Tools_Better
+		}
+		modifier = {
+			production_speed_buildings_factor = 0.4
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -5000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower4
+		}
+	}
+	#工具生产
+	DRA_Lisa_Born_More = {
+		icon = GFX_decision_generic_wreckers
+		days_remove = 50
+		days_re_enable = 0
+		cost = 50
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+			has_country_flag = DRA_Utilize_Tools_Better
+		}
+		modifier = {
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_GainMan3
+			add_to_variable = { DRA_Refugee_Manpower = 10000 }
+		}
+	}
+	#建造运算节点
+	DRA_Lisa_Quicker_Computing = {
+		icon = GFX_decision_generic_wreckers
+		days_remove = 50
+		days_re_enable = 0
+		cost = 50
+		fire_only_once = no
+		available = {
+		}
+		visible = {
+			has_country_flag = DRA_Utilize_Brains_Better
+		}
+		modifier = {
+		}
+		complete_effect = {
+			add_to_variable = { DRA_Refugee_Manpower = -10000 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = DRA_Need_Manpower5
+			custom_effect_tooltip = DRA_Get_ResearchPoints_Up
+			add_to_variable = { DRA_Reseach_Points_perMonth = 3 }
+			add_to_variable = { DRA_PoliPerMonth = 0.03 }
+		}
+	}
+}

@@ -1,0 +1,81 @@
+scripted_gui = {
+##################	=====>>>	メタルギアアイコン	##################
+	metalgearbutton = {
+		context_type = selected_state_context
+		parent_window_name = province_info_window
+		window_name = "metal_gear_button_container"
+		visible = {
+			ROOT = {
+				OR = {
+					original_tag = MSF
+					original_tag = ZAN
+				}
+			}
+			has_game_rule = {
+				rule = metal_gear_nuke_functuion
+				option = MG_NUKE_EXIST
+			}
+		}
+		
+		effects = {
+			nuke_by_mg_click = {
+				ROOT = {
+					launch_nuke = {
+						state = PREV
+						use_nuke = yes
+					}
+					add_nuclear_bombs = -2
+				}
+			}
+		}
+		triggers = {
+			nuke_by_mg_visible = {
+				any_country = {
+					controls_state = PREV
+					has_war_with = ROOT
+				}
+				ROOT = {
+					check_variable = {
+						num_battalions_with_type@metalgear > 0
+					}
+					num_of_nukes > 2
+				}
+				OR = {
+					any_neighbor_state = {
+						OR = {
+							ROOT = {
+								divisions_in_state = {
+									type = infantry
+									size > 0
+									state = PREV
+								}
+							}
+							ROOT = {
+								divisions_in_state = {
+									type = armor
+									size > 0
+									state = PREV
+								}
+							}
+						}
+					}
+					ROOT = {
+						OR = {
+							divisions_in_state = {
+								type = infantry
+								size > 0
+								state = PREV
+							}
+							divisions_in_state = {
+								type = armor
+								size > 0
+								state = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+##################	<<<=====	メタルギアアイコン	##################
+}

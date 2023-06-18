@@ -1,0 +1,62 @@
+scripted_diplomatic_actions = {
+	#####################################################################################################################
+	# COMMENTS HAVE BEEN INCLUDED FOR SAKE OF EXPLANATION, CAN BE REMOVED #
+	# > REMEMBER < the default scope in this file is the TARGET COUNTRY! NOT THE COUNTRY SENDING THE DIPLOMATIC REQUEST #
+	#####################################################################################################################
+	money_diplomatic_action = {
+		icon = 16		#	The icon to use for the dipomatic request, visible when the diplomatic action is sent, not visible if the diplomatic request does not require acceptance, must be included in the \gfx\interface\alerts\global_diplorequest_icons.dds file, number represents icon location from left to right.
+		
+		
+		#### CONDITIONS TO USE/SEE ACTION ###
+	
+		allowed = {		         			# Used for the send window, if not true player/AI wont be able to send the diplomatic request even if can_be_sent is true.
+		}
+		visible = {	is_ai=no	
+		} 									# Conditions to make this diplomatic action appear in the diplomacy screen.
+		
+		selectable = {	Root={ check_variable = { dx > 300 } }  
+			is_ai=no						# Conditions to allow player/AI to click the option in the diplomacy screen, this is what the player sees as "prerequisets" to use this action.
+		}
+		can_be_accepted = {					# Conditions that may not allow player/AI to accept this diplomatic action.
+		}
+		can_be_sent = {						# Conditions that may not allow player/AI to send this diplomatic action.
+		}
+		
+		cost = 0	# The cost to execute this diplomatic action, by default is political power
+		
+		
+
+		requires_acceptance = no									# Does this diplomatic request requires acceptance, if set to NO reject_effect is invalid
+		show_acceptance_on_action_button = yes 						# Should accept/decline tooltip be shown in the user interface when using this diplomatic action on AI countries		
+
+		#### ACTION LOCALISATION ###
+
+		send_description = MONEY_DIPLO_ACTION_LOC					# The text the country that is executing the diplomatic action sees.
+		receive_description = MONEY_DIPLO_ACTION_RECIEVER_LOC		# The text the target country sees when recieving the diplomation action.
+		accept_title = MONEY_DIPLO_ACTION_ACCEPTED_TITLE		 	# The notification title shown when the diplomatic action is ACCEPTED, not valid if requires_acceptance is set to NO
+		accept_description = MONEY_DIPLO_ACTION_ACCEPTED_DESC		# The notification description shown when the diplomatic action is ACCEPTED, not valid if requires_acceptance is set to NO
+		reject_title = MONEY_DIPLO_ACTION_REJECTED_TITLE			# The notification title shown when the diplomatic action is REJECTED, not valid if requires_acceptance is set to NO
+		reject_description = MONEY_DIPLO_ACTION_REJECTED_DESC       # The notification description shown when the diplomatic action is REJECTED, not valid if requires_acceptance is set to NO
+
+		#### EFFECTS ###		
+
+		on_sent_effect ={	}	#	An effect that can be applied when sending the diplomatic action.
+		
+		complete_effect ={	add_to_variable = { var = dx value = 210 }	
+			ROOT = { subtract_from_variable = { var = dx value = 300 }} 
+		}	
+		
+		
+		reject_effect	={	}			#	An effect that can be applied the action is REJECTED (only valid if requires_acceptance is set to YES )
+		
+		
+		#### AI SECTION ###
+		
+		ai_desire = {  } # AI modifiers to use this diplomatic action
+
+		
+		ai_acceptance = {	}	# AI modifiers to accept this diplomatic action, not valid if requires_acceptance is set to NO.
+	
+	
+	
+	}

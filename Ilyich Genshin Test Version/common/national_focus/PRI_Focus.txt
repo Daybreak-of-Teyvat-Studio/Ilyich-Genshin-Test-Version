@@ -1,0 +1,308 @@
+focus_tree = {
+	id = PRI_Focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = PRI
+		}
+	}
+	default = no
+	focus = {
+		id = PRI_VS_PRI
+		icon = goal_DOT_03
+		cost = 40.00
+		x = 17
+		y = 0
+			completion_reward = {
+add_equipment_to_stockpile = { type = fighter_equipment_1  amount = 50 producer = MOT }
+add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
+add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 500 producer = INA }
+add_equipment_to_stockpile = { type = train_equipment amount = 500 producer = SUM }
+add_equipment_to_stockpile = { type = transport_plane_equipment_1  amount = 500 producer = PRI }
+country_event = { id = Ilyich.1  days = 1  }
+country_event = { id = Ilyich_Weapon.1  days = 1  }
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+
+				}
+
+	}
+	focus = {
+		id = PRI_VS_SNE
+		icon = GFX_goal_generic_army_artillery2
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_PRI
+		}
+		x = 17
+		y = 1
+		available = {  threat > 0.50  }
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Cryo 
+					declare_war_on = {
+							target = SNE
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = SNE } add_core_of = ROOT }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_NAT
+		icon = GFX_goal_generic_army_tanks
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_SNE
+		}
+		x = 15
+		y = 2
+		available = {  threat > 0.60  }
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Pyro
+					declare_war_on = {
+							target = NAT
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = NAT } add_core_of = ROOT }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_FON
+		icon = GFX_goal_generic_navy_battleship
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_SNE
+		}
+		x = 19
+		y = 2
+		available = {  threat > 0.60  }
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Hydro
+					declare_war_on = {
+							target = FON
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = FON } add_core_of = ROOT }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_ABY
+		icon = GFX_goal_generic_territory_or_war
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_FON
+		}
+		prerequisite = {
+			focus = PRI_VS_NAT
+		}
+		x = 17
+		y = 3
+		available = {  threat > 0.70  }
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					declare_war_on = {
+							target = ABY
+							type = annex_everything
+						}
+					every_state = { limit = { is_core_of = ABY } add_core_of = ROOT }
+					set_technology = { atomic_research = 1 }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_SUM
+		icon = GFX_goal_generic_national_unity
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_ABY
+		}
+		x = 17
+		y = 4
+		available = {  
+		date > 1942.7.1
+		threat > 0.80
+		}
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Dendro
+					declare_war_on = {
+							target = SUM
+							type = annex_everything
+						}
+					every_state = { limit = { is_core_of = SUM } add_core_of = ROOT }
+					set_technology = { nuclear_reactor = 1 }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_MOT
+		icon = GFX_goal_generic_wolf_pack
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_SUM
+		}
+		x = 14
+		y = 5
+		available = {  threat > 0.90  }
+			completion_reward = {
+					add_political_power = 160
+					add_manpower = 64800
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Anemo
+					declare_war_on = {
+							target = MOT
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = RAG
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = GUN
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = DRA
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = FAV
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = DVA
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = MOT } add_core_of = ROOT }
+				}
+
+	}
+	focus = {
+		id = PRI_VS_LYY
+		icon = GFX_goal_generic_soviet_construction
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_SUM
+		}
+		x = 17
+		y = 6
+		available = {  threat > 0.90  }
+			completion_reward = {
+					add_political_power = 160
+					add_manpower = 64800
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Geo
+					declare_war_on = {
+							target = LYY
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = SHP
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = KQP
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = GYP
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+
+				}
+
+	}
+	focus = {
+		id = PRI_VS_INA
+		icon = GFX_goal_support_fascism
+		cost = 40.00
+		prerequisite = {
+			focus = PRI_VS_SUM
+		}
+		x = 20
+		y = 5
+		available = {  threat > 0.90  }
+			completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Electro 
+					declare_war_on = {
+							target = INA
+							type = annex_everything
+						}
+					declare_war_on = {
+							target = SAN
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = ASA
+							type = annex_everything
+						}
+
+					declare_war_on = {
+							target = TSU
+							type = annex_everything
+						}
+						every_state = { limit = { is_core_of = INA } add_core_of = ROOT }
+
+				}
+
+	}
+}

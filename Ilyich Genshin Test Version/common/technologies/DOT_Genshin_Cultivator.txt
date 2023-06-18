@@ -1,0 +1,1127 @@
+technologies = {
+#################################
+#####	ナイトメアフレーム
+#################################
+	knightmare_III = { #Ganymede
+		path = {
+			leads_to_tech = knightmare_IV
+			research_cost_coeff = 1
+		}
+		allow = {
+			OR = {
+				AND = {
+					is_ai = yes
+					NOT = {
+						has_tech = sikon_proto
+						is_researching_technology = sikon_proto
+						has_tech = protomech
+						is_researching_technology = protomech
+					}
+				}
+				is_ai = no
+			}
+		}
+
+		enable_subunits = {
+			knightmare
+			knightmare_support
+		}
+		enable_equipments = {
+			knightmare_equipment_1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		on_research_complete = {
+			hidden_effect = {
+				IF = {
+					limit = {
+						NOT = {	has_template_containing_unit = knightmare }
+					}
+					load_oob = "unlock_kmf"
+				}
+			}
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+		
+		research_cost = 1
+		start_year = 1935
+
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 0 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				tag = A11
+			}
+			modifier = {
+				factor = 2
+				date > "1937.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = sikon_proto
+					is_researching_technology = sikon_proto
+					has_tech = protomech
+					is_researching_technology = protomech
+				}
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			kmf_tech
+		}
+	}
+	knightmare_IV = { #Glasgow
+
+		path = {
+			leads_to_tech = knightmare_V
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = Knightmare_KnightPolice
+			research_cost_coeff = 1
+		}
+
+		enable_equipments = {
+			knightmare_equipment_2
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 1.5
+		start_year = 1939
+
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 4 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 5
+				tag = A11
+			}
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			kmf_tech
+		}
+	}
+	Knightmare_KnightPolice = { #KnightPolice
+		enable_subunits = {
+			knightpolice
+			KPsupport
+		}
+		enable_equipments = {
+			knightmare_equipment_MP
+		}
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 1
+		start_year = 1940
+
+		folder = {
+			name = robot_folder
+			position = { x = -3 y = 5 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				tag = A11
+			}
+		}
+		categories = {
+			armor
+			robot_tech
+			kmf_tech
+		}
+	}
+	knightmare_V = { #Sutherlands
+		
+		research_cost = 2
+		start_year = 1941
+		
+		path = {
+			leads_to_tech = knightmare_VI
+			research_cost_coeff = 1
+		}
+		
+		enable_equipments = {
+			knightmare_equipment_3
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 6 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 5
+				tag = A11
+			}
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1940.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			kmf_tech
+		}
+	}
+	knightmare_VI = { #Vincent
+		
+		research_cost = 2
+		start_year = 1948
+		
+		enable_equipments = {
+			knightmare_equipment_4
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 13 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 5
+				tag = A11
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			kmf_tech
+		}
+	}
+
+#################################
+#####	人型戦車
+#################################
+
+	sikon_proto = { #試製士魂号
+		allow = {
+			OR = {
+				AND = {
+					is_ai = yes
+					NOT = {
+						has_tech = knightmare_III
+						is_researching_technology = knightmare_III
+						has_tech = protomech
+						is_researching_technology = protomech
+					}
+				}
+				is_ai = no
+			}
+		}
+		
+		path = {
+			leads_to_tech = sikon_single
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = sikon_double
+			research_cost_coeff = 1
+		}
+
+		enable_subunits = {
+			sikon
+			sikon_support
+			Ruin_Giant
+		}
+		enable_equipments = {
+			sikon_equipment_1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		on_research_complete = {
+			hidden_effect = {
+				IF = {
+					limit = {
+						NOT = {	has_template_containing_unit = sikon }
+					}
+					load_oob = "unlock_sikon"
+					load_oob = "unlock_Ruin_Giant"
+				}
+			}
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+		
+		research_cost = 1
+		start_year = 1934
+
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 0 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 10
+				tag = PJP
+			}
+			modifier = {
+				factor = 2
+				date > "1937.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = knightmare_III
+					is_researching_technology = knightmare_III
+					has_tech = protomech
+					is_researching_technology = protomech
+				}
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_single = { #士魂号 単座型 標準装甲
+
+		path = {
+			leads_to_tech = sikon_eiko
+			research_cost_coeff = 1
+		}
+		
+		enable_equipments = {
+			sikon_equipment_2
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 1.5
+		start_year = 1939
+		
+		sub_technologies = {
+			sikon_single_light
+			sikon_single_heavy
+			sikon_single_ew
+		}
+
+		folder = {
+			name = robot_folder
+			position = { x = -2 y = 5 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 5
+				tag = PJP
+			}
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_single_light = { #士魂号 単座型 軽装甲
+
+		enable_subunits = {
+			sikon_light
+		}
+		enable_equipments = {
+			sikon_equipment_3
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 0.35
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_single_heavy = { #士魂号 単座型 重装甲
+
+		enable_subunits = {
+			sikon_heavy
+		}
+		enable_equipments = {
+			Ruin_Giant_equipment_1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 0.35
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_single_ew = { #士魂号 単座型 電子戦仕様
+		enable_subunits = {
+			sikon_electronics
+			sikon_ELEC_support
+		}
+		enable_equipments = {
+			sikon_equipment_5
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 0.35
+		start_year = 1939
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_double = { #士魂号 複座型 突撃戦仕様
+
+		path = {
+			leads_to_tech = sikon_eiko
+			research_cost_coeff = 1
+		}
+
+		enable_subunits = {
+			sikon_double
+		}
+		enable_equipments = {
+			sikon_equipment_6
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 1.5
+		start_year = 1939
+		
+		folder = {
+			name = robot_folder
+			position = { x = 2 y = 5 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1
+				tag = PJP
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_eiko = { #栄光号
+		
+		enable_equipments = {
+			sikon_equipment_7
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		path = {
+			leads_to_tech = sikon_kouki
+			research_cost_coeff = 1
+		}
+		
+		path = {
+			leads_to_tech = sikon_koen
+			research_cost_coeff = 1
+		}
+		
+		path = {
+			leads_to_tech = sikon_kibo
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.0
+		start_year = 1942
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 8 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 5
+				tag = PJP
+			}
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1940.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_kouki = { #光輝号
+		
+		enable_equipments = {
+			sikon_equipment_8
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		research_cost = 1.0
+		start_year = 1943
+		
+		folder = {
+			name = robot_folder
+			position = { x = 3 y = 9 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				tag = PJP
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_koen = { #光焔号
+		
+		enable_equipments = {
+			sikon_equipment_9
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		research_cost = 2.5
+		start_year = 1947
+		
+		folder = {
+			name = robot_folder
+			position = { x = -2 y = 13 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+	sikon_kibo = { #希望号
+		
+		enable_equipments = {
+			sikon_equipment_10
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		research_cost = 2.5
+		start_year = 1949
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 15 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 3
+				tag = PJP
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			sikon_tech
+		}
+	}
+
+#################################
+#####	メック
+#################################
+	protomech = { #walker
+		allow = {
+			OR = {
+				AND = {
+					is_ai = yes
+					NOT = {
+						has_tech = knightmare_III
+						is_researching_technology = knightmare_III
+						has_tech = sikon_proto
+						is_researching_technology = sikon_proto
+					}
+				}
+				is_ai = no
+			}
+		}
+
+		enable_subunits = {
+			mech
+			mech_support
+		}
+		enable_equipments = {
+			protomech_equipment
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+
+		on_research_complete = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {	has_template_containing_unit = mech }
+						has_tech = motorised_infantry
+						NOT = { tag = GER }
+					}
+					load_oob = "unlock_mechs_mot"
+				}
+				if = {
+					limit = {
+						NOT = {	has_template_containing_unit = mech }
+						NOT = { has_tech = motorised_infantry }
+						NOT = { tag = GER }
+					}
+					load_oob = "unlock_mechs"
+				}
+			}
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+	
+		path = {
+			leads_to_tech = basic_mech
+			research_cost_coeff = 1
+		}
+	
+		
+		research_cost = 1.0
+		start_year = 1928
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 0 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 10
+				tag = MSF
+			}
+			modifier = {
+				factor = 10
+				tag = GER
+			}
+			modifier = {
+				factor = 2
+				date > "1937.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = knightmare_III
+					is_researching_technology = knightmare_III
+					has_tech = sikon_proto
+					is_researching_technology = sikon_proto
+				}
+			}
+		}
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}	
+	basic_mech = { #Loki
+
+		enable_equipments = {
+			mech_equipment_1 
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		path = {
+			leads_to_tech = improved_mech
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.0
+		start_year = 1933
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 2 }
+		}
+		
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				tag = MSF
+			}
+			modifier = {
+				factor = 5
+				tag = GER
+			}
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}	
+	improved_mech = { #Valkurie
+
+		enable_equipments = {
+			mech_equipment_2 
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		path = {
+			leads_to_tech = advanced_mech
+			research_cost_coeff = 1
+		}
+		
+		
+		research_cost = 2.0
+		start_year = 1936
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 5 }
+		}
+		
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				tag = MSF
+			}
+			modifier = {
+				factor = 5
+				tag = GER
+			}
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+				amount_research_slots > 3
+			}
+			modifier = {
+				factor = 2.5
+				date > "1940.1.1"
+				amount_research_slots > 3
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}
+	advanced_mech = { #Uller
+
+		enable_equipments = {
+			mech_equipment_3 
+		}	
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		path = {
+			leads_to_tech = shagokhod
+			research_cost_coeff = 1
+		}
+		
+		path = {
+			leads_to_tech = metal_gear_zeke
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2.0
+		start_year = 1940
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 9 }
+		}
+		
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				tag = MSF
+			}
+			modifier = {
+				factor = 5
+				tag = GER
+			}
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}
+	shagokhod = { #シャゴホッド
+		enable_equipments = {
+			mech_equipment_4
+		}	
+		allow_branch = { original_tag = MSF }
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 2.0
+		start_year = 1943
+		
+		folder = {
+			name = robot_folder
+			position = { x = 2 y = 12 }
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+			metal_gear_tech
+		}
+	}
+	
+	metal_gear_zeke = { #メタルギアジーク
+		enable_subunits = {
+			metalgear
+		}
+		enable_equipments = {
+			mech_equipment_6
+		}	
+		allow_branch = { original_tag = MSF }
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		path = {
+			leads_to_tech = metal_gear_st
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = battle_gear
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2.0
+		start_year = 1945
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 14 }
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+			metal_gear_tech
+		}
+	}
+	tachicoma = { #タチコマ
+
+		enable_equipments = {
+			mech_equipment_5
+		}	
+		allow_branch = { always = no }
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 2.0
+		start_year = 1946
+		
+		folder = {
+			name = robot_folder
+			position = { x = -3 y = 15 }
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}
+	battle_gear = { #バトルギア
+
+		enable_equipments = {
+			mech_equipment_battle_gear
+		}	
+		
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 2.0
+		start_year = 1946
+		
+		folder = {
+			name = robot_folder
+			position = { x = -3 y = 15 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+		}
+	}
+	metal_gear_st = { #メタルギアサヘラントロプス
+	
+		enable_equipments = {
+			mech_equipment_7
+		}	
+		allow_branch = { original_tag = MSF }
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		path = {
+			leads_to_tech = metal_gear_rex
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2.5
+		start_year = 1947
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 16 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+			metal_gear_tech
+		}
+	}
+	metal_gear_rex = { #メタルギアレックス
+	
+		enable_equipments = {
+			mech_equipment_8
+		}	
+		allow_branch = { original_tag = MSF }
+
+		xp_research_type = army
+		xp_boost_cost = 100
+		xp_research_bonus = 1.00
+		
+		research_cost = 3.0
+		start_year = 1950
+		
+		folder = {
+			name = robot_folder
+			position = { x = 0 y = 19 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+		
+		categories = {
+			armor
+			robot_tech
+			mech_tech
+			metal_gear_tech
+		}
+	}
+}

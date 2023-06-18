@@ -1,0 +1,742 @@
+focus_tree = {
+	id = SAN_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SAN
+		}
+	}   
+   default = no
+
+#未曾选择的道路 
+focus = {
+		id = SAN_the_Path_not_Chosen
+		icon = goal_INA2
+		cost = 5.00
+		x = 45
+		y = 0
+		completion_reward = {   
+		load_focus_tree = SAN_focus_II
+		}
+		ai_will_do = { factor = 0 }
+	} 
+	
+   
+      
+   focus = {
+      id = SAN_seekbetrayer
+	  ##八酿危机的调查#
+      icon =  goal_SAN4
+      cost = 1
+      x = 1
+      y = 0
+      available ={
+      }
+      completion_reward = {
+    #触发事件调查结果
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+ 
+     
+   focus = {
+      id = SAN_regroupingoftroops
+	  ##重整军队#
+      icon =  goal_SAN4
+      cost = 8
+      x = 0
+      y = 1
+	  relative_position_id = SAN_seekbetrayer
+	  prerequisite = {
+         focus = SAN_seekbetrayer
+      }
+      available ={
+      }
+      completion_reward = {
+    
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+     focus = {
+      id = SAN_liquidation
+	  ##内部清算#
+      icon =  goal_SAN4
+      cost = 7
+      x = -1
+      y = 1
+	  relative_position_id = SAN_regroupingoftroops
+	  prerequisite = {
+         focus = SAN_regroupingoftroops
+      }
+	 mutually_exclusive = {
+              focus = SAN_strengthendiscipline
+              }
+      available ={
+      }
+      completion_reward = {
+    
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+    focus = {
+      id = SAN_trial
+	  ##战时审判#
+      icon =  goal_SAN4
+      cost =7
+      x = 0
+      y = 1
+	  relative_position_id = SAN_liquidation
+	  prerequisite = {
+         focus = SAN_liquidation
+      }
+      available ={
+      }
+      completion_reward = {
+    #触发事件大审判
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   focus = {
+      id = SAN_strengthendiscipline
+	  ##加强纪律#
+      icon =  goal_SAN4
+      cost = 10
+      x = 1
+      y = 1
+	  relative_position_id = SAN_regroupingoftroops
+	   mutually_exclusive = {
+              focus = SAN_liquidation
+              }
+	  prerequisite = {
+         focus = SAN_regroupingoftroops
+      }
+      available ={
+      }
+      completion_reward = {
+    
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_solidaritypact
+	  ##团结协定#
+      icon =  goal_SAN4
+      cost = 12
+      x = 0
+      y = 1
+	  relative_position_id = SAN_strengthendiscipline
+	  prerequisite = {
+         focus = SAN_strengthendiscipline
+      }
+      available ={
+      }
+      completion_reward = {
+    #触发事件大联合
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+     
+   focus = {
+      id = SAN_findcollaborators
+	  ##寻求合作#
+      icon = goal_SAN3
+      cost = 1
+      x = 6
+      y = 0
+      available ={
+      }
+      completion_reward = {
+    #增加事件：寻找合作者
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+    focus = {
+      id = SAN_invite_investors
+	  ##邀请投资#
+      icon = goal_SAN3
+      cost = 8
+      x = 0
+      y = 1
+	 relative_position_id = SAN_findcollaborators
+	  prerequisite = {
+         focus = SAN_findcollaborators
+      }
+      available ={
+      }
+      completion_reward = {
+    #奖励两个地图外工厂1军1民
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_usedcivilindustry
+	  #二手民工#
+      icon = goal_SAN3
+      cost = 8
+      x = -1
+      y = 1
+	 relative_position_id = SAN_invite_investors
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个民用工厂
+         add_political_power = -20
+          add_manpower = -1000
+          add_offsite_building = {
+              type = industrial_complex
+              level = 2
+          }
+          set_country_flag = SAN_ershoumingong
+          custom_effect_tooltip = SAN_ershoumingong_tt
+          set_variable = {
+              san_mingong_cost = 45
+          }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+      focus = {
+      id = SAN_focuscivilindustry
+	  #焦点民工#
+      icon = goal_SAN3
+      cost = 7
+      x = -1
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	  prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个民用工厂
+	  add_timed_idea = {
+        idea = INA_complexindustrial_focus
+        days = 365
+		}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_usedmilitaryindustry
+	  #二手军工#
+      icon = goal_SAN3
+      cost = 8
+      x = 3
+      y = 1
+	 relative_position_id = SAN_invite_investors
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+    #奖励两个地图外军用工厂
+          add_political_power = -20
+          add_manpower = -1000
+          add_offsite_building = {
+              type = arms_factory
+              level = 2
+          }
+          set_country_flag = SAN_ershoujungong
+          custom_effect_tooltip = SAN_ershoujungong_tt
+          set_variable = {
+              san_jungong_cost = 50
+          }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_focusmilitaryindustry
+	  #军工焦点#
+      icon = goal_SAN3
+      cost = 7
+      x = 1
+      y = 1
+	 relative_position_id = SAN_usedmilitaryindustry
+	  prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+      available ={
+      }
+      completion_reward = {
+ 	     add_timed_idea = {
+        idea = INA_militaryindustrial_focus
+        days = 365
+		   }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_usednavalbase
+	  #二手港口#
+      icon = goal_SAN3
+      cost = 8
+      x = 1
+      y = 1
+	 relative_position_id = SAN_invite_investors
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个海军船坞
+    	add_building_construction = {
+						type = naval_base
+						level = 2
+						instant_build = yes
+					}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_abilitytobuildfactory
+	  #建设工厂的能力#
+      icon = goal_SAN3
+      cost = 12
+      x = 1
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	  prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+	 prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个军用工厂三个民工
+        add_political_power = -50
+        add_manpower = -2500
+          random_owned_controlled_state = {
+          add_extra_state_shared_building_slots = 3
+          add_building_construction = {
+            type = industrial_complex
+            level = 3
+            instant_build = yes
+          }
+        }
+        random_owned_controlled_state = {
+          add_extra_state_shared_building_slots = 2
+          add_building_construction = {
+            type = arms_factory
+            level = 2
+            instant_build = yes
+          }
+        }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     focus = {
+      id = SAN_catchupwiththetimes
+	  #追赶时代#
+      icon = goal_SAN3
+      cost = 8
+      x = 3
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	 prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+	 prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+	 prerequisite = {
+         focus = SAN_usednavalbase
+      }
+      available ={
+      }
+      completion_reward = {
+    #建立一个科研槽
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }   
+  focus = {
+      id = SAN_renewcaptail
+	  #翻新珊瑚宫#
+      icon = goal_SAN3
+      cost = 8
+      x = 1
+      y = 1
+	 relative_position_id = SAN_abilitytobuildfactory
+	 prerequisite = {
+         focus = SAN_abilitytobuildfactory
+      }
+	 prerequisite = {
+         focus = SAN_catchupwiththetimes
+      }
+	
+      available ={
+      }
+      completion_reward = {
+    #触发事件翻修珊瑚宫
+    country_event =  SAN.3
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  
+	focus = {
+      id = SAN_war_end
+	  ##局势稳定#
+      icon =  goal_SAN2
+      cost = 1.5
+      x = 14
+      y = 0
+      available ={
+         has_war = no
+      }
+      completion_reward = {
+       add_stability = 0.10
+        hidden_effect = {
+          news_event = { days = 2 id = INA_News.5 }
+		  ##和平宣言#
+             }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   focus = {
+    id = SAN_heguan
+	#鹤观问题#
+    icon =  goal_SAN2
+    cost = 4
+    x = -3
+    y = 1
+    prerequisite = {
+      focus = SAN_war_end
+    }
+    relative_position_id = SAN_war_end
+    available ={
+    }
+    completion_reward = {
+	    #触发事件，允许和平控制鹤观（奖励核心），或者武力占领鹤观。（手动枣核）
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    } 
+	focus = {
+    id = SAN_qinglai
+	#清籁问题#
+    icon =  goal_SAN2
+    cost = 12
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = SAN_war_end
+    }
+    relative_position_id = SAN_war_end
+    available ={
+    }
+    completion_reward = {
+	    #触发事件，允许和平控制鹤观（奖励核心），或者武力占领鹤观。（手动枣核）
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+ focus = {
+    id = SAN_establishdomination
+	#确立统治#
+    icon =  goal_SAN2
+    cost = 6
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_war_end
+    }
+    relative_position_id = SAN_war_end
+    available ={
+    }
+    completion_reward = {
+	    #奖励所有控制的幕府地块核心
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    } 
+focus = {
+    id = SAN_rejudgement
+	#八酿问题再调查#
+    icon =  goal_SAN2
+    cost = 6
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = SAN_establishdomination
+    }
+    relative_position_id = SAN_establishdomination
+    available ={
+    }
+    completion_reward = {
+	    #触发事件八酿调查
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    } 
+focus = {
+    id = SAN_meetyae
+	#幕府中的合作者#
+    icon =  goal_SAN2
+    cost = 6
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = SAN_establishdomination
+    }
+    relative_position_id = SAN_establishdomination
+    available ={
+    }
+    completion_reward = {
+	    #触发事件幕府合作
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    } 
+focus = {
+    id = SAN_radicalism
+	#激进主义#
+    icon =  goal_SAN2
+    cost =6
+    x = -3
+    y = 1
+    prerequisite = {
+      focus = SAN_establishdomination
+    }
+    relative_position_id = SAN_establishdomination
+    available ={
+    }
+    completion_reward = {
+	    #触发事件幕府合作
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+ focus = {
+    id = SAN_delusionproblem
+	#邪眼问题#
+    icon =  goal_SAN2
+    cost = 6
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = SAN_establishdomination
+    }
+    relative_position_id = SAN_establishdomination
+    available ={
+    }
+    completion_reward = {
+	    #触发事件幕府合作
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+focus = {
+    id = SAN_chooseourways
+	#选择我们的道路#
+    icon =  goal_SAN2
+    cost = 5
+    x = 0
+    y = 3
+    prerequisite = {
+      focus = SAN_delusionproblem
+    }
+	  prerequisite = {
+      focus = SAN_radicalism
+    }
+	  prerequisite = {
+      focus = SAN_meetyae
+    }
+	  prerequisite = {
+      focus = SAN_rejudgement
+    }
+    relative_position_id = SAN_establishdomination
+    available ={
+    }
+    completion_reward = {
+	    #触发事件我们的道路。奖励pp点
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+	focus = {
+    id = SAN_messengersofpeace
+	#和平使者心海线#
+    icon =  goal_SAN2
+    cost = 5
+    x = -12
+    y = 1
+    prerequisite = {
+      focus = SAN_chooseourways
+    }
+	 
+    relative_position_id = SAN_chooseourways
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+ focus = {
+    id = SAN_bestleader
+	#最佳领袖神子线#
+    icon =  goal_SAN2
+    cost = 5
+    x = -6
+    y = 1
+    prerequisite = {
+      focus = SAN_chooseourways
+    }
+	 
+    relative_position_id = SAN_chooseourways
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+focus = {
+    id = SAN_leadbygourou
+	#五郎的选择#
+    icon =  goal_SAN2
+    cost = 5
+    x = 6
+    y = 1
+    prerequisite = {
+      focus = SAN_chooseourways
+    }
+	 
+    relative_position_id = SAN_chooseourways
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+ focus = {
+    id = SAN_thebadways
+	#不归之路#
+    icon =  goal_SAN2
+    cost = 5
+    x = 12
+    y = 1
+    prerequisite = {
+      focus = SAN_chooseourways
+    }
+	 
+    relative_position_id = SAN_chooseourways
+    available ={#需要差点在动乱中被消灭，需要全面信任奸细。
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+
+}
