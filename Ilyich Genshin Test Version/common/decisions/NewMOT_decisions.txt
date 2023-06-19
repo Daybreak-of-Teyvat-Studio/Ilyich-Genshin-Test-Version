@@ -1290,72 +1290,6 @@ MOT_War_Decisions_of_Us = {
 			}
 		}
 	}
-	#后方不稳 硬性撤离时间
-	MOT_Time_Has_to_Leave = {
-		icon = generic_prepare_civil_war
-		fire_only_once = no
-		selectable_mission = no
-		days_mission_timeout = MOT_Time_of_Leave
-		activation = { always = no }
-		available = { MOT = { has_war = no } }
-		timeout_effect = {
-			custom_effect_tooltip = MOT_Despair_From_Failure1
-			every_enemy_country = {
-				#此处应有事件
-				white_peace = {
-					tag = MOT
-					message = MOT_Escape
-				}
-			}
-			IF = {
-				limit = {
-					has_war_support > 0.1
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.2
-					}
-					add_stability = -0.02
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.4
-					}
-					add_stability = -0.03
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.6
-					}
-					add_stability = -0.03
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.7
-					}
-					add_stability = -0.04
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.8
-					}
-					add_stability = -0.04
-				}
-				IF = {
-					limit = {
-						has_war_support > 0.9
-					}
-					add_stability = -0.05
-				}
-				IF = {
-					limit = {
-						has_war_support = 1
-					}
-					add_stability = -0.05
-				}
-			}
-		}
-	}
 	#舆论期望 软性撤离时间
 	MOT_Time_Willing_to_Leave = {
 		icon = generic_prepare_civil_war
@@ -1370,47 +1304,55 @@ MOT_War_Decisions_of_Us = {
 				limit = {
 					has_war_support > 0.1
 				}
+				add_stability = -0.02
 				add_war_support = -0.02
 				IF = {
 					limit = {
 						has_war_support > 0.2
 					}
+					add_stability = -0.03
 					add_war_support = -0.03
 				}
 				IF = {
 					limit = {
 						has_war_support > 0.4
 					}
+					add_stability = -0.05
 					add_war_support = -0.05
 				}
 				IF = {
 					limit = {
 						has_war_support > 0.6
 					}
-					add_war_support = -0.05
+					add_war_su
+					add_stability = -0.05pport = -0.05
 				}
 				IF = {
 					limit = {
 						has_war_support > 0.7
 					}
+					add_stability = -0.05
 					add_war_support = -0.05
 				}
 				IF = {
 					limit = {
 						has_war_support > 0.8
 					}
+					add_stability = -0.05
 					add_war_support = -0.05
 				}
 				IF = {
 					limit = {
 						has_war_support > 0.9
 					}
+					add_stability = -0.05
 					add_war_support = -0.05
 				}
 				IF = {
 					limit = {
 						has_war_support = 1
 					}
+					add_stability = -0.05
 					add_war_support = -0.05
 				}
 			}
@@ -1424,6 +1366,11 @@ MOT_War_Decisions_of_Us = {
 		fire_only_once = no
 		war_with_target_on_complete = yes
 		cost = 50
+		available = {
+			MOT = {
+				has_war = no
+			}
+		}
 		targets_dynamic = yes
 		target_root_trigger = {
         	has_war = no
@@ -1490,11 +1437,17 @@ MOT_War_Decisions_of_Us = {
 				}
 			}
 			MOT_Level_to_Time = yes
-			activate_mission = MOT_Time_Has_to_Leave
+			#activate_mission = MOT_Time_Has_to_Leave
 			activate_mission = MOT_Time_Willing_to_Leave
 		}
 		ai_will_do = {
 			base = 0
+			modifier = {
+				FROM = {
+					original_tag = FAV
+				}
+				add = 110
+			}
 			modifier = {
 				FROM = {
 					original_tag = SPI
@@ -1544,6 +1497,10 @@ MOT_War_Decisions_of_Us = {
 					}
 				}
 				add = 60
+			}
+			modifier = {
+				has_war = yes
+				add = -10000
 			}
 		}
 	}
