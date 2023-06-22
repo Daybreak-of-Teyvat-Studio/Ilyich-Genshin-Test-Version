@@ -1,3 +1,130 @@
+#造核系统
+MOT_Core_System = {
+	#占位用，说明
+	MOT_Tell_Text = {
+		icon = generic_decision
+		available = { always = no }
+		visible = { always = yes }
+	}
+	#蒙德路线说明
+	MOT_Route_Teller = {
+		icon = generic_form_nation
+		fire_only_once = no
+		visible = { NOT = { has_country_flag = MOT_Not_See_Teller } }
+		available = { is_ai = no }
+		cost = 0
+		complete_effect = {
+			country_event = Knights.109
+		}
+	}
+	MOT_Integrate_It1 = {
+		icon = generic_decision
+		available = { always = yes }
+		state_target = yes
+		days_remove = 30
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 100000
+				state_population < 300001
+			}
+		}
+		custom_cost_text = decision_cost_CP_20
+		custom_cost_trigger = {
+			has_political_power > 19
+		}
+		complete_effect = {
+			add_political_power = -20
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+	MOT_Integrate_It2 = {
+		icon = generic_decision
+		available = { always = yes }
+		state_target = yes
+		days_remove = 60
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 300000
+				state_population < 800001
+			}
+		}
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = {
+			has_political_power > 49
+		}
+		complete_effect = {
+			add_political_power = -50
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+	MOT_Integrate_It3 = {
+		icon = generic_decision
+		available = { always = yes }
+		state_target = yes
+		days_remove = 90
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 800000
+				state_population < 1500001
+			}
+		}
+		custom_cost_text = decision_cost_CP_80
+		custom_cost_trigger = {
+			has_political_power > 79
+		}
+		complete_effect = {
+			add_political_power = -80
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+	MOT_Integrate_It4 = {
+		icon = generic_decision
+		available = { always = yes }
+		state_target = yes
+		days_remove = 120
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 1500000
+			}
+		}
+		custom_cost_text = decision_cost_CP_120
+		custom_cost_trigger = {
+			has_political_power > 119
+		}
+		complete_effect = {
+			add_political_power = -120
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+}
 #对骑士团作战决议
 MOND_Anti_Knights = {
 	#一步不退
@@ -1029,7 +1156,7 @@ LAW_Preparation_Before_War = {
 		days_mission_timeout = 150
 		activation = { always = no }
 		
-		available = { MOT = { surrender_progress > 0.25 } }
+		available = { MOT = { surrender_progress > 0.3 } }
 		timeout_effect = {
 			custom_effect_tooltip = MOT_Civil_War_1_Stop
 			set_global_flag = MOT_Civil_War_1_End
@@ -1129,10 +1256,12 @@ LAW_Preparation_Before_War = {
 			set_cosmetic_tag = LAW_Noble_Army
 			hidden_effect = {
 				FAV = { set_cosmetic_tag = FAV_Anti_Church }
-				RAG = { set_cosmetic_tag = RAG_RAGRAG }
+				RAG = {
+					#set_cosmetic_tag = RAG_RAGRAG
+				}
 				SPI = { set_cosmetic_tag = SPI_Town_of_Freedom }
 				GUN = {
-					set_cosmetic_tag = GUN_Liberated_Zone
+					#set_cosmetic_tag = GUN_Liberated_Zone
 					create_country_leader = {
 						name = GUN_Anarchic_Statu
 						desc = "GUN_Anarchic_Statu_desc"
@@ -1143,7 +1272,7 @@ LAW_Preparation_Before_War = {
 					}
 				}
 				DVA = {
-					set_cosmetic_tag = DVA_Wasteland
+					#set_cosmetic_tag = DVA_Wasteland
 					create_country_leader = {
 						name = GUN_Anarchic_Statu
 						desc = "GUN_Anarchic_Statu_desc"
@@ -1201,7 +1330,7 @@ MOT_War_Decisions_of_Us = {
 		days_mission_timeout = 150
 		activation = { always = no }
 		
-		available = { LAW = { surrender_progress > 0.25 } }
+		available = { LAW = { surrender_progress > 0.3 } }
 		timeout_effect = {
 			custom_effect_tooltip = MOT_Civil_War_1_Stop
 			set_global_flag = MOT_Civil_War_1_End
@@ -1392,14 +1521,14 @@ MOT_War_Decisions_of_Us = {
 			FROM = {
 				is_neighbor_of = MOT
 				OR = {
-					tag = RAG
-					tag = SPI
-					tag = DVA
-					tag = FAV
-					tag = GUN
-					tag = AND
+					original_tag = RAG
+					original_tag = SPI
+					original_tag = DVA
+					original_tag = FAV
+					original_tag = GUN
+					original_tag = AND
 					AND = {
-						tag = LAW
+						original_tag = LAW
 						has_country_flag = MOT_Last_Game
 					}
 				}
@@ -2185,7 +2314,7 @@ MOT_National_Congress = {
 			political_power_gain = 0.05
 		}
 		visible = {
-			has_completed_focus = MOT_MOT_P1_Jean_G_Common_3
+			has_country_flag = MOT_UnlockDecision_LT2
 		}
 		complete_effect = {
 			IF = {
@@ -2258,6 +2387,15 @@ MOT_National_Congress = {
 		days_remove = 70
 		cost = 100
 		fire_only_once = no
+		visible = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_UnlockDecision_P1
+					has_country_flag = MOT_UnlockDecision_P2
+					has_country_flag = MOT_UnlockDecision_P3
+				}
+			}
+		}
 		modifier = {
 			consumer_goods_factor = -0.05
 			weekly_manpower = 500
@@ -2287,6 +2425,14 @@ MOT_National_Congress = {
 		days_remove = 70
 		cost = 30
 		fire_only_once = no
+		visible = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_UnlockDecision_L1
+					has_country_flag = MOT_UnlockDecision_T1
+				}
+			}
+		}
 		modifier = {
 			industrial_capacity_factory = 0.25
 			industry_free_repair_factor = 0.5
@@ -2317,7 +2463,7 @@ MOT_National_Congress = {
 		cost = 50
 		fire_only_once = no
 		visible = {
-			has_completed_focus = MOT_P1_Jean_B_Arms_From_the_People
+			has_country_flag = MOT_UnlockDecision_D1
 			NOT = { has_country_flag = MOT_G_Way_Focus_Done }
 		}
 		modifier = {
@@ -2350,7 +2496,7 @@ MOT_National_Congress = {
 		cost = 100
 		fire_only_once = no
 		visible = {
-			has_completed_focus = MOT_P1_Jean_B_End2
+			has_country_flag = MOT_UnlockDecision_D4
 			NOT = { has_country_flag = MOT_G_Way_Focus_Done }
 			NOT = {
 				AND = {
@@ -2396,7 +2542,7 @@ MOT_National_Congress = {
 		days_remove = 70
 		cost = 50
 		fire_only_once = no
-		visible = { NOT = { has_completed_focus = MOT_P1_Jean_B_End2 } }
+		visible = { NOT = { has_country_flag = MOT_UnlockDecision_D4 } }
 		modifier = {
 			stablity_factor = -0.1
 		}
@@ -2666,7 +2812,7 @@ MOT_National_Congress = {
 		days_remove = 60
 		cost = 10
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_T_1 }
+		visible = { has_country_flag = MOT_UnlockDecision_T1 }
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.3 }
 			custom_trigger_tooltip = {
@@ -2712,7 +2858,7 @@ MOT_National_Congress = {
 		days_remove = 90
 		cost = 50
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_T_3 }
+		visible = { has_country_flag = MOT_UnlockDecision_T2 }
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.6 }
 			custom_trigger_tooltip = {
@@ -2759,7 +2905,10 @@ MOT_National_Congress = {
 		days_remove = 30
 		cost = 30
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_T_4 }
+		visible = {
+			has_country_flag = MOT_UnlockDecision_LT2
+			has_country_flag = MOT_UnlockDecision_T1
+		}
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
 			custom_trigger_tooltip = {
@@ -2950,7 +3099,7 @@ MOT_National_Congress = {
 		days_remove = 30
 		cost = 30
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_L_1 }
+		visible = { has_country_flag = MOT_UnlockDecision_L1 }
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.3 }
 			custom_trigger_tooltip = {
@@ -2994,7 +3143,7 @@ MOT_National_Congress = {
 		days_remove = 60
 		cost = 30
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_L_3 }
+		visible = { has_country_flag = MOT_UnlockDecision_L1 }
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.6 }
 			custom_trigger_tooltip = {
@@ -3040,7 +3189,10 @@ MOT_National_Congress = {
 		days_remove = 30
 		cost = 30
 		fire_only_once = no
-		visible = { has_completed_focus = MOT_P1_Jean_G_L_4 }
+		visible = {
+			has_country_flag = MOT_UnlockDecision_LT2
+			has_country_flag = MOT_UnlockDecision_L1
+		}
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
 			custom_trigger_tooltip = {
@@ -3218,7 +3370,7 @@ MOT_National_Congress = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_Tool_Trader_S
-				tag = MOT
+				original_tag = MOT
 			}
 		}
 		modifier = {
@@ -3270,7 +3422,7 @@ MOT_National_Congress = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_Tool_Trader_S
-				tag = MOT
+				original_tag = MOT
 			}
 		}
 		modifier = {
@@ -3324,7 +3476,7 @@ MOT_National_Congress = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_Tool_People_S
-				tag = MOT
+				original_tag = MOT
 			}
 		}
 		modifier = {
@@ -3375,7 +3527,7 @@ MOT_National_Congress = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_Tool_People_S
-				tag = MOT
+				original_tag = MOT
 			}
 		}
 		modifier = {
@@ -3526,7 +3678,7 @@ MOT_National_Congress = {
 		cost = 60
 		fire_only_once = no
 		visible = {
-			has_completed_focus = MOT_P1_Jean_B_Emergency_Power
+			has_country_flag = MOT_UnlockDecision_D3
 		}
 		available = {
 			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
@@ -3572,7 +3724,7 @@ MOT_National_Congress = {
 		cost = 0
 		fire_only_once = no
 		visible = {
-			has_completed_focus = MOT_P1_Jean_B_Emergency_Power
+			has_country_flag = MOT_UnlockDecision_D3
 			NOT = { has_global_flag = MOT_REUNITED }
 		}
 		available = {
