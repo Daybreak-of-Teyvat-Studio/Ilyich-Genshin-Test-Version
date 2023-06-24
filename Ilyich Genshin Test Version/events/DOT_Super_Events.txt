@@ -153,27 +153,59 @@ country_event = {
 	desc = super.6.d
 	picture = The_Unification_of_Mondstadt
 	is_triggered_only = no	
-	fire_only_once = yes
+	fire_only_once = no
 	trigger = {
-		any_country = { 
-		owns_state = 1 controls_state = 1
-		owns_state = 21 controls_state = 21
-		owns_state = 57 controls_state = 57
-		owns_state = 8 controls_state = 8
-		owns_state = 30 controls_state = 30
-		owns_state = 39 controls_state = 39
-		owns_state = 47 controls_state = 47
-		owns_state = 55 controls_state = 55
-		 }		 
-		 } 
+		has_global_flag = MOT_REUNITED 
+	} 
 	hidden = yes
 	option = {
 		name = super.6.a
 		set_global_flag = The_Unification_of_Mondstadt	
 		set_global_flag = Super_Event_Visible
-		sound_effect = "The_Unification_of_Mondstadt"
+		IF = {
+			limit = {
+				any_country = {
+					Is_MOT = yes
+					num_of_military_factories > 30
+					has_government = fascism
+				}
+			}
+			play_song = "Symphony of Boreal Wind 冰封交响曲"
+		}
+		ELSE_IF = {
+			limit = {
+				any_country = {
+					Is_MOT = yes
+					num_of_military_factories > 30
+					has_government = democratic
+				}
+			}
+			play_song = "A Tale of Two Dragons 特瓦林与杜林"
+		}
+		ELSE_IF = {
+			limit = {
+				any_country = {
+					Is_MOT = yes
+					num_of_military_factories > 30
+					has_government = communism
+				}
+			}
+			play_song = "Acquaintance (Statue of the Seven) 命运的初识"
+		}
+		ELSE_IF = {
+			limit = {
+				any_country = {
+					Is_MOT = yes
+					has_government = neutrality
+				}
+			}
+			play_song = "Symphony of Boreal Wind 冰封交响曲"
+		}
+		ELSE_IF = {
+			play_song = "Legend of the Wind 风的传说"
+		}
 		set_global_flag = The_Unification_of_Mondstadt
-		news_event = { id = Teyvat_News.17  days = 30 }
+		#news_event = { id = Teyvat_News.17  days = 30 }
 		country_event = { id = super.16  days = 10 } 
 	}
 }
@@ -222,20 +254,24 @@ country_event = {
 		
 	}
 }
+#蒙德内战
 ########Civil_War_of_Mondstadt#########		
 country_event = {	
 	id = super.9
 	title = super.9.t
 	desc = super.9.d
 	picture = Civil_War_of_Mondstadt
-	is_triggered_only = yes	
+	is_triggered_only = no
+	trigger = {
+		has_global_flag = MOT_Civil_War_Begun
+	}
 	fire_only_once = yes
 	hidden = yes
 	option = {
 		name = super.9.a
 		set_global_flag = Civil_War_of_Mondstadt
 		set_global_flag = Super_Event_Visible
-		sound_effect = "Civil_War_of_Mondstadt"
+		play_song = "Symphony of Boreal Wind 冰封交响曲"
 		set_global_flag = Civil_War_of_Mondstadt
 		country_event = { id = super.16  days = 10 } 
 	}
