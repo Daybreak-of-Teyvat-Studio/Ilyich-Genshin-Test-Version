@@ -125,7 +125,7 @@ focus_tree = {
 	#欢乐之风永不停息！
 	focus = {
 		id = MOT_Boom_Never_Stop
-		icon = GFX_Goal_Forget_the_Promise
+		icon = GFX_Goal_Happy_Coo
 		cost = 20.00
 		prerequisite = {
 			focus = MOT_Light_Future
@@ -152,6 +152,172 @@ focus_tree = {
 		}
 		available = {
 			NOT = { has_country_flag = MOT_Jean_Ill }
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#整合地方力量
+	focus = {
+		id = MOT_Integrate_Them_All
+		icon = GFX_goal_generic_propaganda
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_Boom_Never_Stop
+		}
+		x = 9
+		y = 3
+		completion_reward = {
+			add_ideas = MOT_Progressive_Integration
+			custom_effect_tooltip = MOT_Annex_Subject
+			hidden_effect = {
+				every_subject_country = {
+					MOT = {
+						annex_country = PREV
+					}
+				}
+			}
+		}
+		available = {
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#稳定经济状况
+	focus = {
+		id = MOT_PE_EB_Stable_Economic_Statu
+		icon = GFX_Goal_demo_economy
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_Boom_Never_Stop
+		}
+		x = 8
+		y = 4
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
+		available = {
+			has_idea = MOT_Unstable_Development
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#压制垄断企业
+	focus = {
+		id = MOT_PE_EB_Control_KCE
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Stable_Economic_Statu
+		}
+		x = 8
+		y = 5
+		completion_reward = {
+			custom_effect_tooltip = MOT_Lower_P_of_T
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = -10 }
+			add_to_variable = { MOT_BasicSupport_of_Trader = -0.10 }
+		}
+		available = {
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#推进改革进程
+	focus = {
+		id = MOT_PE_PP_Speed_Up_Reform
+		icon = GFX_focus_generic_improve_the_administration
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_Boom_Never_Stop
+		}
+		x = 10
+		y = 4
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 80
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 10 }
+			add_to_variable = { MOT_BasicSupport_of_People = 0.10 }
+		}
+		available = {
+			has_idea = MOT_Unstable_Government
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#压制反动分子
+	focus = {
+		id = MOT_PE_PP_Beat_Controversy
+		icon = GFX_focus_ITA_liberation_or_death
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_Speed_Up_Reform
+		}
+		x = 10
+		y = 5
+		completion_reward = {
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			add_to_variable = { MOT_BasicPower_of_Lords = -10 }
+			add_to_variable = { MOT_BasicSupport_of_Lords = -0.10 }
+		}
+		available = {
 		}
 		allow_branch = {
 			NOT = { has_country_flag = MOT_Change_Tree1 }
@@ -4723,7 +4889,7 @@ focus_tree = {
 			hidden_effect = {
 				every_subject_country = {
 					MOT = {
-						annex_country = ROOT
+						annex_country = PREV
 					}
 				}
 			}
