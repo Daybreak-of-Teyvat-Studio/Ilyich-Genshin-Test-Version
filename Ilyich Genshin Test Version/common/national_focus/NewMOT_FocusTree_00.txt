@@ -212,13 +212,87 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Boom_Never_Stop
 		}
-		x = 8
-		y = 4
+		x = 7
+		y = 3
 		completion_reward = {
 			add_timed_idea = { idea = gene_less_burden days = 180 }
 		}
 		available = {
 			has_idea = MOT_Unstable_Development
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#经济的发展……
+	#……应以就业为导向
+	#……将更加迅猛
+	#赖以生存之物……
+	#……应当轻易可取
+	#……将成为垫脚石
+	#拓荒人力不足……
+	#……提高迁移吸引力
+	#……制造迁出推动力
+	#工业的平衡……
+	#……应向民用倾倒
+	#……应为安全服务
+	#利用垄断企业
+	focus = {
+		id = MOT_PE_EB_Use_KCE
+		icon = GFX_goal_generic_trade
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Stable_Economic_Statu
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_Control_KCE
+		}
+		x = 6
+		y = 4
+		completion_reward = {
+			custom_effect_tooltip = MOT_Higher_P_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = 10 }
+			add_to_variable = { MOT_BasicSupport_of_Trader = 0.10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+		available = {
 		}
 		allow_branch = {
 			NOT = { has_country_flag = MOT_Change_Tree1 }
@@ -242,13 +316,18 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_PE_EB_Stable_Economic_Statu
 		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_Use_KCE
+		}
 		x = 8
-		y = 5
+		y = 4
 		completion_reward = {
 			custom_effect_tooltip = MOT_Lower_P_of_T
 			custom_effect_tooltip = MOT_Lower_S_of_T
 			add_to_variable = { MOT_BasicPower_of_Trader = -10 }
 			add_to_variable = { MOT_BasicSupport_of_Trader = -0.10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
 		}
 		available = {
 		}
@@ -274,8 +353,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Boom_Never_Stop
 		}
-		x = 10
-		y = 4
+		x = 11
+		y =3
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 80
@@ -301,21 +380,28 @@ focus_tree = {
 		}
 
 	}
-	#压制反动分子
+	#利用保守情绪
 	focus = {
-		id = MOT_PE_PP_Beat_Controversy
-		icon = GFX_focus_ITA_liberation_or_death
+		id = MOT_PE_PP_Use_Controversy
+		icon = GFX_goal_generic_forceful_treaty
 		cost = 10.00
+		mutually_exclusive = {
+			focus = MOT_PE_PP_Beat_Controversy
+		}
 		prerequisite = {
 			focus = MOT_PE_PP_Speed_Up_Reform
 		}
-		x = 10
-		y = 5
+		x = 12
+		y = 4
 		completion_reward = {
 			custom_effect_tooltip = MOT_Lower_P_of_L
 			custom_effect_tooltip = MOT_Lower_S_of_L
-			add_to_variable = { MOT_BasicPower_of_Lords = -10 }
-			add_to_variable = { MOT_BasicSupport_of_Lords = -0.10 }
+			add_to_variable = { MOT_BasicPower_of_Lords = 10 }
+			add_to_variable = { MOT_BasicSupport_of_Lords = 0.10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+			add_stability = 0.1
+			add_political_power = 100
 		}
 		available = {
 		}
@@ -333,6 +419,101 @@ focus_tree = {
 		}
 
 	}
+	#压制反动分子
+	focus = {
+		id = MOT_PE_PP_Beat_Controversy
+		icon = GFX_focus_ITA_liberation_or_death
+		cost = 10.00
+		mutually_exclusive = {
+			focus = MOT_PE_PP_Use_Them
+		}
+		prerequisite = {
+			focus = MOT_PE_PP_Speed_Up_Reform
+		}
+		x = 10
+		y = 4
+		completion_reward = {
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			add_to_variable = { MOT_BasicPower_of_Lords = -10 }
+			add_to_variable = { MOT_BasicSupport_of_Lords = -0.10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		available = {
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#人民的声音
+	focus = {
+		id = MOT_PE_PP_HigherPower_P
+		icon = GFX_goal_generic_support_democracy
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_Beat_Controversy
+		}
+		prerequisite = {
+			focus = MOT_PE_EB_Control_KCE
+		}
+		x = 9
+		y = 5
+		completion_reward = {
+			add_political_power = 200
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 10 }
+			add_to_variable = { MOT_BasicSupport_of_People = 0.10 }
+			custom_effect_tooltip = MOT_More_AlwaysSupport
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+			IF = {
+				limit = { has_country_flag = MOT_Jean_Ill }
+				custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+				add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 10 }
+			}
+			add_to_variable = { MOT_BasicPower_of_AlwaysSupport = 1 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		available = {
+		}
+		allow_branch = {
+			NOT = { has_country_flag = MOT_Change_Tree1 }
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#教会反对派……
+	#……都是异端邪党
+	#……可为进步所用
+	#城乡差距拉大……
+	#……又能怎么样？
+	#……应当投资弥合
+	#少壮派力量增强……
+	#……需要及时制衡
+	#……应当让出一步
+	#里通外国之辈……
+	#……将被人民唾弃
+	#……将为蒙德而死
 	#蒙德至暗之日
 	focus = {
 		id = MOT_Worst_Day
