@@ -134,6 +134,8 @@ focus_tree = {
 		x = 9
 		y = 2
 		completion_reward = {
+			set_variable = { MOT_PE_Right = 1 }
+			sey_variable = { MOT_PE_Right = 1 }
 			add_political_power = 250
 			hidden_effect = {
 				add_ideas = MOT_What_Happened
@@ -182,6 +184,14 @@ focus_tree = {
 			custom_effect_tooltip = MOT_Annex_Subject
 			hidden_effect = {
 				every_subject_country = {
+					every_owned_state = {
+						add_state_modifier = {
+							local_factories = -0.75
+							local_manpower = -0.75
+							local_resources = -0.5
+						}
+						set_state_flag = MOT_UnInWell4
+					}
 					MOT = {
 						annex_country = PREV
 					}
@@ -200,7 +210,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 10000
 		}
 
 	}
@@ -232,14 +242,422 @@ focus_tree = {
 		ai_will_do = {
 			base = 5
 		}
-
 	}
 	#经济的发展……
+	focus = {
+		id = MOT_PE_EB_Development_of_Eco
+		icon = GFX_Goal_demo_economy
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_EB_Use_KCE
+			focus = MOT_PE_EB_Control_KCE
+		}
+		x = 7
+		y = 5
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#……应以就业为导向
+	focus = {
+		id = MOT_PE_EB_For_Employment
+		icon = GFX_Goal_demo_economy
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Development_of_Eco
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_For_Speed
+		}
+		x = 6
+		y = 6
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_to_variable = { MOT_PE_Left = 1 }
+			add_stability = 0.1
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicSupport_of_People = 0.10 }
+			custom_effect_tooltip = MOT_More_AlwaysSupport
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 10 }
+			IF = {
+				limit = { has_country_flag = MOT_Jean_Ill }
+				custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+				add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 4 }
+			}
+			add_to_variable = { MOT_BasicPower_of_AlwaysSupport = 1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#……将更加迅猛
+	focus = {
+		id = MOT_PE_EB_For_Speed
+		icon = GFX_Goal_demo_economy
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Development_of_Eco
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_For_Employment
+		}
+		x = 8
+		y = 6
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_to_variable = { MOT_PE_Right = 1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#赖以生存之物……
+	focus = {
+		id = MOT_PE_EB_Things_Basic
+		icon = GFX_Goal_develop_Agri
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_EB_Use_KCE
+			focus = MOT_PE_EB_Control_KCE
+		}
+		x = 3
+		y = 5
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#……应当轻易可取
-	#……将成为垫脚石
+	focus = {
+		id = MOT_PE_EB_ShouldBe_Cheap
+		icon = GFX_Goal_For_Bread
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Things_Basic
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_Step_On_Them
+		}
+		x = 2
+		y = 6
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_to_variable = { MOT_PE_Left = 1 }
+			add_stability = 0.1
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicSupport_of_People = 0.10 }
+			custom_effect_tooltip = MOT_More_AlwaysSupport
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 10 }
+			IF = {
+				limit = { has_country_flag = MOT_Jean_Ill }
+				custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+				add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 4 }
+			}
+			add_to_variable = { MOT_BasicPower_of_AlwaysSupport = 1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#……不过是垫脚石
+	focus = {
+		id = MOT_PE_EB_Step_On_Them
+		icon = GFX_MOT_EWAY1
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Things_Basic
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_ShouldBe_Cheap
+		}
+		x = 4
+		y = 6
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_to_variable = { MOT_PE_Right = 1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#拓荒人力不足……
 	#……提高迁移吸引力
 	#……制造迁出推动力
@@ -260,6 +678,7 @@ focus_tree = {
 		x = 6
 		y = 4
 		completion_reward = {
+			add_to_variable = { MOT_PE_Right = 1 }
 			custom_effect_tooltip = MOT_Higher_P_of_T
 			custom_effect_tooltip = MOT_Higher_S_of_T
 			add_to_variable = { MOT_BasicPower_of_Trader = 10 }
@@ -322,6 +741,7 @@ focus_tree = {
 		x = 8
 		y = 4
 		completion_reward = {
+			add_to_variable = { MOT_PE_Left = 1 }
 			custom_effect_tooltip = MOT_Lower_P_of_T
 			custom_effect_tooltip = MOT_Lower_S_of_T
 			add_to_variable = { MOT_BasicPower_of_Trader = -10 }
@@ -364,7 +784,6 @@ focus_tree = {
 			add_to_variable = { MOT_BasicSupport_of_People = 0.10 }
 		}
 		available = {
-			has_idea = MOT_Unstable_Government
 		}
 		allow_branch = {
 			NOT = { has_country_flag = MOT_Change_Tree1 }
@@ -394,6 +813,7 @@ focus_tree = {
 		x = 12
 		y = 4
 		completion_reward = {
+			add_to_variable = { MOT_PE_Right = 1 }
 			custom_effect_tooltip = MOT_Lower_P_of_L
 			custom_effect_tooltip = MOT_Lower_S_of_L
 			add_to_variable = { MOT_BasicPower_of_Lords = 10 }
@@ -433,6 +853,7 @@ focus_tree = {
 		x = 10
 		y = 4
 		completion_reward = {
+			add_to_variable = { MOT_PE_Left = 1 }
 			custom_effect_tooltip = MOT_Lower_P_of_L
 			custom_effect_tooltip = MOT_Lower_S_of_L
 			add_to_variable = { MOT_BasicPower_of_Lords = -10 }
@@ -470,6 +891,7 @@ focus_tree = {
 		x = 9
 		y = 5
 		completion_reward = {
+			add_to_variable = { MOT_PE_Left = 1 }
 			add_political_power = 200
 			custom_effect_tooltip = MOT_Lower_P_of_P
 			custom_effect_tooltip = MOT_Lower_S_of_P
@@ -503,11 +925,298 @@ focus_tree = {
 
 	}
 	#教会反对派……
+	focus = {
+		id = MOT_PE_PP_How_Church
+		icon = GFX_MOT_PP2
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_PP_Beat_Controversy
+			focus = MOT_PE_PP_Use_Controversy
+		}
+		x = 11
+		y = 5
+		completion_reward = {
+			add_political_power = 100
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#……都是异端邪党
+	focus = {
+		id = MOT_PE_PP_ChurchOppo_Bad
+		icon = GFX_Goal_Forget_the_Promise
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_How_Church
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_PP_ChurchOppo_Good
+		}
+		x = 10
+		y = 6
+		completion_reward = {
+			add_to_variable = { MOT_PE_Right = 1 }
+			MOT_Stable_G = yes
+			add_political_power = 100
+			add_stability = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#……可为进步所用
+	focus = {
+		id = MOT_PE_PP_ChurchOppo_Good
+		icon = GFX_MOT_PP3
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_How_Church
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_PP_ChurchOppo_Good
+		}
+		x = 12
+		y = 6
+		completion_reward = {
+			custom_effect_tooltip = MOT_Higher_Influence
+			add_to_variable = { MOT_PE_Left = 2 }
+			MOT_Stable_G = yes
+			add_political_power = 200
+			add_stability = -0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#城乡差距拉大……
-	#……又能怎么样？
-	#……应当投资弥合
+	focus = {
+		id = MOT_PE_PP_Gap_Between
+		icon = GFX_goal_DOT_01
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_PP_Beat_Controversy
+			focus = MOT_PE_PP_Use_Controversy
+		}
+		x = 15
+		y = 5
+		completion_reward = {
+			add_stability = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#……乃是发展的势能
+	focus = {
+		id = MOT_PE_PP_SoThen
+		icon = GFX_Goal_Industry_or_Production
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_Gap_Between
+		}
+		mutually_exclusive = {
+			focus  = MOT_PE_PP_ShouldBe_Smaller
+		}
+		x = 16
+		y = 6
+		completion_reward = {
+			add_to_variable = { MOT_PE_Right = 1 }
+			MOT_Stable_G = yes
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 0
+					}
+					OR = {
+						has_state_category = city
+						has_state_category = large_town
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 0
+					}
+					OR = {
+						has_state_category = city
+						has_state_category = large_town
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 0
+					}
+					OR = {
+						has_state_category = city
+						has_state_category = large_town
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+	#……必须将之缩小
+	focus = {
+		id = MOT_PE_PP_ShouldBe_Smaller
+		icon = GFX_Goal_demo_economy
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_Gap_Between
+		}
+		mutually_exclusive = {
+			focus  = MOT_PE_PP_SoThen
+		}
+		x = 14
+		y = 6
+		completion_reward = {
+			add_to_variable = { MOT_PE_Left = 1 }
+			MOT_Stable_G = yes
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 0
+					}
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#少壮派力量增强……
 	#……需要及时制衡
 	#……应当让出一步
