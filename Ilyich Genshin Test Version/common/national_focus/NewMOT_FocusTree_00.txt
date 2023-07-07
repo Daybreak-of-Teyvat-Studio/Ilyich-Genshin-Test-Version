@@ -658,12 +658,188 @@ focus_tree = {
 			base = 5
 		}
 	}
+	#工业的平衡……
+	focus = {
+		id = MOT_PE_EB_Balance_of_Eco
+		icon = GFX_Goal_demo_economy
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_EB_For_Employment
+			focus = MOT_PE_EB_For_Speed
+		}
+		x = 7
+		y = 7
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#……应向民用倾倒
+	focus = {
+		id = MOT_PE_EB_To_Industry
+		icon = GFX_goal_generic_construct_civilian
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Balance_of_Eco
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_To_Weapons
+		}
+		x = 6
+		y = 8
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_timed_idea = { idea = MOT_Faster_Civil_Build days = 90 }
+			add_tech_bonus = {
+				category = construction_tech
+				uses = 2
+				bonus = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#……应为安全服务
+	focus = {
+		id = MOT_PE_EB_To_Weapons
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_EB_Balance_of_Eco
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_EB_To_Industry
+		}
+		x = 8
+		y = 8
+		completion_reward = {
+			MOT_Stable_D = yes
+			add_timed_idea = { idea = MOT_Faster_Civil_Build days = 90 }
+			add_tech_bonus = {
+				category = concentrated_industry_category
+				category = dispersed_industry_category
+				uses = 1
+				bonus = 2
+				ahead_reduction = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#拓荒人力不足……
 	#……提高迁移吸引力
 	#……制造迁出推动力
-	#工业的平衡……
-	#……应向民用倾倒
-	#……应为安全服务
+
 	#利用垄断企业
 	focus = {
 		id = MOT_PE_EB_Use_KCE
@@ -1218,8 +1394,107 @@ focus_tree = {
 
 	}
 	#少壮派力量增强……
+	focus = {
+		id = MOT_PE_PP_How_Youth
+		icon = GFX_focus_chi_army_reform
+		cost = 5.00
+		prerequisite = {
+			focus = MOT_PE_PP_ChurchOppo_Bad
+			focus = MOT_PE_PP_ChurchOppo_Good
+		}
+		x = 11
+		y = 7
+		completion_reward = {
+			add_war_support = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
+
 	#……需要及时制衡
+	focus = {
+		id = MOT_PE_PP_Youth_Bad
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_How_Youth
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_PP_Youth_Good
+		}
+		x = 10
+		y = 8
+		completion_reward = {
+			add_to_variable = { MOT_PE_Right = 2 }
+			MOT_Stable_G = yes
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -10 }
+			add_to_variable = { MOT_BasicSupport_of_People = -0.1 }
+			add_stability = 0.1
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#……应当让出一步
+	focus = {
+		id = MOT_PE_PP_Youth_Good
+		icon = GFX_goal_generic_major_alliance
+		cost = 10.00
+		prerequisite = {
+			focus = MOT_PE_PP_How_Youth
+		}
+		mutually_exclusive = {
+			focus = MOT_PE_PP_Youth_Bad
+		}
+		x = 12
+		y = 8
+		completion_reward = {
+			add_to_variable = { MOT_PE_Left = 2 }
+			MOT_Stable_G = yes
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			add_to_variable = { MOT_BasicSupport_of_Trader = -0.1 }
+			add_to_variable = { MOT_BasicSupport_of_Lords = -0.1 }
+			add_stability = 0.1
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+
+	}
 	#里通外国之辈……
 	#……将被人民唾弃
 	#……将为蒙德而死
