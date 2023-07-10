@@ -27,7 +27,15 @@ focus_tree = {
 			}
 			add_dynamic_modifier = { modifier = MOT_Support_From_Meeting }
 			hidden_effect = {
-				
+				IF  = {
+					limit = {
+						is_ai = yes
+					}
+					set_variable = { MOT_Meeting_Cost = 0 }
+				}
+				ELSE_IF = {
+					set_variable = { MOT_Meeting_Cost = 0.75 }
+				}
 				set_party_name = {
 					ideology = neutrality
 					long_name = DRA_neutrality_p_Long
@@ -5248,10 +5256,10 @@ focus_tree = {
 			base = 90
 		}
 	}
-	#进入结局：红
+	#进入结局-诺艾尔红线或入蓝线
 	focus = {
 		id = MOT_Noelle_REND
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_DOT_02
 		cost = 5.00
 		x = 45
 		y = 9
@@ -5325,11 +5333,17 @@ focus_tree = {
 	# 破格提拔人才
 	focus = {
 		id = MOT_PP_Noelle_R_11
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_neutrality_focus
 		cost = 2.00
 		x = 35
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			set_country_flag = MOT_UnlockDecision_P01
 			custom_effect_tooltip = MOT_Unlock_P01
 			add_political_power = 150
@@ -5345,6 +5359,7 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_Begin
 		}
 		available = {
+			has_war_support > 0.6
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5363,11 +5378,17 @@ focus_tree = {
 	# 消弭不安情绪
 	focus = {
 		id = MOT_PP_Noelle_R_12
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_propaganda
 		cost = 2.00
 		x = 37
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			set_country_flag = MOT_UnlockDecision_P02
 			custom_effect_tooltip = MOT_Unlock_P02
 			add_stability = 0.2
@@ -5381,6 +5402,7 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_Begin
 		}
 		available = {
+			has_stability > 0.6
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5399,11 +5421,17 @@ focus_tree = {
 	# 蒙德英雄保护法
 	focus = {
 		id = MOT_PP_Noelle_R_13
-		icon = GFX_focus_generic_treaty
+		icon = goals_RAGwqjewqiojisaofja
 		cost = 2.00
 		x = 39
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			set_country_flag = MOT_UnlockDecision_P03
 			custom_effect_tooltip = MOT_Unlock_P03
 			add_war_support = 0.2
@@ -5417,6 +5445,7 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_Begin
 		}
 		available = {
+			has_war_support > 0.6
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5435,11 +5464,18 @@ focus_tree = {
 	# 扩大群众基础
 	focus = {
 		id = MOT_PP_Noelle_R_14
-		icon = GFX_focus_generic_treaty
+		icon = goal_RAGewtj
 		cost = 2.00
 		x = 41
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
+			add_political_power = 100
 			set_country_flag = MOT_UnlockDecision_P04
 			custom_effect_tooltip = MOT_Unlock_P04
 			every_owned_state = {
@@ -5460,6 +5496,7 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_Begin
 		}
 		available = {
+			has_stability > 0.6
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5478,11 +5515,20 @@ focus_tree = {
 	# 扫除内部腐朽
 	focus = {
 		id = MOT_PP_Noelle_R_15
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_political_pressure
 		cost = 2.00
 		x = 43
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
+			add_political_power = -100
+			add_stability = -0.05
+			add_war_support = 0.2
 			set_country_flag = MOT_UnlockDecision_P05
 			custom_effect_tooltip = MOT_Unlock_P05
 			custom_effect_tooltip = MOT_More_AlwaysSupport
@@ -5514,6 +5560,8 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_Begin
 		}
 		available = {
+			has_stability > 0.7
+			has_war_support > 0.6
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5533,11 +5581,17 @@ focus_tree = {
 	# 浴血战场之人
 	focus = {
 		id = MOT_PP_Noelle_R_21
-		icon = GFX_focus_generic_treaty
+		icon = goal_RAGwet
 		cost = 2.00
 		x = 36
 		y = 4
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			set_country_flag = MOT_Last_Game
 			custom_effect_tooltip = MOT_War_For_LAW
 			custom_effect_tooltip = MOT_Warn_for_Noelle
@@ -5635,8 +5689,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_13
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5655,11 +5711,17 @@ focus_tree = {
 	# 支撑社会之人
 	focus = {
 		id = MOT_PP_Noelle_R_22
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_national_unity
 		cost = 2.00
 		x = 39
 		y = 4
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			set_country_flag = MOT_Last_Game
 			custom_effect_tooltip = MOT_War_For_LAW
 			custom_effect_tooltip = MOT_Warn_for_Noelle
@@ -5763,8 +5825,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_14
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5783,11 +5847,18 @@ focus_tree = {
 	# 阻碍进步之人
 	focus = {
 		id = MOT_PP_Noelle_R_23
-		icon = GFX_focus_generic_treaty
+		icon = GFX_focus_generic_court
 		cost = 2.00
 		x = 42
 		y = 4
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
+			add_political_power = 200
 			set_country_flag = MOT_Last_Game
 			custom_effect_tooltip = MOT_War_For_LAW
 			custom_effect_tooltip = MOT_Warn_for_Noelle
@@ -5943,8 +6014,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_15
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -5964,11 +6037,17 @@ focus_tree = {
 	# 进兵须结同心誓
 	focus = {
 		id = MOT_PP_Noelle_R_31
-		icon = GFX_focus_generic_treaty
+		icon = GFX_Goal_Fight_for_Reunion
 		cost = 2.00
 		x = 36
 		y = 5
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			add_stability = -0.1
 			add_ideas = gene_military_democracy
 			custom_effect_tooltip = MOT_Unlock_P1
@@ -5993,8 +6072,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_21
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -6021,11 +6102,17 @@ focus_tree = {
 	# 不胜捐躯义并高
 	focus = {
 		id = MOT_PP_Noelle_R_32
-		icon = GFX_focus_generic_treaty
+		icon = GFX_Goal_Strengthen_Unity
 		cost = 2.00
 		x = 38
 		y = 5
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			add_stability = -0.1
 			add_war_support = 0.2
 			custom_effect_tooltip = MOT_Unlock_P2
@@ -6059,8 +6146,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_22
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -6087,11 +6176,17 @@ focus_tree = {
 	# 将此拥护自由心
 	focus = {
 		id = MOT_PP_Noelle_R_33
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_support_democracy
 		cost = 2.00
 		x = 40
 		y = 5
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			add_stability = -0.1
 			add_political_power = 200
 			add_stability = 0.25
@@ -6119,8 +6214,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_22
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -6147,11 +6244,17 @@ focus_tree = {
 	# 奋身进杀狼与虎
 	focus = {
 		id = MOT_PP_Noelle_R_34
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_war_with_comintern
 		cost = 2.00
 		x = 42
 		y = 5
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower1
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			add_stability = -0.2
 			add_political_power = 200
 			custom_effect_tooltip = MOT_Unlock_P4
@@ -6182,8 +6285,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_23
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -6208,17 +6313,19 @@ focus_tree = {
 		}
 	}
 	#y6
-	# 挣脱锁链！（更真实的民主）
+	# 挣脱锁链！
 	focus = {
 		id = MOT_PP_Noelle_R_41
-		icon = GFX_focus_generic_treaty
+		icon = GFX_focus_focus_fra_revolution_upmost
 		cost = 2.00
 		x = 39
 		y = 6
 		completion_reward = {
+			custom_effect_tooltip = MOT_Cost_of_Meeting_Lower2
+			set_variable = { MOT_Meeting_Cost = 0 }
 			set_stability = 1
 			set_war_support = 1
-
+			add_ideas = MOT_Break_the_Chain
 			custom_effect_tooltip = MOT_Road_to_Red
 			set_country_flag = MOT_RWay_Done
 			custom_effect_tooltip = MOT_Unlock_P5
@@ -6257,8 +6364,10 @@ focus_tree = {
 			focus = MOT_PP_Noelle_R_34
 		}
 		available = {
-			has_stability > 0.8
-			has_war_support > 0.8
+			OR = {
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
 				has_country_flag = {
@@ -6290,7 +6399,7 @@ focus_tree = {
 	# 在蒙德人的土地上…
 	focus = {
 		id = MOT_PP_Noelle_R_51
-		icon = GFX_focus_generic_treaty
+		icon = goals_RAGwewqjwroyl
 		cost = 2.00
 		x = 38
 		y = 7
@@ -6317,7 +6426,7 @@ focus_tree = {
 	# …到处响起人民的声音：
 	focus = {
 		id = MOT_PP_Noelle_R_52
-		icon = GFX_focus_generic_treaty
+		icon = GFX_Goal_Political_Coo
 		cost = 2.00
 		x = 40
 		y = 7
@@ -6345,7 +6454,7 @@ focus_tree = {
 	# 前进！前进！前进进！
 	focus = {
 		id = MOT_PP_Noelle_R_61
-		icon = GFX_focus_generic_treaty
+		icon = GFX_Goal_Victory_of_Communism
 		cost = 2.00
 		x = 39
 		y = 8
@@ -7322,6 +7431,12 @@ focus_tree = {
 		x = 42
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			custom_effect_tooltip = MOT_Unlock_D1
 			set_country_flag = MOT_UnlockDecision_D1
 			add_stability = 0.05
@@ -7891,6 +8006,12 @@ focus_tree = {
 		x = 42
 		y = 8
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			custom_effect_tooltip = MOT_Higher_S_of_P
 			custom_effect_tooltip = MOT_Higher_S_of_T
 			custom_effect_tooltip = MOT_Higher_S_of_L
@@ -7942,6 +8063,12 @@ focus_tree = {
 		x = 42
 		y = 9
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			custom_effect_tooltip = MOT_War_For_LAW
 			set_country_flag = MOT_Last_Game
 			clr_country_flag = MOT_Reform_Poli
@@ -8077,6 +8204,12 @@ focus_tree = {
 		x = 36
 		y = 3
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost1
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost1 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			clr_country_flag = MOT_Reform_Poli
 			set_country_flag = MOT_Reform_Poli
 			custom_effect_tooltip = MOT_To_Neu
@@ -8807,6 +8940,12 @@ focus_tree = {
 		x = 35
 		y = 8
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			custom_effect_tooltip = MOT_War_For_LAW
 			set_country_flag = MOT_Last_Game
 			clr_country_flag = MOT_Reform_Poli
@@ -8904,6 +9043,12 @@ focus_tree = {
 		x = 37
 		y = 8
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost2
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost2 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			custom_effect_tooltip = MOT_War_For_LAW
 			set_country_flag = MOT_Last_Game
 			clr_country_flag = MOT_Reform_Poli
@@ -8992,6 +9137,12 @@ focus_tree = {
 		x = 36
 		y = 9
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost3
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost3 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			clr_country_flag = MOT_Reform_Poli
 			set_country_flag = MOT_Reform_Poli
 			set_country_flag = MOT_Grey_Route
@@ -9395,6 +9546,12 @@ focus_tree = {
 		x = 45
 		y = 10
 		completion_reward = {
+			set_country_flag = MOT_Refine_Cost4
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Refine_Cost4 } }
+				custom_effect_tooltip = MOT_Cost_of_Meeting_Lower
+				add_to_variable = { MOT_Meeting_Cost = -0.25 }
+			}
 			add_ideas = gene_Rebuild_our_nation5
 			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
 			add_stability = 0.2
@@ -12386,9 +12543,6 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = MOT_GP_Suppress_Mainly
-		}
-		allow_branch = {
-			NOT = { has_country_flag = MOT_B_Way_Focus_Done }
 		}
 		available = {
 		}
