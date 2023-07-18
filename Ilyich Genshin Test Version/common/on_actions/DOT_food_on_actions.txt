@@ -1,0 +1,53 @@
+
+on_actions = {
+
+	on_startup = {
+		effect = {
+		    
+		}
+	}
+    
+    on_daily = {
+		effect = {              		
+			#set_variable = { food_stock = @chromium }
+			#divide_variable = { var = food_stock value = 1 }
+			
+			set_variable = { food_production_efficiency = 0 }
+			add_to_variable = { var = food_production_efficiency value = 50 } 
+			set_variable = { food_production_efficiency_2 = num_of_civilian_factories }
+			multiply_variable = { var = food_production_efficiency_2 value = 1 } 
+			add_to_variable = { var = food_production_efficiency value = food_production_efficiency_2 }
+			#粮食生产效率 Y=M+N  M=50  N=1X  Y=50+1X
+			
+			set_variable = { food_production = resource_produced@chromium}
+			multiply_variable = { var = food_production value = food_production_efficiency }
+			set_variable = { food_imported = resource_imported@chromium}
+			multiply_variable = { var = food_imported value = food_production_efficiency }
+			set_variable = { food_consumed = resource_consumed@chromium}
+			multiply_variable = { var = food_consumed value = food_production_efficiency }
+			set_variable = { food_exported = resource_exported@chromium}
+			multiply_variable = { var = food_exported value = food_production_efficiency }
+			set_variable = { food_consumption_1 = num_battalions }
+			multiply_variable = { var = food_consumption value = 0.5 }
+			set_variable = { food_consumption_2 = manpower_k }
+			multiply_variable = { var = food_consumption value = 0.1 }
+			
+			
+			set_variable ={ food_get = 0 }
+			set_variable ={ food_cost = 0 }
+			add_to_variable = { var = food_get value = food_production } #生产
+			add_to_variable = { var = food_get value = food_imported }   #进口
+			add_to_variable = { var = food_cost value = food_consumed }  #工业消费
+			add_to_variable = { var = food_cost value = food_exported }  #出口
+			add_to_variable = { var = food_cost value = food_consumption_1 } #军用消耗
+			add_to_variable = { var = food_cost value = food_consumption_2 } #民用消耗
+				
+			
+			set_variable ={ food_stock = 0 }
+			add_to_variable = { var = food_stock value = food_get  }
+			subtract_from_variable = { var = food_stock value = food_cost }
+			#粮食库存 food_stock=food_get-food_cost
+
+        }   
+    }
+}

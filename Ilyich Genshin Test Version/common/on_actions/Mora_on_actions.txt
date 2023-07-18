@@ -874,11 +874,11 @@ on_actions = {
             }
 
             ################################################
-
-            clear_variable = resourceincome
-            clear_variable = resourceexpenses
-            clear_variable = allexpenses
-            clear_variable = nmn
+		    
+		    clear_variable = resourceincome
+			clear_variable = resourceexpenses
+			clear_variable = allexpenses
+			clear_variable = nmn
 			
 			set_variable = { nmn = 0}
 			divide_variable = { var = nmn value = 10 }
@@ -937,79 +937,45 @@ on_actions = {
 			    }
 			    set_variable = { nerfeco = 0}
 			}
-            ##################################used, this is the money calculation. the base for the whole mod######################
-               
-              #set_variable = { cfff = num_of_available_civilian_factories}
-			#divide_variable = { var = cfff value = 1.0 }
-			
-			set_variable = { tax= num_of_civilian_factories}
-			divide_variable = { var = tax value = 20 }  #1.0
-			
+##################################国家银行######################
+
+			#各类资源进口价格
 			set_variable = { chromium_import = resource_imported@chromium}
-			divide_variable = { var = chromium_import value = 100 }
-			
+			divide_variable = { var = chromium_import value = 100 }			
 			set_variable = { tungsten_import = resource_imported@tungsten}
-			divide_variable = { var = tungsten_import value = 150 }
-			
+			divide_variable = { var = tungsten_import value = 100 }			
 			set_variable = { rubber_import = resource_imported@rubber}
-			divide_variable = { var = rubber_import value = 150 }
-			
+			divide_variable = { var = rubber_import value = 100 }			
 			set_variable = { aluminium_import = resource_imported@aluminium}
-			divide_variable = { var = aluminium_import value = 150 }
-			
+			divide_variable = { var = aluminium_import value = 100 }			
 			set_variable = { oil_import = resource_imported@oil}
-			divide_variable = { var = oil_import value = 100 }
-			
+			divide_variable = { var = oil_import value = 100 }			
 			set_variable = { steel_import = resource_imported@steel}
-			divide_variable = { var = steel_import value = 150 }
-
+			divide_variable = { var = steel_import value = 100 }
 			
-
-			#set_variable = { debtexp = debttotal}
-			#divide_variable = { var = debtexp value = 40 }
-			
-			#一个民工1，一个军工0.4，一个海工0.2，一个营0.1
-			
-			set_variable = { nf = num_of_military_factories} #军工0.4
-			divide_variable = { var = nf value = 2.5 } 			
-			set_variable = { navf = num_of_naval_factories}  #民工0.2
-			divide_variable = { var = navf value = 5.0 } 			
-			set_variable = { ms = num_battalions}            #陆军营0.05
-			divide_variable = { var = ms value = 50 } 
-			
-			set_variable = { cfff = 5.0 }                   #国家基础收入
-			
+			#各类资源出口价格
 			set_variable = { chromium_export = resource_exported@chromium}
-			divide_variable = { var = chromium_export value = 200 }
-			
+			divide_variable = { var = chromium_export value = 100 }			
 			set_variable = { tungsten_export = resource_exported@tungsten}
-			divide_variable = { var = tungsten_export value = 400 }
-			
+			divide_variable = { var = tungsten_export value = 100 }			
 			set_variable = { rubber_export = resource_exported@rubber}
-			divide_variable = { var = rubber_export value = 400 }
-			
+			divide_variable = { var = rubber_export value = 100 }		
 			set_variable = { aluminium_export = resource_exported@aluminium}
-			divide_variable = { var = aluminium_export value = 400 }
-			
+			divide_variable = { var = aluminium_export value = 100 }			
 			set_variable = { oil_export = resource_exported@oil}
-			divide_variable = { var = oil_export value = 200 }
-			
+			divide_variable = { var = oil_export value = 100 }			
 			set_variable = { steel_export = resource_exported@steel}
-			divide_variable = { var = steel_export value = 400 }
-
+			divide_variable = { var = steel_export value = 100 }
 			
-
-			set_variable ={allexpenses = 0 }
-			set_variable ={resourceexpenses = 0 }
-			set_variable ={resourceincome = 0 }
-
+			set_variable ={ resource_income = 0 }  #资源出口总收入
 			add_to_variable = { var = resourceincome value = rubber_export}
 			add_to_variable = { var = resourceincome value = chromium_export}
 			add_to_variable = { var = resourceincome value = tungsten_export}
 			add_to_variable = { var = resourceincome value = steel_export}
 			add_to_variable = { var = resourceincome value = oil_export}
 			add_to_variable = { var = resourceincome value = aluminium_export}
-
+			
+			set_variable ={ resourceexpenses = 0 } #资源进口总支出
 			add_to_variable = { var = resourceexpenses value = rubber_import}
 			add_to_variable = { var = resourceexpenses value = chromium_import}
 			add_to_variable = { var = resourceexpenses value = tungsten_import}
@@ -1017,105 +983,34 @@ on_actions = {
 			add_to_variable = { var = resourceexpenses value = oil_import}
 			add_to_variable = { var = resourceexpenses value = aluminium_import} 
 			
-			#add_to_variable = { var = allexpenses value = debtexp}	
+			#一个民工1，一个军工0.4，一个海工0.2，一个营0.1	
+			set_variable = { cfff = 5.0 } #国家基础收入
+			set_variable = { tax = num_of_civilian_factories } #民工税收 1.0	
+			divide_variable = { var = tax value = 1.0 }		
+			set_variable = { nf = num_of_military_factories } #军工
+			divide_variable = { var = nf value = 2.5 } 			
+			set_variable = { navf = num_of_naval_factories }  #海工
+			divide_variable = { var = navf value = 5.0 } 			
+			set_variable = { ms = num_battalions }            #陆军营
+			divide_variable = { var = ms value = 50 }
 			
-			add_to_variable = { var = allexpenses value = no}	
-			add_to_variable = { var = allexpenses value = nerfeco}
-			add_to_variable = { var = allexpenses value = tax_to_overlord}
-			add_to_variable = { var = allexpenses value = depression}
-			add_to_variable = { var = allexpenses value = nc}
-			add_to_variable = { var = allexpenses value = rubber_import}
-			add_to_variable = { var = allexpenses value = chromium_import}
-			add_to_variable = { var = allexpenses value = tungsten_import}
-			add_to_variable = { var = allexpenses value = steel_import}
-			add_to_variable = { var = allexpenses value = oil_import}
-			add_to_variable = { var = allexpenses value = aluminium_import}
+			set_variable ={ allexpenses = 0 } #总支出
+			add_to_variable = { var = allexpenses value = resourceexpenses } #资源进口总支出
+			add_to_variable = { var = allexpenses value = ms } #陆军
+			add_to_variable = { var = allexpenses value = nf } #军工
+			add_to_variable = { var = allexpenses value = navf } #海工
 			
-			add_to_variable = { var = allexpenses value = ms}
-			add_to_variable = { var = allexpenses value = nf}
-			add_to_variable = { var = allexpenses value = navf}
-			
-			add_to_variable = { var = nmn value = tax }
-			add_to_variable = { var = nmn value = resourceincome }
-			#add_to_variable = { var = nmn value = cfff }
-			
-			subtract_from_variable = { var = nmn value = allexpenses }
-			
-			set_variable ={overcome = nmn}
-            add_to_variable = { var = dx value = nmn  }
-            
-            if={
-                limit={
-                OR={
-                    check_variable={nmn>1}
-                    check_variable={nmn<-1}
-            	    }
-                }
-                round_variable = dx
-            }
-            
-            ###########################################
-            
-            if = {
-                limit = { 
-                    has_idea = undisturbed_isolation 
-                }
-                multiply_variable = {var = tax value = 25}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = isolation 
-                }
-                multiply_variable = {var = tax value = 25}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = civilian_economy 
-                }
-                multiply_variable = {var = tax value = 20}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = low_economic_mobilisation 
-                }
-                multiply_variable = {var = tax value = 20}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = partial_economic_mobilisation 
-                }
-                multiply_variable = {var = tax value = 15}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = war_economy
-                }
-                multiply_variable = {var = tax value = 15}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            if = {
-                limit = { 
-                    has_idea = tot_economic_mobilisation
-                }
-                multiply_variable = {var = tax value = 10}
-                add_to_variable = { var = nmn value = tax }
-                add_to_variable = { var = dx value = tax }
-            }
-            
-            #################################################################################################################
+			set_variable ={ overcome = nmn } #净收入
+			add_to_variable = { var = nmn value = tax } #民工税收
+			add_to_variable = { var = nmn value = resourceincome } #资源总收入
+			add_to_variable = { var = nmn value = cfff } #基础税收
+			subtract_from_variable = { var = nmn value = allexpenses } #总支出
+		
+			add_to_variable = { var = dx value = nmn  } #国库储备            
 
-            ################these are the conditions for the ideas to automatically apply to your country####################	
+            
+#################################################################################################################
+################these are the conditions for the ideas to automatically apply to your country####################	
 			
 			every_country={
                 limit={
