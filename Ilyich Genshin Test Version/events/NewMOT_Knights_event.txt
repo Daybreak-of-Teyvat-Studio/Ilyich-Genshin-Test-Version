@@ -3692,4 +3692,188 @@ country_event = {
 		country_event = Knights.109
 	}
 }
+#113 诺艾尔特质升级1
+country_event = {
+	id = Knights.113
+	title = Knights.113.t
+	desc = Knights.113.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 5 }
+			has_global_flag = MOT_REUNITED
+			date > 1938.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_No_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.113.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_No_Experience
+			add = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+}
+#114 诺艾尔特质升级2
+country_event = {
+	id = Knights.114
+	title = Knights.114.t
+	desc = Knights.114.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 10 }
+			has_global_flag = MOT_REUNITED
+			date > 1940.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.114.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_Not_Enough_Experience
+			add = MOT_Noelle_Little_Experience
+		}
+	}
+}
+#115 略感疲惫
+country_event = {
+	id = Knights.115
+	title = Knights.115.t
+	desc = Knights.115.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			check_variable = {
+				MOT_Jean_HP < 0
+			}
+		}
+		NOT = { has_global_flag = MOT_Civil_War_Begun }
+	}
+	
+	option = {
+		name = Knights.115.a
+		custom_effect_tooltip = MOT_Enter_Noelle
+		set_country_flag = MOT_JeanWill_Fall
+		MOT_Jean = {
+			add_unit_leader_trait = sick
+		}
+	}
+}
 
+#116 琴团长倒下
+country_event = {
+	id = Knights.116
+	title = Knights.116.t
+	desc = Knights.116.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			has_country_flag = MOT_JeanWill_Fall
+		}
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	option = {
+		name = Knights.116.a
+		MOT_Jean = {
+			add_unit_leader_trait = wounded
+			add_country_leader_trait = MOT_Fall_Down
+		}
+	}
+}
+#117 紧急提拔
+country_event = {
+	id = Knights.117
+	title = Knights.117.t
+	desc = Knights.117.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		MOT_Jean = {
+			has_trait = MOT_Fall_Down
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Hero_of_MOT
+		}
+	}
+	
+	option = {
+		name = Knights.117.a
+		set_country_flag = MOT_Jean_Ill
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = MOT_Noelle
+			promote_leader = yes
+			country_leader = {
+				ideology = moderatism
+				expire = "1965.1.1.1"
+				traits = { 
+					MOT_Noelle_No_Experience
+					MOT_Noelle_Jean_Give
+					MOT_Noelle_Flower_without_Honor
+				}
+			}
+		}
+		IF = {
+			limit = { has_country_flag = MOT_Noelle_Strengthened }
+			custom_effect_tooltip = MOT_Noelle_BetterNow
+			MOT_Noelle = {
+				hidden_effect = {
+					swap_country_leader_traits = {
+						remove = MOT_Noelle_No_Experience
+						add = MOT_Noelle_Not_Enough_Experience
+						ideology = Rosism
+					}
+				}
+				swap_country_leader_traits = {
+					remove = MOT_Noelle_No_Experience
+					add = MOT_Noelle_Not_Enough_Experience
+					ideology = moderatism
+				}
+			}
+		}
+	}
+}
