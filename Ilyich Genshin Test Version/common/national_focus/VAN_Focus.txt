@@ -74,7 +74,11 @@ focus_tree = {
         x = 1.5
         y = 1
         completion_reward = {
-            add_political_power = 100
+            unlock_decision_category_tooltip = VAN_solve_marana_decision_categories
+            hidden_effect = {
+                set_variable = { VAN_solve_marana_cost = 50 } # 消除一个省份无留陀的花费
+                set_variable = { VAN_days_remove_solve_marana = 50 } # 消除一个省份无留陀的天数
+            }
         }
     }
 
@@ -139,14 +143,22 @@ focus_tree = {
         id = VAN_Not_One_Less
         icon = goal_SUM01
         prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
         mutually_exclusive = { focus = VAN_New_Ashvattha }
         mutually_exclusive = { focus = VAN_Fall_of_Aramuhukunda }
         cost = 5
         relative_position_id = VAN_Nursery_of_Lost_Dreams
         x = -2
         y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
         completion_reward = {
-            add_political_power = 100
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
         }
     }
 
@@ -155,14 +167,22 @@ focus_tree = {
         id = VAN_New_Ashvattha
         icon = goal_SUM01
         prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
         mutually_exclusive = { focus = VAN_Not_One_Less }
         mutually_exclusive = { focus = VAN_Fall_of_Aramuhukunda }
         cost = 5
         relative_position_id = VAN_Nursery_of_Lost_Dreams
         x = 0
         y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
         completion_reward = {
-            add_political_power = 100
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
         }
     }
 
@@ -171,14 +191,22 @@ focus_tree = {
         id = VAN_Fall_of_Aramuhukunda
         icon = goal_SUM01
         prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
         mutually_exclusive = { focus = VAN_Not_One_Less }
         mutually_exclusive = { focus = VAN_New_Ashvattha }
         cost = 5
         relative_position_id = VAN_Nursery_of_Lost_Dreams
         x = 2
         y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
         completion_reward = {
-            add_political_power = 100
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
         }
     }
 

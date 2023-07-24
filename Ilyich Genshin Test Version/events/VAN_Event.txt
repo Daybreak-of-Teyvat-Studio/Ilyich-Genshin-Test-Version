@@ -1,0 +1,42 @@
+﻿add_namespace = VAN
+country_event = {
+	id = VAN.1
+	title = VAN.1.t
+	desc = VAN.1.d
+	picture = GFX_news_event_INA.1
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+		has_country_flag = VAN_enable_marana_worsen
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					NOT = { has_state_flag = VAN_state_once_has_marana }
+					VAN_state_enable_have_marana = yes
+				}
+				add_dynamic_modifier = { modifier = VAN_Marana_state_dynamic_modifier }
+				set_state_flag = VAN_state_once_has_marana
+				save_event_target_as = VAN_new_marana_state
+			}
+			IF = {
+				limit = {
+					VAN_all_state_once_have_marana = no
+				}
+				country_event = {
+					id = VAN.1
+					days = 100
+					random_days = 20
+				}
+			}
+		}
+	}
+
+	option = {
+		name = VAN.1.1
+	}
+}
