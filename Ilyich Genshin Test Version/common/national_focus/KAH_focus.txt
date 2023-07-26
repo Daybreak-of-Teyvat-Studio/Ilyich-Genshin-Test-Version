@@ -183,7 +183,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_manpower = 1000000
-			add_dieas = die_reborn
+			add_ideas = die_reborn
 		}
 	}
 	#割掉腐肉
@@ -203,7 +203,7 @@ focus_tree = {
 			add_trait = {
 				character = KAH_kaya
 				ideology = marxism
-				trait = Sword_pointing_west
+				trait = Looking_around_the_World
 			}
 			remove_trait = {
 				character = KAH_kaya
@@ -223,10 +223,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_manpower = 10000000
-			research_speed_factor = -0.2
-			army_attack_factor = 0.5
-			army_defence_factor = 0.5
-			army_speed_factor = 0.5
+			add_ideas = Empirical_Methodology
 		}
 		mutually_exclusive = {
 			focus = Scientific_therapy
@@ -270,7 +267,11 @@ focus_tree = {
 			focus = Indigenous_therapy
 		}
 		completion_reward = {
-			research_speed_factor = 0.5
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism 
+				trait = Scientific_research_is_equally_important
+			}
 		}
 	}
 	#回归理性
@@ -283,8 +284,17 @@ focus_tree = {
 			focus = Scientific_therapy
 		}
 		completion_reward = {
-			research_speed_factor = 0.5
 			add_research_slot = 1
+			remove_trait = {
+				character = KAH_kaya 
+				ideology = marxism
+				trait = Scientific_research_is_equally_important
+			}
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism 
+				trait = Two_Hands_on_Scientific_Research_and_Industry
+			}
 		}
 	}
 	#封建迷信要不得
@@ -324,6 +334,7 @@ focus_tree = {
 			mark_focus_tree_layout_dirty = yes
 			}
 			custom_effect_tooltip = kah_focus_2
+			add_ideas = Study_Knowledge_Research_1
 		}
 	}
 	#凯亚的神之眼?
@@ -506,8 +517,10 @@ focus_tree = {
 			focus = licking_the_wounds
 		}
 		completion_reward = {
-			local_manpower = 0.6
-			local_non_core_manpower = 0.6
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
 		}
 	}
 	#重工业是关键
@@ -593,6 +606,7 @@ focus_tree = {
 		cost = 1.00
 		x = 13
 		y = 3
+		allowed = {always = no }
 		prerequisite = {
 			focus = we_also_the_people
 		}
@@ -686,6 +700,9 @@ focus_tree = {
 		prerequisite = {
 			focus = this_is_fear
 		}
+		modifier = {
+			local_manpower = 0.6
+		}
 	}
 	#钢板一块
 	focus = {
@@ -711,6 +728,9 @@ focus_tree = {
 		allow_branch = {
 		has_country_flag = kah_focus_flag1
 		}
+		completion_reward = {
+			add_research_slot = 1
+		}
 	}
 	#形成理论
 	focus = {
@@ -720,6 +740,12 @@ focus_tree = {
 		y = 4
 		prerequisite = {
 			focus = sum_up_experience
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_1
+				add_idea = Study_Knowledge_Research_2
+			}
 		}
 	}
 	#自我革命
@@ -731,6 +757,9 @@ focus_tree = {
 		prerequisite = {
 			focus = form_theory
 		}
+		completion_reward = {
+			add_political_power = 200
+		}
 	}
 	#群众路线
 	focus = {
@@ -740,6 +769,9 @@ focus_tree = {
 		y = 5
 		prerequisite = {
 			focus = form_theory
+		}
+		completion_reward = {
+			add_command_power = 150
 		}
 	}
 	#宁有种乎？
@@ -752,6 +784,10 @@ focus_tree = {
 			focus = the_mass_line 
 			focus = self-revolution
 		}
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
 	}
 	#谁主沉浮
 	focus = {
@@ -761,6 +797,11 @@ focus_tree = {
 		y = 8
 		prerequisite ={
 			focus = born_with_their_standing
+		}
+		completion_reward = {
+			army_experience = 100
+			navy_experience = 10
+			air_experience = 10
 		}
 	}
 	#唯我独尊
@@ -772,6 +813,11 @@ focus_tree = {
 		prerequisite = {
 			focus = which_takes_the_lead
 		}
+		completion_reward = {
+			every_unit_leader = {
+				gain_xp = 15
+			}
+		}
 	}
 	#主观能动性
 	focus = {
@@ -782,6 +828,12 @@ focus_tree = {
 		prerequisite = {
 			focus = which_takes_the_lead
 		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_2
+				add_idea = Study_Knowledge_Research_3
+			}
+		}
 	}
 	#更根本的客观规律
 	focus = {
@@ -791,6 +843,10 @@ focus_tree = {
 		y = 11
 		prerequisite = {
 			focus = subjective_initiative
+		}
+		swap_ideas = {
+			remove_idea = Study_Knowledge_Research_3
+			add_idea = Study_Knowledge_Research_4
 		}
 	}
 	#天外来客
