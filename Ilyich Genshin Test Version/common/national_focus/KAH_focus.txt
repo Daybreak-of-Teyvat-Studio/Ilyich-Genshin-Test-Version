@@ -1,0 +1,869 @@
+focus_tree = {
+	id = Khaenriah_focus
+
+	country = {
+		factor = 0
+        modifier = {
+            add = 10
+            tag = KAH
+        }
+	}
+
+	default = no
+
+	continuous_focus_position = { x = 20 y = 2000 }
+
+#	#集结号
+	focus = {
+		id = The_Assembly
+		cost = 3.00
+		x = 9
+		y = 0
+		completion_reward = {
+			add_ideas = Political_The_Assembly
+			add_ideas = thousand_a_voice
+			add_state_core = 16
+			remove_ideas = {
+				inflation_level_0
+				normal_money
+			}
+			
+			division_template = {
+					name = "qiuqiu"
+					regiments = {
+						infantry = {
+							x = 0 
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+					}
+				}
+			16 = {
+				create_unit = {
+				    division = "name=\"haha\"division_template=\"qiuqiu\"start_experience_factor=0.5"
+					owner = KAH
+					count = 6
+				}
+			}
+		}
+	}
+	#寻找戈多
+	focus = {
+		id = find_Godot
+		cost = 1.00
+		x = 9
+		y = 1
+		prerequisite = {
+			focus = The_Assembly
+		}
+		completion_reward = {
+			country_event = kah.1
+			set_country_flag = KAH_focus_1
+			add_trait = {
+				character = KAH_kaya
+				ideology = marxism
+				trait = KAH_in_a_dilemma
+			}
+			KAH_kaya = {
+				add_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_stonehide_lawachurl = {
+				add_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_thunderhelm_lawachurl = {
+				add_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_Frostarm_Lawachurl = {
+				add_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+		}
+	}
+	#生而为人
+	focus = {
+		id = we_also_the_people
+		cost = 3.00
+		x = 9
+		y = 2
+		prerequisite = {
+			focus = find_Godot
+		}
+		completion_reward = {
+			add_manpower = 1000000
+		}
+	}
+	#坎瑞亚在此
+	focus = {
+		id = Khaenriah_is_here
+		cost = 1.00
+		x = 5
+		y = 3
+		prerequisite = {
+			focus = we_also_the_people
+		}
+		mutually_exclusive = {
+			focus = from_Spiral_Abyss
+		}
+		mutually_exclusive = {
+			focus = so_what
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = In_the_name_of_Khaenriah
+				days = 30
+			}
+			ABY = {
+				create_wargoal = {
+					type = topple_government
+					target = KAH 
+				}
+			}
+		}
+	}
+	#没有亡国
+	focus = {
+		id = No_perish
+		cost = 1.00
+		x = 3
+		y = 4
+		prerequisite = {
+			focus = Khaenriah_is_here
+		}
+		completion_reward = {
+			country_event = {
+				id = kah.5
+				days = 1
+			}
+		}
+	}
+	#末裔领袖
+	focus = {
+		id = leader_of_last_descendant
+		cost = 1.00
+		x = 3
+		y = 5
+		prerequisite = {
+			focus = No_perish
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = orthodox_Khaenriah
+		}
+	}
+	#这是新生
+	focus = {
+		id = This_is_newborn
+		cost = 1.00
+		x = 7
+		y = 4
+		prerequisite = {
+			focus = Khaenriah_is_here
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = die_reborn
+		}
+	}
+	#割掉腐肉
+	focus = {
+		id = Cut_off_the_carrion
+		cost = 1.00
+		x = 7
+		y = 7
+		prerequisite = {
+			focus = leader_of_last_descendant 
+			focus = This_is_newborn
+		}
+		mutually_exclusive = {
+			focus = the_vision_of_Kaya
+		}
+		completion_reward = {
+			add_trait = {
+				character = KAH_kaya
+				ideology = marxism
+				trait = Looking_around_the_World
+			}
+			remove_trait = {
+				character = KAH_kaya
+				ideology = marxism
+				trait = KAH_in_a_dilemma
+			}
+		}
+	}
+	#土法治疗
+	focus = {
+		id = Indigenous_therapy
+		cost = 1.00
+		x = 5
+		y = 9
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		completion_reward = {
+			add_manpower = 10000000
+			add_ideas = Empirical_Methodology
+		}
+		mutually_exclusive = {
+			focus = Scientific_therapy
+		}
+	}
+	#寻找新神
+	focus = {
+		id = Searching_for_New_God
+		cost = 1.00
+		x = 5
+		y = 12
+		prerequisite = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			MOT = {
+				create_wargoal = {
+					type = take_state_focus
+					generator = 16
+					target = KAH
+				}
+			}
+			create_wargoal = {
+				type = take_state_focus
+				generator = 1
+				target = MOT 
+			}
+
+		}
+	}
+	#科学疗法
+	focus = {
+		id = Scientific_therapy
+		cost = 1.00
+		x = 7
+		y = 8
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		mutually_exclusive = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism 
+				trait = Scientific_research_is_equally_important
+			}
+		}
+	}
+	#回归理性
+	focus = {
+		id = return_to_rationality
+		cost = 1.00
+		x = 7
+		y = 10
+		prerequisite = {
+			focus = Scientific_therapy
+		}
+		completion_reward = {
+			add_research_slot = 1
+			remove_trait = {
+				character = KAH_kaya 
+				ideology = marxism
+				trait = Scientific_research_is_equally_important
+			}
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism 
+				trait = Two_Hands_on_Scientific_Research_and_Industry
+			}
+		}
+	}
+	#封建迷信要不得
+	focus = {
+		id = superstition_is_not_acceptable
+		cost = 1.00
+		x = 7
+		y = 11
+		prerequisite = {
+			focus = return_to_rationality
+		}
+		completion_reward = {
+			start_civil_war = {
+				ruling_party = communism
+				ideology = fascism
+				size = 0.6
+				keep_all_characters = yes
+				states = all 
+				states_filter = {
+					is_captial = no 
+				}
+			}
+		}
+	}
+	#集合学者
+	focus = {
+		id = gather_scholars
+		cost = 1.00
+		x = 7
+		y = 13
+		prerequisite = {
+			focus = superstition_is_not_acceptable
+		}
+		completion_reward = {
+			hidden_effect = {
+			set_country_flag = kah_focus_flag1
+			mark_focus_tree_layout_dirty = yes
+			}
+			custom_effect_tooltip = kah_focus_2
+			add_ideas = Study_Knowledge_Research_1
+		}
+	}
+	#凯亚的神之眼?
+	focus = {
+		id = the_vision_of_Kaya
+		cost = 1.00
+		x = 3
+		y = 8
+		prerequisite = {
+			focus = leader_of_last_descendant 
+			focus = This_is_newborn
+		}
+		completion_reward = {
+			add_trait = {
+				character = KAH_kaya
+				ideology = marxism
+				trait = Sword_pointing_west
+			}
+			remove_trait = {
+				character = KAH_kaya
+				ideology = marxism
+				trait = KAH_in_a_dilemma
+			}
+		}
+		mutually_exclusive = {
+			focus = Cut_off_the_carrion
+		}
+	}
+	#嘟嘟莲的奥义----凯亚的突破材料
+	focus = {
+		id = The_secret_of_Calla_Lily
+		cost = 1.00
+		x = 3
+		y = 12
+		prerequisite = {
+			focus = the_vision_of_Kaya
+		}
+		completion_reward = {
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism
+				trait = The_Genshin_being
+			}
+		}
+	}
+	#我即冰神
+	focus = {
+		id = I_am_God_of_Cryo
+		cost = 1.00
+		x = 4
+		y = 14
+		prerequisite = {
+			focus = The_secret_of_Calla_Lily 
+			focus = Searching_for_New_God
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			set_country_flag = kah_focus_flag2
+			add_ideas = KAH_God_Creator
+			ABY = {
+				remove_wargoal = {
+					type = all 
+					target = KAH 
+				}
+			}
+		}
+	}
+	#出深渊而不染
+	focus = {
+		id = from_Spiral_Abyss
+		cost = 1.00
+		x=9
+		y = 3
+		prerequisite = {
+			focus = we_also_the_people
+		}
+		mutually_exclusive = {
+			focus = Khaenriah_is_here
+		}
+		completion_reward = {
+			add_manpower = 100000
+			add_timed_idea = {
+				idea = not_defined_by_anyone 
+				days = 150
+			}
+		}
+	}
+	#寻找解药
+	focus = {
+		id = the_way_to_antidote
+		cost = 1.00
+		x = 9
+		y = 5
+		prerequisite = {
+			focus = from_Spiral_Abyss
+		}
+		completion_reward = {
+			hidden_effect = {
+				set_country_flag = KAH_flag_fail
+			}
+			custom_effect_tooltip = KAH_failed
+		}
+	}
+	#拍拍身上的灰
+	focus = {
+		id = pat_the_ashes
+		cost = 1.00
+		x = 9
+		y = 6
+		prerequisite = {
+			focus = the_way_to_antidote
+		}
+		completion_reward = {
+			remove_ideas = scattered_collection_of_tribes
+			add_ideas = the_four_modernizations
+		}
+	}
+	#打扫干净屋子再请客
+	focus = {
+		id = clean_the_house_before_inviting_guests
+		cost = 1.00
+		x = 9
+		y = 7
+		prerequisite = {
+			focus = pat_the_ashes
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = clean_the_house 
+				days = 90
+			}
+		}
+	}
+	#韬光养晦
+	focus = {
+		id = hide_capacities
+		cost = 1.00
+		x = 9
+		y = 9
+		prerequisite = {
+			focus = clean_the_house_before_inviting_guests
+		}
+		completion_reward = {
+			add_trait = {
+				character = KAH_kaya 
+				ideology = marxism
+				trait = for_the_people_of_Khaenriah
+			}
+			remove_trait = {
+				character = KAH_kaya 
+				ideology = marxism 
+				trait = KAH_in_a_dilemma
+			}
+		}
+	}
+	#卧薪尝胆
+	focus = {
+		id = licking_the_wounds
+		cost = 1.00
+		x = 9
+		y = 10
+		prerequisite = {
+			focus = hide_capacities
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				generator = 1
+				target = MOT 
+			}
+		}
+	}
+	#生育是头等大事
+	focus = {
+		id = fertility_is_a_top_priority
+		cost = 1.00
+		x = 9
+		y = 10
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+		}
+	}
+	#重工业是关键
+	focus = {
+		id = heavy_industry_is_key
+		cost = 1.00
+		x = 9
+		y = 11
+		prerequisite = {
+			focus = fertility_is_a_top_priority
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+		}
+	}
+	#补给也不可或缺
+	focus = {
+		id = supply_is_also_indispensable
+		cost = 1.00
+		x = 9
+		y = 12
+		prerequisite = {
+			focus = heavy_industry_is_key
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			16 = {
+				add_extra_state_shared_building_slots = 5
+			}
+		}
+	}
+	#来一场久违的胜利吧
+	focus = {
+		id = lets_have_a_long_lost_victory
+		cost = 1.00
+		x = 9
+		y = 14
+		prerequisite = {
+			focus = supply_is_also_indispensable
+			focus = energy_from_Abyss
+		}
+		completion_reward = {
+			set_country_flag = kah_focus_flag3
+			KAH_kaya = {
+				remove_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_stonehide_lawachurl = {
+				remove_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_thunderhelm_lawachurl = {
+				remove_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KAH_Frostarm_Lawachurl = {
+				remove_trait = {
+					trait = KAH_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+		}
+	}
+	#那又如何
+	focus = {
+		id = so_what
+		cost = 1.00
+		x = 13
+		y = 3
+		allowed = {always = no }
+		prerequisite = {
+			focus = we_also_the_people
+		}
+		mutually_exclusive = {
+			focus = Khaenriah_is_here 
+		}
+		completion_reward = {
+			add_manpower = 10000
+		}
+	}
+	#搅屎棍
+	focus = {
+		id = stir_the_pot
+		cost = 1.00
+		x = 13
+		y = 5
+		prerequisite = {
+			focus = so_what
+		}
+		completion_reward = {
+			remove_ideas = scattered_collection_of_tribes
+			add_ideas = glorious_warmaker
+		}
+	}
+	#哈哈哈
+	focus = {
+		id = ha_ha_ha
+		cost = 1.00
+		x = 14
+		y = 7
+		prerequisite = {
+			focus = stir_the_pot
+		}
+		mutually_exclusive = {
+			focus = no_no_no
+		}
+		completion_reward = {
+			custom_effect_tooltip = kah_focus_3
+			add_ideas = glorious_warmaker
+		}
+	}
+	#不不不
+	focus = {
+		id = no_no_no
+		cost = 1.00
+		x = 12
+		y = 7
+		prerequisite = {
+			focus = stir_the_pot
+		}
+		mutually_exclusive = {
+			focus = ha_ha_ha
+		}
+	}
+	#否定一切的权力
+	focus = {
+		id = power_to_deny_everything
+		cost = 1.00
+		x = 12
+		y = 9
+		prerequisite = {
+			focus = no_no_no
+		}
+	}
+	#历史性的结盟
+	focus = {
+		id = a_historic_alliance
+		cost = 1.00
+		x = 12
+		y = 10
+		prerequisite = {
+			focus = power_to_deny_everything
+		}
+	}
+	#此为恐惧
+	focus = {
+		id = this_is_fear
+		cost = 1.00
+		x = 12
+		y = 11
+		prerequisite = {
+			focus = a_historic_alliance
+		}
+	}
+	#来自深渊的能源
+	focus = {
+		id = energy_from_Abyss
+		cost = 1.00
+		x = 12
+		y = 12
+		prerequisite = {
+			focus = this_is_fear
+		}
+		modifier = {
+			local_manpower = 0.6
+		}
+	}
+	#钢板一块
+	focus = {
+		id = A_piece_of_steel_plate
+		cost = 1.00
+		x = 9
+		y = 16
+		prerequisite = {
+			focus = I_am_God_of_Cryo
+			focus = lets_have_a_long_lost_victory
+		}
+		completion_reward = {
+			set_country_flag = kah_focus_flag4
+			add_ideas = a_great_country
+		}
+	}
+	#总结经验
+	focus = {
+		id = sum_up_experience
+		cost = 1.00
+		x = 17
+		y = 3 
+		allow_branch = {
+		has_country_flag = kah_focus_flag1
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	#形成理论
+	focus = {
+		id = form_theory
+		cost = 1.00
+		x = 17
+		y = 4
+		prerequisite = {
+			focus = sum_up_experience
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_1
+				add_idea = Study_Knowledge_Research_2
+			}
+		}
+	}
+	#自我革命
+	focus = {
+		id = self-revolution
+		cost = 20.00
+		x = 16
+		y = 5
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+	}
+	#群众路线
+	focus = {
+		id = the_mass_line
+		cost = 20.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_command_power = 150
+		}
+	}
+	#宁有种乎？
+	focus = {
+		id = born_with_their_standing
+		cost = 1.00
+		x = 17
+		y = 7
+		prerequisite = {
+			focus = the_mass_line 
+			focus = self-revolution
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+	}
+	#谁主沉浮
+	focus = {
+		id = which_takes_the_lead
+		cost = 1.00
+		x = 17
+		y = 8
+		prerequisite ={
+			focus = born_with_their_standing
+		}
+		completion_reward = {
+			army_experience = 100
+			navy_experience = 10
+			air_experience = 10
+		}
+	}
+	#唯我独尊
+	focus = {
+		id = better_than_all_of
+		cost = 1.00
+		x = 16
+		y = 10
+		prerequisite = {
+			focus = which_takes_the_lead
+		}
+		completion_reward = {
+			every_unit_leader = {
+				gain_xp = 15
+			}
+		}
+	}
+	#主观能动性
+	focus = {
+		id = subjective_initiative
+		cost = 1.00
+		x = 18
+		y = 9
+		prerequisite = {
+			focus = which_takes_the_lead
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_2
+				add_idea = Study_Knowledge_Research_3
+			}
+		}
+	}
+	#更根本的客观规律
+	focus = {
+		id = more_fundamental_objective_laws
+		cost = 1.00
+		x = 18
+		y = 11
+		prerequisite = {
+			focus = subjective_initiative
+		}
+		swap_ideas = {
+			remove_idea = Study_Knowledge_Research_3
+			add_idea = Study_Knowledge_Research_4
+		}
+	}
+	#天外来客
+	#focus = {
+	#	id = people_out_of_sky
+	#	cost = 1.00
+	#	x = 20
+	#	y = 3
+	#	completion_reward = {
+	#		create_country_leader = {
+	#			name = KAH_Five_day_journey
+	#			desc = "KAH_Five_day_journey_desc"
+	#			picture = GFX_KAH_Five
+	#			expire = "1965.1.1"
+	#			ideology = marxism
+	#			traits = {}
+	#	}
+	#}
+	#}
+}
