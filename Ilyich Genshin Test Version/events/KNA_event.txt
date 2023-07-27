@@ -84,37 +84,54 @@ country_event = {
 	}
 }
 country_event = {
-	id = kna.6 ###凯亚被提名当上元帅
+	id = kna.6 ###凯亚是得力干将
 	title = kna.6.t
 	desc = kna.6.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
 	option = {
 		name = kna.6.a
-		country_event = {
-			id = kna.7
-			days = 1
+		create_country_flag = kna_flag_6
+		news_event = {
+			id = kna.13
+			days = 2
 		}
 	}
 }
+news_event = {
+	id = kna.13 ###国家改革计划：剿灭，改革——由凯亚提出
+	title = kna.13.t
+	desc = kna.6.desc 
+	is_triggered_only = yes 
+	fire_only_once = yes 
+	major = no 
+	option = {
+		name = kna.13.a
+		clr_country_flag = kna_flag_6
+	}
+}
 country_event = {
-	id = kna.7  ###同时内部检查改革
+	id = kna.7  ###凯亚被提名当上元帅，负责剿灭行动
 	title = kna.7.t 
 	desc = kna.7.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
 	option = {
 		name = kna.7.a
-		retire_character = Kayae_M
-		recruit_character = Kaya_F
+		set_country_flag = kna_flag_5   ###使元帅凯亚可见
+		country_event = {
+			id = kna.8
+			days = 2
+		}
 	}
 }
-country_event = {
-	id = kna.8  ###凯亚被指控滥用职权
+news_event = {
+	id = kna.8  ###行动过程中，凯亚指出，不是丘丘人的错
 	title = kna.8.t 
 	desc = kna.8.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
+	major = no 
 	option = {
 		name = kna.8.a 
 		country_event = {
@@ -124,56 +141,54 @@ country_event = {
 	}
 }
 country_event = {
-	id = kna.9  ###被判死罪
+	id = kna.9  ###匿名信举报凯亚滥用职权
 	title = kna.9.t 
 	desc = kna.9.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
 	option = {
 		name = kna.9.a 
-		retire_character = Kaya_F
-		country_event = {
-			id = kna.101
-			days = 2
-		}
 	}
 }
 country_event = {
-	id = kna.101 ##震惊！莱艮芬德领的审判工作第一次做得如此快速！
-	title = kna.101.t
-	desc = kna.101.desc 
-	is_triggered_only = yes 
-	fire_only_once = yes 
-	option = {
-		name = kna.101.a 
-		country_event = {
-		id = kna.10
-		days = 1
-		}
-	}
-}
-country_event = {
-	id = kna.10  ###罪犯凯亚出逃！
-	title = kna.10.t 
+	id = kna.10 ##震惊！莱艮芬德领的审判工作第一次做得如此快速！
+	title = kna.10.t
 	desc = kna.10.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
 	option = {
 		name = kna.10.a 
+		retire_character = Kaya_F
+		retire_character = Kayae_M
 		country_event = {
 			id = kna.11
-			days = 1
+			days = 2
 		}
 	}
 }
 country_event = {
-	id = kna.11  ###坎瑞亚复国的消息被内鬼压了下来
+	id = kna.11  ###罪犯凯亚出逃！
 	title = kna.11.t 
 	desc = kna.11.desc 
 	is_triggered_only = yes 
 	fire_only_once = yes 
 	option = {
 		name = kna.11.a 
+		clr_country_flag = kna_flag_5
+		country_event = {
+			id = kna.12
+			days = 1
+		}
+	}
+}
+country_event = {
+	id = kna.12  ###建国的消息被内鬼压了下来
+	title = kna.12.t 
+	desc = kna.12.desc 
+	is_triggered_only = yes 
+	fire_only_once = yes 
+	option = {
+		name = kna.12.a 
 		hidden_effect = {
 			KNA = {
 					transfer_state = 16
@@ -184,4 +199,13 @@ country_event = {
 		}
 		custom_effect_tooltip = KNA_change_country
 	}
-}
+	option = {
+		name = kna.12.b 
+		hidden_effect = {
+			KNA = {
+					transfer_state = 16
+				}
+		}
+		custom_effect_tooltip = KNA_change_country_2
+	}
+}###有十三号事件了
