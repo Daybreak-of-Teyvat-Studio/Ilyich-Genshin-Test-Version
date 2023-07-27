@@ -4045,11 +4045,19 @@ country_event = {
 	title = Knights.122.t
 	desc = Knights.122.d
 	fire_only_once = yes
-	is_triggered_only = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Jean_Ill
+			days > 40
+		}
+	}
 	
 	option = {
 		name = Knights.122.a
 		add_political_power = 30
+		add_to_variable = { MOT_Noelle_Exp = 1 }
 	}
 }
 #123 诺艾尔的日记2
@@ -4077,5 +4085,204 @@ country_event = {
 		name = Knights.124.a
 		add_stability = 0.06
 		add_war_support = 0.05
+	}
+}
+#125 诺艾尔黑线前置 阶段1
+country_event = {
+	id = Knights.125
+	title = Knights.125.t
+	desc = Knights.125.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = MOT_Jean_Ill
+		date > 1937.9.1
+		OR = {
+			has_stability < 0.6
+			has_war_support < 0.6
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.125.a
+		custom_effect_tooltip = MOT_FWay_Route
+		set_country_flag = MOT_FWay_1
+		add_political_power = 200
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = 1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = -100
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.125.b
+		custom_effect_tooltip = MOT_NoFWay_Route
+		add_political_power = 100
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = -1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = 1000
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+}
+
+#126 诺艾尔黑线前置 阶段2
+country_event = {
+	id = Knights.126
+	title = Knights.126.t
+	desc = Knights.126.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = {
+			flag = MOT_FWay_1
+			days > 30
+		}
+		OR = {
+			has_stability < 0.5
+			has_war_support < 0.5
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.126.a
+		set_country_flag = MOT_FWay_2
+	}
+}
+#127 诺艾尔黑线 阶段三
+country_event = {
+	id = Knights.127
+	title = Knights.127.t
+	desc = Knights.127.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = {
+			flag = MOT_FWay_2
+			days > 60
+		}
+		OR = {
+			has_stability < 0.3
+			has_war_support < 0.3
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.127.a
+		country_event = { id = Knights.128 hours = 6 }
+	}
+}
+#128 进入诺艾尔黑线
+country_event = {
+	id = Knights.128
+	title = Knights.128.t
+	desc = Knights.128.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.128.a
+		set_country_flag = MOT_Noelle_Blacken
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = MOT_Enter_BlackWay
+	}
+}
+#129 病房前·黑
+country_event = {
+	id = Knights.129
+	title = Knights.129.t
+	desc = Knights.129.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.129.a
+		custom_effect_tooltip = MOT_AfterCW_Black
+	}
+	option = {
+		name = Knights.129.b
+		custom_effect_tooltip = MOT_AfterCW_Blue
+	}
+}
+#130 病房前·红
+country_event = {
+	id = Knights.130
+	title = Knights.130.t
+	desc = Knights.130.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.130.a
+		custom_effect_tooltip = MOT_AfterCW_Red
+	}
+	option = {
+		name = Knights.130.b
+		custom_effect_tooltip = MOT_AfterCW_Blue
+	}
+}
+#131 诺艾尔的日记：最后一页
+country_event = {
+	id = Knights.131
+	title = Knights.131.t
+	desc = Knights.131.d
+	fire_only_once = no
+	trigger = {
+		has_country_flag = {
+			flag = MOT_Noelle_Blacken
+			days > 80
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.131.a
+		add_political_power = 100
 	}
 }
