@@ -2041,6 +2041,19 @@ country_event = {
 		IF = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_SPI
+				}
+			}
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
 		}
 	}
@@ -2077,6 +2090,19 @@ country_event = {
 		IF = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_DRA
+				}
+			}
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
 		}
 	}
@@ -2113,6 +2139,19 @@ country_event = {
 		IF = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_GUN
+				}
+			}
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
 		}
 	}
@@ -2149,6 +2188,19 @@ country_event = {
 		IF = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_LAW
+				}
+			}
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
 		}
 	}
@@ -2185,6 +2237,19 @@ country_event = {
 		IF = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_RAG
+				}
+			}
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
 		}
 	}
@@ -2222,10 +2287,40 @@ country_event = {
 			limit = { has_country_flag = MOT_Jean_Ill }
 			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
 			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_DVA
+				}
+			}
 		}
 	}
 }
 # 61 决战时刻
+country_event = {
+	id = Knights.61
+	title = Knights.61.t
+	desc = Knights.61.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_war_with = LAW
+		has_global_flag = MOT_Civil_War_1_End
+	}
+	
+	option = {
+		name = Knights.61.a
+		add_war_support = 0.1
+	}
+}
 #乡绅支持战争 62
 country_event = {
 	id = Knights.62
@@ -3692,4 +3787,579 @@ country_event = {
 		country_event = Knights.109
 	}
 }
+#113 诺艾尔特质升级1
+country_event = {
+	id = Knights.113
+	title = Knights.113.t
+	desc = Knights.113.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 5 }
+			has_global_flag = MOT_REUNITED
+			date > 1938.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_No_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.113.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_No_Experience
+			add = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+}
+#114 诺艾尔特质升级2
+country_event = {
+	id = Knights.114
+	title = Knights.114.t
+	desc = Knights.114.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 10 }
+			has_global_flag = MOT_REUNITED
+			date > 1940.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.114.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_Not_Enough_Experience
+			add = MOT_Noelle_Little_Experience
+		}
+	}
+}
+#115 略感疲惫
+country_event = {
+	id = Knights.115
+	title = Knights.115.t
+	desc = Knights.115.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			check_variable = {
+				MOT_Jean_HP < 0
+			}
+		}
+		NOT = { has_global_flag = MOT_Civil_War_Begun }
+	}
+	
+	option = {
+		name = Knights.115.a
+		custom_effect_tooltip = MOT_Enter_Noelle
+		set_country_flag = MOT_JeanWill_Fall
+		MOT_Jean = {
+			add_unit_leader_trait = sick
+		}
+	}
+}
 
+#116 琴团长倒下
+country_event = {
+	id = Knights.116
+	title = Knights.116.t
+	desc = Knights.116.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			has_country_flag = MOT_JeanWill_Fall
+		}
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	option = {
+		name = Knights.116.a
+		MOT_Jean = {
+			add_unit_leader_trait = wounded
+			add_country_leader_trait = MOT_Fall_Down
+		}
+		hidden_effect = {
+			news_event = { id = NewMOT_news.7 } 
+		}
+	}
+}
+#117 紧急提拔
+country_event = {
+	id = Knights.117
+	title = Knights.117.t
+	desc = Knights.117.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		MOT_Jean = {
+			has_trait = MOT_Fall_Down
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Hero_of_MOT
+		}
+	}
+	
+	option = {
+		name = Knights.117.a
+		set_country_flag = MOT_Jean_Ill
+		mark_focus_tree_layout_dirty = yes
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = MOT_Noelle
+			promote_leader = yes
+			country_leader = {
+				ideology = moderatism
+				expire = "1965.1.1.1"
+				traits = { 
+					MOT_Noelle_No_Experience
+					MOT_Noelle_Jean_Give
+					MOT_Noelle_Flower_without_Honor
+				}
+			}
+		}
+		IF = {
+			limit = { has_country_flag = MOT_Noelle_Strengthened }
+			custom_effect_tooltip = MOT_Noelle_BetterNow
+			MOT_Noelle = {
+				hidden_effect = {
+					swap_country_leader_traits = {
+						remove = MOT_Noelle_No_Experience
+						add = MOT_Noelle_Not_Enough_Experience
+						ideology = Rosism
+					}
+				}
+				swap_country_leader_traits = {
+					remove = MOT_Noelle_No_Experience
+					add = MOT_Noelle_Not_Enough_Experience
+					ideology = moderatism
+				}
+			}
+		}
+	}
+}
+#118 暂时的稳定
+country_event = {
+	id = Knights.118
+	title = Knights.118.t
+	desc = Knights.118.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		has_country_flag = MOT_Jean_Ill
+		has_global_flag = {
+			flag = MOT_Civil_War_1_End
+			days > 30
+		}
+	}
+	
+	option = {
+		name = Knights.118.a
+	}
+}
+#119 骑士们的歌声
+country_event = {
+	id = Knights.119
+	title = Knights.119.t
+	desc = Knights.119.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = Knights.119.a
+		add_war_support = 0.05
+	}
+}
+#120 演出的极致
+country_event = {
+	id = Knights.120
+	title = Knights.120.t
+	desc = Knights.120.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.120.a
+		add_war_support = 0.05
+	}
+}
+#121 诺艾尔在战场
+country_event = {
+	id = Knights.121
+	title = Knights.121.t
+	desc = Knights.121.d
+	fire_only_once = yes
+	is_triggered_only = n
+	trigger = {
+		original_tag = MOT
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	option = {
+		name = Knights.121.a
+	}
+}
+#122 诺艾尔的日记1
+country_event = {
+	id = Knights.122
+	title = Knights.122.t
+	desc = Knights.122.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Jean_Ill
+			days > 40
+		}
+	}
+	
+	option = {
+		name = Knights.122.a
+		add_political_power = 30
+		add_to_variable = { MOT_Noelle_Exp = 1 }
+	}
+}
+#123 诺艾尔的日记2
+country_event = {
+	id = Knights.123
+	title = Knights.123.t
+	desc = Knights.123.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.123.a
+		add_stability = 0.1
+	}
+}
+#124 诺艾尔的日记3
+country_event = {
+	id = Knights.124
+	title = Knights.124.t
+	desc = Knights.124.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.124.a
+		add_stability = 0.06
+		add_war_support = 0.05
+	}
+}
+#125 诺艾尔黑线前置 阶段1
+country_event = {
+	id = Knights.125
+	title = Knights.125.t
+	desc = Knights.125.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = MOT_Jean_Ill
+		date > 1937.9.1
+		OR = {
+			has_stability < 0.6
+			has_war_support < 0.6
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.125.a
+		custom_effect_tooltip = MOT_FWay_Route
+		set_country_flag = MOT_FWay_1
+		add_political_power = 200
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = 1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = -100
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.125.b
+		custom_effect_tooltip = MOT_NoFWay_Route
+		add_political_power = 100
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = -1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = 1000
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+}
+
+#126 诺艾尔黑线前置 阶段2
+country_event = {
+	id = Knights.126
+	title = Knights.126.t
+	desc = Knights.126.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = {
+			flag = MOT_FWay_1
+			days > 30
+		}
+		OR = {
+			has_stability < 0.5
+			has_war_support < 0.5
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.126.a
+		set_country_flag = MOT_FWay_2
+	}
+}
+#127 诺艾尔黑线 阶段三
+country_event = {
+	id = Knights.127
+	title = Knights.127.t
+	desc = Knights.127.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		has_country_flag = {
+			flag = MOT_FWay_2
+			days > 60
+		}
+		OR = {
+			has_stability < 0.3
+			has_war_support < 0.3
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.127.a
+		country_event = { id = Knights.128 hours = 6 }
+	}
+}
+#128 进入诺艾尔黑线
+country_event = {
+	id = Knights.128
+	title = Knights.128.t
+	desc = Knights.128.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.128.a
+		set_country_flag = MOT_Noelle_Blacken
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = MOT_Enter_BlackWay
+	}
+}
+#129 病房前·黑
+country_event = {
+	id = Knights.129
+	title = Knights.129.t
+	desc = Knights.129.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.129.a
+		custom_effect_tooltip = MOT_AfterCW_Black
+	}
+	option = {
+		name = Knights.129.b
+		custom_effect_tooltip = MOT_AfterCW_Blue
+	}
+}
+#130 病房前·红
+country_event = {
+	id = Knights.130
+	title = Knights.130.t
+	desc = Knights.130.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.130.a
+		custom_effect_tooltip = MOT_AfterCW_Red
+	}
+	option = {
+		name = Knights.130.b
+		custom_effect_tooltip = MOT_AfterCW_Blue
+	}
+}
+#131 诺艾尔的日记：最后一页
+country_event = {
+	id = Knights.131
+	title = Knights.131.t
+	desc = Knights.131.d
+	fire_only_once = no
+	trigger = {
+		has_country_flag = {
+			flag = MOT_Noelle_Blacken
+			days > 80
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.131.a
+		add_political_power = 100
+	}
+}
+#132 羽球节
+country_event = {
+	id = Knights.132
+	title = Knights.132.t
+	desc = Knights.132.d
+	fire_only_once = no
+	trigger = {
+		original_tag = MOT
+		date > 1935.06.01
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.132.a
+		add_political_power = 10
+	}
+}
+#133 风花节 琴
+country_event = {
+	id = Knights.133
+	title = Knights.133.t
+	desc = Knights.133.d
+	fire_only_once = no
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		NOT = { has_country_flag = MOT_Jean_Ill }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.133.a
+		add_war_support = 0.02
+	}
+}
+#134 风花节 诺艾尔
+country_event = {
+	id = Knights.134
+	title = Knights.134.t
+	desc = Knights.134.d
+	fire_only_once = no
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		has_country_flag = MOT_Jean_Ill
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.134.a
+		add_war_support = 0.02
+	}
+}
+#135 风花节 和平线
+country_event = {
+	id = Knights.135
+	title = Knights.135.t
+	desc = Knights.135.d
+	fire_only_once = no
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		NOT = { has_global_flag = MOT_Civil_War_Begun }
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.135.a
+		add_stability = 0.02
+	}
+}

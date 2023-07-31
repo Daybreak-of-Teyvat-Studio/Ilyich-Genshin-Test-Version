@@ -1,0 +1,912 @@
+focus_tree = {
+	id = kynnast_focus
+
+	country = {
+		factor = 0
+        modifier = {
+            add = 10
+            tag = KNA
+        }
+	}
+
+	default = no
+
+	continuous_focus_position = { x = 20 y = 2000 }
+	#卷个屁
+	focus = {
+		id = Roll_your_butt
+		cost = 1.00
+		x = 13
+		y = 1
+		mutually_exclusive = {
+			focus = study_hard
+		}
+		completion_reward = {
+		}
+	}
+	#无所谓
+	 focus = {
+		id = do_not_matter
+		cost = 1.00
+		relative_position_id = Roll_your_butt
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Roll_your_butt
+		}
+		completion_reward = {
+
+		}
+	 }
+	 #搅屎棍
+	focus = {
+		id = stir_the_pot
+		cost = 1.00
+		relative_position_id = do_not_matter
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = do_not_matter
+		}
+		completion_reward = {
+			remove_ideas = scattered_collection_of_tribes
+			add_ideas = glorious_warmaker
+		}
+	}
+	#哈哈哈
+	focus = {
+		id = ha_ha_ha
+		cost = 1.00
+		relative_position_id = stir_the_pot
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = stir_the_pot
+		}
+		mutually_exclusive = {
+			focus = no_no_no
+		}
+		completion_reward = {
+			custom_effect_tooltip = KNA_focus_3
+			add_ideas = glorious_warmaker
+		}
+	}
+	#不不不
+	focus = {
+		id = no_no_no
+		cost = 1.00
+		relative_position_id = stir_the_pot
+		x = 0
+		y = 1
+		allowed = {
+			always = no 
+		}
+		prerequisite = {
+			focus = stir_the_pot
+		}
+		mutually_exclusive = {
+			focus = ha_ha_ha
+		}
+	}
+	#否定一切的权力
+	focus = {
+		id = power_to_deny_everything
+		cost = 1.00
+		relative_position_id = no_no_no
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = no_no_no
+		}
+	}
+	#历史性的结盟
+	focus = {
+		id = a_historic_alliance
+		cost = 1.00
+		relative_position_id = power_to_deny_everything
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = power_to_deny_everything
+		}
+	}
+	#此为恐惧
+	focus = {
+		id = this_is_fear
+		cost = 1.00
+		relative_position_id = a_historic_alliance
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = a_historic_alliance
+		}
+	}
+	#来自深渊的能源
+	focus = {
+		id = energy_from_Abyss
+		cost = 1.00
+		relative_position_id = this_is_fear
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = this_is_fear
+		}
+		modifier = {
+			local_manpower = 0.6
+		}
+	}
+	#拼命学！
+	focus = {
+		id = study_hard
+		cost = 1.00
+		x = 5
+		y = 1
+		mutually_exclusive = {
+			focus = Roll_your_butt
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Language_barrier
+				add_idea = Inefficient_communication_1
+			}
+		}
+	}
+	#外聘艾拉·马斯克
+	focus = {
+		id = Ella_Musk_External_Hire
+		cost = 1.00
+		relative_position_id = study_hard 
+		x = 0 
+		y = 2
+		prerequisite = {
+			focus = study_hard
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Inefficient_communication_1
+				add_idea = Inefficient_communication_2
+			}
+		}
+	}
+	#我们是语言学大师
+	focus = {
+		id = We_are_the_master_of_linguistics
+		cost = 1.00
+		relative_position_id = Ella_Musk_External_Hire
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = Ella_Musk_External_Hire
+		}
+		completion_reward = {
+			remove_ideas = Inefficient_communication_2
+		}
+	}
+	#这是新生
+	focus = {
+		id = This_is_newborn
+		cost = 1.00
+		relative_position_id = We_are_the_master_of_linguistics
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = We_are_the_master_of_linguistics
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = die_reborn
+		}
+	}
+	#割掉腐肉
+	focus = {
+		id = Cut_off_the_carrion
+		cost = 1.00
+		relative_position_id = This_is_newborn
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = This_is_newborn
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = Looking_around_the_World
+			}
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_in_a_dilemma
+			}
+		}
+	}
+	#土法治疗
+	focus = {
+		id = Indigenous_therapy
+		cost = 1.00
+		relative_position_id = Cut_off_the_carrion
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		completion_reward = {
+			add_manpower = 10000000
+			add_ideas = Empirical_Methodology
+		}
+		mutually_exclusive = {
+			focus = Scientific_therapy
+		}
+	}
+	#寻找新神
+	focus = {
+		id = Searching_for_New_God
+		cost = 1.00
+		relative_position_id = Indigenous_therapy
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			MOT = {
+				create_wargoal = {
+					type = take_state_focus
+					generator = 16
+					target = KNA
+				}
+			}
+			create_wargoal = {
+				type = take_state_focus
+				generator = 1
+				target = MOT 
+			}
+			set_country_flag = KNA_focus_flag_5
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	#末裔领袖
+	focus = {
+		id = leader_of_last_descendant
+		cost = 1.00
+		x = 19
+		y = 3
+		allow_branch = {
+		has_country_flag = KNA_focus_flag_5
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = orthodox_kynnast
+		}
+	}
+	#凯亚的神之眼?
+	focus = {
+		id = the_vision_of_Kaya
+		cost = 1.00
+		relative_position_id = leader_of_last_descendant
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = leader_of_last_descendant 
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = Sword_pointing_west
+			}
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_in_a_dilemma
+			}
+		}
+	}
+	#嘟嘟莲的奥义----凯亚的突破材料
+	focus = {
+		id = The_secret_of_Calla_Lily
+		cost = 1.00
+		relative_position_id = the_vision_of_Kaya
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = the_vision_of_Kaya
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = The_Genshin_being
+			}
+		}
+	}
+	#我即冰神
+	focus = {
+		id = I_am_God_of_Cryo
+		cost = 1.00
+		relative_position_id = The_secret_of_Calla_Lily
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = The_secret_of_Calla_Lily 
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			set_country_flag = KNA_focus_flag2
+			add_ideas = KNA_God_Creator
+			ABY = {
+				remove_wargoal = {
+					type = all 
+					target = KNA 
+				}
+			}
+		}
+	}
+	#科学疗法
+	focus = {
+		id = Scientific_therapy
+		cost = 1.00
+		relative_position_id = Cut_off_the_carrion
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		mutually_exclusive = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism 
+				trait = Scientific_research_is_equally_important
+			}
+		}
+	}
+	#回归理性
+	focus = {
+		id = return_to_rationality
+		cost = 1.00
+		relative_position_id = Scientific_therapy
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Scientific_therapy
+		}
+		completion_reward = {
+			add_research_slot = 1
+			remove_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = Scientific_research_is_equally_important
+			}
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism 
+				trait = Two_Hands_on_Scientific_Research_and_Industry
+			}
+		}
+	}
+	#封建迷信要不得
+	focus = {
+		id = superstition_is_not_acceptable
+		cost = 1.00
+		relative_position_id = return_to_rationality
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = return_to_rationality
+		}
+		completion_reward = {
+			start_civil_war = {
+				ruling_party = communism
+				ideology = fascism
+				size = 0.6
+				keep_all_characters = yes
+				states = all 
+				states_filter = {
+					is_captial = no 
+				}
+			}
+		}
+	}
+	#集合学者
+	focus = {
+		id = gather_scholars
+		cost = 1.00
+		relative_position_id = superstition_is_not_acceptable
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = superstition_is_not_acceptable
+		}
+		completion_reward = {
+			hidden_effect = {
+			set_country_flag = KNA_focus_flag1
+			mark_focus_tree_layout_dirty = yes
+			}
+			custom_effect_tooltip = KNA_focus_2
+			add_ideas = Study_Knowledge_Research_1
+		}
+	}
+#	#集结号
+	focus = {
+		id = The_Assembly
+		cost = 3.00
+		x = 9
+		y = 3
+		completion_reward = {
+			add_ideas = Political_The_Assembly
+			add_ideas = thousand_a_voice
+			add_state_core = 16
+			remove_ideas = {
+				inflation_level_0
+				normal_money
+			}
+			
+			division_template = {
+					name = "qiuqiu"
+					regiments = {
+						infantry = {
+							x = 0 
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+					}
+				}
+			16 = {
+				create_unit = {
+				    division = "name=\"haha\"division_template=\"qiuqiu\"start_experience_factor=0.5"
+					owner = KNA
+					count = 6
+				}
+			}
+		}
+	}
+	#寻找戈多
+	focus = {
+		id = find_Godot
+		cost = 1.00
+		relative_position_id = The_Assembly
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = The_Assembly
+		}
+		completion_reward = {
+			country_event = kna.1
+			set_country_flag = KNA_focus_1
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_in_a_dilemma
+			}
+			KNA_kaya = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_stonehide_lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_thunderhelm_lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_Frostarm_Lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+		}
+	}
+	#生而为人
+	focus = {
+		id = we_also_the_people
+		relative_position_id = find_Godot
+		cost = 3.00
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = find_Godot
+		}
+		completion_reward = {
+			add_manpower = 1000000
+		}
+	}
+	#出深渊而不染
+	focus = {
+		id = from_Spiral_Abyss
+		relative_position_id = we_also_the_people
+		cost = 1.00
+		x=0
+		y = 1
+		prerequisite = {
+			focus = we_also_the_people
+		}
+		mutually_exclusive = {
+			focus = kynnast_is_here
+		}
+		completion_reward = {
+			add_manpower = 100000
+			add_timed_idea = {
+				idea = not_defined_by_anyone 
+				days = 150
+			}
+		}
+	}
+	#寻找解药
+	focus = {
+		id = the_way_to_antidote
+		cost = 1.00
+		relative_position_id = from_Spiral_Abyss
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = from_Spiral_Abyss
+		}
+		completion_reward = {
+			hidden_effect = {
+				set_country_flag = KNA_flag_fail
+			}
+			custom_effect_tooltip = KNA_failed
+		}
+	}
+	#拍拍身上的灰
+	focus = {
+		id = pat_the_ashes
+		cost = 1.00
+		relative_position_id = the_way_to_antidote
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = the_way_to_antidote
+		}
+		completion_reward = {
+			remove_ideas = scattered_collection_of_tribes
+			add_ideas = the_four_modernizations
+		}
+	}
+	#打扫干净屋子再请客
+	focus = {
+		id = clean_the_house_before_inviting_guests
+		cost = 1.00
+		relative_position_id = pat_the_ashes
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = pat_the_ashes
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = clean_the_house 
+				days = 90
+			}
+		}
+	}
+	#韬光养晦
+	focus = {
+		id = hide_capacities
+		cost = 1.00
+		relative_position_id = clean_the_house_before_inviting_guests
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = clean_the_house_before_inviting_guests
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = for_the_people_of_kynnast
+			}
+			remove_trait = {
+				character = KNA_kaya 
+				ideology = marxism 
+				trait = KNA_in_a_dilemma
+			}
+		}
+	}
+	#卧薪尝胆
+	focus = {
+		id = licking_the_wounds
+		cost = 1.00
+		relative_position_id = hide_capacities
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = hide_capacities
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				generator = 1
+				target = MOT 
+			}
+		}
+	}
+	#生育是头等大事
+	focus = {
+		id = fertility_is_a_top_priority
+		cost = 1.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+		}
+	}
+	#重工业是关键
+	focus = {
+		id = heavy_industry_is_key
+		cost = 1.00
+		relative_position_id = fertility_is_a_top_priority
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = fertility_is_a_top_priority
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+		}
+	}
+	#补给也不可或缺
+	focus = {
+		id = supply_is_also_indispensable
+		cost = 1.00
+		relative_position_id = heavy_industry_is_key
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = heavy_industry_is_key
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			16 = {
+				add_extra_state_shared_building_slots = 5
+			}
+		}
+	}
+	#来一场久违的胜利吧
+	focus = {
+		id = lets_have_a_long_lost_victory
+		cost = 1.00
+		relative_position_id = supply_is_also_indispensable
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = supply_is_also_indispensable
+		}
+		completion_reward = {
+			set_country_flag = KNA_focus_flag3
+			KNA_kaya = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_stonehide_lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_thunderhelm_lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+			KNA_Frostarm_Lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					days = 120
+				}
+			}
+		}
+	}
+	#钢板一块
+	focus = {
+		id = A_piece_of_steel_plate
+		cost = 1.00
+		relative_position_id = lets_have_a_long_lost_victory
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = lets_have_a_long_lost_victory
+		}
+		completion_reward = {
+			set_country_flag = KNA_focus_flag4
+			add_ideas = a_great_country
+		}
+	}
+	#总结经验
+	focus = {
+		id = sum_up_experience
+		cost = 1.00
+		x = 22
+		y = 3 
+		allow_branch = {
+		has_country_flag = KNA_focus_flag1
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	#形成理论
+	focus = {
+		id = form_theory
+		cost = 1.00
+		relative_position_id = sum_up_experience
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = sum_up_experience
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_1
+				add_idea = Study_Knowledge_Research_2
+			}
+		}
+	}
+	#自我革命
+	focus = {
+		id = self-revolution
+		cost = 20.00
+		relative_position_id = form_theory
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+	}
+	#群众路线
+	focus = {
+		id = the_mass_line
+		cost = 20.00
+		relative_position_id = form_theory
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_command_power = 150
+		}
+	}
+	#宁有种乎？
+	focus = {
+		id = born_with_their_standing
+		cost = 1.00
+		relative_position_id = form_theory
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = the_mass_line 
+			focus = self-revolution
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+	}
+	#谁主沉浮
+	focus = {
+		id = which_takes_the_lead
+		cost = 1.00
+		relative_position_id = born_with_their_standing
+		x = 0
+		y = 2
+		prerequisite ={
+			focus = born_with_their_standing
+		}
+		completion_reward = {
+			army_experience = 100
+			navy_experience = 10
+			air_experience = 10
+		}
+	}
+	#唯我独尊
+	focus = {
+		id = better_than_all_of
+		cost = 1.00
+		relative_position_id = which_takes_the_lead
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = which_takes_the_lead
+		}
+		completion_reward = {
+			every_unit_leader = {
+				gain_xp = 15
+			}
+		}
+	}
+	#主观能动性
+	focus = {
+		id = subjective_initiative
+		cost = 1.00
+		relative_position_id = which_takes_the_lead
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = which_takes_the_lead
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_2
+				add_idea = Study_Knowledge_Research_3
+			}
+		}
+	}
+	#更根本的客观规律
+	focus = {
+		id = more_fundamental_objective_laws
+		cost = 1.00
+		relative_position_id = subjective_initiative
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = subjective_initiative
+		}
+		swap_ideas = {
+			remove_idea = Study_Knowledge_Research_3
+			add_idea = Study_Knowledge_Research_4
+		}
+	}
+	#天外来客
+	#focus = {
+	#	id = people_out_of_sky
+	#	cost = 1.00
+	#	x = 20
+	#	y = 3
+	#	completion_reward = {
+	#		create_country_leader = {
+	#			name = KNA_Five_day_journey
+	#			desc = "KNA_Five_day_journey_desc"
+	#			picture = GFX_KNA_Five
+	#			expire = "1965.1.1"
+	#			ideology = marxism
+	#			traits = {}
+	#	}
+	#}
+	#}
+}
