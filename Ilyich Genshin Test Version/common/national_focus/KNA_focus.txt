@@ -12,12 +12,25 @@ focus_tree = {
 	default = no
 
 	continuous_focus_position = { x = 20 y = 2000 }
+	#内忧外患
+	focus = {
+		id = KNA_domestic_trouble_and_foreign_invasion
+		cost = 1.00
+		x = 8
+		y = 0
+		completion_reward = {
+			add_ideas = scattered_collection_of_tribes
+		}
+	}
 	#卷个屁
 	focus = {
 		id = Roll_your_butt
 		cost = 1.00
-		x = 13
+		x = 11
 		y = 1
+		prerequisite = {
+			focus = KNA_domestic_trouble_and_foreign_invasion
+		}
 		mutually_exclusive = {
 			focus = study_hard
 		}
@@ -144,6 +157,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = Roll_your_butt
 		}
+		prerequisite = {
+			focus = KNA_domestic_trouble_and_foreign_invasion
+		}
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = Language_barrier
@@ -269,8 +285,8 @@ focus_tree = {
 	focus = {
 		id = leader_of_last_descendant
 		cost = 1.00
-		x = 19
-		y = 3
+		x = 13
+		y = 10
 		allow_branch = {
 		has_country_flag = KNA_focus_flag_5
 		}
@@ -433,8 +449,8 @@ focus_tree = {
 	focus = {
 		id = The_Assembly
 		cost = 3.00
-		x = 9
-		y = 3
+		x = 8
+		y = 2
 		completion_reward = {
 			add_ideas = Political_The_Assembly
 			add_ideas = thousand_a_voice
@@ -482,7 +498,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = kna.1
-			set_country_flag = KNA_focus_1
+			set_country_flag = KNA_focus_1  #开启抢地决议
 			add_trait = {
 				character = KNA_kaya
 				ideology = marxism
@@ -518,50 +534,15 @@ focus_tree = {
 			}
 		}
 	}
-	#生而为人
-	focus = {
-		id = we_also_the_people
-		relative_position_id = find_Godot
-		cost = 3.00
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = find_Godot
-		}
-		completion_reward = {
-			add_manpower = 1000000
-		}
-	}
-	#出深渊而不染
-	focus = {
-		id = from_Spiral_Abyss
-		relative_position_id = we_also_the_people
-		cost = 1.00
-		x=0
-		y = 1
-		prerequisite = {
-			focus = we_also_the_people
-		}
-		mutually_exclusive = {
-			focus = kynnast_is_here
-		}
-		completion_reward = {
-			add_manpower = 100000
-			add_timed_idea = {
-				idea = not_defined_by_anyone 
-				days = 150
-			}
-		}
-	}
 	#寻找解药
 	focus = {
 		id = the_way_to_antidote
 		cost = 1.00
-		relative_position_id = from_Spiral_Abyss
+		relative_position_id = find_Godot
 		x = 0
 		y = 2
 		prerequisite = {
-			focus = from_Spiral_Abyss
+			focus = find_Godot
 		}
 		completion_reward = {
 			hidden_effect = {
@@ -582,7 +563,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			remove_ideas = scattered_collection_of_tribes
-			add_ideas = the_four_modernizations
+			add_ideas = the_four_modernizations_1
+			set_country_flag = kna_flag_8 #开启提升稳定度和战争支持度的决议
 		}
 	}
 	#打扫干净屋子再请客
@@ -600,6 +582,10 @@ focus_tree = {
 				idea = clean_the_house 
 				days = 90
 			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_1
+				add_idea = the_four_modernizations_2
+			}
 		}
 	}
 	#韬光养晦
@@ -608,7 +594,7 @@ focus_tree = {
 		cost = 1.00
 		relative_position_id = clean_the_house_before_inviting_guests
 		x = 0
-		y = 2
+		y = 1
 		prerequisite = {
 			focus = clean_the_house_before_inviting_guests
 		}
@@ -622,6 +608,10 @@ focus_tree = {
 				character = KNA_kaya 
 				ideology = marxism 
 				trait = KNA_in_a_dilemma
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_2
+				add_idea = the_four_modernizations_3
 			}
 		}
 	}
@@ -658,6 +648,10 @@ focus_tree = {
 				idea = Born_more_and_born_better
 				days = 150
 			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
 		}
 	}
 	#重工业是关键
@@ -674,6 +668,10 @@ focus_tree = {
 			add_timed_idea = {
 				idea = develop_heavy_industry 
 				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
 			}
 		}
 	}
@@ -695,17 +693,39 @@ focus_tree = {
 			16 = {
 				add_extra_state_shared_building_slots = 5
 			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#生而为人
+	focus = {
+		id = we_also_the_people
+		relative_position_id = supply_is_also_indispensable
+		cost = 3.00
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = supply_is_also_indispensable
+		}
+		completion_reward = {
+			add_manpower = 1100000
+			add_timed_idea = {
+				idea = not_defined_by_anyone 
+				days = 150
+			}
 		}
 	}
 	#来一场久违的胜利吧
 	focus = {
 		id = lets_have_a_long_lost_victory
 		cost = 1.00
-		relative_position_id = supply_is_also_indispensable
+		relative_position_id = we_also_the_people
 		x = 0
 		y = 1
 		prerequisite = {
-			focus = supply_is_also_indispensable
+			focus = we_also_the_people
 		}
 		completion_reward = {
 			set_country_flag = KNA_focus_flag3
@@ -743,11 +763,13 @@ focus_tree = {
 	focus = {
 		id = A_piece_of_steel_plate
 		cost = 1.00
-		relative_position_id = lets_have_a_long_lost_victory
-		x = 0
-		y = 2
+		x = 8
+		y = 16
 		prerequisite = {
 			focus = lets_have_a_long_lost_victory
+			focus = I_am_God_of_Cryo
+			focus = better_than_all_of
+			focus = KNA_be_perpendicular_and_horizontal
 		}
 		completion_reward = {
 			set_country_flag = KNA_focus_flag4
@@ -758,8 +780,8 @@ focus_tree = {
 	focus = {
 		id = sum_up_experience
 		cost = 1.00
-		x = 22
-		y = 3 
+		x = 20
+		y = 5
 		allow_branch = {
 		has_country_flag = KNA_focus_flag1
 		}
@@ -773,7 +795,7 @@ focus_tree = {
 		cost = 1.00
 		relative_position_id = sum_up_experience
 		x = 0
-		y = 1
+		y = 2
 		prerequisite = {
 			focus = sum_up_experience
 		}
@@ -786,10 +808,10 @@ focus_tree = {
 	}
 	#自我革命
 	focus = {
-		id = self-revolution
+		id = self_revolution
 		cost = 20.00
 		relative_position_id = form_theory
-		x = -1
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = form_theory
@@ -803,8 +825,8 @@ focus_tree = {
 		id = the_mass_line
 		cost = 20.00
 		relative_position_id = form_theory
-		x = 1
-		y = 1
+		x = -1
+		y = 2
 		prerequisite = {
 			focus = form_theory
 		}
@@ -816,12 +838,11 @@ focus_tree = {
 	focus = {
 		id = born_with_their_standing
 		cost = 1.00
-		relative_position_id = form_theory
+		relative_position_id = the_mass_line
 		x = 0
 		y = 2
 		prerequisite = {
 			focus = the_mass_line 
-			focus = self-revolution
 		}
 		completion_reward = {
 			add_stability = 0.1
@@ -849,7 +870,7 @@ focus_tree = {
 		id = better_than_all_of
 		cost = 1.00
 		relative_position_id = which_takes_the_lead
-		x = -1
+		x = 0
 		y = 2
 		prerequisite = {
 			focus = which_takes_the_lead
@@ -864,11 +885,11 @@ focus_tree = {
 	focus = {
 		id = subjective_initiative
 		cost = 1.00
-		relative_position_id = which_takes_the_lead
-		x = 1
+		relative_position_id = self_revolution
+		x = 0
 		y = 1
 		prerequisite = {
-			focus = which_takes_the_lead
+			focus = self_revolution
 		}
 		completion_reward = {
 			swap_ideas = {
@@ -887,9 +908,286 @@ focus_tree = {
 		prerequisite = {
 			focus = subjective_initiative
 		}
-		swap_ideas = {
-			remove_idea = Study_Knowledge_Research_3
-			add_idea = Study_Knowledge_Research_4
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_3
+				add_idea = Study_Knowledge_Research_4
+			}
+		}
+	}
+	#暗流汹涌
+	focus = {
+		id = KNA_Undercurrent_surging
+		cost = 1.00
+		x = 20
+		y = 0
+		completion_reward = {
+
+		}
+	}
+	#我是顽固派 
+	focus = {
+		id = KNA_I_am_a_diehard
+		cost = 1.00
+		relative_position_id = KNA_Undercurrent_surging
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_Undercurrent_surging
+		}
+		completion_reward = {
+
+		}
+	}
+	# 暗杀计划
+	focus = {
+		id = KNA_plan_of_the_assassination
+		cost = 1.00
+		relative_position_id = KNA_I_am_a_diehard
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_I_am_a_diehard
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_9 #创建暗杀决议
+		}
+	}
+	#射人先射马
+	focus = {
+		id = KNA_Aim_first_at_the_riders_horse
+		cost = 1.00
+		relative_position_id = KNA_plan_of_the_assassination
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = KNA_plan_of_the_assassination
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_1 #加快暗杀首相决议
+		}
+	}
+	#不成功，便成仁
+	focus = {
+		id = KNA_die_for_a_righteous
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -3
+		y = 2
+		prerequisite = {
+			focus = KNA_Aim_first_at_the_riders_horse
+		}
+		mutually_exclusive = {
+			focus = KNA_Knife_holder_on_neck
+		}
+	}
+	#刀架在脖子上
+	focus = {
+		id = KNA_Knife_holder_on_neck
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = KNA_Aim_first_at_the_riders_horse
+		}
+		mutually_exclusive = {
+			focus = KNA_die_for_a_righteous
+		}
+	}
+	#祖宗之法不可变   #此线，通过外交手段，将盟友拉入战争泥潭，最终自己获得最大利益
+	focus = {
+		id = KNA_Ancestral_law_is_immutable
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -2
+		y = 3
+		prerequisite = {
+			focus = KNA_die_for_a_righteous
+			focus = KNA_Knife_holder_on_neck
+		}
+	}
+	#当众行刑
+	focus = {
+		id = KNA_Execution_in_public
+		cost = 1.00
+		relative_position_id = KNA_Ancestral_law_is_immutable
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Ancestral_law_is_immutable
+		}
+	}
+	#清算党羽
+	focus = {
+		id = KNA_Liquidate_party_members
+		cost = 1.00
+		relative_position_id = KNA_Execution_in_public
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Execution_in_public
+		}
+	}
+	#结与国之欢心
+	focus = {
+		id = KNA_establish_a_harmonious_relationship_with_the_country
+		cost = 1.00
+		relative_position_id = KNA_Liquidate_party_members
+		x = -2
+		y = 2
+		prerequisite = {
+			focus = KNA_Liquidate_party_members
+		}
+		mutually_exclusive = {
+			focus = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		}
+	}
+	#苟活
+	focus = {
+		id = KNA_live_on_in_degradation
+		cost = 1.00
+		relative_position_id = KNA_establish_a_harmonious_relationship_with_the_country
+		x = 0
+		y =2
+		prerequisite = {
+			focus = KNA_establish_a_harmonious_relationship_with_the_country
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_3 ##开启丧权辱国国策树
+		}
+	}
+	#弱国的外交是依附
+	focus = {
+		id = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		cost = 1.00
+		relative_position_id = KNA_Liquidate_party_members
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Liquidate_party_members
+		}
+		mutually_exclusive = {
+			focus = KNA_establish_a_harmonious_relationship_with_the_country
+		}
+	}
+	#笑里藏刀
+	focus = {
+		id = KNA_hide_a_dagger_in_a_smile
+		cost = 1.00
+		relative_position_id = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		x= 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		}
+	}
+	#纵横捭阖
+	focus = {
+		id = KNA_be_perpendicular_and_horizontal
+		cost = 1.00
+		relative_position_id = KNA_hide_a_dagger_in_a_smile
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_hide_a_dagger_in_a_smile
+		}
+	}
+	#先给点压力
+	focus = {
+		id = KNA_Give_pressure_first
+		cost = 1.00
+		relative_position_id = KNA_plan_of_the_assassination
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = KNA_plan_of_the_assassination
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_2 #加快暗杀将领决议
+		}
+	}
+	#再卸条手臂
+	focus = {
+		id = KNA_remove_one_arm
+		cost = 1.00
+		relative_position_id = KNA_Give_pressure_first
+		x = 2
+		y = 2
+		prerequisite = {
+			focus = KNA_Give_pressure_first
+		}
+	}
+	#打！
+	focus = {
+		id = KNA_fight 
+		cost = 1.00
+		relative_position_id = KNA_remove_one_arm
+		x = 2
+		y = 2
+		prerequisite = {
+			focus = KNA_remove_one_arm
+		}
+		mutually_exclusive = {
+			focus = KNA_face_to_face_conversation
+		}
+	}
+	#面对面交谈
+	focus = {
+		id = KNA_face_to_face_conversation
+		cost = 1.00
+		relative_position_id = KNA_remove_one_arm
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_remove_one_arm
+		}
+		mutually_exclusive = {
+			focus = KNA_fight
+		}
+	}
+	#第一次全国人民代表正式会议
+	focus = {
+		id = KNA_FNPC
+		cost = 1.00
+		relative_position_id = KNA_face_to_face_conversation
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_face_to_face_conversation
+		}
+	}
+	#其名为“凯南斯特”
+	focus = {
+		id = KNA_its_name_is_kynnast
+		cost = 1.00
+		relative_position_id = KNA_FNPC
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_FNPC
+		}
+	}
+	#求同存异
+	focus = {
+		id = KNA_seek_common_ground_while_reserving_differences
+		cost = 1.00
+		relative_position_id = KNA_its_name_is_kynnast
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_its_name_is_kynnast
+		}
+	}
+	#我们的朋友遍天下
+	focus = {
+		id = KNA_We_have_friends_all_over_the_world
+		cost = 1.00
+		relative_position_id = KNA_seek_common_ground_while_reserving_differences
+		x = 0
+		y = 2 
+		prerequisite = {
+			focus = KNA_seek_common_ground_while_reserving_differences
 		}
 	}
 	#天外来客
