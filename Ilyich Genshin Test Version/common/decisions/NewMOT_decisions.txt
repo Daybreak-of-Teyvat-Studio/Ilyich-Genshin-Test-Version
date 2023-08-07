@@ -2586,6 +2586,9 @@ MOT_National_Congress = {
 		visible = {
 			NOT = {
 				OR = {
+					has_country_flag = MOT_UnlockDecision_P01
+					has_country_flag = MOT_UnlockDecision_P02
+					has_country_flag = MOT_UnlockDecision_P03
 					has_country_flag = MOT_UnlockDecision_P1
 					has_country_flag = MOT_UnlockDecision_P2
 					has_country_flag = MOT_UnlockDecision_P3
@@ -2618,7 +2621,7 @@ MOT_National_Congress = {
 	MOT_People_from_TandL = {
 		icon = generic_nationalism
 		days_re_enable = 30
-		days_remove = 70
+		days_remove = 60
 		cost = 30
 		fire_only_once = no
 		visible = {
@@ -2630,6 +2633,7 @@ MOT_National_Congress = {
 			}
 		}
 		modifier = {
+			political_power_cost = 0.25
 			industrial_capacity_factory = 0.25
 			industry_free_repair_factor = 0.5
 			production_factory_efficiency_gain_factor = 0.25
@@ -2645,10 +2649,63 @@ MOT_National_Congress = {
 			MOT_Re_Org_PowerandSupport = yes
 		}
 		remove_effect = {
-			
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P01
+				}
+				add_political_power = 25
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P02
+				}
+				add_stability = 0.02
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P03
+				}
+				add_war_support = 0.02
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P04
+				}
+				custom_effect_tooltip = MOT_Higher_P_of_P
+				add_to_variable = { MOT_BasicPower_of_People = 3 }
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P05
+				}
+				custom_effect_tooltip = MOT_Lower_P_of_L
+				custom_effect_tooltip = MOT_Lower_P_of_T
+				add_to_variable = { MOT_BasicPower_of_Trader = -3 }
+				add_to_variable = { MOT_BasicPower_of_Lords = -3 }
+			}
 		}
 		ai_will_do = {
 			base = 0
+		}
+	}
+	# 强化军民联系
+	MOT_Stengthen_Connection_B_Army_and_People = {
+		icon = generic_nationalism
+		days_re_enable = 60
+		days_remove = 35
+		cost = 0
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_P1 }
+		modifier = {
+			political_power_cost = 1
+			war_support_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_war_support = 0.05
 		}
 	}
 	# 维护团结

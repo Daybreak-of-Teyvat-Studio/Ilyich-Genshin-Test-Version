@@ -157,6 +157,33 @@ MOT_REUNION_CCC = {
 	}
 	play_song = "SAVE Medley"
 	news_event = { days = 2 id = NewMOT_news.6 }
+
+	set_popularities = {
+		democratic = 15
+		neutrality = 5
+		fascism = 5
+		communism = 70
+		genshin = 5
+	}
+	set_politics = {
+		ruling_party = communism
+		elections_allowed = no
+		last_election = "1936.1.1"
+		election_frequency = 48
+	}
+	retire_country_leader = yes
+	add_country_leader_role = {
+		character = MOT_Noelle
+		promote_leader = yes
+		country_leader = {
+			ideology = Rosism
+			expire = "1965.1.1.1"
+			traits = { 
+				MOT_Noelle_Jean_Give
+				MOT_Noelle_Flower_without_Honor
+			}
+		}
+	}
 }
 MOT_REUNITE_NNN = {
 	country_event = Knights.138
@@ -596,70 +623,122 @@ MOT_Lower_AlwaysS = {
 }
 #限制变量范围
 MOT_Var_Limit = {
-
-	clamp_variable = {
-		var = MOT_BasicPower_of_People
-		max = MOT_PLimit1_of_P
-		min = MOT_PLimit2_of_P
+	IF = {
+		limit = {
+			has_government = communism
+		}
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
 	}
-	clamp_variable = {
-		var = MOT_BasicPower_of_Trader
-		max = MOT_PLimit1_of_T
-		min = MOT_PLimit2_of_T
+	ELSE_IF = {
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicPower_of_Trader
+			max = MOT_PLimit1_of_T
+			min = MOT_PLimit2_of_T
+		}
+		clamp_variable = {
+			var = MOT_BasicPower_of_Lords
+			max = MOT_PLimit1_of_L
+			min = MOT_PLimit2_of_L
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_Trader
+			max = MOT_SLimit1_of_T
+			min = MOT_SLimit2_of_T
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_Lords
+			max = MOT_SLimit1_of_L
+			min = MOT_SLimit2_of_L
+		}
 	}
-	clamp_variable = {
-		var = MOT_BasicPower_of_Lords
-		max = MOT_PLimit1_of_L
-		min = MOT_PLimit2_of_L
-	}
-	clamp_variable = {
-		var = MOT_BasicSupport_People
-		max = MOT_SLimit1_of_P
-		min = MOT_SLimit2_of_P
-	}
-	clamp_variable = {
-		var = MOT_BasicSupport_Trader
-		max = MOT_SLimit1_of_T
-		min = MOT_SLimit2_of_T
-	}
-	clamp_variable = {
-		var = MOT_BasicSupport_Lords
-		max = MOT_SLimit1_of_L
-		min = MOT_SLimit2_of_L
-	}
-	
-	
-
 }
 MOT_Re_Meeting = {
 	#计算动态变量效果
-	set_variable = { MOT_Modifier_From_People = MOT_BasicPower_of_People }
-	multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
-	divide_variable = { MOT_Modifier_From_People = 100 }
-	set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
-	multiply_variable = { MOT_People_ConsFac_modifier = 0.3 }
-	set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
-	multiply_variable = { MOT_People_EffGain_modifier = 0.6 }
-	set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
-	multiply_variable = { MOT_People_SuppFac_modifier = 0.4 }
-	set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
-	multiply_variable = { MOT_People_MaxEff_modifier = 0.25 }
+	IF = {
+		limit = {
+			has_government = communism
+		}
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
+		set_variable = { MOT_Modifier_From_People = MOT_BasicPower_of_People }
+		multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
+		divide_variable = { MOT_Modifier_From_People = 100 }
+		set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_ConsFac_modifier = 0.4 }
+		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_EffGain_modifier = 0.75 }
+		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.5 }
+		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.25 }
+	}
+	ELSE_IF = {
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
+		set_variable = { MOT_Modifier_From_People = MOT_BasicPower_of_People }
+		multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
+		divide_variable = { MOT_Modifier_From_People = 100 }
+		set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_ConsFac_modifier = 0.3 }
+		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_EffGain_modifier = 0.5 }
+		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.3 }
+		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.2 }
+		
+		set_variable = { MOT_Modifier_From_Trader = MOT_BasicPower_of_Trader }
+		multiply_variable = { MOT_Modifier_From_Trader = MOT_BasicSupport_Trader }
+		divide_variable = { MOT_Modifier_From_Trader = 100 }
+		set_variable = { MOT_Trader_BuilSpeed_modifier = MOT_Modifier_From_Trader }
+		multiply_variable = { MOT_Trader_BuilSpeed_modifier = 0.25 }
+		set_variable = { MOT_Trader_ConsGoods_modifier = MOT_Modifier_From_Trader }
+		multiply_variable = { MOT_Trader_ConsGoods_modifier = -0.1 }
 
-	set_variable = { MOT_Modifier_From_Trader = MOT_BasicPower_of_Trader }
-	multiply_variable = { MOT_Modifier_From_Trader = MOT_BasicSupport_Trader }
-	divide_variable = { MOT_Modifier_From_Trader = 100 }
-	set_variable = { MOT_Trader_BuilSpeed_modifier = MOT_Modifier_From_Trader }
-	multiply_variable = { MOT_Trader_BuilSpeed_modifier = 0.5 }
-	set_variable = { MOT_Trader_ConsGoods_modifier = MOT_Modifier_From_Trader }
-	multiply_variable = { MOT_Trader_ConsGoods_modifier = -0.2 }
+		set_variable = { MOT_Modifier_From_Lords = MOT_BasicPower_of_Lords }
+		multiply_variable = { MOT_Modifier_From_Lords = MOT_BasicSupport_Lords }
+		divide_variable = { MOT_Modifier_From_Lords = 100 }
+		set_variable = { MOT_Lords_DriftDef_modifier = MOT_Modifier_From_Lords }
+		multiply_variable = { MOT_Lords_DriftDef_modifier = 1 }
+		set_variable = { MOT_Lords_PoliGain_modifier = MOT_Modifier_From_Lords }
+		multiply_variable = { MOT_Lords_PoliGain_modifier = 0.4 }
 
-	set_variable = { MOT_Modifier_From_Lords = MOT_BasicPower_of_Lords }
-	multiply_variable = { MOT_Modifier_From_Lords = MOT_BasicSupport_Lords }
-	divide_variable = { MOT_Modifier_From_Lords = 100 }
-	set_variable = { MOT_Lords_DriftDef_modifier = MOT_Modifier_From_Lords }
-	multiply_variable = { MOT_Lords_DriftDef_modifier = 1 }
-	set_variable = { MOT_Lords_PoliGain_modifier = MOT_Modifier_From_Lords }
-	multiply_variable = { MOT_Lords_PoliGain_modifier = 0.4 }
+	}
 
 	force_update_dynamic_modifier = yes
 }
@@ -1005,6 +1084,72 @@ MOT_Re_Decisions_Support = {
 }
 #重计票
 MOT_Re_Org_PowerandSupport = {
+	IF = {
+		limit = {
+			has_government = communism
+		}
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
+		set_variable = { MOT_Modifier_From_People = MOT_BasicPower_of_People }
+		multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
+		divide_variable = { MOT_Modifier_From_People = 100 }
+		set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_ConsFac_modifier = 0.4 }
+		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_EffGain_modifier = 0.75 }
+		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.5 }
+		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.25 }
+	}
+	ELSE_IF = {
+		clamp_variable = {
+			var = MOT_BasicPower_of_People
+			max = MOT_PLimit1_of_P
+			min = MOT_PLimit2_of_P
+		}
+		clamp_variable = {
+			var = MOT_BasicSupport_People
+			max = MOT_SLimit1_of_P
+			min = MOT_SLimit2_of_P
+		}
+		set_variable = { MOT_Modifier_From_People = MOT_BasicPower_of_People }
+		multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
+		divide_variable = { MOT_Modifier_From_People = 100 }
+		set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_ConsFac_modifier = 0.3 }
+		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_EffGain_modifier = 0.5 }
+		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.3 }
+		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.2 }
+		
+		set_variable = { MOT_Modifier_From_Trader = MOT_BasicPower_of_Trader }
+		multiply_variable = { MOT_Modifier_From_Trader = MOT_BasicSupport_Trader }
+		divide_variable = { MOT_Modifier_From_Trader = 100 }
+		set_variable = { MOT_Trader_BuilSpeed_modifier = MOT_Modifier_From_Trader }
+		multiply_variable = { MOT_Trader_BuilSpeed_modifier = 0.25 }
+		set_variable = { MOT_Trader_ConsGoods_modifier = MOT_Modifier_From_Trader }
+		multiply_variable = { MOT_Trader_ConsGoods_modifier = -0.1 }
+
+		set_variable = { MOT_Modifier_From_Lords = MOT_BasicPower_of_Lords }
+		multiply_variable = { MOT_Modifier_From_Lords = MOT_BasicSupport_Lords }
+		divide_variable = { MOT_Modifier_From_Lords = 100 }
+		set_variable = { MOT_Lords_DriftDef_modifier = MOT_Modifier_From_Lords }
+		multiply_variable = { MOT_Lords_DriftDef_modifier = 1 }
+		set_variable = { MOT_Lords_PoliGain_modifier = MOT_Modifier_From_Lords }
+		multiply_variable = { MOT_Lords_PoliGain_modifier = 0.4 }
+
+	}
 	#忠诚派
 	set_variable = { MOT_SUMPower_of_AlwaysSupport = var:MOT_BasicPower_of_AlwaysSupport }
 	add_to_variable = { MOT_SUMPower_of_AlwaysSupport = var:MOT_ExtraPower_of_AlwaysSupport }
