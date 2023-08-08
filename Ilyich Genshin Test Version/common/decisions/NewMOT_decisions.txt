@@ -2708,6 +2708,106 @@ MOT_National_Congress = {
 			add_war_support = 0.05
 		}
 	}
+	# 改善军队待遇
+	MOT_Better_Army_Condition = {
+		icon = generic_nationalism
+		days_re_enable = 60
+		days_remove = 35
+		cost = 0
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_P2 }
+		modifier = {
+			consumer_goods_factor = 0.1
+			war_support_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_war_support = 0.05
+		}
+	}
+	# 占领区土地改革
+	MOT_Land_Reform_on_Occupied = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 35
+		cost = 30
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_No_Lower_than	
+				NOT = {
+					check_variable = { MOT_LRO_Number > 5 }
+				}
+			}
+		}
+		visible = { has_country_flag = MOT_UnlockDecision_P3 }
+		modifier = {
+			political_power_cost = 0.5
+			stability_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 6 }
+			IF = {
+				limit = {
+					has_variable = MOT_LRO_Number
+				}
+				add_to_variable = { MOT_LRO_Number = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { MOT_LRO_Number = 1 }
+			}
+		}
+	}
+	#红 没收通敌者产业
+	MOT_Capture_Betrayers_Wealth = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_No_Lower_than	
+				NOT = {
+					check_variable = { MOT_CBW_Number > 5 }
+				}
+			}
+		}
+		visible = {
+			has_country_flag = MOT_UnlockDecision_P4
+		}
+		modifier = {
+			political_power_gain = 0.5
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+			IF = {
+				limit = {
+					has_variable = MOT_CBW_Number
+				}
+				add_to_variable = { MOT_CBW_Number = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { MOT_CBW_Number = 1 }
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			custom_effect_tooltip = MOT_Lower_P_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+		}
+	}
 	# 维护团结
 	MOT_Keep_United = {
 		icon = generic_nationalism
@@ -2878,6 +2978,58 @@ MOT_National_Congress = {
 		}
 		complete_effect = { clr_country_flag = MOT_Not_Show_Dec1 }
 		ai_will_do = { base = 0 }
+	}
+	#红线 追随玫瑰骑士
+	MOT_Follow_the_Roses = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			has_country_flag = MOT_UnlockDecision_P5
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = { political_power_gain = 0.5 }
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				custom_effect_tooltip = MOT_Lower_P_of_P
+				add_to_variable = { MOT_BasicPower_of_People = -5 }
+				custom_effect_tooltip = MOT_Lower_S_of_P
+				add_to_variable = { MOT_BasicSupport_People = -0.10 }
+				MOT_Lower_AlwaysS = yes
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_stability < 0.6
+				add = 100
+			}
+			modifier = {
+				has_stability < 0.8
+				add = 100
+			}
+		}
 	}
 #民意支持：
 	#改善物资供给
