@@ -1,8 +1,8 @@
 NDefines = {
 
 NGame = {
-	START_DATE = "1936.1.1.12",
-	END_DATE = "1949.1.1.1",
+	START_DATE = "1444.1.1.12", -- 开始时间
+	END_DATE = "1949.1.1.1", -- 结束时间
 	MAP_SCALE_PIXEL_TO_KM = 7.114,					-- Yes, we did the math
 	SAVE_VERSION = 15,								-- 1.11.0 (Barbarossa)
 	CHECKSUM_SALT = "zwOdv5d9wm9uDSOT",				-- Data to modify generated checksum when game binaries have changed but not any content files.
