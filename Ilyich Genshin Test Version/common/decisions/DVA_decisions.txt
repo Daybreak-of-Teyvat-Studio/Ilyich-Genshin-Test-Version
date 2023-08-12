@@ -1,5 +1,289 @@
-DVA_the_one_of_Teyvat = {
+@DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
+@DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT = -500
+#风龙领骚乱
+DVA_mass_of_dvalin_category = {
+	DVA_pacify_hilichurls_in_the_northern_countryside = {
 
+		icon = generic_oppression
+		
+		available = {
+			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
+			has_country_flag = DVA_northern_hilichurls
+			divisions_in_state = {
+				state = 62
+				size > 4
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 62
+			}
+		}
+
+		cost = 0
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 200
+				divisions_in_state = {
+					state = 62	
+					size > 4
+				}
+			}
+		}
+
+		visible = {
+			NOT = { has_active_mission = DVA_maintain_northern_control }
+			has_country_flag = DVA_northern_hilichurls
+		}
+
+		is_good = yes
+
+		complete_effect = {
+			activate_mission = DVA_maintain_northern_control
+			custom_effect_tooltip = DVA_pacify_hilichurls_mission_explanation
+		}
+	}
+
+	DVA_hunt_down_northern_hilichurls = {
+
+		icon = generic_oppression
+
+		available = {
+			has_completed_focus = DVA_pacify_the_countryside
+			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
+			has_country_flag = DVA_northern_hilichurls
+		}
+
+		cost = 0
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 62
+			} 
+		}
+		visible = {
+			has_country_flag = DVA_northern_hilichurls
+		}
+		is_good = yes
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 200
+				divisions_in_state = {
+					state = 62	
+					size < 5
+				}
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = DVA_hunt_down_northern_hilichurls_tt
+			add_manpower = -1000
+			
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
+			}
+
+			army_experience = 10
+
+			remove_mission = DVA_maintain_northern_control
+			clr_country_flag = DVA_northern_hilichurls
+			if = {
+				limit = {
+					NOT = { has_country_flag = DVA_eastern_hilichurls }
+					NOT = { has_country_flag = DVA_western_hilichurls }
+				}
+				remove_ideas = DVA_banditry
+			}
+		}
+	}
+
+	DVA_maintain_northern_control = {
+
+		icon = generic_civil_support
+
+		available = {
+			always = no
+		}
+
+		days_mission_timeout = DVA_main_control_timer?180
+
+		activation = {
+			always = no #Triggered from effect
+		}
+
+		cancel_trigger = {
+			divisions_in_state = {
+				state = 62
+				size < 5
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 62
+			} 
+		}
+
+		visible = {
+			
+		}
+
+		is_good = yes
+
+		timeout_effect = {
+			custom_effect_tooltip = DVA_hunt_down_northern_hilichurls_tt
+			army_experience = 10
+			clr_country_flag = DVA_northern_hilichurls
+			if = {
+				limit = {
+					NOT = { has_country_flag = DVA_eastern_hilichurls }
+					NOT = { has_country_flag = DVA_western_hilichurls }
+				}
+				remove_ideas = DVA_banditry
+			}
+		}
+	}
+
+	DVA_hilichurl_raids = {
+
+		icon = generic_civil_support
+
+		available = {
+			NOT = { has_idea = DVA_hilichurl }
+		}
+
+		days_mission_timeout = 180
+
+		activation = {
+			has_idea = DVA_hilichurl
+		}
+
+		visible = {
+			
+		}		
+
+		fixed_random_seed = no
+
+		fire_only_once = no
+
+		is_good = no
+
+		timeout_effect = {
+			random_list = {
+				25 = {
+					country_event = wtt_manchukou_bandit_sabotage.21
+				}
+				25 = {
+					country_event = wtt_manchukou_bandit_sabotage.22
+				}
+				25 = {
+					country_event = wtt_manchukou_bandit_sabotage.23
+				}
+				25 = {
+					
+				}
+			}
+		}
+	}
+	DVA_recruit_militia_north = {
+		icon = generic_civil_support
+
+		available = {
+			NOT = { has_country_flag = DVA_northern_hilichurls }
+		}
+		visible = {
+			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 50
+		complete_effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = DVA_militia_recruited
+					}
+				}
+				division_template = {
+					name = "风龙领民兵"
+					
+					regiments = {
+						militia = { x = 0 y = 0 }
+						militia = { x = 0 y = 1 }
+						militia = { x = 0 y = 2 }
+
+						militia = { x = 1 y = 0 }
+						militia = { x = 1 y = 1 }
+						militia = { x = 1 y = 2 }
+
+						militia = { x = 2 y = 0 }
+						militia = { x = 2 y = 1 }
+						militia = { x = 2 y = 2 }
+					}
+					support = {
+						recon = { x = 0 y = 0 }
+					}
+					priority = 1
+					is_locked = yes
+					allow_new_equipment=yes
+					allow_foreign_equipment=yes
+				}
+				set_country_flag = DVA_militia_recruited
+			}
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				prioritize = { 62 }
+				create_unit = {
+					division = "name = \"1. 风龙领民兵西风山支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"2. 风龙领民兵西风山支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+			}
+		}
+	}
+	DVA_release_militia = {
+		icon = generic_civil_support
+
+		available = {
+			
+		}
+		visible = {
+			has_country_flag = DVA_militia_recruited
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					not = {
+						has_completed_focus = DVA_independence_war
+					}
+					has_war = yes	
+				}
+				factor = 0
+			}
+		}
+		cost = 0
+		
+		complete_effect = {
+			add_manpower = 10000
+			delete_unit_template_and_units = { division_template = "风龙领民兵" }
+			clr_country_flag = DVA_militia_recruited
+		}
+	}
+}
+DVA_the_one_of_Teyvat = {
 #来自天理的惩罚
 	DVA_punish = {
 		icon = GFX_decision_generic_ignite_civil_war
