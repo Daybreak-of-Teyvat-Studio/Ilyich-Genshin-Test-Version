@@ -1,6 +1,568 @@
 #黑玫瑰之帜 简单粗暴的强力决议组
 MOT_FWay_Meeting = {
-	
+	##三消
+	#增加决议数量上限 追随黑玫瑰的旗帜！
+	MOT_FD_More_Max = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			check_variable = { MOT_Decisions_Max < 6 }
+		}
+		cost = 100
+		days_re_enable = 75
+		days_remove = 45
+		modifier = {
+			consumer_goods_factor = 0.05
+			command_power_gain_mult = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_More_Decision_Max
+			add_to_variable = { MOT_Decisions_Max = 1 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	#消耗政治点
+	#提高生产效率增长 关注军工生产
+	MOT_FD_Make_Weapons = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.4
+			industrial_capacity_factory = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提高资源产出 投资资源产业
+	MOT_FD_Make_Resources = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			state_resources_factor = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#降低消费品 控制财政支出
+	MOT_FD_Make_Consumer = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			consumer_goods_factor = -0.08
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提供基础设施，增加建筑槽位 升级道路系统
+	MOT_FD_Make_Slots = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_owned_state = {
+				free_building_slots = {
+					type = infrastructure
+					level > 1
+				}
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 8
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+	#消耗指挥点
+	#降低抵抗 处理占领区反对者
+	MOT_FD_Down_Resistance = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			resistance_decay = 2
+			resistance_growth = -1
+			compliance_growth = -0.5
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提高战争支持 举行军队游行
+	MOT_FD_Up_War_Support = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			war_support_weekly = 0.006
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_war_support = 0.06
+		}
+	}
+	#提高经验入账 专注军队改革
+	MOT_FD_Up_EXP = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+			navy_doctrine_cost_factor = -0.05
+			air_doctrine_cost_factor = -0.05
+			experience_gain_army_factor = 0.15
+			experience_gain_navy_factor = 0.15
+			experience_gain_navy_factor = 0.15
+			equipment_upgrade_xp_cost = -0.5
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#减少补给消耗，提供基础设施 强化军事补给系统
+	MOT_FD_Up_Supply = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 6
+			supply_consumption_factor = -0.2
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+
+	#消费品工厂
+	#获得民工 投资民用工业
+	MOT_FD_Get_Civilian = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_industrial_complex_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#获得军工 投资军事工业
+	MOT_FD_Get_Military = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_arms_factory_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#获得船坞 投资船舶工业
+	MOT_FD_Get_Dockyard = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_dockyard_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#加速动员 军事动员宣传
+	MOT_FD_Military_Pro = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			mobilization_laws_cost_factor = -0.5
+			economy_cost_factor = -0.5
+			trade_laws_cost_factor = -0.5
+			mobilization_speed = 1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
 }
 #铁腕之治 机制简单的强力决议组，功能较少
 MOT_GWay_Meeting = {
@@ -121,7 +683,7 @@ MOT_GWay_Meeting = {
 		days_remove = 30
 		modifier = {
 			neutrality_drift = 0.1
-			command_power_factor = -0.25
+			command_power_gain_mult = -0.25
 			tank_manufacturer_cost_factor = -0.33
 		}
 		complete_effect = {
@@ -1771,7 +2333,7 @@ MOT_RWay_Meeting = {
 		days_re_enable = 30
 		days_remove = 70
 		modifier = {
-			civilian_factory_use = 5
+			civilian_factory_use = 10
 		}
 		complete_effect = {
 			add_to_variable = { MOT_Making_Decisions = 1 }
@@ -1795,6 +2357,7 @@ MOT_RWay_Meeting = {
 					type = infrastructure
 					level = 1
 				}
+				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_state = {
 				limit = {
@@ -1807,6 +2370,7 @@ MOT_RWay_Meeting = {
 					type = infrastructure
 					level = 1
 				}
+				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_state = {
 				limit = {
@@ -1819,6 +2383,7 @@ MOT_RWay_Meeting = {
 					type = infrastructure
 					level = 1
 				}
+				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_state = {
 				limit = {
@@ -1831,30 +2396,7 @@ MOT_RWay_Meeting = {
 					type = infrastructure
 					level = 1
 				}
-			}
-			random_owned_state = {
-				limit = {
-					free_building_slots = {
-						type = infrastructure
-						level > 1
-					}
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				limit = {
-					free_building_slots = {
-						type = infrastructure
-						level > 1
-					}
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-				}
+				add_extra_state_shared_building_slots = 1
 			}
 			custom_effect_tooltip = MOT_PHigher_Limit_of_P
 			add_to_variable = { MOT_PLimit1_of_P = 1 }
@@ -2394,7 +2936,7 @@ MOT_Active_Traveller = {
 		fire_only_once = yes
 		selectable_mission = no
 		days_mission_timeout = 400
-		activation = { has_idea = MOT_Attack_of_Twalin }
+		activation = { has_global_flag = MOT_Attack_of_Dragon }
 		
 		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
 		timeout_effect = {
