@@ -1,3 +1,36 @@
+#通用国策：提高工业等级
+GFS_Improve_Industry_Level = {
+	IF = {
+		limit = {
+			NOT = { has_country_flag = GFS_has_Improved_Industry }
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Industry1 }
+			add_ideas = DOT_Government_Industry2
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Industry2 }
+			add_ideas = DOT_Government_Industry3
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Industry3 }
+			add_ideas = DOT_Government_Industry4
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Industry4 }
+			add_tech_bonus = {
+				category = industry
+				ahead_reduction = 1
+				uses = 1
+				bonus = 2
+			}
+		}
+		set_country_flag = GFS_has_Improved_Industry
+	}
+	ELSE_IF = {
+		clr_country_flag = GFS_has_Improved_Industry
+	}
+}
 #反对派力量变化
 MOT_Power_Anti_Add = {
 	IF = {
