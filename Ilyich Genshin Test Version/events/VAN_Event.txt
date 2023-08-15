@@ -62,6 +62,75 @@ country_event = {
 		name = VAN.2.1
 		custom_effect_tooltip = available_political_advisor
         show_ideas_tooltip = VAN_Aramuhukunda
-		set_country_flag = VAN_unlock_Aramuhukunda
+		set_country_flag = VAN_Aramuhukunda_available
+	}
+}
+
+# 兰拉娜和拉娜出游
+country_event = {
+	id = VAN.3
+	title = VAN.3.t
+	desc = VAN.3.d
+	picture = GFX_news_event_INA.1
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	option = {
+		name = VAN.3.1
+		custom_effect_tooltip = remove_political_advisor
+        show_ideas_tooltip = VAN_Arana
+		clr_country_flag = VAN_Arana_available
+		hidden_effect = {
+			retire_ideology_leader = genshin
+			if = {
+				limit = {
+					NOT = { has_country_flag = VAN_unlock_Arama }
+				}
+				add_country_leader_role = {
+					character = VAN_Council
+					promote_leader = yes
+					country_leader = {
+						desc = "VAN_Council_desc"
+						expire = "1999.1.1"
+						ideology = wisdom
+						traits = {
+						}
+					}
+				}
+			}
+			country_event = {
+				id = VAN.4
+				days = 10
+			}
+		}
+	}
+	option = {
+		name = VAN.3.2
+	}
+}
+
+# 兰拉娜和拉娜回归
+country_event = {
+	id = VAN.4
+	title = VAN.4.t
+	desc = VAN.4.d
+	picture = GFX_news_event_INA.1
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	option = {
+		name = VAN.4.1
+		custom_effect_tooltip = available_political_advisor
+        show_ideas_tooltip = VAN_Arana
+		set_country_flag = VAN_Arana_available
+		# TODO: 拉娜
 	}
 }
