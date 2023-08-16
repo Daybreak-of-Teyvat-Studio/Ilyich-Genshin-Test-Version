@@ -31,6 +31,38 @@ GFS_Improve_Industry_Level = {
 		clr_country_flag = GFS_has_Improved_Industry
 	}
 }
+#通用国策：提高军队等级
+GFS_Better_Army = {
+	IF = {
+		limit = {
+			NOT = { has_country_flag = GFS_has_Improved_Army }
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Army1 }
+			add_ideas = DOT_Government_Army2
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Army2 }
+			add_ideas = DOT_Government_Army3
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Army3 }
+			add_ideas = DOT_Government_Army4
+		}
+		IF = {
+			limit = { has_idea = DOT_Government_Army4 }
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 2
+				cost_reduction = 0.5
+			}
+		}
+		set_country_flag = GFS_has_Improved_Army
+	}
+	ELSE_IF = {
+		clr_country_flag = GFS_has_Improved_Army
+	}
+}
 #反对派力量变化
 MOT_Power_Anti_Add = {
 	IF = {
