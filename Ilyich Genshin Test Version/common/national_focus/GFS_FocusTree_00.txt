@@ -2492,7 +2492,7 @@ focus_tree = {
 	#燃油
 	focus = {
 		id = GFS_Better_Oil
-		icon = GFX_focus_generic_land_reclamation
+		icon = GFX_Goal_develop_Agri2
 		cost = 10
 		x = 17
 		y = 9
@@ -2522,7 +2522,7 @@ focus_tree = {
 	#战略资源
 	focus = {
 		id = GFS_Better_Resources
-		icon = GFX_focus_generic_land_reclamation
+		icon = GFX_Goal_develop_Agri2
 		cost = 10
 		x = 15
 		y = 9
@@ -2553,7 +2553,6 @@ focus_tree = {
 	#人力
 	focus = {
 		id = GFS_Better_Manpower
-		icon = GFX_focus_generic_land_reclamation
 		cost = 10
 		x = 13
 		y = 9
@@ -2606,6 +2605,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip = GFS_Will_Political
 			add_political_power = -100
 			add_stability = -0.1
 		}
@@ -2690,6 +2690,325 @@ focus_tree = {
 		}
 	}
 	#经济互助
+	focus = {
+		id = GFS_Help_on_Economy
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 24
+		y = 6
+		prerequisite = {
+			focus = GFS_Instruction_of_Saying
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 50 }
+			overlord = {
+				IF = {
+					limit = {
+						NOT = { is_in_faction_with = FROM }
+					}
+				}
+				add_timed_idea = { idea = gene_less_burden days = 100 }
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_puppet_of = FROM
+						is_subject_of = FROM
+						is_in_faction_with = FROM
+					}
+				}
+				add_timed_idea = { idea = gene_less_burden days = 100 }
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
 	#军事互助
-	#政治互助
+	focus = {
+		id = GFS_Help_on_Military
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 26
+		y = 6
+		prerequisite = {
+			focus = GFS_Instruction_of_Saying
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+				army_experience = 30
+				add_war_support = 0.05
+				overlord = {
+					IF = {
+						limit = {
+							NOT = { is_in_faction_with = FROM }
+						}
+					}
+					army_experience = 30
+					add_war_support = 0.05
+				}
+				every_country = {
+					limit = {
+						OR = {
+							is_puppet_of = FROM
+							is_subject_of = FROM
+							is_in_faction_with = FROM
+						}
+					}
+					army_experience = 30
+					add_war_support = 0.05
+				}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	#政治合作
+	focus = {
+		id = GFS_Help_on_Stability
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 24
+		y = 7
+		prerequisite = {
+			focus = GFS_Help_on_Economy
+			focus = GFS_Help_on_Military
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Society days = 70 }
+			overlord = {
+				IF = {
+					limit = {
+						NOT = { is_in_faction_with = FROM }
+					}
+				}
+				add_timed_idea = { idea = MOT_BecomingBetter_of_Society days = 140 }
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_puppet_of = FROM
+						is_subject_of = FROM
+						is_in_faction_with = FROM
+					}
+				}
+				add_timed_idea = { idea = MOT_BecomingBetter_of_Society days = 140 }
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	#科研合作
+	focus = {
+		id = GFS_Help_on_Technology
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 26
+		y = 7
+		prerequisite = {
+			focus = GFS_Help_on_Economy
+			focus = GFS_Help_on_Military
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = industry
+				category = electronics
+				category = infantry_weapons
+				category = support_tech
+				category = artillery
+				category = armor
+			}
+			overlord = {
+				IF = {
+					limit = {
+						NOT = { is_in_faction_with = FROM }
+					}
+				}
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 1
+					category = industry
+					category = electronics
+					category = infantry_weapons
+					category = support_tech
+					category = artillery
+					category = armor
+				}
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_puppet_of = FROM
+						is_subject_of = FROM
+						is_in_faction_with = FROM
+					}
+				}
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 1
+					category = industry
+					category = electronics
+					category = infantry_weapons
+					category = support_tech
+					category = artillery
+					category = armor
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	#理论交流
+	focus = {
+		id = GFS_Help_on_Doctrine
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 24
+		y = 8
+		prerequisite = {
+			focus = GFS_Help_on_Stability
+			focus = GFS_Help_on_Technology
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+				add_doctrine_cost_reduction = {
+					category = land_doctrine
+					uses = 2
+					cost_reduction = 0.2
+				}
+				overlord = {
+					IF = {
+						limit = {
+							NOT = { is_in_faction_with = FROM }
+						}
+					}
+					add_doctrine_cost_reduction = {
+						category = land_doctrine
+						uses = 2
+						cost_reduction = 0.3
+					}
+				}
+				every_country = {
+					limit = {
+						OR = {
+							is_puppet_of = FROM
+							is_subject_of = FROM
+							is_in_faction_with = FROM
+						}
+					}
+					add_doctrine_cost_reduction = {
+						category = land_doctrine
+						uses = 2
+						cost_reduction = 0.3
+					}
+				}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	#文化交流
+	focus = {
+		id = GFS_Help_on_Culture
+		icon = GFX_goals_TNO_genericwork6
+		cost = 10
+		x = 26
+		y = 8
+		prerequisite = {
+			focus = GFS_Help_on_Stability
+			focus = GFS_Help_on_Technology
+		}
+		available = {
+			OR = {
+				is_puppet = yes
+				is_subject = yes
+				has_subject = yes
+			}
+			OR = {
+				NOT = { Is_MOT = yes }
+				date > 1938.1.1
+			}
+		}
+		completion_reward = {
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 70 }
+			overlord = {
+				IF = {
+					limit = {
+						NOT = { is_in_faction_with = FROM }
+					}
+				}
+				add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 140 }
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_puppet_of = FROM
+						is_subject_of = FROM
+						is_in_faction_with = FROM
+					}
+				}
+				add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 140 }
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
 }
