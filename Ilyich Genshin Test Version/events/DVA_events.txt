@@ -23,9 +23,12 @@ country_event = {
 			regiments = {
 				cavalry = { x = 0 y = 0 }
 				cavalry = { x = 0 y = 1 }
-				cavalry = { x = 0 y = 2 }
-				cavalry = { x = 0 y = 3 }
-				MOT_cavalry = { x = 0 y = 4 }
+
+				cavalry = { x = 1 y = 0 }
+				cavalry = { x = 1 y = 1 }
+				
+				MOT_cavalry = { x = 2 y = 0 }
+				MOT_cavalry = { x = 2 y = 1 }
 			}
 			support = {
 				recon = { x = 0 y = 0 }
@@ -39,11 +42,49 @@ country_event = {
 		}
 		random_owned_controlled_state = {
 			limit = { ROOT = { has_full_control_of_state = PREV } }
-			prioritize = { 62 }
+			prioritize = { 57 }
 			create_unit = {
 				division = "name = \"1. 安柏小队\" division_template = \"安柏小队\" start_experience_factor = 0.5" 
 				owner = DVA
 			}
+		}
+	}
+}
+
+#是否援助？
+country_event = {
+	id = dva.2
+	title = dva.2.t
+	desc = dva.2.d
+	picture = GFX_report_event_finnish_letter
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = dva.2.a
+		ai_chance = {
+            base = 20
+        }
+		DVA = {
+			set_country_flag = DVA_weapon_received
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 1000
+			target = DVA
+		}
+	}
+	option = {
+		name = dva.2.b
+		ai_chance = {
+            base = 5
+			modifier = {
+				factor = 10
+				has_equipment = { infantry_equipment < 1000 }
+			}
+        }
+		DVA = {
+			set_country_flag = DVA_weapon_unreceived
 		}
 	}
 }

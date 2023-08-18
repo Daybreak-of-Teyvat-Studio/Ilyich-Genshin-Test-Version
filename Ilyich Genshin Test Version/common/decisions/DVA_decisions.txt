@@ -2,6 +2,7 @@
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT = -500
 #风龙领骚乱
 DVA_mass_of_dvalin_category = {
+	#镇压北部盗匪
 	DVA_pacify_hilichurls_in_the_northern_countryside = {
 
 		icon = generic_oppression
@@ -43,21 +44,38 @@ DVA_mass_of_dvalin_category = {
 
 		complete_effect = {
 			activate_mission = DVA_maintain_northern_control
-			custom_effect_tooltip = DVA_pacify_hilichurls_mission_explanation
 		}
 	}
-
+	#清剿北部丘丘人
 	DVA_hunt_down_northern_hilichurls = {
 
 		icon = generic_oppression
 
 		available = {
-			has_completed_focus = DVA_pacify_the_countryside
+			has_completed_focus = DVA_one_flew_over_stormterrors_lair
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_northern_hilichurls
+			divisions_in_state = {
+				state = 62
+				size > 4
+			}
 		}
 
-		cost = 0
+		days_mission_timeout = DVA_main_control_timer?90
+
+		activation = {
+			always = no
+		}
+
+		selectable_mission = yes
+
+		cancel_trigger = {
+			divisions_in_state = {
+				state = 62
+				size < 5
+			}
+			has_country_flag = DVA_weapon_unreceived
+		}
 
 		highlight_states = {
 			highlight_state_targets = {
@@ -69,7 +87,7 @@ DVA_mass_of_dvalin_category = {
 		}
 		is_good = yes
 
-		fire_only_once = yes
+		fire_only_once = no
 
 		ai_will_do = {
 			factor = 0
@@ -82,25 +100,37 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		complete_effect = {
-			custom_effect_tooltip = DVA_hunt_down_northern_hilichurls_tt
-			add_manpower = -1000
-			
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
+		is_good = yes
+
+		complete_effect = {		
+			MOT = {
+				country_event = dva.2
 			}
-
-			army_experience = 10
-
+			army_experience = 5
 			remove_mission = DVA_maintain_northern_control
+			clr_country_flag = DVA_northern_hilichurls
+			set_variable = {
+				var = DVA_puppet_influence
+				value = 0
+			}
+		}
+
+		timeout_effect = {
+			army_experience = 5
 			clr_country_flag = DVA_northern_hilichurls
 			if = {
 				limit = {
-					NOT = { has_country_flag = DVA_eastern_hilichurls }
-					NOT = { has_country_flag = DVA_western_hilichurls }
+					has_country_flag = DVA_weapon_received
 				}
-				remove_ideas = DVA_banditry
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
+				}
+			}
+			add_to_variable = {
+				var = DVA_puppet_influence
+				value = 1
+				tooltip = add_1_to_DVA_puppet_influence_tt
 			}
 		}
 	}
@@ -113,7 +143,7 @@ DVA_mass_of_dvalin_category = {
 			always = no
 		}
 
-		days_mission_timeout = DVA_main_control_timer?180
+		days_mission_timeout = DVA_main_control_timer?90
 
 		activation = {
 			always = no #Triggered from effect
@@ -139,60 +169,11 @@ DVA_mass_of_dvalin_category = {
 		is_good = yes
 
 		timeout_effect = {
-			custom_effect_tooltip = DVA_hunt_down_northern_hilichurls_tt
-			army_experience = 10
+			army_experience = 5
 			clr_country_flag = DVA_northern_hilichurls
-			if = {
-				limit = {
-					NOT = { has_country_flag = DVA_eastern_hilichurls }
-					NOT = { has_country_flag = DVA_western_hilichurls }
-				}
-				remove_ideas = DVA_banditry
-			}
 		}
 	}
 
-	DVA_hilichurl_raids = {
-
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_idea = DVA_hilichurl }
-		}
-
-		days_mission_timeout = 180
-
-		activation = {
-			has_idea = DVA_hilichurl
-		}
-
-		visible = {
-			
-		}		
-
-		fixed_random_seed = no
-
-		fire_only_once = no
-
-		is_good = no
-
-		timeout_effect = {
-			random_list = {
-				25 = {
-					country_event = wtt_manchukou_bandit_sabotage.21
-				}
-				25 = {
-					country_event = wtt_manchukou_bandit_sabotage.22
-				}
-				25 = {
-					country_event = wtt_manchukou_bandit_sabotage.23
-				}
-				25 = {
-					
-				}
-			}
-		}
-	}
 	DVA_recruit_militia_north = {
 		icon = generic_civil_support
 
@@ -201,6 +182,7 @@ DVA_mass_of_dvalin_category = {
 		}
 		visible = {
 			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
+			NOT = { has_country_flag = DVA_northern_hilichurls }
 		}
 		ai_will_do = {
 			factor = 10
@@ -280,6 +262,49 @@ DVA_mass_of_dvalin_category = {
 			add_manpower = 10000
 			delete_unit_template_and_units = { division_template = "风龙领民兵" }
 			clr_country_flag = DVA_militia_recruited
+		}
+	}
+}
+DVA_stare_of_archon = {
+	DVA_approaching_of_the_end = {
+
+		icon = generic_civil_support
+
+		available = {
+			NOT = { has_idea = DVA_powerless_government }
+		}
+
+		days_mission_timeout = 720
+
+		activation = {
+			has_idea = DVA_powerless_government
+		}
+
+		visible = {
+			
+		}		
+
+		fixed_random_seed = no
+
+		fire_only_once = yes
+
+		is_good = no
+
+		timeout_effect = {
+			random_list = {
+				25 = {
+					country_event = dva.vt.1
+				}
+				25 = {
+					country_event = dva.vt.2
+				}
+				25 = {
+					country_event = dva.vt.3
+				}
+				25 = {
+					
+				}
+			}
 		}
 	}
 }
