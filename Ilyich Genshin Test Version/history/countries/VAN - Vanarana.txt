@@ -1,19 +1,59 @@
 capital = 238
 add_ideas = {
-#民族精神
+    #民族精神
 	Daybreak_of_Teyvat
 	VAN_Mahavanaranapna
-	VAN_Marana_Disaster
+	VAN_Bad_Politics
 	VAN_Dendro_Archon_Familiar
 	VAN_Forest_Creatures
 
-#国家复兴状态
+    #国家复兴状态
     DOT_Government_industry5
 	DOT_Government_research4
 
-#国家发展政策
+    #国家发展政策
     Grass_and_Wisdom
+	
+    #法案
+	low_economic_mobilisation
+	limited_conscription
+	closed_economy
 }
+
+########################### 死域初始修正 ##########################
+add_dynamic_modifier = {
+	modifier = VAN_Marana_dynamic_modifier
+}
+
+# VAN_Marana_dynamic_modifier初始修正值
+set_variable = { VAN_Marana_dynamic_modifier_stability_weekly = -0.005 }
+set_variable = { VAN_Marana_dynamic_modifier_conscription = -0.005 }
+set_variable = { VAN_Marana_dynamic_modifier_industrial_capacity_factory = -0.2 }
+set_variable = { VAN_Marana_dynamic_modifier_production_factory_efficiency_gain_factor = -0.2 }
+set_variable = { VAN_Marana_dynamic_modifier_production_factory_max_efficiency_factor = -0.3 }
+
+every_owned_state = {
+	limit = {
+		OR = {
+			state = 234
+			state = 235
+		}
+	}
+	add_dynamic_modifier = {
+		modifier = VAN_Marana_state_dynamic_modifier
+	}
+	set_state_flag = VAN_state_once_has_marana
+}
+
+set_country_flag = VAN_enable_marana_worsen
+country_event = {
+	id = VAN.1
+	days = 20
+	random_days = 3
+}
+
+set_variable = { VAN_solve_marana_cost = 100 } # 消除一个省份无留陀的花费
+set_variable = { VAN_days_remove_solve_marana = 80 } # 消除一个省份无留陀的天数
 
 ########################### 意识形态 ##############################
 set_politics = {
@@ -42,7 +82,18 @@ recruit_character = VAN_Aramuhukunda
 recruit_character = VAN_Arakunti
 # 尘世主义 智慧
 recruit_character = VAN_Arana
+recruit_character = VAN_Arana_plus
+set_country_flag = VAN_Arana_available #  开局启用兰拉娜
 recruit_character = VAN_Arama
+recruit_character = VAN_Council
+
+########################### 顾问 ##############################
+recruit_character = VAN_Aranakin
+recruit_character = VAN_Aranakula
+recruit_character = VAN_Arapandu
+recruit_character = VAN_Aramani
+recruit_character = VAN_Arapacati
+recruit_character = VAN_Narana
 
 ########################### 将领 ##############################
 # 陆军元帅
@@ -62,7 +113,7 @@ starting_train_buffer = 5
 oob = "VAN_1936"
 set_naval_oob = "VAN_1936_naval"
 set_air_oob = "VAN_1936_air"
-set_technology = {
+set_technology = { #TODO: error
 	#一般科技
 	infantry_weapons = 1
 	infantry_weapons1 = 1
