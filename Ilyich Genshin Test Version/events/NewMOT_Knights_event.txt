@@ -4170,7 +4170,6 @@ country_event = {
 	desc = Knights.125.d
 	fire_only_once = yes
 	trigger = {
-		always = no
 		original_tag = MOT
 		NOT = { has_country_flag = MOT_RWay_Done }
 		NOT = { has_country_flag = MOT_REUNITED }
@@ -4250,6 +4249,7 @@ country_event = {
 	fire_only_once = yes
 	trigger = {
 		original_tag = MOT
+		NOT = { has_country_flag = MOT_NoFWay_Route }
 		NOT = { has_country_flag = MOT_RWay_Done }
 		NOT = { has_country_flag = MOT_REUNITED }
 		has_country_flag = {
@@ -4276,6 +4276,7 @@ country_event = {
 	fire_only_once = yes
 	trigger = {
 		original_tag = MOT
+		NOT = { has_country_flag = MOT_NoFWay_Route }
 		NOT = { has_country_flag = MOT_RWay_Done }
 		NOT = { has_country_flag = MOT_REUNITED }
 		has_country_flag = {
@@ -4294,7 +4295,7 @@ country_event = {
 		country_event = { id = Knights.136 hours = 6 }
 	}
 }
-#128 进入诺艾尔黑线
+#128 进入诺艾尔黑线 结晶之夜
 country_event = {
 	id = Knights.128
 	title = Knights.128.t
@@ -4306,6 +4307,25 @@ country_event = {
 	option = {
 		name = Knights.128.a
 		set_country_flag = MOT_Noelle_Blacken
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = no
+			last_election = "1936.1.1"
+			election_frequency = 48
+		}
+		add_country_leader_role = {
+			character = MOT_Noelle
+			promote_leader = yes
+			country_leader = {
+				ideology = falangism
+				expire = "1965.1.1.1"
+				traits = { 
+					MOT_Noelle_Black_Mandate
+					MOT_Noelle_Flower_without_Honor
+					MOT_Noelle_Little_Experience
+				}
+			}
+		}
 		mark_focus_tree_layout_dirty = yes
 		custom_effect_tooltip = MOT_Enter_BlackWay
 	}
@@ -4817,5 +4837,51 @@ country_event = {
 	option = {
 		name = Knights.154.a
 		load_focus_tree = GFS_Focus_00
+	}
+}
+#纠正意识形态
+country_event = {
+	id = Knights.155
+	title = Knights.155.t
+	desc = Knights.155.d
+	fire_only_once = no
+	trigger = {
+		OR = {
+			AND = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				NOT = { has_country_flag = MOT_Noelle_Blacken }
+				neutrality < 0.5
+			}
+			AND = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				has_country_flag = MOT_Noelle_Blacken
+				fascism < 0.5
+			}
+		}
+	}
+	is_triggered_only = no
+	option = {
+		name = Knights.155.a
+		add_political_power = -50
+		IF = {
+			limit = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				NOT = { has_country_flag = MOT_Noelle_Blacken }
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+		}
+		IF = {
+			limit = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				has_country_flag = MOT_Noelle_Blacken
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+		}
 	}
 }
