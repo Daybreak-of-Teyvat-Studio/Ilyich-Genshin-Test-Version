@@ -1,0 +1,343 @@
+focus_tree = {
+    id = VAN_Focus
+    country = {
+        base = 0
+        modifier = {
+            add = 50
+            tag = VAN
+        }
+    }
+    default = no
+    continuous_focus_position = { x = 1500 y = 100}
+
+    # 兰拉娜的求助
+    focus = {
+		id = VAN_Focus_Arana_Resort
+		icon = goal_SUM01
+		cost = 5
+		x = 8
+		y = 0
+        completion_reward = {
+            add_political_power = 100
+        }
+	}
+
+    # 正法炬书
+    focus = {
+        id = VAN_Focus_Agnihotra_Sutra
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Arana_Resort }
+        cost = 5
+        relative_position_id = VAN_Focus_Arana_Resort
+        x = -1.5
+        y = 1
+        completion_reward = {
+            custom_effect_tooltip = available_industrial_concern
+            show_ideas_tooltip = VAN_Kusava
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = VAN_Aranakin
+            custom_effect_tooltip = VAN_Focus_Agnihotra_Sutra_set_marana_cost
+            hidden_effect = {
+                add_to_variable = { VAN_solve_marana_cost = -10 } # 消除一个省份无留陀的花费
+                add_to_variable = { VAN_days_remove_solve_marana = -10 } # 消除一个省份无留陀的天数
+            }
+        }
+    }
+
+    # 水天供书
+    focus = {
+        id = VAN_Focus_Varuna_Gatha
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Agnihotra_Sutra }
+        cost = 5
+        relative_position_id = VAN_Focus_Agnihotra_Sutra
+        x = 0
+        y = 1
+        completion_reward = {
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = VAN_Aranakula
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = VAN_Arapandu
+            custom_effect_tooltip = VAN_Focus_Varuna_Gatha_set_marana_cost
+            hidden_effect = {
+                add_to_variable = { VAN_solve_marana_cost = -10 } # 消除一个省份无留陀的花费
+                add_to_variable = { VAN_days_remove_solve_marana = -10 } # 消除一个省份无留陀的天数
+            }
+        }
+    }
+
+    # 吉祥具书
+    focus = {
+        id = VAN_Focus_Vimana_Agama
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Varuna_Gatha }
+        cost = 10
+        relative_position_id = VAN_Focus_Varuna_Gatha
+        x = 0
+        y = 1
+        completion_reward = {
+            custom_effect_tooltip = VAN_Focus_Vimana_Agama_set_marana_cost
+            hidden_effect = {
+                add_to_variable = { VAN_solve_marana_cost = -10 } # 消除一个省份无留陀的花费
+                add_to_variable = { VAN_days_remove_solve_marana = -10 } # 消除一个省份无留陀的天数
+            }
+            238 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+            241 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+    }
+
+    # 林中小曲
+    focus = {
+        id = VAN_Focus_Encounter_In_The_Woods
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Arana_Resort }
+        cost = 5
+        relative_position_id = VAN_Focus_Arana_Resort
+        x = 1.5
+        y = 1
+        completion_reward = {
+            unlock_decision_category_tooltip = VAN_solve_marana_decision_categories
+        }
+    }
+
+    # 愿为一炊之梦
+    focus = {
+        id = VAN_Focus_An_Unwavering_Culinary_Dream
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Encounter_In_The_Woods }
+        cost = 10
+        relative_position_id = VAN_Focus_Encounter_In_The_Woods
+        x = 0
+        y = 1
+        completion_reward = {
+            add_manpower = 10000
+            custom_effect_tooltip = available_military_high_command
+            show_ideas_tooltip = VAN_Arapacati
+        }
+    }
+
+    # 为了更好的再会
+    focus = {
+        id = VAN_Focus_For_A_Better_Reunion
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_An_Unwavering_Culinary_Dream }
+        cost = 5
+        relative_position_id = VAN_Focus_An_Unwavering_Culinary_Dream
+        x = 0
+        y = 1
+        completion_reward = {
+            add_political_power = 200
+        }
+    }
+
+    # 无忧节
+    focus = {
+        id = VAN_Focus_Festival_Utsava
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Vimana_Agama OR = VAN_Focus_For_A_Better_Reunion }
+        cost = 10
+        relative_position_id = VAN_Focus_Vimana_Agama
+        x = 1.5
+        y = 1
+        completion_reward = {
+            add_ideas = VAN_Melody_of_Brave_Seeds
+            custom_effect_tooltip = VAN_Focus_Festival_Utsava_set_marana_cost
+            hidden_effect = {
+                add_to_variable = { VAN_solve_marana_cost = -30 } # 消除一个省份无留陀的花费
+                add_to_variable = { VAN_days_remove_solve_marana = -30 } # 消除一个省份无留陀的天数
+            }
+            hidden_effect = {
+                country_event = {
+                    id = VAN.2
+                    days = 3
+                }
+                news_event = {
+                    id = VAN_News.1
+                    hours = 6
+                }
+            }
+        }
+    }
+
+    # 失梦的苗圃
+    focus = {
+        id = VAN_Nursery_of_Lost_Dreams
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Focus_Festival_Utsava }
+        cost = 5
+        relative_position_id = VAN_Focus_Festival_Utsava
+        x = 0
+        y = 1
+        completion_reward = {
+            army_experience = 10
+            add_timed_idea = { idea = VAN_Nursery_of_Lost_Dreams_Special_Operations days = 80 }
+            add_equipment_to_stockpile={
+				type = infantry_equipment_1
+				amount = 1000
+				producer = VAN
+			}
+            add_equipment_to_stockpile={
+				type = artillery_equipment_1
+				amount = 100
+				producer = VAN
+			}
+        }
+    }
+
+    # 一个都不能少
+    focus = {
+        id = VAN_Not_One_Less
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
+        mutually_exclusive = { focus = VAN_New_Ashvattha }
+        mutually_exclusive = { focus = VAN_Fall_of_Aramuhukunda }
+        cost = 10
+        relative_position_id = VAN_Nursery_of_Lost_Dreams
+        x = -2
+        y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
+        completion_reward = {
+            add_timed_idea = { idea = VAN_Marana_Aftermath days = 180 }
+            # 添加兰罗摩
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = VAN_Arama
+            set_country_flag = VAN_unlock_Arama
+            add_country_leader_role = {
+                character = VAN_Arama
+                country_leader = {
+                	desc = "VAN_Arama_desc"
+                	expire = "1999.1.1"
+                	ideology = wisdom
+                	traits = {
+                	}
+                }
+            }
+            # 兰穆护昆达添加为蓝线领导人
+            add_country_leader_role = {
+                character = VAN_Aramuhukunda
+                promote_leader = yes
+                country_leader = {
+                    desc = "VAN_Aramuhukunda_desc"
+                    expire = "1999.1.1"
+                    ideology = conservatism
+                    traits = {
+                    }
+                }
+            }
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
+        }
+    }
+
+    # 新生的觉王树
+    focus = {
+        id = VAN_New_Ashvattha
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
+        mutually_exclusive = { focus = VAN_Not_One_Less }
+        mutually_exclusive = { focus = VAN_Fall_of_Aramuhukunda }
+        cost = 10
+        relative_position_id = VAN_Nursery_of_Lost_Dreams
+        x = 0
+        y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
+        completion_reward = {
+            # 移除兰穆护昆达
+            custom_effect_tooltip = remove_political_advisor
+            show_ideas_tooltip = VAN_Aramuhukunda
+            clr_country_flag = VAN_Aramuhukunda_available
+            add_ideas = VAN_Idea_New_Ashvattha
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
+        }
+    }
+
+    # 初代的陨落
+    focus = {
+        id = VAN_Fall_of_Aramuhukunda
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Nursery_of_Lost_Dreams }
+        available = { VAN_has_no_marana = yes }
+        mutually_exclusive = { focus = VAN_Not_One_Less }
+        mutually_exclusive = { focus = VAN_New_Ashvattha }
+        cost = 10
+        relative_position_id = VAN_Nursery_of_Lost_Dreams
+        x = 2
+        y = 1
+        continue_if_invalid = yes
+        cancelable = no
+        select_effect = {
+            clr_country_flag = VAN_enable_marana_worsen
+        }
+        completion_reward = {
+            add_timed_idea = { idea = VAN_Marana_Aftermath days = 100 }
+            # 移除兰穆护昆达
+            custom_effect_tooltip = remove_political_advisor
+            show_ideas_tooltip = VAN_Aramuhukunda
+            clr_country_flag = VAN_Aramuhukunda_available
+            # 添加兰罗摩
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = VAN_Arama
+            set_country_flag = VAN_unlock_Arama
+            add_country_leader_role = {
+                character = VAN_Arama
+                country_leader = {
+                	desc = "VAN_Arama_desc"
+                	expire = "1999.1.1"
+                	ideology = wisdom
+                	traits = {
+                	}
+                }
+            }
+            remove_dynamic_modifier = {
+                modifier = VAN_Marana_dynamic_modifier
+            }
+        }
+    }
+
+    # 森林会记住一切
+    focus = {
+        id = VAN_The_Forest_Will_Remember
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Not_One_Less OR = VAN_New_Ashvattha OR = VAN_Fall_of_Aramuhukunda }
+        cost = 5
+        relative_position_id = VAN_New_Ashvattha
+        x = 0
+        y = 1
+        completion_reward = {
+            add_ideas = VAN_Idea_Aranyaka
+            hidden_effect = {
+                country_event = {
+                    id = VAN.3
+                    days = 10
+                }
+            }
+        }
+    }
+}
