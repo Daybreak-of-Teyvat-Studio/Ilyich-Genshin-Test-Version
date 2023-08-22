@@ -444,7 +444,7 @@ country_event = {
 	desc = Knights.12.d
 	picture = GFX_event_MOT003
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.12.a
 		trigger = { original_tag = MOT }
@@ -519,15 +519,12 @@ country_event = {
 	desc = Knights.13.d
 	picture = GFX_event_MOT003
 	immediate = {
-		IF = {
-			limit = { original_tag = AND }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.12 days = 10 }
 		}
 	}
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.13.a
 		MOT_Night_Up = yes
@@ -602,16 +599,12 @@ country_event = {
 	desc = Knights.14.d
 	picture = GFX_event_DRA04
 	immediate = {
-		IF = {
-			limit = { original_tag = SPI }
-			country_event = { id = Knights.12 days = 20 }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.13 days = 10 }
 		}
 	}
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.14.a
 		MOT_Night_Up = yes
@@ -685,16 +678,12 @@ country_event = {
 	desc = Knights.15.d
 	picture = GFX_event_DRA02
 	immediate = {
-		IF = {
-			limit = { original_tag = RAG }
-			country_event = { id = Knights.13 days = 20 }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.14 days = 10 }
 		}
 	}
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.15.a
 		MOT_Night_Up = yes
@@ -768,16 +757,12 @@ country_event = {
 	desc = Knights.16.d
 	picture = GFX_event_DRA04
 	immediate = {
-		IF = {
-			limit = { original_tag = DRA }
-			country_event = { id = Knights.14 days = 20 }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.15 days = 10 }
 		}
 	}
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.16.a
 		trigger = { original_tag = MOT }
@@ -835,16 +820,12 @@ country_event = {
 	desc = Knights.17.d
 	picture = GFX_event_DRA04
 	immediate = {
-		IF = {
-			limit = { original_tag = FAV }
-			country_event = { id = Knights.15 days = 20 }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.16 days = 10 }
 		}
 	}
 	is_triggered_only = yes
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.17.a
 		trigger = { original_tag = MOT }
@@ -893,15 +874,11 @@ country_event = {
 	picture = GFX_event_DRA04
 	is_triggered_only = yes
 	immediate = {
-		IF = {
-			limit = { original_tag = DVA }
-			country_event = { id = Knights.16 days = 20 }
-		}
-		ELSE_IF = {
+		hidden_effect = {
 			country_event = { id = Knights.17 days = 10 }
 		}
 	}
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.18.a
 		trigger = { original_tag = MOT }
@@ -974,12 +951,16 @@ country_event = {
 	desc = Knights.19.d
 	picture = GFX_event_DRA04
 	trigger = {
-		MOT = { has_war_with = LAW }
+		has_global_flag = MOT_Civil_War_Begun
 		Is_MOT = yes
+		NOT = { has_country_flag = MOT_landebianle1 }
 	}
-	immediate = { country_event = { id = Knights.18 days = 10 } }
+	immediate = { 
+		set_country_flag = MOT_landebianle1
+		hidden_effect = { country_event = { id = Knights.18 days = 10 } } 
+	}
 	is_triggered_only = no
-	fire_only_once = yes
+	fire_only_once = no
 	option = {
 		name = Knights.19.a
 		trigger = { original_tag = MOT }
@@ -3663,6 +3644,7 @@ country_event = {
 	title = Knights.104.t
 	desc = Knights.104.d
 	is_triggered_only = no
+	fire_only_once = yes
 	trigger = {
 		has_idea = MOT_Debuff_Food_Shortage
 		date > 1937.6.1
@@ -3692,6 +3674,7 @@ country_event = {
 	title = Knights.105.t
 	desc = Knights.105.d
 	is_triggered_only = no
+	fire_only_once = yes
 	trigger = {
 		has_idea = MOT_Debuff_Man_Shortage
 		date > 1937.7.1
@@ -3720,6 +3703,7 @@ country_event = {
 	title = Knights.106.t
 	desc = Knights.106.d
 	is_triggered_only = no
+	fire_only_once = yes
 	trigger = {
 		has_idea = MOT_Debuff_Resour_Shortage
 		date > 1937.8.1
@@ -3749,6 +3733,7 @@ country_event = {
 	title = Knights.107.t
 	desc = Knights.107.d
 	is_triggered_only = no
+	fire_only_once = yes
 	trigger = {
 		has_idea = MOT_Debuff_Goods_Shortage
 		date > 1937.8.1
@@ -3777,6 +3762,7 @@ country_event = {
 	title = Knights.108.t
 	desc = Knights.108.d
 	is_triggered_only = no
+	fire_only_once = yes
 	trigger = {
 		has_idea = MOT_Debuff_Prop_Shortage
 		date > 1937.8.1
@@ -4020,11 +4006,8 @@ country_event = {
 		MOT_Jean = {
 			has_trait = MOT_Fall_Down
 		}
-		MOT_Noelle = {
-			has_trait = MOT_Noelle_Hero_of_MOT
-		}
+		has_country_flag = MOT_Noelle_Hero1
 	}
-	
 	option = {
 		name = Knights.117.a
 		set_country_flag = MOT_Jean_Ill
@@ -4121,6 +4104,7 @@ country_event = {
 	
 	option = {
 		name = Knights.121.a
+		set_country_flag = MOT_Noelle_Hero1
 	}
 }
 #122 诺艾尔的日记1
@@ -4168,7 +4152,7 @@ country_event = {
 		name = Knights.124.a
 		add_stability = 0.06
 		add_war_support = 0.05
-	}
+	} 
 }
 #125 诺艾尔黑线前置 阶段1
 country_event = {
