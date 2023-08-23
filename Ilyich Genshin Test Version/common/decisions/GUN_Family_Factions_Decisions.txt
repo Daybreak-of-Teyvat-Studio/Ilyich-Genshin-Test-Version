@@ -1,5 +1,34 @@
 #古恩希尔德家族会议
 GUN_Family_Decisions = {
+	#家族会议
+	GUN_Family_Decisions_01 = {
+		icon = eng_install_government
+		allowed = {
+			tag = GUN
+		}
+		available = { #失败条件
+		has_stability < 0.01
+		}
+		visible = {
+		}
+		fire_only_once = no
+		activation = { #自动触发的条件
+		tag = GUN
+		}
+		days_re_enable = 1
+		days_remove = 1
+		days_mission_timeout = 30 #失败时间
+		modifier = {
+			consumer_goods_factor = 0.01
+			stability_factor = 0.01	
+		}
+		timeout_effect = { #持续效果
+	    add_political_power = 10
+		add_stability = 0.01
+		hidden_effect = {
+		}
+		}	
+	}
 	#发展经济
 	GUN_develop_economy_01 = {
 		icon = eng_install_government
@@ -40,7 +69,7 @@ GUN_Family_Decisions = {
 		cost = 40
 		ai_will_do = { base = 5	}
 		complete_effect = {
-			if = {
+			if = { 
 			add_timed_idea = { idea = GUN_develop_economy_04  days = 180 }
 			limit = { has_idea = GUN_develop_economy_02 }
 		}
