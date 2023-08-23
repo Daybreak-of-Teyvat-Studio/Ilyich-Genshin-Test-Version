@@ -1,0 +1,293 @@
+FAV_End_of_This_Fight = {
+	custom_effect_tooltip = FAV_End_this_Fight
+	#判定
+	hidden_effect = {
+		IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_We = 0 }
+			}
+			IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 0 }
+				}
+				#平手
+				country_event = Church.1
+			}
+			ELSE_IF = {
+				#落败
+				country_event = Church.2
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_They = 0 }
+			}
+			#获胜
+			country_event = Church.3
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_We = 1 }
+			}
+			IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 1 }
+				}
+				#平手
+				country_event = Church.1
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 2 }
+				}
+				#获胜
+				country_event = Church.3
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 3 }
+				}
+				#落败
+				country_event = Church.2
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_We = 2 }
+			}
+			IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 2 }
+				}
+				#平手
+				country_event = Church.1
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 3 }
+				}
+				#获胜
+				country_event = Church.3
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 1 }
+				}
+				#落败
+				country_event = Church.2
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_We = 3 }
+			}
+			IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 3 }
+				}
+				#平手
+				country_event = Church.1
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 1 }
+				}
+				#获胜
+				country_event = Church.3
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { FAV_Action_Type_They = 2 }
+				}
+				#落败
+				country_event = Church.2
+			}
+		}
+	}
+	#清除flag，重选对手行动方式
+	clr_country_flag = FAV_Know_Enemy_Action
+	set_variable = { FAV_Action_Type_We = 0 }
+	set_variable = { FAV_Action_Type_They = 0 }
+	random_list = {
+		39 = {
+			set_variable = { FAV_Action_Type_They = 1 }
+		}
+		40 = {
+			set_variable = { FAV_Action_Type_They = 2 }
+		}
+		20 = {
+			set_variable = { FAV_Action_Type_They = 3 }
+		}
+		1 = {
+			set_variable = { FAV_Action_Type_They = 0 }
+		}
+	}
+}
+#随机改变对方行动方式
+FAV_Change_Their_Action = {
+	custom_effect_tooltip = FAV_Their_Action_Changed
+	clr_country_flag = FAV_Know_Enemy_Action
+	IF = {
+		limit = {
+			check_variable = { FAV_Action_Type_They = 0 }
+		}
+		random_list = {
+			39 = {
+				set_variable = { FAV_Action_Type_They = 1 }
+			}
+			10 = {
+				set_variable = { FAV_Action_Type_They = 2 }
+			}
+			50 = {
+				set_variable = { FAV_Action_Type_They = 3 }
+			}
+			1 = {
+				set_variable = { FAV_Action_Type_They = 0 }
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = { FAV_Action_Type_They = 1 }
+		}
+		random_list = {
+			39 = {
+				set_variable = { FAV_Action_Type_They = 2 }
+			}
+			60 = {
+				set_variable = { FAV_Action_Type_They = 3 }
+			}
+			1 = {
+				set_variable = { FAV_Action_Type_They = 0 }
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = { FAV_Action_Type_They = 2 }
+		}
+		random_list = {
+			29 = {
+				set_variable = { FAV_Action_Type_They = 1 }
+			}
+			70 = {
+				set_variable = { FAV_Action_Type_They = 3 }
+			}
+			1 = {
+				set_variable = { FAV_Action_Type_They = 0 }
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = { FAV_Action_Type_They = 3 }
+		}
+		random_list = {
+			29 = {
+				set_variable = { FAV_Action_Type_They = 1 }
+			}
+			70 = {
+				set_variable = { FAV_Action_Type_They = 2 }
+			}
+			1 = {
+				set_variable = { FAV_Action_Type_They = 0 }
+			}
+		}
+	}
+}
+FAV_End_of_This_Talk = {
+	custom_effect_tooltip = FAV_End_this_Talk
+	#判定胜败及胜利等级
+	hidden_effect = {
+		IF = {
+			limit = {
+				OR = {
+					check_variable = { FAV_Victory_Ps_We = FAV_Victory_Ps_They }
+					check_variable = { FAV_Victory_Ps_We > FAV_Victory_Ps_They }
+				}
+			}
+			add_to_variable = { FAV_Times_we_Won = 1 }
+			set_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_We }
+			substract_from_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_They }
+			IF = {
+				limit = {
+					FAV_linshibianliang1 < 100
+				}
+				#优势
+				country_event = Church.4
+			}
+			ELSE_IF = {
+				limit = {
+					FAV_linshibianliang1 < 300
+				}
+				#小胜
+				country_event = Church.5
+			}
+			ELSE_IF = {
+				limit = {
+					FAV_linshibianliang1 < 600
+				}
+				#中胜
+				country_event = Church.6
+			}
+			ELSE_IF = {
+				#大胜
+				country_event = Church.7
+			}
+		}
+		ELSE_IF = {
+			#落败
+			country_event = Church.8
+		}
+	}
+	#清理变量
+	set_variable = { FAV_Victory_Ps_We = 0 }
+	set_variable = { FAV_Victory_Ps_They = 0 }
+}
+FAV_End_of_Talk = {
+	IF = {
+		limit = {
+			check_variable = { FAV_Times_we_Won = 0 }
+		}
+		#最终结果： 耻辱性的大败
+		country_event = Church.9
+	}
+	IF = {
+		limit = {
+			check_variable = { FAV_Times_we_Won < 2 }
+		}
+		#最终结果： 小败
+		country_event = Church.10
+	}
+	IF = {
+		limit = {
+			check_variable = { FAV_Times_we_Won = 3 }
+		}
+		#最终结果： 小胜
+		country_event = Church.11
+	}
+	IF = {
+		limit = {
+			check_variable = { FAV_Times_we_Won = 4 }
+		}
+		#最终结果： 胜利
+		country_event = Church.12
+	}
+	IF = {
+		limit = {
+			check_variable = { FAV_Times_we_Won = 5 }
+		}
+		#最终结果： 辉煌的大胜
+		country_event = Church.13
+	}
+	clear_variable = FAV_Victory_Ps_We
+	clear_variable = FAV_Victory_Ps_They
+	clear_variable = FAV_Action_Type_We
+	clear_variable = FAV_Action_Type_They
+	clear_variable = FAV_Had_Fight_Times
+	clear_variable = FAV_All_Fight_Times
+	clear_variable = FAV_Had_Talk_Times
+	clear_variable = FAV_All_Talk_Times
+	clear_variable = FAV_Times_we_Won
+	clear_variable = FAV_Difference_of_VP
+}

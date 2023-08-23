@@ -11,7 +11,7 @@
 # 手段 0 无 1 集会 2 黑料 3 破坏
 # 对抗轮数 FAV_Had_Fight_Times FAV_All_Fight_Times
 # 辩论轮数 FAV_Had_Talk_Times FAV_All_Talk_Times
-# 辩论胜数 FAV_Times_we_Won 
+# 辩论胜数 FAV_Times_we_Won
 # 显示的分数变化 FAV_Difference_of_VP
 FAV_Difference_on_Bible = {
     #分数换政治点
@@ -20,6 +20,7 @@ FAV_Difference_on_Bible = {
         cost = 0
         days_re_enable = 10
         days_remove = 10
+        fire_only_once = no
         complete_effect = {
             IF = {
                 limit = { is_ai = no }
@@ -45,6 +46,7 @@ FAV_Difference_on_Bible = {
         cost = 0
         days_re_enable = 0
         days_remove = 0
+        fire_only_once = no
         complete_effect = {
             IF = {
                 limit = { has_country_flag = FAV_Show_Decisions1 }
@@ -68,6 +70,7 @@ FAV_Difference_on_Bible = {
         cost = 10
         days_re_enable = 0
         days_remove = 0
+        fire_only_once = no
         complete_effect = {
             set_variable = { FAV_Action_Type_We = 1 }
         }
@@ -89,6 +92,7 @@ FAV_Difference_on_Bible = {
         cost = 10
         days_re_enable = 0
         days_remove = 0
+        fire_only_once = no
         complete_effect = {
             set_variable = { FAV_Action_Type_We = 2 }
         }
@@ -110,6 +114,7 @@ FAV_Difference_on_Bible = {
         cost = 10
         days_re_enable = 0
         days_remove = 0
+        fire_only_once = no
         complete_effect = {
             set_variable = { FAV_Action_Type_We = 3 }
         }
@@ -208,6 +213,7 @@ FAV_Difference_on_Bible = {
         cost = 0
         days_re_enable = 0
         days_remove = 0
+        fire_only_once = no
         complete_effect = {
             IF = {
                 limit = { has_country_flag = FAV_Show_Decisions2 }
@@ -224,9 +230,123 @@ FAV_Difference_on_Bible = {
 
     #罗莎莉亚线决议
     #查明对方行动
+    FAV_Know_Their_Action = {
+        available = { always = yes }
+        visible = {
+            NOT = { has_country_flag = FAV_Know_Enemy_Action }
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		cost = 30
+        days_re_enable = 20
+        days_remove = 5
+        fire_only_once = no
+        complete_effect = {
+            add_command_power = -20
+            custom_effect_tooltip = FAV_We_will_Know_Their_Action
+            set_country_flag = FAV_Know_Enemy_Action
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
     #指挥点换胜利分数提高
+    FAV_CP_to_VP = {
+        available = { always = yes }
+		custom_cost_trigger = {
+			command_power > 29
+		}
+        visible = {
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		custom_cost_text = decision_cost_CP_30
+        days_re_enable = 10
+        days_remove = 10
+        fire_only_once = no
+        complete_effect = {
+            add_command_power = -30
+        }
+        modifier = {
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                check_variable = { FAV_Victory_Ps_We < 500 }
+            }
+        }
+    }
     #直接让对方行动变为无
+    FAV_Turn_Their_Aciton_to_No = {
+        available = { always = yes }
+		custom_cost_trigger = {
+			command_power > 29
+		}
+        visible = {
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		custom_cost_text = decision_cost_CP_30
+        days_re_enable = 20
+        days_remove = 5
+        fire_only_once = no
+        complete_effect = {
+            add_command_power = -30
+        }
+        modifier = {
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Change_Their_Action
+            set_variable = { FAV_Action_Type_They = 0 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
     #对抗倒计时
+	FAV_TimeOver_of_Fight = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 25
+		activation = { always = no }
+		available = { always = no }
+		timeout_effect = {
+            #结算对抗结果
+            FAV_End_of_This_Fight = yes
+            IF = {
+                limit = {
+                    check_variable = { FAV_Had_Fight_Times = FAV_All_Fight_Times }
+                }
+                #如果完成了一次辩论中应有的全部对抗，则开始辩论
+                FAV_End_of_This_Talk = yes
+                IF = {
+                    limit = {
+                         check_variable = { FAV_Had_Talk_Times = FAV_All_Talk_Times }
+                    }
+                    #如果完成了全部辩论，则结束猜拳决议组
+                    set_country_flag = FAV_End_of_Talk
+                    FAV_End_of_All_Talk = yes
+                }
+                ELSE_IF = {
+                    #如果未完成全部辩论，则辩论计数加一
+                    add_to_variable = { FAV_Had_Talk_Times = 1 }
+                }
+            }
+            ELSE_IF = {
+                #如果未完成一次辩论中应有的全部对抗，则对抗计数加一
+                add_to_variable = { FAV_Had_Fight_Times = 1 }
+            }
+            IF = {
+                limit = { NOT = { has_country_flag = FAV_End_of_Talk } }
+                #如果没有结束猜拳，则再次开始对抗倒计时
+			    activate_mission = FAV_TimeOver_of_Fight
+            }
+		}
+	}
     #辩论倒计时
 
 }
