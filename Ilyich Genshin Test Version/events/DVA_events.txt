@@ -4,6 +4,7 @@
 
 add_namespace = dva
 add_namespace = dva.ab
+add_namespace = dva_border_conflict
 
 
 #侦察骑士的一日假期
@@ -83,8 +84,33 @@ country_event = {
 				has_equipment = { infantry_equipment < 1000 }
 			}
         }
-		DVA = {
-			set_country_flag = DVA_weapon_unreceived
+	}
+}
+
+#援助到达
+country_event = {
+	id = dva.3
+	title = dva.3.t
+	desc = dva.3.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = DVA_weapon_received
+	}
+	
+	option = {
+		name = dva.3.a
+		ai_chance = {
+            base = 20
+        }
+		effect_tooltip = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+				producer = DVA
+			}
 		}
 	}
 }
@@ -100,6 +126,7 @@ country_event = {
 	
 	option = {
 		name = dva.ab.1.a
+		add_stability = 0.01
 	}
 }
 
@@ -114,6 +141,7 @@ country_event = {
 	
 	option = {
 		name = dva.ab.101.a
+		add_political_power = 25
 	}
 }
 
@@ -130,6 +158,7 @@ country_event = {
 
 	option = {
 		name = dva.ab.2.a
+		add_political_power = 10
 	}
 }
 
@@ -146,6 +175,7 @@ country_event = {
 
 	option = {
 		name = dva.ab.3.a
+		add_stability = 0.02
 	}
 }
 
@@ -178,6 +208,19 @@ country_event = {
 
 	option = {
 		name = dva.ab.5.a
+		add_units_to_division_template = {
+			template_name = "风龙领巡逻部队"
+			regiments = {
+				cavalry = 2
+			}
+			support = {
+				outrider = 1
+			}
+		}
+		create_intelligence_agency = {
+			name = "O.O.D"
+			icon = GFX_intelligence_agency_logo_agency
+		}
 	}
 }
 
@@ -194,10 +237,18 @@ country_event = {
 
 	option = {
 		name = dva.ab.6.a
+		MOT = {
+			set_autonomy = {
+				target = DVA
+				autonomy_state = autonomy_MOT_Auto_State
+				end_wars = yes
+				end_civil_wars = no
+			}
+		}
 	}
 }
 
-#火种
+#火种·其一
 country_event = {
 	id = dva.ab.7
 	title = dva.ab.7.t
@@ -210,6 +261,20 @@ country_event = {
 
 	option = {
 		name = dva.ab.7.a
+		ai_chance = {
+            base = 5
+			modifier = {
+				factor = 10
+			}
+        }
+		give_guarantee = DVA
+		add_opinion_modifier = { target = DVA modifier = DVA_partnership_with_AND }
+		DVA = { 
+			give_guarantee = AND
+			add_opinion_modifier = { target = AND modifier = DVA_partnership_with_AND } 
+			country_event = dva.ab.36
+			set_country_flag = DVA_helios_project_flag
+		}
 	}
 }
 
@@ -700,3 +765,127 @@ country_event = {
 }
 
 
+
+#火种·其二
+country_event = {
+	id = dva.ab.36
+	title = dva.ab.36.t
+	desc = dva.ab.36.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.36.a
+		unlock_decision_category_tooltip = DVA_helios_project_category
+		set_variable = {
+			var = DVA_helios_project_fund
+			value = 0
+		}
+		set_variable = {
+			var = DVA_helios_project_preparation_step_progress
+			value = 0
+		}
+	}
+}
+
+#风龙领的财务报告
+country_event = {
+	id = dva.ab.37
+	title = dva.ab.37.t
+	desc = dva.ab.37.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.37.a
+		set_country_flag = DVA_budget_passed
+	}
+	option = {
+		name = dva.ab.37.b
+	}
+}
+
+#同愚人众先遣队的边境冲突-胜利
+country_event = {
+	id = dva_border_conflict.1
+	title = dva_border_conflict.1.t
+	desc = dva_border_conflict.1.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva_border_conflict.1.a
+		trigger = {
+			original_tag = DVA
+		}
+		create_wargoal = {
+			type = annex
+			target = SFS
+		}
+		add_doctrine_cost_reduction = {
+			name = dva_sfs_border_conflict_won
+			cost_reduction = 2.0
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+#同愚人众先遣队的边境冲突-失败
+country_event = {
+	id = dva_border_conflict.2
+	title = dva_border_conflict.2.t
+	desc = dva_border_conflict.2.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva_border_conflict.2.a
+		trigger = {
+			original_tag = DVA
+		}
+		add_doctrine_cost_reduction = {
+			name = dva_sfs_border_conflict_won
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+#同愚人众先遣队的边境冲突-胜负未分
+country_event = {
+	id = dva_border_conflict.3
+	title = dva_border_conflict.3.t
+	desc = dva_border_conflict.3.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva_border_conflict.3.a
+		trigger = {
+			original_tag = DVA
+		}
+		add_doctrine_cost_reduction = {
+			name = dva_sfs_border_conflict_won
+			cost_reduction = 1.0
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}

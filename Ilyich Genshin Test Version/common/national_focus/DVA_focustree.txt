@@ -3,11 +3,11 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 0
-			tag = DVA_U
+			add = 10
+			tag = DVA
 		}
 	}
-	continuous_focus_position = { x=300 y=3000}
+	continuous_focus_position = { x=300 y=1800}
 	default = no
 	
 	focus = {
@@ -64,10 +64,61 @@ focus_tree = {
 		available = {
 			#
 		}
+		select_efffect = {
+			hidden_effect = {
+				SFS = {
+					transfer_state = 58
+					division_template = {
+						name = "愚人众先遣队"
+						
+						regiments = {
+							SNE_electrohammer = { x = 0 y = 0 }
+							SNE_hydrogunner = { x = 0 y = 1 }
+							SNE_pyroslinger = { x = 0 y = 2 }
+							SNE_anemoboxer = { x = 1 y = 0 }
+							SNE_cryogunner = { x = 1 y = 1 }
+							SNE_geochanter = { x = 1 y = 2 }
+						}
+						support = {
+							#
+						}
+						origin_type=master_host
+						priority = 1
+						is_locked = yes
+						allow_new_equipment=yes
+						allow_foreign_equipment=yes
+					}
+					random_owned_controlled_state = {
+						limit = { ROOT = { has_full_control_of_state = PREV } }
+						prioritize = { 58 }
+						create_unit = {
+							division = "name = \"1. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
+							owner = SFS
+						}
+					}
+				}
+			}
+		}
 		completion_reward = {
 			country_event = dva.1
 			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
 			set_country_flag = DVA_dvalin_mass_flag
+		}
+	}
+	focus = {
+		id = DVA_one_flew_over_stormterrors_lair
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_Deal_With_Mass_Of_Dvalin
+		}
+		x = 6
+		y = 3
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.2
 		}
 	}
 	focus = {
@@ -82,6 +133,9 @@ focus_tree = {
 		available = {
 			NOT = {
 				has_country_flag = DVA_dvalin_mass_flag
+			}
+			SFS = {
+				exist = no
 			}
 		}
 		completion_reward = {
@@ -123,22 +177,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_one_flew_over_stormterrors_lair
-		icon = GFX_goal_unknown
-		cost = 1
-		prerequisite = {
-			focus = DVA_Deal_With_Mass_Of_Dvalin
-		}
-		x = 6
-		y = 3
-		available = {
-			#
-		}
-		completion_reward = {
-			country_event = dva.ab.2
-		}
-	}
-	focus = {
 		id = DVA_wind_down_with_fog_flew
 		icon = GFX_goal_unknown
 		cost = 1
@@ -155,7 +193,7 @@ focus_tree = {
 			hidden_effect = {
 				country_event = {
 					id = dva.ab.101
-					days = 30
+					days = 360
 				}
 			}
 		}
@@ -227,7 +265,9 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			country_event = dva.ab.7
+			AND = {
+				country_event = dva.ab.7
+			}
 		}
 	}
 	focus = {
