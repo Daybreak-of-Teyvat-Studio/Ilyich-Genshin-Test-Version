@@ -55,7 +55,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Deal_With_Mass_Of_Dvalin
 		icon = GFX_goal_unknown
-		cost = 2
+		cost = 5
 		prerequisite = {
 			focus = DVA_An_Ordinary_Day
 		}
@@ -64,8 +64,37 @@ focus_tree = {
 		available = {
 			#
 		}
+		completion_reward = {
+			country_event = dva.1
+			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
+			set_country_flag = DVA_dvalin_mass_flag
+		}
+	}
+	focus = {
+		id = DVA_one_flew_over_stormterrors_lair
+		icon = GFX_goal_unknown
+		cost = 5
+		prerequisite = {
+			focus = DVA_Deal_With_Mass_Of_Dvalin
+		}
+		x = 6
+		y = 3
+		available = {
+			NOT = {
+				has_country_flag = DVA_northwestern_hilichurls
+			}
+		}
 		select_effect = {
+			country_event = dva.ab.2
+		}
+		completion_reward = {
 			hidden_effect = {
+				SNE = {
+					add_named_threat = {
+						threat = 5
+						name = SNE_invade_DVA
+					}
+				}
 				SFS = {
 					transfer_state = 58
 					division_template = {
@@ -89,36 +118,19 @@ focus_tree = {
 						allow_foreign_equipment=yes
 					}
 					random_owned_controlled_state = {
-						limit = { ROOT = { has_full_control_of_state = PREV } }
+						limit = { ROOT = { has_full_control_of_state = 58 } }
 						prioritize = { 58 }
 						create_unit = {
 							division = "name = \"1. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
 							owner = SFS
 						}
+						create_unit = {
+							division = "name = \"2. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
+							owner = SFS
+						}
 					}
 				}
 			}
-		}
-		completion_reward = {
-			country_event = dva.1
-			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
-			set_country_flag = DVA_dvalin_mass_flag
-		}
-	}
-	focus = {
-		id = DVA_one_flew_over_stormterrors_lair
-		icon = GFX_goal_unknown
-		cost = 1
-		prerequisite = {
-			focus = DVA_Deal_With_Mass_Of_Dvalin
-		}
-		x = 6
-		y = 3
-		available = {
-			#
-		}
-		completion_reward = {
-			country_event = dva.ab.2
 		}
 	}
 	focus = {
@@ -135,7 +147,7 @@ focus_tree = {
 				has_country_flag = DVA_dvalin_mass_flag
 			}
 			SFS = {
-				exist = no
+				exists = no
 			}
 		}
 		completion_reward = {
