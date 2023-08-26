@@ -2153,6 +2153,7 @@ DVA_helios_project_category = {
 		
 		available = {
 			has_country_flag = DVA_helios_project_flag
+			has_country_flag = DVA_budget_enough
 		}
 
 		cost = 50
@@ -2164,9 +2165,11 @@ DVA_helios_project_category = {
 		}
 
 		visible = {
-			has_country_flag = DVA_helios_project_flag
 			NOT = {
 				has_country_flag = DVA_helios_project_first_step_flag
+			}
+			check_variable = {
+				DVA_helios_project_fund > -1
 			}
 		}
 
@@ -2178,10 +2181,17 @@ DVA_helios_project_category = {
 				value = -1
 				tooltip = decrease_DVA_recruit_scholars_fund_tt
 			}
-			add_to_variable = {
-				var = DVA_helios_project_preparation_step_progress
-				value = 10
-				tooltip = increase_DVA_helios_project_preparation_step_progress_tt
+			if = {
+				limit = {
+					check_variable = {
+						DVA_helios_project_preparation_step_progress < 100
+					}
+				}
+				add_to_variable = {
+					var = DVA_helios_project_preparation_step_progress
+					value = 10
+					tooltip = increase_DVA_helios_project_preparation_step_progress_tt
+				}
 			}
 			add_manpower = -10
 		}
@@ -2205,6 +2215,9 @@ DVA_helios_project_category = {
 			has_country_flag = DVA_helios_project_flag
 			NOT = {
 				has_country_flag = DVA_helios_project_first_step_flag
+			}
+			check_variable = {
+				DVA_helios_project_preparation_step_progress > 99
 			}
 		}
 
