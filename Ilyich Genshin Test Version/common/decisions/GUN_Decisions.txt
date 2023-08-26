@@ -1,5 +1,53 @@
 #古恩希尔德家族会议
 GUN_Family_Decisions = {
+
+#志愿军
+GUN_Expeditionary_Forces = {
+		icon = eng_install_government
+		allowed = { tag = GUN }
+		available = {	}
+		fire_only_once = no
+		modifier = { }
+		cost = 10
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+		add_ai_strategy = {
+			type = send_volunteers_desire
+			id = ROOT
+			value = 200
+		}
+		GUN = { 
+		division_template = { 
+				name = "GUN_Expeditionary_Forces" 
+				# division_names_group = GUN_Expeditionary_Forces
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 2 y = 0 }
+		} } }
+		random_other_country = {
+		# GUN = { 
+		limit = { has_war = yes }
+		division_template = { 
+				name = "GUN_Expeditionary_Forces" 
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 2 y = 0 }
+				} }
+		random_owned_state = { 
+		create_unit = { 
+		division = "name = \"GUN_Expeditionary_Forces\" division_template = \"GUN_Expeditionary_Forces\" start_experience_factor = 0.5 start_equipment_factor = 2.0"  owner = ROOT  count = 4
+		} 
+		} 
+		}		
+		}
+	}
+		
 	#家族会议
 	GUN_Family_Decisions_01 = {
 		icon = eng_install_government
@@ -59,10 +107,8 @@ GUN_Family_Decisions = {
 		allowed = {
 			tag = GUN
 		}
-		available = {
-			
-		}
-		
+		available = {			
+		}		
 		fire_only_once = no
 		modifier = { stability_factor = -0.04 }
 		days_remove = 180 #持续时间
@@ -591,4 +637,5 @@ GUN_Factions_Decisions = {
 		
 		}		
 	}
+############################
 }
