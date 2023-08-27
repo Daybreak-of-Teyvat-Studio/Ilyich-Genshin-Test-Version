@@ -595,6 +595,11 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 				add_manpower = 314159
 			}
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -684,6 +689,11 @@ focus_tree = {
 					count = 6
 				}
 			}
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -720,6 +730,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			GFS_Improve_Industry_Level = yes
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -762,6 +777,11 @@ focus_tree = {
 					owner = FAV
 					count = 4
 				}
+			}
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
 			}
 		}
 		available = {
@@ -821,4 +841,495 @@ focus_tree = {
 		}
 	}
 	###战前准备线
+	#共通：强化自主权 FAV_Strengthen_our_Power
+	focus = {
+		id = FAV_Strengthen_our_Power
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 23
+		y = 5
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#生命水的泉源 FAV_Source_of_Life
+	focus = {
+		id = FAV_Source_of_Life
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_Strengthen_our_Power
+		}
+		mutually_exclusive = {
+			focus = FAV_Open_the_Seven
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				category = electronics
+				bonus = 0.5
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#揭开七印 FAV_Open_the_Seven
+	focus = {
+		id = FAV_Open_the_Seven
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 24
+		y = 6
+		prerequisite = {
+			focus = FAV_Strengthen_our_Power
+		}
+		mutually_exclusive = {
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = support_equipment
+				category = infantry_equipment
+				category = artillery
+				bonus = 0.5
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#共通：吸收枫丹技术 FAV_Research_Industry
+	focus = {
+		id = FAV_Research_Industry
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 23
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				bonus = 1
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#共通：研究虚空装置 FAV_Research_Electricity
+	focus = {
+		id = FAV_Research_Electricity
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 23
+		y = 8
+		prerequisite = {
+			focus = FAV_Research_Industry
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_3
+			add_tech_bonus = {
+				category = electronics
+				bonus = 1
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 他们必得饱足 FAV_They_will_be_Full
+	focus = {
+		id = FAV_They_will_be_Full
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 21
+		y = 7
+		prerequisite = {
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+			FAV_Get_2_Civs = yes
+			FAV_Get_2_Civs = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 他们必承受土地 FAV_They_will_get_Land
+	focus = {
+		id = FAV_They_will_get_Land
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 21
+		y = 8
+		prerequisite = {
+			focus = FAV_They_will_be_Full
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_2
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Civs = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 登山宝训 FAV_Spread_our_Talk
+	focus = {
+		id = FAV_Spread_our_Talk
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 不是废掉，乃是要成全 FAV_Mild_Change
+	focus = {
+		id = FAV_Mild_Change
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 19
+		y = 8
+		prerequisite = {
+			focus = FAV_Spread_our_Talk
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_1
+			add_stability = 0.05
+			add_political_power = 50
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 喜笑的人有祸了 FAV_Happy_one_Will_be_End
+	focus = {
+		id = FAV_Happy_one_Will_be_End
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 25
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+		}
+		completion_reward = {
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 兵刃不可不利 FAV_Research_Weapons
+	focus = {
+		id = FAV_Research_Weapons
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 25
+		y = 8
+		prerequisite = {
+			focus = FAV_Happy_one_Will_be_End
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_1
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+			add_tech_bonus = {
+				category = armor
+				bonus = 1
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 你父在暗中察看 FAV_Your_Father_Looking
+	focus = {
+		id = FAV_Your_Father_Looking
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 27
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 不叫全身堕入地狱 FAV_Not_All_Fallen
+	focus = {
+		id = FAV_Not_All_Fallen
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 27
+		y = 8
+		prerequisite = {
+			focus = FAV_Your_Father_Looking
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_2
+			add_war_support = 0.05
+			army_experience = 50
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#擦去一切的眼泪 FAV_Wipe_all_Tear
+	focus = {
+		id = FAV_Wipe_all_Tear
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 21
+		y = 9
+		prerequisite = {
+			focus = FAV_They_will_get_Land
+			focus = FAV_Mild_Change
+			focus = FAV_Research_Electricity
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+				}
+				FAV_Get_2_Civs = yes
+				FAV_Get_2_Civs = yes
+				FAV_Get_2_Civs = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_2
+				}
+				FAV_Get_2_Civs = yes
+				GFS_Better_Agri = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Get_2_Civs = yes
+				add_tech_bonus = {
+					category = industry
+					category = electronics
+					bonus = 2
+					ahead_reduction = 1
+					uses = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#天国是他们的 FAV_Heaven_is_Theirs
+	focus = {
+		id = FAV_Heaven_is_Theirs
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 25
+		y = 9
+		mutually_exclusive = {
+			focus = FAV_Wipe_all_Tear
+		}
+		prerequisite = {
+			focus = FAV_Research_Weapons
+			focus = FAV_Not_All_Fallen
+			focus = FAV_Research_Electricity
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+				}
+				FAV_Get_2_Arms = yes
+				add_tech_bonus = {
+					category = infantry_equipment
+					category = artillery
+					category = armor
+					bonus = 2
+					ahead_reduction = 1
+					uses = 1
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_2
+				}
+				FAV_Get_2_Civs = yes
+				FAV_Get_2_Civs = yes
+				FAV_Get_2_Civs = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Get_2_Arms = yes
+				add_tech_bonus = {
+					category = industry
+					category = electronics
+					bonus = 2
+					ahead_reduction = 1
+					uses = 1
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
 }
