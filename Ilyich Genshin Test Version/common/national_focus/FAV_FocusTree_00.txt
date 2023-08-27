@@ -171,7 +171,7 @@ focus_tree = {
 		x = 16
 		y = 4
 		prerequisite = {
-			focus = FAV_Why_do_you_Leave
+			focus = FAV_Prepare_in_Shadow
 		}
 		completion_reward = {
 			add_stability = -0.1
@@ -426,18 +426,399 @@ focus_tree = {
 	}
 	###辩论奖励线
 	##胜利1次可走
-	#PP 团队建设
-	#武器 执起刀兵
-	#人力 同我乐园中
+	#PP 团队建设 FAV_Build_our_union
+	focus = {
+		id = FAV_Build_our_union
+		icon = GFX_focus_generic_railroad
+		cost = 3.00
+		x = 13
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+			add_political_power = 150
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#武器 执起刀兵 FAV_Take_up_Weapons
+	focus = {
+		id = FAV_Take_up_Weapons
+		icon = GFX_focus_generic_railroad
+		cost = 3.00
+		x = 11
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Build_our_union
+			focus = FAV_Heaven_with_Me
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 4000
+				producer = MOT
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#人力 同我乐园中 FAV_Heaven_with_Me
+	focus = {
+		id = FAV_Heaven_with_Me
+		icon = GFX_focus_generic_railroad
+		cost = 3.00
+		x = 9
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Build_our_union
+			focus = FAV_Take_up_Weapons
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+			add_manpower = 114514
+			every_owned_state = {
+				add_manpower = 191981
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	##胜利2次可走
-	#稳定战支 宣我荣光
-	#全地区人口及建筑槽 全局准备
-	#坦克飞机 人子得荣耀之时
+	#稳定战支 宣我荣光 FAV_Call_my_Glory
+	focus = {
+		id = FAV_Call_my_Glory
+		icon = GFX_focus_generic_railroad
+		cost = 4.00
+		x = 13
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+			add_political_power = 100
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 1 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#全地区人口及建筑槽 全局准备 FAV_Preparation_for_the_Future
+	focus = {
+		id = FAV_Preparation_for_the_Future
+		icon = GFX_focus_generic_railroad
+		cost = 4.00
+		x = 11
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Time_we_Get_Glory
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_manpower = 314159
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 1 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#坦克飞机 人子得荣耀之时 FAV_Time_we_Get_Glory
+	focus = {
+		id = FAV_Time_we_Get_Glory
+		icon = GFX_focus_generic_railroad
+		cost = 4.00
+		x = 9
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 500
+				producer = MOT
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 500
+				producer = MOT
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 1 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	##胜利3次可走
-	#获得步炮师 照旨意而行
-	#提高工业等级 进步的先声
-	#获得坦克部队 成为神的义
+	#获得步炮师 照旨意而行 FAV_Follow_the_Fate
+	focus = {
+		id = FAV_Follow_the_Fate
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 13
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Call_of_Progress
+			focus = FAV_Become_Justice_of_God
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Get_6_Artillery_Unit
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Holy Knights\" division_template = \"Barbatos' Knights\" start_experience_factor = 0.5"
+					owner = FAV
+					count = 6
+				}
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 2 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#提高工业等级 进步的先声 FAV_Call_of_Progress
+	focus = {
+		id = FAV_Call_of_Progress
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 11
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Become_Justice_of_God
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+			GFS_Improve_Industry_Level = yes
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 2 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获得坦克部队 成为神的义 FAV_Become_Justice_of_God
+	focus = {
+		id = FAV_Become_Justice_of_God
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 9
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Call_of_Progress
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Get_4_Armors_Unit
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Holy Sisters\" division_template = \"Sisters with Thistles and Thorns\" start_experience_factor = 1"
+					owner = FAV
+					count = 4
+				}
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 2 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
 	##最终奖励
-	#——成了！ 提高政府等级
+	#——成了！ 提高政府等级 FAV_Get_It
+	focus = {
+		id = FAV_Get_It
+		icon = GFX_focus_generic_railroad
+		cost = 5.00
+		x = 11
+		y = 8
+		prerequisite = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Call_of_Progress
+			focus = FAV_Become_Justice_of_God
+		}
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			add_research_slots = 1
+			IF = {
+				limit = {
+					check_variable = { FAV_Times_we_Won > 4 }
+				}
+				custom_effect_tooltip = FAV_More_Bonus_for_Full_Victory
+				GFS_Improve_Industry_Level = yes
+				GFS_Better_Army = yes
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 3 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
 	###战前准备线
 }
