@@ -1,0 +1,97 @@
+rescue_Eula = { ### 1/50
+	icon = GFX_operations_rescue_captured_operative
+	map_icon = GFX_operations_rescue_captured_operative_map
+	name = rescue_Eula
+	desc = rescue_Eula_desc
+	days = 3
+
+	priority = 15
+
+	allowed = {
+		original_tag = DVA
+	}
+	available = {
+		NOT = {
+			has_country_flag = DVA_Eula_rescued
+		}
+	}
+	visible = {
+		focus_progress = {
+			focus = DVA_Eula_or_war
+			progress > 0.1
+		}
+	}
+
+	operatives = 1
+
+	network_strength = 20
+
+	on_start = {
+		
+	}
+
+	outcome_potential = {
+		recruit_character = DVA_Eula
+	}
+	risk_chance = 0.25
+	experience = 50
+
+	outcome_execute = {
+		country_event = dva.ab.38
+	}
+	
+	# This is where all the separate phases are defined
+	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+	phases = { #infiltration
+		infiltration_border = { base = 30 }
+		infiltration_submarine = { base = 20 }
+		infiltration_paradrop = { 
+			base = 25 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_plane_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		infiltration_diplomatic = {
+			base = 25
+			modifier = {
+				factor = 20
+				ROOT = { has_war = no }
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				FROM = {
+					has_war_with = ROOT
+				}
+				factor = 0
+			}
+		}
+	}
+	phases = { #gather vital info
+		free_operative_free_in_transit = { base = 33 }
+		free_operative_liberate_camp = { base = 33 }
+		free_operative_smuggle_in_escape_gear = { base = 33 }
+	}
+	phases = { #exfiltration
+		exfiltration_air_pickup = { 
+			base = 15 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_plane_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		exfiltration_border = { base = 30 }
+		exfiltration_go_to_ground = { base = 30 }
+		exfiltration_submarine_pickup = { base = 25 }
+	}
+}

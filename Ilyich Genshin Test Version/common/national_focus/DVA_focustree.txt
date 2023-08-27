@@ -7,7 +7,7 @@ focus_tree = {
 			tag = DVA
 		}
 	}
-	continuous_focus_position = { x=300 y=1800}
+	continuous_focus_position = { x=50 y=1200}
 	default = no
 	
 	focus = {
@@ -68,6 +68,10 @@ focus_tree = {
 			country_event = dva.1
 			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
 			set_country_flag = DVA_dvalin_mass_flag
+			set_variable = {
+				var = DVA_puppet_influence
+				value = 0
+			}
 		}
 	}
 	focus = {
@@ -117,9 +121,7 @@ focus_tree = {
 						allow_new_equipment=yes
 						allow_foreign_equipment=yes
 					}
-					random_owned_controlled_state = {
-						limit = { ROOT = { has_full_control_of_state = 58 } }
-						prioritize = { 58 }
+					58 = {
 						create_unit = {
 							division = "name = \"1. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
 							owner = SFS
@@ -153,6 +155,21 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			remove_ideas = DVA_powerless_government
+			if = {
+				limit = {
+					DVA_puppet_influence > 5
+				}
+				country_event = dva.4
+			}
+			if = {
+				limit = {
+					DVA_puppet_influence < 4
+				}
+				country_event = dva.5
+			}
+			else = {
+				country_event = dva.6
+			}
 		}
 	}
 	focus = {
@@ -205,7 +222,7 @@ focus_tree = {
 			hidden_effect = {
 				country_event = {
 					id = dva.ab.101
-					days = 360
+					days = 120
 				}
 			}
 		}
@@ -239,7 +256,10 @@ focus_tree = {
 		x = 8
 		y = 9
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_country_flag = DVA_middle_way
+			}
 		}
 		completion_reward = {
 			country_event = dva.ab.6
@@ -255,10 +275,20 @@ focus_tree = {
 		x = 12
 		y = 8
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_amber_win
+				has_country_flag = DVA_outriders_permitted
+				has_country_flag = DVA_middle_way
+			}
 		}
 		completion_reward = {
 			country_event = dva.ab.5
+			hidden_effect = {
+				country_event = {
+					id = dva.ab.102
+					days = 30
+				}
+			}
 		}
 	}
 	focus = {
@@ -274,11 +304,19 @@ focus_tree = {
 		x = 10
 		y = 9
 		available = {
-			#
+			has_country_flag = DVA_amber_win
 		}
-		completion_reward = {
+		select_effect = {
 			AND = {
 				country_event = dva.ab.7
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = AND
+				}
+				add_core_of = DVA
 			}
 		}
 	}
@@ -294,8 +332,41 @@ focus_tree = {
 		available = {
 			#
 		}
+		select_effect = {
+			LAW = {
+				country_event = {
+					id = dva.ab.8
+					days = 4
+				}
+			}
+		}
 		completion_reward = {
-			country_event = dva.ab.8
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = DVA_Eula_rescued
+					}
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = LAW
+				}
+				every_state = {
+					limit = {
+						is_core_of = LAW
+					}
+					add_core_of = DVA
+				}
+				custom_effect_tooltip = DVA_rescue_Eula_tt
+			}
+			else = {
+				every_state = {
+					limit = {
+						is_core_of = LAW
+					}
+					add_core_of = DVA
+				}
+			}
 		}
 	}
 	focus = {
@@ -310,14 +381,58 @@ focus_tree = {
 		available = {
 			#
 		}
+		select_effect = {
+			DRA = {
+				country_event = {
+					id = dva.ab.9
+					days = 4
+				}
+			}
+		}
 		completion_reward = {
-			country_event = dva.ab.9
+			if = {
+				limit = {
+					has_country_flag = DVA_Albedo_visited
+				}
+				set_autonomy = {
+					target = DRA
+					autonomy_state = autonomy_MOT_Auto_State
+					end_wars = yes
+					end_civil_wars = yes
+				}
+				recruit_character = DVA_Albedo
+				recruit_character = DVA_Sucrose
+				DRA = {
+					set_cosmetic_tag = DVA_Ultravisionary_subject
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_Sucrose_visited
+				}
+				country_event = dva.ab.39
+			}
+			else = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = DRA
+				}
+				every_state = {
+					limit = {
+						is_core_of = DRA
+					}
+					add_core_of = DVA
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_incorporate_the_knights_of_favonius
 		icon = GFX_goal_unknown
 		cost = 1
+		mutually_exclusive = {
+			focus = DVA_break_with_the_past
+		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
 		}
@@ -357,9 +472,12 @@ focus_tree = {
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
+			focus = DVA_free_Dvalindom
+		}
+		prerequisite = {
 			focus = DVA_Mondstadt_Spring
 		}
-		x = 11
+		x = 10
 		y = 12
 		available = {
 			#
@@ -372,6 +490,9 @@ focus_tree = {
 		id = DVA_break_with_the_past
 		icon = GFX_goal_unknown
 		cost = 1
+		mutually_exclusive = {
+			focus = DVA_incorporate_the_knights_of_favonius
+		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
 		}
@@ -637,7 +758,7 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			country_event = dva.ab.12
+			#
 		}
 	}
 	focus = {
@@ -653,7 +774,7 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			#蒙德打赢了内战country_event = dva.ab.17
+			#蒙德打赢了内战country_event = dva.ab.12
 			#蒙德输掉了内战/诺艾尔政变country_event = dva.ab.17
 		}
 	}

@@ -115,6 +115,67 @@ country_event = {
 	}
 }
 
+#西风骑士团确保了对风龙领的控制
+country_event = {
+	id = dva.4
+	title = dva.4.t
+	desc = dva.4.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = dva.4.a
+		ai_chance = {
+            base = 20
+        }
+		set_country_flag = DVA_knights_win
+		unlock_national_focus = DVA_outrider_Amber_reporting
+	}
+}
+#西风骑士团正式任命安柏为风龙领总督
+country_event = {
+	id = dva.5
+	title = dva.5.t
+	desc = dva.5.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = dva.5.a
+		ai_chance = {
+            base = 20
+        }
+		set_country_flag = DVA_middle_way
+		unlock_national_focus = DVA_outrider_Amber_reporting
+	}
+}
+#安柏带领风龙领人民自力更生
+country_event = {
+	id = dva.6
+	title = dva.6.t
+	desc = dva.6.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = dva.6.a
+		ai_chance = {
+            base = 20
+        }
+		set_country_flag = DVA_amber_win
+		unlock_national_focus = DVA_outrider_Amber_reporting
+	}
+}
+
 #对天空的向往
 country_event = {
 	id = dva.ab.1
@@ -142,6 +203,14 @@ country_event = {
 	option = {
 		name = dva.ab.101.a
 		add_political_power = 25
+		create_operative_leader = {
+			name = "DVA_Victor"
+			GFX = GFX_portrait_Victor
+			traits = { operative_infiltrator operative_natural_orator }
+			bypass_recruitment = yes
+			available_to_spy_master = yes
+			nationalities = { SNE MOT }
+		}
 	}
 }
 
@@ -211,16 +280,36 @@ country_event = {
 		add_units_to_division_template = {
 			template_name = "风龙领巡逻部队"
 			regiments = {
-				cavalry = 2
+				cavalry = { x = 0 y = 3 }
+				cavalry = { x = 0 y = 4 }
+
+				cavalry = { x = 1 y = 3 }
+				cavalry = { x = 1 y = 4 }
 			}
 			support = {
-				outrider = 1
+				outrider = { x = 0 y = 0 }
 			}
 		}
 		create_intelligence_agency = {
 			name = "O.O.D"
 			icon = GFX_intelligence_agency_logo_agency
 		}
+	}
+}
+
+#安娜的守护天使
+country_event = {
+	id = dva.ab.102
+	title = dva.ab.102.t
+	desc = dva.ab.102.d
+	picture = GFX_report_event_finnish_letter
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = dva.ab.102.a
+		recruit_character = DVA_Anthony
+		recruit_character = DVA_Anna
 	}
 }
 
@@ -245,6 +334,12 @@ country_event = {
 				end_civil_wars = no
 			}
 		}
+		if = {
+			limit = {
+				has_country_flag = DVA_knights_win
+			}
+			set_country_flag = DVA_outriders_permitted
+		}
 	}
 }
 
@@ -261,12 +356,6 @@ country_event = {
 
 	option = {
 		name = dva.ab.7.a
-		ai_chance = {
-            base = 5
-			modifier = {
-				factor = 10
-			}
-        }
 		give_guarantee = DVA
 		add_opinion_modifier = { target = DVA modifier = DVA_partnership_with_AND }
 		DVA = { 
@@ -278,7 +367,7 @@ country_event = {
 	}
 }
 
-#冰与火之歌
+#冰与火之歌·其一
 country_event = {
 	id = dva.ab.8
 	title = dva.ab.8.t
@@ -291,6 +380,37 @@ country_event = {
 
 	option = {
 		name = dva.ab.8.a
+		ai_chance = {
+            base = 8
+        }
+		retire_ideology_leader = despotism
+		DVA = {
+			set_country_flag = DVA_Eula_rescued
+			country_event = dva.ab.38
+		}
+	}
+	option = {
+		name = dva.ab.8.b
+		ai_chance = {
+            base = 2
+        }
+	}
+}
+
+#冰与火之歌·其二
+country_event = {
+	id = dva.ab.38
+	title = dva.ab.38.t
+	desc = dva.ab.38.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.38.a
+		recruit_character = DVA_Eula
 	}
 }
 
@@ -307,6 +427,58 @@ country_event = {
 
 	option = {
 		name = dva.ab.9.a
+		trigger = {
+			DVA ={
+				has_country_flag = DVA_amber_win
+			}
+		}
+		ai_chance = {
+            base = 80
+        }
+		DVA = {
+			set_country_flag = DVA_Albedo_visited
+		}
+		custom_effect_tooltip = DVA_Albedo_visited_tt
+	}
+	option = {
+		name = dva.ab.9.b
+		trigger = {
+			DVA ={
+				OR = {
+					has_country_flag = DVA_amber_win
+					has_country_flag = DVA_middle_way
+				}
+			}
+		}
+		ai_chance = {
+            base = 80
+        }
+		DVA = {
+			set_country_flag = DVA_Sucrose_visited
+		}
+		custom_effect_tooltip = DVA_Sucrose_visited_tt
+	}
+	option = {
+		name = dva.ab.9.c
+		ai_chance = {
+            base = 20
+        }
+	}
+}
+
+#热情如火
+country_event = {
+	id = dva.ab.39
+	title = dva.ab.39.t
+	desc = dva.ab.39.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.39.a
 	}
 }
 
