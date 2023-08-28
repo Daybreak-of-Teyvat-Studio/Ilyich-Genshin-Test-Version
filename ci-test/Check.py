@@ -23,10 +23,10 @@ def CheckFile(filePath):
                         else:
                             record.append('}')
                     else:
-                        print("file %s error %s, line %d" % (filePath, record, index))
+                        print("文件出错: %s error %s, 行号: %d" % (filePath, record, index))
                         fileCorrect = False
         if len(record) > 0:
-            print("file %s error %s line %d" % (filePath, record, index+1))
+            print("文件出错: %s error %s, 行号: %d" % (filePath, record, index+1))
             fileCorrect = False
     return fileCorrect
 
@@ -44,7 +44,6 @@ def CheckDir(dirPath):
     return allFilesCorrect
 
 def main():
-    print("如果报错，line后的行号不一定准确，但出错点一定在那行及之前")
     modPath = "Ilyich Genshin Test Version"
     if not CheckDir(modPath):
         sys.exit(1)
