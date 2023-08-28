@@ -27,6 +27,22 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_Develop_industry
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 11
+		y = 1
+		allow_branch = {
+			#has_country_flag = DVA_start_industry_plan_flag
+		}
+		available = {
+			always = no
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
 		id = DVA_gift_of_Alice
 		icon = GFX_goal_unknown
 		cost = 1
@@ -153,13 +169,17 @@ focus_tree = {
 			remove_ideas = DVA_powerless_government
 			if = {
 				limit = {
-					DVA_puppet_influence > 5
+					check_variable = {
+						DVA_puppet_influence > 5
+					}
 				}
 				country_event = dva.4
 			}
 			if = {
 				limit = {
-					DVA_puppet_influence < 4
+					check_variable = {
+						DVA_puppet_influence < 4
+					}
 				}
 				country_event = dva.5
 			}
@@ -463,6 +483,7 @@ focus_tree = {
 			focus = DVA_break_with_the_past
 		}
 		prerequisite = {
+			focus = DVA_offering_gifts_and_loyalty
 			focus = DVA_the_meaning_of_Lupical
 		}
 		prerequisite = {
@@ -474,10 +495,21 @@ focus_tree = {
 		x = 11
 		y = 10
 		available = {
-			#
+			MOT = {
+				is_puppet_of = DVA
+			}
+		}
+		bypass = {
+			MOT = {
+				exists = no
+			}
 		}
 		completion_reward = {
-			country_event = dva.ab.13
+			annex_country = {
+				target = MOT
+				transfer_troops = yes
+			}
+			#country_event = dva.ab.13
 		}
 	}
 	focus = {
@@ -490,10 +522,20 @@ focus_tree = {
 		x = 11
 		y = 11
 		available = {
-			#
+			MOT = {
+				OR = {
+					exists = no
+					is_puppet_of = DVA
+				}
+			}
 		}
 		completion_reward = {
-			country_event = dva.ab.18
+			set_country_flag = DVA_start_industry_plan_flag
+			set_country_flag = DVA_start_research_plan_flag
+			country_event = {
+				id = dva.ab.18
+				days = 7
+			}
 		}
 	}
 	focus = {
@@ -502,8 +544,6 @@ focus_tree = {
 		cost = 1
 		prerequisite = {
 			focus = DVA_free_Dvalindom
-		}
-		prerequisite = {
 			focus = DVA_Mondstadt_Spring
 		}
 		x = 10
@@ -512,7 +552,7 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			country_event = dva.ab.20
+			#country_event = dva.ab.20
 		}
 	}
 	focus = {
@@ -818,10 +858,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			unlock_decision_category_tooltip = DVA_simulate_MOT_category
-			set_variable = {
-				var = DVA_advanced_military_xp
-				value = 0
-			}
 			if = {
 				limit = {
 					has_country_flag = DVA_middle_way
@@ -829,7 +865,13 @@ focus_tree = {
 				unlock_decision_tooltip = DVA_simulate_MOT_category
 				country_event = dva.ab.12
 			}
-			country_event = dva.ab.17
+			if = {
+				limit = {
+					has_country_flag = DVA_knights_win
+				}
+				country_event = dva.ab.17
+				set_country_flag = DVA_start_industry_plan_flag
+			}
 		}
 	}
 	##Humanity_will_endure_forever,even_if_it_disobeys_the_asmoday
