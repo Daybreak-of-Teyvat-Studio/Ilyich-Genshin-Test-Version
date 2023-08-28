@@ -1,9 +1,3 @@
-@DAYS_LOW = 30
-@DAYS_MIDDLE = 60
-@DAYS_HIGH = 100
-@LOW_COST = 30
-@MIDDLE_COST = 50
-@HIGH_COST = 100
 #神学辩论
 #相关变量：
 # 分数 我方 FAV_Victory_Ps_We 对方 FAV_Victory_Ps_They
@@ -350,4 +344,151 @@ FAV_Difference_on_Bible = {
             }
 		}
 	}
+}
+#争取自主权
+FAV_Get_Free = {
+    #提高抵抗度：和平
+    FAV_Higher_our_Resistance1 = {
+        available = { always = yes }
+        visible = {
+        }
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = decision_cost_CP_20
+        complete_effect = {
+            add_command_power = -20
+        }
+        days_re_enable = 30
+        days_remove = 30
+        fire_only_once = no
+        modifier = {
+            
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT1
+            MOT = {
+                country_event = Church.24
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #降低控制力：和平
+    FAV_Lower_Mot_Control = {
+        available = { always = yes }
+        visible = {
+        }
+        cost = 30
+        days_re_enable = 30
+        days_remove = 30
+        fire_only_once = no
+        modifier = {
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT2
+            MOT = {
+                country_event = Church.25
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #提高抵抗度：冲突
+    FAV_Higher_our_Resistance2 = {
+        available = { always = yes }
+        visible = {
+        }
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = decision_cost_CP_20
+        complete_effect = {
+            add_command_power = -20
+        }
+        fire_only_once = no
+        days_re_enable = 15
+        days_remove = 30
+        modifier = {
+            
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT3
+            LAW = {
+                country_event = Church.26
+            }
+            hidden_effect = {
+                MOT = {
+                    country_event = Church.27
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #终结哑谜
+    FAV_End_This = {
+        available = {
+            has_global_flag = MOT_Civil_War_Begun
+            custom_trigger_tooltip = {
+                tooltip = FAV_Enough_Resistance
+                NOT = {
+                    MOT = {
+                        check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                    }
+                }
+            }
+        }
+        visible = {
+            date < 1938.1.1
+            OR = {
+                is_puppet_of = MOT
+            }
+            OR = {
+                is_subject_of = MOT
+            }
+            has_autonomy_state = autonomy_MOT_Auto_State
+        }
+        fire_only_once = yes
+        days_remove = 30
+        modifier = {
+
+        }
+        complete_effect = {
+
+        }
+        remove_effect = {
+            every_country = {
+                limit = {
+                    Is_MOT = yes
+                }
+            }
+            country_event = Knights.16
+        }
+        ai_will_do = {
+            base = 10000
+        }
+
+    }
 }
