@@ -30,7 +30,7 @@ focus_tree = {
 		id = DVA_Develop_industry
 		icon = GFX_goal_unknown
 		cost = 1
-		x = 11
+		x = 14
 		y = 1
 		allow_branch = {
 			#has_country_flag = DVA_start_industry_plan_flag
@@ -546,13 +546,77 @@ focus_tree = {
 			focus = DVA_free_Dvalindom
 			focus = DVA_Mondstadt_Spring
 		}
-		x = 10
-		y = 12
+		x = 9
+		y = 13
 		available = {
 			#
 		}
 		completion_reward = {
 			#country_event = dva.ab.20
+			if = {
+				limit = {
+					has_country_flag = DVA_middle_way
+				}
+				set_cosmetic_tag = DVA_united
+				set_country_leader_portrait = {
+					ideology = neutrality
+					portrait = GFX_DVA_Amber
+				}
+				release_autonomy = {
+					target = MOT
+					autonomy_state = DVA_Personal_Union
+					freedom_level = 0.9
+				}
+				MOT = {
+					set_cosmetic_tag = MOT_united
+					create_country_leader = {
+						name = Amber
+						desc = "DVA_AMBER_DESC"
+						picture = GFX_DVA_Amber
+						expire = "1965.1.1"
+						ideology = despotism
+						traits = { 
+							DVA_Flying_Knights
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_amber_win
+				}
+				set_cosmetic_tag = DVA_united_socialist
+				set_country_leader_portrait = {
+					ideology = communism
+					portrait = GFX_DVA_Amber
+				}
+			}
+			every_state = {
+				limit = {
+					NOT = {
+						OR = {
+							state = 1
+							state = 2
+							state = 4
+						}
+					}
+				}
+				remove_core_of = MOT
+			}
+			every_owned_state = {
+				limit = {
+					controller = {
+						Is_MOT = yes
+					}
+				}
+				add_core_of = DVA
+			}
+			1 = {
+					set_demilitarized_zone = yes
+			}
+			2 = {
+				set_demilitarized_zone = yes
+			}
 		}
 	}
 	focus = {
@@ -606,7 +670,7 @@ focus_tree = {
 		x = 16
 		y = 9
 		available = {
-			#
+			always = no
 		}
 		completion_reward = {
 			country_event = dva.ab.10
@@ -654,7 +718,7 @@ focus_tree = {
 		x = 18
 		y = 9
 		available = {
-			#
+			always = no
 		}
 		completion_reward = {
 			country_event = dva.ab.11
