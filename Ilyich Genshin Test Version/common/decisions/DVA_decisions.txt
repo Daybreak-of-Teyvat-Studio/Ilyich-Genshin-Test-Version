@@ -502,255 +502,6 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 	}
-	
-	#东北部地区-蒙森湾59
-	#悬赏东北部丘丘人
-	DVA_post_a_reward_of_hilichurls_in_the_northeastern_countryside = {
-
-		icon = generic_oppression
-		
-		available = {
-			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
-			has_country_flag = DVA_northeastern_hilichurls
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-			divisions_in_state = {
-				state = 59
-				size > 4
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 59
-			}
-		}
-
-		cost = 0
-		days_re_enable = 7
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 59	
-					size > 4
-				}
-			}
-		}
-
-		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_northeastern_region }
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		fire_only_once = yes
-
-		complete_effect = {
-			set_country_flag = DVA_maintaining
-			activate_mission = DVA_maintain_stability_of_northeastern_region
-		}
-	}
-
-	#清剿东北部丘丘人
-	DVA_hunt_down_northeastern_hilichurls = {
-
-		icon = generic_oppression
-
-		available = {
-			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_northeastern_hilichurls
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-			divisions_in_state = {
-				state = 59
-				size > 4
-			}
-		}
-
-		days_remove = 15
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 59
-				size < 5
-			}
-			
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 59
-			} 
-		}
-		visible = {
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 59	
-					size > 4
-				}
-			}
-		}
-
-		is_good = yes
-
-		complete_effect = {		
-			MOT = {
-				country_event = dva.2
-			}
-			set_country_flag = DVA_maintaining
-			activate_mission = DVA_maintain_stability_of_northeastern_region
-			custom_effect_tooltip = DVA_hunt_down_hilichurls_mission_explanation
-		}
-
-		remove_effect = {
-			army_experience = 10
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
-				}
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northeastern_region
-					days = -90
-				}
-				add_to_variable = {
-					var = DVA_puppet_influence
-					value = 1
-					tooltip = add_1_to_DVA_puppet_influence_tt
-				}
-			}
-			else = {
-				add_manpower = -1000
-				add_political_power = -25
-				add_stability = -0.025
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northeastern_region
-					days = -30
-				}
-			}
-		}
-	}
-
-	#维稳东北部地区
-	DVA_maintain_stability_of_northeastern_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_northeastern_hilichurls
-			}
-		}
-
-		days_mission_timeout = 120
-
-		fire_only_once = yes
-
-		activation = {
-			#
-		}
-
-		visible = {
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 59
-				size < 5
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 59
-			} 
-		}
-
-		is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_maintaining
-			clr_country_flag = DVA_northeastern_hilichurls
-		}
-	}
-	#征兆东北部民兵
-	DVA_recruit_northeastern_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_northeastern_hilichurls }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = { has_country_flag = DVA_northeastern_hilichurls }
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = no
-
-		cost = 50
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 59 }
-				create_unit = {
-					division = "name = \"1. 风龙领民兵风龙港支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
 
 	#东北部地区-蒙森湾59
 	#悬赏东北部丘丘人
@@ -2292,6 +2043,342 @@ DVA_stare_of_archon = {
 				}
 				25 = {
 					
+				}
+			}
+		}
+	}
+}
+
+#学习蒙德城，建设风龙领
+DVA_simulate_MOT_category = {
+	#引进蒙德城先进技术
+	DVA_import_advanced_research_of_MOT = {
+
+		icon = GFX_decision_generic_research
+
+		available = {
+			has_idea = DVA_lack_of_research_ability
+		}
+
+		days_remove = 30
+		days_re_enable = 90
+
+		cost = 0
+
+		ai_will_do = {
+			base = 100
+		}
+
+		visible = {
+			has_idea = DVA_lack_of_research_ability
+		}
+
+		fire_only_once = yes
+
+		remove_effect = {
+			inherit_technology = MOT
+		}
+	}
+	#学习蒙德先进军事经验
+	DVA_learn_advanced_military_xp_of_MOT = {
+
+		icon = GFX_decision_generic_research
+
+		available = {
+			has_idea = DVA_restricted_army
+		}
+
+		days_remove = 30
+		days_re_enable = 90
+
+		cost = 0
+
+		ai_will_do = {
+			base = 100
+		}
+
+		visible = {
+			has_idea = DVA_restricted_army
+		}
+
+		fire_only_once = yes
+
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 10 compare = less_than }
+				}
+				set_variable = { var = DVA_advanced_military_xp value = 10 }
+				set_division_force_allow_recruiting = {
+					division_template = "风龙领巡逻部队"
+				}
+				set_division_force_allow_recruiting = {
+					division_template = "风龙领侦查部队"
+				}
+			}
+			else = {
+				add_to_variable = { var = DVA_advanced_military_xp value = 10 }
+				army_experience = var:DVA_advanced_military_xp
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_middle_way
+				}
+				custom_effect_tooltip = DVA_learn_advanced_military_xp_of_MOT_tt
+				effect_tooltip = {
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 10 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 10000 producer = MOT }
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 20 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 10000 producer = MOT }
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 30 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 500 producer = MOT }
+						if = {
+							limit = {
+								MOT = {
+									has_tech = improved_infantry_weapons
+								}
+							}
+							add_equipment_to_stockpile = { type = infantry_equipment_2 amount = 2000 producer = MOT }
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_dlc = "No Step Back"
+							}
+							check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = light_tank_equipment_1 amount = 50 producer = MOT }
+						add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 5000 producer = MOT }
+					}
+					else_if = { 
+						limit = {
+							has_dlc = "No Step Back"
+							check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = light_tank_chassis_1 amount = 50 producer = MOT variant_name = "Type 95 Ha-Go"}
+						add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 5000 producer = MOT }
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_dlc = "By Blood Alone"
+							}
+							check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 50 producer = MOT }
+						if = {
+							limit = {
+								MOT = {
+									has_tech = fighter1
+								}
+							}
+							add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 25 producer = MOT }
+						}
+						add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 50 producer = MOT }
+					}
+					else_if = {
+						limit = {
+							has_dlc = "By Blood Alone"
+							check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+						}
+						add_equipment_to_stockpile = { type = small_plane_airframe_0 amount = 100 producer = MOT variant_name = "Ki-10" }
+						add_equipment_to_stockpile = { type = small_plane_cas_airframe_0 amount = 50 producer = MOT variant_name = "Ki-3"}
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 10 compare = greater_than_or_equals }
+							check_variable = { var = DVA_advanced_military_xp value = 20 compare = less_than }
+						}
+						MOT = {
+							add_timed_idea = { idea = DVA_arms_seized_1 days = 30 }
+						}
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 20 compare = greater_than_or_equals }
+							check_variable = { var = DVA_advanced_military_xp value = 30 compare = less_than }
+						}
+						MOT = {
+							add_timed_idea = { idea = DVA_arms_seized_1 days = 60 }
+						}
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 30 compare = greater_than_or_equals }
+							check_variable = { var = DVA_advanced_military_xp value = 40 compare = less_than }
+						}
+						MOT = {
+							add_timed_idea = { idea = DVA_arms_seized_2 days = 60 }
+						}
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+							check_variable = { var = DVA_advanced_military_xp value = 50 compare = less_than }
+						}
+						MOT = {
+							add_timed_idea = { idea = DVA_arms_seized_2 days = 90 }
+						}
+					}
+					if = {
+						limit = {
+							check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+							check_variable = { var = DVA_advanced_military_xp value = 60 compare = less_than }
+						}
+						MOT = {
+							add_timed_idea = { idea = DVA_arms_seized_3 days = 90 }
+						}
+					}
+				}
+			}
+		}
+	}
+	#【独立日】
+	DVA_independence_day = {
+		available = {
+			has_country_flag = DVA_middle_way
+		}
+		visible = {
+			check_variable = { var = DVA_advanced_military_xp value = 0 compare = greater_than }
+			has_country_flag = DVA_middle_way
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			declare_war_on = {
+				target = MOT
+				type = puppet_wargoal_focus
+			}
+			add_civil_war_target = MOT
+			news_event = dva.ab.news.1
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 10 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 10000 producer = MOT }
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 20 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 10000 producer = MOT }
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 30 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 500 producer = MOT }
+				if = {
+					limit = {
+						MOT = {
+							has_tech = improved_infantry_weapons
+						}
+					}
+					add_equipment_to_stockpile = { type = infantry_equipment_2 amount = 2000 producer = MOT }
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+					check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = light_tank_equipment_1 amount = 50 producer = MOT }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 5000 producer = MOT }
+			}
+			else_if = { 
+				limit = {
+					has_dlc = "No Step Back"
+					check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = light_tank_chassis_1 amount = 50 producer = MOT variant_name = "Type 95 Ha-Go"}
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 5000 producer = MOT }
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "By Blood Alone"
+					}
+					check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 50 producer = MOT }
+				if = {
+					limit = {
+						MOT = {
+							has_tech = fighter1
+						}
+					}
+					add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 25 producer = MOT }
+				}
+				add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 50 producer = MOT }
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+					check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+				}
+				add_equipment_to_stockpile = { type = small_plane_airframe_0 amount = 100 producer = MOT variant_name = "Ki-10" }
+				add_equipment_to_stockpile = { type = small_plane_cas_airframe_0 amount = 50 producer = MOT variant_name = "Ki-3"}
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 10 compare = greater_than_or_equals }
+					check_variable = { var = DVA_advanced_military_xp value = 20 compare = less_than }
+				}
+				MOT = {
+					add_timed_idea = { idea = DVA_arms_seized_1 days = 30 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 20 compare = greater_than_or_equals }
+					check_variable = { var = DVA_advanced_military_xp value = 30 compare = less_than }
+				}
+				MOT = {
+					add_timed_idea = { idea = DVA_arms_seized_1 days = 60 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 30 compare = greater_than_or_equals }
+					check_variable = { var = DVA_advanced_military_xp value = 40 compare = less_than }
+				}
+				MOT = {
+					add_timed_idea = { idea = DVA_arms_seized_2 days = 60 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 40 compare = greater_than_or_equals }
+					check_variable = { var = DVA_advanced_military_xp value = 50 compare = less_than }
+				}
+				MOT = {
+					add_timed_idea = { idea = DVA_arms_seized_2 days = 90 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { var = DVA_advanced_military_xp value = 50 compare = greater_than_or_equals }
+					check_variable = { var = DVA_advanced_military_xp value = 60 compare = less_than }
+				}
+				MOT = {
+					add_timed_idea = { idea = DVA_arms_seized_3 days = 90 }
 				}
 			}
 		}

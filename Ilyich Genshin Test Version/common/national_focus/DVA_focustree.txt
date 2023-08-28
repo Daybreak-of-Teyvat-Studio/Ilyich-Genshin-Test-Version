@@ -68,10 +68,6 @@ focus_tree = {
 			country_event = dva.1
 			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
 			set_country_flag = DVA_dvalin_mass_flag
-			set_variable = {
-				var = DVA_puppet_influence
-				value = 0
-			}
 		}
 	}
 	focus = {
@@ -400,8 +396,41 @@ focus_tree = {
 					end_wars = yes
 					end_civil_wars = yes
 				}
-				recruit_character = DVA_Albedo
-				recruit_character = DVA_Sucrose
+				activate_advisor = DVA_Albedo
+				add_field_marshal_role = {
+					character = DVA_Albedo
+					desc = "Albedo_DESC"
+					traits = { 
+						Geo_Vision 
+						brilliant_strategist
+						infantry_officer
+						trait_engineer
+						winter_specialist
+						DVA_BORNING
+					}
+					skill = 5
+					attack_skill = 3
+					defense_skill = 5
+					planning_skill = 5
+					logistics_skill = 5
+				}
+				activate_advisor = DVA_Sucrose
+				add_field_marshal_role = {
+					character = DVA_Sucrose
+					desc = "Sucrose_DESC"
+					traits = { 
+						Anemo_Vision 
+						trait_cautious
+						thorough_planner
+						adaptable
+						DVA_wind_creater
+					}
+					skill = 4
+					attack_skill = 3
+					defense_skill = 3
+					planning_skill = 4
+					logistics_skill = 5
+				}
 				DRA = {
 					set_cosmetic_tag = DVA_Ultravisionary_subject
 				}
@@ -748,7 +777,7 @@ focus_tree = {
 	focus = {
 		id = DVA_merge_with_the_knights_of_favonius
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 4
 		prerequisite = {
 			focus = DVA_offering_gifts_and_loyalty
 		}
@@ -757,8 +786,22 @@ focus_tree = {
 		available = {
 			#
 		}
-		completion_reward = {
+		bypass = {
 			#
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = DVA_knights_win
+				}
+				add_ideas = DVA_lack_of_research_ability
+				add_ideas = DVA_restricted_army
+				set_research_slots = 1
+				MOT = {
+					add_research_slot = 1
+				}
+			}
+			add_ideas = DVA_loyal_fiefdom
 		}
 	}
 	focus = {
@@ -774,8 +817,19 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			#蒙德打赢了内战country_event = dva.ab.12
-			#蒙德输掉了内战/诺艾尔政变country_event = dva.ab.17
+			unlock_decision_category_tooltip = DVA_simulate_MOT_category
+			set_variable = {
+				var = DVA_advanced_military_xp
+				value = 0
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_middle_way
+				}
+				unlock_decision_tooltip = DVA_simulate_MOT_category
+				country_event = dva.ab.12
+			}
+			country_event = dva.ab.17
 		}
 	}
 	##Humanity_will_endure_forever,even_if_it_disobeys_the_asmoday
