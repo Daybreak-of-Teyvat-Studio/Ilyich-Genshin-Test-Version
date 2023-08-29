@@ -8,14 +8,155 @@ focus_tree = {
         }
     }
     default = no
-    continuous_focus_position = { x = 1500 y = 100}
+    continuous_focus_position = { x = 100 y = 700}
+
+    # 工业发展
+    focus = {
+        id = VAN_Developing_Industry
+        icon = goal_SUM01
+        cost = 5
+        x = 4
+        y = 0
+        completion_reward = {
+            238 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+                add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+        }
+    }
+
+    # 重建往昔的桓那兰那
+    focus = {
+        id = VAN_Rebuild_Old_Vanarana
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Developing_Industry }
+        available = { has_idea = VAN_Idea_Aranyaka }
+        cost = 5
+        relative_position_id = VAN_Developing_Industry
+        x = -2
+        y = 1
+        completion_reward = {
+            235 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+    }
+
+    # 回归往昔的桓那兰那
+    focus = {
+        id = VAN_Return_Old_Vanarana
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Rebuild_Old_Vanarana }
+        cost = 5
+        relative_position_id = VAN_Rebuild_Old_Vanarana
+        x = 0
+        y = 1
+        completion_reward = {
+            235 = {
+				set_state_category = town
+                add_manpower = 900000
+			}
+        }
+    }
+
+    # 往昔的桓那兰那工业
+    focus = {
+        id = VAN_Old_Vanarana_Industry
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Return_Old_Vanarana }
+        cost = 5
+        relative_position_id = VAN_Return_Old_Vanarana
+        x = 0
+        y = 1
+        completion_reward = {
+            235 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+    }
+
+    # 重建失落的苗圃
+    focus = {
+        id = VAN_Rebuild_Lost_Nursery
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Developing_Industry }
+        available = { has_idea = VAN_Idea_Aranyaka }
+        cost = 5
+        relative_position_id = VAN_Developing_Industry
+        x = 0
+        y = 1
+        completion_reward = {
+            234 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+    }
+
+    # 回归失落的苗圃
+    focus = {
+        id = VAN_Return_Lost_Nursery
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Rebuild_Lost_Nursery }
+        cost = 5
+        relative_position_id = VAN_Rebuild_Lost_Nursery
+        x = 0
+        y = 1
+        completion_reward = {
+            234 = {
+				set_state_category = town
+                add_manpower = 900000
+			}
+        }
+    }
+
+    # 失落的苗圃工业
+    focus = {
+        id = VAN_Lost_Nursery_Industry
+        icon = goal_SUM01
+        prerequisite = { focus = VAN_Return_Lost_Nursery }
+        cost = 5
+        relative_position_id = VAN_Return_Lost_Nursery
+        x = 0
+        y = 1
+        completion_reward = {
+            234 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+    }
+
 
     # 兰拉娜的求助
     focus = {
 		id = VAN_Focus_Arana_Resort
 		icon = goal_SUM01
 		cost = 5
-		x = 8
+		x = 14
 		y = 0
         completion_reward = {
             add_political_power = 100
