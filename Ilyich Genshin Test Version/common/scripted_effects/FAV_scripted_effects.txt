@@ -10,11 +10,12 @@ FAV_Start_the_Talk = {
 	set_variable = { FAV_Victory_Ps_They = 0 }
 	set_variable = { FAV_Action_Type_We = 0 }
 	set_variable = { FAV_Action_Type_They = 0 }
-	set_variable = { FAV_Had_Fight_Times = 0 }
-	set_variable = { FAV_All_Fight_Times = 0 }
-	set_variable = { FAV_Had_Talk_Times = 0 }
-	set_variable = { FAV_All_Talk_Times = 0 }
+	set_variable = { FAV_Had_Fight_Times = 1 }
+	set_variable = { FAV_Had_Talk_Times = 1 }
 	set_variable = { FAV_Times_we_Won = 0 }
+	
+	set_variable = { FAV_All_Talk_Times = 5 }
+	set_variable = { FAV_All_Fight_Times = 3 }
 }
 FAV_End_of_This_Fight = {
 	custom_effect_tooltip = FAV_End_this_Fight
@@ -126,18 +127,20 @@ FAV_End_of_This_Fight = {
 	clr_country_flag = FAV_Know_Enemy_Action
 	set_variable = { FAV_Action_Type_We = 0 }
 	set_variable = { FAV_Action_Type_They = 0 }
-	random_list = {
-		39 = {
-			set_variable = { FAV_Action_Type_They = 1 }
-		}
-		40 = {
-			set_variable = { FAV_Action_Type_They = 2 }
-		}
-		20 = {
-			set_variable = { FAV_Action_Type_They = 3 }
-		}
-		1 = {
-			set_variable = { FAV_Action_Type_They = 0 }
+	hidden_effect = {
+		random_list = {
+			39 = {
+				set_variable = { FAV_Action_Type_They = 1 }
+			}
+			40 = {
+				set_variable = { FAV_Action_Type_They = 2 }
+			}
+			20 = {
+				set_variable = { FAV_Action_Type_They = 3 }
+			}
+			1 = {
+				set_variable = { FAV_Action_Type_They = 0 }
+			}
 		}
 	}
 }
@@ -176,71 +179,73 @@ FAV_Get_2_Arms = {
 #随机改变对方行动方式
 FAV_Change_Their_Action = {
 	custom_effect_tooltip = FAV_Their_Action_Changed
-	clr_country_flag = FAV_Know_Enemy_Action
-	IF = {
-		limit = {
-			check_variable = { FAV_Action_Type_They = 0 }
-		}
-		random_list = {
-			39 = {
-				set_variable = { FAV_Action_Type_They = 1 }
+	hidden_effect = {
+		clr_country_flag = FAV_Know_Enemy_Action
+		IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_They = 0 }
 			}
-			10 = {
-				set_variable = { FAV_Action_Type_They = 2 }
-			}
-			50 = {
-				set_variable = { FAV_Action_Type_They = 3 }
-			}
-			1 = {
-				set_variable = { FAV_Action_Type_They = 0 }
-			}
-		}
-	}
-	ELSE_IF = {
-		limit = {
-			check_variable = { FAV_Action_Type_They = 1 }
-		}
-		random_list = {
-			39 = {
-				set_variable = { FAV_Action_Type_They = 2 }
-			}
-			60 = {
-				set_variable = { FAV_Action_Type_They = 3 }
-			}
-			1 = {
-				set_variable = { FAV_Action_Type_They = 0 }
+			random_list = {
+				39 = {
+					set_variable = { FAV_Action_Type_They = 1 }
+				}
+				10 = {
+					set_variable = { FAV_Action_Type_They = 2 }
+				}
+				50 = {
+					set_variable = { FAV_Action_Type_They = 3 }
+				}
+				1 = {
+					set_variable = { FAV_Action_Type_They = 0 }
+				}
 			}
 		}
-	}
-	ELSE_IF = {
-		limit = {
-			check_variable = { FAV_Action_Type_They = 2 }
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_They = 1 }
+			}
+			random_list = {
+				39 = {
+					set_variable = { FAV_Action_Type_They = 2 }
+				}
+				60 = {
+					set_variable = { FAV_Action_Type_They = 3 }
+				}
+				1 = {
+					set_variable = { FAV_Action_Type_They = 0 }
+				}
+			}
 		}
-		random_list = {
-			29 = {
-				set_variable = { FAV_Action_Type_They = 1 }
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_They = 2 }
 			}
-			70 = {
-				set_variable = { FAV_Action_Type_They = 3 }
-			}
-			1 = {
-				set_variable = { FAV_Action_Type_They = 0 }
+			random_list = {
+				29 = {
+					set_variable = { FAV_Action_Type_They = 1 }
+				}
+				70 = {
+					set_variable = { FAV_Action_Type_They = 3 }
+				}
+				1 = {
+					set_variable = { FAV_Action_Type_They = 0 }
+				}
 			}
 		}
-	}
-	ELSE_IF = {
-		limit = {
-			check_variable = { FAV_Action_Type_They = 3 }
-		}
-		random_list = {
-			29 = {
-				set_variable = { FAV_Action_Type_They = 1 }
+		ELSE_IF = {
+			limit = {
+				check_variable = { FAV_Action_Type_They = 3 }
 			}
-			70 = {
-				set_variable = { FAV_Action_Type_They = 2 }
-			}
-			1 = {
-				set_variable = { FAV_Action_Type_They = 0 }
+			random_list = {
+				29 = {
+					set_variable = { FAV_Action_Type_They = 1 }
+				}
+				70 = {
+					set_variable = { FAV_Action_Type_They = 2 }
+				}
+				1 = {
+					set_variable = { FAV_Action_Type_They = 0 }
+				}
 			}
 		}
 	}
@@ -291,6 +296,7 @@ FAV_End_of_This_Talk = {
 		}
 	}
 	#清理变量
+	set_variable = { FAV_Had_Fight_Times = 1 }
 	set_variable = { FAV_Victory_Ps_We = 0 }
 	set_variable = { FAV_Victory_Ps_They = 0 }
 }
