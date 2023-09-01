@@ -522,6 +522,7 @@ FAV_Original_power_balance_category = {
             }
         }
         days_remove = 180
+        days_re_enable = 0
         remove_effect = {
             remove_ideas = FAV_Fight_Inside
         }
@@ -541,7 +542,10 @@ FAV_Original_power_balance_category = {
             add_political_power = 50
         }
         cost = 50
-        fire_only_once = yes
+        fire_only_once = no
+        visible = {
+            has_idea = FAV_Fight_Inside
+        }
         ai_will_do = {
             base = 0
             modifier = {
@@ -557,6 +561,91 @@ FAV_Original_power_balance_category = {
                     }
                 }
             }
+        }
+    }
+    #胜利3 芭芭拉 仅一次 摘取胜利果实
+    FAV_Catch_the_Fruit = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.8
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
+			}
+        }
+        modifier = {
+            power_balance_weekly = -0.1
+        }
+        days_remove = 100
+        days_re_enable = 70
+        fire_only_once = yes
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利3 罗莎莉亚 仅一次 确保完全控制
+    FAV_Ensure_our_Victory = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.8
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 3 }
+				tooltip = FAV_Need_Victory_3
+			}
+        }
+        modifier = {
+            power_balance_weekly = 0.1
+        }
+        days_remove = 100
+        days_re_enable = 70
+        fire_only_once = yes
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #调整平衡
+    FAV_Stable_the_Balance = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.7
+            }
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.7
+            }
+            NOT = {
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value = 0
+                }
+            }
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 2 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+        }
+        modifier = {
+        }
+        remove_effect = {
+            FAV_Weaker_Stronger2 = yes
+        }
+        days_remove = 10
+        days_re_enable = 10
+        fire_only_once = no
+        cost = 50
+        ai_will_do = {
+            base = 20
         }
     }
     #芭芭拉 号召支持
@@ -1031,91 +1120,6 @@ FAV_Original_power_balance_category = {
         days_remove = 30
         days_re_enable = 70
         cost = 30
-        ai_will_do = {
-            base = 20
-        }
-    }
-    #胜利3 芭芭拉 仅一次 摘取胜利果实
-    FAV_Catch_the_Fruit = {
-        icon = generic_form_nation
-        available = {
-            power_balance_value = {
-                id = FAV_Original_power_balance
-                value < -0.8
-            }
-			custom_trigger_tooltip = {
-				check_variable = { FAV_Times_we_Won > 2 }
-				tooltip = FAV_Need_Victory_2
-			}
-        }
-        modifier = {
-            power_balance_weekly = -0.1
-        }
-        days_remove = 100
-        days_re_enable = 70
-        fire_only_once = yes
-        cost = 50
-        ai_will_do = {
-            base = 20
-        }
-    }
-    #胜利3 罗莎莉亚 仅一次 确保完全控制
-    FAV_Ensure_our_Victory = {
-        icon = generic_form_nation
-        available = {
-            power_balance_value = {
-                id = FAV_Original_power_balance
-                value > 0.8
-            }
-			custom_trigger_tooltip = {
-				check_variable = { FAV_Times_we_Won > 3 }
-				tooltip = FAV_Need_Victory_3
-			}
-        }
-        modifier = {
-            power_balance_weekly = 0.1
-        }
-        days_remove = 100
-        days_re_enable = 70
-        fire_only_once = yes
-        cost = 50
-        ai_will_do = {
-            base = 20
-        }
-    }
-    #调整平衡
-    FAV_Stable_the_Balance = {
-        icon = generic_form_nation
-        available = {
-            power_balance_value = {
-                id = FAV_Original_power_balance
-                value > -0.7
-            }
-            power_balance_value = {
-                id = FAV_Original_power_balance
-                value < 0.7
-            }
-            NOT = {
-                power_balance_value = {
-                    id = FAV_Original_power_balance
-                    value = 0
-                }
-            }
-			custom_trigger_tooltip = {
-				set_temp_variable = { FAV_linshibianliang = 2 }
-				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
-				tooltip = FAV_Need_Victory_Number
-			}
-        }
-        modifier = {
-        }
-        remove_effect = {
-            FAV_Weaker_Stronger2 = yes
-        }
-        days_remove = 10
-        days_re_enable = 10
-        fire_only_once = no
-        cost = 50
         ai_will_do = {
             base = 20
         }
