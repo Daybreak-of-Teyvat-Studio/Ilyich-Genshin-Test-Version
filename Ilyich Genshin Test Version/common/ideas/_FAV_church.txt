@@ -3,28 +3,39 @@ ideas = {
 		#初始精神
 		#异端教派
 		FAV_Heresy_of_Religion = {
-			picture = DOT_Government_Control1
+			picture = TNO_Attack_the_Eyes
 			removal_cost = -1
 			modifier = {
 				stability_factor = -0.4
 				war_support_factor = -0.4
 				conscription_factor = -0.2
+				custom_modifier_tooltip = FAV_Remove_it_by_Talk
+			}
+			on_remove = {
+				add_stability = 0.05
 			}
 		}
 		#内部斗争
 		FAV_Fight_Inside = {
-			picture = GFX_Idea_Worse_Mass
+			picture = FAV_Union_of_People
 			removal_cost = -1
 			modifier = {
 				political_power_cost = 0.5
 				political_advisor_cost_factor = 1
 				army_chief_cost_factor = 1
 				high_command_cost_factor = 1
+				custom_modifier_tooltip = FAV_Remove_it_by_BOP
+			}
+			on_remove = {
+				add_political_power = 100
+			}
+			cancel = {
+				has_global_flag = MOT_Civil_War_Begun
 			}
 		}
 		#宗教军队
 		FAV_Holy_Army = {
-			picture = idea_MOT
+			picture = TNO_Much_Death
 			removal_cost = -1
 			modifier = {
 				war_support_factor = 0.2
@@ -32,16 +43,35 @@ ideas = {
 				army_morale_factor = 0.1
 				army_org_factor = -0.25
 				land_doctrine_cost_factor = 0.5
+				custom_modifier_tooltip = FAV_Remove_it_by_ArmyLevel
+			}
+			cancel = {
+				OR = {
+					has_idea = DOT_Government_Army4
+					has_idea = DOT_Government_Army5
+					has_idea = DOT_Government_Army6
+				}
 			}
 		}
 		#教士政府
-		FAV_Holy_Government = {`
-			picture = idea_MOT07
+		FAV_Holy_Government = {
+			picture = FAV_Vacant_Government
 			removal_cost = -1
 			modifier = {
-				production_speed_buildings_factor = -0.2
 				political_power_factor = -0.25
 				stability_factor = 0.2
+				custom_modifier_tooltip = FAV_Remove_it_by_GovernmentLevel
+			}
+			cancel = {
+				OR = {
+					has_idea = DOT_Government_Control4
+					has_idea = DOT_Government_Control5
+					has_idea = DOT_Government_Control6
+					has_idea = DOT_Government_Control7
+				}
+			}
+			on_remove = {
+				add_stability = 0.05
 			}
 		}
 		#停滞科研
@@ -51,6 +81,16 @@ ideas = {
 			modifier = {
 				research_speed_factor = -0.25
 				stability_factor = 0.1
+				custom_modifier_tooltip = FAV_Remove_it_by_IndustryLevel
+			}
+			cancel = {
+				OR = {
+					has_idea = DOT_Government_Industry4
+					has_idea = DOT_Government_Industry5
+				}
+			}
+			on_remove = {
+				add_stability = 0.05
 			}
 		}
 		#腐朽教条

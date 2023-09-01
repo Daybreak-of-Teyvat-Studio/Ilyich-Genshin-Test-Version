@@ -503,6 +503,62 @@ FAV_Get_Free = {
 }
 #权力平衡1
 FAV_Original_power_balance_category = {
+    #消弭争端
+    FAV_Down_our_Fight = {
+        icon = generic_political_support
+        available = {
+            OR = {
+                hidden_trigger = { is_ai = yes }
+                AND = {
+                    power_balance_value = {
+                        id = FAV_Original_power_balance
+                        value < 0.25
+                    }
+                    power_balance_value = {
+                        id = FAV_Original_power_balance
+                        value > -0.25
+                    }
+                }
+            }
+        }
+        days_remove = 180
+        remove_effect = {
+            remove_ideas = FAV_Fight_Inside
+        }
+        cancel_trigger = {
+            OR = {
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value > 0.3
+                }
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value < -0.3
+                }
+            }
+        }
+        cancel_effect = {
+            add_political_power = 50
+        }
+        cost = 50
+        fire_only_once = yes
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10000
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+            }
+        }
+    }
     #芭芭拉 号召支持
     FAV_Call_for_Support = {
         icon = generic_political_support
@@ -519,6 +575,7 @@ FAV_Original_power_balance_category = {
         days_remove = 35
         days_re_enable = 35
         cost = 0
+        fire_only_once = no
         ai_will_do = {
             base = 100
             modifier = {
@@ -563,6 +620,7 @@ FAV_Original_power_balance_category = {
         days_remove = 30
         days_re_enable = 30
         cost = 0
+        fire_only_once = no
         ai_will_do = {
             base = 100
             modifier = {
@@ -608,6 +666,7 @@ FAV_Original_power_balance_category = {
         days_remove = 35
         days_re_enable = 35
         cost = 35
+        fire_only_once = no
         ai_will_do = {
             base = 100
             modifier = {
@@ -650,6 +709,7 @@ FAV_Original_power_balance_category = {
             production_speed_arms_factory_factor = 0.3
             power_balance_weekly = 0.002
         }
+        fire_only_once = no
         days_remove = 35
         days_re_enable = 35
         custom_cost_text = decision_cost_CP_20
@@ -695,6 +755,7 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value < 0
             }
+            has_completed_focus = FAV_Research_Industry
         }
         modifier = {
             power_balance_weekly = -0.002
@@ -702,6 +763,7 @@ FAV_Original_power_balance_category = {
         complete_effect = {
             add_timed_idea = { idea = FAV_Temp_Focus_on_Industry_Res days = 70 }
         }
+        fire_only_once = no
         days_remove = 70
         days_re_enable = 70
         cost = 35
@@ -717,6 +779,7 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value > 0
             }
+            has_completed_focus = FAV_Research_Electricity
         }
         modifier = {
             power_balance_weekly = -0.002
@@ -724,6 +787,7 @@ FAV_Original_power_balance_category = {
         complete_effect = {
             add_timed_idea = { idea = FAV_Temp_Focus_on_Military_Res days = 70 }
         }
+        fire_only_once = no
         days_remove = 70
         days_re_enable = 70
         cost = 35
@@ -739,6 +803,10 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value < -0.25
             }
+            has_completed_focus = FAV_They_will_be_Full
+        }
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
         }
         modifier = {
             power_balance_weekly = -0.002
@@ -751,6 +819,7 @@ FAV_Original_power_balance_category = {
             FAV_Get_2_Civs = yes
             FAV_Get_2_Infra = yes
         }
+        fire_only_once = no
         days_remove = 35
         days_re_enable = 35
         cost = 50
@@ -766,7 +835,12 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value > 0.25
             }
+            has_completed_focus = FAV_Happy_one_Will_be_End
         }
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
+        }
+        fire_only_once = no
         modifier = {
             power_balance_weekly = 0.002
             war_support_weekly = 0.005
@@ -792,6 +866,11 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value < -0.5
             }
+            has_completed_focus = FAV_Spread_our_Talk
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
         }
         modifier = {
             political_power_cost = -0.5
@@ -817,6 +896,11 @@ FAV_Original_power_balance_category = {
                 id = FAV_Original_power_balance
                 value > 0.5
             }
+            has_completed_focus = FAV_Your_Father_Looking
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
         }
         modifier = {
             power_balance_weekly = 0.002
@@ -856,6 +940,7 @@ FAV_Original_power_balance_category = {
 			}
             has_war_support < 0.8
         }
+        fire_only_once = no
         modifier = {
             war_support_weekly = 0.005
             war_support_factor = 0.2
@@ -883,6 +968,7 @@ FAV_Original_power_balance_category = {
 			}
             has_stability < 0.8
         }
+        fire_only_once = no
         modifier = {
             stability_weekly = 0.005
             stability_factor = 0.2
@@ -904,12 +990,12 @@ FAV_Original_power_balance_category = {
                 value < 0.1
             }
 			custom_trigger_tooltip = {
-				set_temp_variable = { FAV_linshibianliang = 1 }
-				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
-				tooltip = FAV_Need_Victory_Number
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
 			}
             has_stability > 0.6
         }
+        fire_only_once = no
         modifier = {
             trade_laws_cost_factor = -0.5
             economy_cost_factor = -0.33
@@ -931,12 +1017,12 @@ FAV_Original_power_balance_category = {
                 value > -0.1
             }
 			custom_trigger_tooltip = {
-				set_temp_variable = { FAV_linshibianliang = 1 }
-				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
-				tooltip = FAV_Need_Victory_Number
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
 			}
             has_war_support > 0.6
         }
+        fire_only_once = no
         modifier = {
             mobilization_laws_cost_factor = -0.5
             political_advisor_cost_factor = -0.2
@@ -958,9 +1044,8 @@ FAV_Original_power_balance_category = {
                 value < -0.8
             }
 			custom_trigger_tooltip = {
-				set_temp_variable = { FAV_linshibianliang = 2 }
-				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
-				tooltip = FAV_Need_Victory_Number
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
 			}
         }
         modifier = {
@@ -968,7 +1053,7 @@ FAV_Original_power_balance_category = {
         }
         days_remove = 100
         days_re_enable = 70
-        fire_only_once = no
+        fire_only_once = yes
         cost = 50
         ai_will_do = {
             base = 20
@@ -983,9 +1068,8 @@ FAV_Original_power_balance_category = {
                 value > 0.8
             }
 			custom_trigger_tooltip = {
-				set_temp_variable = { FAV_linshibianliang = 2 }
-				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
-				tooltip = FAV_Need_Victory_Number
+				check_variable = { FAV_Times_we_Won > 3 }
+				tooltip = FAV_Need_Victory_3
 			}
         }
         modifier = {
@@ -993,7 +1077,7 @@ FAV_Original_power_balance_category = {
         }
         days_remove = 100
         days_re_enable = 70
-        fire_only_once = no
+        fire_only_once = yes
         cost = 50
         ai_will_do = {
             base = 20
@@ -1026,24 +1110,7 @@ FAV_Original_power_balance_category = {
         modifier = {
         }
         remove_effect = {
-            IF = {
-                limit = {
-                    power_balance_value = {
-                        id = FAV_Original_power_balance
-                        value > 0
-                    }
-                }
-                add_power_balance_value = {
-                    id = FAV_Original_power_balance
-                    value = -0.2
-                }
-            }
-            ELSE_IF = {
-                add_power_balance_value = {
-                    id = FAV_Original_power_balance
-                    value = 0.2
-                }
-            }
+            FAV_Weaker_Stronger2 = yes
         }
         days_remove = 10
         days_re_enable = 10

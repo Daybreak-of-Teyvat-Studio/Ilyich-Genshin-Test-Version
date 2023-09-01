@@ -1,11 +1,11 @@
 #开局权力平衡
 FAV_Original_power_balance = {
-	initial_value = 0.1
-	left_side = FAV_Barbara_Left
-	right_side = FAV_Rosary_Right
+	initial_value = -0.05
+	left_side = FAV_default_left_side
+	right_side = FAV_default_right_side
 	decision_category = FAV_Original_power_balance_category
 	range = {
-		id = FAV_Balance_and_Cooperate
+		id = FAV_mid_range
 		min = -0.3
 		max = 0.3
 		modifier = {
@@ -16,59 +16,96 @@ FAV_Original_power_balance = {
 			political_advisor_cost_factor = -0.25
 			high_command_cost_factor = -0.25
 			army_chief_cost_factor = -0.25
+			custom_modifier_tooltip = FAV_May_Enter_Any
 		}
 	}
 	side = {
-		id = FAV_Barbara_Left_Side0
-		icon = GFX_bop_MOT_ss
+		id = FAV_default_left_side
+		icon = GFX_bop_FAV_Left_Side
 		range = {
-			id = FAV_Barbara_Left_1
-			min = -0.8
+			id = FAV_left_side_range
+			min = -0.5
 			max = -0.3
 			modifier = {
-				political_power_gain = 0.5
-				stability_factor = 0.2
+				political_power_gain = 0.3
+				stability_factor = 0.15
 				stability_weekly = 0.005
 				political_advisor_cost_factor = -0.5
+				custom_modifier_tooltip = FAV_May_Enter_Red
 			}
 		}
 		range = {
-			id = FAV_Barbara_Left_2
+			id = FAV_middle_left_side_range
+			min = -0.8
+			max = -0.5
+			modifier = {
+				political_power_gain = 0.5
+				stability_factor = 0.2
+				stability_weekly = 0.01
+				political_advisor_cost_factor = -0.5
+				custom_modifier_tooltip = FAV_Will_Enter_Red
+			}
+		}
+		range = {
+			id = FAV_far_left_side_range
 			min = -1
 			max = -0.8
 			modifier = {
 				political_power_gain = 1
 				stability_factor = 0.3
 				stability_weekly = 0.01
+				war_support_weekly = -0.005
 				political_advisor_cost_factor = -0.5
+				custom_modifier_tooltip = FAV_Will_Enter_Red
+			}
+			on_activate = {
+				remove_ideas = FAV_Fight_Inside
 			}
 		}
 	}
 	side = {
-		id = FAV_Rosary_Right_Side0
-		icon = GFX_bop_MOT_ss
+		id = FAV_default_right_side
+		icon = GFX_bop_FAV_Right_Side
 		range = {
-			id = FAV_Rosary_Right_1
-			min = -0.8
-			max = -0.3
+			id = FAV_right_side_range
+			min = 0.3
+			max = 0.5
+			modifier = {
+				command_power_gain_mult = 0.3
+				war_support_factor = 0.15
+				high_command_cost_factor = -0.5
+				army_chief_cost_factor = -0.5
+				agency_upgrade_time = -0.25
+				custom_modifier_tooltip = FAV_May_Enter_Fascism
+			}
+		}
+		range = {
+			id = FAV_middle_right_side_range
+			min = 0.5
+			max = 0.8
 			modifier = {
 				command_power_gain_mult = 0.5
 				war_support_factor = 0.2
 				high_command_cost_factor = -0.5
 				army_chief_cost_factor = -0.5
-				agency_upgrade_time = -0.25
+				agency_upgrade_time = -0.4
+				custom_modifier_tooltip = FAV_Will_Enter_Fascism
 			}
 		}
 		range = {
-			id = FAV_Rosary_Right_2
-			min = -1
-			max = -0.8
+			id = FAV_far_right_side_range
+			min = 0.8
+			max = 1
 			modifier = {
-				command_power_gain_mult = 01
+				command_power_gain_mult = 1
 				war_support_factor = 0.3
 				high_command_cost_factor = -0.5
 				army_chief_cost_factor = -0.5
-				agency_upgrade_time = -0.25
+				agency_upgrade_time = -0.5
+				custom_modifier_tooltip = FAV_Will_Enter_Fascism
+			}
+			on_activate = {
+				remove_ideas = FAV_Fight_Inside
 			}
 		}
 	}
