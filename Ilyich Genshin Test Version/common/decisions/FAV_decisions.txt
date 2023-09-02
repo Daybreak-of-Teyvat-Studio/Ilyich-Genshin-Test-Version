@@ -134,6 +134,12 @@ FAV_Difference_on_Bible = {
         days_remove = 10
         modifier = {
         }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.02
+			}
+        }
         remove_effect = {
             set_temp_variable = { FAV_Difference_of_VP = 50 }
             custom_effect_tooltip = FAV_Gain_VP_number
@@ -157,9 +163,15 @@ FAV_Difference_on_Bible = {
         }
         cost = 10
         days_re_enable = 10
-        days_remove = 20
+        days_remove = 10
         modifier = {
             civilian_factory_use = 5
+        }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.02
+			}
         }
         remove_effect = {
             set_temp_variable = { FAV_Difference_of_VP = 50 }
@@ -193,6 +205,12 @@ FAV_Difference_on_Bible = {
         days_re_enable = 10
         days_remove = 20
         modifier = {
+        }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
         }
         remove_effect = {
             set_temp_variable = { FAV_Difference_of_VP = 100 }
@@ -238,12 +256,17 @@ FAV_Difference_on_Bible = {
             NOT = { has_country_flag = FAV_Know_Enemy_Action }
             NOT = { has_country_flag = FAV_Show_Decisions2 }
         }
-		cost = 30
+		cost = 50
         days_re_enable = 20
-        days_remove = 5
+        days_remove = 10
         fire_only_once = no
         complete_effect = {
-            add_command_power = -20
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.02
+			}
+        }
+        remove_effect = {
             custom_effect_tooltip = FAV_We_will_Know_Their_Action
             set_country_flag = FAV_Know_Enemy_Action
         }
@@ -272,6 +295,10 @@ FAV_Difference_on_Bible = {
         modifier = {
         }
         remove_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.02
+			}
             set_temp_variable = { FAV_Difference_of_VP = 50 }
             custom_effect_tooltip = FAV_Gain_VP_number
             add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
@@ -301,6 +328,10 @@ FAV_Difference_on_Bible = {
         fire_only_once = no
         complete_effect = {
             add_command_power = -30
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
         }
         modifier = {
         }
@@ -341,15 +372,14 @@ FAV_Difference_on_Bible = {
                     add_to_variable = { FAV_Had_Talk_Times = 1 }
                 }
             }
-            FAV_End_of_This_Fight = yes
             ELSE_IF = {
                 #如果未完成一次辩论中应有的全部对抗，则对抗计数加一
                 add_to_variable = { FAV_Had_Fight_Times = 1 }
             }
+            FAV_End_of_This_Fight = yes
             IF = {
-                limit = { NOT = { has_country_flag = FAV_End_of_Talk } }
+                limit = { NOT = { has_country_flag = FAV_End_our_Talk } }
                 #如果没有结束猜拳，则再次开始对抗倒计时
-			    activate_mission = FAV_TimeOver_of_Fight
             }
 		}
 	}
@@ -744,7 +774,7 @@ FAV_Original_power_balance_category = {
         available = {
             power_balance_value = {
                 id = FAV_Original_power_balance
-                value > 0.1
+                value < -0.1
             }
         }
         modifier = {
@@ -790,7 +820,7 @@ FAV_Original_power_balance_category = {
         available = {
             power_balance_value = {
                 id = FAV_Original_power_balance
-                value < -0.1
+                value > 0.1
             }
         }
         modifier = {

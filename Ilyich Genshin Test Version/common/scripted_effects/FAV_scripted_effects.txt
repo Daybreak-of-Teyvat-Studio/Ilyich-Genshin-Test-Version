@@ -355,43 +355,40 @@ FAV_End_of_This_Talk = {
 	hidden_effect = {
 		IF = {
 			limit = {
-				OR = {
-					check_variable = { FAV_Victory_Ps_We = FAV_Victory_Ps_They }
-					check_variable = { FAV_Victory_Ps_We > FAV_Victory_Ps_They }
-				}
+				check_variable = { FAV_Victory_Ps_We > FAV_Victory_Ps_They }
 			}
 			add_to_variable = { FAV_Times_we_Won = 1 }
 			set_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_We }
 			substract_from_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_They }
 			IF = {
 				limit = {
-					FAV_linshibianliang1 < 100
+					check_temp_variable = { FAV_linshibianliang1 < 100 }
 				}
 				#优势
-				country_event = Church.4
+				country_event = { id = Church.4 days = 5 }
 			}
 			ELSE_IF = {
 				limit = {
-					FAV_linshibianliang1 < 300
+					check_temp_variable = { FAV_linshibianliang1 < 200 }
 				}
 				#小胜
-				country_event = Church.5
+				country_event = { id = Church.5 days = 5 }
 			}
 			ELSE_IF = {
 				limit = {
-					FAV_linshibianliang1 < 600
+					check_temp_variable = { FAV_linshibianliang1 < 300 }
 				}
 				#中胜
-				country_event = Church.6
+				country_event = { id = Church.6 days = 5 }
 			}
 			ELSE_IF = {
 				#大胜
-				country_event = Church.7
+				country_event = { id = Church.7 days = 5 }
 			}
 		}
 		ELSE_IF = {
 			#落败
-			country_event = Church.8
+			country_event = { id = Church.8 days = 5 }
 		}
 	}
 	#清理变量
@@ -435,6 +432,7 @@ FAV_End_of_Talk = {
 		#最终结果： 辉煌的大胜
 		country_event = Church.13
 	}
+	set_country_flag = FAV_End_our_Talk
 	clear_variable = FAV_Victory_Ps_We
 	clear_variable = FAV_Victory_Ps_They
 	clear_variable = FAV_Action_Type_We
