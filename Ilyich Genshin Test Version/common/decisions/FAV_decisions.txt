@@ -351,36 +351,10 @@ FAV_Difference_on_Bible = {
 		days_mission_timeout = 25
 		activation = { always = no }
 		available = { always = no }
+        cancel_trigger = { has_country_flag = FAV_End_our_Talk }
 		timeout_effect = {
             #结算对抗结果
-            IF = {
-                limit = {
-                    check_variable = { FAV_Had_Fight_Times = FAV_All_Fight_Times }
-                }
-                #如果完成了一次辩论中应有的全部对抗，则开始辩论
-                FAV_End_of_This_Talk = yes
-                IF = {
-                    limit = {
-                         check_variable = { FAV_Had_Talk_Times = FAV_All_Talk_Times }
-                    }
-                    #如果完成了全部辩论，则结束猜拳决议组
-                    set_country_flag = FAV_End_of_Talk
-                    FAV_End_of_All_Talk = yes
-                }
-                ELSE_IF = {
-                    #如果未完成全部辩论，则辩论计数加一
-                    add_to_variable = { FAV_Had_Talk_Times = 1 }
-                }
-            }
-            ELSE_IF = {
-                #如果未完成一次辩论中应有的全部对抗，则对抗计数加一
-                add_to_variable = { FAV_Had_Fight_Times = 1 }
-            }
             FAV_End_of_This_Fight = yes
-            IF = {
-                limit = { NOT = { has_country_flag = FAV_End_our_Talk } }
-                #如果没有结束猜拳，则再次开始对抗倒计时
-            }
 		}
 	}
 }
