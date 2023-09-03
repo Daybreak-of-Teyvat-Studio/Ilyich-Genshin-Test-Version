@@ -1129,3 +1129,49 @@ FAV_Original_power_balance_category = {
         }
     }
 }
+#拉近关系
+FAV_Better_Connection = {
+    #我们的影响力 FAV_Influence_on_Friend
+	#盟友影响力 FAV_Friends_Influence_on_Us
+}
+#和平谈判
+MOT_Better_Connection = {
+    #教会反对派的影响力 FAV.FAV_Influence_on_Friend
+	#我们的影响力 FAV.FAV_Friends_Influence_on_Us
+    MOT_Attack_Directly = {
+        fire_only_once = yes
+        cost = 100
+        days_remove = 30
+        complete_effect = {
+            add_stability = -0.1
+            custom_effect_tooltip = FAV_Lock_the_Cat
+            set_country_flag = FAV_Broken_Connection
+            FAV = {
+                set_country_flag = FAV_Broken_Connection
+            }
+        }
+        icon = generic_ignite_civil_war
+        available = { always = yes }
+        visible = { always = yes }
+        remove_effect = {
+            IF = {
+                limit = {
+                    original_tag = LAW
+                }
+                create_wargoal = {
+                    type = annex_everything
+                    target = FAV
+                }
+                FAV = {
+                    create_wargoal = {
+                        type = annex_everything
+                        target = LAW
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+}

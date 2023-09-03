@@ -1520,4 +1520,382 @@ focus_tree = {
 			base = 20
 		}
 	}
+	#星辰坠落于地
+	focus = {
+		id = FAV_Stars_Fell
+		icon = GFX_
+		cost = 1.00
+		x = 16
+		y = 8
+		completion_reward = {
+			add_stability = -0.05
+			add_war_support = 0.05
+			set_variable = { FAV_Influence_on_Friend = 10 }
+			set_variable = { FAV_Friends_Influence_on_Us = 0 }
+		}
+		available = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#颂赞归给羔羊
+	focus = {
+		id = FAV_Honor_for_People
+		icon = GFX_
+		cost = 1.00
+		x = 14
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Take_our_Hands
+			focus = FAV_Play_the_Show
+		}
+		completion_reward = {
+			remove_idea = FAV_Holy_Bible
+			add_stability = 0.1
+			set_politics = {
+				ruling_party = communism
+			}
+			add_country_leader_role = {
+				character = FAV_Barbara
+				promote_leader = yes
+				country_leader = {
+					ideology = marxism
+					expire = "1965.1.1.1"
+					traits = {
+						FAV_Star_of_Tomorrow
+						FAV_Liberated_Church
+						FAV_All_for_One_for_All
+					}
+				}
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_1
+				name = FAV_communism_p_1_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_1
+				name = FAV_democratic_p_1_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_1
+				name = FAV_neutrality_p_1_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_1
+				name = FAV_fascism_p_1_long
+			}
+			hidden_effect = {
+				set_popularities = {
+					communism = 0.6
+					democratic = 0.2
+					neutrality = 0.1
+					fascism = 0.05
+					genshin = 0.05
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < -0.3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#携手并进 FAV_Take_our_Hands
+	focus = {
+		id = FAV_Take_our_Hands
+		icon = GFX_
+		cost = 1.00
+		x = 16
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Play_the_Show
+		}
+		completion_reward = {
+			MOT = {
+				give_military_access = FAV
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_2
+				name = FAV_communism_p_2_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_2
+				name = FAV_democratic_p_2_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_2
+				name = FAV_neutrality_p_2_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_2
+				name = FAV_fascism_p_2_long
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.31
+			}
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.31
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#吹响七枝号 FAV_Play_the_Show
+	focus = {
+		id = FAV_Play_the_Show
+		icon = GFX_
+		cost = 1.00
+		x = 18
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Take_our_Hands
+			focus = FAV_Honor_for_People
+		}
+		completion_reward = {
+			remove_idea = FAV_Holy_Army
+			add_war_support = 0.1
+			set_politics = {
+				ruling_party = fascism
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_3
+				name = FAV_communism_p_3_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_3
+				name = FAV_democratic_p_3_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_3
+				name = FAV_neutrality_p_3_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_3
+				name = FAV_fascism_p_3_long
+			}
+			hidden_effect = {
+				set_popularities = {
+					fascism = 0.7
+					neutrality = 0.15
+					communism = 0.05
+					democratic = 0.05
+					genshin = 0.05
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0.3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#奇迹闪光
+	focus = {
+		id = FAV_Light_of_Miracle
+		icon = GFX_
+		cost = 1.00
+		x = 15
+		y = 10
+		prerequisite = {
+			focus = FAV_Take_our_Hands
+		}
+		mutually_exclusive = {
+			focus = FAV_Judge_Angel
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.1
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#代行裁判
+	focus = {
+		id = FAV_Judge_Angel
+		icon = GFX_
+		cost = 1.00
+		x = 17
+		y = 10
+		prerequisite = {
+			focus = FAV_Take_our_Hands
+		}
+		mutually_exclusive = {
+			focus = FAV_Light_of_Miracle
+		}
+		completion_reward = {
+			set_politics = {
+				ruling_party = neutrality
+			}
+			add_country_leader_role = {
+				character = FAV_Rosary
+				promote_leader = yes
+				country_leader = {
+					ideology = oligarchism
+					expire = "1965.1.1.1"
+					traits = {
+						FAV_Present_Judge
+						FAV_Sin_Kill_Pray
+					}
+				}
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.3
+			}
+			add_war_support = 0.1
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#消灭旧贵族
+	focus = {
+		id = FAV_End_the_Old_Nobles
+		icon = GFX_
+		cost = 1.00
+		x = 14
+		y = 11
+		prerequisite = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Light_of_Miracle
+		}
+		completion_reward = {
+			declare_war_on = {
+				target = LAW
+				type = annex_everything
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#回到蒙德城
+	#袭击骑士团
+	focus = {
+		id = FAV_Attack_the_Knights
+		icon = GFX_
+		cost = 1.00
+		x = 18
+		y = 11
+		prerequisite = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Judge_Angel
+		}
+		completion_reward = {
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#与优菈会面
 }
