@@ -1025,3 +1025,700 @@ country_event = {
 	}
 }
 #27 西风教会领：与劳伦斯领的暗中交流
+country_event = { 
+	id = Church.27
+	title = Church.27.t
+	desc = Church.27.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.27.a
+	}
+}
+#28 教会反对派送来武器
+country_event = { 
+	id = Church.28
+	title = Church.28.t
+	desc = Church.28.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.28.a
+		add_war_support = 0.02
+		add_command_power = 30
+		custom_effect_tooltip = FAV_Up_Influ_Church
+		FAV = {
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+		}
+		IF = {
+			limit = {
+				original_tag = MOT
+			}
+			FAV = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 2000
+					target = MOT
+				}
+			}
+		}
+		ELSE_IF = {
+			FAV = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 2000
+					target = LAW
+				}
+			}
+		}
+	}
+}
+#29 教会反对派军事顾问
+country_event = { 
+	id = Church.29
+	title = Church.29.t
+	desc = Church.29.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.29.a
+		add_war_support = 0.02
+		add_command_power = 30
+		custom_effect_tooltip = FAV_Up_Influ_Church
+		FAV = {
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+		}
+		IF = {
+			limit = {
+				original_tag = MOT
+			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_LAW1 days = 60 }
+		}
+		IF = {
+			limit = {
+				original_tag = LAW
+			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_MOT1 days = 60 }
+		}
+	}
+}
+#30 教会反对派输送补给
+country_event = { 
+	id = Church.30
+	title = Church.30.t
+	desc = Church.30.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.30.a
+		add_war_support = 0.02
+		custom_effect_tooltip = FAV_Up_Influ_Church
+		FAV = {
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+		}
+		add_timed_idea = { idea = FAV_Better_Supply_Help days = 80 }
+	}
+}
+#31 教会反对派鼓舞士气
+country_event = { 
+	id = Church.31
+	title = Church.31.t
+	desc = Church.31.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.31.a
+		add_stability = 0.05
+		custom_effect_tooltip = FAV_Up_Influ_Church
+		FAV = {
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+		}
+	}
+}
+#32 教会反对派开展宣传
+country_event = { 
+	id = Church.32
+	title = Church.32.t
+	desc = Church.32.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.32.a
+		add_stability = 0.01
+		add_war_support = 0.01
+		add_political_power = 20
+		custom_effect_tooltip = FAV_Up_Influ_Church
+		FAV = {
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+		}
+	}
+}
+#33 盟友支援建设
+country_event = { 
+	id = Church.33
+	title = Church.33.t
+	desc = Church.33.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.33.a
+		add_stability = 0.03
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+		IF = {
+			limit = {
+				has_country_flag = FAV_Help_MOT
+			}
+			custom_effect_tooltip = FAV_Up_Influ_Knights
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = FAV_Up_Influ_LAW
+		}
+		add_to_variable = { FAV_Friends_Influence_on_Us = 10 }
+	}
+}
+#34 盟友支持我们
+country_event = { 
+	id = Church.34
+	title = Church.34.t
+	desc = Church.34.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.34.a
+		add_war_support = 0.05
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = { has_government = democratic }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = { has_government = fascism }
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = { has_government = neutrality }
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = {
+				has_country_flag = FAV_Help_MOT
+			}
+			custom_effect_tooltip = FAV_Up_Influ_Knights
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = FAV_Up_Influ_LAW
+		}
+		add_to_variable = { FAV_Friends_Influence_on_Us = 10 }
+	}
+}
+#35 盟友技术援助
+country_event = { 
+	id = Church.35
+	title = Church.35.t
+	desc = Church.35.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.35.a
+		add_timed_idea = { idea = FAV_Research_Electricity days = 80 }
+		add_timed_idea = { idea = FAV_Research_Industry days = 80 }
+		IF = {
+			limit = {
+				has_country_flag = FAV_Help_MOT
+			}
+			custom_effect_tooltip = FAV_Up_Influ_Knights
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = FAV_Up_Influ_LAW
+		}
+		add_to_variable = { FAV_Friends_Influence_on_Us = 10 }
+	}
+}
+#36 盟友开展宣传
+country_event = { 
+	id = Church.36
+	title = Church.36.t
+	desc = Church.36.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.36.a
+		add_stability = 0.01
+		add_war_support = 0.01
+		IF = {
+			limit = {
+				has_country_flag = FAV_Help_MOT
+			}
+			custom_effect_tooltip = FAV_Up_Influ_Knights
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = FAV_Up_Influ_LAW
+		}
+		add_to_variable = { FAV_Friends_Influence_on_Us = 10 }
+	}
+}
+#37 统一后获得角色
+country_event = { 
+	id = Church.37
+	title = Church.37.t
+	desc = Church.37.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.37.a
+		custom_effect_tooltip = FAV_will_get_Characters
+		MOT = {
+			set_country_flag = FAV_UnionBonus_Get_Character
+		}
+		FAV = {
+			set_country_flag = FAV_UnionBonus_Get_Character
+		}
+		LAW = {
+			set_country_flag = FAV_UnionBonus_Get_Character
+		}
+	}
+}
+#38 统一后获得部队
+country_event = { 
+	id = Church.38
+	title = Church.38.t
+	desc = Church.38.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.38.a
+		custom_effect_tooltip = FAV_will_get_Army
+		MOT = {
+			set_country_flag = FAV_UnionBonus_Get_Army
+		}
+		FAV = {
+			set_country_flag = FAV_UnionBonus_Get_Army
+		}
+		LAW = {
+			set_country_flag = FAV_UnionBonus_Get_Army
+		}
+	}
+}
+#39 统一后获得核心
+country_event = { 
+	id = Church.39
+	title = Church.39.t
+	desc = Church.39.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	
+	option = {
+		name = Church.39.a
+		custom_effect_tooltip = FAV_will_get_Cores
+		MOT = {
+			set_country_flag = FAV_UnionBonus_Get_Core
+		}
+		FAV = {
+			set_country_flag = FAV_UnionBonus_Get_Core
+		}
+		LAW = {
+			set_country_flag = FAV_UnionBonus_Get_Core
+		}
+	}
+}
+#40 统一时刻！
+country_event = { 
+	id = Church.40
+	title = Church.40.t
+	desc = Church.40.d
+	picture = GFX_event_DRA03
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 10
+	
+	option = {
+		name = Church.40.a
+		ai_chance = {
+			factor = 99
+		}
+		IF = {
+			limit = {
+				original_tag = FAV
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Help_MOT
+				}
+				MOT = {
+					change_tag_from = FAV
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Core }
+						FAV = {
+							every_owned_state = {
+								limit = {
+									is_core_of = FAV
+								}
+								add_core_of = MOT
+							}
+						}
+					}
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Character }
+						FAV = {
+							every_character = {
+								set_nationality = MOT
+							}
+						}
+					}
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Army }
+						annex_country = {
+							target = FAV
+							transfer_troops = yes
+						}
+					}
+					ELSE_IF = {
+						annex_country = {
+							target = FAV
+							transfer_troops = no
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				LAW = {
+					change_tag_from = FAV
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Core }
+						FAV = {
+							every_owned_state = {
+								limit = {
+									is_core_of = FAV
+								}
+								add_core_of = LAW
+							}
+						}
+					}
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Character }
+						FAV = {
+							every_character = {
+								set_nationality = LAW
+							}
+						}
+					}
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Army }
+						annex_country = {
+							target = FAV
+							transfer_troops = yes
+						}
+					}
+					ELSE_IF = {
+						annex_country = {
+							target = FAV
+							transfer_troops = no
+						}
+					}
+				}
+			}
+		}
+		ELSE_IF = {
+			FAV = {
+				IF = {
+					limit = {
+						has_country_flag = FAV_Help_MOT
+					}
+					change_tag_from = MOT
+				}
+				ELSE_IF = {
+					change_tag_from = LAW
+				}
+				IF = {
+					limit = { has_country_flag = FAV_UnionBonus_Get_Core }
+					IF = {
+						limit = { has_country_flag = FAV_Help_MOT }
+						MOT = {
+							every_owned_state = {
+								limit = {
+									is_core_of = MOT
+								}
+								add_core_of = FAV
+							}
+						}
+					}
+					ELSE_IF = {
+						LAW = {
+							every_owned_state = {
+								limit = {
+									is_core_of = LAW
+								}
+								add_core_of = FAV
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { has_country_flag = FAV_UnionBonus_Get_Character }
+					IF = {
+						limit = { has_country_flag = FAV_Help_MOT }
+						MOT = {
+							every_character = {
+								set_nationality = FAV
+							}
+						}
+					}
+					ELSE_IF = {
+						LAW = {
+							every_character = {
+								set_nationality = FAV
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { has_country_flag = FAV_UnionBonus_Get_Army }
+					IF = {
+						limit = { has_country_flag = FAV_Help_MOT }
+						annex_country = {
+							target = MOT
+							transfer_troops = yes
+						}
+					}
+					ELSE_IF = {
+						annex_country = {
+							target = LAW
+							transfer_troops = yes
+						}
+					}
+				}
+				ELSE_IF = {
+					IF = {
+						limit = { has_country_flag = FAV_Help_MOT }
+						annex_country = {
+							target = MOT
+							transfer_troops = no
+						}
+					}
+					ELSE_IF = {
+						annex_country = {
+							target = LAW
+							transfer_troops = no
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Church.40.b
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = FAV_Broken_Connection
+		add_stability = -0.2
+		add_war_support = -0.2
+	}
+}
+#41 踏入西风大教堂 红
+country_event = { 
+	id = Church.41
+	title = Church.41.t
+	desc = Church.41.d
+	picture = GFX_event_FAV_002
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		2 = {
+			owner = FAV
+		}
+		original_tag = FAV
+		has_government = communism
+	}
+	
+	option = {
+		name = Church.41.a
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 100
+		remove_ideas = FAV_Heresy_of_Religion
+		remove_ideas = FAV_Refrom_Religion
+		add_ideas = FAV_Real_Religion
+		IF = {
+			limit = {
+				has_country_flag = FAV_Red_Way_2
+			}
+			add_ideas = FAV_Liberation_of_Religion2
+		}
+		ELSE_IF = {
+			add_ideas = FAV_Liberation_of_Religion1
+		}
+	}
+}
+#42 踏入西风大教堂 灰蓝
+country_event = { 
+	id = Church.42
+	title = Church.42.t
+	desc = Church.42.d
+	picture = GFX_event_MOT002
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		2 = {
+			owner = FAV
+		}
+		original_tag = FAV
+		OR = {
+			has_government = neutrality
+			has_government = democratic
+		}
+	}
+	
+	option = {
+		name = Church.42.a
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 100
+		remove_ideas = FAV_Heresy_of_Religion
+		remove_ideas = FAV_Refrom_Religion
+		add_ideas = FAV_Real_Religion
+		IF = {
+			limit = {
+				has_government = neutrality
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Grey_Way_2
+				}
+				add_ideas = FAV_Stable_Religion2
+			}
+			ELSE_IF = {
+				add_ideas = FAV_Stable_Religion1
+			}
+		}
+		ELSE_IF = {
+			IF = {
+				limit = {
+					has_country_flag = FAV_Blue_Way_2
+				}
+				add_ideas = FAV_Reform_of_Religion2
+			}
+			ELSE_IF = {
+				add_ideas = FAV_Reform_of_Religion1
+			}
+		}
+	}
+}
+#43 踏入西风大教堂 黑
+country_event = { 
+	id = Church.43
+	title = Church.43.t
+	desc = Church.43.d
+	picture = GFX_event_FAV_004
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		2 = {
+			owner = FAV
+		}
+		original_tag = FAV
+		has_government = fascism
+	}
+	
+	option = {
+		name = Church.43.a
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 100
+		remove_ideas = FAV_Heresy_of_Religion
+		remove_ideas = FAV_Refrom_Religion
+		add_ideas = FAV_Real_Religion
+		IF = {
+			limit = {
+				has_country_flag = FAV_Black_Way_2
+			}
+			add_ideas = FAV_New_Religion2
+		}
+		ELSE_IF = {
+			add_ideas = FAV_New_Religion1
+		}
+	}
+}
+#44 西风教会反对派驰援！
+country_event = { 
+	id = Church.44
+	title = Church.44.t
+	desc = Church.44.d
+	picture = GFX_event_MOT002
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = Church.44.a
+		add_stability = 0.1
+		add_war_support = 0.1
+	}
+}
+#45 对方撕破协议！
+country_event = { 
+	id = Church.45
+	title = Church.45.t
+	desc = Church.45.d
+	picture = GFX_event_DRA18
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 5
+	option = {
+		name = Church.45.a
+		set_country_flag = FAV_Broken_Connection
+		add_stability = 0.1
+		add_war_support = 0.1
+	}
+}
