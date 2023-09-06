@@ -1,0 +1,178 @@
+DOT_Generic_DecCat = { #游戏规则
+	DOT_Expel_You = {
+		fire_only_once = yes
+		cost = 0
+		complete_effect = { set_country_flag = DOT_Dont_Show_Generic }
+	}
+	DOT_Stop_PRI_War = {
+		icon = generic_form_nation
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			PRI = { NOT = { has_idea = PRI_Lock_War } }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { PRI = { add_ideas = PRI_Lock_War } }
+	}
+	DOT_Stop_PRI_War_off = {
+		icon = generic_form_nation
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			PRI = { has_idea = PRI_Lock_War }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { PRI = { remove_ideas = PRI_Lock_War } }
+	}
+	DOT_Slow_PRI_War = {
+		icon = generic_form_nation
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			NOT = { has_global_flag = PRI_War_Slow }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { set_global_flag = PRI_War_Slow }
+	}
+	DOT_Slow_PRI_War_off = {
+		icon = generic_form_nation
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			has_global_flag = PRI_War_Slow
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { clr_global_flag = PRI_War_Slow }
+	}
+	#蒙德路线说明
+	MOT_Route_Teller = {
+		icon = generic_form_nation
+		fire_only_once = no
+		visible = { NOT = { has_country_flag = MOT_Not_See_Teller } }
+		available = { is_ai = no }
+		cost = 0
+		complete_effect = {
+			country_event = Knights.109
+		}
+	}
+#####天理会议#######
+	PRI_War_Meeting = {
+	icon = generic_political_actions
+	allowed = { always = yes }
+	fire_only_once = yes
+	cost = 100
+	visible = { always = yes }
+	complete_effect = {  custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }	   	
+	country_event = { id = Teyvat.2 days = 10 }	
+	}	
+	ai_will_do = { factor = 0  }	
+}
+#####暗夜会议#######
+	Polar_Night_Meeting = {
+	icon = generic_political_actions
+	allowed = { always = yes }
+	fire_only_once = yes
+	cost = 100
+	visible = { always = yes }
+	complete_effect = {  custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }	   	
+	every_country = {  
+	remove_ideas = Daybreak_of_Teyvat
+	add_ideas = { Polar_Night }
+	                }	
+	                  }	
+	ai_will_do = { factor = 0  }	
+                          }
+						  
+#########################提瓦特战争#############
+	Teyvat_War = {
+	icon = generic_political_actions
+	fire_only_once = no
+	cost = 1648
+	visible = { always = yes  }
+	complete_effect = {  
+	custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }	   
+	country_event = { id = Teyvat.1  } 
+			add_timed_idea = { idea = For_Sea  days = 365  }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = PRC  }
+			leave_faction = yes
+			create_faction = For_Teyvat				
+	declare_war_on = { 	target = FON
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = FON  } add_core_of = ROOT  }
+	declare_war_on = { 	target = NAT
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = NAT  } add_core_of = ROOT  }
+	declare_war_on = { 	target = SUM
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = SUM  } add_core_of = ROOT  }
+	declare_war_on = { 	target = MOT
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = MOT  } add_core_of = ROOT  }
+	declare_war_on = { 	target = LYY
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = LYY  } add_core_of = ROOT  }
+	declare_war_on = { 	target = SNE
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = SNE  } add_core_of = ROOT  }
+	declare_war_on = { 	target = ABY
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = ABY  } add_core_of = ROOT  }
+	country_event = { id = super.11 days = 10  }
+ }
+		
+	 }
+
+
+#########################提瓦特解放战争#############
+	Liberate_Teyvat_War = {
+	icon = generic_political_actions
+	allowed = { OR = { 			
+			original_tag = FON
+			original_tag = NAT		
+			original_tag = SNE
+		}  }
+	fire_only_once = no
+	cost = 648
+	visible = { always = yes  }
+	complete_effect = {  custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }	  
+         	country_event = { id = Teyvat.1  } 
+			add_timed_idea = { idea = For_Sea  days = 365  }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = PRC  }
+			leave_faction = yes
+			create_faction = For_Teyvat				
+	declare_war_on = { 	target = FON
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = FON  } add_core_of = ROOT  }
+	declare_war_on = { 	target = NAT
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = NAT  } add_core_of = ROOT  }
+	declare_war_on = { 	target = SUM
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = SUM  } add_core_of = ROOT  }
+	declare_war_on = { 	target = MOT
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = MOT  } add_core_of = ROOT  }
+	declare_war_on = { 	target = LYY
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = LYY  } add_core_of = ROOT  }
+	declare_war_on = { 	target = SNE
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = SNE  } add_core_of = ROOT  }
+	declare_war_on = { 	target = ABY
+	type = annex_everything  }
+	every_state = { limit = { is_core_of = ABY  } add_core_of = ROOT  }
+	country_event = { id = super.11 days = 10  }
+ }
+		
+	 }
+}
+
+
