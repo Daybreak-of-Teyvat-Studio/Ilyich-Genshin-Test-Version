@@ -1131,6 +1131,177 @@ FAV_Original_power_balance_category = {
 }
 #拉近关系
 FAV_Better_Connection = {
+    FAV_PeaceTalk_Bonus_Army = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Army } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.38
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.38 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.38 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    FAV_PeaceTalk_Bonus_Characters = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Character } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.37
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.37 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.37 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    FAV_PeaceTalk_Bonus_Cores = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Core } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.39
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.39 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.39 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    FAV_Talk_with_MOT = {
+		icon = generic_nationalism
+		fire_only_once = yes
+        visible = {
+            has_global_flag = FAV_Allow_Union
+            NOT = { has_country_flag = FAV_Broken_Connection }
+            NOT = { has_country_flag = FAV_Start_to_Unite }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = FAV_Influence_Enough
+                set_temp_variable = { FAV_Linshibianliang4 = 19 }
+                add_to_temp_variable = { FAV_Linshibianliang4 = FAV_Friends_Influence_on_Us }
+                check_variable = { FAV_Influence_on_Friend > FAV_Linshibianliang4 }
+            }
+        }
+        cost = 50
+        days_remove = 30
+        complete_effect = {
+            MOT = { set_country_flag = FAV_Start_to_Unite }
+            LAW = { set_country_flag = FAV_Start_to_Unite }
+        }
+        remove_effect = {
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.40 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.40 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -1000
+                OR = {
+                    AND = {
+                        has_country_flag = FAV_Help_MOT
+                        MOT = { is_ai = no }
+                    }
+                    AND = {
+                        has_country_flag = FAV_Help_LAW
+                        LAW = { is_ai = no }
+                    }
+                }
+            }
+        }
+    }
+    FAV_MOT_War = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 150
+		activation = { always = no }
+		available = { MOT = { NOT = { has_war_with = LAW } } }
+        cancel_trigger = { has_country_flag = FAV_End_our_Talk }
+		timeout_effect = {
+            custom_effect_tooltip = FAV_Mot_CW1_Will_End
+            set_global_flag = FAV_Allow_Union
+		}
+    }
     #我们的影响力 FAV_Influence_on_Friend
 	#盟友影响力 FAV_Friends_Influence_on_Us
     #运送武器
@@ -1363,6 +1534,146 @@ FAV_Better_Connection = {
 }
 #和平谈判
 MOT_Better_Connection = {
+    FAV_PeaceTalk_Bonus_Army = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Army } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.38
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.38 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.38 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    FAV_PeaceTalk_Bonus_Characters = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Character } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.37
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.37 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.37 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    MOT_PeaceTalk_Bonus_Cores = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = {
+            NOT = { has_country_flag = FAV_UnionBonus_Get_Core }
+            NOT = { original_tag = MOT }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.39
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.39 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.39 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    MOT_Talk_with_FAV = {
+		icon = generic_nationalism
+		fire_only_once = yes
+        visible = {
+            has_global_flag = FAV_Allow_Union
+            NOT = { has_country_flag = FAV_Broken_Connection }
+            NOT = { has_country_flag = FAV_Start_to_Unite }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = FAV_Influence_Enough
+                set_temp_variable = { FAV_Linshibianliang4 = 19 }
+                add_to_temp_variable = { FAV_Linshibianliang4 = FAV.FAV_Influence_on_Friend }
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_Linshibianliang4 }
+            }
+        }
+        cost = 50
+        days_remove = 30
+        complete_effect = {
+            FAV = { set_country_flag = FAV_Start_to_Unite }
+        }
+        remove_effect = {
+            FAV = { country_event = Church.40 }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -1000
+                FAV = { is_ai = no }
+            }
+        }
+    }
     #教会反对派的影响力 FAV.FAV_Influence_on_Friend
 	#我们的影响力 FAV.FAV_Friends_Influence_on_Us
     MOT_Attack_Directly = {
@@ -1399,6 +1710,15 @@ MOT_Better_Connection = {
         }
         ai_will_do = {
             base = 0
+            modifier = {
+                add = 1000
+                date > 1938.6.1
+            }
+            modifier = {
+                add = 1000
+                date > 1938.1.1
+                original_tag = LAW
+            }
         }
     }
     #支援教会反对派建设
