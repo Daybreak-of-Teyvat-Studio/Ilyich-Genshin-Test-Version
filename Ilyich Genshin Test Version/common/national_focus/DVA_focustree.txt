@@ -478,7 +478,7 @@ focus_tree = {
 	focus = {
 		id = DVA_incorporate_the_knights_of_favonius
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 8
 		mutually_exclusive = {
 			focus = DVA_break_with_the_past
 		}
@@ -492,24 +492,40 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
-		x = 11
-		y = 10
+		x = 10
+		y = 11
 		available = {
-			MOT = {
-				is_puppet_of = DVA
-			}
-		}
-		bypass = {
-			MOT = {
-				exists = no
+			OR = {
+				MOT = {
+					OR = {
+						exists = no
+						is_puppet_of = DVA
+					}
+				}
+				has_country_flag = DVA_amber_win
 			}
 		}
 		completion_reward = {
-			annex_country = {
-				target = MOT
-				transfer_troops = yes
+			if = {
+				limit = {
+					MOT = {
+						OR = {
+							exists = no
+							is_puppet_of = DVA
+						}
+					}
+				}
+				country_event = dva.ab.13
 			}
-			#country_event = dva.ab.13
+			elseif = {
+				limit = {
+					has_country_flag = DVA_amber_win
+				}
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = MOT
+				}
+			}
 		}
 	}
 	focus = {
@@ -519,8 +535,8 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_incorporate_the_knights_of_favonius
 		}
-		x = 11
-		y = 11
+		x = 10
+		y = 12
 		available = {
 			MOT = {
 				OR = {
@@ -536,6 +552,7 @@ focus_tree = {
 				id = dva.ab.18
 				days = 7
 			}
+			unlock_decision_category_tooltip = DVA_conquer_rebels_category
 		}
 	}
 	focus = {
@@ -630,7 +647,7 @@ focus_tree = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
 		x = 13
-		y = 10
+		y = 11
 		available = {
 			always = no
 		}
@@ -646,7 +663,7 @@ focus_tree = {
 			focus = DVA_break_with_the_past
 		}
 		x = 13
-		y = 11
+		y = 12
 		available = {
 			#
 		}
