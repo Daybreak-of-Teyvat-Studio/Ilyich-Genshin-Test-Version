@@ -1840,6 +1840,43 @@ focus_tree = {
 			base = 100
 		}
 	}
+	#团结一切力量
+	focus = {
+		id = FAV_Unite_Us
+		icon = GFX_
+		cost = 5.00
+		x = 16
+		y = 11
+		prerequisite = {
+			focus = FAV_Judge_Angel
+			focus = FAV_Light_of_Miracle
+		}
+		completion_reward = {
+			add_political_power = 100
+			IF = {
+				limit = { has_government = democratic }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.3
+				}
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
 	#消灭旧贵族
 	focus = {
 		id = FAV_End_the_Old_Nobles
@@ -1859,6 +1896,7 @@ focus_tree = {
 			MOT = {
 				country_event = Church.45
 			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_LAW2 days = 200 }
 			custom_effect_tooltip = FAV_Influence_DecCat
 			set_global_flag = FAV_Unlock_DecCat1
 		}
@@ -1875,7 +1913,6 @@ focus_tree = {
 			base = 100
 		}
 	}
-	#回到蒙德城
 	#袭击骑士团
 	focus = {
 		id = FAV_Attack_the_Knights
@@ -1895,6 +1932,7 @@ focus_tree = {
 			LAW = {
 				country_event = Church.45
 			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_MOT2 days = 200 }
 			custom_effect_tooltip = FAV_Influence_DecCat
 			set_global_flag = FAV_Unlock_DecCat1
 		}
@@ -1907,5 +1945,512 @@ focus_tree = {
 			base = 100
 		}
 	}
-	#与优菈会面
+	#快速突进
+	focus = {
+		id = FAV_War1_Quick_Attack
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 18
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Attack_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_idea = MOT_Temp_Attack_Order
+				has_idea = MOT_Temp_Defense_Order
+				has_idea = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#持正待机
+	focus = {
+		id = FAV_War1_Defense_Stably
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 16
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Defense_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_idea = MOT_Temp_Attack_Order
+				has_idea = MOT_Temp_Defense_Order
+				has_idea = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#迟滞敌军
+	focus = {
+		id = FAV_War1_Return_Stably
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 14
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Back_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_idea = MOT_Temp_Attack_Order
+				has_idea = MOT_Temp_Defense_Order
+				has_idea = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#共通 芭芭拉冲突经济线
+	#打土豪分田地
+	focus = {
+		id = FAV_EcoB_Divide_the_Land
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Take_our_Hands
+		}
+		x = 12
+		y = 10
+		completion_reward = {
+			remove_ideas = FAV_Holy_Government
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_LandReform_St_Bonus
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 3000
+					producer = MOT
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+					producer = MOT
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_LandReform_Ws_Bonus
+				add_manpower = 200000
+				FAV_Get_2_Arms = yes
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			add_manpower = 200000
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#拉拢进步派
+	focus = {
+		id = FAV_EcoB_Cooperation_with_Them
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoB_Divide_the_Land
+		}
+		x = 12
+		y = 11
+		completion_reward = {
+			add_political_power = 50
+			IF = {
+				limit = { has_government = communism }
+				add_popularity = {
+					ideology = communism
+					popularity = 0.1
+				}
+			}
+			IF = {
+				limit = { has_government = democratic }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.1
+				}
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.1
+				}
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_Propaganda_St_Bonus
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+					producer = MOT
+				}
+				add_political_power = 50
+				add_command_power = 50
+				IF = {
+					limit = { has_government = communism }
+					add_popularity = {
+						ideology = communism
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = democratic }
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = neutrality }
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.1
+					}
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_Propaganda_Ws_Bonus
+				FAV_Get_2_Arms = yes
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+					producer = MOT
+				}
+				IF = {
+					limit = { has_government = communism }
+					add_popularity = {
+						ideology = communism
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = democratic }
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = neutrality }
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.1
+					}
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#动员工人
+	focus = {
+		id = FAV_EcoB_Mobilize_Workers
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoB_Cooperation_with_Them
+		}
+		x = 12
+		y = 12
+		completion_reward = {
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_DBDB_St_Bonus
+				FAV_Get_2_Arms = yes
+				add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_DBDB_Ws_Bonus
+				FAV_Get_2_Arms = yes
+				add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#芭芭拉征募
+	focus = {
+		id = FAV_EcoB_Expand_the_Government
+		icon = GFX_
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_EcoB_Mobilize_Workers
+		}
+		x = 12
+		y = 13
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			DRA_united_improved = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#共通 罗莎莉亚冲突军事线
+	#洗净死的毒钩
+	focus = {
+		id = FAV_MilR_End_Army_Corruption
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Play_the_Show
+			focus = FAV_Take_our_Hands
+		}
+		x = 20
+		y = 10
+		completion_reward = {
+			remove_ideas = FAV_Holy_Army
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				army_experience = 50
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_manpower = 250000
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#纪律严苛
+	focus = {
+		id = FAV_MilR_Hard_Law
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilR_End_Army_Corruption
+		}
+		x = 20
+		y = 11
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 1
+				cost_reduction = 0.5
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				add_tech_bonus = {
+					category = support_tech
+					bonus = 1
+					uses = 1
+					ahead_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_manpower = 150000
+				add_doctrine_cost_reduction = {
+					category = land_doctrine
+					uses = 1
+					cost_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#神把一切仇敌、都放在他的脚下。
+	focus = {
+		id = FAV_MilR_Zealous_Spirit
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilR_Hard_Law
+		}
+		x = 20
+		y = 12
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 1
+				cost_reduction = 0.5
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				add_tech_bonus = {
+					category = artillery
+					bonus = 1
+					uses = 1
+					ahead_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_tech_bonus = {
+					category = armor
+					bonus = 1
+					uses = 1
+					ahead_reduction = 1
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#蔷薇般盛开
+	focus = {
+		id = FAV_MilR_Blossom_like_Rose
+		icon = GFX_
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_MilR_Zealous_Spirit
+		}
+		x = 20
+		y = 13
+		completion_reward = {
+			GFS_Better_Army = yes
+			add_ideas = FAV_Saint_Army
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#芭芭拉军事线
+	#启蒙其头脑
+	#红色随军牧师
+	#年轻的温妮莎向前进
+	#罗莎莉亚经济线
+	#没收反对派资产
+	#军事化经济
+	#神明的锋刃
+	#共通 新约风神书
+	#
 }
