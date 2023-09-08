@@ -104,6 +104,7 @@ focus_tree = {
 			country_event = dva.ab.2
 		}
 		completion_reward = {
+			custom_effect_tooltip = DVA_fatui_appear_tt
 			hidden_effect = {
 				SNE = {
 					add_named_threat = {
@@ -142,6 +143,18 @@ focus_tree = {
 							division = "name = \"2. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
 							owner = SFS
 						}
+						create_unit = {
+							division = "name = \"3. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
+							owner = SFS
+						}
+						create_unit = {
+							division = "name = \"4. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
+							owner = SFS
+						}
+						create_unit = {
+							division = "name = \"5. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
+							owner = SFS
+						}
 					}
 				}
 			}
@@ -178,12 +191,20 @@ focus_tree = {
 			if = {
 				limit = {
 					check_variable = {
-						DVA_puppet_influence < 4
+						DVA_puppet_influence < 3
 					}
 				}
 				country_event = dva.5
 			}
-			else = {
+			if = {
+				limit = {
+					check_variable = {
+						DVA_puppet_influence > 2
+					}
+					check_variable = {
+						DVA_puppet_influence < 6
+					}
+				}
 				country_event = dva.6
 			}
 		}
@@ -566,7 +587,10 @@ focus_tree = {
 		x = 9
 		y = 13
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_amber_win
+			}
 		}
 		completion_reward = {
 			#country_event = dva.ab.20
@@ -911,7 +935,7 @@ focus_tree = {
 				}
 				add_ideas = DVA_lack_of_research_ability
 				add_ideas = DVA_restricted_army
-				set_research_slots = 1
+				set_research_slots = 0
 				MOT = {
 					add_research_slot = 1
 				}
