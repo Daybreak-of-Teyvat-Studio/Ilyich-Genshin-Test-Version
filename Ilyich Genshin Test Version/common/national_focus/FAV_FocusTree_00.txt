@@ -1310,6 +1310,13 @@ focus_tree = {
 				bonus = 1
 				uses = 2
 			}
+			IF = {
+				limit = {
+					NOT = { has_idea = war_economy }
+					NOT = { has_idea = tot_economic_mobilisation }
+				}
+				add_ideas = partial_economic_mobilisation
+			}
 			add_power_balance_value = {
 				id = FAV_Original_power_balance
 				value = 0.1
@@ -1388,6 +1395,12 @@ focus_tree = {
 			add_power_balance_value = {
 				id = FAV_Original_power_balance
 				value = 0.1
+			}
+			IF = {
+				limit = {
+					NOT = { has_idea = closed_economy }
+				}
+				add_ideas = limited_exports
 			}
 		}
 		available = {
@@ -1531,6 +1544,18 @@ focus_tree = {
 					ahead_reduction = 1
 					uses = 1
 				}
+			}
+			IF = {
+				limit = {
+					NOT = {
+						OR = {
+							has_idea = service_by_requirement
+							has_idea = all_adults_serve
+							has_idea = scraping_the_barrel
+						}
+					}
+				}
+				add_ideas = extensive_conscription
 			}
 		}
 		available = {
@@ -1929,6 +1954,15 @@ focus_tree = {
 			add_timed_idea = { idea = FAV_Tactic_Anti_LAW2 days = 200 }
 			custom_effect_tooltip = FAV_Influence_DecCat
 			set_global_flag = FAV_Unlock_DecCat1
+			set_country_flag = FAV_Help_MOT
+			add_opinion_modifier = {
+				target = MOT
+				modifier = FAV_partnership
+			}
+			add_opinion_modifier = {
+				target = LAW
+				modifier = FAV_Anti_Government
+			}
 		}
 		available = {
 			power_balance_value = {
@@ -1936,6 +1970,7 @@ focus_tree = {
 				value < 0.1
 			}
 		}
+		will_lead_to_war_with = LAW
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
@@ -1954,6 +1989,7 @@ focus_tree = {
 			focus = FAV_Honor_for_People
 			focus = FAV_Judge_Angel
 		}
+		will_lead_to_war_with = MOT
 		completion_reward = {
 			declare_war_on = {
 				target = MOT
@@ -1965,6 +2001,15 @@ focus_tree = {
 			add_timed_idea = { idea = FAV_Tactic_Anti_MOT2 days = 200 }
 			custom_effect_tooltip = FAV_Influence_DecCat
 			set_global_flag = FAV_Unlock_DecCat1
+			set_country_flag = FAV_Help_LAW
+			add_opinion_modifier = {
+				target = LAW
+				modifier = FAV_partnership
+			}
+			add_opinion_modifier = {
+				target = MOT
+				modifier = FAV_Anti_Government
+			}
 		}
 		available = {
 		}
@@ -2264,6 +2309,10 @@ focus_tree = {
 			ELSE_IF = {
 				add_war_support = 0.05
 			}
+			IF = {
+				limit = { NOT = { has_idea = tot_economic_mobilisation } }
+				add_ideas = war_economy
+			}
 		}
 		available = {
 		}
@@ -2475,12 +2524,813 @@ focus_tree = {
 	}
 	#芭芭拉军事线
 	#启蒙其头脑
+	focus = {
+		id = FAV_MilB_Lighten_their_Mind
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Honor_for_People
+		}
+		x = 10
+		y = 10
+		completion_reward = {
+			add_ideas = gene_military_democracy
+			add_stability = -0.05
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 70 }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
 	#红色随军牧师
+	focus = {
+		id = FAV_MilB_Red_Army_Chaplain
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilB_Lighten_their_Mind
+		}
+		x = 10
+		y = 11
+		completion_reward = {
+			add_command_power = 100
+			add_stability = 0.05
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 70 }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
 	#年轻的温妮莎向前进
+	focus = {
+		id = FAV_MilB_Young_Vanisa_Forward
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilB_Red_Army_Chaplain
+		}
+		x = 10
+		y = 12
+		completion_reward = {
+			add_war_support = 0.1
+			army_experience = 25
+			remove_ideas = FAV_Holy_Army
+			add_ideas = FAV_People_Army
+			IF = {
+				limit = {
+					NOT = {
+						OR = {
+							has_idea = service_by_requirement
+							has_idea = all_adults_serve
+							has_idea = scraping_the_barrel
+						}
+					}
+				}
+				add_ideas = extensive_conscription
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
 	#罗莎莉亚经济线
 	#没收反对派资产
+	focus = {
+		id = FAV_EcoR_Lighten_their_Mind
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Judge_Angel
+		}
+		x = 22
+		y = 10
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 70 }
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Civs = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
 	#军事化经济
+	focus = {
+		id = FAV_EcoR_Military_Economy
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoR_Lighten_their_Mind
+		}
+		x = 22
+		y = 11
+		completion_reward = {
+			IF = {
+				limit = { NOT = { has_idea = tot_economic_mobilisation } }
+				add_ideas = war_economy
+			}
+			add_ideas = closed_economy
+			add_war_support = 0.05
+			FAV_Get_2_Arms = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
 	#神明的锋刃
+	focus = {
+		id = FAV_EcoR_Holy_Sword
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoR_Military_Economy
+		}
+		x = 22
+		y = 12
+		completion_reward = {
+			remove_ideas = FAV_Holy_Government
+			add_war_support = 0.1
+			add_stability = 0.1
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#强化联系
+	focus = {
+		id = FAV_Strengthen_Connection_Between
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_War1_Return_Stably
+			focus = FAV_War1_Defense_Stably
+			focus = FAV_War1_Quick_Attack
+		}
+		x = 15
+		y = 13
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			IF = {
+				limit = {
+					has_country_flag = FAV_Help_MOT
+				}
+				add_opinion_modifier = {
+					target = MOT
+					modifier = FAV_Better_partnership
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Help_LAW
+				}
+				add_opinion_modifier = {
+					target = LAW
+					modifier = FAV_Better_partnership
+				}
+			}
+			set_country_flag = FAV_Has_Comp_Strengthen_Connection_Between
+			set_variable = { FAV_Better_C = 0 }
+		}
+		available = {
+			NOT = { has_country_flag = FAV_Broken_Connection }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#玫瑰之刺
+	focus = {
+		id = FAV_Thorn_of_Rose
+		icon = GFX_
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_War1_Return_Stably
+			focus = FAV_War1_Defense_Stably
+			focus = FAV_War1_Quick_Attack
+		}
+		x = 17
+		y = 13
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_war_support = 0.05
+			set_variable = { FAV_Better_War_against_LAWMOT = 0 }
+		}
+		available = {
+			OR = {
+				NOT = { has_country_flag = FAV_Has_Comp_Strengthen_Connection_Between }
+				has_country_flag = FAV_Broken_Connection
+			}
+		}
+		bypass = {
+			has_country_flag = FAV_Broken_Connection
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#强化思想交流
+	focus = {
+		id = FAV_Bond_of_Idea
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 15
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_political_power = 30
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#强化经济联系
+	focus = {
+		id = FAV_Bond_of_Economy
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 13
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_timed_idea = { idea = gene_less_burden days = 60 }
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#强化军事合作
+	focus = {
+		id = FAV_Bond_of_Mili
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 11
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			army_experience = 25
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究战术习惯
+	focus = {
+		id = FAV_Research_Their_Tactic
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 17
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			army_experience = 25
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究地形情报
+	focus = {
+		id = FAV_Research_Their_Mount
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 19
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_command_power = 50
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究地方群众
+	focus = {
+		id = FAV_Research_Their_Mass
+		icon = GFX_
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 21
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_political_power = 40
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#求同存异
+	focus = {
+		id = FAV_Our_Common_Goal
+		icon = GFX_
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Bond_of_Economy
+			focus = FAV_Bond_of_Mili
+			focus = FAV_Bond_of_Idea
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 13
+		y = 15
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus
+			multiply_variable = { FAV_Better_C = 10 }
+			add_to_variable = { FAV_Influence_on_Friend = FAV_Better_C }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = var:FAV_Better_C
+			}
+		}
+	}
+	#刀 兵 动
+	focus = {
+		id = FAV_Beginning_of_a_new_War
+		icon = GFX_
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Bond_of_Economy
+			focus = FAV_Bond_of_Mili
+			focus = FAV_Bond_of_Idea
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 19
+		y = 15
+		will_lead_to_war_with = LAW
+		will_lead_to_war_with = MOT
+		completion_reward = {
+			custom_effect_tooltip = FAV_Lock_the_Cat
+			set_country_flag = FAV_Broken_Connection
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus
+			IF = {
+				limit = { has_country_flag = FAV_Help_LAW }
+				declare_war_on = {
+					target = LAW
+					type = annex_everything
+				}
+			}
+			IF = {
+				limit = { has_country_flag = FAV_Help_MOT }
+				declare_war_on = {
+					target = MOT
+					type = annex_everything
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 0 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW1 DAYS = 60 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT1 DAYS = 60 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 1 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW1 DAYS = 120 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT1 DAYS = 120 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 2 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW2 DAYS = 150 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT2 DAYS = 150 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 3 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW3 DAYS = 180 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT3 DAYS = 180 }
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = var:FAV_Better_C
+			}
+		}
+	}
 	#共通 新约风神书
+	focus = {
+		id = FAV_Rewrite_our_Bible
+		icon = GFX_
+		cost = 5
+		prerequisite = {
+			focus = FAV_Our_Common_Goal
+			focus = FAV_Beginning_of_a_new_War
+			focus = FAV_MilB_Young_Vanisa_Forward
+			focus = FAV_EcoR_Holy_Sword
+		}
+		available = {
+			num_of_owned_factories > 60
+			MOT = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+			LAW = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+			2 = {
+				owner = FAV
+			}
+		}
+		x = 16
+		y = 16
+		select_effect = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Wait_for_After
+			annex_country = {
+				target = MOT
+				transfer_troops = no
+			}
+			annex_country = {
+				target = LAW
+				transfer_troops = no
+			}
+			remove_ideas = FAV_Holy_Bible
+			remove_ideas = FAV_Holy_Tech
+			GFS_Better_Agri = yes
+			GFS_Better_Army = yes
+			add_research_slots = 1
+			create_wargoal = {
+				type = annex_everything
+				target = GUN
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = RAG
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = DVA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = DRA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = SPI
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = AND
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
 	#
 }
