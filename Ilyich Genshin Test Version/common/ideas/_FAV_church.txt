@@ -6,9 +6,8 @@ ideas = {
 			picture = TNO_Attack_the_Eyes
 			removal_cost = -1
 			modifier = {
-				stability_factor = -0.4
 				war_support_factor = -0.4
-				conscription_factor = -0.2
+				political_power_cost = 0.25
 				custom_modifier_tooltip = FAV_Remove_it_by_Talk
 			}
 			on_remove = {
@@ -20,7 +19,6 @@ ideas = {
 			picture = FAV_Union_of_People
 			removal_cost = -1
 			modifier = {
-				political_power_cost = 0.5
 				political_advisor_cost_factor = 0.5
 				army_chief_cost_factor = 0.5
 				high_command_cost_factor = 0.5
@@ -28,9 +26,6 @@ ideas = {
 			}
 			on_remove = {
 				add_political_power = 100
-			}
-			cancel = {
-				has_global_flag = MOT_Civil_War_Begun
 			}
 		}
 		#宗教军队
@@ -78,18 +73,57 @@ ideas = {
 			picture = FAV_Stopped_Tech
 			removal_cost = -1
 			modifier = {
-				research_speed_factor = -0.25
+				research_speed_factor = -0.1
 				stability_factor = 0.1
-				custom_modifier_tooltip = FAV_Remove_it_by_IndustryLevel
+				custom_modifier_tooltip = FAV_Remove_it_by_TechLevel
 			}
 			cancel = {
 				OR = {
-					has_idea = DOT_Government_Industry4
-					has_idea = DOT_Government_Industry5
+					has_idea = DOT_Government_Research4
+					has_idea = DOT_Government_Research5
 				}
 			}
 			on_remove = {
 				add_stability = 0.05
+			}
+		}
+		#受创的农民
+		FAV_Holy_Agriculture = {
+			picture = FAV_Stopped_Tech
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.3
+				custom_modifier_tooltip = FAV_Remove_it_by_AgriLevel
+			}
+			cancel = {
+				OR = {
+					has_idea = DOT_Government_Agri4
+					has_idea = DOT_Government_Agri5
+				}
+			}
+			on_remove = {
+				add_stability = 0.1
+			}
+		}
+		#受冲击的工业
+		FAV_Holy_Industry = {
+			picture = FAV_Stopped_Tech
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.1
+				production_factory_efficiency_gain_factor = -0.25
+				industrial_capacity_factory = -0.2
+				industrial_capacity_dockyard = -0.5
+				custom_modifier_tooltip = FAV_Remove_it_by_IndustryLevel
+			}
+			cancel = {
+				OR = {
+					has_idea = DOT_Government_Agri4
+					has_idea = DOT_Government_Agri5
+				}
+			}
+			on_remove = {
+				add_stability = 0.1
 			}
 		}
 		#腐朽教条
