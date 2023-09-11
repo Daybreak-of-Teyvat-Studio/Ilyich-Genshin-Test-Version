@@ -317,14 +317,39 @@ VAN_solve_marana_decision_categories = {
 
 VAN_akademiya_support_decision_categories = {
 	VAN_akademiya_support_return_cic = {
+		visible = {
+			has_autonomy_state = auto_SUM_forecast_state
+		}
 		available = {
 			compare_autonomy_state < auto_SUM_New_Sumeru
 		}
-		cost = 80
+		cost = 60
 		days_remove = 50
 		days_re_enable = 80
 		modifier = {
-			cic_to_overlord_factor = -0.3
+			cic_to_overlord_factor = -0.5
+		}
+		# 用于刷新工厂数，让cic_to_overlord_factor及时生效
+		complete_effect = {
+			add_offsite_building = { type = industrial_complex level = 1 }
+		}
+		remove_effect = {
+			add_offsite_building = { type = industrial_complex level = -1 }
+		}
+	}
+
+	VAN_akademiya_support_return_cic2 = {
+		visible = {
+			has_autonomy_state = auto_SUM_forecast_worker_state
+		}
+		available = {
+			compare_autonomy_state < auto_SUM_New_Sumeru
+		}
+		cost = 60
+		days_remove = 50
+		days_re_enable = 80
+		modifier = {
+			cic_to_overlord_factor = -0.2
 		}
 		# 用于刷新工厂数，让cic_to_overlord_factor及时生效
 		complete_effect = {
@@ -336,7 +361,7 @@ VAN_akademiya_support_decision_categories = {
 	}
 
 	VAN_akademiya_support_of_kshahrewar = {
-		cost = 60
+		cost = 50
 		days_remove = 30
 		modifier = {
 			production_speed_buildings_factor = 0.2
@@ -359,7 +384,7 @@ VAN_test_decision_categories = {
 			}
 			has_idea = VAN_Idea_Aranyaka
 		}
-		cost = 100
+		cost = 50
 		days_re_enable = 50
 		complete_effect = {
 			add_autonomy_score = {
@@ -377,7 +402,7 @@ VAN_test_decision_categories = {
 		visible = {
 			has_idea = VAN_Bad_Politics
 		}
-		cost = 200
+		cost = 50
 		complete_effect = {
 			remove_ideas = VAN_Bad_Politics
 		}
@@ -385,7 +410,7 @@ VAN_test_decision_categories = {
 
 	VAN_test_Add_Core_of_Desert = {
 		fire_only_once = yes
-		cost = 200
+		cost = 50
 		complete_effect = {
 			every_state = {
 				limit = {
