@@ -105,12 +105,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = DVA_fatui_appear_tt
-			set_rule = {
-				desc = DVA_my_rule_description
-				can_declare_war_on_same_ideology = yes
-			}
 			hidden_effect = {
-				news_event = 
+				news_event = dva.news.2
 				SNE = {
 					add_named_threat = {
 						threat = 5
@@ -227,8 +223,7 @@ focus_tree = {
 			always = no
 		}
 		completion_reward = {
-			add_stability = 0.05
-			#
+			custom_effect_tooltip = DVA_unfinished_tt
 		}
 	}
 	focus = {
@@ -245,6 +240,34 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.1
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Raymond
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Vile
+			add_corps_commander_role = {
+				character = DVA_Vile
+				desc = "Vile_DESC"
+				traits = { 
+					#
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			add_corps_commander_role = {
+				character = DVA_Raymond
+				desc = "Raymond_DESC"
+				traits = { 
+					#
+				}
+				skill = 3
+				attack_skill = 1
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 2
+			}
 		}
 	}
 	focus = {
@@ -393,20 +416,17 @@ focus_tree = {
 					type = annex_everything
 					target = LAW
 				}
-				every_state = {
-					limit = {
-						is_core_of = LAW
-					}
-					add_core_of = DVA
-				}
 				custom_effect_tooltip = DVA_rescue_Eula_tt
 			}
-			else = {
-				every_state = {
-					limit = {
-						is_core_of = LAW
-					}
-					add_core_of = DVA
+			every_state = {
+				limit = {
+					is_core_of = LAW
+				}
+				add_core_of = DVA
+			}
+			hidden_effect = {
+				MOT = {
+					end_puppet = LAW
 				}
 			}
 		}
@@ -492,12 +512,17 @@ focus_tree = {
 					type = puppet_wargoal_focus
 					target = DRA
 				}
-				every_state = {
-					limit = {
-						is_core_of = DRA
+				hidden_effect = {
+					MOT = {
+						end_puppet = LAW
 					}
-					add_core_of = DVA
 				}
+			}
+			every_state = {
+				limit = {
+					is_core_of = DRA
+				}
+				add_core_of = DVA
 			}
 		}
 	}
@@ -914,8 +939,7 @@ focus_tree = {
 			always = no
 		}
 		completion_reward = {
-			add_stability = 0.05
-			#
+			custom_effect_tooltip = DVA_unfinished_tt
 		}
 	}
 	focus = {
