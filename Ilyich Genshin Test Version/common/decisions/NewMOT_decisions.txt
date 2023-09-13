@@ -3802,10 +3802,10 @@ LAW_Preparation_Before_War = {
 		icon = generic_ignite_civil_war
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = 150
+		days_mission_timeout = 200
 		activation = { always = no }
 		
-		available = { MOT = { surrender_progress > 0.5 } }
+		available = { MOT = { surrender_progress > 0.6 } }
 		timeout_effect = {
 			custom_effect_tooltip = MOT_Civil_War_1_Stop
 			set_global_flag = MOT_Civil_War_1_End
@@ -3836,10 +3836,32 @@ LAW_Preparation_Before_War = {
 			LAW = {
 				mark_focus_tree_layout_dirty = yes
 			}
+			every_other_country = {
+				limit = {
+					NOT = { original_tag = FAV }
+					has_war_together_with = MOT
+				}
+				white_peace = LAW
+			}
 			hidden_effect = {
+				MOT = {
+					end_puppet = DRA
+					end_puppet = SPI
+					end_puppet = FAV
+					end_puppet = GUN
+					end_puppet = RAG
+					end_puppet = DVA
+					end_puppet = AND
+				}
+				white_peace = DRA
+				white_peace = SPI
+				white_peace = GUN
+				white_peace = RAG
+				white_peace = DVA
+				white_peace = AND
 				start_peace_conference = {
 					tag = MOT
-					score_factor = 0.3
+					score_factor = 0.2
 					message = MOT_Won_3
 				}
 				MOT = { remove_mission = MOT_Civil_War_1_MOT }
@@ -3953,10 +3975,10 @@ MOT_War_Decisions_of_Us = {
 		icon = generic_ignite_civil_war
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = 150
+		days_mission_timeout = 200
 		activation = { always = no }
 		
-		available = { LAW = { surrender_progress > 0.5 } }
+		available = { LAW = { surrender_progress > 0.6 } }
 		timeout_effect = {
 			custom_effect_tooltip = MOT_Civil_War_1_Stop
 			set_global_flag = MOT_Civil_War_1_End
@@ -3992,10 +4014,9 @@ MOT_War_Decisions_of_Us = {
 				country_event = Knights.11
 			}
 			hidden_effect = {
-				
 				start_peace_conference = {
 					tag = LAW
-					score_factor = 0.3
+					score_factor = 0.2
 					message = MOT_Won_1
 				}
 				LAW = { remove_mission = MOT_Civil_War_1_LAW }
