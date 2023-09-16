@@ -822,7 +822,7 @@ country_event = {
 	
 	option = {
 		name = Church.18.a
-		add_stability = 0.03
+		add_stability = 0.02
 		ai_chance = { factor = 100 }
 	}
 }
@@ -1003,8 +1003,8 @@ country_event = {
 	
 	option = {
 		name = Church.26.a
-		add_war_support = 0.03
-		add_stability = 0.03
+		add_war_support = 0.02
+		add_stability = 0.02
 		MOT = {
 			custom_effect_tooltip = MOT_Resis_on_FAV_Up
 			add_to_variable = { MOT_Resist_in_FAV = 15 }
@@ -1176,7 +1176,7 @@ country_event = {
 	
 	option = {
 		name = Church.33.a
-		add_stability = 0.03
+		add_stability = 0.02
 		random_owned_state = {
 			limit = {
 				free_building_slots = {
@@ -1580,6 +1580,10 @@ country_event = {
 		2 = {
 			owner = FAV
 		}
+		AND = {
+			is_subject = no
+			is_puppet = no
+		}
 		original_tag = FAV
 		has_government = communism
 	}
@@ -1614,6 +1618,10 @@ country_event = {
 	trigger = {
 		2 = {
 			owner = FAV
+		}
+		AND = {
+			is_subject = no
+			is_puppet = no
 		}
 		original_tag = FAV
 		OR = {
@@ -1669,6 +1677,10 @@ country_event = {
 		2 = {
 			owner = FAV
 		}
+		AND = {
+			is_subject = no
+			is_puppet = no
+		}
 		original_tag = FAV
 		has_government = fascism
 	}
@@ -1718,18 +1730,589 @@ country_event = {
 	option = {
 		name = Church.45.a
 		set_country_flag = FAV_Broken_Connection
-		add_stability = 0.1
 		add_war_support = 0.1
 	}
 }
 #46 新约编写会议：开始
+country_event = { 
+	id = Church.46
+	title = Church.46.t
+	desc = Church.46.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	immediate = {
+		hidden_effect = { country_event = { Church.47 days = 3 } }
+	}
+	option = {
+		name = Church.46.a
+	}
+	option = {
+		name = Church.46.b
+	}
+}
 #47 会议1 神的地位
+country_event = { 
+	id = Church.47
+	title = Church.47.t
+	desc = Church.47.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.47.a
+		trigger = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+			}
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = { has_government = democratic }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+		}
+	}
+	option = {
+		name = Church.47.b
+		add_stability = 0.02
+	}
+	option = {
+		name = Church.47.c
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		add_war_support = 0.02
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+	}
+}
 #48 会议2 领导人地位
+country_event = { 
+	id = Church.48
+	title = Church.48.t
+	desc = Church.48.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.48.a
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		add_political_power = 100
+	}
+	option = {
+		name = Church.48.b
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.05
+		add_political_power = 50
+	}
+	option = {
+		name = Church.48.c
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.02
+	}
+}
 #49 会议3 教会的地位
+country_event = { 
+	id = Church.49
+	title = Church.49.t
+	desc = Church.49.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.49.a
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		add_political_power = 100
+		set_country_flag = FAV_MeetingChurch_NoCenter
+	}
+	option = {
+		name = Church.49.b
+		trigger = {
+			has_government = communism
+		}
+		add_stability = 0.05
+		add_political_power = 50
+		set_country_flag = FAV_MeetingChurch_Pioneer
+	}
+	option = {
+		name = Church.49.c
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.02
+		set_country_flag = FAV_MeetingChurch_Divide
+	}
+	option = {
+		name = Church.49.e
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+		}
+		add_political_power = 30
+		set_country_flag = FAV_MeetingChurch_Join
+	}
+	option = {
+		name = Church.49.f
+		trigger = {
+			has_government = fascism
+		}
+		add_war_support = 0.02
+		add_stability = -0.02
+	}
+}
 #50 会议4 蒙德未来的政府
+country_event = { 
+	id = Church.50
+	title = Church.50.t
+	desc = Church.50.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.50.a
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		add_political_power = 50
+		set_country_flag = FAV_MeetingGovern_Demo
+	}
+	option = {
+		name = Church.50.b
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		add_stability = 0.02
+		set_country_flag = FAV_MeetingGovern_Dic
+	}
+	option = {
+		name = Church.50.c
+		trigger = {
+			OR = {
+				has_government = democratic
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = Church.50.e
+		trigger = {
+			OR = {
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.05
+		add_political_power = 30
+	}
+	option = {
+		name = Church.50.f
+		trigger = {
+			has_government = fascism
+		}
+		add_war_support = 0.05
+		add_stability = -0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+	}
+}
 #51 会议5 关于赎罪券
+country_event = {
+	id = Church.51
+	title = Church.51.t
+	desc = Church.51.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.51.a
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_government = communism }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+	}
+	option = {
+		name = Church.51.b
+		trigger = {
+			has_government = democratic
+			has_government = communism
+		}
+		add_political_power = 30
+	}
+	option = {
+		name = Church.51.c
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+		}
+		IF = {
+			limit = {
+				has_government = democratic
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+		}
+		IF = {
+			limit = {
+				has_government = neutrality
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+	}
+	option = {
+		name = Church.51.e
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		add_timed_idea = { idea = gene_less_burden days = 180 }
+		1 = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+			}
+		}
+		2 = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+			}
+		}
+	}
+}
 #52 会议6 关于神学研究
+country_event = {
+	id = Church.52
+	title = Church.52.t
+	desc = Church.52.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.52.a
+		trigger = {
+			NOT = { has_government = fascism }
+		}
+		add_stability = 0.02
+	}
+	option = {
+		name = Church.52.b
+		trigger = {
+			NOT = { has_government = fascism }
+		}
+		add_political_power = 30
+	}
+	option = {
+		name = Church.52.c
+		trigger = {
+			NOT = { has_government = fascism }
+		}
+	}
+	option = {
+		name = Church.52.e
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.04
+	}
+}
 #53 会议7 关于异端 
+country_event = {
+	id = Church.53
+	title = Church.53.t
+	desc = Church.53.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.53.a
+		trigger = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+			}
+		}
+		add_political_power = 30
+	}
+	option = {
+		name = Church.53.b
+		trigger = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+				has_government = neutrality
+			}
+		}
+		add_political_power = -30
+		add_stability = 0.05
+	}
+	option = {
+		name = Church.53.c
+		trigger = {
+			has_government = democratic
+			has_government = neutrality
+		}
+		add_stability = 0.02
+	}
+	option = {
+		name = Church.53.e
+		trigger = {
+			has_government = fascism
+		}
+		add_war_support = 0.05
+	}
+}
 #54 会议8 对蒙德内战的缘由定性
+country_event = {
+	id = Church.54
+	title = Church.54.t
+	desc = Church.54.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.54.a
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = communism
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = Church.54.b
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = communism
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = Church.54.c
+		trigger = {
+			has_government = democratic
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = Church.54.e
+		trigger = {
+			has_government = fascism
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+	}
+}
 #55 会议9 关于非改革信徒
+country_event = {
+	id = Church.55
+	title = Church.55.t
+	desc = Church.55.d
+	picture = GFX_event_DRA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3
+	option = {
+		name = Church.55.a
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = communism
+			}
+		}
+		add_command_power = 30
+	}
+	option = {
+		name = Church.55.b
+		trigger = {
+			OR = {
+				has_government = democratic
+				has_government = communism
+				has_government = neutrality
+			}
+		}
+		add_stability = 0.02
+	}
+	option = {
+		name = Church.55.c
+		trigger = {
+			has_government = fascism
+		}
+		add_war_support = 0.02
+	}
+}
 #56 会议落幕
+country_event = {
+	id = Church.56
+	title = Church.56.t
+	desc = Church.56.d
+	picture = GFX_event_MOT002
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 10
+	option = {
+		name = Church.56.a
+		trigger = {
+			has_government = communism
+		}
+		IF = {
+			limit = { has_completed_focus = FAV_Rewrite_our_Bible }
+			complete_national_focus = FAV_Rewrite_our_Bible
+		}
+		set_global_flag = FAV_UnionMeeting_End
+	}
+	option = {
+		name = Church.56.b
+		trigger = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+			}
+		}
+		IF = {
+			limit = { has_completed_focus = FAV_Rewrite_our_Bible }
+			complete_national_focus = FAV_Rewrite_our_Bible
+		}
+		set_global_flag = FAV_UnionMeeting_End
+	}
+	option = {
+		name = Church.56.c
+		IF = {
+			limit = { has_completed_focus = FAV_Rewrite_our_Bible }
+			complete_national_focus = FAV_Rewrite_our_Bible
+		}
+		set_global_flag = FAV_UnionMeeting_End
+	}
+	option = {
+		name = Church.56.e
+		trigger = {
+			NOT = {
+				has_government = democratic
+				has_government = communism
+			}
+		}
+		IF = {
+			limit = { has_completed_focus = FAV_Rewrite_our_Bible }
+			complete_national_focus = FAV_Rewrite_our_Bible
+		}
+		set_global_flag = FAV_UnionMeeting_End
+	}
+	option = {
+		name = Church.56.f
+		trigger = {
+			has_government = neutrality
+		}
+		IF = {
+			limit = { has_completed_focus = FAV_Rewrite_our_Bible }
+			complete_national_focus = FAV_Rewrite_our_Bible
+		}
+		set_global_flag = FAV_UnionMeeting_End
+	}
+}
