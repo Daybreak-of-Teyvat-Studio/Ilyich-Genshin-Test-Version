@@ -1,5 +1,95 @@
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT = -500
+DVA_debug_category = {
+	DVA_load_focus = {
+		icon = generic_oppression
+
+		available = {
+			#
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		#
+
+		complete_effect = {
+			load_focus_tree = DVA_focustree
+		}
+	}
+	DVA_test_decision1 = {
+		icon = generic_oppression
+
+		available = {
+			divisions_in_border_state = {
+				type = cavalry
+				size > 4
+				state = 57
+				border_state = 58
+			}
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		#
+
+		complete_effect = {
+			declare_war_on = {
+				target = MOT
+				type = puppet_wargoal_focus
+			}
+			add_civil_war_target = MOT
+		}
+	}
+	DVA_test_decision2 = {
+		icon = generic_oppression
+
+		available = {
+			ships_in_state_ports = {
+				type = destoryer
+				size > 0
+				state = 59
+			}
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		#
+
+		complete_effect = {
+			#
+		}
+	}
+}
 #风龙领骚乱
 DVA_mass_of_dvalin_category = {
 	
@@ -1665,6 +1755,12 @@ DVA_mass_of_dvalin_category = {
 		
 		available = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
+			divisions_in_border_state = {
+				type = cavalry
+				size > 4
+				state = 57
+				border_state = 58
+			}
 		}
 		visible = {
 			NOT = {
@@ -2113,6 +2209,181 @@ DVA_stare_of_archon_category = {
 	}
 }
 
+#可莉的大冒险！！！
+DVA_Turn_Sun_Operation = {
+	DVA_Great_Adventure_of_Klee = {
+
+		icon = generic_civil_support
+
+		vailable = {
+			has_country_flag = DVA_Klee_adventure_flag
+		}
+
+		days_mission_timeout = 100
+
+		fire_only_once = yes
+
+		activation = {
+			always = no
+		}
+
+		cancel_trigger = {
+			has_country_flag = DVA_Klee_rescued
+		}
+
+		timeout_effect = {
+			MOT = {
+				declare_war_on = {
+					target = DVA
+					type = puppet_wargoal_focus
+				}
+			}
+		}
+	}
+	DVA_escape_from_Mondstadt = {
+
+		icon = generic_civil_support
+
+		vailable = {
+			has_country_flag = DVA_Klee_adventure_flag
+		}
+
+		days_mission_timeout = 5
+
+		fire_only_once = yes
+
+		activation = {
+			#
+		}
+
+		cancel_trigger = {
+			ships_in_state_ports = {
+				type = rescue_ship
+				size > 0
+				state = 59
+			}
+		}
+
+		timeout_effect = {
+			add_days_mission_timeout  = {
+				decision = DVA_Great_Adventure_of_Klee
+				days = 30
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_planA_flag
+				}
+				activate_mission = DVA_by_way_of_Springvale
+			}
+		}
+	}
+	DVA_by_way_of_Springvale = {
+
+		icon = generic_civil_support
+
+		vailable = {
+			has_country_flag = DVA_planB_flag
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		activation = {
+			NOT = {
+				has_active_mission = DVA_escape_from_Mondstadt
+			}
+		}
+
+		cancel_trigger = {
+			always = no
+		}
+
+		timeout_effect = {
+			country_event = dva.ab.11
+		}
+	}
+	DVA_carry_out_planA = {
+		icon = generic_oppression
+
+		available = {
+			ships_in_state_ports = {
+				type = rescue_ship
+				size > 0
+				state = 1
+			}
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		#
+
+		complete_effect = {
+			set_country_flag = DVA_planA_flag
+			activate_mission = DVA_escape_from_Mondstadt
+			add_days_mission_timeout  = {
+				decision = DVA_escape_from_Mondstadt
+				days = 90
+			}
+			create_equipment_variant = {
+				name = "救援船"
+				type = rescue_ship_1
+				name_group = DVA_TS_SV
+				role_icon_index = 1
+				modules = {
+					#
+				}
+			}
+			create_ship = {
+				type = rescue_ship_1
+				equipment_variant = "救援船"
+				creator = DVA
+				name = "太阳号"
+			}
+		}
+	}
+	DVA_carry_out_planB = {
+		icon = generic_oppression
+
+		available = {
+			#
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		#
+
+		complete_effect = {
+			set_country_flag = DVA_planB_flag
+			activate_mission = DVA_escape_from_Mondstadt
+			add_days_mission_timeout  = {
+				decision = DVA_escape_from_Mondstadt
+				days = 45
+			}
+		}
+	}
+}
+
 #学习蒙德城，建设风龙领
 DVA_simulate_MOT_category = {
 	#引进蒙德城先进技术
@@ -2336,6 +2607,7 @@ DVA_simulate_MOT_category = {
 				type = puppet_wargoal_focus
 			}
 			add_civil_war_target = MOT
+			set_cosmetic_tag = DVA_freedom
 			news_event = dva.news.1
 			MOT = {
 				country_event = Knights.18

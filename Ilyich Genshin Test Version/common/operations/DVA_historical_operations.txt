@@ -1,4 +1,4 @@
-rescue_Eula = { ### 1/50
+rescue_Eula = { ### 1/n
 	icon = GFX_operations_rescue_captured_operative
 	map_icon = GFX_operations_rescue_captured_operative_map
 	name = rescue_Eula
@@ -41,8 +41,8 @@ rescue_Eula = { ### 1/50
 				skill = 5
 				attack_skill = 5
 				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 2
+				planning_skill = 4
+				logistics_skill = 3
 			}
 		}
 	}
@@ -53,6 +53,101 @@ rescue_Eula = { ### 1/50
 		DVA = {
 			country_event = dva.ab.38
 		}
+	}
+	
+	# This is where all the separate phases are defined
+	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+	phases = { #infiltration
+		infiltration_border = { base = 30 }
+		infiltration_submarine = { base = 20 }
+		infiltration_paradrop = { 
+			base = 25 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_plane_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		infiltration_diplomatic = {
+			base = 25
+			modifier = {
+				factor = 20
+				ROOT = { has_war = no }
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				FROM = {
+					has_war_with = ROOT
+				}
+				factor = 0
+			}
+		}
+	}
+	phases = { #gather vital info
+		free_operative_free_in_transit = { base = 33 }
+		free_operative_liberate_camp = { base = 33 }
+		free_operative_smuggle_in_escape_gear = { base = 33 }
+	}
+	phases = { #exfiltration
+		exfiltration_air_pickup = { 
+			base = 15 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_plane_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		exfiltration_border = { base = 30 }
+		exfiltration_go_to_ground = { base = 30 }
+		exfiltration_submarine_pickup = { base = 25 }
+	}
+}
+
+rescue_Klee = { ### 2/n
+	icon = GFX_operations_rescue_captured_operative
+	map_icon = GFX_operations_rescue_captured_operative_map
+	name = rescue_Klee
+	desc = rescue_Klee_desc
+	days = 3
+
+	priority = 15
+
+	allowed = {
+		original_tag = DVA
+	}
+	available = {
+		NOT = {
+			has_country_flag = DVA_Klee_rescued
+		}
+	}
+	visible = {
+		has_completed_focus = DVA_bring_up_Spark_Knight
+	}
+
+	operatives = 1
+
+	network_strength = 20
+
+	on_start = {
+		
+	}
+
+	outcome_potential = {
+		activate_mission_tooltip = DVA_Great_Adventure_of_Klee
+	}
+	risk_chance = 0.25
+	experience = 50
+
+	outcome_execute = {
+		activate_mission = DVA_Great_Adventure_of_Klee
 	}
 	
 	# This is where all the separate phases are defined
