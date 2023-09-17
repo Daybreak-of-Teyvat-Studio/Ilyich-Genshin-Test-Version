@@ -3386,30 +3386,6 @@ focus_tree = {
 			GFS_Better_Agri = yes
 			GFS_Better_Army = yes
 			add_research_slots = 1
-			create_wargoal = {
-				type = annex_everything
-				target = GUN
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = RAG
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = DVA
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = DRA
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = SPI
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = AND
-			}
 			set_country_flag = FAV_Show_Focus_Tree1
 			mark_focus_tree_layout_dirty = yes
 		}
@@ -3616,6 +3592,639 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 51000
+		}
+	}
+
+	##以下为四线通用的战中国策
+	#迈向蒙德统一
+	focus = {
+		id = FAV_Towards_Union
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+		}
+		x = 32
+		y = 10
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		bypass = {
+			always = yes
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#挖掘战备潜力
+	focus = {
+		id = FAV_Dig_Potential_of_War
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 27
+		y = 11
+		completion_reward = {
+			add_tech_bonus = {
+				category = infantry_equipment
+				bonus = 1
+				uses = 1
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#统一的兵锋
+	focus = {
+		id = FAV_Attack_Enemies
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 32
+		y = 11
+		completion_reward = {
+			add_war_support = 0.1
+			create_wargoal = {
+				type = annex_everything
+				target = GUN
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = RAG
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = DVA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = DRA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = SPI
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = AND
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#重建控制
+	focus = {
+		id = FAV_Construct_Local_Government
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 37
+		y = 11
+		completion_reward = {
+			add_stability = 0.05
+			every_owned_state = {
+				add_resistance = -10
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合蒙德城
+	focus = {
+		id = FAV_Integrate_Mot_City
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			1 = { is_owned_by = FAV }
+			2 = { is_owned_by = FAV }
+			3 = { is_owned_by = FAV }
+			4 = { is_owned_by = FAV }
+			12 = { is_owned_by = FAV }
+			35 = { is_owned_by = FAV }
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		bypass = {
+			AND = {
+				1 = { is_core_of = FAV }
+				2 = { is_core_of = FAV }
+				3 = { is_core_of = FAV }
+				4 = { is_core_of = FAV }
+				12 = { is_core_of = FAV }
+				35 = { is_core_of = FAV }
+			}
+		}
+		x = 35
+		y = 12
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			1 = {
+				add_core_of	= FAV
+			}
+			2 = {
+				add_core_of	= FAV
+			}
+			3 = {
+				add_core_of	= FAV
+			}
+			4 = {
+				add_core_of	= FAV
+			}
+			12 = {
+				add_core_of	= FAV
+			}
+			35 = {
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合南方领
+	focus = {
+		id = FAV_Integrate_LAW
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = LAW }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		x = 37
+		y = 12
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = LAW
+				}
+				add_core_of	= FAV
+			}
+		}
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = LAW }
+				}
+				is_core_of = MOT
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合清泉镇
+	focus = {
+		id = FAV_Integrate_SPI
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = SPI }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Integrate_Mot_City
+		}
+		x = 35
+		y = 13
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = SPI }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -35
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = SPI
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合北方领
+	focus = {
+		id = FAV_Integrate_GUN
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = GUN }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		x = 39
+		y = 12
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = GUN }
+				}
+				is_core_of = FAV
+			}
+		}
+		completion_reward = {
+			add_political_power = -35
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = GUN
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合龙脊雪山
+	focus = {
+		id = FAV_Integrate_DRA
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = DRA }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Integrate_Mot_City
+			focus = FAV_Integrate_LAW
+		}
+		x = 37
+		y = 13
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = DRA }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = DRA
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合莱艮芬德
+	focus = {
+		id = FAV_Integrate_RAG
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = RAG }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Integrate_SPI
+		}
+		x = 35
+		y = 14
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = RAG }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = RAG
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合奔狼领
+	focus = {
+		id = FAV_Integrate_ANI
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = and }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Integrate_RAG
+			focus = FAV_Integrate_DRA
+		}
+		x = 36
+		y = 15
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = and }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = and
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合风龙领
+	focus = {
+		id = FAV_Integrate_DVA
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = DVA }
+				}
+				is_owned_by	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		prerequisite = {
+			focus = FAV_Integrate_GUN
+			focus = FAV_Integrate_ANI
+		}
+		x = 38
+		y = 16
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = DVA }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = DVA
+				}
+				add_core_of	= FAV
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 1000
 		}
 	}
 }
