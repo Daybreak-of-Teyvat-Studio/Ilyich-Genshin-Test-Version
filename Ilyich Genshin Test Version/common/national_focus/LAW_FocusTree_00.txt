@@ -2,7 +2,578 @@ focus_tree = {
 	id = LAW_Focus_00
 	country = {
 		factor = 0
+		modifier = {
+			add = 1
+			tag = LAW
+		}
 	}
-	continuous_focus_position = { x=300 y=3000}
+	initial_show_position = {
+		focus = LAW_Lawrence_Up_Again
+	}
+	continuous_focus_position = { x=300 y=3000 }
 	default = no
+	#战前国策
+	#开拓冰雪之族，重现人间
+	focus = {
+		id = LAW_Lawrence_Up_Again
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 10
+		y = 1
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_political_power = 100
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#联络至冬国
+	#资金援助
+	#顾问指导
+	#空头支票
+	#“志愿部队”
+	#“失窃兵器”
+	#“个人行为”
+	#“当地事务”
+	#兵器不分善恶
+	#莅临指导
+	#光荣的战术指导
+	#兵器设计的指导
+	#部队组织的指导
+	#海军作战的指导
+	#空军作战的指导
+	#联络旧贵族
+	focus = {
+		id = LAW_Connection_with_Lords
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 10
+		y = 2
+		prerequisite = {
+			focus = LAW_Lawrence_Up_Again
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_war_support = 0.05
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#善战勇猛，祭礼大剑
+	focus = {
+		id = LAW_Connection_with_Emoloka
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 9
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Lords
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 500
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#经验支持
+	focus = {
+		id = LAW_Emolokas_Help
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 9
+		y = 4
+		prerequisite = {
+			focus = LAW_Connection_with_Emoloka
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			army_experience = 30
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				cost_reduction = 0.5
+			}
+			set_country_flag = LAW_Focus_Completed_1
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#温和善护，祭礼之刃
+	focus = {
+		id = LAW_Connection_with_GUN
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 11
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Lords
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 500
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#内部破坏
+	focus = {
+		id = LAW_Break_From_Internal
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 11
+		y = 4
+		prerequisite = {
+			focus = LAW_Connection_with_GUN
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			MOT = {
+				add_stability = -0.1
+				add_war_support = -0.1
+			}
+			GUN = {
+				add_stability = -0.1
+				add_war_support = -0.1
+			}
+			set_country_flag = LAW_Focus_Completed_2
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#神圣光荣的同盟
+	focus = {
+		id = LAW_Holy_Union_of_Glory
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 10
+		y = 5
+		prerequisite = {
+			focus = LAW_Emolokas_Help
+			focus = LAW_Break_From_Internal
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			IF = {
+				limit = { has_country_flag = LAW_Focus_Completed_1 }
+			}
+			IF = {
+				limit = { has_country_flag = LAW_Focus_Completed_2 }
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+
+	#联络自由派
+	focus = {
+		id = LAW_Connection_with_Libertist
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 14
+		y = 2
+		prerequisite = {
+			focus = LAW_Lawrence_Up_Again
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_war_support = 0.05
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#一点许诺
+	focus = {
+		id = LAW_Little_Approvement
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 13
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Libertist
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_political_power = 100
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#出卖绞索
+	focus = {
+		id = LAW_Purchase_Weapons
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 13
+		y = 4
+		prerequisite = {
+			focus = LAW_Little_Approvement
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#驭使口舌
+	focus = {
+		id = LAW_Use_the_News
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 15
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Libertist
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			MOT = {
+				custom_effect_tooltip = MOT_Influ_on_LAW_Down
+				add_to_variable = { MOT_Control_in_LAW = -20 }
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#取得支持
+	focus = {
+		id = LAW_Get_Libers_Support
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 14
+		y = 5
+		prerequisite = {
+			focus = LAW_Use_the_News
+			focus = LAW_Purchase_Weapons
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_stability = 0.05
+			add_political_power = 100
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#联络野心家
+	focus = {
+		id = LAW_Connection_with_Fire
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 6
+		y = 2
+		prerequisite = {
+			focus = LAW_Lawrence_Up_Again
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_war_support = 0.05
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#失乡之人
+	focus = {
+		id = LAW_People_Lose_Homeland
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 7
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Fire
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			navy_experience = 40
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#深渊之眼
+	focus = {
+		id = LAW_Eyes_of_Darkness
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 7
+		y = 4
+		prerequisite = {
+			focus = LAW_People_Lose_Homeland
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			create_ship = {
+				name = "Left Hand of Truth"
+				type = ship_hull_submarine_1
+				equipment_variant = "S Class"
+				creator = LAW
+			}
+			create_ship = {
+				name = "Right Hand of Truth"
+				type = ship_hull_submarine_1
+				equipment_variant = "S Class"
+				creator = LAW
+			}
+			create_ship = {
+				name = "Left Eye of Truth"
+				type = ship_hull_submarine_1
+				equipment_variant = "S Class"
+				creator = LAW
+			}
+			create_ship = {
+				name = "Right Eye of Truth"
+				type = ship_hull_submarine_1
+				equipment_variant = "S Class"
+				creator = LAW
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#狂信之徒
+	focus = {
+		id = LAW_People_With_Faith
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 5
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Fire
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			air_experience = 50
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#轻轻一推
+	focus = {
+		id = LAW_Just_a_Push
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 6
+		y = 5
+		prerequisite = {
+			focus = LAW_Eyes_of_Darkness
+			focus = LAW_People_With_Faith
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_doctrine_cost_reduction = {
+				category = navy_doctrine
+				cost_reduction = 0.5
+			}
+			add_doctrine_cost_reduction = {
+				category = air_doctrine
+				cost_reduction = 0.5
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#祭礼之书，翻开新章
+
+	#优菈
+	#解决旧贵族
+	#解决愚人众
+	#
+	#
+	#
+	#
+
 }
