@@ -3,7 +3,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 1
+			add = 1000
 			tag = LAW
 		}
 	}
@@ -35,24 +35,459 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 500
 		}
 	}
 	#联络至冬国
+	focus = {
+		id = LAW_Connection_with_Winter
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 2
+		y = 2
+		prerequisite = {
+			focus = LAW_Lawrence_Up_Again
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				add_political_power = 100
+			}
+			add_stability = 0.1
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#资金援助
+	focus = {
+		id = LAW_Support_of_Mora
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 1
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Winter
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				add_political_power = 50
+			}
+			add_timed_idea = { idea = gene_less_burden days = 360 }
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#顾问指导
+	focus = {
+		id = LAW_Support_of_Mili
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 3
+		y = 3
+		prerequisite = {
+			focus = LAW_Connection_with_Winter
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				add_war_support = 0.1
+			}
+			army_experience = 50
+			add_command_power = 50
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#空头支票
+	focus = {
+		id = LAW_Vacant_Bill
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 2
+		y = 4
+		prerequisite = {
+			focus = LAW_Support_of_Mili
+			focus = LAW_Support_of_Mora
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				add_political_power = 100
+			}
+			add_ideas = LAW_Influence_of_SNE1
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#“志愿部队”
+	focus = {
+		id = LAW_Voluntary_Army
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 0
+		y = 5
+		prerequisite = {
+			focus = LAW_Vacant_Bill
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				army_experience = 30
+			}
+			
+			capital_scope = {
+				create_unit = {
+					division = "name = \""Volunteers of Fools"\" division_template = \""Volunteers of the Fool"\" start_experience_factor = 1 start_equipment_factor = 1.0"
+					owner = ROOT
+					count = 4
+				}
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#“失窃兵器”
+	focus = {
+		id = LAW_Military_Help
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 2
+		y = 5
+		prerequisite = {
+			focus = LAW_Vacant_Bill
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				army_experience = 30
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 1000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 500
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#“个人行为”
-	#“当地事务”
+	focus = {
+		id = LAW_Technological_Material
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 4
+		y = 5
+		prerequisite = {
+			focus = LAW_Vacant_Bill
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				army_experience = 30
+				add_tech_bonus = {
+					category = electronics
+					bonus = 0.5
+					uses = 1
+				}
+			}
+			add_stability = -0.05
+			add_manpower = -1500
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+			}
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#兵器不分善恶
+	focus = {
+		id = LAW_Evil_Eyes
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 2
+		y = 6
+		prerequisite = {
+			focus = LAW_Technological_Material
+			focus = LAW_Voluntary_Army
+			focus = LAW_Military_Help
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			SNE = {
+				army_experience = 30
+				add_tech_bonus = {
+					category = infantry_equipment
+					bonus = 1
+					uses = 1
+				}
+			}
+			add_stability = -0.1
+			add_ideas = LAW_Evil_Eyes_Army1
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#莅临指导
+	focus = {
+		id = LAW_Lords_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 19
+		y = 2
+		prerequisite = {
+			focus = LAW_Lawrence_Up_Again
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_stability = 0.05
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#光荣的战术指导
+	focus = {
+		id = LAW_Military_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 19
+		y = 3
+		prerequisite = {
+			focus = LAW_Lords_Guide
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			army_experience = -20
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_country_flag = LAW_Shubert_Death
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#兵器设计的指导
+	focus = {
+		id = LAW_Weapons_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 18
+		y = 4
+		prerequisite = {
+			focus = LAW_Military_Guide
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			army_experience = -20
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_country_flag = LAW_Shubert_Death
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#部队组织的指导
+	focus = {
+		id = LAW_Command_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 4
+		prerequisite = {
+			focus = LAW_Military_Guide
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_command_power = -30
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_country_flag = LAW_Shubert_Death
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#海军作战的指导
+	focus = {
+		id = LAW_NavalWarfare_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 17
+		y = 3
+		prerequisite = {
+			focus = LAW_Lords_Guide
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			navy_experience = -20
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_country_flag = LAW_Shubert_Death
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#空军作战的指导
+	focus = {
+		id = LAW_AirWarfare_Guide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 21
+		y = 3
+		prerequisite = {
+			focus = LAW_Lords_Guide
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			air_experience = -20
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_country_flag = LAW_Shubert_Death
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#联络旧贵族
 	focus = {
 		id = LAW_Connection_with_Lords
