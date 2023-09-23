@@ -51,6 +51,9 @@ focus_tree = {
 		bypass = {
 			always = no
 		}
+		allow_branch = {
+			NOT = { has_country_flag = FAV_Show_Focus_Tree2 }
+		}
 		ai_will_do = {
 			base = 5
 		}
@@ -90,6 +93,9 @@ focus_tree = {
 		available_if_capitulated = no
 		bypass = {
 			always = no
+		}
+		allow_branch = {
+			NOT = { has_country_flag = FAV_Show_Focus_Tree2 }
 		}
 		ai_will_do = {
 			base = 5
@@ -244,7 +250,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 500
 		}
 	}
 	#罗莎莉亚 知己知彼 FAV_Know_our_Enemies
@@ -290,7 +296,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 500
 		}
 	}
 	#芭芭拉 食我之肉
@@ -334,7 +340,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 1000
 		}
 	}
 	#罗莎莉亚 饮敌之血 FAV_Drink_their_Blood
@@ -378,7 +384,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 1000
 		}
 	}
 	#芭芭拉 我常与你们同在，直到世界的末日
@@ -422,7 +428,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 2000
 		}
 	}
 	#罗莎莉亚 你改悔罢，因为那日子近了 FAV_You_Regret_for_the_Coming_Day
@@ -466,7 +472,7 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 2000
 		}
 	}
 	###辩论奖励线
@@ -1640,6 +1646,7 @@ focus_tree = {
 			focus = FAV_Play_the_Show
 		}
 		completion_reward = {
+			set_cosmetic_tag = FAV_Comm_of_AntiChurch
 			custom_effect_tooltip = FAV_Run_the_Facist
 			MOT = {
 				give_military_access = FAV
@@ -1790,6 +1797,7 @@ focus_tree = {
 			focus = FAV_Honor_for_People
 		}
 		completion_reward = {
+			set_cosmetic_tag = FAV_Fasc_of_AntiChurch
 			custom_effect_tooltip = FAV_Run_the_Communist
 			set_country_flag = FAV_Communist_Run
 			remove_ideas = FAV_Fight_Inside
@@ -1862,12 +1870,10 @@ focus_tree = {
 			focus = FAV_Judge_Angel
 		}
 		completion_reward = {
+			set_cosmetic_tag = FAV_Left_of_AntiChurch
 			add_popularity = {
 				ideology = democratic
 				popularity = 0.2
-			}
-			MOT = {
-				give_military_access = FAV
 			}
 			add_stability = 0.1
 		}
@@ -1898,6 +1904,7 @@ focus_tree = {
 			focus = FAV_Light_of_Miracle
 		}
 		completion_reward = {
+			set_cosmetic_tag = FAV_Right_of_AntiChurch
 			set_politics = {
 				ruling_party = neutrality
 			}
@@ -1979,6 +1986,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FAV_Honor_for_People
 			focus = FAV_Light_of_Miracle
+			focus = FAV_Judge_Angel
 		}
 		completion_reward = {
 			declare_war_on = {
@@ -1995,6 +2003,9 @@ focus_tree = {
 			add_opinion_modifier = {
 				target = MOT
 				modifier = FAV_partnership
+			}
+			MOT = {
+				give_military_access = FAV
 			}
 			MOT = {
 				add_opinion_modifier = {
@@ -2036,6 +2047,7 @@ focus_tree = {
 		y = 11
 		prerequisite = {
 			focus = FAV_Honor_for_People
+			focus = FAV_Light_of_Miracle
 			focus = FAV_Judge_Angel
 		}
 		will_lead_to_war_with = MOT
@@ -3430,8 +3442,7 @@ focus_tree = {
 		x = 16
 		y = 17
 		allow_branch = {
-			has_government = communism
-			has_country_flag = FAV_Show_Focus_Tree1
+			always = no
 		}
 		completion_reward = {
 			set_cosmetic_tag = FAV_Republic_of_People
@@ -3479,8 +3490,7 @@ focus_tree = {
 		x = 16
 		y = 17
 		allow_branch = {
-			has_government = democratic
-			has_country_flag = FAV_Show_Focus_Tree1
+			always = no
 		}
 		completion_reward = {
 			set_cosmetic_tag = FAV_Holy_MOT_Federation
@@ -3528,8 +3538,7 @@ focus_tree = {
 		x = 16
 		y = 17
 		allow_branch = {
-			has_government = neutrality
-			has_country_flag = FAV_Show_Focus_Tree1
+			always = no
 		}
 		completion_reward = {
 			set_cosmetic_tag = FAV_Holy_MOT_Federation
@@ -3577,8 +3586,7 @@ focus_tree = {
 		x = 16
 		y = 17
 		allow_branch = {
-			has_government = fascism
-			has_country_flag = FAV_Show_Focus_Tree1
+			always = no
 		}
 		completion_reward = {
 			set_cosmetic_tag = FAV_Holy_MOT_Federation
@@ -4838,6 +4846,7 @@ focus_tree = {
 		x = 38
 		y = 11
 		completion_reward = {
+			custom_effect_tooltip = FAV_Complete_Union_Get_Cores
 			add_stability = 0.05
 			every_owned_state = {
 				add_resistance = -10
@@ -5551,6 +5560,252 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1000
+		}
+	}
+	#红线统一 明日之星冉冉升起
+	focus = {
+		id = FAV_REnd_Rising_Star
+		icon = GFX_Goal_Victory_of_Communism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = communism
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_CCC
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_CCC
+			set_cosmetic_tag = FAV_Republic_of_People
+			FAV_Barbara = {
+				add_country_leader_trait = FAV_Light_of_Miracle
+			}
+			set_country_leader_description = {
+				desc = FAV_Barbara_REND_desc
+			}
+			set_global_flag = FAV_Union_Show_News_CCC
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				play_song = "SAVE Medley"
+				set_popularities = {
+					communism = 0.6
+					democratic = 0.25
+					genshin = 0.1
+					neutrality = 0.05
+					fascism = 0
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#蓝线统一 光辉的季节
+	focus = {
+		id = FAV_BEnd_Season_of_Light
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = democratic
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_DDD
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_DDD
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Barbara = {
+				add_country_leader_trait = FAV_Light_Idol
+			}
+			set_country_leader_description = {
+				desc = FAV_Barbara_BEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					democratic = 0.5
+					neutrality = 0.3
+					communism = 0.1
+					genshin = 0.05
+					fascism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#灰线统一 稳定与虔诚的归来
+	focus = {
+		id = FAV_GEnd_Stability_Return
+		icon = GFX_Goal_Victory_of_Fascism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = neutrality
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_NNN
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_NNN
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Rosary = {
+				add_country_leader_trait = FAV_Shadow_Listening
+			}
+			set_country_leader_description = {
+				desc = FAV_Rosary_GEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					neutrality = 0.5
+					democratic = 0.3
+					fascism = 0.1
+					genshin = 0.05
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#黑线统一 那日子近了
+	focus = {
+		id = FAV_FEnd_the_Day_Coming
+		icon = GFX_Goal_Victory_of_Fascism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = fascism
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_FFF
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_FFF
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Rosary = {
+				add_country_leader_trait = FAV_Faith_of_Death
+			}
+			set_country_leader_description = {
+				desc = FAV_Rosary_FEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.2
+			add_war_support = -0.2
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					fascism = 0.75
+					neutrality = 0.15
+					democratic = 0.05
+					genshin = 0
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
 		}
 	}
 }

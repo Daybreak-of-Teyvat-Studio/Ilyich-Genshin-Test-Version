@@ -1,4 +1,842 @@
-#神学辩论
+##组织行动
+#相关变量：
+# 同时可执行决议数 FAV_MaxNumber_of_Action FAV_HasNumber_of_Action
+FAV_Basing_on_Development = {
+    ##农业
+    #2级 乡村巡回讲道
+    FAV_BOD_Agri_2_Village_Speech = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability < 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri2
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        modifier = {
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #3级 吸引农民参军
+    FAV_BOD_Agri_3_Village_Mobili = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.6
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        modifier = {
+            mobilization_speed_factor = 0.25
+            manpower_weekly = 1000
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #3级 红 组织农业合作社
+    FAV_BOD_Agri_3_Village_Cooperative = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            has_government = communism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            communism_drift = 0.05
+            political_power_gain = 0.05
+            production_speed_infrastructure_factor = 0.25
+            production_speed_industrial_complex_factor = 0.15
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #3级 黑 乡村宗教集会
+    FAV_BOD_Agri_3_Village_Holy = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            has_government = fascism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            fascism_drift = 0.1
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级 农业生产调整
+    FAV_BOD_Agri_4_Village_Production = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            consumer_goods_factor = -0.05
+            stability_weekly = -0.002
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级农业 红 推广枫丹农业机械
+    FAV_BOD_Agri_4_Production_Machine = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            local_resources_factor = 0.2
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级农业 红 动员乡村建设
+    FAV_BOD_Agri_4_Construction = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            production_speed_infrastructure_factor = 0.25
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = infrastructure
+                        level > 2
+                    }
+                }
+                add_building_construction = {
+                    type = infantry_equipment
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #农业4级 蓝 鼓励乡镇企业发展
+    FAV_BOD_Agri_4_Enterprise = {
+        cost = 50
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = democratic
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            production_speed_industrial_complex_factor = 0.2
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #农业四级 灰 温和农业整合
+    FAV_BOD_Agri_4_Annex_Land = {
+        cost = 60
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = neutrality
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 5
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #工业2级 投资工业生产
+    FAV_BOD_Indu_2_Invest_Fatories = {
+        cost = 80
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Industry2
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry2
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 5
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #工业3级 工人激励行动
+    FAV_BOD_Indu_3_Workers_Initiative = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            war_support_weekly = -0.005
+            industrial_capacity_factory = 0.1
+            production_factory_efficiency_gain_factor = 0.25
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业3级 红/黑 军工业强制整合
+    FAV_BOD_Indu_3_Arms_Merge = {
+        cost = 60
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 6
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = communism
+                has_government = fascism
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 7
+            stability_weekly = -0.005
+            production_speed_arms_factory_factor = 0.2
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 1
+                    }
+                    add_building_construction = {
+                        type = arms_factory
+                        level = 2
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #灰/蓝 安抚工人情绪
+    FAV_BOD_Indu_3_Workers_Mood = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = democratic
+                has_government = neutrality
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业4级 举办城镇游行
+    FAV_BOD_Indu_4_City_Activity = {
+        cost = 30
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业四级 红 宣传平等思想
+    FAV_BOD_Indu_4_Equality_Ideas = {
+        cost = 0
+        days_re_enable = 35
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #黑 调和阶级矛盾
+    FAV_BOD_Indu_4_Mild_Level = {
+        cost = 70
+        days_re_enable = 35
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability < 0.8
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            stability_weekly = 0.01
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #灰/蓝 企业临时减税
+    FAV_BOD_Indu_4_Arms_Expand = {
+        cost = 60
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 6
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = democratic
+                has_government = neutrality
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 7
+            stability_weekly = -0.005
+            production_speed_arms_factory_factor = 0.2
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 1
+                    }
+                    add_building_construction = {
+                        type = arms_factory
+                        level = 2
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #
+}
+##神学辩论
 #相关变量：
 # 分数 我方 FAV_Victory_Ps_We 对方 FAV_Victory_Ps_They
 # 手段 我方 FAV_Action_Type_We 对方 FAV_Action_Type_They
