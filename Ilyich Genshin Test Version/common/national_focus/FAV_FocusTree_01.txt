@@ -11,6 +11,7 @@ focus_tree = {
 	reset_on_civilwar = no
 	continuous_focus_position = { x = 300 y = 3000 }
 	###开头
+	#迈向未来
 	focus = {
 		id = FAV_the_New_Beginning_of_MOT
 		icon = GFX_goal_generic_forceful_treaty
@@ -20,8 +21,29 @@ focus_tree = {
 		completion_reward = {
 			
 		}
-		available = {
-			MOT_Reunite_Trigger_Get = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#审计损失
+	focus = {
+		id = FAV_Know_What_We_Lost
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 1.00
+		x = 18
+		y = 2
+		prerequisite = {
+			focus = FAV_the_New_Beginning_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -30,7 +52,728 @@ focus_tree = {
 			always = no
 		}
 		ai_will_do = {
-			base = 5
+			base = 500
 		}
 	}
+	#镇压叛乱
+	focus = {
+		id = FAV_Oppress_the_Resistance
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 1.00
+		x = 20
+		y = 2
+		prerequisite = {
+			focus = FAV_the_New_Beginning_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#建立管理
+	focus = {
+		id = FAV_Build_Control
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 1.00
+		x = 22
+		y = 2
+		prerequisite = {
+			focus = FAV_the_New_Beginning_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#红 洒下初晖
+	focus = {
+		id = FAV_RP_First_Light
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Oppress_the_Resistance
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 雄鹰敛羽
+	focus = {
+		id = FAV_FP_Refresh_Our_Flesh
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Oppress_the_Resistance
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝灰 神圣宪法
+	focus = {
+		id = FAV_DP_Holy_Law
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Oppress_the_Resistance
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_NNN
+				has_global_flag = FAV_REUNION_DDD
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#降低征兵
+	#红 新的萨拉丁
+	focus = {
+		id = FAV_RP_Rebuild_Economy
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_RP_First_Light
+		}
+		completion_reward = {
+			MOT_Manpower_Law_Down = yes
+			every_owned_state = {
+				limit = { NOT = { has_state_category = wasteland } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = 100
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = FAV_FP_Warfare_First
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_FP_Refresh_Our_Flesh
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_high_burden days = 140 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝灰 回归家庭
+	focus = {
+		id = FAV_DP_Come_Back_Home
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			MOT_Manpower_Law_Down = yes
+			MOT_Manpower_Law_Down = yes
+			add_political_power = 200
+			add_war_support = 0.05
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_NNN
+				has_global_flag = FAV_REUNION_DDD
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#恢复经济
+	#红 蒙德面包，璃月方糖
+	focus = {
+		id = FAV_RP_Faster_Mobilization
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_RP_First_Light
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 紧握剑柄
+	focus = {
+		id = FAV_FP_Catch_the_Sword
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_FP_Refresh_Our_Flesh
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			add_war_support = 0.05
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 下午茶的回归
+	focus = {
+		id = FAV_DP_Tea_Party
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			add_political_power = 200
+			add_timed_idea = { idea = gene_less_burden days = 360 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 莫忘旧事
+	focus = {
+		id = FAV_NP_No_Forget_Olds
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			MOT_Mobile_Law_Down = yes
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#基层控制力
+	#红1 来自千万的星辰
+	focus = {
+		id = FAV_RP_Peoples_Piety
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			FAV_Better_Deve_of_A2 = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+			has_country_flag = FAV_MeetingChurch_NoCenter
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#红2 神职人员的责任
+	focus = {
+		id = FAV_RP_Churchs_Piety
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			add_political_power = -100
+			add_stability = 0.05
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+			has_country_flag = FAV_MeetingChurch_Pioneer
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 皆为神愿
+	focus = {
+		id = FAV_FP_All_For_God
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_FP_Catch_the_Sword
+			focus = FAV_FP_Warfare_First
+		}
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			add_political_power = -100
+			add_war_support  =0.05
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 利用旧教士
+	focus = {
+		id = FAV_NP_Use_Olds
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 1.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_NP_No_Forget_Olds
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 白纸上的描绘
+	focus = {
+		id = FAV_DP_Draw_on_Paper
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			add_political_power = -200
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			MOT_Up_Level_of_Poli = yes
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#残余反对派
+	#红 积成美好的根基
+	focus = {
+		id = FAV_RP_Build_Beautiful_Base
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 15.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			DRA_united_improved = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.25
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 如同毒癌，愈烂愈大
+	focus = {
+		id = FAV_FP_Kill_Them_All
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_FP_Catch_the_Sword
+			focus = FAV_FP_Warfare_First
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_stability = 0.1
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.3
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 为万人祝谢
+	focus = {
+		id = FAV_DP_Pray_for_Us
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_stability = -0.05
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 摆脱魔鬼的罗网
+	focus = {
+		id = FAV_NP_Out_of_Trap
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_NP_No_Forget_Olds
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_political_power = 100
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.25
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#各地区孤立状态
+	#红
+	#蓝
+	#灰
+	#持定真正的生命
 }
