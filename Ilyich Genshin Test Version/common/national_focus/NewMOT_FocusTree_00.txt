@@ -3129,6 +3129,7 @@ focus_tree = {
 		available_if_capitulated = no
 		allow_branch = {
 			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
 		}
 		ai_will_do = {
 			base = 4
@@ -3159,9 +3160,6 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_Begun
-		}
 		ai_will_do = {
 			base = 10
 		}
@@ -3192,9 +3190,6 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_Begun
-		}
 		bypass = {
 			has_global_flag = MOT_Civil_War_1_End
 		}
@@ -3226,10 +3221,7 @@ focus_tree = {
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
-		available_if_capitulated = no
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_Begun
-		}
+		available_if_capitulated = MOT_Noelle_Exp
 		ai_will_do = {
 			base = 10
 		}
@@ -3325,9 +3317,6 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
-		}
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_Begun
 		}
 		ai_will_do = {
 			base = 50
@@ -4830,9 +4819,6 @@ focus_tree = {
 		}
 		available = {
 		}
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_1_End
-		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
@@ -5292,6 +5278,7 @@ focus_tree = {
 			add_research_slots = 1
 			hidden_effect = {
 				FAV_Unite_the_MOT = yes
+				MOT_Reunite_Yes = yes
 			}
 			country_event = Knights.152
 			IF = {
@@ -5309,7 +5296,13 @@ focus_tree = {
 			focus = MOT_PP_To_Victory
 		}
 		allow_branch = {
+			NOT = { has_global_flag = MOT_REUNITED }
+			OR = {
+				has_global_flag = MOT_Civil_War_1_End
+				has_country_flag = MOT_PP_Unlock
+			}
 			has_country_flag = MOT_Jean_Ill
+			NOT = { has_country_flag = MOT_Noelle_Blacken }
 		}
 		available = {
 			MOT_Reunite_Trigger_Get = yes
@@ -5339,11 +5332,6 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_PP_Begin_Noelle
 		}
-		allow_branch = {
-			has_global_flag = MOT_Civil_War_1_End
-			has_country_flag = MOT_Jean_Ill
-			NOT = { has_country_flag = MOT_Noelle_Blacken } 
-		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MOT_PPWay2
@@ -5352,6 +5340,15 @@ focus_tree = {
 					days > 29
 				}
 			}
+		}
+		allow_branch = {
+			NOT = { has_global_flag = MOT_REUNITED }
+			OR = {
+				has_global_flag = MOT_Civil_War_1_End
+				has_country_flag = MOT_PP_Unlock
+			}
+			has_country_flag = MOT_Jean_Ill
+			NOT = { has_country_flag = MOT_Noelle_Blacken }
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -6665,7 +6662,13 @@ focus_tree = {
 			focus = MOT_PP_Begin_Noelle
 		}
 		allow_branch = {
+			has_country_flag = MOT_Jean_Ill
 			has_country_flag = MOT_Noelle_Blacken
+			NOT = { has_global_flag = MOT_REUNITED }
+			OR = {
+				has_global_flag = MOT_Civil_War_1_End
+				has_country_flag = MOT_PP_Unlock
+			}
 		}
 		available = {
 		}
@@ -6940,6 +6943,7 @@ focus_tree = {
 		y = 5
 		completion_reward = {
 			custom_effect_tooltip = MOT_Route_Done
+			set_country_flag = MOT_FWay_Done
 			add_to_variable = { MOT_Noelle_Exp = 1 }
 			custom_effect_tooltip = MOT_BetterBonus_For_STWS
 			set_temp_variable = { MOT_Temp_Var1 = 1 }
@@ -7520,17 +7524,24 @@ focus_tree = {
 			add_research_slots = 1
 			hidden_effect = {
 				FAV_Unite_the_MOT = yes
+				MOT_Reunite_Yes = yes
 			}
+			set_global_flag = MOT_REUNITED
 			country_event = Knights.153
 			custom_effect_tooltip = MOT_Build_Fascism
 		}
 		prerequisite = {
-			focus = MOT_PP_Noelle_F61
+			focus = MOT_PP_Noelle_F_61
 			focus = MOT_PP_To_Victory
 		}
 		allow_branch = {
 			has_country_flag = MOT_Jean_Ill
 			has_country_flag = MOT_Noelle_Blacken
+			NOT = { has_global_flag = MOT_REUNITED }
+			OR = {
+				has_global_flag = MOT_Civil_War_1_End
+				has_country_flag = MOT_PP_Unlock
+			}
 		}
 		available = {
 			MOT_Reunite_Trigger_Get = yes
@@ -10286,7 +10297,7 @@ focus_tree = {
 					popularity = 0.01
 				}
 			}
-			set_country_flag = MOT_GWay_LordsWay
+			has_country_flag = MOT_GWay_LordsWay
 			set_country_flag = MOT_G_Way_Focus_Done
 			custom_effect_tooltip = MOT_PHigher_Limit_of_L
 			custom_effect_tooltip = MOT_SHigher_Limit_of_L
@@ -11000,6 +11011,7 @@ focus_tree = {
 			add_research_slots = 1
 			hidden_effect = {
 				FAV_Unite_the_MOT = yes
+				MOT_Reunite_Yes = yes
 			}
 			IF = {
 				limit = {
@@ -11024,6 +11036,14 @@ focus_tree = {
 		}
 		available = {
 			MOT_Reunite_Trigger_Get = yes
+		}
+		allow_branch = {
+			NOT = { has_global_flag = MOT_REUNITED }
+			OR = {
+				has_global_flag = MOT_Civil_War_1_End
+				has_country_flag = MOT_PP_Unlock
+			}
+			NOT = { has_country_flag = MOT_Jean_Ill }
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -13973,6 +13993,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_GP_Suppress_Mainly
 		}
+		allow_branch = {
+			has_country_flag = MOT_GWay_TraderWay
+			has_global_flag = MOT_REUNION_N
+		}
 		available = {
 		}
 		cancel_if_invalid = yes
@@ -14014,7 +14038,8 @@ focus_tree = {
 			focus = MOT_GP_Suppress_Mainly
 		}
 		allow_branch = {
-			has_country_flag = MOT_G_Way_Focus_Done
+			has_country_flag = MOT_GWay_LordsWay
+			has_global_flag = MOT_REUNION_N
 		}
 		available = {
 		}
@@ -14499,7 +14524,8 @@ focus_tree = {
 
 		}
 		allow_branch = {
-			set_country_flag = MOT_GWay_TraderWay
+			has_country_flag = MOT_GWay_TraderWay
+			has_global_flag = MOT_REUNION_N
 		}
 		prerequisite = {
 			focus = MOT_GP_Strike_on_Criminal
@@ -14541,7 +14567,8 @@ focus_tree = {
 
 		}
 		allow_branch = {
-			set_country_flag = MOT_GWay_LordsWay
+			has_country_flag = MOT_GWay_LordsWay
+			has_global_flag = MOT_REUNION_N
 		}
 		prerequisite = {
 			focus = MOT_GP_Strike_on_Criminal
@@ -14703,6 +14730,7 @@ focus_tree = {
 		}
 		allow_branch = {
 			has_country_flag = MOT_GWay_TraderWay
+			has_global_flag = MOT_REUNION_N
 		}
 		prerequisite = {
 			focus = MOT_GP_Refuse_Mass
@@ -14742,6 +14770,7 @@ focus_tree = {
 		}
 		allow_branch = {
 			has_country_flag = MOT_GWay_LordsWay
+			has_global_flag = MOT_REUNION_N
 		}
 		prerequisite = {
 			focus = MOT_GP_Refuse_Mass
