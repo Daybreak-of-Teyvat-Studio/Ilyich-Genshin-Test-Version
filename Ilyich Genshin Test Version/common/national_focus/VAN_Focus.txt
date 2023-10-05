@@ -697,7 +697,7 @@ focus_tree = {
     focus = {
         id = VAN_Focus_Revolt_Akademiya
         icon = GFX_focus_VAN_Focus_Revolt_Akademiya
-        cost = 3
+        cost = 5
         relative_position_id = VAN_Developing_Industry
         x = 24
         y = 0
@@ -712,6 +712,44 @@ focus_tree = {
         }
         ai_will_do = {
             factor = 0
+        }
+	}
+
+    # 绿衫军兴起
+    focus = {
+        id = VAN_Focus_Greenshirts_Arise
+        icon = GFX_focus_eng_organise_the_blackshirts
+        prerequisite = { focus = VAN_Focus_Revolt_Akademiya }
+        cost = 5
+        relative_position_id = VAN_Focus_Revolt_Akademiya
+        x = 0
+        y = 1
+        completion_reward = {
+            add_timed_idea = { idea = VAN_Idea_Greenshirts_Arise days = 180 }
+            add_political_power = 50
+            hidden_effect = {
+                news_event = {
+                    id = VAN_News.2
+                    hours = 6
+                }
+            }
+        }
+	}
+
+    # 兰那罗主义
+    focus = {
+        id = VAN_Focus_Aranism
+        icon = GFX_focus_VAN_Focus_Aranism
+        prerequisite = { focus = VAN_Focus_Greenshirts_Arise }
+        available = { fascism > 0.5 }
+        cost = 5
+        relative_position_id = VAN_Focus_Greenshirts_Arise
+        x = 0
+        y = 1
+        completion_reward = {
+            set_politics = {
+                ruling_party = fascism
+            }
         }
 	}
 }
