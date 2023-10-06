@@ -951,4 +951,99 @@ focus_tree = {
             add_ideas = VAN_Idea_Prepare_Attack
         }
 	}
+
+    # 独立！
+    focus = {
+        id = VAN_Focus_Independence
+        icon = GFX_goal_generic_territory_or_war
+        prerequisite = { focus = VAN_Focus_Aranism }
+        cost = 5
+        relative_position_id = VAN_Focus_Aranism
+        x = 0
+        y = 1
+        bypass = {
+            VAN_is_independent = yes
+        }
+        completion_reward = {
+            hidden_effect = { set_variable = { VAN_independence_target = OVERLORD } }
+			OVERLORD = { set_autonomy = { target = ROOT autonomy_state = autonomy_free } }
+			effect_tooltip = {		
+				if = {
+					limit = {
+						is_in_faction_with = OVERLORD
+					}
+					leave_faction = yes
+				}
+				declare_war_on = {
+					target = OVERLORD
+					type = independence_wargoal
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						is_in_faction_with = var:VAN_independence_target
+					}
+					leave_faction = yes
+				}
+				declare_war_on = {
+					target = var:VAN_independence_target 
+					type = independence_wargoal
+				}
+                set_country_flag = VAN_flag_independence_war
+			}
+        }
+	}
+
+    # 暂时的和平
+    focus = {
+        id = VAN_Focus_Temporary_Peace
+        icon = GFX_focus_VAN_Focus_Temporary_Peace
+        prerequisite = { focus = VAN_Focus_Independence }
+        cost = 5
+        relative_position_id = VAN_Focus_Independence
+        x = 0
+        y = 1
+        bypass = {
+            OR = {
+                NOT = {
+                    has_war_with = SUM
+                }
+                NOT = {
+                    has_country_flag = VAN_flag_independence_war
+                }
+            }
+        }
+        completion_reward = {
+            white_peace = SUM
+        }
+	}
+
+    # 我们的家园
+    focus = {
+        id = VAN_Focus_Our_Homeland
+        icon = GFX_focus_VAN_Focus_Our_Homeland
+        prerequisite = { focus = VAN_Focus_Temporary_Peace }
+        cost = 4
+        relative_position_id = VAN_Focus_Temporary_Peace
+        x = 0
+        y = 1
+        completion_reward = {
+            add_timed_idea = { idea = VAN_Idea_Our_Homeland days = 100}
+        }
+	}
+
+    # 草之国的正统
+    focus = {
+        id = VAN_Focus_Dendro_Orthodoxy
+        icon = GFX_focus_VAN_Focus_Dendro_Orthodoxy
+        prerequisite = { focus = VAN_Focus_Our_Homeland }
+        cost = 5
+        relative_position_id = VAN_Focus_Our_Homeland
+        x = 0
+        y = 1
+        completion_reward = {
+            add_ideas = VAN_Idea_Dendro_Orthodoxy
+        }
+	}
 }
