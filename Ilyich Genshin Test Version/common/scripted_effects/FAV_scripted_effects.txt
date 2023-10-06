@@ -1,3 +1,59 @@
+#初始化动态精神
+FAV_Start_DM = {
+	set_variable = { FAV_Num_of_Deve_1 = 0 }
+	set_variable = { FAV_Num_of_Deve_2 = 0 }
+	set_variable = { FAV_Num_of_Deve_3 = 0 }
+	set_variable = { FAV_Num_of_Deve_4 = 0 }
+	set_variable = { FAV_Num_of_Deve_5 = 0 }
+	set_variable = { FAV_Power_Points = 0 }
+	set_variable = { FAV_Action_Zeal = 0.2 }
+	set_variable = { FAV_Action_Efficiency = 0.2 }
+	set_variable = { FAV_Action_Population = 0.2 }
+	set_variable = { FAV_Action_Zeal_Max = 0.6 }
+	set_variable = { FAV_Action_Efficiency_Max = 0.6 }
+	set_variable = { FAV_Action_Population_Max = 0.8 }
+	#热情 适役人口、士气
+	set_variable = { FAV_DM_Morale_Ratio = 0.3 }
+	set_variable = { FAV_DM_Conscription_Ratio = 0.2 }
+	#效率 PP花费、生产加成
+	set_variable = { FAV_DM_PP_Cost_Ratio = -0.8 }
+	set_variable = { FAV_DM_Capacity_Ratio = 0.3 }
+	#民心 建造速度、补给消耗
+	set_variable = { FAV_DM_Building_Speed_Ratio = 0.2 }
+	set_variable = { FAV_DM_Supply_C_Ratio = -0.1 }
+}
+#计算动态精神强度，限制数值范围
+FAV_Org_DM = {
+	#计算
+	set_variable = { FAV_DM_Morale = FAV_Action_Zeal }
+	multiply_variable = { FAV_DM_Morale = FAV_DM_Morale_Ratio }
+	set_variable = { FAV_DM_Conscription = FAV_Action_Zeal }
+	multiply_variable = { FAV_DM_Conscription = FAV_DM_Conscription_Ratio }
+	set_variable = { FAV_DM_PP_Cost = FAV_Action_Efficiency }
+	multiply_variable = { FAV_DM_PP_Cost = FAV_DM_PP_Cost_Ratio }
+	set_variable = { FAV_DM_Capacity = FAV_Action_Efficiency }
+	multiply_variable = { FAV_DM_Capacity = FAV_DM_Capacity_Ratio }
+	set_variable = { FAV_DM_Building_Speed = FAV_Action_Population }
+	multiply_variable = { FAV_DM_Building_Speed = FAV_DM_Building_Speed_Ratio }
+	set_variable = { FAV_DM_Supply_C = FAV_Action_Population }
+	multiply_variable = { FAV_DM_Supply_C = FAV_DM_Supply_C_Ratio }
+	#限制
+	clamp_variable = {
+		var = FAV_Action_Zeal
+		max = FAV_Action_Zeal_Max
+		min = 0
+	}
+	clamp_variable = {
+		var = FAV_Action_Efficiency
+		max = FAV_Action_Efficiency_Max
+		min = 0
+	}
+	clamp_variable = {
+		var = FAV_Action_Population
+		max = FAV_Action_Population_Max
+		min = 0
+	}
+}
 #升级专属精神
 FAV_Upgrade_National_Ideas = {
 	IF = {

@@ -1,3 +1,919 @@
+##使徒行迹
+FAV_Heart_of_Church = {
+    #交换变量
+    FAV_Hide_Exchange = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        days_re_enable = 1
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Not_Show_HOC1 }
+                clr_country_flag = FAV_Not_Show_HOC1
+            }
+            ELSE_IF = {
+                set_country_flag = FAV_Not_Show_HOC1
+            }
+        }
+    }
+    FAV_Zeal_to_Eff = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Zeal > 4 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 5 }
+            set_temp_variable = { FAV_linshibianliang_Eff = 5 }
+            custom_effect_tooltip = FAV_Lower_Zeal
+            custom_effect_tooltip = FAV_Higher_Eff
+            substract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Zeal_to_Pop = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Zeal > 4 }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                modifier = {
+                    add = 10
+                    set_temp_variable = { FAV_Linshibianliang1 = FAV_Action_Population }
+                    add_to_temp_variable = { FAV_Linshibianliang1 = 10 }
+                    check_variable = { FAV_Action_Zeal > FAV_Linshibianliang1 }
+                }
+            }
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 5 }
+            set_temp_variable = { FAV_linshibianliang_Pop = 5 }
+            custom_effect_tooltip = FAV_Lower_Zeal
+            custom_effect_tooltip = FAV_Higher_Pop
+            substract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Eff_to_Zeal = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Efficiency > 4 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 5 }
+            set_temp_variable = { FAV_linshibianliang_Z = 5 }
+            custom_effect_tooltip = FAV_Lower_Eff
+            custom_effect_tooltip = FAV_Higher_Zeal
+            substract_from_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Eff_to_Pop = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Efficiency > 4 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 5 }
+            set_temp_variable = { FAV_linshibianliang_Pop = 5 }
+            custom_effect_tooltip = FAV_Lower_Eff
+            custom_effect_tooltip = FAV_Higher_Pop
+            substract_from_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Pop_to_Eff = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Population > 4 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 5 }
+            set_temp_variable = { FAV_linshibianliang_Eff = 5 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            custom_effect_tooltip = FAV_Higher_Eff
+            substract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Pop_to_Zeal = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Population > 4 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 5 }
+            set_temp_variable = { FAV_linshibianliang_Z = 5 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            custom_effect_tooltip = FAV_Higher_Zeal
+            substract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_WS_to_Pop = {
+        custom_cost_text = decision_cost_WS_5
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        available = { has_war_support > 0.5 }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_war_support > 0.94
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        complete_effect = {
+            add_war_support = -0.05
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 3 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            substract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_PP_to_Eff = {
+        cost = 50
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_political_Power > 490
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 3 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            substract_from_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_ST_to_Zeal = {
+        custom_cost_text = decision_cost_ST_5
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        available = { has_stability > 0.5 }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_stability > 0.94
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        complete_effect = {
+            add_stability = -0.05
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 3 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            substract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    #发展点兑奖区
+    FAV_Hide_Invest = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        days_re_enable = 1
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Not_Show_HOC2 }
+                clr_country_flag = FAV_Not_Show_HOC2
+            }
+            ELSE_IF = {
+                set_country_flag = FAV_Not_Show_HOC2
+            }
+        }
+    }
+    FAV_Invest_Government = {
+        icon = generic_propaganda
+        custom_cost_text = decision_cost_Power_50
+        custom_cost_trigger = { check_variable = { FAV_Power_Points > 49 } }
+        available = {  }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Power_Points = -50 }
+            add_political_power = 30
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                date < 1937.6.1
+            }
+        }
+    }
+    FAV_Invest_Industry = {
+        icon = generic_industry
+        custom_cost_text = decision_cost_dynamic_developcostI
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_1 = 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_1 = 1 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_1 = 2 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_1 > 2 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Num_of_Deve_1 = 1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Industry4
+                        has_idea = DOT_Government_Industry5
+                        check_variable = { FAV_Num_of_Deve_1 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 = 1 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 = 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 > 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Industry4
+                        has_idea = DOT_Government_Industry5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_InduDeve
+                random_list = {
+                    50 = {
+                        random_owned_state = {
+                            limit = {
+                                free_building_slots = {
+                                    building = industrial_complex
+                                    level > 0
+                                }
+                            }
+                            add_extra_state_shared_building_slots = 1
+                            add_building_construction = {
+                                type = industrial_complex
+                                level = 1
+                            }
+                        }
+                    }
+                    50 = {
+                        random_owned_state = {
+                            limit = {
+                                free_building_slots = {
+                                    building = arms_factory
+                                    level > 0
+                                }
+                            }
+                            add_extra_state_shared_building_slots = 1
+                            add_building_construction = {
+                                type = arms_factory
+                                level = 1
+                            }
+                        }
+                    }
+                }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                }
+			    FAV_Better_Deve_of_I1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Agriculture = {
+        icon = generic_fundraising
+        custom_cost_text = decision_cost_dynamic_developcostA
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_2 = 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_2 = 1 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_2 = 2 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_2 > 2 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Num_of_Deve_2 = 1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Agri4
+                        has_idea = DOT_Government_Agri5
+                        check_variable = { FAV_Num_of_Deve_2 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 = 1 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 = 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 > 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Agri4
+                        has_idea = DOT_Government_Agri5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_AgriDeve
+                random_owned_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = infrastructure
+                            level > 0
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 1
+                    add_building_construction = {
+                        type = infrastructure
+                        level = 1
+                    }
+                }
+                random_owned_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = infrastructure
+                            level > 0
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 1
+                    add_building_construction = {
+                        type = infrastructure
+                        level = 1
+                    }
+                }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                }
+			    FAV_Better_Deve_of_A1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Control = {
+        icon = generic_political_support
+        custom_cost_text = decision_cost_dynamic_developcostG
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_3 = 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_3 = 1 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_3 = 2 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_3 > 2 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Num_of_Deve_3 = 1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Control5
+                        has_idea = DOT_Government_Control6
+                        has_idea = DOT_Government_Control7
+                        has_idea = DOT_Government_Control8
+                        check_variable = { FAV_Num_of_Deve_3 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 = 1 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 = 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 > 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Control5
+                        has_idea = DOT_Government_Control6
+                        has_idea = DOT_Government_Control7
+                        has_idea = DOT_Government_Control8
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_GoveDeve
+                add_political_power = 60
+                add_command_power = 30
+            }
+            ELSE_IF = {
+			    MOT_Up_Level_of_Poli = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Technology = {
+        icon = generic_research
+        custom_cost_text = decision_cost_dynamic_developcostR
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 = 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 = 1 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 = 2 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 > 2 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Num_of_Deve_4 = 1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Research4
+                        has_idea = DOT_Government_Research5
+                        check_variable = { FAV_Num_of_Deve_4 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 = 1 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 = 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 > 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = { research_speed_factor = 0.25 }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Research4
+                        has_idea = DOT_Government_Research5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_ReseDeve
+            }
+            ELSE_IF = {
+			    FAV_Better_Deve_of_R1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Army = {
+        icon = generic_prepare_civil_war
+        custom_cost_text = decision_cost_dynamic_developcostArmy
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 = 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 = 1 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 = 2 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 > 2 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Num_of_Deve_5 = 1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Army4
+                        has_idea = DOT_Government_Army5
+                        has_idea = DOT_Government_Army6
+                        has_idea = DOT_Government_Army7
+                        check_variable = { FAV_Num_of_Deve_5 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 = 1 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 = 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 > 2 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                substract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Army4
+                        has_idea = DOT_Government_Army5
+                        has_idea = DOT_Government_Army6
+                        has_idea = DOT_Government_Army7
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_ArmyDeve
+                army_experience = 30
+                navy_experience = 30
+                air_experience = 30
+            }
+            ELSE_IF = {
+			    FAV_Better_Deve_of_AR1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+}
 ##组织行动
 #相关变量：
 # 同时可执行决议数 FAV_MaxNumber_of_Action FAV_HasNumber_of_Action
