@@ -5,10 +5,10 @@ FAV_Start_DM = {
 	set_variable = { FAV_Num_of_Deve_3 = 0 }
 	set_variable = { FAV_Num_of_Deve_4 = 0 }
 	set_variable = { FAV_Num_of_Deve_5 = 0 }
-	set_variable = { FAV_Power_Points = 0 }
-	set_variable = { FAV_Action_Zeal = 0.2 }
-	set_variable = { FAV_Action_Efficiency = 0.2 }
-	set_variable = { FAV_Action_Population = 0.2 }
+	set_variable = { FAV_Power_Points = 50 }
+	set_variable = { FAV_Action_Zeal = 0.4 }
+	set_variable = { FAV_Action_Efficiency = 0.3 }
+	set_variable = { FAV_Action_Population = 0.05 }
 	set_variable = { FAV_Action_Zeal_Max = 0.6 }
 	set_variable = { FAV_Action_Efficiency_Max = 0.6 }
 	set_variable = { FAV_Action_Population_Max = 0.8 }
@@ -827,6 +827,8 @@ FAV_End_of_This_Fight = {
 	clr_country_flag = FAV_Know_Enemy_Action
 	set_variable = { FAV_Action_Type_We = 0 }
 	set_variable = { FAV_Action_Type_They = 0 }
+	set_variable = { FAV_Gap_of_Points = FAV_Victory_Ps_We }
+	subtractfrom_variable = { FAV_Gap_of_Points = FAV_Victory_Ps_They }
 	hidden_effect = {
 		random_list = {
 			39 = {
@@ -1032,28 +1034,26 @@ FAV_End_of_This_Talk = {
 	hidden_effect = {
 		IF = {
 			limit = {
-				check_variable = { FAV_Victory_Ps_We > FAV_Victory_Ps_They }
+				check_variable = { FAV_Gap_of_Points > 0 }
 			}
 			add_to_variable = { FAV_Times_we_Won = 1 }
-			set_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_We }
-			substract_from_temp_variable = { FAV_linshibianliang1 = FAV_Victory_Ps_They }
 			IF = {
 				limit = {
-					check_temp_variable = { FAV_linshibianliang1 < 100 }
+					check_variable = { FAV_Gap_of_Points < 100 }
 				}
 				#优势
 				country_event = { id = Church.4 days = 5 }
 			}
 			ELSE_IF = {
 				limit = {
-					check_temp_variable = { FAV_linshibianliang1 < 200 }
+					check_variable = { FAV_Gap_of_Points < 200 }
 				}
 				#小胜
 				country_event = { id = Church.5 days = 5 }
 			}
 			ELSE_IF = {
 				limit = {
-					check_temp_variable = { FAV_linshibianliang1 < 300 }
+					check_variable = { FAV_Gap_of_Points < 300 }
 				}
 				#中胜
 				country_event = { id = Church.6 days = 5 }
@@ -1073,6 +1073,7 @@ FAV_End_of_This_Talk = {
 		}
 	}
 	#清理变量
+	set_variable = { FAV_Gap_of_Points = 0 }
 	set_variable = { FAV_Had_Fight_Times = 1 }
 	set_variable = { FAV_Victory_Ps_We = 0 }
 	set_variable = { FAV_Victory_Ps_They = 0 }
