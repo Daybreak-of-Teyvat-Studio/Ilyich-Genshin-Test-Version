@@ -310,7 +310,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -342,6 +342,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -569,7 +570,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -601,6 +602,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -828,7 +830,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -860,6 +862,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -1087,7 +1090,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -1119,6 +1122,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -1347,7 +1351,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -1379,6 +1383,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -1605,7 +1610,7 @@ DVA_mass_of_dvalin_category = {
 			factor = 10
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
 		cost = 50
 
@@ -1637,6 +1642,7 @@ DVA_mass_of_dvalin_category = {
 					allow_foreign_equipment=yes
 				}
 				set_country_flag = DVA_militia_recruited
+				add_to_variable = { DVA_num_of_militia = 1 }
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
@@ -1679,30 +1685,12 @@ DVA_mass_of_dvalin_category = {
 		cost = 0
 		
 		complete_effect = {
-			if = {
-				limit = {
-					num_battalions_in_states = {
-						count > 10
-						states = { 57 58 59 60 61 62 }
-						exclude = { militia }
-					}
-				}
-				add_manpower = 50000
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 5000
-				}
-				army_experience = 250
-				add_stability = 0.1
+			add_manpower = var:DVA_num_of_militia
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = var:DVA_num_of_militia
 			}
-			else = {
-				add_manpower = 10000
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 1000
-				}
-				army_experience = 50
-			}
+			army_experience = 50
 			delete_unit_template_and_units = { division_template = "风龙领民兵" }
 			set_country_flag = DVA_militia_dismissed
 		}

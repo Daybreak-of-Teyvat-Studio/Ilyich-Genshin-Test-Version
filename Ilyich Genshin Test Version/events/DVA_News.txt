@@ -60,8 +60,12 @@ news_event = {
 					end_civil_wars = no
 				}
 			}
+			custom_effect_tooltip = DVA_ab_brave_tt
 		}
-		else = {
+		if = {
+			limit = {
+				has_country_flag = DVA_independent_flag
+			}
 			effect_tooltip = {
 				MOT = {
 					end_puppet = DVA
@@ -69,6 +73,7 @@ news_event = {
 				give_guarantee = DVA
 				give_military_access = DVA
 			}
+			custom_effect_tooltip = DVA_knights_brave_tt
 		}
 	}
 	option = {
@@ -76,12 +81,25 @@ news_event = {
 		trigger = { 
 			NOT = { original_tag = DVA }
 			Is_MOT = yes
+			NOT = {
+				OR = {
+					original_tag = MOT
+					MOT = { has_war_with = SNE }
+				}
+			}
 		}
 	}
 	option = {
 		name = dva.news.2.c
 		trigger = { 
 			NOT = { Is_MOT = yes }
+		}
+	}
+	option = {
+		name = dva.news.2.d
+		trigger = {
+			original_tag = MOT
+			MOT = { has_war_with = SNE }
 		}
 	}
 }

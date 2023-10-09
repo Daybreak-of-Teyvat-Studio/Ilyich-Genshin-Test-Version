@@ -28,16 +28,70 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_Develop_industry
+		id = DVA_Plan_of_developing_industry
 		icon = GFX_Goal_Industry_or_Production
 		cost = 1
 		x = 14
 		y = 1
-		allow_branch = {
-			#has_country_flag = DVA_start_industry_plan_flag
-		}
 		available = {
 			#
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Development_Act
+		icon = GFX_Goal_Industry_or_Production
+		cost = 1
+		x = 13
+		y = 2
+		prerequisite = {
+			focus = DVA_Plan_of_developing_industry
+		}
+		available = {
+			OR = {
+				has_country_flag = DVA_amber_win
+				has_country_flag = DVA_middle_way
+			}
+		}
+		completion_reward = {
+			set_country_flag = DVA_amber_plan
+		}
+	}
+	focus = {
+		id = DVA_colonical_industrial
+		icon = GFX_Goal_Industry_or_Production
+		cost = 1
+		x = 15
+		y = 2
+		prerequisite = {
+			focus = DVA_Plan_of_developing_industry
+		}
+		available = {
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_country_flag = DVA_middle_way
+			}
+		}
+		completion_reward = {
+			set_country_flag = DVA_noble_plan
+		}
+	}
+	focus = {
+		id = DVA_arms_factory_of_dvalin
+		icon = GFX_Goal_Industry_or_Production
+		cost = 1
+		x = 15
+		y = 3
+		prerequisite = {
+			focus = DVA_colonical_industrial
+		}
+		available = {
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_country_flag = DVA_middle_way
+			}
 		}
 		completion_reward = {
 			#
@@ -185,6 +239,8 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			remove_ideas = DVA_powerless_government
+			delete_unit_template_and_units = { division_template = "风龙领民兵" }
+			unlock_national_focus = DVA_Plan_of_developing_industry
 			if = {
 				limit = {
 					check_variable = {
@@ -601,7 +657,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			set_country_flag = DVA_start_industry_plan_flag
 			set_country_flag = DVA_start_research_plan_flag
 			country_event = {
 				id = dva.ab.18
@@ -1015,7 +1070,6 @@ focus_tree = {
 					has_country_flag = DVA_knights_win
 				}
 				country_event = dva.ab.17
-				set_country_flag = DVA_start_industry_plan_flag
 				set_cosmetic_tag = DVA_loyalty
 			}
 		}
