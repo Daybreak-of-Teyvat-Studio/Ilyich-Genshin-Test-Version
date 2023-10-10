@@ -25,8 +25,8 @@ Consult_an_Economist = {
 Economist_Paimon = {
 		icon = hol_attract_foreign_investors
 		available = {
-		tag = PRI
-		not = { has_idea = normal_money }
+			tag = PRI
+			not = { has_idea = normal_money }
 		}
 		visible = { tag = PRI }
 		fire_only_once = no
@@ -40,6 +40,400 @@ Economist_Paimon = {
 		}
 		ai_will_do = { factor = 80 }
 	}
+	#隐藏/显示摩拉投资决议
+	Mora_Hide_Investment_Decisions = {
+		fire_only_once = no
+		days_re_enable = 0
+		days_remove = 1
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = Mora_Hide_Decisions2 }
+				clr_country_flag = Mora_Hide_Decisions2
+			}
+			ELSE_IF = { set_country_flag = Mora_Hide_Decisions2 }
+		}
+		ai_will_do = { base = 0 }
+	}
+	#氪一小单
+	Mora_For_Little_Genshin = {
+		icon = generic_political_support
+		fire_only_once = no
+		days_re_enable = 60
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+			add_political_power = 50
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#氪个小月卡！
+	Mora_For_Moon_Card = {
+		icon = generic_political_support
+		fire_only_once = no
+		days_remove = 400
+		days_re_enable = 0
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = -0.25
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#购买脆弱树脂
+	Mora_For_Oil = {
+		icon = generic_factory
+		fire_only_once = no
+		days_re_enable = 30
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+			add_fuel = 6000
+			add_fuel = 6000
+			add_fuel = 6000
+		}
+		ai_will_do = { base = 0 }
+	}
+	#招募饰金旅团
+	Mora_For_Manpower = {
+		icon = generic_ignite_civil_war
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 30
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		modifier = {
+			weekly_manpower = 500
+			mobilization_speed_factor = 0.25
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+	#用于政治运作
+	Mora_For_Govern = {
+		icon = generic_ignite_civil_war
+		fire_only_once = no
+		days_remove = 7
+		days_re_enable = 90
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		modifier = {
+			political_advisor_cost_factor = -0.2
+			high_command_cost_factor = -0.2
+			army_chief_cost_factor = -0.2
+			navy_chief_cost_factor = -0.2
+			air_chief_cost_factor = -0.2
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+	#新兵训练
+	Mora_Training_New_Corps = {
+		icon = generic_military
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 90
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			training_time_army_factor = -0.25
+			minimum_training_level = -0.1
+		}
+		ai_will_do = { base = 0 }
+	}
+	#学说研发
+	Mora_Research_Doctrines = {
+		icon = generic_research
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 30
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			research_speed_factor = 0.05
+			land_doctrine_cost_factor = -0.05
+			navy_doctrine_cost_factor = -0.05
+			air_doctrine_cost_factor = -0.05
+		}
+		ai_will_do = { base = 0 }
+	}
+	#神之眼训练
+	Mora_Army_Level = {
+		icon = generic_morale_bonus
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 60
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			experience_gain_army_unit_factor = 1
+			experience_gain_navy_unit_factor = 1
+			air_ace_generation_chance_factor = 1
+			air_mission_xp_gain_factor = 1
+			air_training_xp_gain_factor = 1
+		}
+		ai_will_do = { base = 0 }
+	}
+	#角色成长
+	Mora_Character_Level = {
+		icon = generic_nationalism
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 60
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			experience_gain_factor = 1
+			promote_cost_factor = -1
+		}
+		ai_will_do = { base = 0 }
+	}
+	#生产适应
+	Mora_Factory_Eff = {
+		icon = generic_industry
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 60
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.25
+			line_change_production_efficiency_factor = 0.2
+		}
+		ai_will_do = { base = 0 }
+	}
+	#经济发展
+	Mora_Economic_Development = {
+		icon = generic_factory
+		fire_only_once = no
+		days_re_enable = 60
+		days_remove = 60
+		visible = { NOT = { has_country_flag = Mora_Hide_Decisions2 } }
+		available = {
+			OR = {
+				check_variable = { dx > 499 }
+				AND = {
+					is_major = no
+					check_variable = { dx > 299 }
+				}
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_major = yes }
+				custom_effect_tooltip = Spend_500_Mora
+		    	add_to_variable = { var = dx value = -500 }
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = Spend_300_Mora
+		    	add_to_variable = { var = dx value = -300 }
+			}
+		}
+		modifier = {
+			production_speed_buildings_factor = 0.15
+			consumer_goods_factor = -0.05
+		}
+		ai_will_do = { base = 0 }
+	}
+	#隐藏/显示通用经济决议
+	Mora_Hide_Economic_Decisions = {
+		fire_only_once = no
+		days_re_enable = 0
+		days_remove = 1
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = Mora_Hide_Decisions1 }
+				clr_country_flag = Mora_Hide_Decisions1
+			}
+			ELSE_IF = { set_country_flag = Mora_Hide_Decisions1 }
+		}
+		ai_will_do = { base = 0 }
+	}
 #通用经济决议	
     impress_money = {
 
@@ -52,6 +446,7 @@ Economist_Paimon = {
 
 		visible = {
 			always = yes
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -106,6 +501,7 @@ Economist_Paimon = {
 
 		visible = {
 			NOT = { has_government = communism }
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -162,6 +558,7 @@ Economist_Paimon = {
 		visible = {
 			NOT = { has_government = communism }
             NOT = { has_government = fascism }
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -219,6 +616,7 @@ Economist_Paimon = {
 		visible = {
 			NOT = { has_government = communism }
             NOT = { has_government = fascism }
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -266,6 +664,7 @@ Economist_Paimon = {
 			always = no
 			NOT = { has_government = communism }
             NOT = { has_government = fascism }
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -311,6 +710,7 @@ Economist_Paimon = {
 
 		visible = {
 			always = yes
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -370,6 +770,7 @@ Economist_Paimon = {
 			}
 			NOT = { has_government = communism }
             NOT = { has_government = fascism }
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
         complete_effect = {
@@ -474,6 +875,7 @@ Economist_Paimon = {
 
 		visible = {
 			always = yes
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 
 		fire_only_once = no
@@ -514,7 +916,10 @@ Economist_Paimon = {
 		
 		ai_will_do = { factor = 0 }
 		
-		visible = { is_major=no}
+		visible = {
+			is_major=no 
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
+		}
 		
 		available = { has_war=no}
 		
@@ -536,7 +941,9 @@ Economist_Paimon = {
 		
 		ai_will_do = { factor = 0 }
 		
-		visible = { }
+		visible = {
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
+		}
 		
 		available = { has_war = no}
 		
@@ -565,6 +972,7 @@ Economist_Paimon = {
 		    is_major = no
 		    communism > 0
 		    has_civil_war = no
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 		
 		available ={
@@ -601,6 +1009,7 @@ Economist_Paimon = {
 		    is_major=no
 		    fascism > 0
 		    has_civil_war = no
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 		
 		available ={
@@ -637,6 +1046,7 @@ Economist_Paimon = {
 		    is_major=no
 		    democratic > 0
 		    has_civil_war = no
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 		
 		available ={
@@ -673,6 +1083,7 @@ Economist_Paimon = {
 		    is_major=no
 		    neutrality > 0 
 		    has_civil_war = no
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 		
 		available ={
@@ -710,9 +1121,10 @@ Economist_Paimon = {
 		
 		visible ={ 
 		    has_civil_war = no
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
 		
-		available ={
+		available = {
 	    }
 		
 		complete_effect = { 
