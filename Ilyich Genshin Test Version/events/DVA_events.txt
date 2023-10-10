@@ -443,13 +443,16 @@ country_event = {
 
 	option = {
 		name = dva.ab.7.a
-		give_guarantee = DVA
 		add_opinion_modifier = { target = DVA modifier = DVA_partnership_with_AND }
-		DVA = { 
-			give_guarantee = AND
+		DVA = {
+			country_event = {
+				id = dva.ab.36
+				days = 14
+			}
 			add_opinion_modifier = { target = AND modifier = DVA_partnership_with_AND } 
-			country_event = dva.ab.36
-			set_country_flag = DVA_helios_project_flag
+		}
+		effect_tooltip = {
+			add_to_faction = DVA
 		}
 	}
 }
@@ -717,7 +720,7 @@ country_event = {
 	}
 }
 
-#新开端
+#神权人授
 country_event = {
 	id = dva.ab.14
 	title = dva.ab.14.t
@@ -1129,6 +1132,44 @@ country_event = {
 	}
 }
 
+#信使
+country_event = {
+	id = dva.ab.105
+	title = dva.ab.105.t
+	desc = dva.ab.105.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.105.a
+		deactivate_advisor = DVA_Vile
+		hidden_effect = {
+			AND = {
+				country_event = {
+					id = dva.ab.7
+					days = 14
+				}
+			}
+		}
+	}
+	option = {
+		name = dva.ab.105.b
+		deactivate_advisor = DVA_Mona
+		set_country_flag = DVA_diffusionist_has_fared_forth_flag
+		hidden_effect = {
+			AND = {
+				country_event = {
+					id = dva.ab.106
+					days = 49
+				}
+			}
+		}
+	}
+}
+
 #火种·其二
 country_event = {
 	id = dva.ab.36
@@ -1142,6 +1183,24 @@ country_event = {
 
 	option = {
 		name = dva.ab.36.a
+		trigger = {
+			NOT = {
+				has_country_flag = DVA_diffusionist_has_fared_forth_flag
+			}
+		}
+		activate_advisor = DVA_Vile
+		create_faction = DVA_ANR_FACTION_NAME
+		AND = {
+			add_to_faction = DVA
+		}
+	}
+	option = {
+		name = dva.ab.36.b
+		trigger = {
+			has_country_flag = DVA_diffusionist_has_fared_forth_flag
+		}
+		activate_advisor = DVA_Mona
+		set_country_flag = DVA_helios_project_flag
 		unlock_decision_category_tooltip = DVA_helios_project_category
 		set_variable = {
 			var = DVA_helios_project_fund
@@ -1150,6 +1209,28 @@ country_event = {
 		set_variable = {
 			var = DVA_helios_project_preparation_step_progress
 			value = 0
+		}
+	}
+}
+
+#火种·真
+country_event = {
+	id = dva.ab.106
+	title = dva.ab.106.t
+	desc = dva.ab.106.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.106.a
+		AND = {
+			country_event = {
+				id = dva.ab.36
+				days = 49
+			}
 		}
 	}
 }

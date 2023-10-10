@@ -79,6 +79,22 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_Progressive_industrialization
+		icon = GFX_Goal_Industry_or_Production
+		cost = 1
+		x = 13
+		y = 3
+		prerequisite = {
+			focus = DVA_Development_Act
+		}
+		available = {
+			#
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
 		id = DVA_arms_factory_of_dvalin
 		icon = GFX_Goal_Industry_or_Production
 		cost = 1
@@ -88,10 +104,7 @@ focus_tree = {
 			focus = DVA_colonical_industrial
 		}
 		available = {
-			OR = {
-				has_country_flag = DVA_knights_win
-				has_country_flag = DVA_middle_way
-			}
+			#
 		}
 		completion_reward = {
 			#
@@ -405,6 +418,7 @@ focus_tree = {
 				has_country_flag = DVA_outriders_permitted
 				has_country_flag = DVA_middle_way
 			}
+			has_country_flag = DVA_economy_reform_finished
 		}
 		completion_reward = {
 			country_event = dva.ab.5
@@ -432,9 +446,7 @@ focus_tree = {
 			has_country_flag = DVA_amber_win
 		}
 		select_effect = {
-			AND = {
-				country_event = dva.ab.7
-			}
+			country_event = dva.ab.105
 		}
 		completion_reward = {
 			every_state = {
@@ -574,10 +586,11 @@ focus_tree = {
 				}
 				hidden_effect = {
 					MOT = {
-						end_puppet = LAW
+						end_puppet = DRA
 					}
 				}
 			}
+			remove_ideas = DVA_lack_of_scholar
 			every_state = {
 				limit = {
 					is_core_of = DRA
@@ -762,10 +775,26 @@ focus_tree = {
 		x = 13
 		y = 11
 		available = {
-			always = no
+			has_country_flag = DVA_amber_win
 		}
 		completion_reward = {
 			country_event = dva.ab.14
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+				last_election = "1000.1.1"
+				election_frequency = 48
+				long_name = DVA_communism_party_long_blanqui
+				name = DVA_communism_party_blanqui
+			}
+			set_popularities = {
+				democratic = 5
+				neutrality = 10
+				fascism = 5
+				communism = 70
+				genshin = 10
+			}
+			set_cosmetic_tag = DVA_commune
 		}
 	}
 	focus = {
@@ -782,6 +811,24 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.19
+			set_province_name = {
+				id = 1929
+				name = NEW_MONDSTADT
+			}
+			add_victory_points = {
+				province = 1929
+				value = 40
+			}
+			all_owned_state = {
+				limit = {
+					is_core_of = DVA
+				}
+				set_state_category = rural
+			}
+			57 = {
+				set_state_name = "mondstadtburg"
+				set_state_category = town
+			}
 		}
 	}
 	focus = {
@@ -1034,7 +1081,10 @@ focus_tree = {
 				limit = {
 					has_country_flag = DVA_knights_win
 				}
-				add_ideas = DVA_lack_of_research_ability
+				swap_ideas = {
+					remove_idea = DVA_lack_of_scholar
+					add_idea = DVA_lack_of_research_ability
+				}
 				add_ideas = DVA_restricted_army
 				set_research_slots = 0
 				MOT = {
