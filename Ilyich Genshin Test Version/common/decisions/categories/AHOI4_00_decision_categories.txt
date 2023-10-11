@@ -2,14 +2,21 @@ debug_decisions = {
 	icon = generic_research
 	visible = {
 		is_debug = yes
+		is_ai = no
+		OR = {
+			AND = {
+				has_country_flag = NOR_vanilla_debug_tack
+				tag = NOR 
+			}
+			NOT = { tag = NOR }
+		}
 	}
 }
 propaganda_efforts = {
 	icon = generic_propaganda
 
 	visible = {
-		NOT = { original_tag = PRI }
-		NOT = { original_tag = MOT }
+
 	}
 }
 MTG_naval_treaties = {
@@ -39,7 +46,7 @@ war_measures = {
 
 	visible = {
 		has_war = yes
-		has_war_with_non_exiled_country = yes
+		has_war_with_non_exiled_country = yes  
 	}
 }
 operations = {
@@ -78,8 +85,18 @@ political_actions = {
 				has_dlc = "By Blood Alone"
 			}
 			NOT = { original_tag = SWI }
-			NOT = { original_tag = MOT }
 			NOT = { has_country_flag = SWI_can_use_political_actions }
+		}
+		if = {
+			limit = {
+				has_dlc = "Arms Against Tyranny"
+			}
+			NOT = {
+				AND = {
+					original_tag = DEN
+					is_subject = yes
+				}
+			}
 		}
 	}
 }
@@ -92,7 +109,6 @@ fascism_on_the_rise = {
 	icon = generic_fascism
 
 	allowed = {
-		NOT = { Is_MOT = yes }
 		NOT = {
 			AND = {
 				has_dlc = "Man the Guns"
@@ -118,11 +134,18 @@ fascism_on_the_rise = {
 					original_tag = ITA
 				}
 			}
+
+			AND = {
+				has_dlc = "Arms Against Tyranny"
+				OR = {
+					original_tag = SWE
+					original_tag = FIN
+				}
+			}
 		}
 	}
 	
 	visible = {
-		NOT = { Is_MOT = yes }
 		NOT = {
 			AND = {
 				original_tag = FIN
@@ -150,7 +173,6 @@ democratic_on_the_rise = {
 	icon = generic_democracy
 
 	allowed = {
-		NOT = { Is_MOT = yes }
 		NOT = {
 			AND = {
 				has_dlc = "No Step Back"
@@ -169,6 +191,14 @@ democratic_on_the_rise = {
 					original_tag = ITA
 				}
 			}
+
+			AND = {
+				has_dlc = "Arms Against Tyranny"
+				OR = {
+					original_tag = SWE
+					original_tag = FIN
+				}
+			}
 		}
 	}
 	
@@ -182,7 +212,6 @@ communism_on_the_rise = {
 	icon = generic_communism
 
 	allowed = {
-		NOT = { Is_MOT = yes }
 		NOT = {
 			AND = {
 				has_dlc = "Man the Guns"
@@ -205,13 +234,21 @@ communism_on_the_rise = {
 				has_dlc = "By Blood Alone"
 				original_tag = ITA
 			}
+
+			AND = {
+				has_dlc = "Arms Against Tyranny"
+				OR = {
+					original_tag = SWE
+					original_tag = FIN
+				}
+			}
 		}
 	}
 	
-	#visible = {
+	visible = {
 	#	NOT = { has_government = communism }
 	#	has_idea_with_trait = communist_revolutionary
-	#}
+	}
 }
 
 crisis = {
@@ -267,6 +304,13 @@ governments_in_exile = {
 			has_dlc = "By Blood Alone"
 		}
 	}
+
+	visible = {
+		NOT = {
+			has_completed_focus = NOR_the_kings_no 
+		}
+	}
+
 	priority = 7
 }
 
@@ -425,16 +469,59 @@ nato_decisions = {
 	priority = 100
 }
 
-BBA_purchase_old_ships_category = {
+foreign_mio_decisions_category = {
+	picture = generic_economy
+	allowed = {
+		has_dlc = "Arms Against Tyranny"
+	}
+	priority = 5
+}
+
+
+generic_purchase_old_ships_category = {
 	icon = GFX_decision_category_MTG_naval_treaties
 	picture = GFX_decision_cat_picture_naval_treaties
 	
 	allowed = {
-		original_tag = ETH
-		has_dlc = "By Blood Alone"
+		OR = {
+			AND = {
+				original_tag = ETH
+				has_dlc = "By Blood Alone"
+			}
+			AND = {
+				original_tag = SWE
+				has_dlc = "Arms Against Tyranny"
+			}
+			AND = {
+				original_tag = DEN
+				has_dlc = "Arms Against Tyranny"
+			}
+		}
 	}
 	visible = {
 		has_country_flag = generic_purchase_old_ships_flag
+	}
+	
+	priority = {
+		base = 8
+	}
+	visible_when_empty = no
+}
+
+generic_refit_civilian_ships_category = {
+	icon = GFX_decision_category_MTG_naval_treaties
+	picture = GFX_decision_cat_picture_generic_shipbuilding
+	
+	allowed = { #Add tags here with first an OR then an AND
+		OR = {
+			original_tag = DEN
+			original_tag = FIN
+			original_tag = ICE
+		}
+		has_dlc = "Arms Against Tyranny"
+	}
+	visible = {
+		has_country_flag = refit_convoy_ships_flag
 	}
 	
 	priority = {
