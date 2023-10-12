@@ -1,7 +1,8 @@
 import os
 import sys
 
-blackList = ["Ilyich Genshin Test Version\common\备份文件", "Ilyich Genshin Test Version/common/备份文件"]
+blackList = ["Ilyich Genshin Test Version\common\备份文件", "Ilyich Genshin Test Version/common/备份文件", 
+             "Ilyich Genshin Test Version\.backups", "Ilyich Genshin Test Version/.backups"]
 
 # 检测本地化文件的双引号
 def CheckFileQuotation(filePath):
