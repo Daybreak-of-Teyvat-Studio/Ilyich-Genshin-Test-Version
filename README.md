@@ -31,6 +31,10 @@
 
 - [如何对git仓库的代码进行调试](GithubDocs/DebugTheRepo.md)
 
+- [一些定位、修复问题的技巧](GithubDocs/Debug.md)
+
+- [自测试相关](GithubDocs/SelfTest.md)
+
 - [可能遇到的一些git操作问题](GithubDocs/GitTutorial.md)
 
 - [一些更灵活的进阶操作（非必须）](GithubDocs/UseVSCode.md)
