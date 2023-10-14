@@ -420,11 +420,15 @@ Economist_Paimon = {
 		}
 		ai_will_do = { base = 0 }
 	}
-	#隐藏/显示通用经济决议
+
+
+#隐藏/显示通用经济决议
 	Mora_Hide_Economic_Decisions = {
+		icon = hol_attract_foreign_investors
 		fire_only_once = no
 		days_re_enable = 0
 		days_remove = 1
+		cost = 1
 		complete_effect = {
 			IF = {
 				limit = { has_country_flag = Mora_Hide_Decisions1 }
@@ -434,579 +438,189 @@ Economist_Paimon = {
 		}
 		ai_will_do = { base = 0 }
 	}
-#通用经济决议	
-    impress_money = {
 
+#通用经济决议
+
+#印发一千万摩拉货币：增加1%通货膨胀
+    Mora_Impress_1000 = {
 		icon = hol_attract_foreign_investors
-
-		available = {
-			has_stability > 0.0
-			NOT = { check_variable = { inflation_level > 100 } }
-		}
-
-		visible = {
-			always = yes
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-		fire_only_once = no
-
-		modifier = {
-		    war_support_weekly= -0.001
-			stability_weekly = -0.001
-			consumer_goods_factor = -0.05	
-		}
-
-		days_remove = 180
-		days_re_enable = 180
-
-		cost = 1
-
-		complete_effect = {
-		    add_to_variable = { var = dx value = 500 }
-		    add_to_variable = { var = inflation_level value = 1 }
-		}
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-				add = 1
-				has_stability < 0.6
-			}
-			modifier = {
-				add = 1
-				check_variable = { dx < 50 }
-			}
-			modifier = {
-				factor = 10
-				check_variable = { dx < 30 }
-			}
-			modifier = {
-				factor = 20
-				check_variable = { dx < 20 }
-			}
-		}
-	}
-
-
-
-	inner_debt = {
-
-		icon = hol_attract_foreign_investors
-
 		available = {
 			has_stability > 0.25
 			NOT = { check_variable = { inflation_level > 100 } }
 		}
-
-		visible = {
-			NOT = { has_government = communism }
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-		fire_only_once = no
-
-		modifier = {
-			consumer_goods_factor = -0.05
-			political_power_gain = -0.10
-			stability_weekly = -0.001
-		}
-
-		days_remove = 180
-		days_re_enable = 180
-
-		cost = 1
-
-		complete_effect = {
-		    add_to_variable = { var = dx value = 500 }
-		    add_to_variable = { var = inflation_level value = 1 }
-        }
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-				add = 1
-				has_stability < 0.6
-			}
-			
-			modifier = {
-				add = 1
-				check_variable = { dx < 50 }
-			}
-			modifier = {
-				factor = 10
-				check_variable = { dx < 30 }
-			}
-			modifier = {
-				factor = 20
-				check_variable = { dx < 20 }
-			}
-		}
-	}
-
-
-
-    international_debt = {
-
-		icon = hol_attract_foreign_investors
-
-		available = {
-		    has_stability > 0.5
-		    NOT = { check_variable = { inflation_level > 100 } }
-	    }
-
-		visible = {
-			NOT = { has_government = communism }
-            NOT = { has_government = fascism }
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-		fire_only_once = no
-
-		modifier = {
-			consumer_goods_factor = -0.10
-			political_power_gain = -0.20
-			stability_weekly = -0.002
-		}
-
-		days_remove = 180
-		days_re_enable = 180
-
-		cost = 1
-
-		complete_effect = { 
-		    add_to_variable = { var = dx value = 1000 }
-		    add_to_variable = { var = inflation_level value = 2 }
-        }
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-				add = 1
-				has_stability < 0.6
-			}
-			modifier = {
-				add = 1
-				check_variable = { dx < 50 }
-			}
-			modifier = {
-				factor = 10
-				check_variable = { dx < 30 }
-			}
-			modifier = {
-				factor = 20
-				check_variable = { dx < 20 }
-			}
-		}
-    }
-
-
-
-
-    lower_interest_rates = {
-
-        icon = hol_attract_foreign_investors
-
-		available = {
-			has_stability > 0.5
-			check_variable = { dx > 499.99 }
-			NOT = { check_variable = { inflation_level > 100 } }
-		}
-
-		visible = {
-			NOT = { has_government = communism }
-            NOT = { has_government = fascism }
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-		fire_only_once = no
-
-		modifier = {
-		    production_speed_industrial_complex_factor = 0.25
-		    production_speed_infrastructure_factor = 0.40
-		    consumer_goods_factor = 0.05
-	    }
-
-		days_remove = 180
-		days_re_enable = 180
-
-		cost = 1
-
-		complete_effect = {
-		    add_to_variable = { var = dx value = -500 }
-		    add_to_variable = { var = inflation_level value = 1 }
-		}
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-				add = 1
-				has_stability < 0.7
-			}
-			modifier = {
-				add = 1
-				check_variable = { dx > 500 }
-			}
-	    }
-	}
-
-	lower_interest_rates_1 = {
-
-        icon = hol_attract_foreign_investors
-
-		available = {
-			has_stability > 0.5
-			check_variable = { dx > 499.99 }
-			NOT = { check_variable = { inflation_level > 100 } }
-		}
-
-		visible = {
-			always = no
-			NOT = { has_government = communism }
-            NOT = { has_government = fascism }
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-		fire_only_once = no
-
-		modifier = {
-		    production_speed_industrial_complex_factor = 0.30
-		    production_speed_infraestructure_factor = 0.40
-		    consumer_goods_factor = 0.05
-	    }
-
-		days_remove = 180
-		days_re_enable = 180
-
-		cost = 1
-
-		complete_effect = {
-		    add_to_variable = { var = dx value = -500 }
-		    add_to_variable = { var = inflation_level value = 1 }
-		}
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-				add = 1
-				has_stability < 0.7
-			}
-			modifier = {
-				add = 1
-				check_variable = { dx > 500 }
-			}
-	    }
-	}
-
-	monetary_stabilization_plan = {
-
-		icon = hol_attract_foreign_investors
-
-		available = {
-			has_stability < 0.0
-			check_variable = { dx > 249.99 }
-			NOT = { check_variable = { inflation_level = 0 } }
-		}
-
 		visible = {
 			always = yes
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
-
 		fire_only_once = no
+		modifier = {
+		    war_support_weekly= -0.001
+			stability_weekly = -0.001
+			consumer_goods_factor = -0.01	
+			political_power_gain = -0.01	
+		}
+		days_remove = 180
+		days_re_enable = 180
+		cost = 1
+		complete_effect = {
+		    add_to_variable = { var = dx value = 1000 }
+		    add_to_variable = { var = inflation_level value = 1 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				check_variable = { dx < 100 }
+			}
+			modifier = {
+				factor = 10
+				check_variable = { dx < 0 }
+			}
+		}
+	}
 
+#发行一千万摩拉国债：增加1%通货膨胀
+    Mora_Debt_1000 = {
+		icon = hol_attract_foreign_investors
+		available = {
+			has_stability > 0.25
+			NOT = { check_variable = { inflation_level > 100 } }
+		}
+		visible = {
+			always = yes
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
+		}
+		fire_only_once = no
+		modifier = {
+			consumer_goods_factor = -0.01	
+			political_power_gain = -0.01
+		}
+		days_remove = 180
+		days_re_enable = 180
+		cost = 1
+		complete_effect = {
+		    add_to_variable = { var = dx value = 1000 }
+		    add_to_variable = { var = inflation_level value = 1 }
+			add_to_variable = { var = debttotal value = 1000 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				check_variable = { dx < 100 }
+			}
+			modifier = {
+				factor = 10
+				check_variable = { dx < 0 }
+			}
+		}
+	}
+
+#货币稳定计划：减少1%通货膨胀
+    Mora_Stabilization_Plan_1000 = {
+		icon = hol_attract_foreign_investors
+		available = {
+			has_stability < 0.95
+			check_variable = { dx > 1500 }
+			NOT = { check_variable = { inflation_level = 0 } }
+		}
+		visible = {
+			always = yes
+			NOT = { has_country_flag = Mora_Hide_Decisions1 }
+		}
+		fire_only_once = no
 		modifier = {
 		    consumer_goods_factor = 0.05
 			political_power_gain = -0.10
 			stability_weekly = 0.01
 	    }
-
 		days_remove = 180
 		days_re_enable = 180
-
 		cost = 1
-
 		complete_effect = {
-		    add_to_variable = { var = dx value = -250 }
+		    add_to_variable = { var = dx value = -1000 }
 		    add_to_variable = { var = inflation_level value = -1 }
 		}
-
 		ai_will_do = {
-			base = 1
+			base = 0
 			modifier = {
 				factor = 10
-				check_variable = { dx > 250 }
-			}
-		}
-    }
-    
-    foreigt_investment_slot_1 = {
-
-    	icon = hol_attract_foreign_investors
-
-        allowed = {
-            NOT = { has_government = communism }
-            NOT = { has_government = fascism }
-        }
-		days_remove = 180
-		days_re_enable = 180
-        cost = 1
-        fire_only_once = no
-
-        available = {
-            has_stability > 0.5
-            always = yes
-            any_owned_state = {
-            	NOT = { has_state_flag = war_building_slot_flag }
-            	is_fully_controlled_by = ROOT
-            }
-        }
-
-        visible = {
-			always = yes
-			any_owned_state = {
-				NOT = { has_state_flag = war_building_slot_flag }
-				is_fully_controlled_by = ROOT
-			}
-			NOT = { has_government = communism }
-            NOT = { has_government = fascism }
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-
-        complete_effect = {
-			add_stability = -0.05
-			if = {
-				limit = {
-					any_owned_state = {
-						is_fully_controlled_by = ROOT
-            			free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						NOT = { has_state_flag = war_building_slot_flag }
-						infrastructure > 3
-					}
-				}
-				random_owned_state = {
-					limit = {
-						is_fully_controlled_by = ROOT
-            			free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						NOT = { has_state_flag = war_building_slot_flag }
-						infrastructure > 3
-					}
-					add_extra_state_shared_building_slots = 1
-					set_state_flag = war_building_slot_flag
-				}
-			}
-			else_if = {
-				limit = {
-					any_owned_state = {
-						is_fully_controlled_by = ROOT
-            			free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						NOT = { has_state_flag = war_building_slot_flag }
-						infrastructure > 3
-					}
-				}
-				random_owned_state = {
-					limit = {
-						is_fully_controlled_by = ROOT
-            			free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						NOT = { has_state_flag = war_building_slot_flag }
-						infrastructure > 3
-					}
-					add_extra_state_shared_building_slots = 1
-					set_state_flag = war_building_slot_flag
-				}
-			}
-			else = {
-				random_owned_state = {
-					limit = {
-						is_fully_controlled_by = ROOT
-            			free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						NOT = { has_state_flag = war_building_slot_flag }
-						infrastructure > 3
-					}
-					add_extra_state_shared_building_slots = 1
-					set_state_flag = war_building_slot_flag
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				factor = 10
-				all_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
-			}
-			modifier = {
-				any_owned_state = {
-					infrastructure > 3
-					free_building_slots = { building = industrial_complex size > 0 include_locked = no }
-				}
-				factor = 0
+				check_variable = { dx > 2000 }
 			}
 		}
     }
 
-    lower_the_inflation = {
-
-        icon = hol_attract_foreign_investors
-
+#国家信用稳定计划：减少1%通货膨胀
+    Mora_Credit_Plan_1000 = {
+		icon = hol_attract_foreign_investors
 		available = {
-			has_stability > 0.25
+			has_stability < 0.95
+			check_variable = { dx > 1500 }
+			check_variable = { debttotal > 1000 }
 			NOT = { check_variable = { inflation_level = 0 } }
 		}
-
 		visible = {
 			always = yes
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
 		}
-
 		fire_only_once = no
-
 		modifier = {
+		    consumer_goods_factor = 0.05
+			political_power_gain = 0.10
+			stability_weekly = 0.01
 	    }
-
 		days_remove = 180
 		days_re_enable = 180
-
 		cost = 1
-
 		complete_effect = {
+		    add_to_variable = { var = dx value = -1000 }
 		    add_to_variable = { var = inflation_level value = -1 }
+			add_to_variable = { var = debttotal value = -1000 }
 		}
-
 		ai_will_do = {
-			base = 1
+			base = 0
 			modifier = {
-			    factor = 15
-			    check_variable = { inflation_level > 5 }
+				factor = 10
+				check_variable = { dx > 2000 }
 			}
-			modifier = {
-			    factor = 25
-			    check_variable = { inflation_level > 10 }
-			}
-			modifier = {
-			    factor = 30
-			    check_variable = { inflation_level > 20 }
-			}
-	    }
-	}
+		}
+    }
 
-	
-	#no rate but they can be used only once#
-	humanitary_assistance = {
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
-		visible = {
-			is_major=no 
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available = { has_war=no}
-		
-		complete_effect = { add_to_variable = { var = dx value = 100 } }
-		
-		modifier = {  } 
-		
-		fire_only_once = yes
-		days_remove = 180
-		days_re_enable = 180
-		cost = 1
-		
-		remove_effect = {}
-	}
-	
-	#10% Borrowrate but you cannot be at war!#
-	league_ass1 = { 
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
-		visible = {
-			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available = { has_war = no}
-		
-		complete_effect = { add_to_variable = { var = dx value = 200 } }
-		
-		modifier = {  } 
-		
-		fire_only_once = no
-		days_remove = 180
-		days_re_enable = 180
-		cost = 1
-		
-		remove_effect = {
-		    add_to_variable = { var = dx value = -220 }
-		}
-	}
-	
-
-	#15% Borrow Rate and you are adding 5% popularity  to communism#	
+	#启明主义援助计划
 	com_assistance = { 
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
+		icon = hol_attract_foreign_investors	
+		ai_will_do = { factor = 0 }	
 		visible = { 
-		    is_major = no
 		    communism > 0
 		    has_civil_war = no
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available ={
-		
-		}
-		
-		complete_effect = { 
-		
-		add_to_variable = { var = dx value = 75 }
+		}		
+		available ={	
+		}	
+		complete_effect = { 	
+		add_to_variable = { var = dx value = 500 }
 		    add_popularity = {
 			    ideology = communism
 			    popularity = 0.07
 		    }
-		}
-		
-		modifier = {  } 
-		
+		}		
+		modifier = {  } 	
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 180
-		cost = 1
-		
+		cost = 1	
 		remove_effect = {
-		    add_to_variable = { var = dx value = -86.25 }
+		    add_to_variable = { var = dx value = -100 }
 		}
 	}
-	#15% Borrow Rate and you are adding 5% popularity  to fascism#	
+
+	#刑鼎主义援助计划	
 	fas_assistance = {
 		icon = hol_attract_foreign_investors
 		
 		ai_will_do = { factor = 0 }
 		
 		visible ={ 
-		    is_major=no
 		    fascism > 0
 		    has_civil_war = no
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
@@ -1018,7 +632,7 @@ Economist_Paimon = {
 		
 		complete_effect = { 
 		
-		add_to_variable = { var = dx value = 75 }
+		add_to_variable = { var = dx value = 500 }
 		    add_popularity = {
 			    ideology = fascism
 			    popularity = 0.07
@@ -1033,118 +647,91 @@ Economist_Paimon = {
 		cost = 1
 		
 		remove_effect = {
-		    add_to_variable = { var = dx value = -86.25 }
+		    add_to_variable = { var = dx value = -100 }
 		}
 	}
-	#15% Borrow Rate and you are adding 5% popularity  to democratic#	
+	#修禊主义援助计划
 	dem_assistance = {
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
+		icon = hol_attract_foreign_investors		
+		ai_will_do = { factor = 0 }	
 		visible ={ 
-		    is_major=no
 		    democratic > 0
 		    has_civil_war = no
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available ={
-		
-		}
-		
+		}	
+		available ={		
+		}		
 		complete_effect = { 
-		
-		add_to_variable = { var = dx value = 75 }
+		add_to_variable = { var = dx value = 500 }
 		    add_popularity = {
 			    ideology = democratic
 			    popularity = 0.07
 		    }
-		}
-		
-		modifier = {  } 
-		
+		}	
+		modifier = {  } 		
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 180
-		cost = 1
-		
+		cost = 1		
 		remove_effect = {
-		    add_to_variable = { var = dx value = -86.25 }
+		    add_to_variable = { var = dx value = -100 }
 		}
 	}
-	#15% Borrow Rate and you are adding 5% popularity  to autoritarism#	
+
+	#中和主义援助计划
 	neu_assistance = {
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
+		icon = hol_attract_foreign_investors		
+		ai_will_do = { factor = 0 }		
 		visible ={ 
-		    is_major=no
 		    neutrality > 0 
 		    has_civil_war = no
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available ={
-		
-		}
-		
-		complete_effect = { 
-		
-		add_to_variable = { var = dx value = 75 }
+		}		
+		available ={		
+		}		
+		complete_effect = { 	
+		add_to_variable = { var = dx value = 500 }
 		    add_popularity = {
 			    ideology = neutrality
 			    popularity = 0.05
 		    }
-		}
-		
-		modifier = {  } 
-		
+		}	
+		modifier = {  } 	
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 180
 		cost = 1
-		
 		remove_effect = {
-		    add_to_variable = { var = dx value = -86.25 }
+		    add_to_variable = { var = dx value = -100 }
 		}
 	}
 
-
-
-###########private loan with #15% rate#
-	priv_assistance0 = { #15% rate#
-		icon = hol_attract_foreign_investors
-		
-		ai_will_do = { factor = 0 }
-		
+	#尘世主义援助计划
+	gen_assistance = {
+		icon = hol_attract_foreign_investors		
+		ai_will_do = { factor = 0 }		
 		visible ={ 
+		    genshin > 0 
 		    has_civil_war = no
 			NOT = { has_country_flag = Mora_Hide_Decisions1 }
-		}
-		
-		available = {
-	    }
-		
-		complete_effect = { 
-		    add_to_variable = { var = dx value = 75 }
-		}
-		
-		modifier = {  } 
-		
+		}		
+		available ={		
+		}		
+		complete_effect = { 	
+		add_to_variable = { var = dx value = 500 }
+		    add_popularity = {
+			    ideology = genshin
+			    popularity = 0.05
+		    }
+		}	
+		modifier = {  } 	
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 180
 		cost = 1
-		
 		remove_effect = {
-		    add_to_variable = { var = dx value = -86.25 }
+		    add_to_variable = { var = dx value = -100 }
 		}
-		
 	}
-}
-
-
 
 ##################################
