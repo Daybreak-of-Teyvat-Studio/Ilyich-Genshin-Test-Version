@@ -1807,51 +1807,22 @@ country_event = {
 		MOT = { change_tag_from = ROOT }
 		MOT = { country_event = Knights.44 }
 		ai_chance = {
-			base = 30
+			base = 100
 			modifier = {
-				add = -1000
-				date < 1939.1.1
-			}
-			modifier = {
-				add = -20
-				OR = {
-					tag = DRA
-					tag = RAG
-					tag = FAV
-				}
-			}
-			modifier = {
-				add = 10
+				add = 100
 				has_opinion = { target = MOT value > 50 }
 			}
 			modifier = {
-				add = 10
+				add = 100
 				has_opinion = { target = MOT value > 80 }
 			}
-			modifier = {
-				add = 10
+			modifier = { #没看懂这一条
+				add = 50
 				has_government = ROOT
 			}
 			modifier = {
-				add = 20
-				strength_ratio = {
-					tag = MOT
-					ratio < 0.3
-				}
-			}
-			modifier = {
-				add = -1000
-				OR = {
-					ic_ratio = {
-						tag = MOT
-						ratio > 0.5
-					}
-					strength_ratio = {
-						tag = MOT
-						ratio > 0.5
-					}
-					has_opinion = { target = MOT value < -10 }
-				}
+				add = 100
+				strength_ratio = { tag = MOT  ratio < 0.3 }
 			}
 		}
 	}
@@ -1859,7 +1830,36 @@ country_event = {
 		name = Knights.31.b
 		MOT = { country_event = Knights.45 }
 		ai_chance = {
-			base = 70
+			base = 100
+			modifier = { 
+				add = 100
+				OR = { 
+					country_exists = DRA
+					country_exists = RAG
+					country_exists = FAV
+					country_exists = LAW
+				}
+			}
+			modifier = {
+				add = 100
+				date < 1939.1.1
+			}
+			modifier = {
+				add = 100
+				ic_ratio = { tag = MOT ratio > 0.5 }
+			}
+			modifier = {
+				add = 100
+				strength_ratio = { tag = MOT ratio > 0.5 }
+			}
+			modifier = {
+				add = 100
+				has_opinion = { target = MOT value < -10 }
+			}
+			modifier = {
+				add = 500
+				GUN = { is_ai = no }
+			}
 		}
 	}
 }
@@ -1887,6 +1887,8 @@ country_event = {
 	option = {
 		name = Knights.33.a
 		add_war_support = 0.05
+		# create_wargoal = { type = puppet_wargoal_focus  target = GUN }
+		# diplomatic_relation = { country = GUN  relation = non_aggression_pact   active = yes }
 	}
 }
 #决战时刻46
