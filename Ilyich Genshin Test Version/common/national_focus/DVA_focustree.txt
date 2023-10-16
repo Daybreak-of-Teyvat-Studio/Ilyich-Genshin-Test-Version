@@ -34,7 +34,7 @@ focus_tree = {
 		x = 14
 		y = 1
 		available = {
-			#
+			always = no
 		}
 		completion_reward = {
 			#
@@ -43,7 +43,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Development_Act
 		icon = GFX_Goal_Industry_or_Production
-		cost = 1
+		cost = 6
 		x = 13
 		y = 2
 		prerequisite = {
@@ -57,12 +57,55 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = DVA_amber_plan
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = DVA_excavate_mines
+		icon = GFX_Goal_Industry_or_Production
+		cost = 5
+		x = 14
+		y = 2
+		prerequisite = {
+			focus = DVA_Plan_of_developing_industry
+		}
+		available = {
+			#
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+				add_resource = {
+					type = tungsten
+					amount = 8
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_colonical_industrial
 		icon = GFX_Goal_Industry_or_Production
-		cost = 1
+		cost = 5
 		x = 15
 		y = 2
 		prerequisite = {
@@ -75,39 +118,190 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			set_country_flag = DVA_noble_plan
+			set_country_flag = DVA_knight_plan
+			57 = {
+				set_building_level = {
+					type = infrastructure
+					level = 4
+					instant_build = yes
+				}
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			swap_ideas = {
+				remove_idea = DVA_no_industrial_at_all
+				add_idea = DVA_colonical_industrial1
+			}
 		}
 	}
 	focus = {
 		id = DVA_Progressive_industrialization
 		icon = GFX_Goal_Industry_or_Production
-		cost = 1
+		cost = 12
 		x = 13
 		y = 3
 		prerequisite = {
 			focus = DVA_Development_Act
 		}
+		prerequisite = {
+			focus = DVA_excavate_mines
+		}
 		available = {
 			#
 		}
 		completion_reward = {
-			#
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
-		id = DVA_arms_factory_of_dvalin
+		id = DVA_develop_Lei_lines
 		icon = GFX_Goal_Industry_or_Production
-		cost = 1
+		cost = 5
+		x = 14
+		y = 3
+		prerequisite = {
+			focus = DVA_excavate_mines
+		}
+		available = {
+			#
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_resource = {
+					type = oil
+					amount = 4
+				}
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = DVA_Rapid_industrialization
+		icon = GFX_Goal_Industry_or_Production
+		cost = 8
 		x = 15
 		y = 3
 		prerequisite = {
 			focus = DVA_colonical_industrial
 		}
+		prerequisite = {
+			focus = DVA_excavate_mines
+		}
 		available = {
 			#
 		}
 		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial1
+				add_idea = DVA_colonical_industrial2
+			}
+		}
+	}
+	focus = {
+		id = DVA_technology_make_industry_progress
+		icon = GFX_Goal_Industry_or_Production
+		cost = 10
+		x = 13
+		y = 4
+		prerequisite = {
+			focus = DVA_Progressive_industrialization
+		}
+		prerequisite = {
+			focus = DVA_develop_Lei_lines
+		}
+		available = {
+			#已经完成高塔研究所关于农业和工业的项目
+		}
+		completion_reward = {
+			#获得关于农业和工业的idea
+		}
+	}
+	focus = {
+		id = DVA_arms_factory_of_dvalin
+		icon = GFX_Goal_Industry_or_Production
+		cost = 10
+		x = 15
+		y = 4
+		prerequisite = {
+			focus = DVA_Rapid_industrialization
+		}
+		prerequisite = {
+			focus = DVA_develop_Lei_lines
+		}
+		available = {
 			#
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial2
+				add_idea = DVA_colonical_industrial3
+			}
+			MOT = {
+				country_event = dva.ab.40
+			}
 		}
 	}
 	focus = {
