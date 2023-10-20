@@ -53,6 +53,7 @@ FAV_Org_DM = {
 		max = FAV_Action_Population_Max
 		min = 0
 	}
+	force_update_dynamic_modifier = yes
 }
 #升级专属精神
 FAV_Upgrade_National_Ideas = {
@@ -403,21 +404,30 @@ FAV_Stronger_Stronger = {
 #削弱异端debuff
 FAV_Down_Buff_of_Religion = {
 	IF = {
-		limit = { has_idea = FAV_Heresy_of_Religion3 }
-		remove_ideas = FAV_Heresy_of_Religion3
-	}
-	IF = {
-		limit = { has_idea = FAV_Heresy_of_Religion2 }
-		swap_ideas = {
-			remove_idea = FAV_Heresy_of_Religion2
-			add_idea = FAV_Heresy_of_Religion3
+		limit = {
+			OR = {
+				has_ideas = FAV_Heresy_of_Religion3
+				has_ideas = FAV_Heresy_of_Religion2
+				has_ideas = FAV_Heresy_of_Religion1
+			}
 		}
-	}
-	IF = {
-		limit = { has_idea = FAV_Heresy_of_Religion }
-		swap_ideas = {
-			remove_idea = FAV_Heresy_of_Religion
-			add_idea = FAV_Heresy_of_Religion2
+		IF = {
+			limit = { has_idea = FAV_Heresy_of_Religion3 }
+			remove_ideas = FAV_Heresy_of_Religion3
+		}
+		IF = {
+			limit = { has_idea = FAV_Heresy_of_Religion2 }
+			swap_ideas = {
+				remove_idea = FAV_Heresy_of_Religion2
+				add_idea = FAV_Heresy_of_Religion3
+			}
+		}
+		IF = {
+			limit = { has_idea = FAV_Heresy_of_Religion }
+			swap_ideas = {
+				remove_idea = FAV_Heresy_of_Religion
+				add_idea = FAV_Heresy_of_Religion2
+			}
 		}
 	}
 }

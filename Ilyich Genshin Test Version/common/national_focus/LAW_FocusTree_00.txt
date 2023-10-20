@@ -38,6 +38,409 @@ focus_tree = {
 			base = 500
 		}
 	}
+	#浪花涌现
+	focus = {
+		id = LAW_Show_Tide
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 10
+		y = 6
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_country_leader_role = {
+				character = LAW_Eula
+				promote_leader = yes
+				country_leader = {
+					desc = "LAW_Eula_leader_desc"
+					ideology = fascism_ideology
+					expire="1999.1.1.1"
+					traits = {
+						LAW_Rising_Tide
+						LAW_Ability_of_Knight
+					}
+				}
+			}
+			remove_ideas = LAW_Shocking_Intelligence
+			remove_ideas = LAW_People_Want
+			remove_ideas = LAW_Pure_Government
+			remove_ideas = LAW_Fast_Government
+		}
+		available = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5000
+		}
+	}
+	#除掉旧贵族
+	focus = {
+		id = LAW_Kill_Olds
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 9
+		y = 7
+		prerequisite = {
+			focus = LAW_Show_Tide
+		}
+		mutually_exclusive = {
+			focus = LAW_Kill_Fools
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_stability = 0.2
+			add_war_support = -0.2
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			remove_ideas = LAW_GUN_Internal_Attack
+			remove_ideas = LAW_Emo_Tactic_Attack
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#驱逐愚人众
+	focus = {
+		id = LAW_Kill_Fools
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 11
+		y = 7
+		prerequisite = {
+			focus = LAW_Show_Tide
+		}
+		mutually_exclusive = {
+			focus = LAW_Kill_Olds
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_stability = -0.2
+			add_war_support = 0.2
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+			remove_ideas = LAW_Influence_of_SNE1
+			remove_ideas = LAW_Influence_of_SNE2
+			remove_ideas = LAW_Influence_of_SNE3
+			remove_ideas = LAW_Influence_of_SNE4
+			remove_ideas = LAW_Influence_of_SNE5
+			remove_ideas = LAW_Evil_Eyes_Army1
+			remove_ideas = LAW_Evil_Eyes_Army2
+			remove_ideas = LAW_Evil_Eyes_Army3
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#逆反天理之路
+	focus = {
+		id = LAW_Anti_PRI_with_Winter
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 9
+		y = 8
+		mutually_exclusive = {
+			focus = LAW_Follow_Winter
+		}
+		prerequisite = {
+			focus = LAW_Kill_Olds
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			swap_ideas = {
+				add_idea = LAW_Influence_of_SNE1
+				remove_idea = LAW_Influence_of_SNE3
+			}
+			set_cosmetic_tag = LAW_Winter_Coo
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#追随冰之女皇
+	focus = {
+		id = LAW_Follow_Winter
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 7
+		y = 8
+		prerequisite = {
+			focus = LAW_Kill_Olds
+		}
+		mutually_exclusive = {
+			focus = LAW_Anti_PRI_with_Winter
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+			SNE = { give_guarantee = LAW }
+			set_cosmetic_tag = LAW_Winter_Pupp
+			swap_ideas = {
+				add_idea = LAW_Influence_of_SNE5
+				remove_idea = LAW_Influence_of_SNE3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#联合新锐贵族
+	focus = {
+		id = LAW_Cooperate_with
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 11
+		y = 8
+		mutually_exclusive = {
+			focus = LAW_Talk_with_Free
+		}
+		prerequisite = {
+			focus = LAW_Kill_Fools
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			add_country_leader_role = {
+				character = LAW_Eula
+				promote_leader = yes
+				country_leader = {
+					desc = "LAW_Eula_leader_desc"
+					ideology = despotism
+					expire="1999.1.1.1"
+					traits = {
+						LAW_Rising_Tide
+						LAW_Ability_of_Knight
+					}
+				}
+			}
+			set_cosmetic_tag = LAW_New_Lords
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#接洽进步同盟
+	focus = {
+		id = LAW_Talk_with_Free
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 13
+		y = 8
+		mutually_exclusive = {
+			focus = LAW_Cooperate_with
+		}
+		prerequisite = {
+			focus = LAW_Kill_Fools
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = no
+			}
+			add_country_leader_role = {
+				character = LAW_Eula
+				promote_leader = yes
+				country_leader = {
+					desc = "LAW_Eula_leader_desc"
+					ideology = socialism
+					expire="1999.1.1.1"
+					traits = {
+						LAW_Rising_Tide
+						LAW_Ability_of_Knight
+					}
+				}
+			}
+			set_cosmetic_tag = LAW_Free_Front
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#扩张控制区域
+	focus = {
+		id = LAW_Expand_Control_Area
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 11
+		y = 8
+		mutually_exclusive = {
+			focus = LAW_Defend_Together
+		}
+		prerequisite = {
+			focus = LAW_Anti_PRI_with_Winter
+			focus = LAW_Follow_Winter
+			focus = LAW_Cooperate_with
+			focus = LAW_Talk_with_Free
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			IF = {
+				limit = { is_neighbor_of = FAV }
+				create_wargoal = {
+					type = annex_everything
+					target = FAV
+				}
+			}
+			IF = {
+				limit = { is_neighbor_of = SPI }
+				create_wargoal = {
+					type = annex_everything
+					target = SPI
+				}
+			}
+			IF = {
+				limit = { is_neighbor_of = DRA }
+				create_wargoal = {
+					type = annex_everything
+					target = DRA
+				}
+			}
+			IF = {
+				limit = { is_neighbor_of = RAG }
+				create_wargoal = {
+					type = annex_everything
+					target = RAG
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = 100
+				has_government = fascism
+			}
+		}
+	}
+	#联合反对骑士团
+	focus = {
+		id = LAW_Defend_Together
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 5.00
+		x = 9
+		y = 8
+		mutually_exclusive = {
+			focus = LAW_Expand_Control_Area
+		}
+		prerequisite = {
+			focus = LAW_Anti_PRI_with_Winter
+			focus = LAW_Follow_Winter
+			focus = LAW_Cooperate_with
+			focus = LAW_Talk_with_Free
+		}
+		available = {
+			has_war = no
+		}
+		completion_reward = {
+			hidden_effect = {
+			}
+			FAV = {
+				country_event = Lawrence.1
+			}
+			SPI = {
+				country_event = Lawrence.1
+			}
+			DRA = {
+				country_event = Lawrence.1
+			}
+			RAG = {
+				country_event = Lawrence.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				add = 100
+				OR = {
+					has_government = neutrality
+					has_government = communism
+					has_government = democratic
+				}
+			}
+		}
+	}
 	#联络至冬国
 	focus = {
 		id = LAW_Connection_with_Winter
@@ -149,7 +552,7 @@ focus_tree = {
 			SNE = {
 				add_political_power = 100
 			}
-			add_ideas = LAW_Influence_of_SNE5
+			add_ideas = LAW_Influence_of_SNE3
 		}
 		available = {
 			

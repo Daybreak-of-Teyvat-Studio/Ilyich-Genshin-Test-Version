@@ -943,11 +943,11 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
@@ -1414,8 +1414,8 @@ focus_tree = {
 			}
 			IF = {
 				limit = {
-					NOT = { has_idea = war_economy }
-					NOT = { has_idea = tot_economic_mobilisation }
+					NOT = { has_ideas = war_economy }
+					NOT = { has_ideas = tot_economic_mobilisation }
 				}
 				add_ideas = partial_economic_mobilisation
 			}
@@ -1506,7 +1506,7 @@ focus_tree = {
 			}
 			IF = {
 				limit = {
-					NOT = { has_idea = closed_economy }
+					NOT = { has_ideas = closed_economy }
 				}
 				add_ideas = limited_exports
 			}
@@ -1542,7 +1542,7 @@ focus_tree = {
 		completion_reward = {
 			add_research_slots = 1
             set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
 			add_power_balance_value = {
 				id = FAV_Original_power_balance
@@ -1558,7 +1558,7 @@ focus_tree = {
 				}
 				FAV_Get_2_Civs = yes
 				set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-				custom_effect_tooltip = FAV_Higher_Population
+				custom_effect_tooltip = FAV_Higher_Pop
 				add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
 			}
 			IF = {
@@ -1660,9 +1660,9 @@ focus_tree = {
 				limit = {
 					NOT = {
 						OR = {
-							has_idea = service_by_requirement
-							has_idea = all_adults_serve
-							has_idea = scraping_the_barrel
+							has_ideas = service_by_requirement
+							has_ideas = all_adults_serve
+							has_ideas = scraping_the_barrel
 						}
 					}
 				}
@@ -1745,8 +1745,12 @@ focus_tree = {
 			focus = FAV_Play_the_Show
 		}
 		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_C }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
             set_temp_variable = { FAV_linshibianliang_Pop = 0.2 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
 
 			set_cosmetic_tag = FAV_Comm_of_AntiChurch
@@ -1760,6 +1764,9 @@ focus_tree = {
 			add_stability = 0.1
 			set_politics = {
 				ruling_party = communism
+				last_election = "1935.1.24"
+				election_frequency = 48
+				elections_allowed = yes
 			}
 			add_country_leader_role = {
 				character = FAV_Barbara
@@ -1908,6 +1915,10 @@ focus_tree = {
 			focus = FAV_Honor_for_People
 		}
 		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_F }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
             set_temp_variable = { FAV_linshibianliang_Z = 0.2 }
             custom_effect_tooltip = FAV_Higher_Zeal_Max
             add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
@@ -1920,6 +1931,7 @@ focus_tree = {
 			add_war_support = 0.1
 			set_politics = {
 				ruling_party = fascism
+				elections_allowed = no
 			}
 			set_party_name = {
 				ideology = communism
@@ -1986,7 +1998,7 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
 			set_cosmetic_tag = FAV_Left_of_AntiChurch
 			add_popularity = {
@@ -2022,6 +2034,10 @@ focus_tree = {
 			focus = FAV_Light_of_Miracle
 		}
 		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_N }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
             set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
             custom_effect_tooltip = FAV_Higher_Zeal_Max
             add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
@@ -2029,6 +2045,9 @@ focus_tree = {
 			set_cosmetic_tag = FAV_Right_of_AntiChurch
 			set_politics = {
 				ruling_party = neutrality
+				last_election = "1935.1.24"
+				election_frequency = 48
+				elections_allowed = no
 			}
 			add_country_leader_role = {
 				character = FAV_Rosary
@@ -2196,7 +2215,6 @@ focus_tree = {
 		x = 18
 		y = 11
 		prerequisite = {
-			focus = FAV_Honor_for_People
 			focus = FAV_Light_of_Miracle
 			focus = FAV_Judge_Angel
 		}
@@ -2259,9 +2277,9 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				has_idea = MOT_Temp_Attack_Order
-				has_idea = MOT_Temp_Defense_Order
-				has_idea = MOT_Temp_Back_Order
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
 			}
 		}
 		cancel_if_invalid = yes
@@ -2287,9 +2305,9 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				has_idea = MOT_Temp_Attack_Order
-				has_idea = MOT_Temp_Defense_Order
-				has_idea = MOT_Temp_Back_Order
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
 			}
 		}
 		cancel_if_invalid = yes
@@ -2315,9 +2333,9 @@ focus_tree = {
 		}
 		available = {
 			NOT = {
-				has_idea = MOT_Temp_Attack_Order
-				has_idea = MOT_Temp_Defense_Order
-				has_idea = MOT_Temp_Back_Order
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
 			}
 		}
 		cancel_if_invalid = yes
@@ -2548,7 +2566,7 @@ focus_tree = {
 				add_war_support = 0.05
 			}
 			IF = {
-				limit = { NOT = { has_idea = tot_economic_mobilisation } }
+				limit = { NOT = { has_ideas = tot_economic_mobilisation } }
 				add_ideas = war_economy
 			}
 			custom_effect_tooltip = FAV_Higher_Zeal
@@ -2796,8 +2814,8 @@ focus_tree = {
 		y = 10
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
 			
@@ -2855,8 +2873,8 @@ focus_tree = {
 		y = 12
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population_Max
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
@@ -2874,9 +2892,9 @@ focus_tree = {
 				limit = {
 					NOT = {
 						OR = {
-							has_idea = service_by_requirement
-							has_idea = all_adults_serve
-							has_idea = scraping_the_barrel
+							has_ideas = service_by_requirement
+							has_ideas = all_adults_serve
+							has_ideas = scraping_the_barrel
 						}
 					}
 				}
@@ -2938,10 +2956,10 @@ focus_tree = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
             custom_effect_tooltip = FAV_Higher_Eff_Max
             custom_effect_tooltip = FAV_Higher_Eff
-            add_to_variable = { FAV_Action_Eff = FAV_linshibianliang_Eff }
-            add_to_variable = { FAV_Action_Eff_Max = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
 			IF = {
-				limit = { NOT = { has_idea = tot_economic_mobilisation } }
+				limit = { NOT = { has_ideas = tot_economic_mobilisation } }
 				add_ideas = war_economy
 			}
 			add_ideas = closed_economy
@@ -3442,7 +3460,7 @@ focus_tree = {
 			multiply_variable = { FAV_Better_C = 10 }
 			add_to_variable = { FAV_Influence_on_Friend = FAV_Better_C }
             set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
 		}
 		bypass = {
@@ -3629,15 +3647,15 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Efficiency
+            custom_effect_tooltip = FAV_Higher_Eff
             add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
@@ -3960,9 +3978,9 @@ focus_tree = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = FAV_Holy_Agriculture
-						has_idea = FAV_Holy_Agriculture2
-						has_idea = FAV_Holy_Agriculture3
+						has_ideas = FAV_Holy_Agriculture
+						has_ideas = FAV_Holy_Agriculture2
+						has_ideas = FAV_Holy_Agriculture3
 					}
 				}
 				FAV_Down_Debuff_of_Agri = yes
@@ -4019,33 +4037,12 @@ focus_tree = {
 				amount = 12
 				state = 32
 			}
-			29 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			30 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			32 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
 			IF = {
 				limit = {
 					OR = {
-						has_idea = FAV_Holy_Industry
-						has_idea = FAV_Holy_Industry2
-						has_idea = FAV_Holy_Industry3
+						has_ideas = FAV_Holy_Industry
+						has_ideas = FAV_Holy_Industry2
+						has_ideas = FAV_Holy_Industry3
 					}
 				}
 				FAV_Down_Debuff_of_Indu = yes
@@ -4102,14 +4099,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 			18 = {
@@ -4121,14 +4126,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 			21 = {
@@ -4140,14 +4153,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 			22 = {
@@ -4159,14 +4180,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -4203,14 +4232,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 			35 = {
@@ -4222,14 +4259,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Arms = yes
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 			36 = {
@@ -4241,11 +4286,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			37 = {
@@ -4257,11 +4308,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 		}
@@ -4299,11 +4356,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			7 = {
@@ -4315,14 +4378,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Arms = yes
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 			8 = {
@@ -4334,11 +4405,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			10 = {
@@ -4350,14 +4427,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -4394,11 +4479,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			52 = {
@@ -4410,14 +4501,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Arms = yes
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 			360 = {
@@ -4429,11 +4528,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			63 = {
@@ -4445,14 +4550,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Civ = yes
+						type = industrial_complex
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Civ = yes
+					type = industrial_complex
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -4489,11 +4602,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			46 = {
@@ -4505,14 +4624,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Arms = yes
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 			51 = {
@@ -4524,11 +4651,17 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 			43 = {
@@ -4540,14 +4673,22 @@ focus_tree = {
 						}
 					}
 					add_building_construction = {
-						FAV_Local_Get_1_Arms = yes
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 				ELSE_IF = {
-					FAV_Local_Get_1_Infra = yes
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
 				}
 				add_building_construction = {
-					FAV_Local_Get_1_Arms = yes
+					type = arms_factory
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -4582,15 +4723,15 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = -100
 			IF = {
-				limit = { has_idea = FAV_Holy_Agriculture3 }
+				limit = { has_ideas = FAV_Holy_Agriculture3 }
 				remove_ideas = FAV_Holy_Agriculture3
 			}
 			IF = {
-				limit = { has_idea = FAV_Holy_Agriculture2 }
+				limit = { has_ideas = FAV_Holy_Agriculture2 }
 				remove_ideas = FAV_Holy_Agriculture2
 			}
 			IF = {
-				limit = { has_idea = FAV_Holy_Agriculture }
+				limit = { has_ideas = FAV_Holy_Agriculture }
 				swap_ideas = {
 					remove_idea = FAV_Holy_Agriculture
 					add_idea = FAV_Holy_Agriculture3
@@ -4628,15 +4769,15 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = -100
 			IF = {
-				limit = { has_idea = FAV_Holy_Industry3 }
+				limit = { has_ideas = FAV_Holy_Industry3 }
 				remove_ideas = FAV_Holy_Industry3
 			}
 			IF = {
-				limit = { has_idea = FAV_Holy_Industry2 }
+				limit = { has_ideas = FAV_Holy_Industry2 }
 				remove_ideas = FAV_Holy_Industry2
 			}
 			IF = {
-				limit = { has_idea = FAV_Holy_Industry }
+				limit = { has_ideas = FAV_Holy_Industry }
 				swap_ideas = {
 					remove_idea = FAV_Holy_Industry
 					add_idea = FAV_Holy_Industry3
@@ -4668,7 +4809,11 @@ focus_tree = {
 						level > 1
 					}
 				}
-				FAV_Local_Get_1_Infra = yes
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
 			}
 			IF = {
 				limit = {
@@ -4809,7 +4954,7 @@ focus_tree = {
 			has_command_power > 99
 		}
 		bypass = {
-			NOT = { has_idea = FAV_Holy_Army }
+			NOT = { has_ideas = FAV_Holy_Army }
 		}
 		ai_will_do = {
 			base = 100
@@ -4915,7 +5060,7 @@ focus_tree = {
 		x = 31
 		y = 12
 		completion_reward = {
-			add_timed_idea = { idae = gene_less_burden days = 90 }
+			add_timed_idea = { idea = gene_less_burden days = 90 }
 			DRA_Equal_Education_Improved = yes
 		}
 	}
@@ -4991,7 +5136,7 @@ focus_tree = {
 		x = 31
 		y = 13
 		completion_reward = {
-			add_timed_idea = { idae = gene_less_burden days = 90 }
+			add_timed_idea = { idea = gene_less_burden days = 90 }
 			DRA_Equal_Education_Improved = yes
 		}
 	}
@@ -5597,7 +5742,7 @@ focus_tree = {
 		available = {
 			all_other_country = {
 				IF = {
-					limit = { original_tag = and }
+					limit = { original_tag = ANR }
 					exists = yes
 				}
 			}
@@ -5610,7 +5755,7 @@ focus_tree = {
 		bypass = {
 			all_other_country = {
 				IF = {
-					limit = { original_tag = and }
+					limit = { original_tag = ANR }
 					OR = {
 						exists = no
 						is_subject_of = FAV
@@ -5622,7 +5767,7 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
-				target = and
+				target = ANR
 			}
 		}
 		cancel_if_invalid = no
@@ -5808,15 +5953,15 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Efficiency
+            custom_effect_tooltip = FAV_Higher_Eff
             add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
@@ -5889,15 +6034,15 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Efficiency
+            custom_effect_tooltip = FAV_Higher_Eff
             add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
@@ -5968,15 +6113,15 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Efficiency
+            custom_effect_tooltip = FAV_Higher_Eff
             add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
@@ -6047,15 +6192,15 @@ focus_tree = {
 		}
 		completion_reward = {
             set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Efficiency
+            custom_effect_tooltip = FAV_Higher_Eff
             add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
-            custom_effect_tooltip = FAV_Higher_Efficiency_Max
+            custom_effect_tooltip = FAV_Higher_Eff_Max
             add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
             
 			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
-            custom_effect_tooltip = FAV_Higher_Population
+            custom_effect_tooltip = FAV_Higher_Pop
             add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
-            custom_effect_tooltip = FAV_Higher_Population_Max
+            custom_effect_tooltip = FAV_Higher_Pop_Max
             add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
             
 			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
