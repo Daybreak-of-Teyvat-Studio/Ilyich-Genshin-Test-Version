@@ -3,7 +3,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 8
+			add = 10
 			tag = DVA
 		}
 	}
@@ -30,14 +30,18 @@ focus_tree = {
 	focus = {
 		id = DVA_Plan_of_developing_industry
 		icon = GFX_Goal_Industry_or_Production
-		cost = 1
+		cost = 10
 		x = 14
 		y = 1
 		available = {
 			always = no
 		}
+		bypass = {
+			has_war_with = SNE
+		}
 		completion_reward = {
-			#
+			set_country_flag = DVA_industry_plan_settled_normally_flag
+			add_politiacal_power = 50
 		}
 	}
 	focus = {
@@ -72,6 +76,12 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+			}
 		}
 	}
 	focus = {
@@ -87,19 +97,40 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			every_owned_state = {
+			if = {
 				limit = {
-					is_controlled_by = ROOT
+					has_country_flag = DVA_industry_plan_settled_normally_flag
 				}
-				add_resource = {
-					type = steel
-					amount = 8
-				}
-				add_resource = {
-					type = tungsten
-					amount = 8
+				every_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_resource = {
+						type = steel
+						amount = 8
+					}
+					add_resource = {
+						type = tungsten
+						amount = 8
+					}
 				}
 			}
+			else = {
+				every_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_resource = {
+						type = steel
+						amount = 6
+					}
+					add_resource = {
+						type = tungsten
+						amount = 6
+					}
+				}
+			}
+			country_event = dva.ab.43
 		}
 	}
 	focus = {
@@ -115,23 +146,42 @@ focus_tree = {
 			OR = {
 				has_country_flag = DVA_knights_win
 				has_country_flag = DVA_middle_way
+				has_war_with = SNE
 			}
 		}
 		completion_reward = {
 			set_country_flag = DVA_knight_plan
-			57 = {
-				set_building_level = {
-					type = infrastructure
-					level = 4
-					instant_build = yes
+			if = {
+				limit = {
+					has_country_flag = DVA_industry_plan_settled_normally_flag
+				}
+				57 = {
+					set_building_level = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
-			57 = {
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
+			else = {
+				57 = {
+					set_building_level = {
+						type = infrastructure
+						level = 4
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = industrial_complex
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
 			swap_ideas = {
@@ -190,7 +240,21 @@ focus_tree = {
 				}
 				add_resource = {
 					type = oil
-					amount = 4
+					amount = 3
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_industry_plan_settled_normally_flag
+				}
+				every_owned_state = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_resource = {
+						type = oil
+						amount = 1
+					}
 				}
 			}
 			57 = {
@@ -216,7 +280,7 @@ focus_tree = {
 			focus = DVA_excavate_mines
 		}
 		available = {
-			#
+			has_country_flag = DVA_industry_plan_settled_normally_flag
 		}
 		completion_reward = {
 			every_owned_state = {
@@ -244,7 +308,7 @@ focus_tree = {
 		id = DVA_technology_make_industry_progress
 		icon = GFX_Goal_Industry_or_Production
 		cost = 10
-		x = 12
+		x = 13
 		y = 4
 		prerequisite = {
 			focus = DVA_Progressive_industrialization
@@ -253,6 +317,7 @@ focus_tree = {
 			focus = DVA_develop_Lei_lines
 		}
 		available = {
+			always = no
 			#已经完成高塔研究所关于农业和工业的项目
 		}
 		completion_reward = {
@@ -263,7 +328,7 @@ focus_tree = {
 		id = DVA_arms_factory_of_dvalin
 		icon = GFX_Goal_Industry_or_Production
 		cost = 10
-		x = 16
+		x = 15
 		y = 4
 		prerequisite = {
 			focus = DVA_Rapid_industrialization
@@ -300,8 +365,25 @@ focus_tree = {
 				add_idea = DVA_colonical_industrial3
 			}
 			MOT = {
-				country_event = dva.ab.40
+				country_event = dva.ab.41
 			}
+		}
+	}
+	focus = {
+		id = DVA_economic_miracle_of_Dvalingebiet
+		icon = GFX_Goal_Industry_or_Production
+		cost = 10
+		x = 14
+		y = 5
+		prerequisite = {
+			focus = DVA_technology_make_industry_progress
+			focus = DVA_arms_factory_of_dvalin
+		}
+		available = {
+			always = no
+		}
+		completion_reward = {
+			set_country_flag = DVA_economy_reform_finished_flag
 		}
 	}
 	focus = {
@@ -332,7 +414,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Deal_With_Mass_Of_Dvalin
-		icon = GFX_goal_unknown
+		icon = DVA_Deal_With_Mass_Of_Dvalin
 		cost = 5
 		prerequisite = {
 			focus = DVA_An_Ordinary_Day
@@ -353,7 +435,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_one_flew_over_stormterrors_lair
-		icon = GFX_goal_unknown
+		icon = DVA_one_flew_over_stormterrors_lair
 		cost = 5
 		prerequisite = {
 			focus = DVA_Deal_With_Mass_Of_Dvalin
@@ -375,53 +457,6 @@ focus_tree = {
 				add_named_threat = {
 					threat = 5
 					name = SNE_invade_DVA
-				}
-			}
-			hidden_effect = {
-				SFS = {
-					transfer_state = 58
-					division_template = {
-						name = "愚人众先遣队"
-						
-						regiments = {
-							SNE_electrohammer = { x = 0 y = 0 }
-							SNE_hydrogunner = { x = 0 y = 1 }
-							SNE_pyroslinger = { x = 0 y = 2 }
-							SNE_anemoboxer = { x = 1 y = 0 }
-							SNE_cryogunner = { x = 1 y = 1 }
-							SNE_geochanter = { x = 1 y = 2 }
-						}
-						support = {
-							#
-						}
-						origin_type=master_host
-						priority = 1
-						is_locked = yes
-						allow_new_equipment=yes
-						allow_foreign_equipment=yes
-					}
-					58 = {
-						create_unit = {
-							division = "name = \"1. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
-							owner = SFS
-						}
-						create_unit = {
-							division = "name = \"2. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
-							owner = SFS
-						}
-						create_unit = {
-							division = "name = \"3. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
-							owner = SFS
-						}
-						create_unit = {
-							division = "name = \"4. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
-							owner = SFS
-						}
-						create_unit = {
-							division = "name = \"5. 愚人众先遣队风龙湾小队\" division_template = \"愚人众先遣队\" start_experience_factor = 0.5" 
-							owner = SFS
-						}
-					}
 				}
 			}
 		}
@@ -447,7 +482,7 @@ focus_tree = {
 			add_stability = 0.05
 			remove_ideas = DVA_powerless_government
 			delete_unit_template_and_units = { division_template = "风龙领民兵" }
-			unlock_national_focus = DVA_Plan_of_developing_industry
+			complete_national_focus = DVA_Plan_of_developing_industry
 			if = {
 				limit = {
 					check_variable = {
@@ -474,6 +509,20 @@ focus_tree = {
 					}
 				}
 				country_event = dva.6
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Vile
+			add_corps_commander_role = {
+				character = DVA_Vile
+				desc = "Vile_DESC"
+				traits = { 
+					#
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 3
+				logistics_skill = 3
 			}
 		}
 	}
@@ -509,20 +558,6 @@ focus_tree = {
 			country_event = dva.ab.1
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = DVA_Raymond
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = DVA_Vile
-			add_corps_commander_role = {
-				character = DVA_Vile
-				desc = "Vile_DESC"
-				traits = { 
-					#
-				}
-				skill = 2
-				attack_skill = 2
-				defense_skill = 1
-				planning_skill = 3
-				logistics_skill = 3
-			}
 			add_corps_commander_role = {
 				character = DVA_Raymond
 				desc = "Raymond_DESC"
@@ -612,7 +647,7 @@ focus_tree = {
 				has_country_flag = DVA_outriders_permitted
 				has_country_flag = DVA_middle_way
 			}
-			has_country_flag = DVA_economy_reform_finished
+			has_country_flag = DVA_economy_reform_finished_flag
 		}
 		completion_reward = {
 			country_event = dva.ab.5
@@ -849,7 +884,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Mondstadt_Spring
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 4
 		prerequisite = {
 			focus = DVA_incorporate_the_knights_of_favonius
 		}
@@ -864,7 +899,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			set_country_flag = DVA_start_research_plan_flag
 			country_event = {
 				id = dva.ab.18
 				days = 7
@@ -875,7 +909,7 @@ focus_tree = {
 	focus = {
 		id = DVA_wind_returns
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 3
 		prerequisite = {
 			focus = DVA_free_Dvalindom
 			focus = DVA_Mondstadt_Spring
@@ -953,7 +987,7 @@ focus_tree = {
 	focus = {
 		id = DVA_break_with_the_past
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 8
 		mutually_exclusive = {
 			focus = DVA_incorporate_the_knights_of_favonius
 		}
@@ -1010,19 +1044,163 @@ focus_tree = {
 				name = NEW_MONDSTADT
 			}
 			add_victory_points = {
-				province = 1929
-				value = 40
+				province = 3114
+				value = 30
 			}
 			every_owned_state = {
 				limit = {
 					is_core_of = DVA
 				}
-				set_state_category = rural
+				set_state_category = town
 			}
 			57 = {
 				set_state_name = "Newmondst"
-				set_state_category = town
+				set_state_category = city
 			}
+		}
+	}
+	focus = {
+		id = DVA_liberate_Windrise
+		icon = GFX_goal_unknown
+		cost = 10
+		prerequisite = {
+			focus = DVA_new_age_began_for_old_Mondstadt
+		}
+		x = 13
+		y = 13
+		available = {
+			#
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = MOT
+			}
+		}
+	}
+	focus = {
+		id = DVA_establish_Mondakademie
+		icon = GFX_goal_unknown
+		cost = 10
+		prerequisite = {
+			focus = DVA_wind_returns
+		}
+		prerequisite = {
+			focus = DVA_Mondstadt_Spring
+		}
+		x = 11
+		y = 14
+		available = {
+			#
+		}
+		completion_reward = {
+			set_country_flag = DVA_start_research_plan_flag
+		}
+	}
+	focus = {
+		id = DVA_establish_institute_of_Tower
+		icon = GFX_goal_unknown
+		cost = 10
+		prerequisite = {
+			focus = DVA_liberate_Windrise
+		}
+		x = 13
+		y = 14
+		available = {
+			#
+		}
+		completion_reward = {
+			set_country_flag = DVA_start_research_plan_flag
+		}
+	}
+	focus = {
+		id = DVA_sunlight_shines_on_Mondstadt
+		icon = GFX_goal_unknown
+		cost = 7
+		prerequisite = {
+			focus = DVA_establish_Mondakademie
+			focus = DVA_establish_institute_of_Tower
+		}
+		x = 12
+		y = 15
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.42
+			if = {
+				limit = {
+					has_country_flag = DVA_middle_way
+				}
+				set_country_leader_name = {
+					ideology = neutrality
+					name = DVA_AMBER_LEADER_NAME
+				}
+				set_country_leader_description = {
+					ideology = neutrality
+					desc = DVA_AMBER_LEADER_DESC
+				}
+				add_country_leader_trait = Leader_of_knights
+				MOT = {
+					set_country_leader_name = {
+						ideology = neutrality
+						name = DVA_AMBER_LEADER_NAME
+					}
+					set_country_leader_description = {
+						ideology = neutrality
+						desc = DVA_AMBER_LEADER_DESC
+					}
+					add_country_leader_trait = Leader_of_knights
+				}
+			}
+		}
+	}
+	focus = {
+		id = DVA_arrest_profiteers
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_sunlight_shines_on_Mondstadt
+		}
+		x = 10
+		y = 16
+		available = {
+			#
+		}
+		completion_reward = {
+			deactivate_advisor = DVA_Hopkins_the_Marvelous
+		}
+	}
+	focus = {
+		id = DVA_execute_traitors
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_sunlight_shines_on_Mondstadt
+		}
+		x = 12
+		y = 16
+		available = {
+			#
+		}
+		completion_reward = {
+			deactivate_advisor = DVA_Tsarevich
+		}
+	}
+	focus = {
+		id = DVA_fight_against_corruption
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_sunlight_shines_on_Mondstadt
+		}
+		x = 14
+		y = 16
+		available = {
+			#
+		}
+		completion_reward = {
+			#
 		}
 	}
 	focus = {
@@ -1088,7 +1266,7 @@ focus_tree = {
 		x = 18
 		y = 9
 		available = {
-			always = no
+			#
 		}
 		cancelable = no
 		will_lead_to_war_with = MOT
@@ -1289,7 +1467,7 @@ focus_tree = {
 	focus = {
 		id = DVA_free_Dvalindom
 		icon = GFX_goal_unknown
-		cost = 1
+		cost = 5
 		prerequisite = {
 			focus = DVA_merge_with_the_knights_of_favonius
 		}
