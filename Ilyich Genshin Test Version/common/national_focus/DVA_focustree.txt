@@ -146,7 +146,9 @@ focus_tree = {
 			OR = {
 				has_country_flag = DVA_knights_win
 				has_country_flag = DVA_middle_way
-				has_war_with = SNE
+				NOT = {
+					has_country_flag = DVA_industry_plan_settled_normally_flag
+				}
 			}
 		}
 		completion_reward = {
@@ -280,7 +282,13 @@ focus_tree = {
 			focus = DVA_excavate_mines
 		}
 		available = {
-			has_country_flag = DVA_industry_plan_settled_normally_flag
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_country_flag = DVA_middle_way
+				NOT = {
+					has_country_flag = DVA_industry_plan_settled_normally_flag
+				}
+			}
 		}
 		completion_reward = {
 			every_owned_state = {
@@ -337,7 +345,13 @@ focus_tree = {
 			focus = DVA_develop_Lei_lines
 		}
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_country_flag = DVA_middle_way
+				NOT = {
+					has_country_flag = DVA_industry_plan_settled_normally_flag
+				}
+			}
 		}
 		completion_reward = {
 			every_owned_state = {
@@ -380,7 +394,20 @@ focus_tree = {
 			focus = DVA_arms_factory_of_dvalin
 		}
 		available = {
-			always = no
+			has_country_flag = DVA_industry_plan_settled_normally_flag
+			OR = {
+				has_country_flag = DVA_amber_win
+				has_completed_focus = DVA_technology_make_industry_progress
+			}
+			OR = {
+				has_country_flag = DVA_knights_win
+				has_completed_focus = DVA_arms_factory_of_dvalin
+			}
+			OR = {
+				has_country_flag = DVA_middle_way
+				has_completed_focus = DVA_technology_make_industry_progress
+				has_completed_focus = DVA_arms_factory_of_dvalin
+			}
 		}
 		completion_reward = {
 			set_country_flag = DVA_economy_reform_finished_flag
@@ -431,6 +458,14 @@ focus_tree = {
 			}
 			unlock_decision_category_tooltip = DVA_mass_of_dvalin_category
 			set_country_flag = DVA_dvalin_mass_flag
+			hidden_effect = {
+				set_variable = {
+					var = DVA.DVA_puppet_influence
+					value = 1
+				}
+				DVA_influence_of_Knights = yes
+				add_dynamic_modifier = { modifier = DVA_influence_of_Knights }
+			}
 		}
 	}
 	focus = {
@@ -486,7 +521,7 @@ focus_tree = {
 			if = {
 				limit = {
 					check_variable = {
-						DVA_puppet_influence > 5
+						DVA.DVA_puppet_influence > 5
 					}
 				}
 				country_event = dva.4
@@ -494,7 +529,7 @@ focus_tree = {
 			if = {
 				limit = {
 					check_variable = {
-						DVA_puppet_influence < 4
+						DVA.DVA_puppet_influence < 4
 					}
 				}
 				country_event = dva.5
@@ -502,10 +537,10 @@ focus_tree = {
 			if = {
 				limit = {
 					check_variable = {
-						DVA_puppet_influence > 3
+						DVA.DVA_puppet_influence > 3
 					}
 					check_variable = {
-						DVA_puppet_influence < 6
+						DVA.DVA_puppet_influence < 6
 					}
 				}
 				country_event = dva.6
