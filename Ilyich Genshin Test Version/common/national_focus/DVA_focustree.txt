@@ -3,7 +3,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 10
+			add = 0
 			tag = DVA
 		}
 	}
@@ -13,7 +13,7 @@ focus_tree = {
 	focus = {
 		id = DVA_An_Ordinary_Day
 		icon = GFX_focus_MOT
-		cost = 1
+		cost = 10
 		x = 6
 		y = 1
 		available = {
@@ -21,7 +21,7 @@ focus_tree = {
 		}
 		cancelable = no
 		bypass = {
-			has_country_flag = FAV_Find_Dragon_Attacking
+			has_global_flag = MOT_News_Show2
 		}
 		completion_reward = {
 			#
@@ -41,7 +41,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = DVA_industry_plan_settled_normally_flag
-			add_politiacal_power = 50
+			add_political_power = 50
 		}
 	}
 	focus = {
@@ -146,9 +146,7 @@ focus_tree = {
 			OR = {
 				has_country_flag = DVA_knights_win
 				has_country_flag = DVA_middle_way
-				NOT = {
-					has_country_flag = DVA_industry_plan_settled_normally_flag
-				}
+				has_war_with = SNE
 			}
 		}
 		completion_reward = {
@@ -221,6 +219,11 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			unlock_decision_category_tooltip = DVA_four_season_plan_category
+			set_variable = {
+				var = DVA_industrialization_process
+				value = 0
+			}
 		}
 	}
 	focus = {
@@ -285,9 +288,7 @@ focus_tree = {
 			OR = {
 				has_country_flag = DVA_knights_win
 				has_country_flag = DVA_middle_way
-				NOT = {
-					has_country_flag = DVA_industry_plan_settled_normally_flag
-				}
+				has_war_with = SNE
 			}
 		}
 		completion_reward = {
@@ -325,11 +326,14 @@ focus_tree = {
 			focus = DVA_develop_Lei_lines
 		}
 		available = {
-			always = no
-			#已经完成高塔研究所关于农业和工业的项目
+			#已经完成高塔研究所/蒙德科学院关于农业和工业的项目
 		}
 		completion_reward = {
 			#获得关于农业和工业的idea
+			unlock_decision_tooltip = DVA_Engineering_Cybernetics
+			unlock_decision_tooltip = DVA_drip_irrigation_technique
+			unlock_decision_tooltip = DVA_import_Clockwork_Meka_from_Fontaine
+			unlock_decision_tooltip = DVA_Species_Plantarum#植物种志，林奈
 		}
 	}
 	focus = {
@@ -348,9 +352,7 @@ focus_tree = {
 			OR = {
 				has_country_flag = DVA_knights_win
 				has_country_flag = DVA_middle_way
-				NOT = {
-					has_country_flag = DVA_industry_plan_settled_normally_flag
-				}
+				has_war_with = SNE
 			}
 		}
 		completion_reward = {
@@ -396,8 +398,7 @@ focus_tree = {
 		available = {
 			has_country_flag = DVA_industry_plan_settled_normally_flag
 			OR = {
-				has_country_flag = DVA_amber_win
-				has_completed_focus = DVA_technology_make_industry_progress
+				has_country_flag = DVA_success_of_progressive_industrialization
 			}
 			OR = {
 				has_country_flag = DVA_knights_win
@@ -411,6 +412,14 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = DVA_economy_reform_finished_flag
+			#整合关于农业和工业的idea
+			if = {
+				limit = {
+					has_completed_focus = DVA_technology_make_industry_progress
+					has_completed_focus = DVA_arms_factory_of_dvalin
+				}
+				#致命后果！导致腐败和内战！
+			}
 		}
 	}
 	focus = {
@@ -463,9 +472,9 @@ focus_tree = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
-				add_dynamic_modifier = { modifier = DVA_influence_of_Knights }
 			}
+			add_dynamic_modifier = { modifier = DVA_influence_of_Knights_modifier }
+			force_update_dynamic_modifier = yes
 		}
 	}
 	focus = {
@@ -854,7 +863,6 @@ focus_tree = {
 					}
 				}
 			}
-			remove_ideas = DVA_lack_of_scholar
 			every_state = {
 				limit = {
 					is_core_of = DRA
@@ -1047,7 +1055,7 @@ focus_tree = {
 				elections_allowed = no
 				last_election = "1000.1.1"
 				election_frequency = 48
-				long_name = DVA_communism_party_long_blanqui
+				long_name = DVA_communism_party_blanqui_long
 				name = DVA_communism_party_blanqui
 			}
 			set_popularities = {
@@ -1075,7 +1083,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = dva.ab.19
 			set_province_name = {
-				id = 1929
+				id = 3114
 				name = NEW_MONDSTADT
 			}
 			add_victory_points = {
@@ -1130,6 +1138,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = DVA_start_research_plan_flag
+			remove_ideas = DVA_lack_of_scholar
 		}
 	}
 	focus = {
@@ -1146,6 +1155,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = DVA_start_research_plan_flag
+			remove_ideas = DVA_lack_of_scholar
 		}
 	}
 	focus = {

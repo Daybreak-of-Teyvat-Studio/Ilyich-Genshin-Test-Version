@@ -46,7 +46,7 @@ DVA_debug_category = {
 			factor = 10
 		}
 
-		fire_only_once = yes
+		fire_only_once = no
 
 		cost = 0
 
@@ -64,11 +64,7 @@ DVA_debug_category = {
 		icon = generic_oppression
 
 		available = {
-			ships_in_state_ports = {
-				type = destoryer
-				size > 0
-				state = 59
-			}
+			#
 		}
 
 		visible = {
@@ -79,14 +75,17 @@ DVA_debug_category = {
 			factor = 10
 		}
 
-		fire_only_once = yes
+		fire_only_once = no
 
 		cost = 0
 
 		#
 
 		complete_effect = {
-			#
+			add_to_variable = {
+				var = DVA.DVA_puppet_influence
+				value = 1
+			}
 		}
 	}
 }
@@ -227,7 +226,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -487,7 +486,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -747,7 +746,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -1007,7 +1006,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -1268,7 +1267,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -1527,7 +1526,7 @@ DVA_mass_of_dvalin_category = {
 					var = DVA.DVA_puppet_influence
 					value = 1
 				}
-				DVA_influence_of_Knights = yes
+				force_update_dynamic_modifier = yes
 			}
 			else = {
 				add_manpower = -1000
@@ -2270,7 +2269,7 @@ DVA_Turn_Sun_Operation = {
 		icon = generic_civil_support
 
 		available = {
-			has_country_flag = DVA_planB_flag
+			#
 		}
 
 		days_mission_timeout = 30
@@ -2278,6 +2277,7 @@ DVA_Turn_Sun_Operation = {
 		fire_only_once = yes
 
 		activation = {
+			has_country_flag = DVA_planB_flag
 			NOT = {
 				has_active_mission = DVA_escape_from_Mondstadt
 			}
@@ -2296,7 +2296,7 @@ DVA_Turn_Sun_Operation = {
 		icon = generic_civil_support
 
 		available = {
-			has_country_flag = DVA_planA_flag
+			#
 		}
 
 		days_mission_timeout = 60
@@ -2304,6 +2304,7 @@ DVA_Turn_Sun_Operation = {
 		fire_only_once = yes
 
 		activation = {
+			has_country_flag = DVA_planA_flag
 			NOT = {
 				has_active_mission = DVA_escape_from_Mondstadt
 			}
@@ -2828,6 +2829,71 @@ DVA_conquer_rebels_category = {
 			declare_war_on = {
 				target = FAV
 				type = annex_everything
+			}
+		}
+	}
+}
+
+#四季计划
+DVA_four_season_plan_category = {
+	#渐进式工业计划
+	DVA_plan_of_progressive_industrialization = {
+
+		icon = GFX_decision_generic_research
+
+		available = {
+			#
+		}
+
+		days_remove = 90
+		days_re_enable = 1
+
+		cost = 0
+
+		ai_will_do = {
+			base = 100
+		}
+
+		visible = {
+			has_completed_focus = DVA_Progressive_industrialization
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			add_to_variable = {
+				var = DVA_industrialization_process
+				value = 1
+			}
+		}
+
+		remove_effect = {
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				random_list = {
+					50 = {
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+					}
+					50 = {
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						DVA_industrialization_process > 3
+					}
+				}
+				set_country_flag = DVA_success_of_progressive_industrialization
 			}
 		}
 	}
