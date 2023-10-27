@@ -1,5 +1,123 @@
 #把暂时用不上的东西放在这里，方便以后需要时取用
-
+	
+	on_capitulation_immediate = {
+		effect = {
+			IF = {
+				limit = {
+					NOT = { has_global_flag = MOT_REUNITED }
+					ROOT = {
+						Is_MOT = yes
+					}
+					FROM = {
+						Is_MOT = yes
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = SPI } }
+					ROOT = {
+						every_enemy_country = {
+							start_peace_conference = {
+								tag = SPI
+								score_factor = 1
+								message = MOT_CW_SPI_Lost
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = ANR } }
+					ROOT = {
+						every_enemy_country = {
+							start_peace_conference = {
+								tag = ANR
+								score_factor = 1
+								message = MOT_CW_ANR_Lost
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = GUN } }
+					ROOT = {
+						every_enemy_country = {
+							start_peace_conference = {
+								tag = GUN
+								score_factor = 1
+								message = MOT_CW_GUN_Lost
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = MOT } }
+					ROOT = {
+						IF = {
+							limit = {
+								has_country_flag = MOT_Jean_Ill
+							}
+							every_enemy_country = {
+								start_peace_conference = {
+									tag = GUN
+									score_factor = 1
+									message = MOT_CW_MOT_Lost2
+								}
+							}
+						}
+						ELSE_IF = {
+							every_enemy_country = {
+								start_peace_conference = {
+									tag = GUN
+									score_factor = 1
+									message = MOT_CW_MOT_Lost1
+								}
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = RAG } }
+					ROOT = {
+						every_enemy_country = {
+							start_peace_conference = {
+								tag = RAG
+								score_factor = 1
+								message = MOT_CW_RAG_Lost
+							}
+						}
+					}
+				}
+				IF = {
+					limit = { ROOT = { original_tag = FAV } }
+					ROOT = {
+						IF = {
+							limit = {
+								OR = {
+									has_government = communism
+									has_government = democratic
+								}
+							}
+							every_enemy_country = {
+								start_peace_conference = {
+									tag = FAV
+									score_factor = 1
+									message = MOT_CW_FAV_Lost2
+								}
+							}
+						}
+						ELSE_IF = {
+							every_enemy_country = {
+								start_peace_conference = {
+									tag = FAV
+									score_factor = 1
+									message = MOT_CW_FAV_Lost1
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	#商人需求1：扩大贸易
 	MOT_Trader_Want_more_Trade = {
 		icon = generic_decision
