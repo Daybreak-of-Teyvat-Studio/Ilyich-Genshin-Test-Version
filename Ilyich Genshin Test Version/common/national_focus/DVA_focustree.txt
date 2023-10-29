@@ -691,7 +691,6 @@ focus_tree = {
 				has_country_flag = DVA_outriders_permitted
 				has_country_flag = DVA_middle_way
 			}
-			has_country_flag = DVA_economy_reform_finished_flag
 		}
 		completion_reward = {
 			country_event = dva.ab.5
@@ -1094,11 +1093,10 @@ focus_tree = {
 				limit = {
 					is_core_of = DVA
 				}
-				set_state_category = town
+				increase_state_category = yes
 			}
 			57 = {
 				set_state_name = "Newmondst"
-				set_state_category = city
 			}
 		}
 	}
@@ -1169,7 +1167,7 @@ focus_tree = {
 		x = 12
 		y = 15
 		available = {
-			#
+			has_country_flag = DVA_economy_reform_finished_flag
 		}
 		completion_reward = {
 			country_event = dva.ab.42
@@ -1248,6 +1246,84 @@ focus_tree = {
 			#
 		}
 	}
+
+	#war
+	focus = {
+		id = DVA_Winter_has_arrived
+		icon = DVA_Winter_has_arrived
+		cost = 3
+		x = 18
+		y = 1
+		mutually_exclusive = {
+			focus = DVA_Winter_has_arrived
+		}
+		available = {
+			has_war_with = SNE
+			has_war_together_with = MOT
+		}
+		bypass = {
+			NOT = {
+				has_war_with = SNE
+			}
+		}
+		completion_reward = {
+			upgrade_economy_law = yes
+			add_timed_idea = {
+				idea = DVA_Braving_snow_and_frost
+				days = 180
+			}
+		}
+	}
+	focus = {
+		id = DVA_Whitecaps_surge_high
+		icon = DVA_Whitecaps_surge_high
+		cost = 10
+		x = 19
+		y = 1
+		mutually_exclusive = {
+			focus = DVA_Winter_has_arrived
+		}
+		available = {
+			has_war_with_major = yes
+		}
+		bypass = {
+			NOT = {
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			upgrade_economy_law = yes
+		}
+	}
+	focus = {
+		id = DVA_Frontline_with_Dolls
+		icon = DVA_Winter_has_arrived
+		cost = 4
+		x = 18
+		y = 2
+		prerequisite = {
+			focus = DVA_Winter_has_arrived
+		}
+		available = {
+			has_war_with = SNE
+			has_war_together_with = MOT
+		}
+		bypass = {
+			NOT = {
+				has_war_with = SNE
+			}
+		}
+		completion_reward = {
+			set_technology = {
+				Baron_Bunny = 1
+			}
+			modify_timed_idea = {
+				idea = DVA_Braving_snow_and_frost
+				days = 180
+			}
+		}
+	}
+	
 	focus = {
 		id = DVA_in_the_name_of_Cuilein-Anbar
 		icon = GFX_goal_unknown
