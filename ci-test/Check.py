@@ -40,7 +40,7 @@ def CheckDirQuotation(dirPath):
             allFilesCorrect = (CheckDirQuotation(filePath) and allFilesCorrect)
     return allFilesCorrect
 
-# 检测txt文件的大括号匹配
+# 检测txt、gui文件的大括号匹配
 def CheckFileBracket(filePath):
     fileCorrect = True
     with open(filePath, 'r', errors='ignore') as f:
@@ -75,7 +75,7 @@ def CheckDirBracket(dirPath):
         filePath = os.path.join(dirPath, file)
         if filePath in blackList:
             continue
-        if os.path.isfile(filePath) and ".txt" in file:
+        if os.path.isfile(filePath) and (".txt" in file or ".gui" in file):
             allFilesCorrect = (CheckFileBracket(filePath) and allFilesCorrect)
         elif os.path.isdir(filePath):
             allFilesCorrect = (CheckDirBracket(filePath) and allFilesCorrect)
