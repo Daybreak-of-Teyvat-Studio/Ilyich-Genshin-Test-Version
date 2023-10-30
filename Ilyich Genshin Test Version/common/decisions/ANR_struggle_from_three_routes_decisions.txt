@@ -4,18 +4,712 @@
 @LOW_COST = 30
 @MIDDLE_COST = 50
 @HIGH_COST = 100
+##上台后决议组
+ANR_Bennett_Special_Decisions = {
+	ANR_Bennett_Decisions1 = {
+		icon = GFX_decision_generic_wreckers
+		allowed = { original_tag = ANR }
+		days_re_enable = @DAYS_LOW
 
+		days_remove = @DAYS_MIDDLE
 
+		cost = @LOW_COST
 
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			war_support_weekly = 0.001
+			industrial_capacity_factory = 0.2
+			production_factory_efficiency_gain_factor = 0.4
+			communism_drift = 0.05
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 100
+		}
+	}
+	ANR_Bennett_Decisions2 = {
+		icon = generic_factory
+		allowed = { original_tag = ANR }
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			stability_weekly = 0.001
+			communism_drift = 0.05
+		}
+		
+		remove_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			hidden_effect = {
+				IF = {
+					limit = { is_ai = yes }
+					add_political_power = @MIDDLE_COST
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 100
+		}
+	}
+	ANR_Bennett_Decisions3 = {
+		icon = generic_industry
+		allowed = { original_tag = ANR }
+
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_HIGH
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			consumer_goods_factor = 0.15
+			stability_weekly = 0.05
+			communism_drift = 0.05
+		}
+		
+		remove_effect = {
+		    add_stability = 0.05
+			add_war_support = 0.05
+			hidden_effect = {
+				IF = {
+					limit = { is_ai = yes }
+					add_political_power = @MIDDLE_COST
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 100
+		}
+	}
+	ANR_Bennett_Decisions4 = {
+		icon = generic_civil_support
+		allowed = { original_tag = ANR }
+
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+		    war_support_weekly = 0.02
+			industrial_capacity_factory = 0.25
+			communism_drift = 0.05
+		}
+		
+		remove_effect = {
+		    add_stability = 0.05
+			add_war_support = 0.05
+			hidden_effect = {
+				IF = {
+					limit = { is_ai = yes }
+					add_political_power = @MIDDLE_COST
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 100
+		}
+	}
+}
+ANR_Fischl_Special_Decisions = {
+	ANR_Fischl_Decisions1 = {
+		icon = generic_research
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_HIGH
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			research_speed_factor = 0.1
+			experience_gain_army_factor = 0.25
+			experience_gain_navy_factor = 0.25
+			experience_gain_air_factor = 0.25
+			land_doctrine_cost_factor = -0.1
+			navy_doctrine_cost_factor = -0.1
+			air_doctrine_cost_factor = -0.1
+			master_ideology_drift = 0.03
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Fischl_Decisions2 = {
+		icon = generic_factory
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			master_ideology_drift = 0.03
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Fischl_Decisions3 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			consumer_goods_factor = 0.15
+			stability_weekly = 0.003
+			political_power_gain = 0.2
+			master_ideology_drift = 0.03
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		    add_political_power = 100
+		    add_stability = 0.05
+			add_war_support = 0.05
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Fischl_Decisions4 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_HIGH
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			consumer_goods_factor = -0.4
+			master_ideology_drift = 0.03
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		    add_stability = 0.05
+			add_war_support = 0.05
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+}
+ANR_Diona_Special_Decisions = {
+	ANR_Diona_Decisions1 = {
+		icon = generic_civil_support
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_HIGH
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+		    consumer_goods_factor = -0.25
+			stability_weekly = 0.01
+			democratic_drift = 0.05
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Diona_Decisions2 = {
+		icon = generic_construction
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_LOW
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			democratic_drift = 0.05
+		}
+		
+		remove_effect = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Diona_Decisions3 = {
+		icon = generic_construction
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			consumer_goods_factor = 0.25
+			political_power_gain = 0.2
+			democratic_drift = 0.05
+		}
+		
+		remove_effect = {
+		    add_political_power = 100
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Diona_Decisions4 = {
+		icon = generic_civil_support
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			democratic_drift = 0.05
+			political_power_factor = -0.15
+		}
+		
+		remove_effect = {
+		    add_stability = 0.1
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Diona_Decisions5 = {
+		icon = GFX_decision_generic_special_project
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_LOW
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			democratic_drift = 0.05
+			political_power_factor = -0.15
+		}
+		
+		remove_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+}
+ANR_Razor_Special_Decisions = {
+	ANR_Razor_Decisions1 = {
+		icon = GFX_decision_hol_draw_up_staff_plans
+		allowed = {
+			original_tag = ANR
+		}
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_HIGH
+
+		cost = @MIDDLE_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			master_ideology_drift = 0.05
+			stability_weekly = 0.01
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Razor_Decisions2 = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_HIGH
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			training_time_factor = -0.25
+			minimum_training_level = -0.1
+			master_ideology_drift = 0.05
+		}
+		
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Razor_Decisions3 = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_MIDDLE
+
+		days_remove = @DAYS_HIGH
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			stability_weekly = 0.01
+			war_support_weekly = 0.01
+			political_power_gain = 0.2
+			master_ideology_drift = 0.05
+		}
+		
+		remove_effect = {
+		    add_war_support = 0.05
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ANR_Razor_Decisions4 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		allowed = {
+			original_tag = ANR
+		}
+
+		days_re_enable = @DAYS_LOW
+
+		days_remove = @DAYS_MIDDLE
+
+		cost = @LOW_COST
+
+		fire_only_once = no
+
+		complete_effect = {
+			#
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			weekly_manpower = 1000
+			consumer_goods_factor = -0.15
+			master_ideology_drift = 0.05
+		}
+		
+		remove_effect = {
+			add_cic = 3000
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = @MIDDLE_COST
+			}
+		}
+		
+		ai_will_do = {
+			base = 250
+		}
+	}
+	
+}
+##路线斗争
+#班尼特
 ANR_struggle_from_three_routes = {
-
+	#班尼特
+	ANR_Not_Show_Bennett = {
+		icon = GFX_decision_generic_decisions
+		allowed = { original_tag = ANR }
+		available = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = ANR_Not_Show_Decision1 }
+				clr_country_flag = ANR_Not_Show_Decision1
+			}
+			else_if = { set_country_flag = ANR_Not_Show_Decision1 }
+		}
+	}
 	ANR_support_Bennett_1 = {
 
 		icon = GFX_decision_generic_wreckers
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision1 } }
 
 		available = {
 			has_completed_focus = develop_our_production
@@ -61,14 +755,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_support_Bennett_2 = {
 
 		icon = generic_factory
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision1 } }
 
 		available = {
 			has_completed_focus = begin_to_plan_our_development
@@ -94,6 +789,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			communism_drift = 0.03
 		}
 		remove_effect = {
@@ -105,7 +801,7 @@ ANR_struggle_from_three_routes = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
 					level = 2
@@ -133,8 +829,10 @@ ANR_struggle_from_three_routes = {
 		icon = generic_industry
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision1 } }
 
 		available = {
 			has_completed_focus = full_up_and_warm
@@ -153,7 +851,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.05
+			consumer_goods_factor = 0.15
 			stability_weekly = 0.01
 			communism_drift = 0.03
 		}
@@ -176,14 +874,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Bennett_1 = {
 
 		icon = generic_civil_support
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision1 } }
 
 		available = {
 			
@@ -235,14 +934,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Bennett_2 = {
 
 		icon = generic_speech
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision1 } }
 
 		available = {
 			
@@ -269,6 +969,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			communism_drift = 0.03
 		}
 		remove_effect = {
@@ -280,7 +981,7 @@ ANR_struggle_from_three_routes = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
 					level = 2
@@ -303,15 +1004,31 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
+}
 #菲谢尔
-	
+ANR_struggle_from_three_routes = {
+	#菲谢尔
+	ANR_Not_Show_Fischl = {
+		icon = GFX_decision_generic_decisions
+		allowed = { original_tag = ANR }
+		available = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = ANR_Not_Show_Decision2 }
+				clr_country_flag = ANR_Not_Show_Decision2
+			}
+			else_if = { set_country_flag = ANR_Not_Show_Decision2 }
+		}
+	}
 	ANR_support_Fischl_1 = {
 
 		icon = generic_research
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision2 } }
 
 		available = {
 			has_completed_focus = attract_external_ideologue
@@ -357,14 +1074,15 @@ ANR_struggle_from_three_routes = {
 			base = 250
 		}
 	}
-
 	ANR_support_Fischl_2 = {
 
 		icon = generic_factory
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision2 } }
 
 		available = {
 			has_completed_focus = literacy_campaign
@@ -390,6 +1108,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			communism_drift = 0.01
 			fascism_drift = 0.01
 		}
@@ -402,7 +1121,7 @@ ANR_struggle_from_three_routes = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
 					level = 2
@@ -425,14 +1144,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-	
 	ANR_support_Fischl_3 = {
 
 		icon = GFX_decision_generic_political_discourse
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision2 } }
 
 		available = {
 			has_completed_focus = basic_framework_of_administration
@@ -452,9 +1172,9 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.05
+			consumer_goods_factor = 0.15
 			stability_weekly = 0.001
-			political_power_gain = 0.25
+			political_power_gain = 0.2
 			communism_drift = 0.01
 			fascism_drift = 0.01
 		}
@@ -474,14 +1194,15 @@ ANR_struggle_from_three_routes = {
 			base = 500
 		}
 	}
-
 	ANR_oppose_Fischl_1 = {
 
 		icon = decision_aluminium
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision2 } }
 
 		available = {
 			IF = {
@@ -533,14 +1254,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Fischl_2 = {
 
-		icon = decision_eng_propaganda_campaigns
+		icon = GFX_decision_eng_propaganda_campaigns
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision2 } }
 
 		available = {
 			IF = {
@@ -566,7 +1288,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			consumer_goods_factor = -0.1
+			consumer_goods_factor = -0.4
 			communism_drift = 0.01
 			fascism_drift = 0.01
 		}
@@ -603,15 +1325,30 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
+}
 #迪奥娜
-
+ANR_struggle_from_three_routes = {
+	ANR_Not_Show_Diona = {
+		icon = GFX_decision_generic_decisions
+		allowed = { original_tag = ANR }
+		available = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = ANR_Not_Show_Decision3 }
+				clr_country_flag = ANR_Not_Show_Decision3
+			}
+			else_if = { set_country_flag = ANR_Not_Show_Decision3 }
+		}
+	}
 	ANR_support_Diona_1 = {
 
 		icon = generic_civil_support
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+		
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision3 } }
 
 		available = {
 			has_completed_focus = begin_to_plan_our_development
@@ -640,7 +1377,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-		    consumer_goods = -0.05
+		    consumer_goods_factor = -0.25
 			stability_weekly = 0.01
 			democratic_drift = 0.03
 		}
@@ -660,14 +1397,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_support_Diona_2 = {
 
 		icon = generic_construction
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision3 } }
 
 		available = {
 			has_completed_focus = modernize_the_processing_of_agricultural_products
@@ -696,6 +1434,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			democratic_drift = 0.03
 		}
 		remove_effect = {
@@ -747,8 +1486,10 @@ ANR_struggle_from_three_routes = {
 		icon = GFX_decision_generic_construction
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision3 } }
 
 		available = {
 			has_completed_focus = modernize_the_processing_of_agricultural_products
@@ -769,8 +1510,9 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.05
-			political_power_gain = 0.25
+			civilian_factory_use = 5
+			consumer_goods_factor = 0.25
+			political_power_gain = 0.2
 			democratic_drift = 0.03
 		}
 		remove_effect = {
@@ -792,14 +1534,15 @@ ANR_struggle_from_three_routes = {
 			
 		}
 	}
-
 	ANR_oppose_Diona_1 = {
 
 		icon = generic_civil_support
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision3 } }
 
 		available = {
 			hidden_trigger = {
@@ -830,6 +1573,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			political_power_factor = -0.15
 			democratic_drift = 0.03
 		}
@@ -861,14 +1605,15 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Diona_2 = {
 
 		icon = GFX_decision_generic_special_project
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
+
+		visible = { NOT = { has_country_flag = ANR_Not_Show_Decision3 } }
 
 		available = {
 			hidden_trigger = {
@@ -900,7 +1645,8 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			political_power_factor = -0.15
+			civilian_factory_use = 5
+			political_power_factor = -0.25
 			democratic_drift = 0.03
 		}
 		remove_effect = {
@@ -913,7 +1659,7 @@ ANR_struggle_from_three_routes = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
 					level = 2
@@ -942,17 +1688,37 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-	
+}
 #雷泽
-	
+ANR_struggle_from_three_routes = {
+	ANR_Not_Show_Razor = {
+		icon = GFX_decision_generic_decisions
+		allowed = { original_tag = ANR }
+		visible = { NOT = { has_country_flag = ANR_Unshow_Different } }
+		available = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = ANR_Not_Show_Decision4 }
+				clr_country_flag = ANR_Not_Show_Decision4
+			}
+			else_if = { set_country_flag = ANR_Not_Show_Decision4 }
+		}
+	}
 	ANR_support_Razor_1 = {
 
-		icon =  GFX_decision_hol_draw_up_staff_plans	
+		icon = GFX_decision_hol_draw_up_staff_plans
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
 
+		visible = {
+			OR = {
+				has_country_flag = ANR_Razor_On
+				NOT = { has_country_flag = ANR_Unshow_Different }
+				NOT = { has_country_flag = ANR_Not_Show_Decision4 }
+			}
+		}
 		available = {
 			has_completed_focus = prepare_for_protecting_our_border
 			hidden_trigger = {
@@ -980,6 +1746,8 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
+			experience_gain_army_unit_factor = 1
 			experience_gain_army = 1
 			neutrality_drift = 0.01
 			democratic_drift = 0.01
@@ -1004,13 +1772,20 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_support_Razor_2 = {
 
 		icon = generic_prepare_civil_war
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
+		}
+
+		visible = {
+			OR = {
+				has_country_flag = ANR_Razor_On
+				NOT = { has_country_flag = ANR_Unshow_Different }
+				NOT = { has_country_flag = ANR_Not_Show_Decision4 }
+			}
 		}
 
 		available = {
@@ -1041,6 +1816,7 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
+			civilian_factory_use = 5
 			training_time_factor = -0.25
 			minimum_training_level = -0.1
 			neutrality_drift = 0.01
@@ -1121,13 +1897,20 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-	
 	ANR_support_Razor_3 = {
 
 		icon = GFX_decision_generic_army_support
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
+		}
+
+		visible = {
+			OR = {
+				has_country_flag = ANR_Razor_On
+				NOT = { has_country_flag = ANR_Unshow_Different }
+				NOT = { has_country_flag = ANR_Not_Show_Decision4 }
+			}
 		}
 
 		available = {
@@ -1150,10 +1933,11 @@ ANR_struggle_from_three_routes = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.05
+			civilian_factory_use = 5
+			consumer_goods_factor = 0.2
 			stability_weekly = 0.01
 			war_support_weekly = 0.01
-			political_power_gain = 0.25
+			political_power_gain = 0.2
 			neutrality_drift = 0.01
 			democratic_drift = 0.01
 		}
@@ -1177,13 +1961,20 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Razor_1 = {
 
-		icon = decision_eng_propaganda_campaigns
+		icon = GFX_decision_eng_propaganda_campaigns
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
+		}
+
+		visible = {
+			OR = {
+				has_country_flag = ANR_Razor_On
+				NOT = { has_country_flag = ANR_Unshow_Different }
+				NOT = { has_country_flag = ANR_Not_Show_Decision4 }
+			}
 		}
 
 		available = {
@@ -1259,13 +2050,20 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-
 	ANR_oppose_Razor_2 = {
 
 		icon = GFX_decision_ger_military_buildup
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
+		}
+
+		visible = {
+			OR = {
+				has_country_flag = ANR_Razor_On
+				NOT = { has_country_flag = ANR_Unshow_Different }
+				NOT = { has_country_flag = ANR_Not_Show_Decision4 }
+			}
 		}
 
 		available = {
@@ -1297,7 +2095,7 @@ ANR_struggle_from_three_routes = {
 
 		modifier = {
 			weekly_manpower = 1000
-			consumer_goods_factor = -0.05
+			consumer_goods_factor = -0.15
 			neutrality_drift = 0.01
 			democratic_drift = 0.01
 			ai_desired_divisions_factor = 0.5
@@ -1308,6 +2106,7 @@ ANR_struggle_from_three_routes = {
 				add_political_power = @MIDDLE_COST
 			}
 			add_war_support = 0.1
+			add_cic = 3000
 			if = {
 				limit = {
 					has_tech = advanced_infantry_weapons
@@ -1370,14 +2169,13 @@ ANR_struggle_from_three_routes = {
 			}
 		}
 	}
-	
 }
 
 ANR_unite = {
 	ANR_uniformize_subject = {
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
 
 		available = {
@@ -1601,7 +2399,7 @@ ANR_unite = {
 	ANR_reunite = {
 
 		allowed = {
-			tag = ANR
+			original_tag = ANR
 		}
 
 		available = {
