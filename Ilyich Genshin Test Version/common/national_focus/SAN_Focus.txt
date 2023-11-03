@@ -567,23 +567,6 @@ focus_tree = {
       }
   }
 
-     
-   focus = {
-      id = SAN_findcollaborators
-	  ##寻求合作#
-      icon = goal_SAN3
-      cost = 1
-      x = 25
-      y = 5
-      available ={
-      }
-      completion_reward = {
-    #增加事件：寻找合作者
-      }
-      ai_will_do = {
-        factor = 1
-      }
-  }
 
     focus = {
       id = SAN_invite_investors
@@ -1090,7 +1073,7 @@ focus = {
     icon =  GFX_focus_NOR_restore_public_trust_in_the_storting
     cost = 5
     x = 0
-    y = 3
+    y = 2
     prerequisite = {
       focus = SAN_delusionproblem
     }
@@ -1127,7 +1110,12 @@ focus = {
     prerequisite = {
       focus = SAN_chooseourways
     }
-	 
+   mutually_exclusive = {
+        focus = SAN_thebadways
+        focus = SAN_leadbygourou
+        focus = SAN_messengersofpeace
+        focus = SAN_bestleader
+         }
     relative_position_id = SAN_chooseourways
     available ={
     }
@@ -1336,8 +1324,140 @@ focus = {
     prerequisite = {
       focus = SAN_chooseourways
     }
-	 
+	  mutually_exclusive = {
+        focus = SAN_thebadways
+        focus = SAN_leadbygourou
+        focus = SAN_native
+        focus = SAN_bestleader
+         }
     relative_position_id = SAN_chooseourways
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 25
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+    #肃清叛徒#
+    focus = {
+    id = SAN_eliminatetraitor
+    icon =  GFX_focus_SWE_neither_death_nor_dishonor
+    cost = 5
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_messengersofpeace
+    }
+	 
+    relative_position_id = SAN_messengersofpeace
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 25
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+    #授勋仪式#
+    focus = {
+    id = SAN_medalkokomi
+    icon =  GFX_goal_support_democracy
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_eliminatetraitor
+    }
+	 
+    relative_position_id = SAN_eliminatetraitor
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 25
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+    	#偶像心海#
+    focus = {
+    id = SAN_idolkokomi
+    icon =  GFX_focus_SWE_institute_of_technology
+    cost = 10
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = SAN_messengersofpeace
+    }
+	 
+    relative_position_id = SAN_messengersofpeace
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 25
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+    #团结协定#
+    focus = {
+    id = SAN_solidarity
+    icon =  GFX_focus_generic_treaty
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_idolkokomi
+    }
+	 
+    relative_position_id = SAN_idolkokomi
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 25
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+    #三权分立#
+    focus = {
+    id = SAN_separationofpowers
+    icon =  GFX_focus_SWE_defense_act
+    cost = 10
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = SAN_solidarity
+    }
+	  prerequisite = {
+      focus = SAN_medalkokomi
+    }
+    relative_position_id = SAN_solidarity
     available ={
     }
     completion_reward = {
@@ -1361,9 +1481,239 @@ focus = {
     prerequisite = {
       focus = SAN_chooseourways
     }
-	 
+	   mutually_exclusive = {
+        focus = SAN_thebadways
+        focus = SAN_leadbygourou
+        focus = SAN_native
+        focus = SAN_messengersofpeace
+         }
     relative_position_id = SAN_chooseourways
     available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }  
+    #举行华彩祭#
+    focus = {
+    id = SAN_holdingfestival
+    icon =  GFX_focus_SWE_the_barrel
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_bestleader
+    }
+    relative_position_id = SAN_bestleader
+    available ={  
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+     #唯一信仰#
+    focus = {
+    id = SAN_statereligion
+    icon =  GFX_focus_generic_the_giant_wakes
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_holdingfestival
+    }
+    relative_position_id = SAN_holdingfestival
+    available ={  
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+      #启用早柚#
+    focus = {
+    id = SAN_usesara
+    icon =  GFX_focus_SWE_radiotjanst
+    cost = 10
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = SAN_holdingfestival
+    }
+    relative_position_id = SAN_holdingfestival
+    available ={  
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+    	#启用社奉行#
+     focus = {
+    id = SAN_useshefenxi
+
+    icon =  GFX_focus_SWE_rations
+    cost = 8
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = SAN_bestleader
+      focus = SAN_messengersofpeace
+    }
+    relative_position_id = SAN_bestleader
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+    	#白鹭霜华#
+     focus = {
+    id = SAN_useayaya
+    icon =  GFX_focus_SWE_as_the_barometer_falls
+    cost = 8
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_useshefenxi
+    }
+    relative_position_id = SAN_useshefenxi
+    available ={ has_completed_focus = SAN_bestleader
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+    	#殿前演武#
+     focus = {
+    id = SAN_martialarts
+    icon =  GFX_focus_eng_special_air_service
+    cost = 8
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_useayaya
+    }
+    prerequisite = {
+      focus = SAN_useyoimiya
+    }
+    relative_position_id = SAN_useayaya
+    available ={ 
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+    	#启用薄荷屋#
+     focus = {
+    id = SAN_usetransports
+
+    icon =  GFX_focus_hol_prepare_the_inundation_lines
+    cost = 8
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = SAN_bestleader
+      focus = SAN_messengersofpeace
+    }
+    relative_position_id = SAN_bestleader
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+     	#长野原的祭典#
+     focus = {
+    id = SAN_useyoimiya
+
+    icon =  GFX_focus_hol_fokker
+    cost = 12
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_usetransports
+    }
+    relative_position_id = SAN_usetransports
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor = 15
+    	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+    }   
+    }
+    #长野原烟花店的扩建#
+    focus = {
+    id = SAN_enlargefire
+
+    icon =  GFX_focus_SWE_let_fly_all_guns
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_useyoimiya
+    }
+    relative_position_id = SAN_useyoimiya
+    available ={  
     }
     completion_reward = {
 	    #
@@ -1386,6 +1736,13 @@ focus = {
     prerequisite = {
       focus = SAN_chooseourways
     }
+       mutually_exclusive = {
+        focus = SAN_thebadways
+        focus = SAN_native
+        focus = SAN_messengersofpeace
+        focus = SAN_bestleader
+    
+         }
 	 
     relative_position_id = SAN_chooseourways
     available ={
@@ -1401,6 +1758,219 @@ focus = {
       }
     }   
     }
+    	#重新集结部队#
+    focus = {
+    id = SAN_regrouptroops
+    icon =  GFX_focus_generic_infiltration
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_leadbygourou
+    }
+	 
+    relative_position_id = SAN_leadbygourou
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+       	#天秤计划#
+    focus = {
+    id = SAN_balanceplans
+    icon =  GFX_focus_SWI_abandon_neutrality
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_regrouptroops
+    }
+	 
+    relative_position_id = SAN_regrouptroops
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+  	#反转同盟#
+    focus = {
+    id = SAN_reversalaliy
+    icon =  GFX_focus_CZE_german_puppet
+    cost = 10
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = SAN_balanceplans
+    }
+	 
+    relative_position_id = SAN_balanceplans
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+    #挣脱镣铐#
+    focus = {
+    id = SAN_annexcountry
+    icon =  GFX_focus_generic_annex_country
+    cost = 10
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = SAN_balanceplans
+    }
+	 
+    relative_position_id = SAN_balanceplans
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+     #践踏自由#
+    focus = {
+    id = SAN_annexmot
+    icon =  GFX_focus_eng_move_to_secure_the_dominions
+    cost = 10
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = SAN_annexcountry
+      focus = SAN_reversalaliy
+    }
+	 
+    relative_position_id = SAN_annexcountry
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+     #无序即自由#
+    focus = {
+    id = SAN_motsreward
+    icon =  GFX_focus_usa_reestablish_the_gold_standard
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_annexmot
+    }
+	 
+    relative_position_id = SAN_annexmot
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+     #夺取智慧#
+    focus = {
+    id = SAN_annexsum
+    icon =  GFX_focus_generic_strike_at_democracy3
+    cost = 10
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = SAN_annexcountry
+      focus = SAN_reversalaliy
+    }
+	 
+    relative_position_id = SAN_annexcountry
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+      #狩猎时间#
+    focus = {
+    id = SAN_sumreward
+    icon =  GFX_focus_SWI_issue_war_bonds
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_annexsum
+    }
+	 
+    relative_position_id = SAN_annexsum
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+     #蔑视法庭#
+    focus = {
+    id = SAN_annexfot
+    icon =  GFX_focus_generic_improve_the_administration
+    cost = 10
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = SAN_annexcountry
+      focus = SAN_reversalaliy
+    }
+	 
+    relative_position_id = SAN_reversalaliy
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
+      #机械玩意#
+    focus = {
+    id = SAN_fotreward
+    icon =  GFX_goal_generic_production2
+    cost = 10
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_annexfot
+    }
+	 
+    relative_position_id = SAN_annexfot
+    available ={
+    }
+    completion_reward = {
+	    #
+    }
+    ai_will_do = {
+      factor =  5
+    }   
+    }
  focus = {
     id = SAN_thebadways
 	#不归之路#
@@ -1411,6 +1981,13 @@ focus = {
     prerequisite = {
       focus = SAN_chooseourways
     }
+    mutually_exclusive = {
+        focus = SAN_leadbygourou
+        focus = SAN_native
+        focus = SAN_messengersofpeace
+        focus = SAN_bestleader
+    
+         }
 	 
     relative_position_id = SAN_chooseourways
     available ={#需要差点在动乱中被消灭，需要全面信任奸细。
@@ -1482,7 +2059,9 @@ focus = {
     prerequisite = {
       focus = SAN_thepurge
     }
-	 
+	 mutually_exclusive = {
+              focus = SAN_thekokomiworship
+              }
     relative_position_id = SAN_thepurge
     available ={
     }
@@ -1632,8 +2211,11 @@ focus = {
     y = 1
     prerequisite = {
       focus = SAN_thepurge
-    }
-	 
+    }	 
+    mutually_exclusive = {
+              focus = SAN_thezionism
+         }
+
     relative_position_id = SAN_thepurge
     available ={#需要差点在动乱中被消灭，需要全面信任奸细。
     }
@@ -1701,7 +2283,7 @@ focus = {
     #雷怨#
     focus = {
     id = SAN_resentment
-    icon =  GFX_focus_SWE_undermine_fascism
+    icon =  GFX_focus_SWE_the_lion_of_the_north
     cost = 10
     x = 0
     y = 1
@@ -1726,7 +2308,7 @@ focus = {
     #夺取雷电将军的力量#
     focus = {
     id = SAN_killmei
-    icon =  GFX_focus_SWE_undermine_fascism
+    icon =  GFX_focus_wonderweapons
     cost = 10
     x = 0
     y = 1
@@ -1734,7 +2316,7 @@ focus = {
       focus = SAN_resentment
     }
 	 
-    relative_position_id = SAN_cSAN_resentmentorruption
+    relative_position_id = SAN_resentment
     available ={#需要差点在动乱中被消灭，需要全面信任奸细。
     }
     completion_reward = {
@@ -1749,25 +2331,5 @@ focus = {
       }
     } 
     }
-#未曾选择的道路 
-focus = {
-		id = SAN_the_Path_not_Chosen
-		icon = goal_INA2
-		cost = 5.00
-		x = 26 #如果新国策效果实装了，那便将位置改成45
-		y = 0
-		completion_reward = {   
-		load_focus_tree = SAN_focus_II
-		add_war_support = 0.05  add_stability = 0.05
-		add_equipment_to_stockpile = { type = fighter_equipment_1  amount = 50 producer = MOT }
-		add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
-		add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 500 producer = INA }
-		add_equipment_to_stockpile = { type = train_equipment amount = 500 producer = SUM }
-		add_equipment_to_stockpile = { type = transport_plane_equipment_1  amount = 500 producer = PRI }
-		country_event = { id = Ilyich_Character.1  days = 1  }
-		country_event = { id = Ilyich_Weapon.1  days = 1  }
-		}
-		ai_will_do = { factor = 0 } #如果新国策效果实装了，那便将倾向改为0
-	}
 
 }
