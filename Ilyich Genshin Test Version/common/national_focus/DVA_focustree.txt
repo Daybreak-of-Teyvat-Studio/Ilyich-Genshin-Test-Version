@@ -46,7 +46,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Development_Act
-		icon = GFX_Goal_Industry_or_Production
+		icon = GFX_goal_SOV_system_decentralization
 		cost = 6
 		x = 12
 		y = 2
@@ -192,7 +192,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Progressive_industrialization
-		icon = GFX_Goal_Industry_or_Production
+		icon = GFX_focus_NORDIC_com_selector_civilian
 		cost = 12
 		x = 12
 		y = 3
@@ -274,7 +274,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Rapid_industrialization
-		icon = GFX_focus_NORDIC_com_selector_civilian
+		icon = GFX_goals_TNO_Industry2
 		cost = 8
 		x = 16
 		y = 3
@@ -315,7 +315,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_technology_make_industry_progress
-		icon = GFX_Goal_Industry_or_Production
+		icon = GFX_goal_SOV_pc_of_mechanical_engineering
 		cost = 10
 		x = 13
 		y = 4
@@ -1211,7 +1211,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_arrest_profiteers
-		icon = GFX_goal_unknown
+		icon = GFX_focus_spr_class_war
 		cost = 1
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
@@ -1227,7 +1227,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_execute_traitors
-		icon = GFX_goal_unknown
+		icon = GFX_goal_SOV_reconstruction_assistance
 		cost = 1
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
@@ -1243,7 +1243,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_fight_against_corruption
-		icon = GFX_goal_unknown
+		icon = GFX_goal_SOV_reconstruction_assistance
 		cost = 1
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
@@ -1263,7 +1263,7 @@ focus_tree = {
 		id = DVA_Winter_has_arrived
 		icon = GFX_focus_SWE_as_the_barometer_falls
 		cost = 3
-		x = 22
+		x = 20
 		y = 1
 		mutually_exclusive = {
 			focus = DVA_Whitecaps_surge_high
@@ -1277,7 +1277,11 @@ focus_tree = {
 			upgrade_economy_law = yes
 			add_timed_idea = {
 				idea = DVA_Braving_snow_and_frost
-				days = 90
+				days = 70
+			}
+			add_to_variable = {
+				var = DVA_left_war_modifier
+				value = 0.05
 			}
 		}
 	}
@@ -1285,7 +1289,7 @@ focus_tree = {
 		id = DVA_Whitecaps_surge_high
 		icon = DVA_Whitecaps_surge_high
 		cost = 10
-		x = 24
+		x = 22
 		y = 1
 		mutually_exclusive = {
 			focus = DVA_Winter_has_arrived
@@ -1302,7 +1306,7 @@ focus_tree = {
 		id = DVA_Frontline_with_Dolls
 		icon = DVA_Frontline_with_Dolls
 		cost = 4
-		x = 22
+		x = 20
 		y = 2
 		prerequisite = {
 			focus = DVA_Winter_has_arrived
@@ -1321,9 +1325,9 @@ focus_tree = {
 			set_technology = {
 				tech_Baron_Bunny1 = 1
 			}
-			modify_timed_idea = {
-				idea = DVA_Braving_snow_and_frost
-				days = 90
+			add_to_variable = {
+				var = DVA_left_war_modifier
+				value = 0.05
 			}
 		}
 	}
@@ -1331,7 +1335,7 @@ focus_tree = {
 		id = DVA_The_sunken_sun_blood_dyed
 		icon = DVA_The_sunken_sun_blood_dyed
 		cost = 10
-		x = 24
+		x = 22
 		y = 2
 		prerequisite = {
 			focus = DVA_Whitecaps_surge_high
@@ -1342,6 +1346,84 @@ focus_tree = {
 		#allow_branch
 		completion_reward = {
 			#
+		}
+	}
+	focus = {
+		id = DVA_Bleeding_for_our_land
+		icon = GFX_goal_SOV_reigniting_the_revolutionary_spirit
+		cost = 5
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = DVA_Frontline_with_Dolls
+		}
+		available = {
+			has_war_with = SNE
+			has_war_together_with = MOT
+		}
+		bypass = {
+			NOT = {
+				has_war_with = SNE
+			}
+		}
+		#allow_branch
+		completion_reward = {
+			modify_timed_idea = {
+				idea = DVA_Braving_snow_and_frost
+				days = 60
+			}
+			add_to_variable = {
+				var = DVA_left_war_modifier
+				value = 0.05
+			}
+		}
+	}
+	focus = {
+		id = DVA_Arms_Against_Tyranny
+		icon = GFX_focus_focus_fra_fascist_threat
+		cost = 7
+		x = 20
+		y = 4
+		prerequisite = {
+			focus = DVA_Bleeding_for_our_land
+		}
+		available = {
+			has_war_with = SNE
+			has_war_together_with = MOT
+		}
+		bypass = {
+			NOT = {
+				has_war_with = SNE
+			}
+		}
+		#allow_branch
+		completion_reward = {
+			modify_timed_idea = {
+				idea = DVA_Braving_snow_and_frost
+				days = 60
+			}
+			add_to_variable = {
+				var = DVA_left_war_modifier
+				value = 0.05
+			}
+		}
+	}
+	focus = {
+		id = DVA_East_wind_overwhelm_West_wind
+		icon = GFX_focus_focus_fra_fascist_threat
+		cost = 7
+		x = 21
+		y = 5
+		prerequisite = {
+			focus = DVA_Arms_Against_Tyranny
+			focus = DVA_The_sunken_sun_blood_dyed
+		}
+		available = {
+			#
+		}
+		#allow_branch
+		completion_reward = {
+			add_dynamic_modifier = { modifier = DVA_Knights_of_Volturnus_modifier }
 		}
 	}
 	
@@ -1603,7 +1685,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_free_Dvalindom
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_annex_country
 		cost = 5
 		prerequisite = {
 			focus = DVA_merge_with_the_knights_of_favonius
