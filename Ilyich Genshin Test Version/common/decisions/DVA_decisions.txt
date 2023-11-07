@@ -31,8 +31,8 @@ DVA_debug_category = {
 
 		available = {
 			divisions_in_border_state = {
-				type = rescue_ship
-				size > 4
+				type = fast_ship_1
+				size > 0
 				state = 57
 				border_state = 58
 			}
@@ -87,6 +87,30 @@ DVA_debug_category = {
 				value = 1
 			}
 			add_ideas = DVA_test_idea
+			set_technology = {
+				tech_minelayer1 = 1
+			}
+			create_equipment_variant = {
+				name = "Saviour Class"								
+				type = fast_ship_1
+				name_group = DVA_FS_HISTORICAL
+				role_icon_index = 1
+				modules = {
+					fixed_ship_battery_slot = ship_light_battery_1
+					fixed_ship_anti_air_slot = empty
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = light_ship_engine_1
+					fixed_ship_mine_layer_slot = ship_mine_layer_1
+					mid_1_custom_slot = empty
+					rear_1_custom_slot = empty
+				}
+			}
+			create_ship = {
+				type = fast_ship_1
+				equipment_variant = "Saviour Class"
+				creator = DVA
+				name = DVA_SUN_SHIP
+			}
 		}
 	}
 }
@@ -2246,7 +2270,7 @@ DVA_Turn_Sun_Operation = {
 
 		cancel_trigger = {
 			ships_in_state_ports = {
-				type = rescue_ship
+				type = fast_ship_1
 				size > 0
 				state = 59
 			}
@@ -2324,7 +2348,7 @@ DVA_Turn_Sun_Operation = {
 
 		available = {
 			ships_in_state_ports = {
-				type = rescue_ship
+				type = fast_ship_1
 				size > 0
 				state = 1
 			}
@@ -2351,9 +2375,27 @@ DVA_Turn_Sun_Operation = {
 				decision = DVA_escape_from_Mondstadt
 				days = 90
 			}
+			set_technology = {
+				tech_minelayer1 = 1
+			}
+			create_equipment_variant = {
+				name = "Saviour Class"								
+				type = fast_ship_1
+				name_group = DVA_FS_HISTORICAL
+				role_icon_index = 1
+				modules = {
+					fixed_ship_battery_slot = ship_light_battery_1
+					fixed_ship_anti_air_slot = empty
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = light_ship_engine_1
+					fixed_ship_mine_layer_slot = ship_mine_layer_1
+					mid_1_custom_slot = empty
+					rear_1_custom_slot = empty
+				}
+			}
 			create_ship = {
-				type = rescue_ship
-				equipment_variant = "ship_hull_light"
+				type = fast_ship_1
+				equipment_variant = "Saviour Class"
 				creator = DVA
 				name = DVA_SUN_SHIP
 			}
@@ -2863,14 +2905,14 @@ DVA_four_season_plan_category = {
 			every_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				random_list = {
-					50 = {
+					60 = {
 						add_building_construction = {
 							type = industrial_complex
 							level = 1
 							instant_build = yes
 						}
 					}
-					50 = {
+					40 = {
 						add_building_construction = {
 							type = arms_factory
 							level = 1
@@ -2878,6 +2920,22 @@ DVA_four_season_plan_category = {
 						}
 					}
 				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						DVA_industrialization_process = 1
+					}
+				}
+				#country_event = dva.ab.101
+			}
+			if = {
+				limit = {
+					check_variable = {
+						DVA_industrialization_process = 1
+					}
+				}
+				#country_event = dva.ab.101
 			}
 			if = {
 				limit = {
