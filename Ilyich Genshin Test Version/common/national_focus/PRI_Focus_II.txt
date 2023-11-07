@@ -1,5 +1,5 @@
 focus_tree = {
-	id = PRI_Focus_II
+	id = PRI_Focus
 	country = {
 		factor = 0
 		modifier = {
@@ -9,393 +9,303 @@ focus_tree = {
 	}
 	default = no
 	focus = {
-	#尘星旅梦
-		id = PRI_Dust_Star_Journey 
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
+		id = PRI_VS_PRI
+		icon = goal_DOT_03
+		#prerequisite = { focus = PRI_wake_up}
+		#relative_position_id = PRI_wake_up
+		cost = 10.00
+		x = 14
 		y = 0
-		completion_reward = {
-		}
+			completion_reward = {
+					add_equipment_to_stockpile = { type = fighter_equipment_1  amount = 50 producer = MOT }
+					add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
+					add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 500 producer = INA }
+					add_equipment_to_stockpile = { type = train_equipment amount = 500 producer = SUM }
+					add_equipment_to_stockpile = { type = transport_plane_equipment_1  amount = 500 producer = PRI }
+					country_event = { id = Ilyich_Character.1  days = 1  }
+					country_event = { id = Ilyich_Weapon.1  days = 1  }
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+				}
+				
 	}
 	focus = {
-	#上古世界1
-		id = PRI_Ancient_World_1st
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_SNE
+		icon = GFX_goal_generic_army_artillery2
+		cost = 10.00
+		prerequisite = {
+			focus = PRI_VS_PRI
 		}
+		relative_position_id = PRI_VS_PRI
+		x = 0
+		y = 1
+		available = {
+			threat > 0.70
+			date > 1940.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				threat > 0.9
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Cryo 
+					declare_war_on = { target = SNE type = annex_everything }
+					# every_state = { limit = { is_core_of = SNE } add_core_of = ROOT }
+				}
+
 	}
 	focus = {
-	#上古世界2
-		id = PRI_Ancient_World_2ed
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_NAT
+		icon = GFX_goal_generic_army_tanks
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_SNE
 		}
+		relative_position_id = PRI_VS_SNE
+		x = 1
+		y = 1
+		available = {
+			threat > 0.80
+			date > 1941.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				threat > 0.9
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Pyro
+					create_wargoal = { type = puppet_wargoal_focus target = NAT }
+					# every_state = { limit = { is_core_of = NAT } add_core_of = ROOT }
+				}
+
 	}
 	focus = {
-	#衔枝四十年间
-		id = PRI_In_XIANZHI_forty_years
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_FON
+		icon = GFX_goal_generic_navy_battleship
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_SNE
 		}
+		relative_position_id = PRI_VS_SNE
+		x = -1
+		y = 1
+		available = {
+			threat > 0.80
+			date > 1941.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				threat > 0.9
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Hydro
+					create_wargoal = { type = puppet_wargoal_focus target = FON }
+					# every_state = { limit = { is_core_of = FON } add_core_of = ROOT }
+				}
+
 	}
 	focus = {
-	#衔枝四百年
-		id = PRI_XIANZHI_four_hundred_years
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_ABY
+		icon = GFX_goal_generic_territory_or_war
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_FON
 		}
+		prerequisite = {
+			focus = PRI_VS_NAT
+		}
+		relative_position_id = PRI_VS_PRI
+		x = 0
+		y = 3
+		available = {
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					create_wargoal = { type = puppet_wargoal_focus target = ABY }
+					# every_state = { limit = { is_core_of = ABY } add_core_of = ROOT }
+					set_technology = { atomic_research = 1 }
+				}
+
 	}
 	focus = {
-	#衔枝年国记1
-		id = PRI_XIANJIE_year_national_records_1st
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_SUM
+		icon = GFX_goal_generic_national_unity
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_ABY
 		}
+		relative_position_id = PRI_VS_PRI
+		x = 0
+		y = 4
+		available = { 
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1944.1.1
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Dendro
+					create_wargoal = { type = puppet_wargoal_focus target = SUM }
+					create_wargoal = { type = puppet_wargoal_focus target = VAN }
+					create_wargoal = { type = puppet_wargoal_focus target = SGD }
+					create_wargoal = { type = puppet_wargoal_focus target = SDH }
+					create_wargoal = { type = puppet_wargoal_focus target = SGS }
+					# every_state = { limit = { is_core_of = SUM } add_core_of = ROOT }
+					set_technology = { nuclear_reactor = 1 }
+				}
+
 	}
 	focus = {
-	#衔枝年国记2
-		id = PRI_XIANJIE_year_national_records_2ed
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_MOT
+		icon = GFX_goal_generic_wolf_pack
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_SUM
 		}
+		relative_position_id = PRI_VS_SUM
+		x = -2
+		y = 1
+		available = {
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_manpower = 64800
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Anemo
+					create_wargoal = { type = puppet_wargoal_focus target = MOT }
+					create_wargoal = { type = puppet_wargoal_focus target = GUN }
+					create_wargoal = { type = puppet_wargoal_focus target = DRA }
+					create_wargoal = { type = puppet_wargoal_focus target = RAG }
+					create_wargoal = { type = puppet_wargoal_focus target = LAW }
+					create_wargoal = { type = puppet_wargoal_focus target = FAV }
+					create_wargoal = { type = puppet_wargoal_focus target = DVA }
+					create_wargoal = { type = puppet_wargoal_focus target = SPI }
+					create_wargoal = { type = puppet_wargoal_focus target = ANR }
+					# every_state = { limit = { is_core_of = MOT } add_core_of = ROOT }
+				}
+
 	}
 	focus = {
-	#衔枝年国记3
-		id = PRI_XIANJIE_year_national_records_3rd
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_LYY
+		icon = GFX_goal_generic_soviet_construction
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_SUM
 		}
+		relative_position_id = PRI_VS_SUM
+		x = 0
+		y = 1
+		available = {
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+					add_political_power = 160
+					add_manpower = 64800
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Geo
+					create_wargoal = { type = puppet_wargoal_focus target = LYY }
+					create_wargoal = { type = puppet_wargoal_focus target = KQP }
+					create_wargoal = { type = puppet_wargoal_focus target = SHP }
+					create_wargoal = { type = puppet_wargoal_focus target = GYP }
+					create_wargoal = { type = puppet_wargoal_focus target = BRF }
+					# every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+					# every_state = { limit = { is_core_of = KQP } add_core_of = ROOT }
+					# every_state = { limit = { is_core_of = GYP } add_core_of = ROOT }
+					# every_state = { limit = { is_core_of = SHP } add_core_of = ROOT }
+				}
+
 	}
 	focus = {
-	#衔枝年国记4
-		id = PRI_XIANJIE_year_national_records_4th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		id = PRI_VS_INA
+		icon = GFX_goal_support_fascism
+		cost = 20.00
+		prerequisite = {
+			focus = PRI_VS_SUM
 		}
-	}
-	focus = {
-	#衔枝年国记5
-		id = PRI_XIANJIE_year_national_records_5th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
+		relative_position_id = PRI_VS_SUM
+		x = 2
+		y = 1
+		available = {
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
 		}
-	}
-	focus = {
-	#衔枝往事1
-		id = PRI_XIANZHI_year_history_1st
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
 		completion_reward = {
-		}
-	}
-	focus = {
-	#衔枝往事2
-		id = PRI_XIANZHI_year_history_2ed
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#衔枝往事3
-		id = PRI_XIANZHI_year_history_3rd
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#衔枝往事4
-		id = PRI_XIANZHI_year_history_4th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#衔枝往事5
-		id = PRI_XIANZHI_year_history_5th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火初年
-		id = PRI_ZANGHUO_early_year
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#尘世七执政体系
-		id = PRI_the_seven_gods
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#世界树
-		id = PRI_Yggdrasil
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#降下规则
-		id = PRI_taboo
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火故事1
-		id = PRI_ZANGHUO_year_story_1st
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#神魔争霸
-		id = PRI_demon_god_battle
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火故事2
-		id = PRI_ZANGHUO_year_story_2ed
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火故事3
-		id = PRI_ZANGHUO_year_story_3rd
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火故事4
-		id = PRI_ZANGHUO_year_story_4th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火故事5
-		id = PRI_ZANGHUO_year_story_5th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记1
-		id = PRI_ZANGHUO_year_history_1st
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记2
-		id = PRI_ZANGHUO_year_history_2ed
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记3
-		id = PRI_ZANGHUO_year_history_3rd
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记4
-		id = PRI_ZANGHUO_year_history_4th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记5
-		id = PRI_ZANGHUO_year_history_5th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记6
-		id = PRI_ZANGHUO_year_history_6th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记7
-		id = PRI_ZANGHUO_year_history_7th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记8
-		id = PRI_ZANGHUO_year_history_8th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记9
-		id = PRI_ZANGHUO_year_history_9th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记10
-		id = PRI_ZANGHUO_year_history_10th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记11
-		id = PRI_ZANGHUO_year_history_11th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记12
-		id = PRI_ZANGHUO_year_history_12th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#葬火旧记13
-		id = PRI_ZANGHUO_year_history_13th
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
-	}
-	focus = {
-	#苏醒
-		id = PRI_wake_up
-		icon = GFX_goal_unknown
-		cost = 7
-		x = 
-		y = 
-		completion_reward = {
-		}
+					add_political_power = 160
+					add_war_support = 0.05
+					add_stability = 0.05
+					army_experience = 25
+					air_experience = 25
+					navy_experience = 25
+					add_ideas = PRI_Vision_Electro
+					create_wargoal = { type = puppet_wargoal_focus target = INA }
+					create_wargoal = { type = puppet_wargoal_focus target = SAN }
+					create_wargoal = { type = puppet_wargoal_focus target = ASA }
+					create_wargoal = { type = puppet_wargoal_focus target = TSU }
+					# every_state = { limit = { is_core_of = INA } add_core_of = ROOT }
+				}
 	}
 }
