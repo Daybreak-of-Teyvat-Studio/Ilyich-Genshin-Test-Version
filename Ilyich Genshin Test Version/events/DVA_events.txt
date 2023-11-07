@@ -174,7 +174,7 @@ country_event = {
 	}
 }
 
-#外交调停
+#查耶维奇事件链-外交调停
 country_event = {
 	id = dva.7
 	title = dva.7.t
@@ -727,7 +727,7 @@ country_event = {
 	immediate = {
 		remove_decision = DVA_Great_Adventure_of_Klee
 		destroy_ships = {
-			type = rescue_ship
+			type = minelayer
 			count = all
 		}
 	}
@@ -1226,7 +1226,28 @@ country_event = {
 
 	option = {
 		name = dva.ab.35.a
-		activate_advisor = DVA_Mona
+		add_advisor_role = {
+			character = DVA_Mona
+			activate = yes
+			advisor = {
+				slot = political_advisor
+				available  = {
+					always = no
+				}
+				allowed = {
+					original_tag = DVA
+				}
+				idea_token = DVA_Mona
+				traits = {
+					Lonely_Diffusionist_of_Helios
+				}
+				can_be_fired = no
+				cost = 320
+				ai_will_do = {
+					factor = 10
+				}
+			}
+		}
 	}
 }
 
@@ -1256,6 +1277,11 @@ country_event = {
 	}
 	option = {
 		name = dva.ab.105.b
+		trigger = {
+			DVA_Mona = {
+				is_political_advisor = yes
+			}
+		}
 		custom_effect_tooltip = DVA_courier_beta_tt
 		deactivate_advisor = DVA_Mona
 		set_country_flag = DVA_diffusionist_has_fared_forth_flag
@@ -1299,7 +1325,7 @@ country_event = {
 		trigger = {
 			has_country_flag = DVA_diffusionist_has_fared_forth_flag
 		}
-		activate_advisor = DVA_Mona
+		activate_advisor = DVA_Mona2
 		set_country_flag = DVA_helios_project_flag
 		unlock_decision_category_tooltip = DVA_helios_project_category
 		set_variable = {
@@ -1410,8 +1436,81 @@ country_event = {
 	}
 	option = {
 		name = dva.ab.43.b
+		trigger = {
+			NOT = {
+				has_country_flag = DVA_knights_win
+			}
+		}
 		custom_effect_tooltip = DVA_Hopkins_event_tt
 		activate_advisor = DVA_Hopkins_the_Marvelous
+	}
+}
+#霍普金斯事件链-逮捕奸商
+country_event = {
+	id = dva.ab.44
+	title = dva.ab.44.t
+	desc = dva.ab.44.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.44.a
+		trigger = {
+			has_country_flag = DVA_middle_way
+		}
+		deactivate_advisor = DVA_Hopkins_the_Marvelous
+		add_stability = 0.01
+		add_political_power = 25
+	}
+	option = {
+		name = dva.ab.44.b
+		trigger = {
+			has_country_flag = DVA_amber_win
+		}
+		remove_advisor_role = {
+			character = DVA_Hopkins_the_Marvelous
+			slot = political_advisor
+		}
+		add_manpower = -1
+		add_stability = -0.01
+		add_political_power = -5
+	}
+}
+#查耶维奇事件链-处决叛徒
+country_event = {
+	id = dva.ab.45
+	title = dva.ab.45.t
+	desc = dva.ab.45.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.45.a
+		trigger = {
+			has_country_flag = DVA_middle_way
+		}
+		deactivate_advisor = DVA_Tsarevich
+		add_stability = 0.01
+		add_political_power = 25
+	}
+	option = {
+		name = dva.ab.45.b
+		trigger = {
+			has_country_flag = DVA_amber_win
+		}
+		remove_advisor_role = {
+			character = DVA_Tsarevich
+			slot = political_advisor
+		}
+		add_manpower = -1
+		add_stability = -0.01
+		add_political_power = -5
 	}
 }
 
