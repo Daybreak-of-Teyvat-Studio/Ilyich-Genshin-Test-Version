@@ -59,6 +59,9 @@ focus_tree = {
 				has_country_flag = DVA_middle_way
 			}
 		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
+		}
 		completion_reward = {
 			set_country_flag = DVA_amber_plan
 			every_owned_state = {
@@ -149,6 +152,9 @@ focus_tree = {
 				has_war_with = SNE
 			}
 		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
+		}
 		completion_reward = {
 			set_country_flag = DVA_knight_plan
 			if = {
@@ -204,6 +210,9 @@ focus_tree = {
 		}
 		available = {
 			#
+		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
 		}
 		completion_reward = {
 			every_owned_state = {
@@ -291,6 +300,9 @@ focus_tree = {
 				has_war_with = SNE
 			}
 		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
+		}
 		completion_reward = {
 			every_owned_state = {
 				limit = {
@@ -328,6 +340,9 @@ focus_tree = {
 		available = {
 			#已经完成高塔研究所/蒙德科学院关于农业和工业的项目
 		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
+		}
 		completion_reward = {
 			#获得关于农业和工业的idea
 			unlock_decision_tooltip = DVA_Engineering_Cybernetics
@@ -354,6 +369,9 @@ focus_tree = {
 				has_country_flag = DVA_middle_way
 				has_war_with = SNE
 			}
+		}
+		bypass = {
+			has_country_flag = DVA_economy_reform_finished_flag
 		}
 		completion_reward = {
 			every_owned_state = {
@@ -403,11 +421,7 @@ focus_tree = {
 					has_country_flag = DVA_knights_win
 					has_completed_focus = DVA_arms_factory_of_dvalin
 				}
-				AND = {
-					has_country_flag = DVA_middle_way
-					has_completed_focus = DVA_technology_make_industry_progress
-					has_completed_focus = DVA_arms_factory_of_dvalin
-				}
+				has_country_flag = DVA_middle_way
 			}
 		}
 		completion_reward = {
@@ -416,16 +430,18 @@ focus_tree = {
 			if = {
 				limit = {
 					has_country_flag = DVA_middle_way
+					has_completed_focus = DVA_technology_make_industry_progress
+					has_completed_focus = DVA_arms_factory_of_dvalin
 				}
-				#致命后果！导致腐败和内战！
-				#country_event = dva.ab.101
-				#add_ideas = DVA_corruption
-				#start_civil_war
+				country_event = dva.ab.46
+			}
+			else = {
+				add_ideas = DVA_economic_miracle
 			}
 		}
 	}
 	focus = {
-		id = DVA_Big_strike_in_water
+		id = DVA_Big_surprise_in_water
 		icon = GFX_goal_unknown
 		cost = 1
 		x = 26
@@ -444,7 +460,7 @@ focus_tree = {
 		x = 27
 		y = 4
 		prerequisite = {
-			focus = DVA_Big_strike_in_water
+			focus = DVA_Big_surprise_in_water
 		}
 		available = {
 			always = no
@@ -1271,7 +1287,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_execute_traitors
-		icon = GFX_goal_SOV_reconstruction_assistance
+		icon = GFX_focus_spr_class_war
 		cost = 1
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
@@ -1307,11 +1323,11 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			#
+			remove_ideas = DVA_corruption
 		}
 	}
 	focus = {
-		id = DVA_first_bell_of_dawn
+		id = DVA_remove_personality_cult
 		icon = GFX_goal_SOV_reconstruction_assistance
 		cost = 1
 		prerequisite = {
@@ -1329,7 +1345,25 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
+			add_political_power = 100
+			add_stability = -0.05
+		}
+	}
+	focus = {
+		id = DVA_first_bell_of_dawn
+		icon = GFX_goal_SOV_reconstruction_assistance
+		cost = 5
+		prerequisite = {
+			focus = DVA_remove_personality_cult
+		}
+		x = 12
+		y = 18
+		available = {
 			#
+		}
+		completion_reward = {
+			#启动熄星计划
+			#解锁倒计时
 		}
 	}
 
