@@ -69,6 +69,9 @@ focus_tree = {
        prerequisite = {
       focus = SNE_parliament
     }
+	ai_will_do = {
+		factor = 33
+	}
     relative_position_id = SNE_parliament
       completion_reward = {
         		army_experience = 25
@@ -111,12 +114,12 @@ focus_tree = {
        prerequisite = {
       focus = SNE_parliament
     }
+	ai_will_do = {
+		factor = 5
+	}
     relative_position_id = SNE_parliament
       completion_reward = {
    		navy_experience = 25
-		    add_to_variable = {
-        SNE_warperpation = 1
-       }
 			random_owned_controlled_state = {
 				limit = {
 					dockyard > 0
@@ -152,12 +155,12 @@ focus_tree = {
        prerequisite = {
       focus = SNE_parliament
     }
+	ai_will_do = {
+		factor = 20
+	}
     relative_position_id = SNE_parliament
       completion_reward = {
    	air_experience = 25
-	    add_to_variable = {
-        SNE_warperpation = 1
-       }
 	   	add_tech_bonus = {
 				name = ITA_specialization
 				bonus = 0.5
@@ -183,6 +186,9 @@ focus_tree = {
        prerequisite = {
       focus = SNE_parliament
     }
+	ai_will_do = {
+		factor = 5
+	}
     relative_position_id = SNE_parliament
       completion_reward = {
 		    add_to_variable = {
@@ -227,9 +233,9 @@ focus_tree = {
     }
     relative_position_id = SNE_parliament
       completion_reward = {
-		    add_to_variable = {
-        SNE_warperpation = 1
-       }
+	   ai_will_do = {
+		factor = 40
+	}
            add_political_power = 50
      random_owned_controlled_state = {
 				limit = {
@@ -263,6 +269,9 @@ focus_tree = {
       available ={
 		  has_war = yes
       }
+	  ai_will_do = {
+		factor = 30
+	}
 	  search_filters = {FOCUS_FILTER_RESEARCH }
        prerequisite = {
       focus = SNE_parliament
@@ -299,6 +308,9 @@ focus_tree = {
       available ={
 		  has_war = no
       }
+	  ai_will_do = {
+		factor = 10
+	}
 	  search_filters = {FOCUS_FILTER_RESEARCH }
        prerequisite = {
       focus = SNE_parliament
@@ -329,6 +341,9 @@ focus_tree = {
        available ={  has_war = no
        num_of_factories >80
     }
+	ai_will_do = {
+		factor = 50
+	}
 
 	   search_filters = {FOCUS_FILTER_RESEARCH}
        prerequisite = {
@@ -337,9 +352,7 @@ focus_tree = {
     relative_position_id = SNE_parliament
       completion_reward = {
       army_experience = 25
-	      add_to_variable = {
-        SNE_warperpation = 1
-       }
+	  
       add_tech_bonus = {
 					name = HOL_light_tanks_for_the_colonies
 					bonus = 1.0
@@ -366,6 +379,9 @@ focus_tree = {
        }
 		}
     }
+	ai_will_do = {
+		factor = 100
+	}
 
 	  search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
        prerequisite = {
@@ -433,7 +449,8 @@ focus_tree = {
     relative_position_id = SNE_clownmotion
       completion_reward = {
 			  add_war_support = 0.15
-        ##获得决议：最后的手段。（仿妹抖终焉防御系统。）
+			  add_ideas = SNE_war_of_resistance
+        ##精神：以爱与恨之名。（核心领土攻防+15%。）
       }
       ai_will_do = {
         factor = 1
@@ -456,6 +473,7 @@ focus_tree = {
     }
     relative_position_id = SNE_clownmotion
       completion_reward = {
+		add_ideas = SNE_war_of_ruler
         ##获得精神：知己知彼。（对天理，攻击力+25%。）
       }
       ai_will_do = {
@@ -492,7 +510,7 @@ focus_tree = {
     }
 		}
 	}
-  #扩建首都
+  #冰封之城
   focus = {
 		id = SNE_enlagecaptail
 		icon = GFX_goal_generic_construction
@@ -839,7 +857,7 @@ focus_tree = {
         }
 		}
 	}
-  #公鸡的议案
+  #公鸡的最终议题
   focus = {
       id = SNE_cockmotion
       icon =  GFX_goal_generic_trade
@@ -853,20 +871,21 @@ focus_tree = {
 	  search_filters = {FOCUS_FILTER_STABILITY }
        prerequisite = {
       focus = SNE_synthetic_rubber
-    }
-	   prerequisite = {
       focus = SNE_stockpile_fuel
     }
     relative_position_id = SNE_synthetic_rubber
       completion_reward = {
       add_political_power = 50
+	  add_to_variable = {
+        SNE_warperpation = 1
+       }
 	  #解锁顾问：公鸡市长
       }
       ai_will_do = {
         factor = 1
       }
   }
-  #伟大战争
+  #重新集结部队
   	focus = {
 		id = SNE_lessonsofthegreatwar
 		icon = GFX_goal_generic_small_arms
@@ -1399,9 +1418,12 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { }
 		x = 30
-		y = 5
+		y = 8
 		
 		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
 
 		available_if_capitulated = yes
         available = {
@@ -1493,6 +1515,53 @@ focus_tree = {
 			add_ideas = FRA_the_young_school
 		}
 	}	
+	#雪花艇
+		focus = {
+			id = SNE_thedefendship
+			icon = GFX_focus_generic_refit_civilian_ships
+			 prerequisite = { focus = SNE_the_young_school }
+			x = 2
+			y = 1
+			relative_position_id = SNE_the_young_school
+			cost = 8
+			ai_will_do = {
+				factor = 1
+			}
+			available_if_capitulated = yes
+			search_filters = { FOCUS_FILTER_INDUSTRY }
+			completion_reward = {
+				add_tech_bonus = {
+					bonus =1.5
+					uses = 2
+					category = dd_tech
+				}
+				
+			}
+		}
+	#冰渊狂鲨
+	focus = {
+		id = SNE_the_submarines
+		icon = GFX_goal_generic_navy_submarine
+		 prerequisite = { focus = SNE_thedefendship }
+		x = 0
+		y = 1
+		relative_position_id = SNE_thedefendship
+		cost = 7
+		ai_will_do = {
+			factor = 1
+		}
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+		#寒流舰队
 	focus = {
 		id = SNE_surface_combat
 		icon = GFX_focus_generic_navy_battleship2
@@ -1507,16 +1576,9 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 25
 			add_tech_bonus = {
-				name = FRA_surface_combat
-				bonus = 2.0
-				uses = 1
-				category = dd_tech
-			}
-			add_tech_bonus = {
-				name = FRA_undersea_combat
 				bonus = 1.0
 				uses = 2
-				category = ss_tech
+				category = bb_tech
 			}
 		}
 	}
@@ -1543,7 +1605,89 @@ focus_tree = {
 			
 		}
 	}
-	#建设主力舰
+#女皇的恩赐
+	focus = {
+		id = SNE_prioritize_the_joffre
+		icon = GFX_goal_generic_navy_carrier
+	 	prerequisite = { focus = SNE_buyshipping }
+		x = 0
+		y = 1
+		relative_position_id = SNE_buyshipping
+		cost = 10
+		available_if_capitulated = no
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { basic_ship_hull_carrier = 1 }
+				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
+				hidden_effect = {
+					create_equipment_variant = {
+						name = "女皇恩赐级"
+						type = ship_hull_carrier_1
+						name_group = FRA_CV_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_deck_slot_1 = ship_deck_space
+							fixed_ship_deck_slot_2 = ship_deck_space
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = carrier_ship_engine_2
+							fixed_ship_secondaries_slot = dp_ship_secondaries_2
+							front_1_custom_slot = empty
+						}
+					}
+					add_equipment_production = {
+						equipment = {
+							type = ship_hull_carrier_1
+							creator = "SNE" 
+							version_name = "女皇恩赐"
+						}
+						requested_factories = 1
+						progress = 0.40
+						amount = 1
+					}
+				}	
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = carrier_2
+						creator = "SNE" 
+					}
+					requested_factories = 1
+					progress = 0.40
+					amount = 1
+				}
+			}
+		}
+	}	
+	focus = {
+		id = SNE_carrier_planes
+		icon = GFX_goal_generic_air_fighter
+
+	 	prerequisite = { focus = SNE_prioritize_the_joffre }
+		x = -1
+		y = 1
+		relative_position_id = SNE_prioritize_the_joffre
+		cost = 10
+
+		available_if_capitulated = yes
+		available = {
+			has_completed_focus = SNE_ladymotion
+	   }
+		completion_reward = {
+			add_tech_bonus = {
+				name = SNE_carrier_focus
+				bonus = 1.0
+				uses = 2
+				category = naval_air
+			}
+		}
+	}
+	#冰海巨鲸
 	focus = {
 		id = SNE_rush_the_richelieus
 		icon = GFX_goal_generic_navy_battleship
@@ -1564,7 +1708,7 @@ focus_tree = {
 					equipment = {
 						type = ship_hull_heavy_2
 						creator = "SNE" 
-						version_name = "Richelieu Class"
+						version_name = "极恶巨兽"
 					}
 					requested_factories = 1
 					progress = 0.85
@@ -1574,7 +1718,7 @@ focus_tree = {
 					equipment = {
 						type = ship_hull_heavy_2
 						creator = "SNE" 
-						version_name = "Richelieu Class"
+						version_name = "吞天之鲸"
 					}
 					requested_factories = 1
 					progress = 0.85
@@ -1603,15 +1747,46 @@ focus_tree = {
 			}
 		}
 	}
-	#建设空军
+	#公子的完结议案
+	focus = {
+		id = SNE_naval_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+	 	prerequisite = { 
+	 		focus = SNE_rush_the_richelieus
+	 		focus = SNE_prioritize_the_joffre
+	 		focus = SNE_the_submarines
+	 	}
+		x = 0
+		y = 2
+		relative_position_id = SNE_rush_the_richelieus
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_to_variable = {
+				SNE_warperpation = 1
+			   }
+			add_doctrine_cost_reduction = {
+				name = FRA_naval_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+	#新世纪的承诺
 		focus = {
 		id = SNE_transpolar_flights
 		icon = GFX_goal_generic_air_fighter2
 		prerequisite = { }
-		x = 13
-		y = 5
+		x = 23
+		y = 8
 		
 		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
 
 		available_if_capitulated = yes
         available = {
@@ -1621,10 +1796,10 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = air_doctrine
 				cost_reduction = 0.75
-				uses = 2
+				uses = 1
 				category = air_doctrine
 			}
-		   	air_experience = 25
+		   	air_experience = 10
 		}
 	}	
 		#建设前线机场
@@ -1636,7 +1811,9 @@ focus_tree = {
 		y = 1
 		relative_position_id = SNE_transpolar_flights
 		cost = 10
-
+		ai_will_do = {
+			factor = 3
+		}
 		available_if_capitulated = yes
          available = {
 			has_full_control_of_state = 325
@@ -1673,7 +1850,7 @@ focus_tree = {
 		
 		}
 		completion_reward = {
-				air_experience = 25
+				air_experience = 210
 				add_tech_bonus = {
 				name = ITA_specialization
 				bonus = 0.5
@@ -1713,6 +1890,87 @@ focus_tree = {
 
 		}
 	}
+	#支援机
+	focus = {
+		id = SNE_air_support
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = SNE_inportaircraft }
+		x = 0
+		y = 1
+		relative_position_id = SNE_inportaircraft
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		completion_reward = {
+			air_experience = 10
+			add_ideas = air_support_focus
+		}
+	}
+	#轰炸机
+	focus = {
+		id = SNE_strategic_bombing
+		icon = GFX_goal_generic_occupy_start_war
+		prerequisite = { focus = SNE_inportaircraft }
+		x = 2
+		y = 1
+		relative_position_id = SNE_inportaircraft
+		cost = 10
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			air_experience = 5
+			add_ideas = strategic_bombing_focus
+		}
+	}
+	#寒流轰炸机
+	focus = {
+		id = SNE_escort_fighters
+		icon = GFX_focus_usa_escort_fighters
+		x = 0
+		y = 1
+		prerequisite = { focus = SNE_strategic_bombing focus = SNE_air_support }
+		relative_position_id = SNE_air_support
+		cost = 8
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = {FOCUS_FILTER_RESEARCH}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_escort_fighters
+				bonus = 3.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+			add_tech_bonus = {
+				name = CAS_effort
+				uses = 1
+				bonus = 3.0
+				category = cas_bomber
+			}
+		}
+	}
 		#建设雷达站
 		focus = {
 		id = SNE_radar_station
@@ -1722,7 +1980,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = SNE_transpolar_flights
 		cost = 10
-
+		ai_will_do = {
+			factor = 15
+		}
+		available = {
+			has_completed_focus = SNE_doctorrecommendation
+	   }
 		available_if_capitulated = yes
          available = {
 			has_full_control_of_state = 325
@@ -1745,16 +2008,43 @@ focus_tree = {
 
 		}
 	}
-		#建设防空火力网
+	#冰茧计划
+	focus = {
+	id = SNE_antiair
+	icon = GFX_focus_POL_ukrainian_army
+	prerequisite = { focus = SNE_radar_station }
+	x = 0
+	y = 1
+	relative_position_id = SNE_radar_station
+	cost = 5
+	ai_will_do = {
+		factor = 15
+	}
+	available_if_capitulated = yes
+	 available = {
+	}
+	completion_reward = {	
+		add_doctrine_cost_reduction = {
+		bonus = 1.0
+		uses = 1
+		category = cat_anti_air
+	}
+
+	}
+	
+}
+		#冰茧网络
 		focus = {
 		id = SNE_bombing_defense
 		icon = GFX_focus_generic_air_defense
-		prerequisite = { focus = SNE_radar_station }
+		prerequisite = { focus = SNE_antiair }
 		x = 0
 		y = 1
-		relative_position_id = SNE_radar_station
+		relative_position_id = SNE_antiair
 		cost = 10
-
+		ai_will_do = {
+			factor = 30
+		}
 		available_if_capitulated = yes
          available = {
 			has_full_control_of_state = 325
@@ -1777,18 +2067,34 @@ focus_tree = {
 
 		}
 	}
-
-	# 未曾设想的道路
+	#少女的最终议案
 	focus = {
-		id = SNE_the_Path_not_Chosen
-		icon = goal_Itto
-		cost = 10.00
-		x = 40
-		y = 4
-			completion_reward = {   					
-					load_focus_tree = generic_focus
-				}
+		id = SNE_TAC
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { 
+		focus = SNE_bombing_defense
+		focus = SNE_escort_fighters  }
+		x = 0
+		y = 2
+		relative_position_id = SNE_bombing_defense
+		cost = 5
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+
+		completion_reward = {
+			add_to_variable = {
+				SNE_warperpation = 1
+			   }
+			air_experience = 25
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1.0
+				category = tactical_bomber
+			}
+		}
 	}
-
-
 }
