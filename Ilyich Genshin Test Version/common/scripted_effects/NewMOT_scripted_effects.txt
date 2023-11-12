@@ -680,7 +680,9 @@ MOT_Show_Noelle_Buff1 = {
 	add_country_leader_trait = MOT_Noelle_Hero_of_GUN
 	add_country_leader_trait = MOT_Noelle_Hero_of_DVA
 	add_country_leader_trait = MOT_Noelle_Hero_of_LAW
-	set_country_leader_description = MOT_Noelle_Retracing_Bolide_desc
+	set_country_leader_description = {
+		desc = MOT_Noelle_Retracing_Bolide_desc
+	}
 }
 MOT_Show_Noelle_BuffRED = {
 	remove_country_leader_trait = MOT_Noelle_Not_Enough_Experience
@@ -706,7 +708,9 @@ MOT_Show_Noelle_BuffRED = {
 	add_country_leader_trait = MOT_Noelle_Red_Mandate
 	add_country_leader_trait = MOT_Noelle_Hero_of_Mondstadtian_People
 	add_country_leader_trait = MOT_Noelle_Retracing_Bolide
-	#set_country_leader_description = MOT_Noelle_Hero_of_Mondstadtian_People_desc
+	set_country_leader_description = {
+		desc = MOT_Noelle_Hero_of_Mondstadtian_People_desc
+	}
 }
 MOT_Show_Noelle_BuffBLUE = {
 		remove_country_leader_trait = MOT_Noelle_Not_Enough_Experience
@@ -732,7 +736,9 @@ MOT_Show_Noelle_BuffBLUE = {
 		add_country_leader_trait = MOT_Noelle_Black_Mandate
 		add_country_leader_trait = MOT_Noelle_Gladiators_Finale
 		add_country_leader_trait = MOT_Noelle_Bloody_Way
-	#set_country_leader_description = MOT_Noelle_Gladiators_Finale_desc
+		set_country_leader_description = {
+			desc = MOT_Noelle_Gladiators_Finale_desc
+		}
 }
 MOT_Show_Noelle_BuffDark = {
 		remove_country_leader_trait = MOT_Noelle_Not_Enough_Experience
@@ -756,7 +762,9 @@ MOT_Show_Noelle_BuffDark = {
 		remove_country_leader_trait = MOT_Noelle_Gladiators_Finale
 		remove_country_leader_trait = MOT_Noelle_Bloodstained_Chivalry
 		add_country_leader_trait = MOT_Noelle_Bloodstained_Chivalry
-	#set_country_leader_description = MOT_Noelle_Bloodstained_Chivalry_desc
+		set_country_leader_description = {
+			desc = MOT_Noelle_Bloodstained_Chivalry_desc
+		}
 }
 
 #降低动员等级
@@ -829,7 +837,7 @@ MOT_Trade_Law_Up = {
 }
 #降低征兵法案等级
 MOT_Manpower_Law_Down = {
-	ELSE_IF = {
+	IF = {
 		limit = { has_idea = volunteer_only }
 		add_ideas = disarmed_nation
 	}
@@ -1279,14 +1287,16 @@ MOT_SET_Section_1_Vars = {
 	IF = {
 		limit = {
 			any_subject_country = {
-				limit = {
+				AND = {
 					NOT = {
-						original_tag = LAW
-						original_tag = FAV
-						original_tag = GUN
+						OR = {
+							original_tag = LAW
+							original_tag = FAV
+							original_tag = GUN
+						}
 					}
+					is_ai = yes
 				}
-				is_ai = yes
 			}
 		}
 	}
@@ -1357,86 +1367,6 @@ MOT_GET_AS_Regularly = {
 		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 10 }
 	}
 	add_to_variable = { MOT_BasicPower_of_AlwaysSupport = 1 }
-}
-#重新计算各类动议支持
-MOT_Re_Decisions_Support = {
-	#计算激进支持
-	set_variable = { MOT_Votes_of_Fantasy = 0 }
-	add_to_variable = { MOT_Votes_of_Fantasy = var:MOT_SUMPower_of_People }
-	add_to_variable = { MOT_Votes_of_Fantasy = var:MOT_SUMPower_of_AlwaysSupport }
-	set_variable = { MOT_Votes_of_Fantasy_percent = var:MOT_Votes_of_Fantasy }
-	divide_variable = { MOT_Votes_of_Fantasy_percent = var:MOT_SUM_Votes }
-	multiply_variable = { MOT_Votes_of_Fantasy_percent = 100 }
-	round_variable = MOT_Votes_of_Fantasy_percent
-	
-	#计算进步支持
-	set_variable = { MOT_Votes_of_Progress = 0 }
-	add_to_variable = { MOT_Votes_of_Progress = var:MOT_SUMPower_of_People }
-	IF = {
-		limit = {
-			Is_Trader_2nd = yes
-			NOT = {
-				has_country_flag = MOT_Period_of_Anti_Noelle
-			}
-		}
-		add_to_variable = { MOT_Votes_of_Progress = var:MOT_SUMPower_of_Trader }
-	}
-	add_to_variable = { MOT_Votes_of_Progress = var:MOT_SUMPower_of_AlwaysSupport }
-	set_variable = { MOT_Votes_of_Progress_percent = var:MOT_Votes_of_Progress }
-	divide_variable = { MOT_Votes_of_Progress_percent = var:MOT_SUM_Votes }
-	multiply_variable = { MOT_Votes_of_Progress_percent = 100 }
-	round_variable = MOT_Votes_of_Progress_percent
-	
-	#计算放任支持
-	set_variable = { MOT_Votes_of_Freedom = 0 }
-	add_to_variable = { MOT_Votes_of_Freedom = var:MOT_SUMPower_of_Trader }
-	IF = {
-		limit = {
-			Is_Lords_3rd = yes
-		}
-		add_to_variable = { MOT_Votes_of_Freedom = var:MOT_SUMPower_of_Lords }
-	}
-	add_to_variable = { MOT_Votes_of_Freedom = var:MOT_SUMPower_of_AlwaysSupport }
-	set_variable = { MOT_Votes_of_Freedom_percent = var:MOT_Votes_of_Freedom }
-	divide_variable = { MOT_Votes_of_Freedom_percent = var:MOT_SUM_Votes }
-	multiply_variable = { MOT_Votes_of_Freedom_percent = 100 }
-	round_variable = MOT_Votes_of_Freedom_percent
-	
-	#计算保守支持
-	set_variable = { MOT_Votes_of_Conserv = 0 }
-	add_to_variable = { MOT_Votes_of_Conserv = var:MOT_SUMPower_of_Lords }
-	IF = {
-		limit = {
-			Is_Trader_1st = no
-		}
-		add_to_variable = { MOT_Votes_of_Conserv = var:MOT_SUMPower_of_Trader }
-	}
-	IF = {
-		limit = {
-			Is_People_1st = no
-		}
-		add_to_variable = { MOT_Votes_of_Conserv = var:MOT_SUMPower_of_People }
-	}
-	add_to_variable = { MOT_Votes_of_Conserv = var:MOT_SUMPower_of_AlwaysSupport }
-	set_variable = { MOT_Votes_of_Conserv_percent = var:MOT_Votes_of_Conserv }
-	divide_variable = { MOT_Votes_of_Conserv_percent = var:MOT_SUM_Votes }
-	multiply_variable = { MOT_Votes_of_Conserv_percent = 100 }
-	round_variable = MOT_Votes_of_Conserv_percent
-	
-	#计算反动支持
-	set_variable = { MOT_Votes_of_Reaction = 0 }
-	add_to_variable = { MOT_Votes_of_Reaction = var:MOT_SUMPower_of_Lords }
-	add_to_variable = { MOT_Votes_of_Reaction = var:MOT_SUMPower_of_AlwaysSupport }
-	IF = {
-		limit = {
-			has_country_flag = MOT_Period_of_Anti_Noelle
-		}
-		add_to_variable = { MOT_Votes_of_Reaction = var:MOT_SUMPower_of_Trader }
-	}
-	set_variable = { MOT_Votes_of_Reaction_percent = var:MOT_Votes_of_Reaction }
-	divide_variable = { MOT_Votes_of_Reaction_percent = var:MOT_SUM_Votes }
-	multiply_variable = { MOT_Votes_of_Reaction_percent = 100 }
-	round_variable = MOT_Votes_of_Reaction_percent
 }
 #重计票
 MOT_Re_Org_PowerandSupport = {
@@ -1624,56 +1554,56 @@ MOT_Level_to_Time = {
 				check_variable = {
 					has_war_support < 0.21
 				}
-				add_to_variable = { MOT_Linshibianliang = -25 }
 			}
+			add_to_variable = { MOT_Linshibianliang = -25 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support < 0.31
 				}
-				add_to_variable = { MOT_Linshibianliang = -15 }
 			}
+			add_to_variable = { MOT_Linshibianliang = -15 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support < 0.41
 				}
-				add_to_variable = { MOT_Linshibianliang = -10 }
 			}
+			add_to_variable = { MOT_Linshibianliang = -10 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support > 0.59
 				}
-				add_to_variable = { MOT_Linshibianliang = 10 }
 			}
+			add_to_variable = { MOT_Linshibianliang = 10 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support > 0.69
 				}
-				add_to_variable = { MOT_Linshibianliang = 10 }
 			}
+			add_to_variable = { MOT_Linshibianliang = 10 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support > 0.79
 				}
-				add_to_variable = { MOT_Linshibianliang = 15 }
 			}
+			add_to_variable = { MOT_Linshibianliang = 15 }
 		}
 		IF = {
 			limit = {
 				check_variable = {
 					has_war_support > 0.89
 				}
-				add_to_variable = { MOT_Linshibianliang = 15 }
 			}
+			add_to_variable = { MOT_Linshibianliang = 15 }
 		}
 		round_variable = MOT_Linshibianliang
 		subtract_from_variable = { MOT_Time_of_Expectation = MOT_Linshibianliang }
