@@ -15,7 +15,7 @@ focus_tree = {
       id = SNE_massfoolstroops
 	 
       icon =  GFX_focus_hol_prepare_the_inundation_lines
-      cost = 8
+      cost = 7
       x = 13
       y = 0
       available ={
@@ -35,7 +35,7 @@ focus_tree = {
       id = SNE_parliament
 	 
       icon =  GFX_goal_support_democracy
-      cost = 8
+      cost = 7
       x = 0
       y = 1
       available ={
@@ -290,9 +290,7 @@ focus_tree = {
 					uses = 1
 					category = electronics
 				}
-				    add_to_variable = {
-        SNE_warperpation = 1
-       }
+	
       }
       ai_will_do = {
         factor = 1
@@ -1983,11 +1981,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 15
 		}
-		available = {
-			has_completed_focus = SNE_doctorrecommendation
-	   }
 		available_if_capitulated = yes
          available = {
+			has_completed_focus = SNE_doctorrecommendation
 			has_full_control_of_state = 325
 			has_full_control_of_state = 309
 			has_tech = radio_detection
@@ -2097,4 +2093,356 @@ focus_tree = {
 			}
 		}
 	}
+	      ##渴求智慧的愚者#
+		  focus = {
+			id = SNE_literacy_programs
+		   
+			icon =  GFX_focus_research
+			cost = 10
+			x = 17
+			y = 8
+			available = {
+				has_completed_focus = SNE_doctorrecommendation
+		   }
+			search_filters = {FOCUS_FILTER_STABILITY }
+			 prerequisite = {
+		  }
+		  ai_will_do = {
+			  factor = 1
+		  }
+  
+		  available = {
+			  num_of_factories > 34
+			  amount_research_slots < 5
+		  }
+  
+		  bypass = {
+  
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			  add_research_slot = 1
+		  }
+		}
+		   ##公鸡的科研需求#
+		   focus = {
+			id = SNE_rock_programs
+		   
+			icon =  GFX_goal_generic_production2
+			cost = 10
+			x = 0
+			y = 1
+			relative_position_id = SNE_literacy_programs
+			
+		    prerequisite = { focus = SNE_literacy_programs }
+			available = {
+				has_completed_focus = SNE_mayormotion
+		   }
+			search_filters = {FOCUS_FILTER_STABILITY }
+		  ai_will_do = {
+			  factor = 1
+		  }
+		  bypass = {
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2			
+				category = computing_tech
+			}
+		  }
+		}
+		focus = {
+			id = SNE_building_tech
+			#建筑技术
+			icon = GFX_goal_generic_construct_civilian
+			cost = 10
+			x = 0
+			y = 1
+			prerequisite = {
+			   focus = SNE_rock_programs
+			}
+			relative_position_id = SNE_rock_programs
+			available ={
+			}
+			  search_filters = { FOCUS_FILTER_INDUSTRY }
+			completion_reward = {
+					add_tech_bonus = {
+				  name = CHI_naval_aviation
+				  bonus = 0.5
+				  uses = 2
+				  category = construction_tech
+			  }
+		  ##添加50%加速2次，在建筑类	
+			}
+			}
+			focus = {
+				id = SNE_product_tech
+				#生产技术
+				icon = GFX_goal_generic_production
+				cost = 10
+				x = 0
+				y = 1
+			   relative_position_id = SNE_building_tech
+				prerequisite = {
+				   focus = SNE_building_tech
+				}
+				available ={
+				}
+			  search_filters = { FOCUS_FILTER_INDUSTRY }
+				completion_reward = {
+				add_tech_bonus = {
+					  name = CHI_naval_aviation
+					  bonus = 0.5
+					  uses = 2
+					  category = industry	
+				  }
+			  ##添加50%加速2次，在生产类	
+				}
+				}
+		 ##亵渎实验#
+			focus = {
+					id = SNE_demorsecch
+				   
+					icon =  GFX_goal_generic_production2
+					cost = 10
+					x = -2
+					y = 1
+					relative_position_id = SNE_literacy_programs
+					
+					prerequisite = { focus = SNE_literacy_programs }
+					search_filters = {FOCUS_FILTER_STABILITY }
+				  ai_will_do = {
+					  factor = 1
+				  }
+				  bypass = {
+				  }
+		  
+				  cancel_if_invalid = yes
+				  continue_if_invalid = no
+				  available_if_capitulated = yes
+		  
+				  search_filters = { FOCUS_FILTER_RESEARCH }
+				  completion_reward = {
+					add_political_power = -30
+					add_manpower = -8000
+					add_tech_bonus = {
+						bonus = 1.75
+						uses = 2			
+						category = electronics
+					}
+				  }
+				}
+		##通讯实验#
+		focus = {
+			id = SNE_radio_programs
+			icon =  GFX_goal_generic_radar
+			cost = 10
+			x = -2
+			y = 1
+			relative_position_id = SNE_rock_programs
+			
+		    prerequisite = { focus = SNE_demorsecch }
+			search_filters = {FOCUS_FILTER_STABILITY }
+		  ai_will_do = {
+			  factor = 1
+		  }
+		  bypass = {
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			add_political_power = -30
+			add_manpower = -8000
+			add_tech_bonus = {
+				bonus = 1.75
+				uses = 2			
+				category = radar_tech
+			}
+		  }
+		}
+		##先进工业#
+			focus = {
+				id = SNE_industrial_modernization
+				icon =  GFX_goal_generic_production
+				cost = 10
+				x = 0
+				y = 1
+				relative_position_id = SNE_radio_programs
+				prerequisite = { focus = SNE_radio_programs }
+				available = {
+					has_completed_focus = SNE_civil_factory
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+	  
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+	  
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  add_tech_bonus = {
+				add_political_power = -30
+				add_manpower = -12000
+				name = SOV_industrial_modernization
+				ahead_reduction = 0.7
+				bonus = 2.0
+				uses = 2
+				category = industry
+			}
+			}
+		
+			 ##队长的装备需求#
+			 focus = {
+				id = SNE_captain_programs
+			   
+				icon =  GFX_focus_focus_fra_maquis
+				cost = 10
+				x = 2
+				y = 1
+				relative_position_id = SNE_literacy_programs
+				
+				prerequisite = { focus = SNE_literacy_programs }
+				available = {
+					has_completed_focus = SNE_captainrmotion
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  completion_reward = {
+				add_tech_bonus = {
+					bonus = 0.75
+					uses = 2			
+					category = infantry_weapons
+				}
+			  }
+			}
+			##先进的支援装备#
+			 focus = {
+				id = SNE_captain_supportamor
+				icon =  GFX_focus_secret_rearmament
+				cost = 10
+				x = 0
+				y = 1
+				relative_position_id = SNE_captain_programs
+				
+				prerequisite = { focus = SNE_captain_programs }
+				available = {
+					has_completed_focus = SNE_captainrmotion
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  completion_reward = {
+				add_tech_bonus = {
+					bonus = 0.75
+					uses = 2			
+					category = support_tech
+				}
+			  }
+			}
+				##装甲先锋#
+				focus = {
+					id = SNE_superior_war_machines
+					icon =  GFX_focus_generic_tank_production
+					cost = 10
+					x = 0
+					y = 1
+					relative_position_id = SNE_captain_supportamor
+					
+					prerequisite = { focus = SNE_captain_supportamor }
+					available = {
+						has_completed_focus = SNE_dollmotion
+				   }
+					search_filters = {FOCUS_FILTER_STABILITY }
+				  ai_will_do = {
+					  factor = 1
+				  }
+				  bypass = {
+				  }
+				  cancel_if_invalid = yes
+				  continue_if_invalid = no
+				  available_if_capitulated = yes
+				  search_filters = { FOCUS_FILTER_RESEARCH }
+				  completion_reward = {
+					add_tech_bonus = {
+						name = SOV_superior_war_machines
+						bonus = 1
+						uses = 2
+						category = armor
+					}
+				  }
+				}
+					 ##愚者之识#
+					 focus = {
+						id = SNE_academy_of_sciences
+					   
+						icon =  GFX_focus_research2
+						cost = 12
+						x = 2
+						y = 2
+						relative_position_id = SNE_industrial_modernization
+						available = {
+							has_completed_focus = SNE_doctorrecommendation
+					   }
+						search_filters = {FOCUS_FILTER_STABILITY }
+						 prerequisite = { 
+							focus = SNE_industrial_modernization
+							focus = SNE_product_tech
+							focus = SNE_superior_war_machines
+					  }
+					  ai_will_do = {
+						  factor = 1
+					  }
+			  
+					  available = {
+						  num_of_factories > 60
+					  }
+			  
+			  
+					  cancel_if_invalid = yes
+					  continue_if_invalid = no
+					  available_if_capitulated = yes
+			  
+					  search_filters = { FOCUS_FILTER_RESEARCH }
+					  completion_reward = {
+						  add_research_slot = 1
+						  add_to_variable = {
+							SNE_warperpation = 1
+						   }
+					  }
+					}
 }
