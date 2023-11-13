@@ -2,7 +2,7 @@
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT = -500
 DVA_debug_category = {
 	DVA_load_focus = {
-		icon = generic_oppression
+		icon = GFX_decision_generic_protection
 
 		available = {
 			#
@@ -27,15 +27,66 @@ DVA_debug_category = {
 		}
 	}
 	DVA_test_decision1 = {
-		icon = generic_oppression
+		icon = decision_generic_protection
 
 		available = {
-			divisions_in_border_state = {
-				type = infantry
-				size > 0
-				state = 57
-				border_state = 58
+			#
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 7
+
+		complete_effect = {
+			country_event = dva.ab.2
+		}
+
+		remove_effect = {
+			country_event = dva.ab.2
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 57
+					num_provinces = 4
+					on_win = dva_border_conflict.1
+					on_lose = dva_border_conflict.2
+					on_cancel = dva_border_conflict.3
+					modifier = 0.1
+					dig_in_factor = 0
+					terrain_factor = 0
+				}	
+				defender = {
+					state = 58
+					num_provinces = 5
+					on_win = dva_border_conflict.2
+					on_lose = dva_border_conflict.1
+					on_cancel = dva_border_conflict.3
+				}
 			}
+			set_border_war_data = {
+				attacker = 57
+				defender = 58
+				defender_modifier = -0.05
+				combat_width = 60
+			}
+			#add_civil_war_target = MOT
+		}
+	}
+	DVA_test_decision2 = {
+		icon = GFX_decision_category_military_operation
+
+		available = {
+			#
 		}
 
 		visible = {
@@ -53,35 +104,6 @@ DVA_debug_category = {
 		#
 
 		complete_effect = {
-			declare_war_on = {
-				target = MOT
-				type = puppet_wargoal_focus
-			}
-			add_civil_war_target = MOT
-		}
-	}
-	DVA_test_decision2 = {
-		icon = generic_oppression
-
-		available = {
-			#
-		}
-
-		visible = {
-			#
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
 				value = 1
@@ -89,7 +111,7 @@ DVA_debug_category = {
 		}
 	}
 	DVA_test_decision3 = {
-		icon = generic_oppression
+		icon = decision_category_military_operation
 
 		available = {
 			#
@@ -103,7 +125,7 @@ DVA_debug_category = {
 			factor = 10
 		}
 
-		fire_only_once = yes
+		fire_only_once = no
 
 		cost = 0
 
@@ -147,14 +169,14 @@ DVA_debug_category = {
 #风龙领骚乱
 DVA_mass_of_dvalin_category = {
 	
-	#第一阶段-清剿魔物
+	#第一阶段-清剿魔物-1
 
 	#中部地区-风龙废墟57
 
 	#清剿中部遗迹守卫
 	DVA_hunt_down_central_humanoid_ruin_machines = {
 
-		icon = generic_prepare_civil_war
+		icon = GFX_decision_generic_protection
 
 		available = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
@@ -279,6 +301,7 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 	}
+
 	#征兆中部民兵
 	DVA_recruit_central_militia = {
 		icon = generic_civil_support
@@ -355,7 +378,96 @@ DVA_mass_of_dvalin_category = {
 		}
 	}
 
+	#第一阶段-清剿魔物-2
+
+	#信任度决议
+
+	#伪造报告
+	DVA_call_for_a_Knight = {
+
+		icon = GFX_decision_generic_operation
+
+		available = {
+			#
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+
+		cost = 200
+
+		visible = {
+			NOT = {
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
+		}
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				add = 200
+			}
+		}
+
+		complete_effect = {		
+			#减少一点信任度，同时减少一点控制力
+			add_to_variable = {
+				var = DVA.DVA_puppet_influence
+				value = -1
+			}
+		}
+
+		remove_effect = {
+			MOT = {
+				country_event = dva.9
+			}
+		}
+	}
+
+	#请求西风骑士支援
+	DVA_call_for_a_Knight = {
+
+		icon = GFX_decision_category_military_operation
+		#decision_generic_army_support
+
+		available = {
+			#
+		}
+
+		days_remove = 7
+
+		visible = {
+			NOT = {
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
+		}
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				add = 200
+			}
+		}
+
+		complete_effect = {		
+			#消耗三点信任度，增加一点控制力
+			add_to_variable = {
+				var = DVA.DVA_puppet_influence
+				value = 1
+			}
+		}
+
+		remove_effect = {
+			#add_corps_commander_role
+		}
+	}
+
 	#北部地区-西风山62
+
 	#悬赏北部丘丘人
 	DVA_post_a_reward_of_hilichurls_in_the_northern_countryside = {
 
@@ -394,7 +506,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_northern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_northern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_northern_hilichurls
 		}
 
@@ -440,7 +555,10 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_northern_region }
+			NOT = { 
+				has_active_mission = DVA_maintain_stability_of_northern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_northern_hilichurls
 		}
 
@@ -666,7 +784,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_northeastern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_northeastern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_northeastern_hilichurls
 		}
 
@@ -713,7 +834,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_northeastern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_northeastern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_northeastern_hilichurls
 		}
 
@@ -936,7 +1060,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_eastern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_eastern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_eastern_hilichurls
 		}
 
@@ -983,7 +1110,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_eastern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_eastern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_eastern_hilichurls
 		}
 
@@ -1207,7 +1337,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_southern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_southern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_southern_hilichurls
 		}
 
@@ -1254,7 +1387,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		visible = {
-			NOT = { has_active_mission = DVA_maintain_stability_of_southern_region }
+			NOT = {
+				has_active_mission = DVA_maintain_stability_of_southern_region
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
 			has_country_flag = DVA_southern_hilichurls
 		}
 
@@ -1522,7 +1658,7 @@ DVA_mass_of_dvalin_category = {
 	#驱逐愚人众先遣队
 	DVA_drive_off_Fatui_Skirmisher = {
 
-		icon = generic_prepare_civil_war
+		icon = GFX_decision_category_border_conflicts
 		
 		available = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
@@ -1536,6 +1672,7 @@ DVA_mass_of_dvalin_category = {
 				border_state = 58
 			}
 		}
+
 		visible = {
 			NOT = {
 				has_country_flag = DVA_northern_hilichurls
@@ -1543,7 +1680,6 @@ DVA_mass_of_dvalin_category = {
 				has_country_flag = DVA_eastern_hilichurls
 				has_country_flag = DVA_southern_hilichurls
 				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
 			}
 			NOT = {
 				58 = {
@@ -1561,7 +1697,9 @@ DVA_mass_of_dvalin_category = {
 		cost = 0
 
 		days_remove = 14
-		days_re_enable = 90
+		days_re_enable = 30
+
+		will_lead_to_war_with = SFS
 
 		ai_will_do = {
 			base = 10
@@ -1592,11 +1730,16 @@ DVA_mass_of_dvalin_category = {
 					on_cancel = dva_border_conflict.3
 				}
 			}
-			set_border_war_data = {
-				attacker = 57
-				defender = 58
-				defender_modifier = -0.15
-				combat_width = 60
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				set_border_war_data = {
+					attacker = 57
+					defender = 58
+					defender_modifier = -0.05
+					combat_width = 60
+				}
 			}
 		}
 	}
@@ -2043,7 +2186,7 @@ DVA_Turn_Sun_Operation = {
 	}
 	DVA_escape_from_Mondstadt = {
 
-		icon = generic_civil_support
+		icon = GFX_decision_hol_engelandvaarders
 
 		available = {
 			has_country_flag = DVA_rescue_Klee_flag
@@ -2080,7 +2223,7 @@ DVA_Turn_Sun_Operation = {
 	}
 	DVA_by_way_of_Springvale = {
 
-		icon = generic_civil_support
+		icon = GFX_decision_hol_inundate_water_lines
 
 		available = {
 			#
@@ -2107,7 +2250,7 @@ DVA_Turn_Sun_Operation = {
 	}
 	DVA_across_the_Mostsee = {
 
-		icon = generic_civil_support
+		icon = GFX_decision_hol_engelandvaarders
 
 		available = {
 			#
@@ -2427,18 +2570,26 @@ DVA_simulate_MOT_category = {
 	}
 	#【独立日】
 	DVA_independence_day = {
+
+		icon = GFX_decision_SOV_the_workers_dictatorship
+
 		available = {
 			has_country_flag = DVA_middle_way
 		}
+
 		visible = {
 			check_variable = { var = DVA_advanced_military_experience_flag value = 0 compare = greater_than }
 			has_country_flag = DVA_middle_way
 		}
+
 		cost = 0
+
 		fire_only_once = yes
+
 		ai_will_do = {
 			factor = 10
 		}
+
 		complete_effect = {
 			declare_war_on = {
 				target = MOT
@@ -2662,7 +2813,7 @@ DVA_four_season_plan_category = {
 	#渐进式工业计划
 	DVA_plan_of_progressive_industrialization = {
 
-		icon = GFX_decision_generic_research
+		icon = GFX_decision_generic_wreckers
 
 		available = {
 			#
@@ -2713,28 +2864,21 @@ DVA_four_season_plan_category = {
 			if = {
 				limit = {
 					check_variable = {
-						DVA_industrialization_process = 1
-					}
-				}
-				#country_event = dva.ab.101
-			}
-			if = {
-				limit = {
-					check_variable = {
 						DVA_industrialization_process = 2
 					}
 				}
 				Industry_Up = yes
-				#country_event = dva.ab.101
+				#阻力country_event = dva.ab.101
 			}
 			if = {
 				limit = {
 					check_variable = {
-						DVA_industrialization_process > 3
+						DVA_industrialization_process = 4
 					}
 				}
 				Industry_Up = yes
 				set_country_flag = DVA_success_of_progressive_industrialization_flag
+				#成功country_event = dva.ab.101
 			}
 		}
 	}

@@ -192,9 +192,21 @@ focus_tree = {
 					}
 				}
 			}
-			swap_ideas = {
-				remove_idea = DVA_no_industrial_at_all
-				add_idea = DVA_colonical_industrial1
+			if = {
+				limit = {
+					OR = {
+						is_puppet = yes
+						is_subject = yes
+						has_country_flag = DVA_letter_of_war_beta_flag
+					}
+				}
+				swap_ideas = {
+					remove_idea = DVA_no_industrial_at_all
+					add_idea = DVA_colonical_industrial1
+				}
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -324,9 +336,21 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			swap_ideas = {
-				remove_idea = DVA_colonical_industrial1
-				add_idea = DVA_colonical_industrial2
+			if = {
+				limit = {
+					OR = {
+						is_puppet = yes
+						is_subject = yes
+						has_country_flag = DVA_letter_of_war_beta_flag
+					}
+				}
+				swap_ideas = {
+					remove_idea = DVA_colonical_industrial1
+					add_idea = DVA_colonical_industrial2
+				}
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -399,12 +423,24 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			swap_ideas = {
-				remove_idea = DVA_colonical_industrial2
-				add_idea = DVA_colonical_industrial3
-			}
 			MOT = {
 				country_event = dva.ab.41
+			}
+			if = {
+				limit = {
+					OR = {
+						is_puppet = yes
+						is_subject = yes
+						has_country_flag = DVA_letter_of_war_beta_flag
+					}
+				}
+				swap_ideas = {
+					remove_idea = DVA_colonical_industrial2
+					add_idea = DVA_colonical_industrial3
+				}
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -820,6 +856,12 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = LAW
+				}
+				add_core_of = DVA
+			}
 			if = {
 				limit = {
 					NOT = {
@@ -830,18 +872,15 @@ focus_tree = {
 					type = annex_everything
 					target = LAW
 				}
+				hidden_effect = {
+					MOT = {
+						end_puppet = LAW
+					}
+				}
 				custom_effect_tooltip = DVA_rescue_Eula_tt
 			}
-			every_state = {
-				limit = {
-					is_core_of = LAW
-				}
-				add_core_of = DVA
-			}
-			hidden_effect = {
-				MOT = {
-					end_puppet = LAW
-				}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -866,6 +905,13 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = DRA
+				}
+				add_core_of = DVA
+			}
+			add_research_slot = 1
 			Research_Up = yes
 			if = {
 				limit = {
@@ -916,13 +962,16 @@ focus_tree = {
 					set_cosmetic_tag = DVA_Ultravisionary_subject
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_country_flag = DVA_Sucrose_visited
 				}
 				country_event = dva.ab.39
 			}
-			else = {
+			else_if = {
+				limit = {
+					has_global_flag = MOT_Civil_War_Begun
+				}
 				create_wargoal = {
 					type = puppet_wargoal_focus
 					target = DRA
@@ -933,13 +982,9 @@ focus_tree = {
 					}
 				}
 			}
-			every_state = {
-				limit = {
-					is_core_of = DRA
-				}
-				add_core_of = DVA
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
-			add_research_slot = 1
 		}
 	}
 	focus = {
@@ -975,6 +1020,15 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
+					has_country_flag = DVA_amber_win
+				}
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = MOT
+				}
+			}
+			if = {
+				limit = {
 					MOT = {
 						OR = {
 							exists = no
@@ -984,14 +1038,8 @@ focus_tree = {
 				}
 				country_event = dva.ab.13
 			}
-			if = {
-				limit = {
-					has_country_flag = DVA_amber_win
-				}
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = MOT
-				}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -1097,6 +1145,15 @@ focus_tree = {
 					ideology = communism
 					portrait = GFX_portrait_Amber
 				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = DVA_amber_win
+						has_country_flag = DVA_middle_way
+					}
+				}
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -1278,6 +1335,9 @@ focus_tree = {
 					}
 					add_country_leader_trait = Leader_of_knights
 				}
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -1811,6 +1871,8 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
+			add_ideas = DVA_loyal_fiefdom
+			MOTSize_Up = yes
 			if = {
 				limit = {
 					has_country_flag = DVA_knights_win
@@ -1825,8 +1887,9 @@ focus_tree = {
 					add_research_slot = 2
 				}
 			}
-			add_ideas = DVA_loyal_fiefdom
-			MOTSize_Up = yes
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
+			}
 		}
 	}
 	focus = {
@@ -1856,6 +1919,15 @@ focus_tree = {
 				}
 				country_event = dva.ab.17
 				set_cosmetic_tag = DVA_loyalty
+			}
+			else = {
+				limit = {
+					NOT = {
+						has_country_flag = DVA_middle_way
+						has_country_flag = DVA_knights_win
+					}
+				}
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
