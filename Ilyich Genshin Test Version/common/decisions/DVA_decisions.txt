@@ -393,7 +393,58 @@ DVA_mass_of_dvalin_category = {
 		days_remove = 7
 		days_re_enable = 30
 
-		cost = 200
+		cost = 100
+
+		visible = {
+			NOT = {
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
+		}
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				add = 200
+			}
+		}
+
+		complete_effect = {
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = 1
+			}
+		}
+
+		remove_effect = {
+			custom_effect_tooltip = DVA_forge_a_report_tt
+			if = {
+				limit = {
+					check_variable = {
+						DVA.DVA_trust > 5
+					}
+				}
+				MOT = {
+					country_event = dva.9
+				}
+			}
+		}
+	}
+
+	#清除耳目
+	DVA_purge_the_mole = {
+
+		icon = GFX_decision_generic_operation
+
+		available = {
+			#
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+
+		cost = 100
 
 		visible = {
 			NOT = {
@@ -411,7 +462,6 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		complete_effect = {		
-			#减少一点信任度，同时减少一点控制力
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
 				value = -1
@@ -419,9 +469,7 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		remove_effect = {
-			MOT = {
-				country_event = dva.9
-			}
+			custom_effect_tooltip = DVA_purge_the_mole_tt
 		}
 	}
 
@@ -444,6 +492,8 @@ DVA_mass_of_dvalin_category = {
 
 		fire_only_once = yes
 
+		cost = 50
+
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -452,7 +502,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		complete_effect = {		
-			#消耗三点信任度，增加一点控制力
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = -3
+			}
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
 				value = 1
@@ -460,18 +513,20 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		remove_effect = {
-			#add_corps_commander_role = {
-			#	character = DVA_Vile
-			#	desc = "Vile_DESC"
-			#	traits = { 
-			#		#
-			#	}
-			#	skill = 2
-			#	attack_skill = 2
-			#	defense_skill = 1
-			#	planning_skill = 3
-			#	logistics_skill = 3
-			#}
+			custom_effect_tooltip = DVA_call_for_a_Knight_tt
+			show_ideas_tooltip = DVA_Harry
+			add_corps_commander_role = {
+				character = DVA_Harry
+				desc = "Harry_DESC"
+				traits = { 
+					#
+				}
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
 		}
 	}
 
