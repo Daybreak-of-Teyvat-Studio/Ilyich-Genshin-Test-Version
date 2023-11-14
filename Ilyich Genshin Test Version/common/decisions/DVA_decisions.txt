@@ -1730,7 +1730,7 @@ DVA_mass_of_dvalin_category = {
 				has_war_with = SNE
 			}
 			divisions_in_border_state = {
-				type = cavalry
+				type = infantry
 				size > 7
 				state = 57
 				border_state = 58
@@ -1763,8 +1763,6 @@ DVA_mass_of_dvalin_category = {
 		days_remove = 14
 		days_re_enable = 30
 
-		will_lead_to_war_with = SFS
-
 		ai_will_do = {
 			base = 10
 			modifier = { 
@@ -1774,27 +1772,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		remove_effect = {
-			start_border_war = {
-				change_state_after_war = no
-				attacker = {
-					state = 57
-					num_provinces = 4
-					on_win = dva_border_conflict.1
-					on_lose = dva_border_conflict.2
-					on_cancel = dva_border_conflict.3
-					modifier = 0.2
-					dig_in_factor = 0
-					terrain_factor = 0.1
-				}	
-				defender = {
-					state = 58
-					num_provinces = 5
-					on_win = dva_border_conflict.2
-					on_lose = dva_border_conflict.1
-					on_cancel = dva_border_conflict.3
-					modifier = 0
-					dig_in_factor = 0.1
-					terrain_factor = 0
+			SFS = {
+				declare_war_on = {
+					target = DVA
+					type = annex_everything
 				}
 			}
 		}
@@ -2258,7 +2239,7 @@ DVA_Turn_Sun_Operation = {
 
 		cancel_trigger = {
 			ships_in_state_ports = {
-				type = minelayer
+				type = screen_ship
 				size > 0
 				state = 59
 			}
@@ -2266,7 +2247,7 @@ DVA_Turn_Sun_Operation = {
 
 		timeout_effect = {
 			add_days_mission_timeout  = {
-				decision = DVA_Great_Adventure_of_Klee
+				mission = DVA_Great_Adventure_of_Klee
 				days = 30
 			}
 			if = {
@@ -2336,7 +2317,7 @@ DVA_Turn_Sun_Operation = {
 
 		available = {
 			ships_in_state_ports = {
-				type = minelayer
+				type = screen_ship
 				size > 0
 				state = 1
 			}
@@ -2360,7 +2341,7 @@ DVA_Turn_Sun_Operation = {
 			set_country_flag = DVA_planA_flag
 			activate_mission = DVA_escape_from_Mondstadt
 			add_days_mission_timeout  = {
-				decision = DVA_escape_from_Mondstadt
+				mission = DVA_escape_from_Mondstadt
 				days = 90
 			}
 			set_technology = {
@@ -2414,7 +2395,7 @@ DVA_Turn_Sun_Operation = {
 			set_country_flag = DVA_planB_flag
 			activate_mission = DVA_escape_from_Mondstadt
 			add_days_mission_timeout  = {
-				decision = DVA_escape_from_Mondstadt
+				mission = DVA_escape_from_Mondstadt
 				days = 45
 			}
 		}
