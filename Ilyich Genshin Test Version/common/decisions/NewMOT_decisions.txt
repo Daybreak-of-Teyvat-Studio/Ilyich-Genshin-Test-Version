@@ -1,3 +1,456 @@
+##劳伦斯决议组
+LAW_DC_Seek_for_Help = {
+	##基础
+	#显示/隐藏基本决议
+	LAW_Hide_Basic_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_1 }
+				clr_country_flag = LAW_Not_Show_Decisions_1
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_1
+			}
+		}
+	}
+	#破坏蒙德稳定
+	LAW_Destroy_MOT_Stability = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+			MOT = {
+				add_stability = -0.02
+				add_war_support = -0.02
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#渗透骑士团
+	LAW_Permeate_In_Knights = {
+		icon = GFX_decision_recruit_operative
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			political_power_gain = 0.2
+		}
+		remove_effect = {
+			add_collaboration = {
+				target = MOT
+				value = 0.03
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#作出未来许诺
+	LAW_Promise_for_Future = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			stability_weekly = 0.05
+			war_support_weekly = 0.05
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
+		}
+	}
+	#鼓吹贵族时代
+	LAW_Propaganda_for_Nobles = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = var:LAW_Cost_of_Decisions1
+		days_remove = 35
+		modifier = {
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Cost_More
+			add_to_variable = { LAW_Cost_of_Decisions1 = 10 }
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.6
+				has_war_support > 0.6
+			}
+		}
+	}
+	##贵族
+	#显示/隐藏贵族决议
+	LAW_Hide_Noble_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_2 }
+				clr_country_flag = LAW_Not_Show_Decisions_2
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_2
+			}
+		}
+	}
+	#捏造头衔
+	LAW_Create_Crown = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			has_stability > 0.5
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+			stability_weekly = -0.005
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Make_a_Crown
+			IF = {
+				limit = {
+					has_variable = LAW_Num_of_Crowns
+				}
+				add_to_variable = { LAW_Num_of_Crowns = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { LAW_Num_of_Crowns = 1 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#出售头衔
+	LAW_Sell_Crown = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_political_Power = 70
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#利诱贵族
+	LAW_By_Crown = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			random_list = {
+				50 = {
+					add_stability = 0.02
+					add_war_support = 0.02
+				}
+				25 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+				}
+				12 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+					add_political_power = 10
+				}
+				6 = {
+					add_stability = 0.05
+					add_political_power = 20
+				}
+				6 = {
+					add_war_support = 0.05
+					add_political_power = 20
+				}
+				1 = {
+					add_stability = 0.05
+					add_war_support = 0.05
+					add_political_power = 50
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取伊蒙洛卡战术文献
+	LAW_Get_Emoloka_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取古恩希尔德军事理论
+	LAW_Get_GUN_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_command_power = 20
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	##自由派
+	#显示/隐藏自由派决议
+	LAW_Hide_Free_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_3 }
+				clr_country_flag = LAW_Not_Show_Decisions_3
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_3
+			}
+		}
+	}
+	#接受商人投资
+	LAW_Accept_Free_Investment = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+			has_stability > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Investment
+			add_to_variable = { LAW_Num_of_Investment = 1 }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			random_list = {
+				50 = {
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								type = industrial_complex
+								level > 0
+							}
+						}
+						add_building_construction = {
+							building = industrial_complex
+							level = 1
+						}
+					}
+				}
+				50 = {
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								type = infrastructure
+								level > 0
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							building = infrastructure
+							level = 1
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#吹嘘未来经济状况
+	LAW_Propaganda_for_Futural_Economy = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+		}
+		cost = 5
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.002
+			consumer_goods_factor = -0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#痛宰肥羊
+	LAW_Accept_Free_Investment = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+			has_stability > 0.5
+		}
+		cost = 100
+		days_remove = 30
+		modifier = {
+		}
+		complete_effect = {
+			set_country_flag = LAW_Has_Killed_Sheep
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Investment
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.3
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = var:LAW_Num_of_Investment
+				add_building_construction = {
+					building = industrial_complex
+					level = var:LAW_Num_of_Investment
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Investment }
+				multiply_variable = { LAW_linshibianliang1 = 5 }
+				add = var:LAW_linshibianliang1
+			}
+		}
+	}
+	##坎瑞亚遗民
+	#显示/隐藏坎瑞亚决议
+	#引进坎瑞亚生产技术
+	#构建生产单元联系
+	#踹开坎瑞亚人
+	##其他势力
+	#教会反对派空军训练
+	#招募龙脊雪山领学者
+	#向风龙领兜售军火
+	#从奔狼领进口资源
+	#同莱艮芬德领开展贸易
+	#诱骗北方领移民
+}
+##骑士团决议组
 #黑玫瑰之帜 简单粗暴的强力决议组
 MOT_FWay_Meeting = {
 	##三消
