@@ -404,12 +404,12 @@ LAW_DC_Seek_for_Help = {
 			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
 		}
 		available = {
-			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
-			has_stability > 0.5
+			has_stability > 0.7
 		}
 		cost = 100
 		days_remove = 30
 		modifier = {
+			stability_weekly = -0.01
 		}
 		complete_effect = {
 			set_country_flag = LAW_Has_Killed_Sheep
@@ -439,16 +439,292 @@ LAW_DC_Seek_for_Help = {
 	}
 	##坎瑞亚遗民
 	#显示/隐藏坎瑞亚决议
+	LAW_Hide_KNA_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_4 }
+				clr_country_flag = LAW_Not_Show_Decisions_4
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_4
+			}
+		}
+	}
 	#引进坎瑞亚生产技术
-	#构建生产单元联系
+	LAW_Innovation_of_KNA_Production = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Advance
+			add_to_variable = { LAW_Num_of_Advance = 1 }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 0
+					}
+				}
+				add_building_construction = {
+					building = arms_factory
+					level = 1
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#生产网络构建协助
+	LAW_Connection_of_KNA_Production = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.5
+			industrial_capacity_factory = 0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
 	#踹开坎瑞亚人
+	LAW_Out_KNA = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			has_war_support > 0.7
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = -0.01
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
+			set_country_flag = LAW_Has_Run_KNA
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Advance }
+			multiply_temp_variable = { LAW_linshibianliang1 = 30 }
+			add_political_power = var:LAW_linshibianliang1
+			add_popularity = {
+				ideology = communism
+				popularity = -0.5
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 1000
+				date > 1936.12.1
+			}
+		}
+	}
 	##其他势力
+	LAW_Hide_Dip_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_5 }
+				clr_country_flag = LAW_Not_Show_Decisions_5
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_5
+			}
+		}
+	}
 	#教会反对派空军训练
+	LAW_Train_From_FAV = {
+		icon = GFX_decision_generic_air
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			FAV = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			experience_gain_air_factor = 1
+			air_mission_xp_gain_factor = 1
+			air_training_xp_gain_factor	= 1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			air_experience = 20
+		}
+	}
 	#招募龙脊雪山领学者
-	#向风龙领兜售军火
+	LAW_Recruit_From_DRA = {
+		icon = GFX_decision_generic_research
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DRA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			research_speed_factor = 0.2
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+	}
+	#向风龙领走私军火
+	LAW_Cash_From_DVA = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DVA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			industrial_capacity_factory = -0.2
+			consumer_goods_factor = -0.3
+			stability_weekly = 0.003
+			war_support_weekly = 0.003
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
 	#从奔狼领进口资源
+	LAW_Resources_From_ANR = {
+		icon = GFX_decision_oil
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			ANR = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			state_resources_factor = 0.2
+			production_lack_of_resource_penalty_factor = -0.5
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
 	#同莱艮芬德领开展贸易
+	LAW_Trade_with_RAG = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			RAG = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 40
+		modifier = {
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
 	#诱骗北方领移民
+	LAW_Pop_From_GUN = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			GUN = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 70
+		modifier = {
+			manpower_weekly = 1000
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
 }
 ##骑士团决议组
 #黑玫瑰之帜 简单粗暴的强力决议组
