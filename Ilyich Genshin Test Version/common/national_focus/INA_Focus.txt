@@ -812,6 +812,23 @@ focus_tree = {
       prerequisite = {
          focus = INA_governpower
       }
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_militarygovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
+
       mutually_exclusive = {
          focus = INA_militarygovernment
          focus = INA_normagovernment
@@ -862,6 +879,21 @@ focus_tree = {
       prerequisite = {
          focus = INA_governpower
       }
+	  	allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			has_completed_focus = INA_militarygovernment
+			 has_completed_focus =  INA_yaegovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
       mutually_exclusive = {
          focus = INA_yaegovernment
          focus = INA_militarygovernment
@@ -906,6 +938,21 @@ focus_tree = {
       prerequisite = {
          focus = INA_governpower
       }
+	 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_yaegovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
       mutually_exclusive = {
          focus = INA_yaegovernment
          focus = INA_normagovernment
@@ -944,6 +991,21 @@ focus_tree = {
       prerequisite = {
          focus = INA_governpower
       }
+	 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_yaegovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_militarygovernment
+				 }
+			}
+		}
       mutually_exclusive = {
          focus = INA_yaegovernment
          focus = INA_normagovernment
@@ -1116,8 +1178,12 @@ focus_tree = {
       prerequisite = {
          focus = INA_enhancbelife
       }  
+	
       available ={       
           }
+	 mutually_exclusive = {
+		 focus = INA_yaeearthlydeity
+      } 
       completion_reward = {
       ##	  
       }
@@ -1136,6 +1202,9 @@ focus_tree = {
       }  
       available ={       
           }
+	mutually_exclusive = {
+		 focus = INA_yaeisgod
+      } 
       completion_reward = {
       ##	  
       }
@@ -1160,7 +1229,7 @@ focus_tree = {
       }
       ai_will_do = { factor = 1}
       }
-	       ##治愈神迹
+	 ##治愈神迹
      focus = {
       id = INA_yaeblesscure
       icon = GFX_focus_generic_concessions
@@ -1524,6 +1593,11 @@ focus_tree = {
 	  y = 1
 	 relative_position_id = INA_introduceviod
 	 search_filters = {FOCUS_FILTER_RESEARCH}
+	 available ={       
+		 has_completed_focus=INA_academy
+		  has_war = no
+         num_of_factories > 200
+          }
       prerequisite = {
          focus = INA_introduceviod
       } 
@@ -2198,7 +2272,7 @@ focus_tree = {
 
 	focus = {
       id = INA_saramobilize
-      icon = goal_ASA
+      icon = GFX_goal_generic_trade
       cost = 5
      x = 2
       y = 1
@@ -2211,6 +2285,13 @@ focus_tree = {
           }
       completion_reward = {
 	 #获得军事动员
+			if = {
+				limit = {
+					NOT = { has_idea = war_economy }
+					NOT = { has_idea = tot_economic_mobilisation }
+				}
+				add_ideas = war_economy
+			}
 				}
        
       ai_will_do = {
@@ -2540,11 +2621,22 @@ focus_tree = {
 
 		completion_reward = {
 			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
+					limit = {
+						NOT = { has_tech = photo_reconnaisance }
+						NOT = { has_tech = engines_1 }
+					}
+					set_technology = { photo_reconnaisance = 1 }
+					set_technology = { engines_1 = 1 }
 				}
-				ITA_add_citta_dell_aria_templates = yes
-			}
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = cat_air_engine
+			}	
+
+				}
 			
 		}
 	}
@@ -2568,13 +2660,23 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
+		if = {
+					limit = {
+						NOT = { has_tech = air_torpedoe_1 }
+						NOT = { has_tech = aa_lmg }
+					}
+					set_technology = { air_torpedoe_1 = 1 }
+					set_technology = { aa_lmg = 1 }
 				}
-				ITA_add_multirole_aircraft_templates = yes
-			}
-			
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = air_equipment
+			}	
+
+				}
 		}
 	}
 	#标准化
@@ -2896,12 +2998,78 @@ focus_tree = {
        
       ai_will_do = { factor = 1 }
     }
+	##何谓神明
+    focus = {
+      id = INA_whatsmygoddness
+      icon = GFX_focus_SWE_Sami_reconcilliation
+      cost = 5
+      x = -2
+      y = 1
+     relative_position_id = INA_connectoforder
+      prerequisite = {
+         focus = INA_connectoforder
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：狂热崇拜
+        country_event = INA.13 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##神明赐福
+    focus = {
+      id = goddnessbless
+      icon = GFX_goal_demand_sudetenland
+      cost = 10
+      x = 0
+      y = 1
+     relative_position_id = INA_whatsmygoddness
+      prerequisite = {
+         focus = INA_whatsmygoddness
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：赐福
+       add_ideas = JAP_superior_will
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##永恒帝国
+    focus = {
+      id = eletarnalemperer
+      icon = GFX_focus_SWE_counter_revolution
+      cost = 10
+      x = 0
+      y = 1
+     relative_position_id = goddnessbless
+      prerequisite = {
+         focus = goddnessbless
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+     #触发事件：允许宣称永恒帝国，允许添加孤云阁，金苹果群岛，深渊，蒙德外岛，天空岛核心。
+	   custom_effect_tooltip = SWE_greater_nordic_reich_tt
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
 	##肃清阻碍
     focus = {
       id = INA_removedelusive
       icon = GFX_focus_usa_focus_on_europe
       cost = 5
-      x = -1
+      x = 0
       y = 1
      relative_position_id = INA_connectoforder
       prerequisite = {
@@ -3098,7 +3266,7 @@ focus_tree = {
    focus={
 		id=INA_renewbuiding
 		icon=GFX_goal_generic_production2
-		x=40
+		x=42
 		y=20
 		cost=8
 		available={
@@ -3188,7 +3356,7 @@ focus_tree = {
 	    focus={
 		id=INA_electronicssector
 		icon=GFX_focus_POL_warsaw_main_station
-		x=-4
+		x=-6
 		y=1
 		relative_position_id = INA_renewbuiding
 		cost=5.00
@@ -3232,7 +3400,7 @@ focus_tree = {
 	#翻新稻妻城
 	focus={
 		id=INA_rebuiding_mainisland
-		icon=goal_INA2
+		icon=GFX_focus_generic_industry_3
 		x=2
 		y=1
 		relative_position_id =INA_industrialsector
@@ -3289,7 +3457,7 @@ focus_tree = {
 	#离岛开发
 	focus={
 		id=INA_rebuiding_awayisland
-		icon=goal_INA2
+		icon=GFX_focus_generic_industry_1
 		x=-2
 		y=1
 		relative_position_id =INA_industrialsector
@@ -3343,7 +3511,7 @@ focus_tree = {
 					}
 					add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				}
@@ -3352,7 +3520,37 @@ focus_tree = {
 		ai_will_do={
 		factor=1
 		}
+	}	
+	#重建工业。
+	focus={
+		id=INA__reorganizetheindustry
+		icon=GFX_goal_generic_production2
+		x=0
+		y=1
+		relative_position_id = INA_unioncommerce 
+		prerequisite={focus=INA_unioncommerce}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+
+		completion_reward={	
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 2
+					category = industry
+					category = electronics
+				}
+	
+		}
+		ai_will_do={
+		factor=1
+		}
 	}
+	
 	#修复踏鞴砂
 	focus={
 		id=INA_rebuiding_mainindustry
@@ -3463,7 +3661,7 @@ focus_tree = {
 	#开发影向山
 	focus={
 		id=INA_rebuiding_temple
-		icon=goal_INA3
+		icon=GFX_focus_generic_industry_2
 		x=0
 		y=1
 		relative_position_id =INA_industrialsector
@@ -3564,7 +3762,7 @@ focus_tree = {
 	#长野原烟花店
 	focus={
 		id=INA_yoimiyashop
-		icon=GFX_goal_generic_improve_relations
+		icon=GFX_focus_SWE_urbanization
 		x=0
 		y=1
 		relative_position_id =INA_rebuiding_mainisland
@@ -3738,6 +3936,20 @@ focus_tree = {
 		y = 1
 		cost = 10
 		prerequisite = { focus = INA_begin_rearmament }
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_facultative_focus
+			 has_completed_focus =  INA_aggressive_focus
+				 }
+			}
+		}
         available={
 			OR={
 			    has_completed_focus=INA_yaegovernment
@@ -3761,14 +3973,28 @@ focus_tree = {
 	focus = {
 		id = INA_facultative_focus
 		icon = GFX_goal_generic_military_sphere
-		mutually_exclusive = { 
-			focus = INA_aggressive_focus 
-		    focus = INA_defensive_focus 
-		}
 		x = 0
 		y = 1
 		cost = 10
 		prerequisite = { focus = INA_begin_rearmament }
+		mutually_exclusive = { 
+			focus = INA_aggressive_focus 
+		    focus = INA_defensive_focus 
+		}
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_defensive_focus
+			 has_completed_focus =  INA_aggressive_focus
+				 }
+			}
+		}
         available={
 			OR={
 			    has_completed_focus=INA_yaegovernment
@@ -5617,6 +5843,20 @@ focus_tree = {
 		cost = 10
 		relative_position_id = INA_begin_rearmament
 		available_if_capitulated = yes
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_defensive_focus
+			 has_completed_focus =  INA_facultative_focus
+				 }
+			}
+		}
         available={
 			OR={
 				has_completed_focus=INA_elementcontrol
@@ -5624,6 +5864,7 @@ focus_tree = {
 				has_completed_focus=INA_newina
 			}
           }
+		  
 		prerequisite = { focus = INA_begin_rearmament }
 		ai_will_do = {
 			factor = 0.2
