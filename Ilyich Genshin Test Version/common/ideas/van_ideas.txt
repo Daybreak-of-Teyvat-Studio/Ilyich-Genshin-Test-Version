@@ -1,4 +1,4 @@
-ideas = { # TODO: picture
+ideas = {
 	country = {
 		VAN_Mahavanaranapna = {
 			picture = VAN_Mahavanaranapna
@@ -254,6 +254,192 @@ ideas = { # TODO: picture
 				attack_bonus_against = 0.1
 				defense_bonus_against = 0.1
 			}
+		}
+
+		# 服从教令院
+		VAN_Idea_political_thoughts_akademiya_20 = {
+			picture = VAN_Idea_political_thoughts_akademiya
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+			}
+		}
+
+		VAN_Idea_political_thoughts_akademiya_40 = {
+			picture = VAN_Idea_political_thoughts_akademiya
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.1
+				production_speed_buildings_factor = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		VAN_Idea_political_thoughts_akademiya_60 = {
+			picture = VAN_Idea_political_thoughts_akademiya
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.2
+				production_speed_buildings_factor = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		VAN_Idea_political_thoughts_akademiya_80 = {
+			picture = VAN_Idea_political_thoughts_akademiya
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.2
+				production_speed_buildings_factor = 0.2
+				consumer_goods_factor = -0.1
+			}
+		}
+
+		VAN_Idea_political_thoughts_akademiya_100 = {
+			picture = VAN_Idea_political_thoughts_akademiya
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.2
+				production_factory_efficiency_gain_factor = 0.3
+				production_speed_buildings_factor = 0.2
+				consumer_goods_factor = -0.1
+			}
+		}
+
+		# 兰那罗主义
+		VAN_Idea_political_thoughts_aranism_20 = {
+			picture = VAN_Idea_political_thoughts_aranism
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+
+		VAN_Idea_political_thoughts_aranism_40 = {
+			picture = VAN_Idea_political_thoughts_aranism
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.1
+				offensive_war_stability_factor = 0.1
+				army_attack_factor = 0.05
+			}
+		}
+
+		VAN_Idea_political_thoughts_aranism_60 = {
+			picture = VAN_Idea_political_thoughts_aranism
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				war_support_factor = 0.1
+				offensive_war_stability_factor = 0.1
+				army_attack_factor = 0.05
+				justify_war_goal_time = -0.2
+			}
+		}
+
+		VAN_Idea_political_thoughts_aranism_80 = {
+			picture = VAN_Idea_political_thoughts_aranism
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				war_support_factor = 0.2
+				offensive_war_stability_factor = 0.2
+				army_attack_factor = 0.1
+				justify_war_goal_time = -0.2
+			}
+		}
+
+		VAN_Idea_political_thoughts_aranism_100 = {
+			picture = VAN_Idea_political_thoughts_aranism
+			allowed = { original_tag = VAN }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				war_support_factor = 0.3
+				offensive_war_stability_factor = 0.3
+				army_attack_factor = 0.2
+				justify_war_goal_time = -0.2
+			}
+		}
+	}
+
+	# 独有经济法案
+	economy = {
+		law = yes 
+		use_list_view = yes 
+
+		VAN_Unique_Economy = {
+			picture = low_economic_mobilisation
+			allowed = {
+				original_tag = VAN
+			}
+			visible = {
+				original_tag = VAN
+			}
+			allowed_to_remove = {
+				OR = {
+					check_variable = { VAN_political_thoughts_akademiya = 40 compare = greater_than_or_equals }
+					check_variable = { VAN_political_thoughts_aranism = 80 compare = greater_than_or_equals }
+					check_variable = { VAN_political_thoughts_nahida = 100 compare = greater_than_or_equals }
+					check_variable = { VAN_political_thoughts_dream = 60 compare = greater_than_or_equals }
+				}
+            }
+            cost = 150
+			removal_cost = -1
+            modifier = {
+                consumer_goods_expected_value = 0.3
+				production_speed_industrial_complex_factor = -0.1
+				production_speed_arms_factory_factor = -0.1
+				fuel_gain_factor = -0.25
+            }
+		}
+	}
+
+	# 独有贸易法案 TODO: 降等级时应该改回这个独有法案
+	trade_laws = {
+		law = yes 
+		use_list_view = yes 
+
+		VAN_Unique_Trade = {
+			picture = closed_economy
+			allowed = {
+				original_tag = VAN
+			}
+			visible = {
+				original_tag = VAN
+			}
+			allowed_to_remove = {
+				OR = {
+					check_variable = { VAN_political_thoughts_akademiya = 20 compare = greater_than_or_equals }
+					check_variable = { VAN_political_thoughts_nahida = 40 compare = greater_than_or_equals }
+				}
+            }
+            cost = 150
+			removal_cost = -1
+			rule = {
+				can_access_market = no
+				desc = can_not_access_market_closed_economy
+			}
+            modifier = {
+                min_export = 0
+				lend_lease_tension = 0.40
+				cic_construction_boost = -0.1
+            }
 		}
 	}
 
