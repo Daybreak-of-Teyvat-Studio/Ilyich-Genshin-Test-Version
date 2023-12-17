@@ -1,5 +1,4 @@
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
-@DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT = -500
 DVA_debug_category = {
 	DVA_load_focus = {
 		icon = GFX_decision_generic_protection
@@ -197,7 +196,7 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		complete_effect = {		
 			hidden_effect = {
@@ -263,15 +262,13 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		timeout_effect = {
 			clr_country_flag = DVA_central_humanoid_ruin_machines
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				custom_effect_tooltip = DVA_weapon_received
+			add_timed_idea = {
+				idea = DVA_lack_of_military_pay
+				days = 180
 			}
 		}
 	}
@@ -356,7 +353,7 @@ DVA_mass_of_dvalin_category = {
 
 	#信任度决议
 
-	#伪造报告
+	#伪造季度报告
 	DVA_forge_a_report = {
 
 		icon = GFX_decision_generic_operation
@@ -366,9 +363,9 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		days_remove = 7
-		days_re_enable = 30
+		days_re_enable = 90
 
-		cost = 100
+		cost = 30
 
 		visible = {
 			NOT = {
@@ -386,14 +383,6 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		complete_effect = {
-			add_to_variable = {
-				var = DVA.DVA_trust
-				value = 1
-			}
-		}
-
-		remove_effect = {
-			custom_effect_tooltip = DVA_forge_a_report_tt
 			if = {
 				limit = {
 					check_variable = {
@@ -405,10 +394,18 @@ DVA_mass_of_dvalin_category = {
 				}
 			}
 		}
+
+		remove_effect = {
+			custom_effect_tooltip = DVA_forge_a_report_tt
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = 1
+			}
+		}
 	}
 
-	#清除耳目
-	DVA_purge_the_mole = {
+	#做一次账
+	DVA_fabricate_accounting = {
 
 		icon = GFX_decision_generic_operation
 
@@ -417,9 +414,9 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		days_remove = 7
-		days_re_enable = 30
+		days_re_enable = 180
 
-		cost = 100
+		cost = 80
 
 		visible = {
 			NOT = {
@@ -436,15 +433,105 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		complete_effect = {		
+		remove_effect = {
+			custom_effect_tooltip = DVA_forge_a_report_tt
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = -1
+			}
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
 				value = -1
 			}
+			DVA_increase_puppet_influence = yes
+		}
+	}
+
+	#清除耳目
+	DVA_purge_the_mole = {
+
+		icon = GFX_decision_generic_operation
+
+		available = {
+			#
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+
+		cost = 40
+
+		visible = {
+			NOT = {
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
+		}
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				add = 200
+			}
 		}
 
 		remove_effect = {
-			custom_effect_tooltip = DVA_purge_the_mole_tt
+			add_to_variable = {
+				var = DVA.DVA_puppet_influence
+				value = -1
+			}
+			DVA_increase_puppet_influence = yes
+		}
+	}
+
+	#宣布军饷告急
+	DVA_push_military_pay_urgent = {
+
+		icon = GFX_decision_generic_army_support
+
+		available = {
+			#
+		}
+
+		days_remove = 3
+		days_re_enable = 180
+
+		visible = {
+			NOT = {
+				has_country_flag = DVA_central_humanoid_ruin_machines
+			}
+		}
+
+		fire_only_once = no
+
+		cost = 50
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				add = 200
+			}
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					has_country_flag = DVA_weapon_received
+				}
+				clr_country_flag = DVA_weapon_received
+			}
+			custom_effect_tooltip = DVA_forge_a_report_tt
+			MOT = {
+				country_event = {
+					id = dva.2
+					days = 2
+				}
+			}
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = -1
+			}
 		}
 	}
 
@@ -485,6 +572,7 @@ DVA_mass_of_dvalin_category = {
 				var = DVA.DVA_puppet_influence
 				value = 1
 			}
+			DVA_increase_puppet_influence = yes
 		}
 
 		remove_effect = {
@@ -614,46 +702,15 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		is_good = yes
+		#is_good = yes
 
-		complete_effect = {		
-			MOT = {
-				country_event = dva.2
-			}
+		complete_effect = {
 			activate_mission = DVA_maintain_stability_of_northern_region
-			custom_effect_tooltip = DVA_hunt_down_hilichurls_mission_explanation
 		}
 
 		remove_effect = {
 			army_experience = 10
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				clr_country_flag = DVA_weapon_received
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
-				}
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northern_region
-					days = -30
-				}
-				add_to_variable = {
-					var = DVA.DVA_puppet_influence
-					value = 1
-				}
-				DVA_increase_puppet_influence = yes
-			}
-			else = {
-				add_manpower = -1000
-				add_political_power = -25
-				add_stability = -0.025
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northern_region
-					days = -10
-				}
-			}
+			DVA_hunt_down_monsters_north = yes
 		}
 	}
 
@@ -700,16 +757,10 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		timeout_effect = {
 			clr_country_flag = DVA_northern_hilichurls
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				custom_effect_tooltip = DVA_weapon_received
-			}
 		}
 	}
 	#征兆北部民兵
@@ -893,46 +944,15 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		is_good = yes
+		#is_good = yes
 
-		complete_effect = {		
-			MOT = {
-				country_event = dva.2
-			}
+		complete_effect = {
 			activate_mission = DVA_maintain_stability_of_northeastern_region
-			custom_effect_tooltip = DVA_hunt_down_hilichurls_mission_explanation
 		}
 
 		remove_effect = {
 			army_experience = 10
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				clr_country_flag = DVA_weapon_received
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
-				}
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northeastern_region
-					days = -30
-				}
-				add_to_variable = {
-					var = DVA.DVA_puppet_influence
-					value = 1
-				}
-				DVA_increase_puppet_influence = yes
-			}
-			else = {
-				add_manpower = -1000
-				add_political_power = -25
-				add_stability = -0.025
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_northeastern_region
-					days = -10
-				}
-			}
+			DVA_hunt_down_monsters_northeast = yes
 		}
 	}
 
@@ -976,16 +996,10 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		timeout_effect = {
 			clr_country_flag = DVA_northeastern_hilichurls
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				custom_effect_tooltip = DVA_weapon_received
-			}
 		}
 	}
 	#征兆东北部民兵
@@ -1169,46 +1183,15 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		is_good = yes
+		#is_good = yes
 
-		complete_effect = {		
-			MOT = {
-				country_event = dva.2
-			}
+		complete_effect = {
 			activate_mission = DVA_maintain_stability_of_eastern_region
-			custom_effect_tooltip = DVA_hunt_down_hilichurls_mission_explanation
 		}
 
 		remove_effect = {
 			army_experience = 10
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				clr_country_flag = DVA_weapon_received
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
-				}
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_eastern_region
-					days = -30
-				}
-				add_to_variable = {
-					var = DVA.DVA_puppet_influence
-					value = 1
-				}
-				DVA_increase_puppet_influence = yes
-			}
-			else = {
-				add_manpower = -1000
-				add_political_power = -25
-				add_stability = -0.025
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_eastern_region
-					days = -10
-				}
-			}
+			DVA_hunt_down_monsters_east = yes
 		}
 	}
 
@@ -1252,16 +1235,10 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		timeout_effect = {
 			clr_country_flag = DVA_eastern_hilichurls
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				custom_effect_tooltip = DVA_weapon_received
-			}
 		}
 	}
 	#征兆东部民兵
@@ -1446,46 +1423,15 @@ DVA_mass_of_dvalin_category = {
 			}
 		}
 
-		is_good = yes
+		#is_good = yes
 
-		complete_effect = {		
-			MOT = {
-				country_event = dva.2
-			}
+		complete_effect = {
 			activate_mission = DVA_maintain_stability_of_southern_region
-			custom_effect_tooltip = DVA_hunt_down_hilichurls_mission_explanation
 		}
 
 		remove_effect = {
 			army_experience = 10
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				clr_country_flag = DVA_weapon_received
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_EFFECT
-				}
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_southern_region
-					days = -30
-				}
-				add_to_variable = {
-					var = DVA.DVA_puppet_influence
-					value = 1
-				}
-				DVA_increase_puppet_influence = yes
-			}
-			else = {
-				add_manpower = -1000
-				add_political_power = -25
-				add_stability = -0.025
-				add_days_mission_timeout = {
-					mission = DVA_maintain_stability_of_southern_region
-					days = -10
-				}
-			}
+			DVA_hunt_down_monsters_south = yes
 		}
 	}
 
@@ -1529,16 +1475,10 @@ DVA_mass_of_dvalin_category = {
 			} 
 		}
 
-		is_good = yes
+		#is_good = yes
 
 		timeout_effect = {
 			clr_country_flag = DVA_southern_hilichurls
-			if = {
-				limit = {
-					has_country_flag = DVA_weapon_received
-				}
-				custom_effect_tooltip = DVA_weapon_received
-			}
 		}
 	}
 	#征兆南部民兵

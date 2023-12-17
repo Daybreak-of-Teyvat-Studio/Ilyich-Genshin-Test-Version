@@ -35,13 +35,45 @@ ideas = {
 
 			removal_cost = -1
 
-			picture = SPR_political_violence
+			picture = generic_purge
 			
 			modifier = {
 				political_power_cost = 0.5
 				stability_factor = -0.10
 				surrender_limit = -0.1
 				weekly_manpower = 200
+			}
+		}
+		DVA_lack_of_military_pay = {
+			
+			available = {
+				#
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = chi_forced_conscription
+			
+			on_add = {
+				set_rule = {
+					can_not_declare_war = yes
+				}
+				country_lock_all_division_template = yes
+			}
+
+			on_remove = {
+				country_lock_all_division_template = no
+				clear_rule = {
+					can_not_declare_war = yes
+				}
+			}
+
+			modifier = {
+				custom_effect_tooltip = DVA_restricted_army_tt
 			}
 		}
 		DVA_no_industrial_at_all = {
@@ -254,13 +286,13 @@ ideas = {
 
 			on_remove = {
 				country_lock_all_division_template = no
-				set_rule = {
-					can_not_declare_war = no
+				clear_rule = {
+					can_not_declare_war = yes
 				}
 			}
 
 			modifier = {
-				#
+				custom_effect_tooltip = DVA_restricted_army_tt
 			}
 		}
 		DVA_loyal_fiefdom = {

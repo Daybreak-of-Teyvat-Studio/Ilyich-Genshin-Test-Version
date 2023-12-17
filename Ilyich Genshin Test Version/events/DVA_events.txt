@@ -63,6 +63,10 @@ country_event = {
 		name = dva.2.a
 		ai_chance = {
             base = 80
+			modifier = {
+				add = 100
+				check_variable = { DVA.DVA_trust > 5 }
+			}
         }
 		DVA = {
 			country_event = dva.3
@@ -82,7 +86,13 @@ country_event = {
 				factor = 100
 				has_equipment = { infantry_equipment < 1000 }
 			}
+			modifier = {
+				add = 100
+				check_variable = { DVA.DVA_trust < 4 }
+			}
         }
+		add_political_power = -5
+		add_stability = 0.01
 	}
 }
 
@@ -93,20 +103,27 @@ country_event = {
 	desc = dva.3.d
 	picture = GFX_report_event_finnish_letter
 	
-	fire_only_once = no
-	
 	is_triggered_only = yes
 	
+	immediate = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = MOT
+		}
+	}
+
 	option = {
 		name = dva.3.a
 		ai_chance = {
             base = 20
         }
+		remove_ideas = DVA_lack_of_military_pay
 		effect_tooltip = {
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
 				amount = 1000
-				producer = DVA
+				producer = MOT
 			}
 		}
 	}
@@ -211,6 +228,61 @@ country_event = {
 		ai_chance = {
             base = 20
         }
+		add_to_variable = {
+			var = DVA.DVA_trust
+			value = 1
+		}
+	}
+}
+
+#严重警告
+country_event = {
+	id = dva.10
+	title = dva.10.t
+	desc = dva.10.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	trigger = {
+		check_variable = { DVA.DVA_boom = 1 }
+		original_tag = DVA
+	}
+	
+	option = {
+		name = dva.10.a
+		ai_chance = {
+            base = 20
+        }
+	}
+}
+
+#大难临头
+country_event = {
+	id = dva.11
+	title = dva.11.t
+	desc = dva.11.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+	
+	trigger = {
+		check_variable = { DVA.DVA_boom = 2 }
+		original_tag = DVA
+	}
+	
+	option = {
+		name = dva.11.a
+		ai_chance = {
+            base = 20
+        }
+		MOT = {
+			declare_war_on = {
+				type = annex_everything
+				target = DVA
+			}
+		}
+		set_country_flag = DVA_boom_flag
 	}
 }
 
@@ -1333,8 +1405,8 @@ country_event = {
 		trigger = {
 			has_country_flag = DVA_diffusionist_has_fared_forth_flag
 		}
-		activate_advisor = DVA_Mona2
 		set_country_flag = DVA_helios_project_flag
+		activate_advisor = DVA_Mona2
 		unlock_decision_category_tooltip = DVA_helios_project_category
 		set_variable = {
 			var = DVA_helios_project_fund
