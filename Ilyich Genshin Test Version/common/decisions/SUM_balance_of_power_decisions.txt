@@ -277,16 +277,23 @@ SUM_cs = {
 		}
 	     priority = 90
          cost=50
-         base=100
-         days_re_enable=90
+         ai_will_do = {base=100}
+         fire_only_once = yes
 		 days_remove=30
-		 complete_effect = {
-			remove_ideas = SUM_God_creation_plan01 
-			add_ideas = SUM_God_creation_plan02
-		 }
+		  complete_effect = {
+			if = {
+			limit = { has_idea = SUM_God_creation_plan01 }
+			swap_ideas = {
+			remove_idea = SUM_God_creation_plan01 
+			add_idea = SUM_God_creation_plan02
+		}
+		}
+}
 		 remove_effect = {
-		 add_to_variable = { csmyd = 5 }
+		 add_to_variable = { csmyd = 10 }
          add_political_power = 25
+		 add_stability = 0.05
+		 add_war_support = -0.05
 		 }
 
     }
@@ -301,16 +308,23 @@ SUM_cs = {
 		}
 	     priority = 90
          cost=50
-		 base=100
-         days_re_enable=90
-		 days_remove=180
+		 ai_will_do = { base=50 }
+         fire_only_once = yes
+		 days_remove=30
 		 complete_effect = {
-			remove_ideas = SUM_God_creation_plan01 
-			add_ideas = SUM_God_creation_plan03
-		 }
+			if = {
+			limit = { has_idea = SUM_God_creation_plan01 }
+			swap_ideas = {
+			remove_idea = SUM_God_creation_plan01 
+			add_idea = SUM_God_creation_plan03
+		}
+		}
+}
 		 remove_effect = {
-			 subtract_from_variable = { csmyd = 5 }
-		      }
+			 subtract_from_variable = { csmyd = 10 }
+			 add_stability = -0.05
+			 add_war_support = 0.05 
+	}
     }
 	SUM_cs_bwd = {
 	     icon = eng_install_government
@@ -318,19 +332,18 @@ SUM_cs = {
 		        original_tag = SUM
 	        }
 	     priority = 90
-         cost=50
-		 base=100
+         ai_will_do = { base=50 }
          days_re_enable=90
 		 days_remove=90
-		remove_effect = {
+		 remove_effect = {
 			subtract_from_variable = { csmyd = 5 }
 			add_popularity = {
                ideology = neutrality
-               popularity = -0.05
+               popularity = 0.05
              }
 			 add_popularity = {
               ideology = genshin
-              popularity = 0.025
+              popularity = -0.025
              }
 			 add_stability = -0.05
 			 add_war_support = 0.05 
@@ -346,12 +359,20 @@ SUM_cs = {
 		 available = {			
 		}
 	     priority = 90
-         cost=50
-         base=100
+         cost=100
+         ai_will_do = { base=100 }
          days_re_enable=90
-		 days_remove=30
+		 days_remove=90
 		 remove_effect={
 			 add_to_variable = { csmyd = 5 }
+			 add_popularity = {
+               ideology = neutrality
+               popularity = -0.05
+             }
+			 add_popularity = {
+              ideology = genshin
+              popularity = 0.025
+             }
              add_stability = 0.05
 			 add_war_support = -0.05
 		    }
