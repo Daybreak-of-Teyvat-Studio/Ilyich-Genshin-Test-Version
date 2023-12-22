@@ -568,34 +568,174 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_Big_surprise_in_water
+		id = DVA_bathtub_war
 		icon = GFX_goal_unknown
 		cost = 1
-		x = 26
+		x = 28
 		y = 1
 		available = {
-			always = no
+			any_enemy_country = {
+				Is_MOT = yes
+			}
 		}
 		completion_reward = {
-			set_technology = {
-				tech_minelayer1 = 1
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
 			}
+		}
+	}
+	focus = {
+		id = DVA_dockyard_of_dvalin
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 27
+		y = 2
+		prerequisite = {
+			focus = DVA_bathtub_war
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = DVA_Navy_in_decades
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 29
+		y = 2
+		prerequisite = {
+			focus = DVA_bathtub_war
+		}
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.75
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = DVA_Huge_waves_plan
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 28
+		y = 3
+		prerequisite = {
+			focus = DVA_Navy_in_decades
+		}
+		mutually_exclusive = {
+			focus = DVA_practical_boatbuilding
+		}
+		completion_reward = {
+			country_event = dva.12
 		}
 	}
 	focus = {
 		id = DVA_Deep_Blue
 		icon = GFX_goal_unknown
 		cost = 1
-		x = 27
+		x = 28
 		y = 4
 		prerequisite = {
-			focus = DVA_Big_surprise_in_water
+			focus = DVA_Huge_waves_plan
 		}
 		available = {
 			always = no
 		}
 		completion_reward = {
-			#
+			if = {
+				limit = {
+					has_country_flag = DVA_bb_flag
+				}
+				add_idea = DVA_Super_Dreadnought_enthusiasm
+			}
+			else_if = {
+				limit = {
+					has_country_flag = DVA_cv_flag
+				}
+				add_idea = DVA_flattop_of_new_era
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
+			}
+		}
+	}
+	focus = {
+		id = DVA_practical_boatbuilding
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 30
+		y = 3
+		prerequisite = {
+			focus = DVA_Navy_in_decades
+		}
+		mutually_exclusive = {
+			focus = DVA_Huge_waves_plan
+		}
+		completion_reward = {
+			#set_technology = {
+			#	tech_Torpedo1 = 1
+			#}
+		}
+	}
+	focus = {
+		id = DVA_Big_surprise_in_water
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 30
+		y = 4
+		prerequisite = {
+			focus = DVA_practical_boatbuilding
+		}
+		completion_reward = {
+			set_technology = {
+				tech_minelayer1 = 1
+			}
 		}
 	}
 	focus = {
