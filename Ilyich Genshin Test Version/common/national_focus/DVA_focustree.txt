@@ -31,7 +31,7 @@ focus_tree = {
 		id = DVA_Dark_clouds_bearing_down_on
 		icon = goal_RAGk
 		cost = 5
-		x = 4
+		x = 1
 		y = 1
 		available = {
 			always = no
@@ -47,13 +47,10 @@ focus_tree = {
 		id = DVA_A_futile_undertaking
 		icon = GFX_goal_KX_goals_409
 		cost = 5
-		x = 4
+		x = 1
 		y = 2
 		prerequisite = {
 			focus = DVA_Dark_clouds_bearing_down_on
-		}
-		available = {
-			always = no
 		}
 		completion_reward = {
 			add_war_support = 0.05
@@ -63,13 +60,10 @@ focus_tree = {
 		id = DVA_War_is_winding_down
 		icon = goals_RAGweqwrjtiogsaewq
 		cost = 5
-		x = 4
+		x = 1
 		y = 3
 		prerequisite = {
 			focus = DVA_A_futile_undertaking
-		}
-		available = {
-			always = no
 		}
 		completion_reward = {
 			#温迪事件：国王游戏，immediate白和
@@ -79,13 +73,10 @@ focus_tree = {
 		id = DVA_With_one_heart_and_one_mind
 		icon = goals_RAGweqjorjwqiotjoetsag
 		cost = 5
-		x = 4
+		x = 1
 		y = 4
 		prerequisite = {
 			focus = DVA_War_is_winding_down
-		}
-		available = {
-			always = no
 		}
 		completion_reward = {
 			#国王游戏开始...
@@ -107,6 +98,7 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = DVA_industry_plan_settled_normally_flag
 			add_political_power = 50
+			country_event = dva.20
 		}
 	}
 	focus = {
@@ -120,8 +112,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_flag = DVA_amber_win
-				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_left_industry_plan_flag
+				has_country_flag = DVA_double_industry_plan_flag
 			}
 		}
 		bypass = {
@@ -132,7 +124,6 @@ focus_tree = {
 				Agri_Up = yes
 			}
 			custom_effect_tooltip = DOT_Government_Agri_Up_tt
-			set_country_flag = DVA_amber_plan
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT
@@ -216,8 +207,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_flag = DVA_knights_win
-				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_right_industry_plan_flag
+				has_country_flag = DVA_double_industry_plan_flag
 				has_war_with = SNE
 			}
 		}
@@ -388,8 +379,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_flag = DVA_knights_win
-				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_right_industry_plan_flag
+				has_country_flag = DVA_double_industry_plan_flag
 				has_war_with = SNE
 			}
 		}
@@ -447,7 +438,10 @@ focus_tree = {
 			focus = DVA_develop_Lei_lines
 		}
 		available = {
-			#已经完成高塔研究所/蒙德科学院关于农业和工业的项目
+			OR = {
+				has_completed_focus = DVA_establish_Mondakademie
+				has_completed_focus = DVA_establish_institute_of_Tower
+			}
 		}
 		bypass = {
 			has_country_flag = DVA_economy_reform_finished_flag
@@ -474,8 +468,8 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_country_flag = DVA_knights_win
-				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_right_industry_plan_flag
+				has_country_flag = DVA_double_industry_plan_flag
 				has_war_with = SNE
 			}
 		}
@@ -537,12 +531,15 @@ focus_tree = {
 		available = {
 			has_country_flag = DVA_industry_plan_settled_normally_flag
 			OR = {
-				has_country_flag = DVA_success_of_progressive_industrialization_flag
 				AND = {
-					has_country_flag = DVA_knights_win
+					has_country_flag = DVA_left_industry_plan_flag
+					has_country_flag = DVA_success_of_progressive_industrialization_flag
+				}
+				AND = {
+					has_country_flag = DVA_double_industry_plan_flag
+					has_country_flag = DVA_success_of_progressive_industrialization_flag
 					has_completed_focus = DVA_arms_factory_of_dvalin
 				}
-				has_country_flag = DVA_middle_way
 			}
 		}
 		completion_reward = {
@@ -555,8 +552,8 @@ focus_tree = {
 			custom_effect_tooltip = DOT_Government_Agri_Up_tt
 			if = {
 				limit = {
-					has_country_flag = DVA_middle_way
-					has_completed_focus = DVA_technology_make_industry_progress
+					has_country_flag = DVA_double_industry_plan_flag
+					has_country_flag = DVA_success_of_progressive_industrialization_flag
 					has_completed_focus = DVA_arms_factory_of_dvalin
 				}
 				country_event = dva.ab.46
@@ -569,7 +566,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_bathtub_war
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_navy_battleship2
 		cost = 1
 		x = 28
 		y = 1
@@ -589,7 +586,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_dockyard_of_dvalin
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_refit_civilian_ships
 		cost = 1
 		x = 27
 		y = 2
@@ -643,12 +640,15 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Navy_in_decades
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_africa_naval
 		cost = 1
 		x = 29
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
+		}
+		available = {
+			has_completed_focus = DVA_tales_of_utopias
 		}
 		completion_reward = {
 			navy_experience = 50
@@ -661,7 +661,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Huge_waves_plan
-		icon = GFX_goal_unknown
+		icon = GFX_focus_SWE_coastal_support
 		cost = 1
 		x = 28
 		y = 3
@@ -677,7 +677,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Deep_Blue
-		icon = GFX_goal_unknown
+		icon = GFX_focus_SWE_Vasa_II
 		cost = 1
 		x = 28
 		y = 4
@@ -707,12 +707,14 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_practical_boatbuilding
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_naval_discipline
 		cost = 1
 		x = 30
 		y = 3
 		prerequisite = {
-			focus = DVA_Navy_in_decades
+			focus = DVA_offering_gifts_and_loyalty
+			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+			focus = DVA_break_with_the_past
 		}
 		mutually_exclusive = {
 			focus = DVA_Huge_waves_plan
@@ -725,7 +727,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Big_surprise_in_water
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_mine_warfare
 		cost = 1
 		x = 30
 		y = 4
@@ -744,8 +746,12 @@ focus_tree = {
 		cost = 1
 		x = 18
 		y = 11
+		prerequisite = {
+			focus = DVA_bring_up_Spark_Knight
+		}
 		available = {
-			always = no
+			has_country_flag = DVA_helios_project_flag
+			has_completed_focus = DVA_establish_institute_of_Tower
 		}
 		completion_reward = {
 			country_event = dva.ab.21
@@ -994,10 +1000,10 @@ focus_tree = {
 			focus = DVA_tale_from_the_tower
 		}
 		mutually_exclusive = {
-			focus = DVA_the_meaning_of_Lupical
+			focus = DVA_Plan_of_reshuffling_knights_of_favonius
 		}
 		x = 8
-		y = 9
+		y = 10
 		available = {
 			OR = {
 				has_country_flag = DVA_knights_win
@@ -1043,9 +1049,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = DVA_restruction_outriders
-		}
-		mutually_exclusive = {
-			focus = DVA_offering_gifts_and_loyalty
 		}
 		x = 10
 		y = 9
@@ -1226,6 +1229,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = DVA_break_with_the_past
 		}
+		mutually_exclusive = {
+			focus = DVA_offering_gifts_and_loyalty
+		}
 		prerequisite = {
 			focus = DVA_offering_gifts_and_loyalty
 			focus = DVA_the_meaning_of_Lupical
@@ -1237,7 +1243,7 @@ focus_tree = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
 		x = 10
-		y = 11
+		y = 10
 		available = {
 			OR = {
 				MOT = {
@@ -1410,7 +1416,7 @@ focus_tree = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
 		x = 13
-		y = 11
+		y = 10
 		available = {
 			has_country_flag = DVA_amber_win
 		}
@@ -1444,7 +1450,7 @@ focus_tree = {
 		x = 13
 		y = 12
 		available = {
-			59 = {
+			57 = {
 				is_controlled_by = ROOT
 			}
 		}
@@ -1565,10 +1571,20 @@ focus_tree = {
 		available = {
 			has_country_flag = DVA_economy_reform_finished_flag
 			1 = {
-				is_controlled_by = ROOT
+				controller = {
+					OR = {
+						original_tag = ROOT
+						is_puppet_of = ROOT
+					}
+				}
 			}
 			2 = {
-				is_controlled_by = ROOT
+				controller = {
+					OR = {
+						original_tag = ROOT
+						is_puppet_of = ROOT
+					}
+				}
 			}
 		}
 		completion_reward = {
@@ -1685,8 +1701,10 @@ focus_tree = {
 		x = 12
 		y = 18
 		available = {
-			#
+			always = no
+			MOT_Reunite_Trigger_Get = yes
 		}
+		will_lead_to_war_with = PRI
 		completion_reward = {
 			#启动熄星计划
 			#解锁倒计时
@@ -1708,7 +1726,7 @@ focus_tree = {
 		x = 10
 		y = 18
 		available = {
-			#
+			MOT_Reunite_Trigger_Get = yes
 		}
 		completion_reward = {
 			add_ideas = DVA_Utopia_of_Freedom_and_Equality
@@ -1716,7 +1734,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_vanish_into_thin_air_like_bubble
-		icon = DVA_vanish_into_thin_air_like_bubble
+		icon = GFX_Goal_Forget_the_Promise
 		cost = 5
 		prerequisite = {
 			focus = DVA_tales_of_utopias
@@ -1955,6 +1973,7 @@ focus_tree = {
 				var = DVA_left_war_modifier
 				value = 0.05
 			}
+			#unlock_decision_tooltip = 
 		}
 	}
 	focus = {
@@ -2240,7 +2259,7 @@ focus_tree = {
 			focus = DVA_offering_gifts_and_loyalty
 		}
 		x = 8
-		y = 10
+		y = 11
 		available = {
 			#
 		}
@@ -2280,7 +2299,7 @@ focus_tree = {
 			focus = DVA_merge_with_the_knights_of_favonius
 		}
 		x = 8
-		y = 11
+		y = 12
 		available = {
 			#
 		}
