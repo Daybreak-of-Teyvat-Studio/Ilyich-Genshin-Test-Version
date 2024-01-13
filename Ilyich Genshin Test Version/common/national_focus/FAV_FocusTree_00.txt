@@ -83,6 +83,8 @@ focus_tree = {
 					name = FAV_genshin_p_0
 				}
 			}
+			set_country_flag = FAV_Unlock_DecCat4
+			custom_effect_tooltip = FAV_UnlockDecisionCat_03
 			country_event = Church.15
 		}
 		available = {
@@ -116,6 +118,7 @@ focus_tree = {
 			focus = FAV_the_Story_of_Church
 		}
 		completion_reward = {
+			custom_effect_tooltip = FAV_UnlockDecisionCat_04
 			add_war_support = 0.05
 			set_country_flag = FAV_Unlock_Bop1
 			set_power_balance = {
@@ -1701,23 +1704,28 @@ focus_tree = {
 		x = 16
 		y = 8
 		completion_reward = {
-			add_stability = -0.05
-			add_war_support = 0.05
-
-            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
-            custom_effect_tooltip = FAV_Higher_Zeal_Max
-            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
-
-			set_variable = { FAV_Influence_on_Friend = 10 }
-			set_variable = { FAV_Friends_Influence_on_Us = 0 }
-			remove_power_balance = {
-				id = FAV_Original_power_balance
+			IF = {
+				limit = { has_global_flag = MOT_Civil_War_Begun }
+				custom_effect_tooltip = FAV_tt_Should_Knoe
 			}
-			set_country_flag = FAV_Unlock_DecCat2
-			custom_effect_tooltip = FAV_New_Decisions_Category
+			ELSE_IF = {
+				add_stability = -0.05
+				add_war_support = 0.05
+
+				set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+				custom_effect_tooltip = FAV_Higher_Zeal_Max
+				add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+				set_variable = { FAV_Influence_on_Friend = 10 }
+				set_variable = { FAV_Friends_Influence_on_Us = 0 }
+				remove_power_balance = {
+					id = FAV_Original_power_balance
+				}
+				set_country_flag = FAV_Unlock_DecCat2
+				custom_effect_tooltip = FAV_New_Decisions_Category
+			}
 		}
 		allow_branch = {
-			NOT = { has_country_flag = FAV_Show_Focus_Tree1 }
 		}
 		available = {
 			has_global_flag = MOT_Civil_War_Begun
@@ -3668,7 +3676,6 @@ focus_tree = {
             add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
 
 			set_global_flag = FAV_Show_News_Bible
-			custom_effect_tooltip = FAV_Wait_for_After
 			remove_ideas = FAV_Heresy_of_Religion
 			remove_ideas = FAV_Heresy_of_Religion2
 			remove_ideas = FAV_Heresy_of_Religion3

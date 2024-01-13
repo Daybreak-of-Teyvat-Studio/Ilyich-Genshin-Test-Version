@@ -1,3 +1,463 @@
+#
+FAV_Want_Money = {
+    #基础决议
+    #主动宣传
+    FAV_Raise_our_Fans = {
+        cost = 30
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 25
+                check_variable = { FAV.FAV_Number_of_Fans < LAW.FAV_Number_of_Fans }
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 15 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #出售芭芭拉握手券
+    FAV_Sell_Barbara_Quan = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        icon = generic_prepare_civil_war
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+
+        }
+        modifier = {
+            political_power_cost = 0.25
+            consumer_goods_factor = -0.1
+            power_balance_weekly = -0.001
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 5 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #大众焦点：著作签售会
+    FAV_Sell_Barbara_Key = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_speech
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.15
+            consumer_goods_factor = -0.1
+            power_balance_weekly = -0.001
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 5 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #舆论热度高于50
+    #在神学辩论中植入广告
+    FAV_AD_in_the_Debate = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_speech
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 49 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.25
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_2_Infra = yes
+        }
+    }
+    #大众焦点：为商品代言
+    FAV_Become_the_AD = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 49 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        icon = generic_nationalism
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        modifier = {
+            political_power_cost = 0.5
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #高于100
+    #出售芭芭拉“周边”
+    FAV_Sell_Goods_of_Bar = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 50
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            power_balance_weekly = -0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #大众焦点：出售棘冠修女“谷子”
+    FAV_Sell_Goods_of_Maids = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 70
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.5
+            power_balance_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #大众焦点：呼吁物资捐献
+    FAV_Call_for_Things = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 30
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.25
+            stability_weekly = 0.005
+            power_balance_weekly = -0.002
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 150
+                producer = MOT
+            }
+        }
+    }
+    #高于200
+    #联络兵器黑市
+    FAV_Connection_with_Weapon_Market = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 30
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            war_support_weekly = 0.005
+            power_balance_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 514
+                producer = FON
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 114
+                producer = LYY
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 191
+                producer = SUM
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 810
+                producer = MOT
+            }
+        }
+    }
+    #引导资金流入
+    FAV_Guide_Mora_In = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_factory
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 60
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_2_Arms = yes
+        }
+    }
+    #大众焦点：呼唤舆论支持
+    FAV_Call_for_Support_of_Pupular = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 15
+        days_remove = 45
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = -1
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+        }
+    }
+    #大众焦点：从现在开始改变蒙德！
+    FAV_Call_for_Volunteers = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_remove = 45
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            power_balance_weekly = -0.005
+            stability_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    #高于400
+    #大众焦点：登上天国的第一级阶梯
+    FAV_First_Floor_of_Heaven = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_oppression
+        fire_only_once = yes
+        days_remove = 1
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 399 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        complete_effect = {
+            custom_effect_tooltip = FAV_Only_Once
+            add_stability = 0.1
+            add_war_support = 0.1
+            add_political_power = 100
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    #高于500
+    #大众焦点：在世界的中心呼唤捐款
+    FAV_In_the_Center_of_Call = {
+        cost = 150
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_remove = 90
+        visible = {
+            check_variable = { FAV_Number_of_Fans > 499 }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 499 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            power_balance_weekly = -0.01
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_2_Arms = yes
+            FAV_Get_2_Civs = yes
+            FAV_Get_2_Infra = yes
+            FAV_Get_2_Infra = yes
+            add_political_power = 200
+            add_stability = 0.1
+            add_war_support = 0.1
+        }
+    }
+}
 ##使徒行迹
 FAV_Heart_of_Church = {
     #交换变量
