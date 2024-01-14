@@ -45,29 +45,46 @@ on_actions = {
 			DVA = {
 				#对委员会精神进行初始化
 				DVA_Start_Committee = yes
+				DVA_ReOrg_DMC = yes
+				#计算季度的变量
+				set_variable = { DVA_Number_of_Months = 0 }
 			}
 		}
 	}
-	on_monthly = {
+	on_monthly_FAV = {
 		effect = {
-			MOT = {
+			FAV_Org_DM = yes
+			set_variable = { FAV_linshibianliang2 = FAV_Action_Efficiency }
+			multiply_variable = { FAV_linshibianliang2 = FAV_Action_Zeal }
+			multiply_variable = { FAV_linshibianliang2 = 2 }
+			add_to_variable = { FAV_Power_Points = FAV_linshibianliang2 }
+		}
+	}
+	on_monthly_DVA = {
+		effect = {
+			IF = {
+				#满足这个条件，即一个季度轮回
+				limit = { check_variable = { DVA_Number_of_Months = 2 } }
+				set_variable = { DVA_Number_of_Months = 0 }
 				IF = {
-					limit = {
-						has_dynamic_modifier = {
-							modifier = MOT_Support_From_Meeting
-						}
-					}
-					MOT_Re_Meeting = yes
-					MOT_Var_Limit = yes
-					MOT_Re_Org_PowerandSupport = yes
+					limit = { has_dynamic_modifier = { modifier = DVA_Committee_Union_Strong } }
+					DVA_ReOrg_DMC = yes
 				}
 			}
-			FAV = {
-				FAV_Org_DM = yes
-				set_variable = { FAV_linshibianliang2 = FAV_Action_Efficiency }
-				multiply_variable = { FAV_linshibianliang2 = FAV_Action_Zeal }
-				multiply_variable = { FAV_linshibianliang2 = 2 }
-				add_to_variable = { FAV_Power_Points = FAV_linshibianliang2 }
+			ELSE_IF = { add_to_variable = { DVA_Number_of_Months = 1 } }
+		}
+	}
+	on_monthly_MOT = {
+		effect = {
+			IF = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = MOT_Support_From_Meeting
+					}
+				}
+				MOT_Re_Meeting = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Org_PowerandSupport = yes
 			}
 		}
 	}

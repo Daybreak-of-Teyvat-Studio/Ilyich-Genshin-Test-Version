@@ -809,7 +809,6 @@ DVA_Start_Committee = {
 	set_variable = { DVA_Fare_of_Air_Normal = 100 }
 
 	##词条设置
-	#陆军词条
 	# _modifier是数值，之后会额外计算，此处只是定义
 	# _factor是系数，词条数值=系数*经费/标准经费
 	# _modifier的计算至少每个季度自动进行一次
@@ -817,6 +816,7 @@ DVA_Start_Committee = {
 	# 在游戏中可以对系数进行加减，从而改变动态精神的效果
 	# 可以在这里将一个系数设为0，再在国策中将之改变，
 	# 从而达到添加之前没有的新词条的效果
+	#陆军委员会
 	set_variable = { DVA_DMC_army_training_modifier = 0 }
 	set_variable = { DVA_DMC_army_training_factor = -0.1 }
 	set_variable = { DVA_DMC_army_exp_modifier = 0 }
@@ -838,7 +838,7 @@ DVA_Start_Committee = {
 	set_variable = { DVA_DMC_army_cost_artillery_factor = -0.1 }
 	set_variable = { DVA_DMC_army_cost_armor_modifier = 0 }
 	set_variable = { DVA_DMC_army_cost_armor_factor = -0.1 }
-	#海军词条
+	#海军委员会
 	set_variable = { DVA_DMC_navy_exp_modifier = 0 }
 	set_variable = { DVA_DMC_navy_exp_factor = 0.1 }
 	set_variable = { DVA_DMC_navy_xp_modifier = 0 }
@@ -858,7 +858,7 @@ DVA_Start_Committee = {
 	set_variable = { DVA_DMC_navy_cost_heavy_factor = -0.2 }
 	set_variable = { DVA_DMC_navy_cost_carrier_modifier = 0 }
 	set_variable = { DVA_DMC_navy_cost_carrier_factor = -0.2 }
-	#空军词条
+	#空军委员会
 	set_variable = { DVA_DMC_air_exp_modifier = 0 }
 	set_variable = { DVA_DMC_air_exp_factor = 0.1 }
 	set_variable = { DVA_DMC_air_xp_modifier = 0 }
@@ -884,4 +884,113 @@ DVA_Start_Committee = {
 	set_variable = { DVA_DMC_air_cost_large_factor = -0.2 }
 	set_variable = { DVA_DMC_air_cost_cv_modifier = 0 }
 	set_variable = { DVA_DMC_air_cost_cv_factor = -0.2 }
+}
+
+#委员会精神数值重新计算
+#每季度、每次改变相关变量都要使用一次
+#重复语句太多，就算出了错也不奇怪
+DVA_ReOrg_DMC = {
+	#限制数值
+	clamp_variable = {
+		var = DVA_Fare_of_Army
+		max = DVA_Fare_of_Army_Upper_Limit
+		min = DVA_Fare_of_Army_Lower_Limit
+	}
+	clamp_variable = {
+		var = DVA_Fare_of_Navy
+		max = DVA_Fare_of_Navy_Upper_Limit
+		min = DVA_Fare_of_Navy_Lower_Limit
+	}
+	clamp_variable = {
+		var = DVA_Fare_of_Air
+		max = DVA_Fare_of_Air_Upper_Limit
+		min = DVA_Fare_of_Air_Lower_Limit
+	}
+
+	##陆军计算
+	#经费
+	#将经费除以标准经费，乘以各系数得到各词条数值
+	set_variable = { DVA_linshibianliang1 = DVA_Fare_of_Army }
+	divide_variable = { DVA_linshibianliang1 = DVA_Fare_of_Army_Normal }
+	
+	#这一坨都是陆军词条计算，两句计算一个词条
+		set_variable = { DVA_DMC_army_training_modifier = DVA_DMC_army_training_factor }
+		multiply_variable = { DVA_DMC_army_training_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_exp_modifier = DVA_DMC_army_exp_factor }
+		multiply_variable = { DVA_DMC_army_exp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_xp_modifier = DVA_DMC_army_xp_factor }
+		multiply_variable = { DVA_DMC_army_xp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_loss_modifier = DVA_DMC_army_loss_factor }
+		multiply_variable = { DVA_DMC_army_loss_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_build_modifier = DVA_DMC_army_build_factor }
+		multiply_variable = { DVA_DMC_army_build_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_capacity_modifier = DVA_DMC_army_capacity_factor }
+		multiply_variable = { DVA_DMC_army_capacity_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_special_modifier = DVA_DMC_army_special_factor }
+		multiply_variable = { DVA_DMC_army_special_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_cost_infantry_modifier = DVA_DMC_army_cost_infantry_factor }
+		multiply_variable = { DVA_DMC_army_cost_infantry_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_cost_artillery_modifier = DVA_DMC_army_cost_artillery_factor }
+		multiply_variable = { DVA_DMC_army_cost_artillery_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_army_cost_armor_modifier = DVA_DMC_army_cost_armor_factor }
+		multiply_variable = { DVA_DMC_army_cost_armor_modifier = DVA_linshibianliang1 }
+	#可以在左侧收起这一坨语句
+
+	#海军计算
+	set_variable = { DVA_linshibianliang1 = DVA_Fare_of_Navy }
+	divide_variable = { DVA_linshibianliang1 = DVA_Fare_of_Navy_Normal }
+	
+	#海军词条计算
+		set_variable = { DVA_DMC_navy_exp_modifier = DVA_DMC_navy_exp_factor }
+		multiply_variable = { DVA_DMC_navy_exp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_xp_modifier = DVA_DMC_navy_xp_factor }
+		multiply_variable = { DVA_DMC_navy_xp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_build_modifier = DVA_DMC_navy_build_factor }
+		multiply_variable = { DVA_DMC_navy_build_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_capacity_modifier = DVA_DMC_navy_capacity_factor }
+		multiply_variable = { DVA_DMC_navy_capacity_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_cost_submarine_modifier = DVA_DMC_navy_cost_submarine_factor }
+		multiply_variable = { DVA_DMC_navy_cost_submarine_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_cost_light_modifier = DVA_DMC_navy_cost_light_factor }
+		multiply_variable = { DVA_DMC_navy_cost_light_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_cost_cruiser_modifier = DVA_DMC_navy_cost_cruiser_factor }
+		multiply_variable = { DVA_DMC_navy_cost_cruiser_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_cost_heavy_modifier = DVA_DMC_navy_cost_heavy_factor }
+		multiply_variable = { DVA_DMC_navy_cost_heavy_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_navy_cost_carrier_modifier = DVA_DMC_navy_cost_carrier_factor }
+		multiply_variable = { DVA_DMC_navy_cost_carrier_modifier = DVA_linshibianliang1 }
+	#
+
+	#空军计算
+	set_variable = { DVA_linshibianliang1 = DVA_Fare_of_Air }
+	divide_variable = { DVA_linshibianliang1 = DVA_Fare_of_Air_Normal }
+	
+	#空军词条计算
+		set_variable = { DVA_DMC_air_exp_modifier = DVA_DMC_air_exp_factor }
+		multiply_variable = { DVA_DMC_air_exp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_xp_modifier = DVA_DMC_air_xp_factor }
+		multiply_variable = { DVA_DMC_air_xp_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_build_modifier = DVA_DMC_air_build_factor }
+		multiply_variable = { DVA_DMC_air_build_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_detect_modifier = DVA_DMC_air_detect_factor }
+		multiply_variable = { DVA_DMC_air_detect_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_eff_modifier = DVA_DMC_air_eff_factor }
+		multiply_variable = { DVA_DMC_air_eff_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_accidents_modifier = DVA_DMC_air_accidents_factor }
+		multiply_variable = { DVA_DMC_air_accidents_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_generation_modifier = DVA_DMC_air_generation_factor }
+		multiply_variable = { DVA_DMC_air_generation_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_ace_modifier = DVA_DMC_air_ace_factor }
+		multiply_variable = { DVA_DMC_air_ace_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_cost_small_modifier = DVA_DMC_air_cost_small_factor }
+		multiply_variable = { DVA_DMC_air_cost_small_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_cost_medium_modifier = DVA_DMC_air_cost_medium_factor }
+		multiply_variable = { DVA_DMC_air_cost_medium_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_cost_large_modifier = DVA_DMC_air_cost_large_factor }
+		multiply_variable = { DVA_DMC_air_cost_large_modifier = DVA_linshibianliang1 }
+		set_variable = { DVA_DMC_air_cost_cv_modifier = DVA_DMC_air_cost_cv_factor }
+		multiply_variable = { DVA_DMC_air_cost_cv_modifier = DVA_linshibianliang1 }
+	#
+
+	force_update_dynamic_modifier = yes
 }
