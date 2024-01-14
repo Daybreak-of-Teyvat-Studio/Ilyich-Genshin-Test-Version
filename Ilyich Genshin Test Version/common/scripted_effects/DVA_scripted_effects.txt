@@ -1,4 +1,6 @@
 #### DVA ####
+
+
 #提高骑士团的控制力等级时，要进行换算（同dynamic_modifier进行了绑定）
 
 DVA_increase_puppet_influence = {
@@ -779,4 +781,107 @@ DVA_hunt_down_monsters_south = {
 		var = DVA.DVA_trust
 		value = 1
 	}
+}
+
+#委员会精神的初始化，各种参数也在这里进行修改
+#相当于define，不同之处在于这里的值能在游戏过程中修改
+#各个变量的具体意义写到了localisation里
+DVA_Start_Committee = {
+	##经费设置
+	#可以通过改变经费上限来控制动态精神的最大效果
+	#经费初始值
+	set_variable = { DVA_Fare_of_Army = 0 }
+	set_variable = { DVA_Fare_of_Navy = 0 }
+	set_variable = { DVA_Fare_of_Air = 0 }
+	#经费初始上限
+	set_variable = { DVA_Fare_of_Army_Upper_Limit = 50 }
+	set_variable = { DVA_Fare_of_Navy_Upper_Limit = 50 }
+	set_variable = { DVA_Fare_of_Air_Upper_Limit = 50 }
+	#经费初始下限
+	set_variable = { DVA_Fare_of_Army_Lower_Limit = 0 }
+	set_variable = { DVA_Fare_of_Navy_Lower_Limit = 0 }
+	set_variable = { DVA_Fare_of_Air_Lower_Limit = 0 }
+	#使动态精神词条数值等于系数时的经费值，之后称标准经费
+	#比方说经费是该值的两倍时，词条强度就会是系数的两倍
+	#理论上来说，在游戏中修改也没问题，但我懒得写相关tooltip了
+	set_variable = { DVA_Fare_of_Army_Normal = 100 }
+	set_variable = { DVA_Fare_of_Navy_Normal = 100 }
+	set_variable = { DVA_Fare_of_Air_Normal = 100 }
+
+	##词条设置
+	#陆军词条
+	# _modifier是数值，之后会额外计算，此处只是定义
+	# _factor是系数，词条数值=系数*经费/标准经费
+	# _modifier的计算至少每个季度自动进行一次
+	# 每次调整经费后也要额外计算
+	# 在游戏中可以对系数进行加减，从而改变动态精神的效果
+	# 可以在这里将一个系数设为0，再在国策中将之改变，
+	# 从而达到添加之前没有的新词条的效果
+	set_variable = { DVA_DMC_army_training_modifier = 0 }
+	set_variable = { DVA_DMC_army_training_factor = -0.1 }
+	set_variable = { DVA_DMC_army_exp_modifier = 0 }
+	set_variable = { DVA_DMC_army_exp_factor = 0.1 }
+	set_variable = { DVA_DMC_army_xp_modifier = 0 }
+	set_variable = { DVA_DMC_army_xp_factor = 0.1 }
+	set_variable = { DVA_DMC_army_loss_modifier = 0 }
+	set_variable = { DVA_DMC_army_loss_factor = -0.1 }
+	set_variable = { DVA_DMC_army_build_modifier = 0 }
+	set_variable = { DVA_DMC_army_build_factor = 0.1 }
+	set_variable = { DVA_DMC_army_capacity_modifier = 0 }
+	set_variable = { DVA_DMC_army_capacity_factor = 0.25 }
+	set_variable = { DVA_DMC_army_special_modifier = 0 }
+	set_variable = { DVA_DMC_army_special_factor = 0.1 }
+
+	set_variable = { DVA_DMC_army_cost_infantry_modifier = 0 }
+	set_variable = { DVA_DMC_army_cost_infantry_factor = -0.2 }
+	set_variable = { DVA_DMC_army_cost_artillery_modifier = 0 }
+	set_variable = { DVA_DMC_army_cost_artillery_factor = -0.1 }
+	set_variable = { DVA_DMC_army_cost_armor_modifier = 0 }
+	set_variable = { DVA_DMC_army_cost_armor_factor = -0.1 }
+	#海军词条
+	set_variable = { DVA_DMC_navy_exp_modifier = 0 }
+	set_variable = { DVA_DMC_navy_exp_factor = 0.1 }
+	set_variable = { DVA_DMC_navy_xp_modifier = 0 }
+	set_variable = { DVA_DMC_navy_xp_factor = 0.1 }
+	set_variable = { DVA_DMC_navy_build_modifier = 0 }
+	set_variable = { DVA_DMC_navy_build_factor = 0.1 }
+	set_variable = { DVA_DMC_navy_capacity_modifier = 0 }
+	set_variable = { DVA_DMC_navy_capacity_factor = 0.25 }
+
+	set_variable = { DVA_DMC_navy_cost_submarine_modifier = 0 }
+	set_variable = { DVA_DMC_navy_cost_submarine_factor = -0.2 }
+	set_variable = { DVA_DMC_navy_cost_light_modifier = 0 }
+	set_variable = { DVA_DMC_navy_cost_light_factor = -0.2 }
+	set_variable = { DVA_DMC_navy_cost_cruiser_modifier = 0 }
+	set_variable = { DVA_DMC_navy_cost_cruiser_factor = -0.2 }
+	set_variable = { DVA_DMC_navy_cost_heavy_modifier = 0 }
+	set_variable = { DVA_DMC_navy_cost_heavy_factor = -0.2 }
+	set_variable = { DVA_DMC_navy_cost_carrier_modifier = 0 }
+	set_variable = { DVA_DMC_navy_cost_carrier_factor = -0.2 }
+	#空军词条
+	set_variable = { DVA_DMC_air_exp_modifier = 0 }
+	set_variable = { DVA_DMC_air_exp_factor = 0.1 }
+	set_variable = { DVA_DMC_air_xp_modifier = 0 }
+	set_variable = { DVA_DMC_air_xp_factor = 0.1 }
+	set_variable = { DVA_DMC_air_build_modifier = 0 }
+	set_variable = { DVA_DMC_air_build_factor = 0.2 }
+	set_variable = { DVA_DMC_air_detect_modifier = 0 }
+	set_variable = { DVA_DMC_air_detect_factor = 0.1 }
+	set_variable = { DVA_DMC_air_eff_modifier = 0 }
+	set_variable = { DVA_DMC_air_eff_factor = 0.05 }
+	set_variable = { DVA_DMC_air_accidents_modifier = 0 }
+	set_variable = { DVA_DMC_air_accidents_factor = -0.1 }
+	set_variable = { DVA_DMC_air_generation_modifier = 0 }
+	set_variable = { DVA_DMC_air_generation_factor = 0.2 }
+	set_variable = { DVA_DMC_air_ace_modifier = 0 }
+	set_variable = { DVA_DMC_air_ace_factor = 0.2 }
+
+	set_variable = { DVA_DMC_air_cost_small_modifier = 0 }
+	set_variable = { DVA_DMC_air_cost_small_factor = -0.1 }
+	set_variable = { DVA_DMC_air_cost_medium_modifier = 0 }
+	set_variable = { DVA_DMC_air_cost_medium_factor = -0.15 }
+	set_variable = { DVA_DMC_air_cost_large_modifier = 0 }
+	set_variable = { DVA_DMC_air_cost_large_factor = -0.2 }
+	set_variable = { DVA_DMC_air_cost_cv_modifier = 0 }
+	set_variable = { DVA_DMC_air_cost_cv_factor = -0.2 }
 }
