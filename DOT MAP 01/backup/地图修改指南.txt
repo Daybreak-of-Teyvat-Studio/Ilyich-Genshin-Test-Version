@@ -1,0 +1,64 @@
+地图修改指南
+
+1.MAP/Terrain Map 
+这张图片设置了province在游戏地图显示出的地形类型，要配合heightmap，以及definition使用。
+-Plains 	:#FF8142
+-Forest 	:#59C755
+-Hills  	:#F8FF99
+-Jungle  	:#7FBF00
+-Marsh   	:#4C6023
+-Mountain	:#7C877D
+-Desert  	:#FF3F00
+-Ocean	:#0000FF
+-Lakes	:#00FFFF	
+-Urban   	:#9B00FF
+
+2.MAP/Height Map 
+这张图片设置了地图的高度。
+通过灰度的深度判定海拔，90是海平面，255是最高的山。
+
+3.MAP/definition
+这个文件设置了province的性质。
+举例：1;178;254;232;land;false;forest;1
+1为编号，land是海陆性质，性质有三类，land ocean lake;false为判断是否沿海;forest为地形类型，地形类型有是10种，见第一点;1为大陆/大洲位置，我们MOD统一使用第一个大陆，不用改动。
+
+4.adjacencies一般的通行规则设置
+举例 #归离海峡
+3556;1876;sea;7723;-1;-1;-1;-1;;Guili_Strait
+陆地province;陆地province;sea;海洋province-1;-1;-1;-1;;名字
+
+5.adjacency_rules关于海峡等通行区通行规则的设置。
+举例 #归离海峡
+adjacency_rule = {
+	name = "Guili_Strait"
+	contested = { army = no  navy = no  submarine = no  trade = no }
+	enemy = { army = no  navy = no  submarine = no  trade = no }
+	friend = { army = yes  navy = yes  submarine = yes  trade = yes }
+	neutral = { army = yes  navy = yes  submarine = yes  trade = yes }	
+	required_provinces = { 3556 1876 }
+	is_disabled = { }	
+	icon = 3556
+	offset = { 1 0 -6 }
+}
+6. railways 铁路
+举例 5 18 1539 6577 1788 688 2074 414 3967 626 2621 6686 6677 6684 3864 6645 2291 6618 2562 6639 
+5为铁路级别，后面的数字为铁路链接的province，编号相邻的province在地图上也必须相邻，排列顺序不能错。
+可以修改，但请修改时认真仔细一点！但请修改时认真仔细一点！但请修改时认真仔细一点！重要的事情说三遍。
+
+7. supply_nodes 补给中心
+1 3 
+1 72 
+1 142 
+1 185 
+1 237 
+1 274 
+1+province编号
+
+8.各主写请对各自国策、决议、事件、action effect中涉及所有state、province编号进行检查。
+现在MOD的state、province编号已经全部重置，如果游戏中产生错误，必然会造成游戏的闪退！
+
+9. Land Map 不用理会
+-Land:#9644C0
+-Sea :#051412
+-Lake:#00FF00
+
