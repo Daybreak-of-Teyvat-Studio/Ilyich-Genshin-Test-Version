@@ -136,3 +136,35 @@ country_event = {
 		show_ideas_tooltip = VAN_Narana
 	}
 }
+
+# 兰那罗主义思潮倾向提升
+country_event = {
+	id = VAN.5
+	title = VAN.5.t
+	desc = VAN.5.d
+	picture = GFX_event_VAN05
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	option = {
+		name = VAN.5.1
+		hidden_effect = {
+			set_variable = { VAN_political_thoughts_horizontal_delta = 10 }
+			VAN_political_thoughts_adjust_horizontal = yes
+
+			IF = {
+				limit = {
+					check_variable = { VAN_political_thoughts_aranism = 100 compare = less_than }
+				}
+				country_event = {
+					id = VAN.5
+					days = 40
+				}
+			}
+		}
+		custom_effect_tooltip = VAN.5.1_tt
+	}
+}

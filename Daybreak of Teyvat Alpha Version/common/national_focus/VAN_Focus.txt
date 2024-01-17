@@ -578,49 +578,17 @@ focus_tree = {
         }
     }
 
-    # 反抗教令院
+    # 山雨欲来
     focus = {
-        id = VAN_Focus_Revolt_Akademiya
-        icon = GFX_focus_VAN_Focus_Revolt_Akademiya
-        cost = 5
+        id = VAN_Focus_Before_The_Rain
+        icon = GFX_focus_VAN_Focus_Before_The_Rain
+        available = { has_completed_focus = VAN_The_Forest_Will_Remember }
+        cost = 2
         relative_position_id = VAN_Developing_Industry
         x = 24
         y = 0
-        bypass = {
-            VAN_is_independent = yes
-        }
         completion_reward = {
-            add_autonomy_score = {
-				value = 1500
-				localization = VAN_Focus_Revolt_Akademiya_Autonomy_add_score
-			}
-        }
-        ai_will_do = {
-            factor = 0
-        }
-	}
-
-    # 绿衫军兴起
-    focus = {
-        id = VAN_Focus_Greenshirts_Arise
-        icon = GFX_focus_eng_organise_the_blackshirts
-        prerequisite = { focus = VAN_Focus_Revolt_Akademiya }
-        cost = 5
-        relative_position_id = VAN_Focus_Revolt_Akademiya
-        x = 0
-        y = 1
-        completion_reward = {
-            add_timed_idea = { idea = VAN_Idea_Greenshirts_Arise days = 180 }
             add_political_power = 50
-            hidden_effect = {
-                news_event = {
-                    id = VAN_News.2
-                    hours = 6
-                }
-            }
-        }
-        ai_will_do = {
-            factor = 0
         }
 	}
 
@@ -628,31 +596,43 @@ focus_tree = {
     focus = {
         id = VAN_Focus_Aranism
         icon = GFX_focus_VAN_Focus_Aranism
-        prerequisite = { focus = VAN_Focus_Greenshirts_Arise }
-        available = { fascism > 0.5 }
+        prerequisite = { focus = VAN_Focus_Before_The_Rain }
+        available = {
+			check_variable = { VAN_political_thoughts_aranism = 50 compare = greater_than_or_equals }
+        }
         cost = 5
-        relative_position_id = VAN_Focus_Greenshirts_Arise
+        relative_position_id = VAN_Focus_Before_The_Rain
+        x = 0
+        y = 1
+        completion_reward = {
+            if = {
+                limit = { VAN_is_independent = no }
+                add_autonomy_score = {
+                    value = 1500
+                    localization = VAN_Focus_Revolt_Akademiya_Autonomy_add_score
+                }
+            }
+            country_event = {
+                id = VAN.5
+                days = 1
+            }
+        }
+	}
+
+    # 森林之盟
+    focus = {
+        id = VAN_Focus_Fascism_Party
+        icon = GFX_focus_VAN_Focus_Fascism_Party
+        prerequisite = { focus = VAN_Focus_Aranism }
+        cost = 5
+        relative_position_id = VAN_Focus_Aranism
         x = 0
         y = 1
         completion_reward = {
             set_politics = {
                 ruling_party = fascism
             }
-            remove_ideas = VAN_Bad_Politics
-        }
-	}
-
-    # 桓那兰那的苏醒
-    focus = {
-        id = VAN_Focus_Vanarana_Wake_Up
-        icon = GFX_focus_VAN_Focus_Vanarana_Wake_Up
-        prerequisite = { focus = VAN_Focus_Aranism }
-        cost = 2
-        relative_position_id = VAN_Focus_Aranism
-        x = -4
-        y = 1
-        completion_reward = {
-            remove_ideas = VAN_Mahavanaranapna
+            add_timed_idea = { idea = VAN_Idea_Greenshirts_Arise days = 180 }
         }
 	}
 
@@ -660,9 +640,9 @@ focus_tree = {
     focus = {
         id = VAN_Focus_Abandon_Illusions
         icon = GFX_focus_VAN_Focus_Abandon_Illusions
-        prerequisite = { focus = VAN_Focus_Aranism }
+        prerequisite = { focus = VAN_Focus_Fascism_Party }
         cost = 5
-        relative_position_id = VAN_Focus_Aranism
+        relative_position_id = VAN_Focus_Fascism_Party
         x = -2
         y = 1
         completion_reward = {
@@ -684,72 +664,37 @@ focus_tree = {
         }
 	}
 
-    # 与绿衫军合作
+    # 军队建设1
     focus = {
-        id = VAN_Focus_Collaborate_With_GreenShirts
-        icon = GFX_focus_VAN_Focus_Collaborate_With_GreenShirts
-        prerequisite = { focus = VAN_Focus_Aranism }
+        id = VAN_Focus_Military_Construction_1
+        icon = GFX_focus_VAN_Focus_Military_Construction
+        prerequisite = { focus = VAN_Focus_Fascism_Party }
         cost = 5
-        relative_position_id = VAN_Focus_Aranism
+        relative_position_id = VAN_Focus_Fascism_Party
         x = 2
         y = 1
         completion_reward = {
-            add_manpower = 100000
-            add_timed_idea = { idea = VAN_Idea_Collaborate_With_GreenShirts days = 100 }
+            hidden_effect = {
+				Army_Up = yes
+			}
+			custom_effect_tooltip = DOT_Government_Army_Up_tt
         }
 	}
 
-    # 军队扩编
+    # 军队建设2
     focus = {
-        id = VAN_Focus_Military_Expansion
-        icon = GFX_focus_VAN_Focus_Military_Expansion
-        prerequisite = { focus = VAN_Focus_Collaborate_With_GreenShirts }
+        id = VAN_Focus_Military_Construction_2
+        icon = GFX_focus_VAN_Focus_Military_Construction
+        prerequisite = { focus = VAN_Focus_Military_Construction_1 }
         cost = 5
-        relative_position_id = VAN_Focus_Collaborate_With_GreenShirts
+        relative_position_id = VAN_Focus_Military_Construction_1
         x = 0
         y = 1
         completion_reward = {
-            custom_effect_tooltip = VAN_Focus_Military_Expansion_effect
             hidden_effect = {
-                division_template = {
-					name = "Green Shirts"
-					priority = 2
-					regiments = {
-                        infantry = { x = 0 y = 0 }
-                        infantry = { x = 0 y = 1 }
-                        infantry = { x = 0 y = 2 }
-                        infantry = { x = 1 y = 0 }
-                        infantry = { x = 1 y = 1 }
-                        infantry = { x = 1 y = 2 }
-                        infantry = { x = 2 y = 0 }
-                        artillery_brigade = { x = 3 y = 0 }
-                        artillery_brigade = { x = 3 y = 1 }
-                    }
-                    support = {
-
-                    }
-                    allow_new_equipment = yes
-                    allow_foreign_equipment = yes
-				}
-                capital_scope = {
-                    create_unit = {
-                        division = "name = \"Green Shirts detachment 1\" division_template = \"Green Shirts\" start_experience_factor = 0.5"
-                        owner = VAN
-                    }
-                    create_unit = {
-                        division = "name = \"Green Shirts detachment 2\" division_template = \"Green Shirts\" start_experience_factor = 0.5"
-                        owner = VAN
-                    }
-                    create_unit = {
-                        division = "name = \"Green Shirts detachment 3\" division_template = \"Green Shirts\" start_experience_factor = 0.5"
-                        owner = VAN
-                    }
-                    create_unit = {
-                        division = "name = \"Green Shirts detachment 4\" division_template = \"Green Shirts\" start_experience_factor = 0.5"
-                        owner = VAN
-                    }
-                }
-            }
+				Army_Up = yes
+			}
+			custom_effect_tooltip = DOT_Government_Army_Up_tt
         }
 	}
 
@@ -757,9 +702,9 @@ focus_tree = {
     focus = {
         id = VAN_Focus_Based_on_Defense
         icon = GFX_focus_VAN_Focus_Based_on_Defense
-        prerequisite = { focus = VAN_Focus_Aranism }
+        prerequisite = { focus = VAN_Focus_Fascism_Party }
         cost = 5
-        relative_position_id = VAN_Focus_Aranism
+        relative_position_id = VAN_Focus_Fascism_Party
         x = 4
         y = 1
         completion_reward = {
@@ -844,9 +789,9 @@ focus_tree = {
     focus = {
         id = VAN_Focus_Independence
         icon = GFX_goal_generic_territory_or_war
-        prerequisite = { focus = VAN_Focus_Aranism }
+        prerequisite = { focus = VAN_Focus_Fascism_Party }
         cost = 5
-        relative_position_id = VAN_Focus_Aranism
+        relative_position_id = VAN_Focus_Fascism_Party
         x = 0
         y = 1
         bypass = {
@@ -942,7 +887,7 @@ focus_tree = {
         prerequisite = { focus = VAN_Focus_Dendro_Orthodoxy }
         cost = 5
         relative_position_id = VAN_Focus_Dendro_Orthodoxy
-        x = 2
+        x = -2
         y = 1
         completion_reward = {
             create_wargoal = {
@@ -986,7 +931,7 @@ focus_tree = {
         prerequisite = { focus = VAN_Focus_Dendro_Orthodoxy }
         cost = 5
         relative_position_id = VAN_Focus_Dendro_Orthodoxy
-        x = -2
+        x = 0
         y = 1
         completion_reward = {
             add_ideas = VAN_Idea_Disgusting_Valuka
@@ -1036,4 +981,50 @@ focus_tree = {
             }
         }
 	}
+
+    # 工业建设1
+    focus = {
+        id = VAN_Focus_Industrial_Construction_1
+        icon = GFX_focus_VAN_Focus_Industrial_Construction
+        prerequisite = { focus = VAN_Focus_Dendro_Orthodoxy }
+        available = {
+            NOT = {
+                has_war = yes
+            }
+        }
+        cancel_if_invalid = yes
+        cost = 5
+        relative_position_id = VAN_Focus_Dendro_Orthodoxy
+        x = 2
+        y = 1
+        completion_reward = {
+            hidden_effect = {
+				Industry_Up = yes
+			}
+			custom_effect_tooltip = DOT_Government_Industry_Up_tt
+        }
+    }
+
+    # 工业建设1
+    focus = {
+        id = VAN_Focus_Industrial_Construction_2
+        icon = GFX_focus_VAN_Focus_Industrial_Construction
+        prerequisite = { focus = VAN_Focus_Industrial_Construction_1 }
+        available = {
+            NOT = {
+                has_war = yes
+            }
+        }
+        cancel_if_invalid = yes
+        cost = 5
+        relative_position_id = VAN_Focus_Industrial_Construction_1
+        x = 0
+        y = 1
+        completion_reward = {
+            hidden_effect = {
+				Industry_Up = yes
+			}
+			custom_effect_tooltip = DOT_Government_Industry_Up_tt
+        }
+    }
 }
