@@ -1,8 +1,10 @@
 import os
 import sys
 
-blackList = ["Ilyich Genshin Test Version\common\备份文件", "Ilyich Genshin Test Version/common/备份文件", 
-             "Ilyich Genshin Test Version\.backups", "Ilyich Genshin Test Version/.backups"]
+blackList = ["Daybreak of Teyvat Alpha Version\common\备份文件", "Daybreak of Teyvat Alpha Version/common/备份文件", 
+             "Daybreak of Teyvat Alpha Version\.backups", "Daybreak of Teyvat Alpha Version/.backups",
+             "Daybreak of Teyvat Beta Version\common\备份文件", "Daybreak of Teyvat Beta Version/common/备份文件", 
+             "Daybreak of Teyvat Beta Version\.backups", "Daybreak of Teyvat Beta Version/.backups"]
 
 # 检测本地化文件的双引号
 def CheckFileQuotation(filePath):
@@ -82,10 +84,10 @@ def CheckDirBracket(dirPath):
     return allFilesCorrect
 
 def main():
-    modPath = "Ilyich Genshin Test Version"
+    modPath = "Daybreak of Teyvat Beta Version"
     if not CheckDirBracket(modPath):
         sys.exit(1)
-    chineseLocalisationPath = "Ilyich Genshin Test Version/localisation/simp_chinese" # 目前只检测中文
+    chineseLocalisationPath = "Daybreak of Teyvat Beta Version/localisation/simp_chinese" # 目前只检测中文
     if not CheckDirQuotation(chineseLocalisationPath):
         sys.exit(1)
 
