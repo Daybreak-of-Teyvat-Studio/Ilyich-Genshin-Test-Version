@@ -1,0 +1,6461 @@
+focus_tree = {
+	id = INA_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = INA
+		}
+	}   
+   default = no
+ 
+   focus = {
+      id = INA_war_publicity
+	  ##战争宣传#
+      icon =  goal_INA_Signet
+      cost = 2
+      x = 1
+      y = 0
+      available ={
+		  has_war = yes
+      }
+	  search_filters = {FOCUS_FILTER_STABILITY }
+      completion_reward = {
+          country_event = INA.1
+        hidden_effect = {
+          news_event = { days = 2 id = INA_News.1}
+		  ##幕府指控反叛军#
+		     }
+		set_variable = {
+          INA_prestige = 0
+          }
+		set_variable = {
+          INA_yaesupport = 0
+          }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = INA_callforhelp
+	  ##寻求帮助#
+      icon = goals_RAGweqwjqtogjoasrty
+      cost = 3
+      x = 1
+      y = 1
+      prerequisite = {
+         focus = INA_war_publicity
+      }
+      #####relative_position_id = INA_war_publicity
+      available ={
+         
+      }
+
+      completion_reward = {
+          country_event = INA.2
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  
+  focus = {
+      id = INA_army_reform
+	  #军队改革
+      icon = GFX_goal_generic_army_doctrines
+      cost = 5
+      x = -4
+      y = 1
+     relative_position_id = INA_callforhelp
+      prerequisite = {
+         focus = INA_callforhelp
+      }
+      available ={
+      }
+      completion_reward = {
+	   	INA_army_corruption_level_down = yes		
+		army_experience = 25
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  
+    focus = {
+      id = INA_main_support
+	  #御前军事会
+      icon = GFX_goal_generic_allies_build_infantry
+      cost = 5
+      x = -1
+      y = 1
+	  relative_position_id = INA_army_reform
+	  prerequisite = {
+         focus = INA_army_reform
+      }
+      mutually_exclusive = {
+         focus = INA_pirate_support
+
+              }
+      ##relative_position_id = INA_army_reform
+      available ={
+     
+      }
+
+      completion_reward = {
+      INA_Sara = {
+	    add_skill_level = 1
+        add_logistics = 1
+        add_planning = 2
+	     }
+		add_ideas = INA_main_support
+        hidden_effect = {
+          news_event = { days = 2 id = INA_News.2 }
+		  ##幕府宣布重组御前军事会##
+             }
+      }
+	
+      }
+	 
+	 focus = {
+      id = INA_military_theory
+	  #前线经验总结
+      icon = GFX_goal_generic_small_arms
+      cost = 4
+      x = -4
+      y = 4
+	  prerequisite = {
+         focus = INA_main_support
+      }
+
+
+      ##relative_position_id = INA_main_support
+
+      available ={
+     
+      }
+
+      completion_reward = {
+      add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.25
+				uses = 1
+				category = land_doctrine
+			}
+	  army_experience = 25
+      }
+	 }
+	 
+	 focus = {
+      id = INA_clear_pirate
+	  #剿灭海贼
+      icon = GFX_goal_generic_navy_anti_submarine
+      cost = 9
+      x = -4
+      y = 5
+	  prerequisite = {
+         focus = INA_military_theory
+      }
+      ##relative_position_id = INA_military_theory
+      available ={
+     
+      }
+
+      completion_reward = {
+	  INA_army_corruption_level_down = yes		
+      remove_ideas = INA_pirate
+	  army_experience = 25
+      add_war_support = 0.35
+        hidden_effect = {
+          news_event = { days = 2 id = INA_News.3 }
+             }
+	  }
+     }
+	  
+      focus = {
+             id = INA_pirate_support
+       	  #诏安海寇
+             icon = goal_ASA
+             cost = 2
+             x = -2
+             y = 3
+			 prerequisite = {
+                focus = INA_army_reform
+             }
+             ##relative_position_id = INA_army_reform
+             mutually_exclusive = {
+              focus = INA_main_support
+              }
+             available ={
+             }
+             completion_reward = {
+           ###加8个精锐步兵师
+		   add_war_support = -0.15
+               hidden_effect = {
+                 news_event = { days = 2 id = INA_News.4 }
+                    }
+             }
+             }
+      focus = {
+      id = INA_theory_pirate
+	  #海贼的经验
+      icon = GFX_goal_generic_navy_doctrines_tactics
+      cost = 2
+      x = -2
+      y = 4
+	  prerequisite = {
+         focus = INA_pirate_support
+      }
+      ##relative_position_id = INA_pirate_support
+      available ={
+      }
+      completion_reward = {
+	  navy_experience = 50
+	   add_doctrine_cost_reduction = {
+      				name = navy_doc_bonus
+      				cost_reduction = 0.40
+      				uses = 2
+      				category = naval_doctrine
+      			}
+      }
+      }
+	  
+     focus = {
+      id = INA_pirate_license
+	  #私掠许可
+      icon = flexible_navy
+      cost = 2
+      x = -2
+      y = 5
+	  prerequisite = {
+         focus = INA_theory_pirate
+      }
+      ##relative_position_id = INA_theory_pirate
+      available ={
+      }
+      completion_reward = {
+      remove_ideas = INA_pirate
+	  add_ideas = INA_pirate_license
+	##添加民族精神移除海盗猖獗添加私掠
+      }
+      }
+	  
+	   focus = {
+      id = INA_industry_building
+	  #工业建设
+      icon = GFX_goal_generic_construction
+      cost = 10
+      x = 4
+      y = 1
+	  prerequisite = {
+         focus = INA_callforhelp
+      }
+	  search_filters = {FOCUS_FILTER_INDUSTRY }
+      relative_position_id = INA_callforhelp
+      available ={
+      }
+      completion_reward = {	
+		random_owned_controlled_state = {
+		limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+		add_extra_state_shared_building_slots = 2
+	    add_building_construction = {
+					type = industrial_complex
+                    level = 1
+					instant_build = yes
+				}  
+		add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}  
+				}
+	##添加1个民工,1个军工
+      }
+      }
+	  
+      focus = {
+      id = INA_civil_factory
+	  #民用工厂
+      icon = GFX_goal_generic_construct_civ_factory
+      cost = 8
+      x = -1
+      y = 1
+	  prerequisite = {
+         focus = INA_industry_building
+      }
+	    search_filters = {FOCUS_FILTER_INDUSTRY }
+      relative_position_id = INA_industry_building
+      available ={
+      }
+	  search_filters = { FOCUS_FILTER_INDUSTRY }
+      completion_reward = {	
+		random_owned_controlled_state = {
+		limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+		add_extra_state_shared_building_slots = 2
+	    add_building_construction = {
+					type = industrial_complex
+                    level = 2
+					instant_build = yes
+				}  
+				}
+	##添加2个民工
+      }
+	  }
+	  
+	  focus = {
+      id = INA_military_factory
+	  #军用工厂
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 8
+      x = 1
+      y = 1
+	  prerequisite = {
+         focus = INA_industry_building
+      }
+	 search_filters = { FOCUS_FILTER_INDUSTRY }
+      relative_position_id = INA_industry_building
+      available ={
+      }
+ completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+		}  
+      }
+	  
+	  focus = {
+      id = INA_building_tech
+	  #建筑技术
+      icon = GFX_goal_generic_construct_civilian
+      cost = 8
+      x = 0
+      y = 1
+	  prerequisite = {
+         focus = INA_military_factory
+		 focus = INA_civil_factory
+      }
+      relative_position_id = INA_civil_factory
+      available ={
+      }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+      completion_reward = {
+      		add_tech_bonus = {
+			name = CHI_naval_aviation
+			bonus = 0.5
+			uses = 2
+			category = construction_tech
+		}
+	##添加50%加速2次，在建筑类	
+      }
+      }
+	  
+	  focus = {
+      id = INA_product_tech
+	  #生产技术
+      icon = GFX_goal_generic_production
+      cost = 8
+      x = 0
+      y = 1
+	 relative_position_id = INA_military_factory
+	  prerequisite = {
+         focus = INA_military_factory
+		 focus = INA_civil_factory
+      }
+      available ={
+      }
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+      completion_reward = {
+      add_tech_bonus = {
+			name = CHI_naval_aviation
+			bonus = 0.5
+			uses = 2
+			category = industry	
+		}
+	##添加50%加速2次，在生产类	
+      }
+      }
+      focus = {
+    id = INA_teachporject
+	#普及教育#
+    icon = GFX_focus_research
+    cost = 14
+    x = 1
+    y =1
+    prerequisite = {
+      focus = INA_product_tech
+      focus = INA_building_tech
+    }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+    relative_position_id = INA_building_tech
+    available ={  has_war = no
+    num_of_factories >120
+    amount_research_slots < 6
+    }
+    completion_reward = {
+	    add_research_slot = 1
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }
+    }  
+	focus = {
+      id = INA_sangonomiyaproblem
+	  ##珊瑚宫问题#
+      icon =  goal_ASA
+      cost = 1
+      x = 18
+      y = 0
+      available ={
+         has_war = no
+		 SAN= {
+				is_subject_of = ROOT
+			}
+      }
+      completion_reward = {
+		  annex_country = { target = SAN }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  focus = {
+      id = INA_thegorou
+	  #赦免五郎#
+      icon =  goal_ASA
+      cost = 1
+      x = 1
+      y = 1
+	  prerequisite = {
+         focus = INA_sangonomiyaproblem
+      }
+	  relative_position_id = INA_sangonomiyaproblem
+      available ={
+         has_war = no
+		  OR = {
+		has_completed_focus=INA_governpower
+		has_completed_focus=INA_yaegovernment
+		has_completed_focus=INA_militarygovernment
+		 }
+      }
+      completion_reward = {
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  	focus = {
+      id = INA_thekokomi
+	  #赦免心海#
+      icon =  goal_ASA
+      cost = 1
+      x = -1
+      y = 1
+	  prerequisite = {
+         focus = INA_sangonomiyaproblem
+      }
+	  relative_position_id = INA_sangonomiyaproblem
+      available ={
+		 OR = {
+		has_completed_focus=INA_governpower
+		has_completed_focus=INA_yaegovernment
+		 }
+      }
+      completion_reward = {
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     focus = {
+      id = INA_politcal
+	  ##权力斗争#
+      icon =  GFX_goal_generic_forceful_treaty
+      cost = 2
+      x = 12
+      y = 0
+      completion_reward = {
+	  add_political_power = 150
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+	  
+	   focus = {
+      id = INA_war_end
+	  ##稳定局势#
+      icon =  GFX_goal_generic_national_unity
+      cost = 1
+      x = 12
+      y = 1
+      available ={
+         has_war = no
+		 has_completed_focus=INA_callforhelp
+      }
+	prerequisite = {
+      focus = INA_politcal
+    }
+	search_filters = {FOCUS_FILTER_STABILITY }
+      completion_reward = {
+		 country_event = INA.10    
+        hidden_effect = {
+          news_event = { days = 2 id = INA_News.5 }
+	
+		  ##和平宣言#
+             }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+
+    focus = {
+    id = INA_mikoproblem
+	#神社问题#
+    icon = GFX_focus_generic_military_academy
+    cost = 5
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = INA_war_end
+    }
+    relative_position_id = INA_war_end
+	search_filters = {FOCUS_FILTER_STABILITY }
+    available ={
+    }
+    completion_reward = {
+	    country_event = INA.3    
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    } 
+	focus = {
+    id = INA_qinglai
+	#清籁问题#
+    icon =  goal_SAN2
+    cost = 4
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = INA_war_end
+    }
+    relative_position_id = INA_war_end
+    available ={
+    }
+    completion_reward = {
+	   	    country_event = INA.9
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+	focus = {
+    id = INA_qinglaiconquest
+	#征服清籁#
+    icon =  goal_SAN2
+    cost = 9
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = INA_qinglai
+    }
+    relative_position_id = INA_qinglai
+    available ={
+
+    }
+    completion_reward = {
+		  annex_country = { target = ASA }
+	    
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+	focus = {
+    id = INA_heguan
+	#鹤观问题#
+    icon =  goal_SAN2
+    cost = 4
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = INA_war_end
+    }
+    relative_position_id = INA_war_end
+    available ={
+    }
+    completion_reward = {
+	    country_event = INA.8
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+	focus = {
+    id = INA_heguanconquest
+	#征服鹤观#
+    icon =  goal_SAN2
+    cost = 9
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = INA_heguan
+    }
+    relative_position_id = INA_heguan
+    available ={
+    }
+    completion_reward = {
+		  annex_country = { target = TSU }
+	   
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }   
+    }
+	
+    focus = {
+    id = INA_fenxingproblem
+	#奉行丑闻#
+    icon = GFX_focus_generic_self_management
+    cost = 5
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = INA_war_end
+    }
+	search_filters = {FOCUS_FILTER_STABILITY }
+    relative_position_id = INA_war_end
+
+    available ={
+    }
+
+    completion_reward = {
+	    country_event = INA.4
+     
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }
+   
+  }
+  focus = {
+    id = INA_historicalproblem
+	#欺上瞒下#
+    icon = GFX_focus_eng_concessions_to_the_trade_unions
+    cost = 5
+    x = 2
+    y = 1
+    relative_position_id = INA_war_end
+    prerequisite = {
+      focus = INA_war_end
+    }
+	search_filters = {FOCUS_FILTER_STABILITY }
+    available ={
+    }
+
+    completion_reward = {
+	  
+	    country_event = INA.5
+     
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }
+   
+  }
+  focus = {
+    id = INA_governpower
+	#行政权力#
+    icon = GFX_goal_generic_neutrality_focus
+    cost = 8
+    x = 12
+    y = 3
+
+    prerequisite = {
+	  focus = INA_mikoproblem
+    }
+	 prerequisite = { 
+	 focus = INA_historicalproblem
+	 }
+    prerequisite = {
+	  focus = INA_fenxingproblem
+     }
+	search_filters = {FOCUS_FILTER_STABILITY }
+    available ={
+    }
+
+    completion_reward = {
+	    country_event = INA.6
+     
+    }
+    ai_will_do = {
+      factor = 10
+      modifier = {
+        has_war = yes
+        factor = 0
+      }
+    }
+  }
+     ##宫司参政
+  focus = {
+      id = INA_yaegovernment
+      icon = goal_INA3
+      cost = 4
+     x = -2
+      y = 1
+	 relative_position_id = INA_governpower
+      prerequisite = {
+         focus = INA_governpower
+      }
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_militarygovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
+
+      mutually_exclusive = {
+         focus = INA_militarygovernment
+         focus = INA_normagovernment
+         focus = INA_extragovernment
+      }
+
+      ##relative_position_id = INA_governpower
+
+      available ={
+        custom_trigger_tooltip = {
+          tooltip = INA_yaegovernment_tt
+		  check_variable = {
+          INA_yaesupport > 2
+       }
+        }
+        custom_trigger_tooltip = {
+          tooltip = INA_yaegovernment2_tt
+		check_variable = {
+          INA_prestige < 2
+       }
+        }
+      }
+
+      completion_reward = {
+       add_political_power = 50
+   ##改良支持率+80%
+        
+     
+       
+        hidden_effect ={
+          news_event = { id =  INA_News.6 days = 2}
+        }
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  focus = {
+      id = INA_normagovernment
+	  #稻妻开明幕府#
+      icon = goal_Raiden
+      cost = 4
+      x = 10
+      y = 1
+	 relative_position_id = INA_governpower
+
+      prerequisite = {
+         focus = INA_governpower
+      }
+	  	allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			has_completed_focus = INA_militarygovernment
+			 has_completed_focus =  INA_yaegovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
+      mutually_exclusive = {
+         focus = INA_yaegovernment
+         focus = INA_militarygovernment
+         focus = INA_extragovernment
+      }
+
+      ##relative_position_id = INA_governpower
+
+      available ={
+
+        custom_trigger_tooltip = {
+        tooltip = INA_normagovernment_tt
+		check_variable = {
+          INA_prestige > -3
+       }
+		check_variable = {
+          INA_prestige < 3
+       }
+        }
+		}
+
+      completion_reward = {
+       add_political_power = 50
+   ##神德支持率+80%
+        hidden_effect ={
+          news_event = { id = INA_News.8 days = 2}
+        }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+	  }
+  focus = {
+      id = INA_militarygovernment
+	  #稻妻军政府#
+      icon = GFX_focus_generic_home_defense
+      cost = 4
+       x = 20
+      y = 1
+	 relative_position_id = INA_governpower
+
+      prerequisite = {
+         focus = INA_governpower
+      }
+	 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_yaegovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_extragovernment
+				 }
+			}
+		}
+      mutually_exclusive = {
+         focus = INA_yaegovernment
+         focus = INA_normagovernment
+         focus = INA_extragovernment
+      }
+      ##relative_position_id = INA_governpower
+      available ={
+        custom_trigger_tooltip = {
+          tooltip = INA_militarygovernment_tt
+		check_variable = {
+          INA_prestige < -2
+          }
+        }
+      }
+      completion_reward = {
+       add_political_power = 50
+	    INA_army_corruption_level_down = yes	
+       ##激进支持率+80% 
+        hidden_effect ={
+          news_event = { id =  INA_News.7 days = 2}
+        }
+      }
+       ai_will_do = {
+        factor = 1
+      }
+  }
+
+     focus = {
+      id = INA_extragovernment
+	  #稻妻极权幕府#
+      icon = GFX_focus_jap_spiritual_mobilization
+      cost = 5
+      x = 36
+      y = 1
+	 relative_position_id = INA_governpower
+      prerequisite = {
+         focus = INA_governpower
+      }
+	 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_yaegovernment
+			 has_completed_focus =  INA_normagovernment
+             has_completed_focus =  INA_militarygovernment
+				 }
+			}
+		}
+      mutually_exclusive = {
+         focus = INA_yaegovernment
+         focus = INA_normagovernment
+         focus = INA_militarygovernment
+      }
+
+      ##relative_position_id = INA_governpower
+
+      available ={
+        custom_trigger_tooltip = {
+          tooltip = INA_extragovernment_tt
+		check_variable = {
+          INA_prestige > 2
+         }
+        }
+	 }
+      completion_reward = {
+       add_political_power = 50
+   ##神威支持率+80%
+        hidden_effect ={
+          news_event = { id = INA_News.9 days = 2}
+        }
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = INA_danceforgod
+      icon = goal_INA3
+      cost = 3
+      x = 0
+      y = 1
+	 relative_position_id = INA_yaegovernment
+     ##祈神之舞
+      prerequisite = {
+         focus = INA_yaegovernment
+      }
+      available ={       
+          }
+      completion_reward = {
+      remove_ideas = INA_disaster	  
+	  add_political_power = 100
+      }####未来可以做成一个事件：神樱大拔
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	
+    focus = {
+      id = INA_yaegetgovern
+      icon = goal_INA3
+      cost = 6
+      x = 0
+      y = 1
+	 relative_position_id = INA_danceforgod
+     ##将军的位子
+      prerequisite = {
+         focus = INA_danceforgod
+      }
+      available ={       
+          }
+      completion_reward = {
+		INA_yae = {
+	   add_skill_level = 2
+        add_logistics = 2
+        add_planning = 2
+	  }
+	 set_politics = {
+        ruling_party = democratic
+		elections_allowed = no
+      }
+		}
+      ##统治者换成八重神子。
+
+     #未来可以做成一个新闻：神子成为新一任幕府将军
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     focus = {
+      id = INA_foxgovernment
+      icon = goal_INA3
+      cost = 6
+     x = 0
+      y = 1
+	 relative_position_id = INA_yaegetgovern
+     ##狐神稻妻
+      prerequisite = {
+         focus = INA_yaegetgovern
+      }
+      available ={       
+          }
+      completion_reward = {
+      ##添加狐神政府。
+	        remove_ideas = INA_government_corruption	  
+	        add_ideas = INA_fox_government	  
+      }
+     #未来可以做出一个新闻。
+      ai_will_do = {
+        factor = 1
+      }
+     }
+    ##扩建八重堂
+     focus = {
+      id = INA_enlargepublic
+      icon = GFX_goal_generic_propaganda
+      cost = 6
+	  x =-6
+	 y = 1
+	 relative_position_id = INA_foxgovernment
+      prerequisite = {
+         focus = INA_foxgovernment
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##添加八重堂。
+	        add_ideas = INA_fox_public	  
+      }
+     #未来可以做出一个新闻。
+      ai_will_do = { factor = 1}
+      }
+	 ##宗教改革（神子）
+     focus = {
+      id = INA_yaereformation
+      icon = GFX_focus_hol_the_foundations_of_defense
+      cost = 6
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_enlargepublic
+      prerequisite = {
+         focus = INA_enlargepublic
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##改造我们的教义	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  ##加强信仰
+     focus = {
+      id = INA_enhancbelife
+      icon = GFX_focus_generic_monarchy_2
+      cost = 6
+	  x = 0
+	  y = 2
+	 relative_position_id = INA_yaereformation
+      prerequisite = {
+         focus = INA_yaereformation
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##改造我们的教义	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	    ##全稻妻的神
+     focus = {
+      id = INA_yaeisgod
+      icon = GFX_focus_TUR_the_sun_language_theory
+      cost = 6
+	  x = -3
+	  y = 2
+	 relative_position_id = INA_enhancbelife
+      prerequisite = {
+         focus = INA_enhancbelife
+      }  
+	
+      available ={       
+          }
+	 mutually_exclusive = {
+		 focus = INA_yaeearthlydeity
+      } 
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	    ##鸣神的常世神
+     focus = {
+      id = INA_yaeearthlydeity
+      icon = GFX_focus_TUR_ratify_the_six_arrows
+      cost = 6
+	  x = -1
+	  y = 2
+	 relative_position_id = INA_enhancbelife
+      prerequisite = {
+         focus = INA_enhancbelife
+      }  
+      available ={       
+          }
+	mutually_exclusive = {
+		 focus = INA_yaeisgod
+      } 
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	     ##常世神
+     focus = {
+      id = INA_yaediviegaze
+      icon = GFX_focus_renounce_the_treaty_of_trianon
+      cost = 6
+	  x = -1
+	  y = 1
+	 relative_position_id = INA_yaeearthlydeity
+      prerequisite = {
+         focus = INA_yaeearthlydeity
+         focus = INA_yaeisgod
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	 ##治愈神迹
+     focus = {
+      id = INA_yaeblesscure
+      icon = GFX_focus_generic_concessions
+      cost = 6
+	  x = 1
+	  y = 1
+	 relative_position_id = INA_yaeearthlydeity
+      prerequisite = {
+         focus = INA_yaeearthlydeity
+         focus = INA_yaeisgod
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  ##财富神迹
+     focus = {
+      id = INA_yaeblessgold
+      icon = GFX_focus_usa_reestablish_the_gold_standard
+      cost = 6
+	  x = -1
+	  y = 1
+	 relative_position_id = INA_yaeisgod
+      prerequisite = {
+         focus = INA_yaeearthlydeity
+         focus = INA_yaeisgod
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	    ##财富之神
+     focus = {
+      id = INA_yaeisgodofrich
+      icon = GFX_focus_mex_privatisation
+      cost = 6
+	  x = 1
+	  y = 2
+	 relative_position_id = INA_yaeblessgold
+      prerequisite = {
+         focus = INA_yaeblessgold
+      }  
+	prerequisite = {       
+         focus = INA_yaediviegaze
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	     #治愈之神
+     focus = {
+      id = INA_yaeisgodofcure
+      icon = GFX_focus_mex_restore_the_army_of_christ
+      cost = 6
+	  x = 1
+	  y = 2
+	 relative_position_id = INA_yaediviegaze
+      prerequisite = {
+         focus = INA_yaeblesscure
+      }  
+	prerequisite = {       
+         focus = INA_yaediviegaze
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	#众神眷恋的稻妻
+     focus = {
+      id = INA_anothergod
+      icon = GFX_focus_hol_continue_the_war_in_batavia
+      cost = 6
+	  x = 1
+	  y = 1
+	 relative_position_id = INA_yaeisgodofrich
+      prerequisite = {
+         focus = INA_yaeisgodofrich
+		 focus = INA_yaeisgodofcure
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##	  
+      }
+      ai_will_do = { factor = 1}
+      }
+ 	#神子的秘密顾问
+	focus = {
+		id = INA_mikosecrects
+		icon = GFX_goal_tfv_generic_tech_sharing
+		x = 2
+		y = 0
+		relative_position_id = INA_foxgovernment
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		cost = 20
+         available ={
+         has_war = no
+		 has_completed_focus=INA_foxgovernment
+      }
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+		#触发事件：九条的秘密科技
+		}
+	}
+
+ ##扩大外交
+	focus = {
+      id = INA_enlardiplomacy
+      icon = GFX_focus_generic_diplomatic_treaty
+      cost = 6
+	  x = 1
+	  y = 1
+	 relative_position_id = INA_foxgovernment
+      prerequisite = {
+         focus = INA_foxgovernment
+      }  
+      available ={       
+          }
+      completion_reward = {
+			every_other_country = {
+				add_opinion_modifier = {
+					target = INA
+					modifier = INA_enlardiplomacy
+				}
+			add_country_leader_trait = INA_mikodiplomat
+			}
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	     ##蒙德外交
+	  focus = {
+      id = INA_diplomacyformot
+      icon = GFX_focus_generic_befriend_greece
+      cost = 6
+	  x =4
+	  y = 2
+	 relative_position_id = INA_enlardiplomacy
+      prerequisite = {
+         focus = INA_enlardiplomacy
+		  focus = INA_meimiko
+      }  
+      available ={       
+          }
+      completion_reward = {
+			MOT = {
+				add_opinion_modifier = {
+					target = INA
+					modifier = INA_diplomacyformot
+				}
+				}
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	    ##蒙德农业合作
+	  focus = {
+      id = INA_agriculturalcooperation
+      icon = GFX_focus_generic_truck
+      cost = 8
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_diplomacyformot
+      prerequisite = {
+         focus = INA_diplomacyformot
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，蒙德备忘录。如果他们同意，则对方获得2个地图外工厂，我方获得5消费品，持续3年。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	 ##蒙德同盟的可能
+	   focus = {
+      id = INA_alliedmot
+      icon = GFX_goal_support_democracy
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_agriculturalcooperation
+      prerequisite = {
+         focus = INA_agriculturalcooperation
+      }  
+	   mutually_exclusive = {
+		 focus = INA_reconciledwithsnow
+      }
+      available ={  has_completed_focus=INA_foxgovernment
+          }
+      completion_reward = {
+      ##蒙德触发事件，稻妻的同盟建议。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	   ##天空同盟
+	   focus = {
+      id = INA_alliedair
+      icon = GFX_focus_generic_aircraft_production
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_alliedmot
+      prerequisite = {
+         focus = INA_alliedmot
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##蒙德触发事件，稻妻的同盟建议。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  
+     ##须弥外交
+	   focus = {
+      id = INA_diplomacyforsum
+      icon = GFX_focus_intervention_spain_nationalists
+      cost = 6
+	  x = 2
+	  y = 1
+	 relative_position_id = INA_enlardiplomacy
+      prerequisite = {
+         focus = INA_enlardiplomacy
+		  focus = INA_meimiko
+      }  
+      available ={       
+          }
+      completion_reward = {
+				SUM = {
+				add_opinion_modifier = {
+					target = INA
+					modifier = INA_diplomacyforsum
+				}
+				}
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	 ##须弥外交备忘录
+	   focus = {
+      id = INA_memorandumforsum
+      icon = GFX_focus_ITA_by_blood_alone
+      cost = 8
+	  x =0
+	  y = 1
+	 relative_position_id = INA_diplomacyforsum
+      prerequisite = {
+         focus = INA_diplomacyforsum
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	   ##须弥同盟的可能
+	   focus = {
+      id = INA_alliedsum
+      icon = GFX_goal_anschluss
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_memorandumforsum
+      prerequisite = {
+         focus = INA_memorandumforsum
+      }  
+	   mutually_exclusive = {
+		 focus = INA_reconciledwithlyy
+      }
+      available ={  has_completed_focus=INA_foxgovernment
+          }
+      completion_reward = {
+      ##须弥触发事件，稻妻的同盟建议。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	    ##科研协议
+	   focus = {
+      id = INA_allieresearch
+      icon = GFX_focus_research
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_alliedsum
+      prerequisite = {
+         focus = INA_alliedsum
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##须弥触发事件，科研同盟。  
+      }
+	  
+      ai_will_do = { factor = 1}
+      }
+	    ##引进虚空
+	   focus = {
+      id = INA_introduceviod
+      icon = GFX_goal_generic_scientific_exchange
+      cost = 4
+	  x =0
+	  y = 1
+	 relative_position_id = INA_allieresearch
+      prerequisite = {
+         focus = INA_allieresearch
+      } 
+      available ={       
+		 has_completed_focus=INA_academy
+          }
+      completion_reward = {
+      ##稻妻触发事件，科技天网。  二选一，-10速度+1槽，+12速度
+      }
+      ai_will_do = { factor = 1}
+      }
+	      ##全面使用虚空
+	   focus = {
+      id = INA_alluseviod
+      icon = GFX_focus_research2
+      cost = 14
+	  x = -1
+	  y = 1
+	 relative_position_id = INA_introduceviod
+      prerequisite = {
+         focus = INA_introduceviod
+      } 
+	    mutually_exclusive = {
+		 focus = INA_partuseviod
+      }
+	  search_filters = {FOCUS_FILTER_RESEARCH}
+      available ={       
+		 has_completed_focus=INA_academy
+		  has_war = no
+         num_of_factories > 280
+          }
+      completion_reward = {
+     add_research_slot = 1 
+	 #获得debuff,虚空依赖-15%科研。
+      }
+      ai_will_do = { factor = 1}
+      }
+	      ##全面使用虚空
+	   focus = {
+      id = INA_partuseviod
+      icon = GFX_goal_tfv_generic_tech_sharing
+      cost = 4
+	  x = 1
+	  y = 1
+	 relative_position_id = INA_introduceviod
+	 search_filters = {FOCUS_FILTER_RESEARCH}
+	 available ={       
+		 has_completed_focus=INA_academy
+		  has_war = no
+         num_of_factories > 200
+          }
+      prerequisite = {
+         focus = INA_introduceviod
+      } 
+	   mutually_exclusive = {
+		 focus = INA_alluseviod
+      }
+      available ={       
+          }
+      completion_reward = {
+    #科研速度+15%
+      }
+      ai_will_do = { factor = 1}
+      }
+   ##璃月外交
+	focus = {
+      id = INA_diplomacyforlyy
+      icon = GFX_focus_generic_diplomatic_treaty
+      cost = 6
+	  x = -2
+	  y = 1
+	 relative_position_id = INA_enlardiplomacy
+      prerequisite = {
+         focus = INA_enlardiplomacy
+      }  
+      available ={       
+          }
+      completion_reward = {
+			LYY = {
+				add_opinion_modifier = {
+					target = INA
+					modifier = INA_diplomacyforlyy
+				}
+			}
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+   ##璃月外交备忘录
+	focus = {
+      id = INA_memorandumforlyy
+      icon = GFX_focus_ITA_topple_amhara_rulers
+      cost = 10
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_diplomacyforlyy
+      prerequisite = {
+         focus = INA_diplomacyforlyy
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	   ##璃月和解的可能
+	   focus = {
+      id = INA_reconciledwithlyy
+      icon = GFX_goal_generic_alliance
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_memorandumforlyy
+      prerequisite = {
+         focus = INA_memorandumforlyy
+      }  
+	   mutually_exclusive = {
+		 focus = INA_alliedsum
+      }
+      available ={       
+          }
+      completion_reward = {
+      ##璃月触发事件，稻妻的同盟建议。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  
+	   ##煤钢同盟
+	   focus = {
+      id = INA_alliedmine
+      icon = GFX_focus_generic_steel
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_reconciledwithlyy
+      prerequisite = {
+         focus = INA_reconciledwithlyy
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，煤钢同盟。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  
+	   ##八重产业
+	   focus = {
+      id = INA_introducemine
+      icon = GFX_focus_generic_industry_3
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_alliedmine
+      prerequisite = {
+         focus = INA_alliedmine
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，神子的新企业。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  ##鸣神矿业
+	   focus = {
+      id = INA_yaeminefactory
+      icon = GFX_goal_generic_construction2
+      cost = 10
+	  x =-1
+	  y = 1
+	 relative_position_id = INA_introducemine
+	  mutually_exclusive = {
+		 focus = INA_yaebuidingfactory
+      } 
+      prerequisite = {
+         focus = INA_introducemine
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，神子的新企业。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	 ##神狐建筑司
+	   focus = {
+      id = INA_yaebuidingfactory
+      icon = GFX_goal_generic_construction
+      cost = 10
+	  x = 1
+	  y = 1
+	 relative_position_id = INA_introducemine
+	    mutually_exclusive = {
+		 focus = INA_yaeminefactory
+      } 
+	  prerequisite = {
+         focus = INA_introducemine
+      } 
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，神子的新企业。  
+      }
+      ai_will_do = { factor = 1}
+      }
+
+
+	 ##至冬外交
+	focus = {
+      id = INA_diplomacyforsnow
+      icon = GFX_goal_generic_intelligence_exchange
+      cost = 12
+	  x = -5
+	  y = 2
+	 relative_position_id = INA_enlardiplomacy
+      prerequisite = {
+         focus = INA_enlardiplomacy
+      }  
+      available ={       
+          }
+      completion_reward = {
+			SNE = {
+				add_opinion_modifier = {
+					target = INA
+					modifier = INA_diplomacyforsnow
+				}
+			}
+		
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	##军事合作
+	focus = {
+      id = INA_milcooperation
+      icon = GFX_focus_generic_manpower
+      cost = 12
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_diplomacyforsnow
+      prerequisite = {
+         focus = INA_diplomacyforsnow
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，外交方向。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	     ##至冬和解的可能
+	   focus = {
+      id = INA_reconciledwithsnow
+      icon = GFX_goal_generic_alliance
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_milcooperation
+      prerequisite = {
+         focus = INA_milcooperation
+      }  
+	   mutually_exclusive = {
+		 focus = INA_alliedmot
+      }
+      available ={       
+          }
+      completion_reward = {
+      ##至冬触发事件，稻妻的同盟建议。  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  
+	 ##装甲同盟
+	   focus = {
+      id = INA_alliedarms
+      icon = GFX_focus_generic_tankette
+      cost = 6
+	  x =0
+	  y = 1
+	 relative_position_id = INA_reconciledwithsnow
+      prerequisite = {
+         focus = INA_reconciledwithsnow
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##触发事件，装甲同盟,启用特殊制造商，至冬装甲司。  
+      }
+      ai_will_do = { factor = 1}
+      }
+
+   ##重启社奉行
+      focus = {
+      id = INA_reuseshefengxi
+      icon = goal_INA3
+      cost = 5
+        x =9
+	   y = 2
+	  relative_position_id = INA_foxgovernment
+      prerequisite = {
+         focus = INA_foxgovernment
+		 focus = INA_newina }
+      available ={   }
+      completion_reward = {
+     country_event = INA.23
+      }
+      ai_will_do = {
+        factor = 1
+      }
+     }
+	   ##白鹭霜华
+      focus = {
+      id = INA_reuseayaka
+      icon = goal_INA3
+      cost = 5
+        x =0
+	   y = 1
+	 relative_position_id = INA_reuseshefengxi
+      prerequisite = { focus = INA_reuseshefengxi}
+      completion_reward = {
+	 country_event = INA.24
+      }
+      ai_will_do = {
+        factor = 1
+      }
+     }
+	##内政焦点
+      focus = {
+      id = INA_meiayaka
+      icon = goal_INA3
+      cost = 5
+        x =0
+	   y = 1
+	 relative_position_id = INA_reuseayaka
+      prerequisite = { focus = INA_reuseayaka}
+	available ={  has_completed_focus = INA_newina
+          }
+      completion_reward = {
+		#触发事件，神里家的方案。
+      }
+      ai_will_do = {
+        factor = 1
+      }
+     }
+	##人口促进
+      focus = {
+      id = INA_islandexploitation
+      icon = GFX_focus_generic_population_growth
+      cost = 5
+        x =0
+	   y = 1
+	 relative_position_id = INA_meiayaka
+      prerequisite = { focus = INA_meiayaka}
+	 prerequisite = { focus = INA_agriculturalcooperation}
+      completion_reward = {
+		#触发事件，人口促进。
+      }
+      ai_will_do = {
+        factor = 1
+      }
+     }
+
+	  ##启用早柚
+    focus = {
+      id = INA_reusesaya
+      icon = goal_INA3
+      cost = 8
+      x =7
+	 y = 1
+	 relative_position_id = INA_foxgovernment
+      prerequisite = {
+          focus = INA_foxgovernment
+		 focus = INA_newina
+      }
+      available ={
+          }
+      completion_reward = {
+     country_event = INA.26
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+     }
+	focus = {
+      id = INA_spyamry
+      icon = goal_INA3
+      cost = 6
+       x =0
+	 y = 1
+	  relative_position_id = INA_reusesaya
+     ##直属终末番
+      prerequisite = {
+         focus = INA_reusesaya
+      }
+      available ={  has_completed_focus=INA_foxgovernment
+          }
+      completion_reward = {
+      }
+      ai_will_do = {
+        factor = 1
+      }
+     }
+      focus = {
+      id = INA_godheart
+      icon = goal_Raiden
+      cost = 4
+      x = 0
+      y = 1
+	 relative_position_id = INA_normagovernment
+     ##拜访神社
+      prerequisite = {
+         focus = INA_normagovernment
+      }
+      available ={       
+          }
+      completion_reward = {
+      remove_ideas = INA_disaster	
+      add_political_power = -50  
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	focus = {
+      id = INA_beyondmyself
+      icon = goal_Raiden
+      cost = 8
+       x = 0
+      y = 1
+	 relative_position_id = INA_godheart
+     ##击败过去
+      prerequisite = {
+         focus = INA_godheart
+      }
+      available ={       
+          }
+      completion_reward = {
+
+      INA_Raiden = { 
+	  add_skill_level = 1
+        add_logistics = 1
+        add_planning = 1}	  
+       #启用顾问影，影四维+1
+	  
+      }####未来可以做成一个事件：影击败了将军
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+      focus = {
+      id = INA_newina
+      icon = goal_Raiden
+      cost = 8
+       x = 0
+      y = 1
+	 relative_position_id = INA_beyondmyself
+     ##直面未来
+      prerequisite = {
+         focus = INA_beyondmyself
+      }
+      available ={
+          }
+      completion_reward = {
+      add_political_power = 100
+	  remove_ideas = INA_huaping
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	  ##重整三奉行
+    focus = {
+      id = INA_remakefengxing
+      icon = goal_Raiden
+      cost = 8
+       x = 0
+      y = 1
+	 relative_position_id = INA_newina
+      prerequisite = {
+         focus = INA_newina
+      }
+      available ={       
+          }
+      completion_reward = {
+      remove_ideas = INA_government_corruption	   
+      }
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##群岛问题
+    focus = {
+      id = INA_meiremovedelusive
+      icon = GFX_focus_ITA_bend_the_bars
+      cost = 5
+      x = 0
+      y = 1
+     relative_position_id = INA_remakefengxing
+      prerequisite = {
+         focus = INA_remakefengxing
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：群岛问题。奖励3攻，宣战金苹果群岛。
+        country_event = INA.13 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##荡涤外海
+    focus = {
+      id = INA_meijudgeday
+      icon = GFX_focus_generic_military_dictatorship
+      cost = 5
+      x = 0
+      y = 1
+     relative_position_id = INA_meiremovedelusive
+      prerequisite = {
+         focus = INA_meiremovedelusive
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+       #触发事件：海波清平。奖励3防，彻底毁灭深渊。
+        country_event = INA.13 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+
+#神子提议
+	focus = {
+      id = INA_meimiko
+      icon = goal_Raiden
+      cost = 8
+       x = -2
+      y = 1
+	 relative_position_id = INA_newina
+      prerequisite = {
+         focus = INA_newina
+      }
+      available ={       
+          }
+      completion_reward = {
+       
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	#九条的提议
+	focus = {
+      id = INA_meisara
+      icon = goal_Raiden
+      cost = 8
+       x = 2
+      y = 1
+	 relative_position_id = INA_newina
+      prerequisite = {
+         focus = INA_newina
+      }
+      available ={       
+          }
+      completion_reward = {
+       
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+  #山崩计划
+	focus = {
+		id = INA_planofmountain
+		icon = GFX_focus_generic_fascist_troops
+		prerequisite = { focus = INA_meisara }
+		x =0
+		y = 1
+		relative_position_id = INA_meisara
+		cost = 5
+       available ={
+         has_war = no
+         }
+		available_if_capitulated = no
+		completion_reward = {
+		#触发事件，山崩计划
+		 country_event = INA.11    
+		}
+	}
+		#影的秘密顾问
+	focus = {
+		id = INA_meisecrects
+		icon = GFX_goal_tfv_generic_tech_sharing
+		x = 2
+		y = 1
+		relative_position_id = INA_beyondmyself
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		cost = 20
+         available ={
+         has_war = no
+		 has_completed_focus=INA_newina
+      }
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+		#触发事件：九条的秘密科技
+		}
+	}
+	focus = {
+      id = INA_guanzhi
+      icon = goal_ASA
+      cost = 1
+      x = 0
+      y = 1
+	 relative_position_id = INA_militarygovernment
+     ##军事管制
+      prerequisite = {
+         focus = INA_militarygovernment
+      }
+      available ={       
+          }
+      completion_reward = {
+      add_political_power = 50
+	  remove_ideas = INA_government_corruption	
+       
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	focus = {
+      id = INA_reusewood
+      icon = goal_ASA
+      cost = 9
+      x = 0
+      y = 1
+	 relative_position_id = INA_guanzhi
+     ##利用雷击木
+      prerequisite = {
+         focus = INA_guanzhi
+      }
+	search_filters = {FOCUS_FILTER_INDUSTRY }
+      available ={       
+          }
+      completion_reward = {
+	  remove_ideas = INA_disaster
+	  	random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+		add_extra_state_shared_building_slots = 4
+	    add_building_construction = {
+					type = arms_factory
+                    level = 4
+					instant_build = yes
+				}
+		}
+      }
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	focus = {
+      id = INA_saragetcontrol
+      icon = goal_ASA
+      cost = 7
+       x = 0
+      y = 1
+	 relative_position_id = INA_reusewood
+     ##九条幕府
+      prerequisite = {
+         focus = INA_reusewood
+      }
+      available ={       
+          }
+      completion_reward = {
+	   INA_Sara = {
+	   add_attack = 2
+        add_logistics = 1
+        add_planning = 1
+		}
+	 #领袖替换为九条
+				}
+       
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+
+	focus = {
+      id = INA_saramobilize
+      icon = GFX_goal_generic_trade
+      cost = 5
+     x = 2
+      y = 1
+	 relative_position_id = INA_saragetcontrol
+     ##军事动员
+      prerequisite = {
+         focus = INA_saragetcontrol
+      }
+      available ={       
+          }
+      completion_reward = {
+	 #获得军事动员
+			if = {
+				limit = {
+					NOT = { has_idea = war_economy }
+					NOT = { has_idea = tot_economic_mobilisation }
+				}
+				add_ideas = war_economy
+			}
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }	
+	#内战调查
+	focus = {
+		id = INA_warinspect
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = INA_saragetcontrol }
+		x = 4
+		y = 1
+		relative_position_id = INA_saragetcontrol
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		#触发事件：内战的黑手们
+		}
+	}
+		#武备升级
+	focus = {
+		id = INA_equipmentupgrade
+		icon = GFX_focus_chi_army_reform
+		prerequisite = { focus = INA_saramobilize
+		 focus = INA_meisara
+		  }
+		x =0
+		y = 1
+		relative_position_id = INA_saramobilize
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+				add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.8
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+    #顽石计划
+	focus = {
+		id = INA_planofstone
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = INA_equipmentupgrade }
+		prerequisite = { focus = INA_warinspect }
+		x =0
+		y = 1
+		relative_position_id = INA_equipmentupgrade
+		cost = 5
+       available ={
+         has_war = no
+         }
+		available_if_capitulated = no
+		completion_reward = {
+		#触发事件：顽石计划
+		 country_event = INA.11    
+		}
+	}
+	#罪与罚
+	focus = {
+		id = INA_bloodforblood
+		icon = GFX_goal_anti_comintern_pact
+		prerequisite = { focus = INA_planofstone }
+		x =0
+		y = 1
+		relative_position_id = INA_planofstone
+		cost = 12
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		#触发事件：罪与罚
+		country_event = INA.21
+		}
+	}
+	#蒙德外交
+	focus = {
+		id = INA_conntactmot
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = INA_warinspect }
+		x =0
+		y = 1
+		relative_position_id = INA_warinspect
+		cost = 12
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		#触发事件：访问蒙德。
+		}
+	}
+	#雪崩计划
+	focus = {
+		id = INA_snowplan
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = INA_conntactmot }
+		x =0
+		y = 1
+		relative_position_id = INA_conntactmot
+		cost = 5
+        available ={
+         has_war = no
+         }
+		available_if_capitulated = no
+
+		completion_reward = {
+		#触发事件：雪崩计划。
+		country_event = INA.12 
+		}
+	}
+	#傲慢的代价
+	focus = {
+		id = INA_eyeforeye
+		icon = GFX_focus_jap_manchurian_project
+		prerequisite = { focus = INA_snowplan }
+		x =0
+		y = 1
+		relative_position_id = INA_snowplan
+		cost = 12
+        available ={
+         has_war = no
+		 has_completed_focus=INA_saragetcontrol
+         }
+		available_if_capitulated = no
+
+		completion_reward = {
+		#触发事件：傲慢的代价
+		country_event = INA.22 
+		}
+	}
+	#最佳从属
+	focus = {
+		id = INA_bestretinue
+		icon = GFX_focus_jap_zaibatsu
+		prerequisite = { focus = INA_bloodforblood }
+		prerequisite = { focus = INA_eyeforeye }
+		x =-1
+		y = 1
+		relative_position_id = INA_eyeforeye
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 
+      ai_will_do = {
+        factor = 1
+      }
+		available_if_capitulated = no
+
+		completion_reward = {
+		#触发事件：最佳从属
+		}
+	}
+		#支配天空
+	focus = {
+		id = INA_controlsky
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = INA_saragetcontrol }
+		x =-1
+		y = 1
+		relative_position_id = INA_saragetcontrol
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 
+      ai_will_do = {
+        factor = 1
+      }
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+			}
+	
+		}
+	}
+		#轻型战斗机
+	focus = {
+		id = INA_lightfighter
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = INA_controlsky }
+		x = 1
+		y = 1
+		relative_position_id = INA_controlsky
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 0.5
+				uses = 1
+				category = air_equipment
+			}	
+			if = {
+					limit = {
+						NOT = { has_tech = iw_small_airframe }
+					}
+					set_technology = { iw_small_airframe = 1 }
+				}
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = light_air
+			}	
+
+				}
+	
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+			#大型战斗机
+	focus = {
+		id = INA_midfighter
+		icon = GFX_focus_generic_long_range_aircraft
+		prerequisite = { focus = INA_controlsky }
+		x = -1
+		y = 1
+		relative_position_id = INA_controlsky
+		cost = 10
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 0.5
+				uses = 1
+				category = air_equipment
+			}	
+			if = {
+					limit = {
+						NOT = { has_tech = iw_medium_airframe }
+						NOT = { has_tech = iw_large_airframe }
+					}
+					set_technology = { iw_medium_airframe = 1 }
+					set_technology = { iw_large_airframe = 1 }
+				}
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = medium_air
+			}	
+
+				}
+	
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#天空之王
+	focus = {
+		id = INA_sarakingofsky
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = INA_lightfighter }
+		prerequisite = { focus = INA_midfighter }
+		x = 0
+		y = 1
+		relative_position_id = INA_midfighter
+		cost = 10
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+			if = {
+					limit = {
+						NOT = { has_tech = photo_reconnaisance }
+						NOT = { has_tech = engines_1 }
+					}
+					set_technology = { photo_reconnaisance = 1 }
+					set_technology = { engines_1 = 1 }
+				}
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = cat_air_engine
+			}	
+
+				}
+			
+		}
+	}
+	#海空之王
+	focus = {
+		id = INA_saraaircraft
+		icon = GFX_focus_generic_multi_role_aircraft
+		prerequisite = { focus = INA_lightfighter }
+		prerequisite = { focus = INA_midfighter }
+		x = 0
+		y = 1
+		relative_position_id = INA_lightfighter
+		cost = 10
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+		if = {
+					limit = {
+						NOT = { has_tech = air_torpedoe_1 }
+						NOT = { has_tech = aa_lmg }
+					}
+					set_technology = { air_torpedoe_1 = 1 }
+					set_technology = { aa_lmg = 1 }
+				}
+			else = {
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 1.5
+				uses = 1
+				category = air_equipment
+			}	
+
+				}
+		}
+	}
+	#标准化
+	focus = {
+		id = INA_sarastandardization
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = INA_saraaircraft
+		 focus = INA_sarakingofsky }
+		x = 0
+		y = 1
+		relative_position_id = INA_saraaircraft
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = ITA_standardization_ra_tt
+
+			hidden_ideas = {
+				add_ideas = ITA_hidden_standardization_ns
+			}
+			add_tech_bonus = {
+				name = ITA_standardization
+				bonus = 0.75
+				uses = 1
+				category = tactical_bomber
+				category = light_fighter
+				category = cat_strategic_bomber
+			}
+			
+		}
+	}
+	#专业化
+	focus = {
+		id = INA_saraspecialization
+		icon = GFX_goal_generic_air_production
+		prerequisite = { focus = INA_saraaircraft
+		 focus = INA_sarakingofsky }
+		x = -2
+		y = 1
+		relative_position_id = INA_saraaircraft
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+
+			hidden_ideas = {
+				add_ideas = HOL_modernize_the_air_fleet days
+			}
+			air_experience = 45
+			
+		}
+	}
+	#空军繁荣
+	focus = {
+		id = INA_sarasupremacyinsky
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = INA_saraspecialization }
+		prerequisite = { focus = INA_sarastandardization }
+		x = 1
+		y = 1
+		relative_position_id = INA_saraspecialization
+		cost = 5
+        available ={
+         has_war = no
+         }
+		 search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIR_XP}
+		
+         ai_will_do = {
+        factor = 1
+        }
+		available_if_capitulated = no
+
+		completion_reward = {
+		    
+			air_experience = 50
+
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				ITA_add_supremacy_in_the_skies_templates = yes
+			}
+
+			
+		}
+	}
+
+	   ##启用平藏
+    focus = {
+      id = INA_reuseheizou
+      icon = goal_ASA
+      cost = 8
+      x = 6
+      y = 1
+	 relative_position_id = INA_newina
+      prerequisite = {
+         focus = INA_saragetcontrol
+         focus = INA_newina
+      }
+      available ={
+          }
+      completion_reward = {
+     country_event = INA.25
+				}
+
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	   ##鹿野院情报部
+      focus = {
+      id = INA_heizouamry
+      icon = GFX_focus_generic_secret_service_agency
+      cost = 5
+       x = 0
+      y = 1
+	 relative_position_id = INA_reuseheizou
+      prerequisite = {focus = INA_reuseheizou}
+      available ={ has_completed_focus = INA_saragetcontrol}
+      completion_reward = { 	}
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	#九条秘密顾问
+	focus = {
+		id = INA_sarasecrects
+		icon = GFX_goal_tfv_generic_tech_sharing
+		x = 2
+		y = 1
+		relative_position_id = INA_reusewood
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		cost = 20
+         available ={
+         has_war = no
+		 has_completed_focus=INA_saragetcontrol
+      }
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+		#触发事件：九条的秘密科技
+		}
+	}
+	
+	##设立战帅
+    focus = {
+      id = INA_sarawarlord
+      icon = GFX_focus_generic_military_dictatorship
+      cost = 8
+      x = 6
+      y = 1
+	 relative_position_id = INA_saragetcontrol
+      prerequisite = {
+         focus = INA_saragetcontrol
+      }
+      available ={
+          }
+      completion_reward = {
+				}
+
+      ai_will_do = {
+        factor = 1
+      }
+    }  
+	 ##动员口号（九条）
+     focus = {
+      id = INA_sarareformation
+      icon = GFX_focus_hol_the_foundations_of_defense
+      cost = 6
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_sarawarlord
+      prerequisite = {
+         focus = INA_sarawarlord
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##战帅命令往下传	  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  ##天鹰军团（九条）
+     focus = {
+      id = INA_sarabersaglieri
+      icon = GFX_focus_ITA_bersaglieri
+      cost = 6
+	  x = 0
+	  y = 1
+	 relative_position_id = INA_sarareformation
+      prerequisite = {
+         focus = INA_sarareformation
+      }  
+      available ={       
+          }
+      completion_reward = {
+      ##天鹰旗一展大军冲向前	
+	  	set_technology = { bicycle_infantry = 1 popup = no }  
+      }
+      ai_will_do = { factor = 1}
+      }
+	  ##天罚
+	focus = {
+      id = INA_apocalyse
+      icon = goal_INA
+      cost = 5
+      x = 0
+      y = 1
+	 relative_position_id = INA_extragovernment
+      available ={   }
+	 prerequisite = {
+         focus = INA_extragovernment
+      }
+      completion_reward = {
+		 INA_army_corruption_clear_all = yes
+		  remove_ideas = INA_government_corruption	
+		  remove_ideas = INA_disaster
+	      remove_ideas = INA_pirate
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+  	focus = {
+      id = INA_elementenemy
+      icon = goal_INA
+      cost = 5
+      x = 0
+      y = 1
+	   relative_position_id = INA_apocalyse
+     ##永恒之敌
+      prerequisite = {
+         focus = INA_apocalyse
+      }
+      available ={       
+          }
+    completion_reward = {
+	remove_ideas = INA_huaping
+	add_ideas = INA_complete
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+##万世不易
+    focus = {
+      id = INA_elementcontrol
+      icon = goal_INA
+      cost = 5
+      x = 0
+      y = 1
+      relative_position_id = INA_elementenemy
+      prerequisite = {
+         focus = INA_elementenemy
+      }
+      available ={       
+          }
+      completion_reward = {
+     INA_Raiden = {
+		add_defense = 5
+		add_attack = 5
+        add_logistics = 5
+        add_planning = 5
+     }
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+		##最近天理
+    focus = {
+      id = INA_connectoforder
+      icon = GFX_goal_tfv_strengthen_commonwealth_ties
+      cost = 10
+      x = 0
+      y = 1
+     relative_position_id = INA_elementcontrol
+      prerequisite = {
+         focus = INA_elementcontrol
+      }
+      available ={       
+          }
+      completion_reward = {
+    #触发事件：与维系者的会面。如果对方同意，则获取民族精神，提瓦特监视者。
+				}
+       
+      ai_will_do = { factor = 1 }
+    }
+	##何谓神明
+    focus = {
+      id = INA_whatsmygoddness
+      icon = GFX_focus_SWE_Sami_reconcilliation
+      cost = 5
+      x = -2
+      y = 1
+     relative_position_id = INA_connectoforder
+      prerequisite = {
+         focus = INA_connectoforder
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：狂热崇拜
+        country_event = INA.13 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##神明赐福
+    focus = {
+      id = goddnessbless
+      icon = GFX_goal_demand_sudetenland
+      cost = 10
+      x = 0
+      y = 1
+     relative_position_id = INA_whatsmygoddness
+      prerequisite = {
+         focus = INA_whatsmygoddness
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：赐福
+       add_ideas = JAP_superior_will
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##永恒帝国
+    focus = {
+      id = eletarnalemperer
+      icon = GFX_focus_SWE_counter_revolution
+      cost = 10
+      x = 0
+      y = 1
+     relative_position_id = goddnessbless
+      prerequisite = {
+         focus = goddnessbless
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+     #触发事件：允许宣称永恒帝国，允许添加孤云阁，金苹果群岛，深渊，蒙德外岛，天空岛核心。
+	   custom_effect_tooltip = SWE_greater_nordic_reich_tt
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##肃清阻碍
+    focus = {
+      id = INA_removedelusive
+      icon = GFX_focus_usa_focus_on_europe
+      cost = 5
+      x = 0
+      y = 1
+     relative_position_id = INA_connectoforder
+      prerequisite = {
+         focus = INA_connectoforder
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+ #触发事件：肃清阻碍。奖励4攻
+        country_event = INA.13 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	#将军秘密顾问
+	focus = {
+		id = INA_raidensecrects
+		icon = GFX_goal_tfv_generic_tech_sharing
+		x = 2
+		y = 0
+		relative_position_id = INA_elementcontrol
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		cost = 20
+         available ={
+         has_war = no
+		has_completed_focus=INA_elementcontrol
+      }
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+		#触发事件：将军的秘密科技
+		}
+	}
+	##山崩地裂
+    focus = {
+      id = INA_removely
+      icon = GFX_focus_usa_focus_on_asia
+      cost = 5
+      x = 2
+      y = 1
+     relative_position_id = INA_connectoforder
+      prerequisite = {
+         focus = INA_connectoforder
+      }
+      available ={     has_war = no    
+          }
+      completion_reward = {
+      #触发事件：山崩地裂。奖励4防，奖励持续3年对璃月15攻防加成
+          country_event = INA.14 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }##狂风止息
+    focus = {
+      id = INA_removemot
+      icon = GFX_focus_generic_aegean_sea_focus
+      cost = 5
+      x = 4
+      y = 1
+     relative_position_id = INA_connectoforder
+      prerequisite = {
+         focus = INA_connectoforder
+      }
+      available ={       has_war = no  
+          }
+      completion_reward = {
+          #触发事件：狂风止息。奖励3后勤，奖励持续3年对蒙德12攻防加成
+          country_event = INA.15 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+
+	##天理折枝
+    focus = {
+      id = INA_mowing
+      icon = GFX_focus_generic_mediterranean_sea_focus
+      cost = 8
+      x = 0
+      y = 2
+     relative_position_id = INA_removely
+      prerequisite = {
+         focus = INA_removely
+      }
+      available ={      has_war = no   
+          }
+      completion_reward = {
+    #触发事件：天理折枝，+4计划，向须弥宣战。
+	country_event = INA.16 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##流水不腐
+    focus = {
+      id = INA_waterfall
+      icon = GFX_focus_GRE_byzantine_themata
+      cost = 8
+      x = -2
+      y = 2
+     relative_position_id = INA_removely
+      prerequisite = {
+         focus = INA_removely
+      }
+      available ={         has_war = no
+          }
+      completion_reward = {
+    #触发事件：流水不腐，+2攻防，向枫丹宣战。
+	country_event = INA.17 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##薪火不灭
+    focus = {
+      id = INA_eternalfire
+      icon = GFX_focus_generic_balkans_focus
+      cost = 8
+      x = 0
+      y = 2
+     relative_position_id = INA_removemot
+      prerequisite = {
+         focus = INA_removemot
+      }
+      available ={         has_war = no
+          }
+      completion_reward = {
+    #触发事件：流水不腐，+2后勤+2计划，向纳塔宣战。
+	country_event = INA.18 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##惊雷破冬
+    focus = {
+      id = INA_eternalsnow
+      icon = GFX_focus_ger_strike_at_the_source
+      cost = 10
+      x = 2
+      y = 2
+     relative_position_id = INA_removemot
+      prerequisite = {
+         focus = INA_removemot
+      }
+      available ={   has_war = no      
+          }
+      completion_reward = {
+    #触发事件：惊雷破冬，全属性+1，向至冬宣战。
+	country_event = INA.19 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+	##直到时空的尽头
+    focus = {
+      id = INA_eternalforever
+      icon = GFX_focus_rom_royal_dictatorship
+      cost = 10
+      x = -3
+      y = 1
+     relative_position_id = INA_eternalsnow
+       prerequisite = {  focus = INA_eternalfire }
+	   prerequisite = {  focus = INA_eternalsnow }
+	   prerequisite = {  focus = INA_mowing }
+	   prerequisite = {  focus = INA_waterfall }
+       available ={    has_war = no
+		 has_completed_focus=INA_removedelusive     
+          }
+      completion_reward = {
+        #触发事件：直到时空的尽头。
+	     country_event = INA.20 
+				}
+       
+      ai_will_do = {
+        factor = 1
+      }
+    }
+
+	#勘定奉行
+   focus={
+		id=INA_renewbuiding
+		icon=GFX_goal_generic_production2
+		x=42
+		y=20
+		cost=8
+		available={
+			has_completed_focus=INA_governpower
+		}
+		completion_reward={
+		    add_timed_idea = {
+        idea = INA_industrial_focus
+        days = 180
+    }
+	  search_filters = {FOCUS_FILTER_INDUSTRY }
+		}
+		ai_will_do={
+			factor = 1
+		}
+	}
+	#军工部
+    focus={
+		id=INA_constructionsector
+		icon=GFX_goal_generic_construct_mil_factory
+		x=4
+		y=1
+		cost=9
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		relative_position_id =INA_renewbuiding
+        prerequisite={focus=INA_renewbuiding}
+		available={}
+		completion_reward={
+			  add_timed_idea = {
+        idea = INA_militaryindustrial_focus
+        days = 365
+		}
+		}
+		  
+		ai_will_do={
+			factor=1
+		}
+	}
+      #工业部
+    focus={
+		id=INA_industrialsector
+		icon=GFX_goal_generic_air_production
+		x=0
+		y=1
+		cost=9
+		relative_position_id = INA_renewbuiding
+        prerequisite={focus=INA_renewbuiding}
+		available={}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		completion_reward={
+		add_timed_idea = {
+        idea = INA_complexindustrial_focus
+        days = 365
+		}
+		}	
+		ai_will_do={
+			factor=1
+		}
+
+	}
+
+	    focus = {
+    id = INA_academy
+	#稻妻科学院#
+    icon = GFX_focus_research2
+    cost = 12
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = INA_renewbuiding
+    }
+    relative_position_id = INA_renewbuiding
+    available ={  has_war = no
+    num_of_factories > 180
+    amount_research_slots < 6
+    has_completed_focus=INA_electronicsresceach
+    }
+	search_filters = { FOCUS_FILTER_RESEARCH }
+    completion_reward = {
+	    add_research_slot = 1
+    }
+    ai_will_do = {
+      factor = 10
+    }
+    }
+	#电子部
+	    focus={
+		id=INA_electronicssector
+		icon=GFX_focus_POL_warsaw_main_station
+		x=-6
+		y=1
+		relative_position_id = INA_renewbuiding
+		cost=5.00
+        prerequisite={focus=INA_renewbuiding}
+		available={}
+		completion_reward={
+				add_tech_bonus = {
+					name = electronics_bonus
+					bonus =0.5
+					uses = 3
+					category = electronics
+				}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+      #信息技术研发
+	    focus={
+		id=INA_electronicsresceach
+		icon=GFX_goal_generic_radar
+		x=0
+		y=1
+		cost=5.00
+		relative_position_id = INA_electronicssector
+        prerequisite={focus=INA_electronicssector}
+		available={}
+		completion_reward={
+				add_tech_bonus = {
+					name = electronics_bonus
+					bonus =0.5
+					uses = 3
+					category = electronics
+				}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+
+	#翻新稻妻城
+	focus={
+		id=INA_rebuiding_mainisland
+		icon=GFX_focus_generic_industry_3
+		x=2
+		y=1
+		relative_position_id =INA_industrialsector
+		prerequisite={focus=INA_industrialsector
+		focus=INA_constructionsector
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		cost=5.00
+		available={
+			OR={
+				has_completed_focus=INA_elementcontrol
+				has_completed_focus=INA_saragetcontrol
+				has_completed_focus=INA_newina
+			}
+			OR={
+				has_full_control_of_state=146
+				has_full_control_of_state=147
+			}
+		}
+		completion_reward={
+			146={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_manpower=10000
+					add_extra_state_shared_building_slots=4
+					add_building_construction={
+						type=infrastructure
+						level=5
+						instant_build=yes
+					}
+				}
+			}
+			147={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_manpower=10000
+					add_extra_state_shared_building_slots=4
+					add_building_construction={
+						type=infrastructure
+						level=5
+						instant_build=yes
+					}
+				}
+			}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#离岛开发
+	focus={
+		id=INA_rebuiding_awayisland
+		icon=GFX_focus_generic_industry_1
+		x=-2
+		y=1
+		relative_position_id =INA_industrialsector
+		prerequisite={focus=INA_industrialsector}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+		completion_reward={
+			153={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+		#万国商会
+	focus={
+		id=INA_unioncommerce
+		icon=goal_INA2
+		x=0
+		y=1
+		relative_position_id = INA_rebuiding_awayisland 
+		prerequisite={focus=INA_rebuiding_awayisland}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+		completion_reward={
+			153={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				}
+			}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}	
+	#重建工业。
+	focus={
+		id=INA__reorganizetheindustry
+		icon=GFX_goal_generic_production2
+		x=0
+		y=1
+		relative_position_id = INA_unioncommerce 
+		prerequisite={focus=INA_unioncommerce}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+
+		completion_reward={	
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 2
+					category = industry
+					category = electronics
+				}
+	
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	
+	#修复踏鞴砂
+	focus={
+		id=INA_rebuiding_mainindustry
+		icon=goal_INA2
+		x= 0
+		y= 1
+		relative_position_id = INA_electronicsresceach
+        prerequisite={focus=INA_rebuiding_awayisland}
+        prerequisite={focus=INA_electronicsresceach}
+        prerequisite={
+        focus=INA_rebuiding_temple
+        focus=INA_rebuiding_mainisland
+        }
+		cost=5.00
+		available={
+			OR={
+				has_full_control_of_state=158
+				has_full_control_of_state=159
+				has_full_control_of_state=163
+			}
+		}
+		completion_reward={
+			158={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+			159={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+			163={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#先进维护计划
+    focus={
+		id=INA_rebuiding_reactor
+		icon=goal_INA2
+		x=0
+		y=1
+			relative_position_id = INA_rebuiding_mainindustry
+		prerequisite={focus=INA_rebuiding_mainindustry}
+		cost=5.00
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+		completion_reward={
+		 add_political_power = 50
+		}
+		ai_will_do={
+		factor=1
+		}
+	}   
+	 focus={
+		id=INA_new_reactor
+		icon=goal_INA2
+		x=0
+		y=1
+		relative_position_id = INA_rebuiding_reactor
+		prerequisite={focus=INA_rebuiding_reactor}
+		cost=5.00
+		available={
+			OR={
+				has_full_control_of_state=153
+			}
+		}
+		completion_reward={
+		 add_political_power = 50
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#开发影向山
+	focus={
+		id=INA_rebuiding_temple
+		icon=GFX_focus_generic_industry_2
+		x=0
+		y=1
+		relative_position_id =INA_industrialsector
+		prerequisite={focus=INA_industrialsector}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+			has_completed_focus=INA_yaegovernment
+			has_full_control_of_state=152
+			has_full_control_of_state=153
+		}
+		completion_reward={
+			152={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_manpower=2000000
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+            153={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_manpower=4000000
+					add_extra_state_shared_building_slots=6
+					add_building_construction={
+						type=infrastructure
+						level=2
+						instant_build=yes
+					}
+				}
+			}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#神社分店
+	focus={
+		id=INA_yaepublic
+		icon=goal_INA3
+		x=0
+		y=1
+		relative_position_id =INA_rebuiding_temple
+		prerequisite={focus=INA_rebuiding_temple}
+		cost=5.00
+		available={
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		completion_reward={
+		152={
+			if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					}
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+		}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#经济良好
+		focus={
+		id=INA_goodjob
+		icon=GFX_goal_generic_positive_trade_relations
+		x=0
+		y=1
+		relative_position_id =INA_yaepublic
+		prerequisite={focus=INA_yaepublic
+		focus=INA_unioncommerce}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+		}
+		completion_reward={
+			add_ideas = { FRA_market_dynamism }
+
+}
+		ai_will_do={
+		factor=1
+		}
+	}
+	#长野原烟花店
+	focus={
+		id=INA_yoimiyashop
+		icon=GFX_focus_SWE_urbanization
+		x=0
+		y=1
+		relative_position_id =INA_rebuiding_mainisland
+		prerequisite={focus=INA_rebuiding_mainisland}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+		}
+		completion_reward={
+		146={
+		 add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+		}}
+		ai_will_do={
+		factor=1
+		}
+	}
+    #御用锻造屋
+	focus={
+		id=INA_eyessimith
+		icon=goal_INA2
+		x=0
+		y=1
+		relative_position_id =INA_constructionsector
+		prerequisite={focus=INA_constructionsector}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+		}
+		completion_reward={
+		146={
+		 add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+		}}
+		ai_will_do={
+		factor=1
+		}
+	}
+    #经津流
+    focus={
+		id=INA_lightironform
+		icon=goal_INA2
+		x=2
+		y=1
+		relative_position_id =INA_eyessimith
+		prerequisite={focus=INA_eyessimith}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		mutually_exclusive = {focus=INA_heavyironform}
+		cost=5.00
+		available={
+		}
+		completion_reward={
+			147={
+		     add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+    #天目流
+    focus={
+		id=INA_heavyironform
+		icon=goal_INA2
+		x=0
+		y=1
+		relative_position_id =INA_eyessimith
+		prerequisite={focus=INA_eyessimith}
+		mutually_exclusive = {focus=INA_lightironform}
+		cost=5.00
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		available={
+		}
+		completion_reward={
+			146={
+		 add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				}
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+
+	#夏祭盛典
+	focus={
+		id=INA_summer_party
+		icon=GFX_focus_hol_fokker
+		x=0
+		y=1
+		relative_position_id =INA_yoimiyashop
+		prerequisite={focus=INA_yoimiyashop}
+		cost=5.00
+		available={
+		}
+		completion_reward={
+		  country_event = INA.27
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+   #薄荷屋的开张
+	focus={
+		id=INA_transport
+		icon=GFX_focus_hol_prepare_the_inundation_lines
+		x=0
+		y=1
+		relative_position_id =INA_summer_party
+		prerequisite={focus=INA_summer_party}
+		cost=5.00
+		available={
+		}
+		completion_reward={
+		  country_event = INA.28
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+	
+	#天领奉行
+   focus={
+		id=INA_begin_rearmament
+		icon=GFX_focus_ITA_decima_flottiglia_mas
+		x=17
+		y=20
+		cost=10
+		available = {
+			has_war_support > 0.12
+			has_completed_focus=INA_army_reform
+            has_completed_focus=INA_governpower
+		}
+        cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward={
+				INA_army_corruption_level_down = yes		
+		}
+		ai_will_do={
+		factor=1
+		}
+	}
+      #神子主导
+	focus = {
+		id = INA_defensive_focus
+		icon = GFX_goal_generic_defence
+		mutually_exclusive = { 
+		focus = INA_aggressive_focus
+		focus = INA_facultative_focus
+		 }
+		x = -18
+		y = 1
+		cost = 10
+		prerequisite = { focus = INA_begin_rearmament }
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_facultative_focus
+			 has_completed_focus =  INA_aggressive_focus
+				 }
+			}
+		}
+        available={
+			OR={
+			    has_completed_focus=INA_yaegovernment
+				has_completed_focus=INA_newina
+			}
+          }
+		available_if_capitulated = yes
+		relative_position_id = INA_begin_rearmament
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		INA_army_corruption_level_down = yes		
+			INA_yae = {
+			add_defense = 2
+          add_planning = 2
+	    }
+		}
+	}
+	  #将军主导
+	focus = {
+		id = INA_facultative_focus
+		icon = GFX_goal_generic_military_sphere
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = INA_begin_rearmament }
+		mutually_exclusive = { 
+			focus = INA_aggressive_focus 
+		    focus = INA_defensive_focus 
+		}
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_defensive_focus
+			 has_completed_focus =  INA_aggressive_focus
+				 }
+			}
+		}
+        available={
+			OR={
+			    has_completed_focus=INA_yaegovernment
+				has_completed_focus=INA_newina
+			}
+          }
+		available_if_capitulated = yes
+		relative_position_id = INA_begin_rearmament
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			INA_Raiden ={
+			add_defense = 1
+			add_attack = 1
+			add_logistics = 1
+            add_planning = 1
+			}
+		}
+	}	#军事推演
+	focus = {
+		id = INA_methodical_battle
+		icon = GFX_goal_generic_cavalry
+		x = 0
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_defensive_focus }
+		relative_position_id = INA_defensive_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+			    name = USA_louisiana_maneuvers
+				category = land_doctrine
+				uses = 2
+				cost_reduction = 0.65
+			}
+		}
+	}
+	#鸣神防线
+      focus = {
+		id = INA_fortification_focus
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = INA_methodical_battle }
+		x = -1
+		y = 1
+		relative_position_id = INA_methodical_battle
+		cost = 5
+		available_if_capitulated = yes
+		
+		available = {
+			152 = { is_controlled_by = ROOT }
+		}
+		completion_reward = {
+			  152 = {
+          add_building_construction = {
+            type = bunker
+            level = 3
+            instant_build = yes
+            province = {
+                all_provinces = yes
+                limit_to_border = yes
+            }
+          }
+        }
+			add_ideas = FRA_fortification_focus
+		}
+
+	}
+    #机动防线
+	focus = {
+		id = INA_moble_forts
+		icon = GFX_focus_generic_hydroelectric_energy
+		prerequisite = { focus = INA_fortification_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_fortification_focus
+		cost = 5
+
+
+		completion_reward = {
+			add_ideas = INA_yae_thoery
+		}
+	}
+  
+
+	#步兵坦克
+	focus = {
+		id = INA_infantry_tanks
+		icon = GFX_focus_generic_combined_arms
+		x = -3
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_methodical_battle }
+		mutually_exclusive = { }
+		relative_position_id = INA_methodical_battle
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+	
+		}
+	}
+   #特种部队
+	focus = {
+		id = INA_special_forces
+		icon = GFX_goal_generic_special_forces
+		x = 0
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_infantry_tanks }
+		mutually_exclusive = { }
+		relative_position_id = INA_infantry_tanks
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { special_forces }
+		}
+	}
+
+	#步兵阵线
+	focus = {
+		id = INA_infantry_line
+		icon = GFX_focus_focus_fra_maquis
+		x = 1
+		y = 1
+		prerequisite = { focus = INA_methodical_battle }
+		relative_position_id = INA_methodical_battle
+		cost =5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			army_experience = 5
+			add_ideas = INA_infantry_line 
+		}
+	}
+	#装备升级
+	focus = {
+		id = INA_infantry_focus
+		icon = GFX_focus_chi_army_reform
+		prerequisite = { focus = INA_infantry_line }
+		x = 0
+		y = 1
+		relative_position_id = INA_infantry_line
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+				add_tech_bonus = {
+				name = USA_support_rock_island
+				uses = 2
+				bonus = 1.0
+				category = support_tech
+			}
+			add_ideas = INA_infantry_focus
+		}
+	}
+	#信仰壁垒
+	focus = {
+		id = INA_support_focus
+		icon = GFX_focus_GRE_hellenic_armed_forces
+		prerequisite = { focus = INA_infantry_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_infantry_focus
+		cost =5
+
+		available_if_capitulated = yes
+        custom_effect_tooltip = INA_support_focus_tt
+		completion_reward = {
+			set_technology = {
+				INA_infantryhp_tech = 1
+			}
+	
+		}
+	}
+	#重战车
+	focus = {
+		id = INA_armor_focus
+		icon = GFX_focus_generic_combined_arms
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_moble_forts }
+		relative_position_id = INA_moble_forts
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+				add_tech_bonus = {
+				name = USA_tank_experiments
+				uses = 2
+				bonus = 1.0
+				category = armor
+			}
+		}
+	}
+    #八重动员令
+	focus = {
+		id = INA_mobilizaton
+		icon = GFX_focus_generic_little_entente
+		prerequisite = { focus = INA_support_focus }
+		prerequisite = { focus = INA_armor_focus }
+		x = -1
+		y = 1
+		relative_position_id = INA_support_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = INA_yae_mobilizaton
+			
+			remove_ideas = FRA_fortification_focus
+			remove_ideas = INA_infantry_line
+			remove_ideas = INA_infantry_focus
+			remove_ideas = INA_yae_thoery
+		}
+	}
+
+	#经津流设计司
+	focus = {
+		id = INA_heavydesigner
+		icon = GFX_focus_generic_army_tanks2
+		cost = 10
+	    x = -1
+		y = 1
+		prerequisite = { focus = INA_armor_focus }
+		relative_position_id = INA_armor_focus
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip = INA_heavydesigner_tt
+			army_experience = 5		
+			set_technology = {
+				INA_heavytank_tech =1
+			}
+			##custom_effect_tooltip = available_designer
+			
+		}
+	}
+
+	#海洋常规（神威舰队
+	focus = {
+		id = INA_meibureau_of_ships
+		icon = GFX_goal_generic_build_navy
+		x = -4
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_facultative_focus }
+		relative_position_id = INA_facultative_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 25
+			add_doctrine_cost_reduction = {
+				name = USA_fund_the_navy
+				uses = 1
+				cost_reduction = 0.5
+				category = naval_doctrine
+			}
+		}
+	}
+   ##一心流造船司
+		focus = {
+		id = INA_meifund_the_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 0
+		y = 1
+		relative_position_id = INA_meibureau_of_ships
+		cost = 10
+		prerequisite = { focus = INA_meibureau_of_ships }
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+				completion_reward = {
+						153 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = naval_base
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#舰队订单
+	focus = {
+		id = INA_meibattleship_primacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = INA_meifund_the_navy }
+		x = 0
+		y = 1
+		relative_position_id = INA_meifund_the_navy
+		cost = 10
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_battleship_primacy
+				bonus = 0.5
+				uses =4
+				category = bb_tech
+			}
+		}
+	}
+	#牙医推演
+	focus = {
+		id = INA_meimethodical_battle
+		icon = GFX_focus_fra_devalue_the_franc
+		x = 0
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_facultative_focus }
+		relative_position_id = INA_facultative_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+			    name = USA_louisiana_maneuvers
+				category = land_doctrine
+				uses = 4
+				cost_reduction = 0.75
+			}
+		}
+	}
+	#标准化工艺
+		focus = {
+		id = INA_lightfirepower
+		icon = GFX_goal_generic_small_arms
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_meimethodical_battle }
+		relative_position_id = INA_meimethodical_battle
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {	
+				add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.8
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}	
+	
+		#精炼火药
+		focus = {
+		id = INA_heavyfirepower
+		icon = GFX_goal_generic_army_artillery
+		x = 2
+		y = 1
+		prerequisite = { focus = INA_meimethodical_battle }
+		relative_position_id = INA_meimethodical_battle
+		cost =5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {}
+		bypass = {}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.5
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			}
+			set_technology = {
+				INA_artillery_tech = 1
+			}
+		}
+	}
+	#标准火炮
+		focus = {
+		id = INA_firepowerstandard
+		icon = GFX_goal_generic_army_artillery2
+		x = -1
+		y = 1
+		relative_position_id = INA_heavyfirepower
+		prerequisite = { focus = INA_heavyfirepower
+	                   focus = INA_lightfirepower 
+					   }
+		cost =10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+		}
+
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+				hidden_ideas = {
+					add_ideas = { FRA_firepower }
+				}
+		}
+	}
+		#加农支援
+		focus = {
+		id = INA_cannonsupport
+		icon = GFX_focus_generic_air_defense
+		x = 1
+		y = 1
+		prerequisite = { focus = INA_firepowerstandard }
+		relative_position_id = INA_firepowerstandard
+		cost =5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+		}
+
+		bypass = {
+		}
+		
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+		set_technology = {
+				INA_artillery_brigade_tech = 1
+			}
+		
+		}
+	}
+	#可靠化升级
+		focus = {
+		id = INA_reliablefirepower
+		icon = GFX_focus_generic_improve_roads
+		x = -1
+		y = 1
+		prerequisite = { focus = INA_firepowerstandard }
+		relative_position_id = INA_firepowerstandard
+		cost =5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+				add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 1.5
+				uses = 2
+				technology = motorised_infantry
+			}
+			
+		}
+	}
+		#标准整合
+		focus = {
+		id = INA_artillerystandard
+		icon = GFX_focus_ITA_modernize_ansaldo_facilities
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_reliablefirepower 
+		focus = INA_cannonsupport
+		focus = INA_middefender}
+		
+		relative_position_id = INA_reliablefirepower
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = INA_master 
+			INA_army_corruption_level_down = yes		
+		}
+	}
+	
+	#牙医空军
+	focus = {
+		id = INA_meiair_focus
+		icon = GFX_goal_generic_air_bomber
+	 	prerequisite = { focus = INA_facultative_focus }
+		x = 4
+		y = 1
+		relative_position_id = INA_facultative_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		air_experience = 25
+			add_doctrine_cost_reduction = {
+				name = FRA_air_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	#一心流航空设计司
+	focus = {
+		id = INA_meiairdesigner_focus
+		icon = GFX_goal_generic_air_production
+	 	prerequisite = { focus = INA_meiair_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_meiair_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		}
+	}
+	#空中格斗
+	focus = {
+		id = INA_mei_fighter_focus
+		icon = GFX_goal_generic_air_fighter2
+	 	prerequisite = { focus = INA_meiairdesigner_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_meiairdesigner_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_heavy_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+				add_tech_bonus = {
+				name = FRA_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	#步坦协同
+	focus = {
+		id = INA_midarmor
+		icon = GFX_focus_generic_combined_arms
+		x = -2
+		y = 1
+		prerequisite = { focus = INA_meimethodical_battle }
+		relative_position_id = INA_meimethodical_battle
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+				add_tech_bonus = {
+				name = USA_tank_experiments
+				bonus = 1.0
+				uses = 1
+				category = cat_medium_armor
+			}
+		}
+	}
+	#一心流装甲设计司
+	focus = {
+		id = INA_middesigner
+		icon = GFX_focus_generic_license_production
+		prerequisite = { focus = INA_midarmor }
+		x = 0
+		y = 1
+		relative_position_id = INA_midarmor
+		cost = 5
+
+		available_if_capitulated = yes
+#允许使用百手流设计商
+		completion_reward = {
+				add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cat_medium_armor
+			}
+			army_experience = 5
+			
+		}
+	}
+	#虚无泡影
+	focus = {
+		id = INA_middefender
+		icon = GFX_focus_ITA_ferrea_mole_ferreo_cuore
+		prerequisite = { focus = INA_middesigner }
+		x = 0
+		y = 1
+		relative_position_id = INA_middesigner
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 2
+				category = armor
+			}
+	
+		}
+	}
+
+	
+	
+	
+			
+	#海洋防卫（樱雷舰队
+	focus = {
+		id = INA_yaebureau_of_ships
+		icon = GFX_goal_generic_build_navy
+		x = 9
+		y = 1
+		prerequisite = { focus = INA_defensive_focus }
+		relative_position_id = INA_defensive_focus
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				name = USA_fund_the_navy
+				uses = 3
+				cost_reduction = 0.5
+				category = naval_doctrine
+			}
+		}
+	}
+		#海洋防线
+	focus = {
+		id = INA_yaedefenceoverseas
+		icon = GFX_focus_generic_coastal_fort
+		x = 2
+		y = 1
+		prerequisite = { focus = INA_yaebureau_of_ships }
+		relative_position_id = INA_yaebureau_of_ships
+		cost = 7
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+				every_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					naval_base > 0
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_naval_base = yes
+					}
+				}
+			}
+		}
+	}
+			
+	#储备燃料
+	focus = {
+		id = INA_yaeoilof_ships
+		icon = GFX_goal_generic_oil_refinery
+		x = -2
+		y = 1
+		prerequisite = { focus = INA_yaebureau_of_ships }
+		relative_position_id = INA_yaebureau_of_ships
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			is_at_peace_exiled_countries_excluded = yes
+		}
+		bypass = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+		add_timed_idea = { idea = ITA_stockpiling_fuel days = 730 }
+			if = {
+				limit = {
+					157 = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = fuel_silo
+							size > 0
+							include_locked = yes
+						}
+					}
+				}
+				157 = { 
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = fuel_silo
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_core_state = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = fuel_silo
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 852 736 } 
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = fuel_silo
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+		#重建船坞
+	focus = {
+		id = INA_yaerebuidships
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_yaebureau_of_ships }
+		relative_position_id = INA_yaebureau_of_ships
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			OR = {
+				has_full_control_of_state = 150
+				has_full_control_of_state = 152
+				has_full_control_of_state = 154
+				has_full_control_of_state = 156
+	
+			}
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			if = {
+				limit = {
+					150 = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+				}
+				150 = {
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 157 161 2 } 
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					152 = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+				}
+				152 = { 
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 157 161 2 } #ABRUZZO as main fallback
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}if = {
+				limit = {
+					154 = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+				}
+				154 = { 
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 157 161 2 } 
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}if = {
+				limit = {
+					156 = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+				}
+				156 = { #TUSCANY (La Spezia)
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 157 161 2 } #ABRUZZO as main fallback
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		
+		}
+	}
+    #潜艇加速卡
+		focus = {
+		id = INA_yae_submarines
+		icon = GFX_goal_generic_navy_submarine
+		x = -5
+		y = 1
+		prerequisite = { focus = INA_yaerebuidships }
+		relative_position_id = INA_yaerebuidships
+		cost = 7
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+	  #迷你
+		focus = {
+		id = INA_yaeminsubmarines
+		icon = GFX_focus_generic_midget_submarines
+		x = 1
+		y = 1
+		prerequisite = { focus = INA_yae_submarines }
+		relative_position_id = INA_yae_submarines
+		cost = 7
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			 navy_experience = 15
+			add_tech_bonus = {
+				name = ITA_cruiser_submarines
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { INA_midget_submarines = 1 }
+
+				create_equipment_variant = {
+					name = "CB Class"
+					type = ship_hull_midget_submarine
+					allow_without_tech = yes # Display tooltip as if we have the tech.
+					name_group = ITA_SS_HISTORICAL #TODO_Manu: Namelist
+					parent_version = 0
+					allow_without_tech = yes # Display tooltip as if we have the tech.
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_2
+						fixed_ship_engine_slot = sub_ship_engine_2
+					}
+				}
+
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_midget_submarine
+						creator = "ITA"
+						version_name = "CB Class"
+					}
+					name = "Ammiraglio Millo"
+					requested_factories = 1
+					progress = 0.35
+					amount = 2
+				}
+			}
+		}
+	}
+		#雷驱潜艇
+	focus = {
+		id = INA_yaeupgrademinsubmarines
+		icon = GFX_goal_generic_build_navy
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_yaeminsubmarines }
+		relative_position_id = INA_yaeminsubmarines
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 15
+		   set_technology = { INA_supmidget_submarines = 1 }
+		}
+	}
+	  #巡洋潜艇
+		focus = {
+		id = INA_yaecruisersubmarines
+		icon = GFX_goal_generic_navy_anti_submarine
+		x = -1
+		y = 1
+		prerequisite = { focus = INA_yae_submarines }
+		relative_position_id = INA_yae_submarines
+		cost = 7
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    navy_experience = 15
+			add_doctrine_cost_reduction = {
+				name = ITA_cruiser_submarines
+				cost_reduction = 0.5
+				uses = 1
+				category = trade_interdiction_tree
+			}
+
+		
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_coastal = yes
+				}
+				prioritize = { 736 160 } #TRIESTE / VENETO
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+				if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { cruiser_submarines = 1 }
+
+				create_equipment_variant = {
+					name = "Cagni Class"
+					type = ship_hull_cruiser_submarine
+					allow_without_tech = yes # Display tooltip as if we have the tech.
+					name_group = ITA_SS_HISTORICAL #TODO_Manu: Namelist
+					parent_version = 0
+					allow_without_tech = yes # Display tooltip as if we have the tech.
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_1
+						fixed_ship_engine_slot = sub_ship_engine_2
+						front_1_custom_slot = ship_torpedo_sub_1
+						mid_1_custom_slot = empty
+						rear_1_custom_slot = ship_torpedo_sub_1
+					}
+				}
+				#Line Production
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_cruiser_submarine
+						creator = "ITA"
+						version_name = "Cagni Class"
+					}
+					name = "Ammiraglio Cagni"
+					requested_factories = 1
+					progress = 0.35
+					amount = 2
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_cruiser_submarine
+						creator = "ITA"
+						version_name = "Cagni Class"
+					}
+					name = "Ammiraglio Millo"
+					requested_factories = 1
+					progress = 0.35
+					amount = 2
+				}
+			}
+			
+		}
+	}
+
+	#战舰加速卡
+		focus = {
+		id = INA_yaecapital_ship
+		icon = GFX_focus_generic_cruiser2
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_yaerebuidships }
+		relative_position_id = INA_yaerebuidships
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_2
+						creator = "INA" 
+						version_name = "Richelieu Class"
+					}
+					requested_factories = 1
+					progress = 0.50
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_2
+						creator = "INA" 
+						version_name = "Richelieu Class"
+					}
+					requested_factories = 1
+					progress = 0.35
+					amount = 1
+				}
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = battleship_2
+						creator = "INA" 
+					}
+					requested_factories = 1
+					progress = 0.50
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = battleship_2
+						creator = "INA" 
+					}
+					requested_factories = 1
+					progress = 0.35
+					amount = 1
+				}
+			}
+		}
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 2
+				category = dd_tech
+			}
+		}
+	}
+    ##航母加速卡
+	focus = {
+		id = INA_yaecarrier_focus
+		icon = GFX_goal_generic_navy_carrier
+	 	prerequisite = { focus = INA_yaerebuidships }
+		x = -2
+		y = 1
+		relative_position_id = INA_yaerebuidships
+		cost = 5
+		available = {
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 5
+			add_tech_bonus = {
+				name = FRA_carrier_focus
+				bonus = 1.0
+				uses = 2
+				category = cv_tech
+			}
+			add_tech_bonus = {
+				name = FRA_carrier_focus
+				bonus = 1.0
+				uses = 2
+				category = naval_air
+			}
+		}
+	}
+    ##航母卡
+	focus = {
+		id = INA_yaecarrier
+		icon = GFX_focus_generic_refit_civilian_ships
+	 	prerequisite = { focus = INA_yaecarrier_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_yaecarrier_focus
+		cost = 12
+		available = {
+			if = { # MTG tech
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				has_tech = early_ship_hull_carrier
+			}
+			else = { #Non-MTG tech
+				has_tech = early_carrier
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 5
+			if = { #MTG
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = early_ship_hull_carrier }
+					}
+					set_technology = { early_ship_hull_carrier = 1 }
+				}
+				#Equipment Variant
+				create_equipment_variant = {
+					name = "Conte di Savoia Class - Converted Liner"
+					type = ship_hull_carrier_conversion_ca
+					name_group = ITA_CV_HISTORICAL #TODO_Manu: Namelist (Conte di Savoia, Rex, Neptunia, Oceania, Conte Rosso, Conte Grande, Saturnia, Vulcania, Conte Biancamo, Duilio, Conte verde, Giulio Cesare, Colombo, Tel Aviv) Excluded Roma (Aquila) and Augustus (Sparviero)
+					parent_version = 0
+					allow_without_tech = yes #Makes no difference since focus grants appropriate tech (above), but it improves tooltip
+					modules = {
+						fixed_ship_deck_slot_1 = ship_deck_space
+						fixed_ship_deck_slot_2 = ship_deck_space
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = carrier_ship_engine_1
+						fixed_ship_secondaries_slot = ship_secondaries_1
+					}
+				}
+				#Line Production
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_conversion_ca
+						creator = "INA"
+						version_name = "Conte di Savoia Class - Converted Liner"
+					}
+					name = "Conte di Savoia"
+					requested_factories = 1
+					progress = 0.65
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_1
+						creator = "INA"
+						version_name = "Aquila Class"
+					}
+					name = "Aquila"
+					requested_factories = 2
+					progress = 0.45
+					amount = 1
+				}
+				#Line Production
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_conversion_ca
+						creator = "INA"
+						version_name = "Conte di Savoia Class - Converted Liner"
+					}
+					name = "Rex"
+					requested_factories = 1
+					progress = 0.65
+					amount = 1
+				}
+			}
+			##############
+			### NO MTG ###
+			##############
+			else = {
+				if = {
+					limit = {
+						NOT = { has_tech = early_carrier }
+					}
+					set_technology = { early_carrier = 1 }
+				}
+				create_equipment_variant = {
+					name = "Conte di Savoia Class - Converted Liner"
+					type = carrier_1
+					allow_without_tech = yes #Makes no difference since focus grants appropriate tech (above), but it improves tooltip
+					upgrades = {
+						ship_deckspace_upgrade = 2
+						carrier_armor_upgrade = 1
+						ship_engine_upgrade = 2
+						ship_reliability_upgrade = 2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = carrier_1
+						creator = "INA"
+						version_name = "Conte di Savoia Class - Converted Liner"
+					}
+					requested_factories = 1
+					progress = 0.65
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_carrier_1
+						creator = "INA"
+						version_name = "Aquila Class"
+					}
+					name = "Aquila"
+					requested_factories = 2
+					progress = 0.45
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = carrier_1
+						creator = "INA"
+						version_name = "Conte di Savoia Class - Converted Liner"
+					}
+					requested_factories = 1
+					progress = 0.65
+					amount = 1
+				}
+			}
+		}
+	}
+	#护卫航母
+	focus = {
+		id = INA_yaecheapcarrer
+		icon = GFX_goal_generic_build_navy
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_yaecarrier }
+		relative_position_id = INA_yaecarrier
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 15
+		   set_technology = { INA_ship_hull_carrier = 1 }
+		}
+	}
+	#巨舰大炮
+	focus = {
+		id = INA_battleship_primacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = INA_yaerebuidships }
+		x = 2
+		y = 1
+		relative_position_id = INA_yaerebuidships
+		cost = 7
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_battleship_primacy
+				bonus = 1.5
+				uses = 2
+				category = bb_tech
+			}
+		}
+	}
+	#海洋壁垒
+      focus = {
+		id = INA_seafortification
+		icon = GFX_focus_generic_coastal_fort
+		prerequisite = { focus = INA_battleship_primacy }
+		x = 0
+		y = 1
+		relative_position_id = INA_battleship_primacy
+		cost = 5
+		available_if_capitulated = yes
+		
+		available = {
+			152 = { is_controlled_by = ROOT }
+		}
+		completion_reward = {
+			  152 = {
+          add_building_construction = {
+            type = bunker
+            level = 3
+            instant_build = yes
+            province = {
+                all_provinces = yes
+                limit_to_border = yes
+            }
+          }
+        }
+			add_ideas = FRA_fortification_focus
+		}
+	}
+	###经津流造船司
+		focus = {
+		id = INA_yaefund_the_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 0
+		y = 1
+		relative_position_id = INA_seafortification
+		cost = 5
+		prerequisite = { focus = INA_seafortification }
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+				completion_reward = {
+						153 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = naval_base
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		
+		}
+	}
+	 #海军陆战队
+	focus = {
+		id = INA_fusiliers_marine
+		icon = GFX_focus_ITA_new_horizons
+		x = -1
+		y = 1
+
+		prerequisite = { focus = INA_yaefund_the_navy
+		 }
+		mutually_exclusive = { }
+		relative_position_id = INA_yaefund_the_navy
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+				add_tech_bonus = {
+				name = USA_support_rock_island
+				uses = 2
+				bonus = 1.0
+				category = tp_tech
+				category = marine_tech
+			}
+		}
+	}
+	#神子空军
+	focus = {
+		id = INA_yaeair_focus
+		icon = GFX_goal_generic_air_bomber
+	 	prerequisite = { focus = INA_defensive_focus }
+		x = -5
+		y = 1
+		relative_position_id = INA_defensive_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		air_experience = 25
+		add_doctrine_cost_reduction = {
+				name = FRA_air_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	#经津流航空设计司
+	focus = {
+		id = INA_yaeairdesigner_focus
+		icon = GFX_goal_generic_air_production
+	 	prerequisite = { focus = INA_yaeair_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_yaeair_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		
+		}
+	}
+	#空中防卫
+	focus = {
+		id = INA_yae_fighter_focus
+		icon = GFX_goal_generic_air_fighter2
+	 	prerequisite = { focus = INA_yaeairdesigner_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_yaeairdesigner_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_heavy_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+				add_tech_bonus = {
+				name = FRA_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	#空中壁垒
+	focus = {
+		id = INA_yae_air_forts
+		icon = GFX_goal_generic_fortify_city
+	 	prerequisite = { focus = INA_yae_fighter_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_yae_fighter_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_heavy_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+				add_tech_bonus = {
+				name = FRA_fighter_focus
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+   
+	#九条主导
+	focus = {
+		id = INA_aggressive_focus
+		icon = GFX_goal_generic_more_territorial_claims
+		mutually_exclusive = { 
+			focus = INA_defensive_focus 
+		    focus = INA_facultative_focus 
+		}
+		x = 12
+		y = 1
+		cost = 10
+		relative_position_id = INA_begin_rearmament
+		available_if_capitulated = yes
+		 allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+			 has_completed_focus = INA_defensive_focus
+			 has_completed_focus =  INA_facultative_focus
+				 }
+			}
+		}
+        available={
+			OR={
+				has_completed_focus=INA_elementcontrol
+				has_completed_focus=INA_saragetcontrol
+				has_completed_focus=INA_newina
+			}
+          }
+		  
+		prerequisite = { focus = INA_begin_rearmament }
+		ai_will_do = {
+			factor = 0.2
+		}
+		completion_reward = {
+				INA_army_corruption_level_down = yes		
+		INA_Sara = {
+		  add_attack = 2
+        add_logistics = 2
+	     }
+			
+		}
+	}
+	#九条空军
+	focus = {
+		id = INA_saraair_focus
+		icon = GFX_goal_support_fascism
+	 	prerequisite = { focus = INA_aggressive_focus }
+		x =-3
+		y = 1
+		relative_position_id = INA_aggressive_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		air_experience = 75
+			add_doctrine_cost_reduction = {
+				name = FRA_air_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+     #空军基地建设
+		focus = {
+		id = INA_the_hellenic_air_force
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = INA_saraair_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_saraair_focus
+		cost = 5
+		ai_will_do = {
+			base = 1
+		}
+
+		available = {
+			OR = {
+				has_full_control_of_state = 153
+				has_full_control_of_state = 146
+				has_full_control_of_state = 158
+			}
+		}
+
+		completion_reward = {
+			air_experience = 50
+			random_owned_controlled_state = {
+				prioritize = { 153 }
+				if = {
+					limit = { 
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = air_base
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_controlled_state = {	
+				prioritize = { 158 } 
+					if = {
+						limit = { 
+							is_controlled_by = ROOT
+						}
+						add_building_construction = {
+							type = air_base
+							level = 3
+							instant_build = yes
+						}
+					}
+				}
+			random_owned_controlled_state = {	
+				prioritize = { 146 }
+				if = {
+					limit = { 
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = air_base
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#翱翔天空
+	focus = {
+		id = INA_own_our_skies
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = INA_the_hellenic_air_force }
+		x = 0
+		y = 1
+		relative_position_id = INA_the_hellenic_air_force
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GRE_protecting_our_skies
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = GRE_protecting_our_skies
+				cost_reduction = 0.5
+				uses = 1
+				category = battlefield_support_tree
+			}
+			add_tech_bonus = {
+				name = GRE_protecting_our_skies
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}	
+
+		focus = {
+		id = INA_flying_artillery
+		icon = GFX_goal_poland_goal
+		x = 0
+		y = 1
+		
+		prerequisite = { focus = INA_own_our_skies }
+		mutually_exclusive = { }
+		relative_position_id = INA_own_our_skies
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { FRA_flying_artillery }
+		}
+	}
+		#九条推演
+	focus = {
+		id = INA_saramethodical_battle
+		icon = GFX_goal_generic_cavalry
+		x = 1
+		y = 1
+		prerequisite = { focus = INA_aggressive_focus }
+		relative_position_id = INA_aggressive_focus
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+			    name = USA_louisiana_maneuvers
+				category = land_doctrine
+				uses = 2
+				cost_reduction = 0.75
+			}
+		}
+	}
+	#海洋常规（神雷舰队
+	focus = {
+		id = INA_sarabureau_of_ships
+		icon = GFX_goal_generic_build_navy
+		x = 3
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_aggressive_focus }
+		relative_position_id = INA_aggressive_focus
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 25
+			add_doctrine_cost_reduction = {
+				name = USA_fund_the_navy
+				uses = 1
+				cost_reduction = 0.5
+				category = naval_doctrine
+			}
+		}
+	}
+   ##天目流造船司
+		focus = {
+		id = INA_sarafund_the_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 0
+		y = 1
+		relative_position_id = INA_sarabureau_of_ships
+		cost = 10
+		prerequisite = { focus = INA_sarabureau_of_ships }
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+				completion_reward = {
+						153 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = naval_base
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#舰队订单
+	focus = {
+		id = INA_sarabattleship_primacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = INA_sarafund_the_navy }
+		x = 0
+		y = 1
+		relative_position_id = INA_sarafund_the_navy
+		cost = 10
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_battleship_primacy
+				bonus = 0.5
+				uses =1
+				category = bb_tech
+			}
+		}
+	}
+	#天狗神速
+	focus = {
+		id = INA_battle_of_maneuver
+		icon = GFX_goal_generic_territory_or_war
+		x = 0
+		y = 1
+		prerequisite = { focus = INA_saramethodical_battle }
+		relative_position_id = INA_saramethodical_battle
+		cost =5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = charles_de_gaulle
+		}
+	}
+	#摩托化
+	focus = {
+		id = INA_motorized_focus
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = INA_battle_of_maneuver }
+		x = 0
+		y = 1
+		relative_position_id = INA_battle_of_maneuver
+		cost =5
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_ideas = INA_motorized_focus
+				add_tech_bonus = {
+							name = motorized_bonus
+							bonus = 1.0
+				            uses = 1
+							technology = motorised_infantry
+						}
+		}
+	}
+	#机械化
+	focus = {
+		id = INA_mechanized_focus
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = INA_motorized_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_motorized_focus
+		cost = 10
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = INA_mechanized_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+    #装甲车队
+	focus = {
+		id = INA_saralight_armor
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = INA_mechanized_focus }
+		x = 0
+		y = 1
+		relative_position_id = INA_mechanized_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_light_armor
+			}
+		}
+	}
+	#后勤卡车
+	focus = {
+		id = INA_logistic
+		icon = GFX_focus_generic_truck
+		prerequisite = { focus = INA_saraair_focus }
+		x = -2
+		y = 1
+		relative_position_id = INA_saraair_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			set_technology = {
+				INA_logistic_tech =1
+			}
+		
+		}
+	}
+	#通讯工具
+	focus = {
+		id = INA_communication
+		icon = GFX_goal_generic_radar
+		prerequisite = { focus = INA_logistic }
+		x = 0
+		y = 1
+		relative_position_id = INA_logistic
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			set_technology = {
+				INA_signal_tech =1
+			}
+		
+		}
+	}
+	#铁道部
+	focus = {
+		id = INA_ironways
+		icon = GFX_focus_generic_railroad
+		prerequisite = { focus = INA_communication }
+		x = 0
+		y = 1
+		relative_position_id = INA_communication
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+				add_timed_idea = {
+				idea = INA_ironways
+				days = 120
+			}
+			
+		
+		}
+	}
+	#总后勤部
+	focus = {
+		id = INA_logisticdepartment
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = INA_ironways }
+		prerequisite = { focus = INA_air_ground_cooperation 
+		focus = INA_flying_artillery}
+		x = 2
+		y = 1
+		relative_position_id = INA_ironways
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		add_ideas = INA_ironways 
+		}
+	}
+
+	#鸣雷无双
+	focus = {
+		id = INA_air_dominance
+		icon = GFX_goal_generic_air_fighter2
+		x = 2
+		y = 1
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_saraair_focus }
+		relative_position_id = INA_saraair_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { FRA_air_dominance }
+		}
+	}
+    #九天雷霆
+	focus = {
+		id = INA_cas_focus
+		icon = GFX_goal_generic_CAS
+	 	prerequisite = {
+	 		focus = INA_air_dominance
+	 	}
+		x = 0
+		y = 1
+		relative_position_id = INA_air_dominance
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = INA_cas_focus
+				bonus = 1.0
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+		#空地协作
+	focus = {
+		id = INA_air_ground_cooperation
+		icon = GFX_goal_generic_air_bomber
+		x = 0
+		y = 2
+		offset = {
+			x = 0
+			y = 0
+		}
+		prerequisite = { focus = INA_cas_focus }
+		mutually_exclusive = { }
+		relative_position_id = INA_air_dominance
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = INA_air_ground_cooperation
+				category = air_doctrine
+				uses = 2
+				cost_reduction = 0.5
+			}
+		}
+	}
+
+	#稻妻军事革新
+	focus = {
+		id = INA_army_revolution
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = {
+			focus = INA_fusiliers_marine
+			focus = INA_artillerystandard
+			focus = INA_logisticdepartment
+		}
+		x = 0
+		y = 2
+		relative_position_id = INA_artillerystandard
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			NOT = { has_idea = INA_disjointed_government }
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			 	if = {
+				limit = { has_idea = INA_army_corruption_3 }
+				remove_ideas = INA_army_corruption_3
+			}
+			army_experience = 10
+			add_doctrine_cost_reduction = {
+				name = INA_army_reform
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			custom_effect_tooltip = available_designer
+
+		}
+	}
+  }
+
+ 
+
+	 
+

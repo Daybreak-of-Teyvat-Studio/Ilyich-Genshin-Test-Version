@@ -1,0 +1,2448 @@
+focus_tree = {
+	id = SNE_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag =SNE
+		}
+	}   
+   default = no
+
+
+    ##召集愚人众！#
+   focus = {
+      id = SNE_massfoolstroops
+	 
+      icon =  GFX_focus_hol_prepare_the_inundation_lines
+      cost = 7
+      x = 13
+      y = 0
+      available ={
+	
+      }
+	  search_filters = {FOCUS_FILTER_STABILITY }
+      completion_reward = {
+        #触发事件召集愚人众！
+ 	     add_political_power = 125
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+      ##国事大会#
+   focus = {
+      id = SNE_parliament
+	 
+      icon =  GFX_goal_support_democracy
+      cost = 7
+      x = 0
+      y = 1
+      available ={
+		
+      }
+	  search_filters = {FOCUS_FILTER_STABILITY }
+       prerequisite = {
+      focus = SNE_massfoolstroops
+    }
+    relative_position_id = SNE_massfoolstroops
+      completion_reward = {
+        add_stability = 0.1
+			  add_war_support = 0.05
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+        #队长的议案#
+   focus = {
+      id = SNE_captainrmotion
+	 
+      icon =  GFX_goal_generic_axis_build_infantry
+      cost = 8
+      x = 1
+      y = 1
+      available ={
+
+      }
+	  search_filters = {FOCUS_FILTER_RESEARCH }
+       prerequisite = {
+      focus = SNE_parliament
+    }
+	ai_will_do = {
+		factor = 33
+	}
+    relative_position_id = SNE_parliament
+      completion_reward = {
+        		army_experience = 25
+		add_to_variable = {
+        SNE_warperpation = 1
+       }
+     random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   #公子的议案#
+   focus = {
+      id = SNE_chlidemotion
+	 
+      icon =  GFX_goal_generic_build_navy
+      cost = 8
+      x = 3
+      y = 1
+      available ={
+      }
+	  search_filters = {FOCUS_FILTER_RESEARCH }
+       prerequisite = {
+      focus = SNE_parliament
+    }
+	ai_will_do = {
+		factor = 5
+	}
+    relative_position_id = SNE_parliament
+      completion_reward = {
+   		navy_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     #少女的议案#
+   focus = {
+      id = SNE_ladymotion
+	 
+      icon =  GFX_goal_expand_the_luftwaffe
+      cost = 8
+      x = 5
+      y = 1
+      available ={
+      }
+	  search_filters = {FOCUS_FILTER_RESEARCH }
+       prerequisite = {
+      focus = SNE_parliament
+    }
+	ai_will_do = {
+		factor = 20
+	}
+    relative_position_id = SNE_parliament
+      completion_reward = {
+   	air_experience = 25
+	   	add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    #富人的议案#
+   focus = {
+      id = SNE_richerrmotion
+	 
+      icon =  GFX_focus_hol_the_foundations_of_defense
+      cost = 8
+      x = -3
+      y = 1
+      available ={
+      }
+	   search_filters = {FOCUS_FILTER_INDUSTRY}
+       prerequisite = {
+      focus = SNE_parliament
+    }
+	ai_will_do = {
+		factor = 5
+	}
+    relative_position_id = SNE_parliament
+      completion_reward = {
+		    add_to_variable = {
+        SNE_warperpation = 1
+       }
+           add_political_power = 50
+     random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   #市长的议案#
+   focus = {
+      id = SNE_mayormotion
+	 
+      icon =  GFX_goal_generic_position_armies
+      cost = 8
+      x = -1
+      y = 1
+      available ={
+      }
+	  	search_filters = {FOCUS_FILTER_INDUSTRY}
+       prerequisite = {
+      focus = SNE_parliament
+    }
+    relative_position_id = SNE_parliament
+      completion_reward = {
+	   ai_will_do = {
+		factor = 40
+	}
+           add_political_power = 50
+     random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  #博士的议案
+  focus = {
+      id = SNE_doctorrecommendation
+      icon =  GFX_goal_generic_scientific_exchange
+      cost = 8
+      x = -5
+      y = 1
+      available ={
+		  has_war = yes
+      }
+	  ai_will_do = {
+		factor = 30
+	}
+	  search_filters = {FOCUS_FILTER_RESEARCH }
+       prerequisite = {
+      focus = SNE_parliament
+    }
+    relative_position_id = SNE_parliament
+      completion_reward = {
+      	add_tech_bonus = {
+				name = ITA_milan_comms_industry
+				bonus = 1
+				uses = 1
+				category = radar_tech
+			}
+      	add_tech_bonus = {
+					name = electronics_bonus
+					bonus =1
+					uses = 1
+					category = electronics
+				}
+	
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    #仆人的议案
+  focus = {
+      id = SNE_attendantmotion
+      icon =  GFX_focus_ITA_devaluate_the_lire
+      cost = 8
+      x = -7
+      y = 1
+      available ={
+		  has_war = no
+      }
+	  ai_will_do = {
+		factor = 10
+	}
+	  search_filters = {FOCUS_FILTER_RESEARCH }
+       prerequisite = {
+      focus = SNE_parliament
+    }
+    relative_position_id = SNE_parliament
+      completion_reward = {
+        add_tech_bonus = {
+			name = CHI_naval_aviation
+			bonus = 0.5
+			uses = 2
+			category = industry	
+		  }
+		    add_to_variable = {
+        SNE_warperpation = 1
+       }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }  
+   #木偶的议案
+  focus = {
+      id = SNE_dollmotion
+      icon =  GFX_goal_generic_army_tanks
+      cost = 8
+      x = 7
+      y = 1
+       available ={  has_war = no
+       num_of_factories >80
+    }
+	ai_will_do = {
+		factor = 50
+	}
+
+	   search_filters = {FOCUS_FILTER_RESEARCH}
+       prerequisite = {
+      focus = SNE_parliament
+    }
+    relative_position_id = SNE_parliament
+      completion_reward = {
+      army_experience = 25
+	  
+      add_tech_bonus = {
+					name = HOL_light_tanks_for_the_colonies
+					bonus = 1.0
+					uses = 1
+					category = cat_light_armor
+				}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  } 
+  #丑角的议案
+  focus = {
+      id = SNE_clownmotion
+      icon =  GFX_focus_generic_military_dictatorship
+      cost = 15
+      x = 0
+      y = 2
+       available ={  
+	    custom_trigger_tooltip = {
+          tooltip = SNE_warperpation_tt
+		  check_variable = {
+          SNE_warperpation > 3
+       }
+		}
+    }
+	ai_will_do = {
+		factor = 100
+	}
+
+	  search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+       prerequisite = {
+      focus = SNE_parliament
+    }
+    relative_position_id = SNE_parliament
+      completion_reward = {
+      army_experience = 50
+      navy_experience = 50
+      air_experience = 50
+      random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+      random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory > 0
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   ##防御策略#
+   focus = {
+      id = SNE_defensive
+	 
+      icon =  GFX_goal_generic_defence
+      cost = 8
+      x = -1
+      y = 1
+      available ={
+		
+      }
+	  search_filters = {FOCUS_FILTER_STABILITY }
+       prerequisite = {
+      focus = SNE_clownmotion
+    }
+    relative_position_id = SNE_clownmotion
+      completion_reward = {
+			  add_war_support = 0.15
+			  add_ideas = SNE_war_of_resistance
+        ##精神：以爱与恨之名。（核心领土攻防+15%。）
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     ##进攻策略#
+   focus = {
+      id = SNE_offensive
+	 
+      icon =  GFX_focus_generic_strike_at_democracy1
+      cost = 8
+      x = 1
+      y = 1
+      available ={
+		
+      }
+	  search_filters = {FOCUS_FILTER_STABILITY }
+       prerequisite = {
+      focus = SNE_clownmotion
+    }
+    relative_position_id = SNE_clownmotion
+      completion_reward = {
+		add_ideas = SNE_war_of_ruler
+        ##获得精神：知己知彼。（对天理，攻击力+25%。）
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   #市长的工业计划
+	focus = {
+		id = SNE_mayorindustrialplanning
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 2
+		y = 0
+
+		cost = 7
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+        has_completed_focus = SNE_mayormotion
+		}
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+		  add_timed_idea = {
+        idea = INA_industrial_focus
+        days = 210
+    }
+		}
+	}
+  #冰封之城
+  focus = {
+		id = SNE_enlagecaptail
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		relative_position_id =  CHI_military_affairs_commission
+
+		cost = 7
+		ai_will_do = {
+			factor = 4
+		}
+    relative_position_id = SNE_mayorindustrialplanning
+		available = {}
+
+		bypass = {
+
+		}
+    prerequisite = {
+      focus = SNE_mayorindustrialplanning
+    }
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+				309={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=4
+					add_building_construction={
+						type=infrastructure
+						level=5
+						instant_build=yes
+					}
+				}
+			}
+		
+		}
+	}
+  #民工建设
+   focus = {
+    id = SNE_civil_factory
+    icon = GFX_goal_generic_construct_civ_factory
+    cost = 10
+    x = -1
+    y = 1
+
+    prerequisite = {
+      focus = SNE_enlagecaptail
+    }
+    relative_position_id = SNE_enlagecaptail
+    available ={
+    }
+    bypass = {
+    }
+
+    completion_reward = {
+		random_owned_controlled_state = {
+		limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+		add_extra_state_shared_building_slots = 2
+	    add_building_construction = {
+					type = industrial_complex
+                    level = 2
+					instant_build = yes
+				}  
+				}
+      add_tech_bonus = {
+        category = civil
+        uses = 1
+        bonus = 0.1
+      }
+    }
+  }
+  	  #军用工厂
+   focus = {
+      id = SNE_military_factory
+
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 8
+      x = 2
+      y = 1
+	  prerequisite = {
+         focus = SNE_enlagecaptail
+      }
+	 search_filters = { FOCUS_FILTER_INDUSTRY }
+      relative_position_id = SNE_enlagecaptail
+      available ={
+      }
+ completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+		}  
+      }
+        #大建军工
+  focus = {
+		id = SNE_militarybuding
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = SNE_military_factory }
+		x = 0
+		y = 1
+		relative_position_id = SNE_military_factory
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+	    add_timed_idea = {
+        idea = INA_militaryindustrial_focus
+        days = 365
+		}
+		}
+	}
+	#雪国生命线
+	  focus = {
+		id = SNE_the_road_of_life
+		icon = GFX_focus_SOV_the_road_of_life
+		prerequisite = { focus = SNE_militarybuding }
+		x = 0
+		y = 1
+		relative_position_id = SNE_militarybuding
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+		 available ={  has_war = yes
+       num_of_factories >120
+         }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+	 	add_timed_idea = {
+				idea = SOV_the_road_of_life_ns
+				days = 730
+			}
+			  add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 800 producer = SNE }
+		
+		}
+	}
+      #公鸡的矿山开发
+	focus = {
+		id = SNE_roosterindustrial
+		icon = GFX_focus_generic_steel
+		x = -1
+		y = 1
+		relative_position_id =  CHI_military_affairs_commission
+
+		cost = 7
+		ai_will_do = {
+			factor = 4
+		}
+    prerequisite = {
+         focus = SNE_civil_factory
+      }
+      relative_position_id = SNE_civil_factory
+		available = {
+		}
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+		   314 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 16
+				}
+    }
+		}
+	}
+    #博士的地脉提取
+	focus = {
+		id = SNE_doctorindustrial
+		icon = GFX_goal_generic_oil_refinery
+		x = 1
+		y = 1
+		relative_position_id =  CHI_military_affairs_commission
+
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+    prerequisite = {
+         focus = SNE_civil_factory
+      }
+      relative_position_id = SNE_civil_factory
+		available = {
+      has_completed_focus = SNE_doctorrecommendation
+		}
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+				add_tech_bonus = {
+				name = GER_coal_liquidization
+				bonus = 3.0
+				uses = 1
+				category = synth_resources
+			}
+		   312 = {
+				add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = synthetic_refinery
+						level = 1
+						instant_build = yes
+					}
+				add_resource = {
+					type = oil
+					amount = 24
+				}
+    }
+		}
+	}
+  #人工合成凝胶
+  focus = {
+		id = SNE_synthetic_rubber
+		icon = GFX_focus_generic_rubber
+		prerequisite = { focus = SNE_doctorindustrial }
+		x = 0
+		y = 1
+		relative_position_id = SNE_doctorindustrial
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+	
+        	modify_building_resources = {
+        	   building = synthetic_refinery
+        	   resource = rubber
+        	   amount = 3
+        	}
+		}
+	}  
+	#雪国列车
+  focus = {
+		id = SNE_railway
+		icon = GFX_focus_generic_railroad
+		prerequisite = { focus = SNE_synthetic_rubber }
+		x = 1
+		y = 1
+		relative_position_id = SNE_synthetic_rubber
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+	       #修建一条铁路贯穿至冬
+		   add_equipment_to_stockpile = { type = train_equipment amount = 50 producer = SNE }
+		}
+	}
+  #公鸡的油料储备
+  focus = {
+		id = SNE_stockpile_fuel
+		icon = GFX_focus_generic_stockpile_fuel
+		prerequisite = { focus = SNE_roosterindustrial }
+		x = 0
+		y = 1
+		relative_position_id = SNE_roosterindustrial
+		cost = 8
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+	      add_timed_idea = { idea = ITA_stockpiling_fuel days = 180 }
+        314 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = fuel_silo
+					level = 2
+					instant_build = yes
+				}
+        }
+		}
+	}
+  #公鸡的最终议题
+  focus = {
+      id = SNE_cockmotion
+      icon =  GFX_goal_generic_trade
+      cost = 8
+      x = -1
+      y = 1
+       available ={  has_war = no
+       num_of_factories >120
+    }
+
+	  search_filters = {FOCUS_FILTER_STABILITY }
+       prerequisite = {
+      focus = SNE_synthetic_rubber
+      focus = SNE_stockpile_fuel
+    }
+    relative_position_id = SNE_synthetic_rubber
+      completion_reward = {
+      add_political_power = 50
+	  add_to_variable = {
+        SNE_warperpation = 1
+       }
+	  #解锁顾问：公鸡市长
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  #重新集结部队
+  	focus = {
+		id = SNE_lessonsofthegreatwar
+		icon = GFX_goal_generic_small_arms
+		x = 30
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 3
+		}
+		available = {
+			 has_completed_focus = SNE_captainrmotion
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			custom_effect_tooltip = RAJ_create_unit_red_eagles_tt
+			add_doctrine_cost_reduction = {
+				name = RAJ_lessons_of_the_great_war
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+				hidden_effect = {
+				division_template = {
+					name = "Red Eagles Division"
+					priority = 2
+					division_names_group = RAJ_INF_01
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+			
+	    	   		 	infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+
+					support = {
+        				artillery = { x = 0 y = 0 }
+        				engineer = { x = 0 y = 1 }
+					}
+				}
+	
+				random_owned_controlled_state = {
+					prioritize = { 439 }
+					create_unit = {
+						division = "name = \"Red Eagles Division\" division_template = \"Red Eagles Division\" start_experience_factor = 0.75" 
+						owner = RAJ
+					}	
+				}
+			}
+		}
+	}
+	  #老旧枪炮
+		focus = {
+		id = SNE_oldguns
+		icon = GFX_focus_focus_fra_maquis
+		prerequisite = { focus = SNE_lessonsofthegreatwar }
+		x = 3
+		y = 1
+		relative_position_id = SNE_lessonsofthegreatwar
+		cost = 12
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			if = {
+					limit = {
+						not = {
+							has_tech = gwtank_chassis
+						}
+					}
+					set_technology = { gwtank_chassis = 1 }
+				}
+	add_equipment_to_stockpile = { type = infantry_equipment_0  amount = 34158  producer = SNE }
+	add_equipment_to_stockpile = { type = artillery_equipment_1  amount = 1141  producer = SNE }
+
+		}
+	}
+	#修筑防线
+		focus = {
+		id = SNE_fortification
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = SNE_lessonsofthegreatwar }
+		x = -4
+		y = 1
+		relative_position_id = SNE_lessonsofthegreatwar
+		cost = 5
+        ai_will_do = {
+			factor = 25
+		}
+		available_if_capitulated = yes
+        available = {
+			 has_completed_focus = SNE_mayormotion
+		}
+		completion_reward = {
+			  add_timed_idea = {
+        idea = FRA_fortification_focus
+        days = 365
+         }
+		}
+	}
+	#筑城者
+		focus = {
+		id = SNE_thedefender
+		icon = GFX_focus_prc_infiltration
+		prerequisite = { focus = SNE_fortification }
+		x = 0
+		y = 1
+		relative_position_id = SNE_fortification
+		cost = 5
+		ai_will_do = {
+			factor = 25
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+	      #添加民族精神：筑城者：同苏联伪装大师与快速适应
+		}
+	}	
+	#对天理第一防线
+		focus = {
+		id = SNE_thefristline
+		icon = GFX_goal_fortify_the_westwall
+		prerequisite = { focus = SNE_thedefender }
+		x = 0
+		y = 1
+		relative_position_id = SNE_thedefender
+		cost = 8
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+	      #在多个位置修要塞
+		}
+	}
+	#重要城市设防
+		focus = {
+		id = SNE_impregnable_forts
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = SNE_thefristline }
+		x = 1
+		y = 1
+		relative_position_id = SNE_thefristline
+		cost = 12
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+	      #同苏联防御重要城市
+		}
+	}
+	#首都防御圈
+		focus = {
+		id = SNE_thedefenseofcaptail
+		icon = GFX_focus_SOV_the_defense_of_moscow
+		prerequisite = { focus = SNE_thefristline }
+		x = -1
+		y = 1
+		relative_position_id = SNE_thefristline
+		cost = 8
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+	      #在至冬宫附近添加28座要塞，添加4门防空炮，并添加同列宁格勒防御修正
+		}
+	}
+	  #召集宪兵营
+   focus = {
+      id = SNE_penal_battalions
+      icon =  GFX_focus_SOV_penal_battalions
+      cost = 8
+      x = -1
+      y = 1
+       available ={ 
+    }
+
+	  search_filters = {FOCUS_FILTER_MANPOWER }
+       prerequisite = {
+      focus = SNE_lessonsofthegreatwar
+    }
+    relative_position_id = SNE_lessonsofthegreatwar
+      completion_reward = {
+	  	set_technology = { penal_infantry = 1 popup = no }
+
+				division_template = {
+					name = "Shtrafnaya Chast"
+					division_names_group = SOV_PEN_01
+					is_locked = yes
+
+					regiments = {
+						penal_battalion = { x = 0 y = 0 }
+						penal_battalion = { x = 0 y = 1 }
+						penal_battalion = { x = 0 y = 2 }
+						penal_battalion = { x = 1 y = 0 }
+						penal_battalion = { x = 1 y = 1 }
+						penal_battalion = { x = 1 y = 2 }
+						penal_battalion = { x = 2 y = 0 }
+						penal_battalion = { x = 2 y = 1 }
+						penal_battalion = { x = 2 y = 2 }
+					}
+					support = {
+						artillery = { x = 0 y = 0 }
+					}
+				}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+  ##召集尖刀班
+      focus = {
+		id = SNE_daggersquad
+		icon = GFX_focus_RAJ_indian_gurkhas
+		prerequisite = { focus = SNE_penal_battalions }
+		x = -1
+		y = 1
+		relative_position_id = SNE_penal_battalions
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 25
+			modifier = {
+				factor = 2
+				has_completed_focus = SNE_captainrmotion
+			}
+		}
+
+		available = {
+			has_tech = tech_mountaineers
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_ideas = RAJ_indian_gurkhas			
+			custom_effect_tooltip = RAJ_create_unit_gurkas_tt
+			hidden_effect = {	
+				division_template = {
+					name = "Gorkha Rifles"
+					priority = 2
+					division_names_group = RAJ_MNT_01
+					regiments = {
+						mountaineers = { x = 0 y = 0 }
+						mountaineers = { x = 0 y = 1 }
+						mountaineers = { x = 0 y = 2 }
+			
+	    	   		 	mountaineers = { x = 1 y = 0 }
+						mountaineers = { x = 1 y = 1 }
+						mountaineers = { x = 1 y = 2 }
+
+						mountaineers = { x = 2 y = 0 }
+						mountaineers = { x = 2 y = 1 }
+						mountaineers = { x = 2 y = 2 }
+					}
+				}
+	
+				random_owned_controlled_state = {
+					prioritize = { 439 }
+					create_unit = {
+						division = "name = \"1. Gorkha Rifles\" division_template = \"Gorkha Rifles\" start_experience_factor = 1.0" 
+						owner = SNE
+					}	
+				}
+			}
+
+		}
+	}
+    #召集军队
+   focus = {
+      id = SNE_restore_cossack_units
+      icon =  GFX_focus_SOV_restore_cossack_units
+      cost = 8
+      x = 1
+      y = 1
+       available ={ 
+    }
+
+	  search_filters = {FOCUS_FILTER_MANPOWER }
+       prerequisite = {
+      focus = SNE_lessonsofthegreatwar
+    }
+    relative_position_id = SNE_lessonsofthegreatwar
+      completion_reward = {
+	hidden_effect = {
+				division_template = {
+					name = "Kazachya Kavaleryskaya Diviziya"
+					division_names_group = SOV_CAV_02
+					template_counter = 05
+
+					regiments = {
+						cavalry = { x = 0 y = 0 }
+						cavalry = { x = 0 y = 1 }
+						cavalry = { x = 1 y = 0 }
+						cavalry = { x = 1 y = 1 }
+						mot_artillery_brigade = { x = 2 y = 0 }
+						light_armor = { x = 3 y = 0 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						artillery = { x = 0 y = 1 }
+						recon = { x = 0 y = 2 }
+					}
+				}
+           }
+				capital_scope = {
+					#Cossack Cavalry
+					create_unit = { 
+						division = "name = \"4ya Donskaya Kazachya Kav. Div.\" division_template = \"Kazachya Kavaleryskaya Diviziya\" start_experience_factor = 0.8 start_equipment_factor = 1.0" owner = ROOT
+					}
+					create_unit = { 
+						division = "name = \"6ya Kubansko-Terskaya Kazachya Kav. Div.\" division_template = \"Kazachya Kavaleryskaya Diviziya\" start_experience_factor = 0.8 start_equipment_factor = 1.0" owner = ROOT
+					}
+					create_unit = { 
+						division = "name = \"10ya Tersko-Stavropolskaya Kazachya Kav. Div\" division_template = \"Kazachya Kavaleryskaya Diviziya\" start_experience_factor = 0.8 start_equipment_factor = 1.0" owner = ROOT
+					}
+					create_unit = { 
+						division = "name = \"12ya Kubanskaya Kazachya Kav. Div.\" division_template = \"Kazachya Kavaleryskaya Diviziya\" start_experience_factor = 0.8 start_equipment_factor = 1.0" owner = ROOT
+					}
+
+					#Cossack Infantry
+					create_unit = {
+						division = "name = \"13ya Donskaya Kazachya Div.\" division_template = \"Strelkovaya Diviziya\" start_experience_factor = 0.7 start_equipment_factor = 1.0" owner = ROOT
+					}
+				}
+			
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  } 
+  #老旧库存
+		focus = {
+		id = SNE_oldtanks
+		icon = GFX_focus_generic_combined_arms
+		prerequisite = { focus = SNE_penal_battalions }
+		prerequisite = { focus = SNE_restore_cossack_units }
+		x = 1
+		y = 1
+		relative_position_id = SNE_penal_battalions
+		cost = 12
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			if = {
+					limit = {
+						not = {
+							has_tech = gwtank_chassis
+						}
+					}
+					set_technology = { gwtank_chassis = 1 }
+				}
+	add_equipment_to_stockpile = { type = light_tank_chassis_0 amount = 600 producer = SNE variant_name = "Mantis Scrap Tank." }
+	add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 400 producer = SNE variant_name = "Rhino Heavy Tank." }
+	add_equipment_to_stockpile = { type = heavy_tank_chassis_0 amount = 200 producer = SNE variant_name = "Mammoth Tank." }
+		}
+	}
+   #组建装甲群
+    focus = {
+		id = SNE_division_cuirassee
+		icon = GFX_focus_generic_army_tanks2
+		x = 0
+		y = 1
+		
+		prerequisite = { focus = SNE_oldtanks }
+		mutually_exclusive = { }
+		relative_position_id = SNE_oldtanks
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			 has_completed_focus = SNE_dollmotion
+			OR = {
+				AND = {
+					has_tech = basic_heavy_tank
+					has_tech = basic_medium_tank
+				}
+				AND = {
+					has_tech = basic_heavy_tank_chassis
+					has_tech = basic_medium_tank_chassis
+				}
+			}
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			division_template = {
+				name = "Division Cuirassée" 	
+				division_names_group = FRA_ARM_01
+
+				regiments = {
+					medium_armor = { x = 0 y = 0 }		
+					heavy_armor = { x = 0 y = 1 }		
+					medium_armor = { x = 1 y = 0 }		
+					medium_armor = { x = 1 y = 1 }		
+					motorized = { x = 2 y = 0 }			
+					motorized = { x = 2 y = 1 }
+					motorized = { x = 2 y = 2 }
+				}
+				support = {
+					recon = { x = 0 y = 0 }      		
+					artillery = { x = 0 y = 1 }
+					engineer = { x = 0 y = 2 }
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1re Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.7 force_equipment_variants = { heavy_tank_chassis_0 = { creator = \"FRA\" version_name = \"Char B1\"} }"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"2me Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.7 force_equipment_variants = { heavy_tank_chassis_0 = { creator = \"FRA\" version_name = \"Char B1\"} }"  
+						owner = ROOT
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1re Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.7"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"2me Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.7"  
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+  #百战雄师
+	focus = {
+		id = SNE_lionsofthegreatwar
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		prerequisite = { focus = SNE_restore_cossack_units }
+		x = 1
+		y = 1
+		relative_position_id = SNE_restore_cossack_units
+		cost = 5
+		ai_will_do = {
+			factor = 25
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_ideas = RAJ_lions_of_the_great_war
+			custom_effect_tooltip = RAJ_create_unit_sikh_tt
+			hidden_effect = {
+
+				division_template = {
+				name = "Sikh Regiment" #sikh regiment, bro
+				division_names_group = RAJ_INF_01
+				regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+		
+		        		infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+							}
+						}
+		
+					random_owned_controlled_state = {
+							prioritize = { 439 }
+							create_unit = { 
+								division = "name = \"1. Sikh Regiment\" division_template = \"Sikh Regiment\" start_experience_factor = 0.5" 
+								owner = RAJ
+								}
+		
+					}
+				}
+
+		}
+	}
+		
+	#建设北海军港
+		focus = {
+		id = SNE_naval_rearmament
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { }
+		x = 30
+		y = 8
+		
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+
+		available_if_capitulated = yes
+        available = {
+			 has_completed_focus = SNE_chlidemotion
+			 	has_full_control_of_state = 330
+		}
+		completion_reward = {
+			navy_experience = 25
+			330 = { 
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+			}
+			add_doctrine_cost_reduction = {
+				uses = 1
+				cost_reduction = 0.75
+				category = naval_doctrine
+			}
+		}
+	}	
+	#建设海岸要塞
+		focus = {
+		id = SNE_coastal_bunker
+		icon = GFX_focus_generic_coastal_fort
+		prerequisite = { focus = SNE_naval_rearmament }
+		x = -2
+		y = 1
+		relative_position_id = SNE_naval_rearmament
+		cost = 12
+
+		available_if_capitulated = yes
+        available = {
+			 has_completed_focus = SNE_mayormotion
+			 has_full_control_of_state = 325
+		}
+		ai_will_do = {
+			factor = 25
+		}
+		completion_reward = {
+					325 = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = {
+								id = 142
+								id = 4571
+								id = 2504
+								id = 4527
+								id = 1581
+								id = 4340
+								id = 2338
+								id = 391
+								id = 4459
+								id = 4434
+								id = 2393
+								id = 4344
+								id = 4371
+								id = 3008
+								id = 3471
+								id = 4296
+								id = 1438
+								id = 4259
+								id = 4256											
+							}
+							instant_build = yes
+						}
+					}
+		}
+	}
+	
+	#寒芒舰队
+	focus = {
+		id = SNE_the_young_school
+		icon = GFX_goal_generic_navy_cruiser
+	 	prerequisite = { focus = SNE_naval_rearmament }
+		x = 0
+		y = 1
+		relative_position_id = SNE_naval_rearmament
+		cost = 8
+        ai_will_do = {
+			factor = 1
+		}
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = FRA_the_young_school
+		}
+	}	
+	#雪花艇
+		focus = {
+			id = SNE_thedefendship
+			icon = GFX_focus_generic_refit_civilian_ships
+			 prerequisite = { focus = SNE_the_young_school }
+			x = 2
+			y = 1
+			relative_position_id = SNE_the_young_school
+			cost = 8
+			ai_will_do = {
+				factor = 1
+			}
+			available_if_capitulated = yes
+			search_filters = { FOCUS_FILTER_INDUSTRY }
+			completion_reward = {
+				add_tech_bonus = {
+					bonus =1.5
+					uses = 2
+					category = dd_tech
+				}
+				
+			}
+		}
+	#冰渊狂鲨
+	focus = {
+		id = SNE_the_submarines
+		icon = GFX_goal_generic_navy_submarine
+		 prerequisite = { focus = SNE_thedefendship }
+		x = 0
+		y = 1
+		relative_position_id = SNE_thedefendship
+		cost = 7
+		ai_will_do = {
+			factor = 1
+		}
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+		#寒流舰队
+	focus = {
+		id = SNE_surface_combat
+		icon = GFX_focus_generic_navy_battleship2
+	 	prerequisite = { focus = SNE_the_young_school }
+		x = 0
+		y = 1
+		relative_position_id = SNE_the_young_school
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+			}
+		}
+	}
+	##补充运输舰
+	focus = {
+		id = SNE_buyshipping
+		prerequisite = { focus = SNE_the_young_school }
+		icon = GFX_focus_generic_destroyer
+		relative_position_id = SNE_the_young_school
+		x = -2
+		y = 1
+		cost = 10
+
+		available = {
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+	
+			add_equipment_to_stockpile = {
+				type = convoy
+				amount = 100
+			}
+			
+		}
+	}
+#女皇的恩赐
+	focus = {
+		id = SNE_prioritize_the_joffre
+		icon = GFX_goal_generic_navy_carrier
+	 	prerequisite = { focus = SNE_buyshipping }
+		x = 0
+		y = 1
+		relative_position_id = SNE_buyshipping
+		cost = 10
+		available_if_capitulated = no
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { basic_ship_hull_carrier = 1 }
+				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
+				hidden_effect = {
+					create_equipment_variant = {
+						name = "女皇恩赐级"
+						type = ship_hull_carrier_1
+						name_group = FRA_CV_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_deck_slot_1 = ship_deck_space
+							fixed_ship_deck_slot_2 = ship_deck_space
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = carrier_ship_engine_2
+							fixed_ship_secondaries_slot = dp_ship_secondaries_2
+							front_1_custom_slot = empty
+						}
+					}
+					add_equipment_production = {
+						equipment = {
+							type = ship_hull_carrier_1
+							creator = "SNE" 
+							version_name = "女皇恩赐"
+						}
+						requested_factories = 1
+						progress = 0.40
+						amount = 1
+					}
+				}	
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = carrier_2
+						creator = "SNE" 
+					}
+					requested_factories = 1
+					progress = 0.40
+					amount = 1
+				}
+			}
+		}
+	}	
+	focus = {
+		id = SNE_carrier_planes
+		icon = GFX_goal_generic_air_fighter
+
+	 	prerequisite = { focus = SNE_prioritize_the_joffre }
+		x = -1
+		y = 1
+		relative_position_id = SNE_prioritize_the_joffre
+		cost = 10
+
+		available_if_capitulated = yes
+		available = {
+			has_completed_focus = SNE_ladymotion
+	   }
+		completion_reward = {
+			add_tech_bonus = {
+				name = SNE_carrier_focus
+				bonus = 1.0
+				uses = 2
+				category = naval_air
+			}
+		}
+	}
+	#冰海巨鲸
+	focus = {
+		id = SNE_rush_the_richelieus
+		icon = GFX_goal_generic_navy_battleship
+	 	prerequisite = { focus = SNE_surface_combat }
+		x = 0
+		y = 1
+		relative_position_id = SNE_surface_combat
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_2
+						creator = "SNE" 
+						version_name = "极恶巨兽"
+					}
+					requested_factories = 1
+					progress = 0.85
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_2
+						creator = "SNE" 
+						version_name = "吞天之鲸"
+					}
+					requested_factories = 1
+					progress = 0.85
+					amount = 1
+				}
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = battleship_2
+						creator = "SNE" 
+					}
+					requested_factories = 1
+					progress = 0.50
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = battleship_2
+						creator = "SNE" 
+					}
+					requested_factories = 1
+					progress = 0.35
+					amount = 1
+				}
+			}
+		}
+	}
+	#公子的完结议案
+	focus = {
+		id = SNE_naval_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+	 	prerequisite = { 
+	 		focus = SNE_rush_the_richelieus
+	 		focus = SNE_prioritize_the_joffre
+	 		focus = SNE_the_submarines
+	 	}
+		x = 0
+		y = 2
+		relative_position_id = SNE_rush_the_richelieus
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_to_variable = {
+				SNE_warperpation = 1
+			   }
+			add_doctrine_cost_reduction = {
+				name = FRA_naval_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+	#新世纪的承诺
+		focus = {
+		id = SNE_transpolar_flights
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { }
+		x = 23
+		y = 8
+		
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+
+		available_if_capitulated = yes
+        available = {
+			 has_completed_focus = SNE_ladymotion
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = air_doctrine
+				cost_reduction = 0.75
+				uses = 1
+				category = air_doctrine
+			}
+		   	air_experience = 10
+		}
+	}	
+		#建设前线机场
+		focus = {
+		id = SNE_airport
+		icon = GFX_focus_generic_provoke_border_clashes
+		prerequisite = { focus = SNE_transpolar_flights }
+		x = 1
+		y = 1
+		relative_position_id = SNE_transpolar_flights
+		cost = 10
+		ai_will_do = {
+			factor = 3
+		}
+		available_if_capitulated = yes
+         available = {
+			has_full_control_of_state = 325
+			has_full_control_of_state = 329
+		}
+		completion_reward = {
+			325 = {
+				add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}}
+			329={	add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}}
+		
+
+		}
+	}
+	#飞机工厂
+		focus = {
+		id = SNE_inportaircraft
+		icon = GFX_focus_generic_multi_role_aircraft
+		prerequisite = { focus = SNE_airport }
+		x = 0
+		y = 1
+		relative_position_id = SNE_airport
+		cost = 10
+
+		available_if_capitulated = yes
+         available = {
+		
+		}
+		completion_reward = {
+				air_experience = 210
+				add_tech_bonus = {
+				name = ITA_specialization
+				bonus = 0.5
+				uses = 1
+				category = air_equipment
+			}
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}#1个军工
+			}
+
+		}
+	}
+	#支援机
+	focus = {
+		id = SNE_air_support
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = SNE_inportaircraft }
+		x = 0
+		y = 1
+		relative_position_id = SNE_inportaircraft
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		completion_reward = {
+			air_experience = 10
+			add_ideas = air_support_focus
+		}
+	}
+	#轰炸机
+	focus = {
+		id = SNE_strategic_bombing
+		icon = GFX_goal_generic_occupy_start_war
+		prerequisite = { focus = SNE_inportaircraft }
+		x = 2
+		y = 1
+		relative_position_id = SNE_inportaircraft
+		cost = 10
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			air_experience = 5
+			add_ideas = strategic_bombing_focus
+		}
+	}
+	#寒流轰炸机
+	focus = {
+		id = SNE_escort_fighters
+		icon = GFX_focus_usa_escort_fighters
+		x = 0
+		y = 1
+		prerequisite = { focus = SNE_strategic_bombing focus = SNE_air_support }
+		relative_position_id = SNE_air_support
+		cost = 8
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = {FOCUS_FILTER_RESEARCH}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_escort_fighters
+				bonus = 3.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+			add_tech_bonus = {
+				name = CAS_effort
+				uses = 1
+				bonus = 3.0
+				category = cas_bomber
+			}
+		}
+	}
+		#建设雷达站
+		focus = {
+		id = SNE_radar_station
+		icon = GFX_goal_generic_radar
+		prerequisite = { focus = SNE_transpolar_flights }
+		x = -1
+		y = 1
+		relative_position_id = SNE_transpolar_flights
+		cost = 10
+		ai_will_do = {
+			factor = 15
+		}
+		available_if_capitulated = yes
+         available = {
+			has_completed_focus = SNE_doctorrecommendation
+			has_full_control_of_state = 325
+			has_full_control_of_state = 309
+			has_tech = radio_detection
+		}
+		completion_reward = {
+			325 = {
+					add_building_construction = {
+						type = radar_station
+						level = 1
+						instant_build = yes
+					}	}
+			309 = {
+					add_building_construction = {
+						type = radar_station
+						level = 1
+						instant_build = yes
+					}	}
+
+		}
+	}
+	#冰茧计划
+	focus = {
+	id = SNE_antiair
+	icon = GFX_focus_POL_ukrainian_army
+	prerequisite = { focus = SNE_radar_station }
+	x = 0
+	y = 1
+	relative_position_id = SNE_radar_station
+	cost = 5
+	ai_will_do = {
+		factor = 15
+	}
+	available_if_capitulated = yes
+	 available = {
+	}
+	completion_reward = {	
+		add_doctrine_cost_reduction = {
+		bonus = 1.0
+		uses = 1
+		category = cat_anti_air
+	}
+
+	}
+	
+}
+		#冰茧网络
+		focus = {
+		id = SNE_bombing_defense
+		icon = GFX_focus_generic_air_defense
+		prerequisite = { focus = SNE_antiair }
+		x = 0
+		y = 1
+		relative_position_id = SNE_antiair
+		cost = 10
+		ai_will_do = {
+			factor = 30
+		}
+		available_if_capitulated = yes
+         available = {
+			has_full_control_of_state = 325
+			has_full_control_of_state = 309
+			has_tech = interwar_antiair
+		}
+		completion_reward = {
+			325 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 3
+						instant_build = yes
+					}	}
+			309 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 3
+						instant_build = yes
+					}	}
+
+		}
+	}
+	#少女的最终议案
+	focus = {
+		id = SNE_TAC
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { 
+		focus = SNE_bombing_defense
+		focus = SNE_escort_fighters  }
+		x = 0
+		y = 2
+		relative_position_id = SNE_bombing_defense
+		cost = 5
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+
+		completion_reward = {
+			add_to_variable = {
+				SNE_warperpation = 1
+			   }
+			air_experience = 25
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1.0
+				category = tactical_bomber
+			}
+		}
+	}
+	      ##渴求智慧的愚者#
+		  focus = {
+			id = SNE_literacy_programs
+		   
+			icon =  GFX_focus_research
+			cost = 10
+			x = 17
+			y = 8
+			available = {
+				has_completed_focus = SNE_doctorrecommendation
+		   }
+			search_filters = {FOCUS_FILTER_STABILITY }
+			 prerequisite = {
+		  }
+		  ai_will_do = {
+			  factor = 1
+		  }
+  
+		  available = {
+			  num_of_factories > 34
+			  amount_research_slots < 5
+		  }
+  
+		  bypass = {
+  
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			  add_research_slot = 1
+		  }
+		}
+		   ##公鸡的科研需求#
+		   focus = {
+			id = SNE_rock_programs
+		   
+			icon =  GFX_goal_generic_production2
+			cost = 10
+			x = 0
+			y = 1
+			relative_position_id = SNE_literacy_programs
+			
+		    prerequisite = { focus = SNE_literacy_programs }
+			available = {
+				has_completed_focus = SNE_mayormotion
+		   }
+			search_filters = {FOCUS_FILTER_STABILITY }
+		  ai_will_do = {
+			  factor = 1
+		  }
+		  bypass = {
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2			
+				category = computing_tech
+			}
+		  }
+		}
+		focus = {
+			id = SNE_building_tech
+			#建筑技术
+			icon = GFX_goal_generic_construct_civilian
+			cost = 10
+			x = 0
+			y = 1
+			prerequisite = {
+			   focus = SNE_rock_programs
+			}
+			relative_position_id = SNE_rock_programs
+			available ={
+			}
+			  search_filters = { FOCUS_FILTER_INDUSTRY }
+			completion_reward = {
+					add_tech_bonus = {
+				  name = CHI_naval_aviation
+				  bonus = 0.5
+				  uses = 2
+				  category = construction_tech
+			  }
+		  ##添加50%加速2次，在建筑类	
+			}
+			}
+			focus = {
+				id = SNE_product_tech
+				#生产技术
+				icon = GFX_goal_generic_production
+				cost = 10
+				x = 0
+				y = 1
+			   relative_position_id = SNE_building_tech
+				prerequisite = {
+				   focus = SNE_building_tech
+				}
+				available ={
+				}
+			  search_filters = { FOCUS_FILTER_INDUSTRY }
+				completion_reward = {
+				add_tech_bonus = {
+					  name = CHI_naval_aviation
+					  bonus = 0.5
+					  uses = 2
+					  category = industry	
+				  }
+			  ##添加50%加速2次，在生产类	
+				}
+				}
+		 ##亵渎实验#
+			focus = {
+					id = SNE_demorsecch
+				   
+					icon =  GFX_goal_generic_production2
+					cost = 10
+					x = -2
+					y = 1
+					relative_position_id = SNE_literacy_programs
+					
+					prerequisite = { focus = SNE_literacy_programs }
+					search_filters = {FOCUS_FILTER_STABILITY }
+				  ai_will_do = {
+					  factor = 1
+				  }
+				  bypass = {
+				  }
+		  
+				  cancel_if_invalid = yes
+				  continue_if_invalid = no
+				  available_if_capitulated = yes
+		  
+				  search_filters = { FOCUS_FILTER_RESEARCH }
+				  completion_reward = {
+					add_political_power = -30
+					add_manpower = -8000
+					add_tech_bonus = {
+						bonus = 1.75
+						uses = 2			
+						category = electronics
+					}
+				  }
+				}
+		##通讯实验#
+		focus = {
+			id = SNE_radio_programs
+			icon =  GFX_goal_generic_radar
+			cost = 10
+			x = -2
+			y = 1
+			relative_position_id = SNE_rock_programs
+			
+		    prerequisite = { focus = SNE_demorsecch }
+			search_filters = {FOCUS_FILTER_STABILITY }
+		  ai_will_do = {
+			  factor = 1
+		  }
+		  bypass = {
+		  }
+  
+		  cancel_if_invalid = yes
+		  continue_if_invalid = no
+		  available_if_capitulated = yes
+  
+		  search_filters = { FOCUS_FILTER_RESEARCH }
+		  completion_reward = {
+			add_political_power = -30
+			add_manpower = -8000
+			add_tech_bonus = {
+				bonus = 1.75
+				uses = 2			
+				category = radar_tech
+			}
+		  }
+		}
+		##先进工业#
+			focus = {
+				id = SNE_industrial_modernization
+				icon =  GFX_goal_generic_production
+				cost = 10
+				x = 0
+				y = 1
+				relative_position_id = SNE_radio_programs
+				prerequisite = { focus = SNE_radio_programs }
+				available = {
+					has_completed_focus = SNE_civil_factory
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+	  
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+	  
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  add_tech_bonus = {
+				add_political_power = -30
+				add_manpower = -12000
+				name = SOV_industrial_modernization
+				ahead_reduction = 0.7
+				bonus = 2.0
+				uses = 2
+				category = industry
+			}
+			}
+		
+			 ##队长的装备需求#
+			 focus = {
+				id = SNE_captain_programs
+			   
+				icon =  GFX_focus_focus_fra_maquis
+				cost = 10
+				x = 2
+				y = 1
+				relative_position_id = SNE_literacy_programs
+				
+				prerequisite = { focus = SNE_literacy_programs }
+				available = {
+					has_completed_focus = SNE_captainrmotion
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  completion_reward = {
+				add_tech_bonus = {
+					bonus = 0.75
+					uses = 2			
+					category = infantry_weapons
+				}
+			  }
+			}
+			##先进的支援装备#
+			 focus = {
+				id = SNE_captain_supportamor
+				icon =  GFX_focus_secret_rearmament
+				cost = 10
+				x = 0
+				y = 1
+				relative_position_id = SNE_captain_programs
+				
+				prerequisite = { focus = SNE_captain_programs }
+				available = {
+					has_completed_focus = SNE_captainrmotion
+			   }
+				search_filters = {FOCUS_FILTER_STABILITY }
+			  ai_will_do = {
+				  factor = 1
+			  }
+			  bypass = {
+			  }
+			  cancel_if_invalid = yes
+			  continue_if_invalid = no
+			  available_if_capitulated = yes
+			  search_filters = { FOCUS_FILTER_RESEARCH }
+			  completion_reward = {
+				add_tech_bonus = {
+					bonus = 0.75
+					uses = 2			
+					category = support_tech
+				}
+			  }
+			}
+				##装甲先锋#
+				focus = {
+					id = SNE_superior_war_machines
+					icon =  GFX_focus_generic_tank_production
+					cost = 10
+					x = 0
+					y = 1
+					relative_position_id = SNE_captain_supportamor
+					
+					prerequisite = { focus = SNE_captain_supportamor }
+					available = {
+						has_completed_focus = SNE_dollmotion
+				   }
+					search_filters = {FOCUS_FILTER_STABILITY }
+				  ai_will_do = {
+					  factor = 1
+				  }
+				  bypass = {
+				  }
+				  cancel_if_invalid = yes
+				  continue_if_invalid = no
+				  available_if_capitulated = yes
+				  search_filters = { FOCUS_FILTER_RESEARCH }
+				  completion_reward = {
+					add_tech_bonus = {
+						name = SOV_superior_war_machines
+						bonus = 1
+						uses = 2
+						category = armor
+					}
+				  }
+				}
+					 ##愚者之识#
+					 focus = {
+						id = SNE_academy_of_sciences
+					   
+						icon =  GFX_focus_research2
+						cost = 12
+						x = 2
+						y = 2
+						relative_position_id = SNE_industrial_modernization
+						available = {
+							has_completed_focus = SNE_doctorrecommendation
+					   }
+						search_filters = {FOCUS_FILTER_STABILITY }
+						 prerequisite = { 
+							focus = SNE_industrial_modernization
+							focus = SNE_product_tech
+							focus = SNE_superior_war_machines
+					  }
+					  ai_will_do = {
+						  factor = 1
+					  }
+			  
+					  available = {
+						  num_of_factories > 60
+					  }
+			  
+			  
+					  cancel_if_invalid = yes
+					  continue_if_invalid = no
+					  available_if_capitulated = yes
+			  
+					  search_filters = { FOCUS_FILTER_RESEARCH }
+					  completion_reward = {
+						  add_research_slot = 1
+						  add_to_variable = {
+							SNE_warperpation = 1
+						   }
+					  }
+					}
+}

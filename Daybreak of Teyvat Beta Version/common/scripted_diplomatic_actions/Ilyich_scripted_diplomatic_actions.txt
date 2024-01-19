@@ -1,0 +1,38 @@
+
+scripted_diplomatic_actions = {
+
+	Ilyich_Provoking_diplomatic_actions = { 
+		#root is the initiator of action and this is the target country
+		allowed = { always = yes }
+		visible = {	always = yes }
+		selectable = { always = yes }
+		requires_acceptance = yes # if true the action will require acceptance of target country
+		cost = 10 # pp cost, can be zero
+		command_power = 0 # cp cost, can be zero
+		show_acceptance_on_action_button = yes # set to no if acceptance shouldn't be displayed on the action button
+		icon = 1 # icon frame to use in notification
+		send_scripted_gui = Ilyich_Provoking_diplomatic_actions
+		on_sent_effect = {	
+        THIS = {
+		add_ai_strategy = { type = alliance  id = ROOT   value = -20 }
+		add_ai_strategy = {	type = protect  id = ROOT   value = -20 }
+		add_ai_strategy = { type = send_volunteers_desire  id = ROOT   value = -20 }
+		add_ai_strategy = { type = support  id = ROOT   value = -20 }
+		      }
+		      }
+		complete_effect = {
+		THIS = { add_ai_strategy = { type = support  id = ROOT   value = -20 } }
+		THIS = { country_event = Ilyich_Diplomatic_Actions.1  days = 5 }
+		ROOT = { country_event = Ilyich_Diplomatic_Actions.2  days = 10 }
+		}	
+		can_be_sent = { always = yes }
+		send_description = Ilyich_Provoking_diplomatic_actions_action_desc
+		accept_title = Ilyich_Diplomatic_Actions.1.a
+		accept_description = Ilyich_Provoking_diplomatic_actions_action_desc
+		reject_title = Ilyich_Diplomatic_Actions.1.a
+		reject_description = Ilyich_Provoking_diplomatic_actions_action_desc
+		ai_acceptance = { condition = { base = 100 } }
+		ai_desire = { base = 1 	modifier = { } 	}
+	}
+########################
+}

@@ -1,0 +1,5067 @@
+focus_tree = {
+	id = FAV_Focus_01
+	#教会战后国策树
+	country = {
+		factor = 0
+	}
+	initial_show_position = {
+		focus = FAV_the_New_Beginning_of_MOT
+	}
+	default = no
+	reset_on_civilwar = no
+	continuous_focus_position = { x = 300 y = 3000 }
+	###开头
+	#迈向未来
+	focus = {
+		id = FAV_the_New_Beginning_of_MOT
+		icon = GFX_goal_DOT_02
+		cost = 1.00
+		x = 20
+		y = 1
+		completion_reward = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#审计损失
+	focus = {
+		id = FAV_Know_What_We_Lost
+		icon = GFX_Goal_Political
+		cost = 1.00
+		x = 19
+		y = 2
+		prerequisite = {
+			focus = FAV_the_New_Beginning_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#建立管理
+	focus = {
+		id = FAV_Build_Control
+		icon = GFX_Goal_Political_Coo
+		cost = 1.00
+		x = 21
+		y = 2
+		prerequisite = {
+			focus = FAV_the_New_Beginning_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
+			every_state = {
+				limit = { is_core_of = MOT }
+				add_core_of = FAV
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#红 洒下初晖
+	focus = {
+		id = FAV_RP_First_Light
+		icon = GFX_goal_56_goals_20
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+			add_ideas = FAV_Sound_of_New_World1
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 雄鹰敛羽
+	focus = {
+		id = FAV_FP_Refresh_Our_Flesh
+		icon = GFX_goal_MOT_02
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+			add_ideas = FAV_Call_for_Heaven1
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝灰 神圣宪法
+	focus = {
+		id = FAV_DP_Holy_Law
+		icon = GFX_goal_EAW_31
+		cost = 5.00
+		x = 20
+		y = 3
+		prerequisite = {
+			focus = FAV_Know_What_We_Lost
+		}
+		prerequisite = {
+			focus = FAV_Build_Control
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			DRA_Rebuild_Improved = yes
+			IF = {
+				limit = { has_government = democratic }
+				add_ideas = FAV_Song_of_Wind1
+			}
+			ELSE_IF = {
+				add_ideas = FAV_Peace_Calling1
+			}
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_NNN
+				has_global_flag = FAV_REUNION_DDD
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#降低征兵
+	#红 新的萨拉丁
+	focus = {
+		id = FAV_RP_Rebuild_Economy
+		icon = GFX_Goal_Industry_or_Production
+		cost = 10.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_RP_First_Light
+		}
+		completion_reward = {
+			add_ideas = FAV_Good_Realationship_AandP
+			MOT_Manpower_Law_Down = yes
+			every_owned_state = {
+				limit = { NOT = { has_state_category = wasteland } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = 100
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = FAV_FP_Warfare_First
+		icon = GFX_goals_TNO_Blood1
+		cost = 10.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_FP_Refresh_Our_Flesh
+		}
+		completion_reward = {
+			add_ideas = FAV_Army_of_Tiger_and_Wolf
+			add_timed_idea = { idea = gene_high_burden days = 140 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝灰 回归家庭
+	focus = {
+		id = FAV_DP_Come_Back_Home
+		icon = GFX_focus_generic_population_growth
+		cost = 5.00
+		x = 19
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			add_ideas = FAV_Good_Cons
+			MOT_Manpower_Law_Down = yes
+			MOT_Manpower_Law_Down = yes
+			add_political_power = 200
+			add_war_support = 0.05
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_NNN
+				has_global_flag = FAV_REUNION_DDD
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#恢复经济
+	#红 蒙德面包，璃月方糖
+	focus = {
+		id = FAV_RP_Faster_Mobilization
+		icon = GFX_Goal_Happy_Coo
+		cost = 10.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_RP_First_Light
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 紧握剑柄
+	focus = {
+		id = FAV_FP_Catch_the_Sword
+		icon = GFX_goals_TNO_Blood3
+		cost = 10.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_FP_Refresh_Our_Flesh
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			add_war_support = 0.05
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 下午茶的回归
+	focus = {
+		id = FAV_DP_Tea_Party
+		icon = GFX_goal_generic_consumer_goods
+		cost = 5.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			add_political_power = 200
+			add_timed_idea = { idea = gene_less_burden days = 360 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 莫忘旧事
+	focus = {
+		id = FAV_NP_No_Forget_Olds
+		icon = GFX_goal_generic_political_pressure
+		cost = 5.00
+		x = 21
+		y = 4
+		prerequisite = {
+			focus = FAV_DP_Holy_Law
+		}
+		completion_reward = {
+			MOT_Mobile_Law_Down = yes
+			MOT_Trade_Law_Down = yes
+			MOT_Mobile_Law_Down = yes
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#基层控制力
+	#红1 来自千万的星辰
+	focus = {
+		id = FAV_RP_Peoples_Piety
+		icon = GFX_focus_spr_torchbearers_of_tomorrow
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			FAV_Better_Deve_of_A2 = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+			has_country_flag = FAV_MeetingChurch_NoCenter
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#红2 神职人员的责任
+	focus = {
+		id = FAV_RP_Churchs_Piety
+		icon = GFX_focus_spr_torchbearers_of_tomorrow
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			add_political_power = -100
+			add_stability = 0.05
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+			has_country_flag = FAV_MeetingChurch_Pioneer
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 皆为神愿
+	focus = {
+		id = FAV_FP_All_For_God
+		icon = GFX_goals_TNO_genericwork10
+		cost = 10.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_FP_Catch_the_Sword
+			focus = FAV_FP_Warfare_First
+		}
+		completion_reward = {
+			MOT_Up_Level_of_Poli = yes
+			add_political_power = -100
+			add_war_support = 0.05
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 利用旧教士
+	focus = {
+		id = FAV_NP_Use_Olds
+		icon = GFX_Goal_Happy_Coo
+		cost = 1.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_NP_No_Forget_Olds
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 白纸上的描绘
+	focus = {
+		id = FAV_DP_Draw_on_Paper
+		icon = goals_RAGwqeamsgksgr
+		cost = 5.00
+		x = 18
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			add_political_power = -200
+			add_timed_idea = { idea = gene_low_burden days = 90 }
+			MOT_Up_Level_of_Poli = yes
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#残余反对派
+	#红 积成美好的根基
+	focus = {
+		id = FAV_RP_Build_Beautiful_Base
+		icon = GFX_C_Goal_Meeting_open
+		cost = 15.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			DRA_united_improved = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.25
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 如同毒癌，愈烂愈大
+	focus = {
+		id = FAV_FP_Kill_Them_All
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_FP_Catch_the_Sword
+			focus = FAV_FP_Warfare_First
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_stability = 0.1
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.3
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 为万人祝谢
+	focus = {
+		id = FAV_DP_Pray_for_Us
+		icon = GFX_goal_KX_goals_84
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_stability = -0.05
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 摆脱魔鬼的罗网
+	focus = {
+		id = FAV_NP_Out_the_Trap
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 5.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_stability = 0.05
+			add_popularity = {
+				ideology = communism
+				popularity = -0.1
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#各地区孤立状态
+	#红 在蒙德的大地上自由行走
+	focus = {
+		id = FAV_RP_Walk_on_Our_Land
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 22
+		y = 5
+		prerequisite = {
+			focus = FAV_RP_Rebuild_Economy
+			focus = FAV_RP_Faster_Mobilization
+		}
+		completion_reward = {
+			add_ideas = FAV_Walk_in_Freedom
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 谨慎自守、专心盼望
+	focus = {
+		id = FAV_FP_Keep_Cautious
+		icon = GFX_goals_TNO_genericwork9
+		cost = 5.00
+		x = 22
+		y = 5
+		prerequisite = {
+			focus = FAV_FP_Catch_the_Sword
+			focus = FAV_FP_Warfare_First
+		}
+		completion_reward = {
+			add_ideas = FAV_Control_Immigrant
+			add_war_support = 0.05
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 蒙德的血脉
+	focus = {
+		id = FAV_DP_Vein_of_MOT
+		icon = GFX_focus_generic_railroad
+		cost = 10.00
+		x = 22
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_DP_Tea_Party
+		}
+		completion_reward = {
+			add_ideas = FAV_Walk_in_Freedom
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 牧人的监督
+	focus = {
+		id = FAV_NP_See_of_Piety
+		icon = GFX_Goal_Fight_for_Reunion
+		cost = 5.00
+		x = 22
+		y = 5
+		prerequisite = {
+			focus = FAV_DP_Come_Back_Home
+			focus = FAV_NP_No_Forget_Olds
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = FAV_Control_Immigrant
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = neutrality
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##政府制度
+	#红1 彼此切实相爱
+	focus = {
+		id = FAV_RP_Love_Each_Other
+		icon = GFX_goal_KX_goals_269
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_RP_Build_Beautiful_Base
+		}
+		prerequisite = {
+			focus = FAV_RP_Walk_on_Our_Land
+		}
+		prerequisite = {
+			focus = FAV_RP_Peoples_Piety
+		}
+		completion_reward = {
+			add_political_power = 200
+			DRA_united_improved = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 神之锋刃
+	focus = {
+		id = FAV_FP_Holy_Sword
+		icon = GFX_goal_KX_goals_264
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_FP_All_For_God
+		}
+		prerequisite = {
+			focus = FAV_FP_Kill_Them_All
+		}
+		prerequisite = {
+			focus = FAV_FP_Keep_Cautious
+		}
+		completion_reward = {
+			add_stability = 0.05
+			DRA_union_improved = yes
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = fascism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 神圣一票
+	focus = {
+		id = FAV_DP_Holy_Choose
+		icon = GFX_goal_KX_goals_272
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_DP_Draw_on_Paper
+		}
+		prerequisite = {
+			focus = FAV_DP_Pray_for_Us
+		}
+		prerequisite = {
+			focus = FAV_DP_Vein_of_MOT
+		}
+		completion_reward = {
+			add_stability = 0.05
+			DRA_united_improved = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 神佑之国
+	focus = {
+		id = FAV_NP_God_Bless
+		icon = GFX_goal_KX_goals_264
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_NP_Use_Olds
+		}
+		prerequisite = {
+			focus = FAV_NP_See_of_Piety
+		}
+		prerequisite = {
+			focus = FAV_NP_Out_the_Trap
+		}
+		completion_reward = {
+			add_stability = 0.05
+			DRA_united_improved = yes
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = neutrality
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##教会变革
+	#红 田中的萌芽
+	focus = {
+		id = FAV_RP_Seed_in
+		icon = GFX_Goal_develop_Agri2
+		cost = 10.00
+		x = 20
+		y = 6
+		prerequisite = {
+			focus = FAV_RP_Build_Beautiful_Base
+		}
+		prerequisite = {
+			focus = FAV_RP_Walk_on_Our_Land
+		}
+		prerequisite = {
+			focus = FAV_RP_Churchs_Piety
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_ideas = FAV_Peoples_Church
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 从心里发出来的、这才污秽人
+	focus = {
+		id = FAV_FP_Bad_From_Heart
+		icon = GFX_goals_TNO_Kill2
+		cost = 10.00
+		x = 20
+		y = 6
+		prerequisite = {
+			focus = FAV_FP_All_For_God
+		}
+		prerequisite = {
+			focus = FAV_FP_Kill_Them_All
+		}
+		prerequisite = {
+			focus = FAV_FP_Keep_Cautious
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_ideas = FAV_Under_God
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = fascism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 人子降临在他的国里
+	focus = {
+		id = FAV_DP_Human_on_Land
+		icon = GFX_Goal_demo_economy
+		cost = 10.00
+		x = 20
+		y = 6
+		prerequisite = {
+			focus = FAV_DP_Draw_on_Paper
+		}
+		prerequisite = {
+			focus = FAV_DP_Pray_for_Us
+		}
+		prerequisite = {
+			focus = FAV_DP_Vein_of_MOT
+		}
+		completion_reward = {
+			DRA_Rebuild_Improved = yes
+			add_ideas = FAV_Without_God
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 有甚么益处呢
+	focus = {
+		id = FAV_NP_What_For
+		icon = GFX_goal_KX_goals_404
+		cost = 5.00
+		x = 20
+		y = 6
+		prerequisite = {
+			focus = FAV_NP_Use_Olds
+		}
+		prerequisite = {
+			focus = FAV_NP_See_of_Piety
+		}
+		prerequisite = {
+			focus = FAV_NP_Out_the_Trap
+		}
+		completion_reward = {
+			add_stability = 0.1
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = neutrality
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##教育制度
+	#红 天国的钥匙
+	focus = {
+		id = FAV_RP_Key_of_Heaven
+		icon = GFX_goal_56_goals_26
+		cost = 10.00
+		x = 18
+		y = 6
+		prerequisite = {
+			focus = FAV_RP_Build_Beautiful_Base
+		}
+		prerequisite = {
+			focus = FAV_RP_Walk_on_Our_Land
+		}
+		prerequisite = {
+			focus = FAV_RP_Churchs_Piety
+		}
+		completion_reward = {
+			IF = {
+				limit = { has_ideas = gene_equal_education1 }
+				remove_ideas = gene_equal_education3
+				remove_ideas = gene_equal_education2
+				remove_ideas = gene_equal_education1
+				add_ideas = gene_equal_education4
+			}
+			ELSE_IF = {
+				add_ideas = gene_equal_education3
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 将心志作为兵器
+	focus = {
+		id = FAV_FP_Mindy_Weapon
+		icon = GFX_goal_56_goals_26
+		cost = 5.00
+		x = 18
+		y = 6
+		prerequisite = {
+			focus = FAV_FP_All_For_God
+		}
+		prerequisite = {
+			focus = FAV_FP_Kill_Them_All
+		}
+		prerequisite = {
+			focus = FAV_FP_Keep_Cautious
+		}
+		completion_reward = {
+			DRA_union_improved = yes
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = fascism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝/灰 补贴私人教育
+	focus = {
+		id = FAV_DP_Money_For_Personal_Education
+		icon = GFX_goal_56_goals_26
+		cost = 10.00
+		x = 18
+		y = 6
+		prerequisite = {
+			focus = FAV_DP_Draw_on_Paper
+			focus = FAV_NP_Use_Olds
+		}
+		prerequisite = {
+			focus = FAV_DP_Pray_for_Us
+			focus = FAV_NP_Out_the_Trap
+		}
+		prerequisite = {
+			focus = FAV_DP_Vein_of_MOT
+			focus = FAV_NP_See_of_Piety
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			add_ideas = gene_efficient_education3
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = democratic
+			}
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_DDD
+				has_global_flag = FAV_REUNION_NNN
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##调整分配
+	#红 在后的将要在前
+	focus = {
+		id = FAV_RP_Last_Will_be_First
+		icon = GFX_goal_56_goals_10
+		cost = 10.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_RP_Key_of_Heaven
+		}
+		prerequisite = {
+			focus = FAV_RP_Seed_in
+		}
+		prerequisite = {
+			focus = FAV_RP_Love_Each_Other
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = FAV_Equality_of_Economy
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑 举国一致
+	focus = {
+		id = FAV_FP_Unity_as_One
+		icon = GFX_goal_56_goals_6
+		cost = 10.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_FP_Mindy_Weapon
+		}
+		prerequisite = {
+			focus = FAV_FP_Bad_From_Heart
+		}
+		prerequisite = {
+			focus = FAV_FP_Holy_Sword
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			add_ideas = FAV_Union_to_Power
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = fascism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 怜恤你的同伴，如神怜恤你
+	focus = {
+		id = FAV_DP_By_Charity
+		icon = GFX_goal_56_goals_10
+		cost = 10.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_DP_Human_on_Land
+		}
+		prerequisite = {
+			focus = FAV_DP_Holy_Choose
+		}
+		prerequisite = {
+			focus = FAV_DP_Money_For_Personal_Education
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = FAV_Encourage_Charity
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#灰 从心里饶恕
+	focus = {
+		id = FAV_NP_for_Happiness
+		icon = GFX_goal_56_goals_10
+		cost = 5.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_NP_God_Bless
+		}
+		prerequisite = {
+			focus = FAV_NP_What_For
+		}
+		prerequisite = {
+			focus = FAV_DP_Money_For_Personal_Education
+		}
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+			add_ideas = FAV_Call_for_Peace
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+		}
+		available = {
+			has_government = neutrality
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##福利制度
+	#红 饥渴慕义的人有福了
+	focus = {
+		id = FAV_RP_Will_get_Bonus
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 10.00
+		x = 21
+		y = 7
+		prerequisite = {
+			focus = FAV_RP_Key_of_Heaven
+		}
+		prerequisite = {
+			focus = FAV_RP_Seed_in
+		}
+		prerequisite = {
+			focus = FAV_RP_Love_Each_Other
+		}
+		completion_reward = {
+			add_ideas = gene_high_welfare
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#黑/灰 尽心、尽性、尽意
+	focus = {
+		id = FAV_FP_Try_Their_Best
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 5.00
+		x = 21
+		y = 7
+		prerequisite = {
+			focus = FAV_FP_Mindy_Weapon
+			focus = FAV_DP_Money_For_Personal_Education
+		}
+		prerequisite = {
+			focus = FAV_NP_What_For
+			focus = FAV_FP_Bad_From_Heart
+		}
+		prerequisite = {
+			focus = FAV_NP_God_Bless
+			focus = FAV_FP_Holy_Sword
+		}
+		completion_reward = {
+			add_ideas = gene_little_welfare
+			DRA_Rebuild_Improved = yes
+		}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = fascism
+			}
+		}
+		allow_branch = {
+			OR = {
+				has_global_flag = FAV_REUNION_NNN
+				has_global_flag = FAV_REUNION_FFF
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#蓝 爱人如己
+	focus = {
+		id = FAV_DP_LoveCraft
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 10.00
+		x = 21
+		y = 7
+		prerequisite = {
+			focus = FAV_DP_Human_on_Land
+		}
+		prerequisite = {
+			focus = FAV_DP_Holy_Choose
+		}
+		prerequisite = {
+			focus = FAV_DP_Money_For_Personal_Education
+		}
+		completion_reward = {
+			add_ideas = gene_middle_welfare
+			DRA_Rebuild_Improved = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##重建结束
+	#R 有信、有望、有爱
+	focus = {
+		id = FAV_RP_Judge_By_People
+		icon = GFX_goal_KX_goals_380
+		cost = 10.00
+		x = 20
+		y = 8
+		prerequisite = {
+			focus = FAV_FP_Unity_as_One
+		}
+		prerequisite = {
+			focus = FAV_FP_Try_Their_Best
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			DRA_united_improved = yes
+			add_ideas = gene_better_development
+			remove_ideas = gene_Rebuild_our_nation5
+			remove_ideas = gene_Rebuild_our_nation4
+			remove_ideas = gene_Rebuild_our_nation3
+			remove_ideas = gene_Rebuild_our_nation2
+			remove_ideas = gene_Rebuild_our_nation1
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = communism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+ 	#F 国度、权柄、荣耀
+	focus = {
+		id = FAV_FP_Power_and_Glory
+		icon = GFX_goal_KX_goals_370
+		cost = 10.00
+		x = 20
+		y = 8
+		prerequisite = {
+			focus = FAV_FP_Unity_as_One
+		}
+		prerequisite = {
+			focus = FAV_FP_Try_Their_Best
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			DRA_union_improved = yes
+			add_ideas = gene_better_development
+			remove_ideas = gene_Rebuild_our_nation5
+			remove_ideas = gene_Rebuild_our_nation4
+			remove_ideas = gene_Rebuild_our_nation3
+			remove_ideas = gene_Rebuild_our_nation2
+			remove_ideas = gene_Rebuild_our_nation1
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = fascism
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#D 自由与爱之梦
+	focus = {
+		id = FAV_DP_Dream_for_Peace_and_Love
+		icon = GFX_goal_KX_goals_371
+		cost = 10.00
+		x = 20
+		y = 8
+		prerequisite = {
+			focus = FAV_DP_LoveCraft
+		}
+		prerequisite = {
+			focus = FAV_DP_By_Charity
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			add_ideas = gene_better_development
+			remove_ideas = gene_Rebuild_our_nation5
+			remove_ideas = gene_Rebuild_our_nation4
+			remove_ideas = gene_Rebuild_our_nation3
+			remove_ideas = gene_Rebuild_our_nation2
+			remove_ideas = gene_Rebuild_our_nation1
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = democratic
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#N 歌唱平静与幸福
+	focus = {
+		id = FAV_NP_Sing_Peace_and_Happiness
+		icon = GFX_goal_EAW_78
+		cost = 10.00
+		x = 20
+		y = 8
+		prerequisite = {
+			focus = FAV_NP_for_Happiness
+		}
+		prerequisite = {
+			focus = FAV_FP_Try_Their_Best
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			add_ideas = gene_better_development
+			remove_ideas = gene_Rebuild_our_nation5
+			remove_ideas = gene_Rebuild_our_nation4
+			remove_ideas = gene_Rebuild_our_nation3
+			remove_ideas = gene_Rebuild_our_nation2
+			remove_ideas = gene_Rebuild_our_nation1
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+		}
+		available = {
+			has_government = neutrality
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	##军事线
+	focus = {
+		id = FAV_AfterWar_Military_000
+		icon = GFX_MOT_MM2
+		cost = 10.0
+		x = 32
+		y = 1
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			army_experience = 30
+			navy_experience = 30
+			air_experience = 30
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	##陆军线
+	#防御战术
+	focus = {
+		id = FAV_AfterWar_Military_100
+		icon = GFX_goal_generic_defence
+		cost = 10.0
+		x = 31
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_101
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = cat_superior_firepower
+				category = cat_grand_battle_plan
+				category = cat_mass_assault
+				cost_reduction = 0.5
+				uses = 1
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#进攻战术
+	focus = {
+		id = FAV_AfterWar_Military_101
+		icon = GFX_Goal_Fight_for_Reunion
+		cost = 10.00
+		x = 33
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_100
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = cat_mobile_warfare
+				category = cat_superior_firepower
+				category = cat_mass_assault
+				cost_reduction = 0.5
+				uses = 1
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#堑壕
+	focus = {
+		id = FAV_AfterWar_Military_110
+		icon = GFX_focus_generic_railway_gun
+		cost = 10.0
+		x = 30
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_111
+			focus = FAV_AfterWar_Military_112
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_100
+		}
+		completion_reward = {
+			add_ideas = gene_no_back
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#支援连/夜视仪
+	focus = {
+		id = FAV_AfterWar_Military_120
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10.0
+		x = 30
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_110
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				uses = 1
+				category = night_vision
+				ahead_reduction = 2
+				bonus = 2
+			}
+			add_tech_bonus = {
+				uses = 1
+				category = support_tech
+				bonus = 2
+				ahead_reduction = 1
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#火炮
+	focus = {
+		id = FAV_AfterWar_Military_111
+		icon = GFX_goal_generic_army_artillery2
+		cost = 10.0
+		x = 32
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_110
+			focus = FAV_AfterWar_Military_112
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_100
+			focus = FAV_AfterWar_Military_101
+		}
+		completion_reward = {
+			add_ideas = gene_artillery_attack
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#导弹
+	focus = {
+		id = FAV_AfterWar_Military_121
+		icon = GFX_focus_rocketry
+		cost = 10.0
+		x = 32
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_111
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = artillery
+				category = cat_anti_tank
+				category = rocketry
+				uses = 1
+				ahead_reduction = 1
+				bonus = 2
+			}
+			add_tech_bonus = {
+				category = rocketry
+				uses = 1
+				ahead_reduction = 10
+				bonus = 5
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#装甲
+	focus = {
+		id = FAV_AfterWar_Military_112
+		icon = GFX_goal_generic_army_motorized
+		cost = 10.0
+		x = 34
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_111
+			focus = FAV_AfterWar_Military_112
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_101
+		}
+		completion_reward = {
+			add_ideas = gene_motored_intersperse
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#机械化
+	focus = {
+		id = FAV_AfterWar_Military_122
+		icon = generic_army_tanks
+		cost = 10.0
+		x = 34
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_112
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = armor
+				bonus = 2
+				ahead_reduction = 1
+				uses = 1
+			}
+			add_tech_bonus = {
+				category = cat_mechanized_equipment
+				bonus = 2
+				ahead_reduction = 2
+				uses = 1
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#人力
+	focus = {
+		id = FAV_AfterWar_Military_130
+		icon = GFX_focus_generic_manpower
+		cost = 10.0
+		x = 31
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_131
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_120
+			focus = FAV_AfterWar_Military_121
+			focus = FAV_AfterWar_Military_122
+		}
+		completion_reward = {
+			add_ideas = gene_more_manpower
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#学说奖励/组织度强化
+	focus = {
+		id = FAV_AfterWar_Military_131
+		icon = GFX_goal_generic_position_armies
+		cost = 10.0
+		x = 33
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_130
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_120
+			focus = FAV_AfterWar_Military_121
+			focus = FAV_AfterWar_Military_122
+		}
+		completion_reward = {
+			IF = {
+				limit = {
+					land_doctrine_level > 8
+				}
+				custom_effect_tooltip = MOT_Bonus_From_Doc_Level2
+				add_ideas = gene_more_org
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = MOT_Bonus_From_Doc_Level
+				add_doctrine_cost_reduction = {
+					category = land_doctrine
+					cost_reduction = 0.5
+					uses = 2
+				}
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#陆军线结束
+	focus = {
+		id = FAV_AfterWar_Military_140
+		icon = GFX_goal_generic_army_doctrines
+		cost = 10.0
+		x = 32
+		y = 6
+		prerequisite = {
+			focus = FAV_AfterWar_Military_130
+			focus = FAV_AfterWar_Military_131
+		}
+		completion_reward = {
+			IF = {
+				limit = {
+					has_government = communism
+				}
+				add_ideas = gene_peoples_for_war_for_people
+			}
+			ELSE_IF = {
+				add_ideas = gene_advanced_logistics
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	##海军线
+	#小型舰
+	focus = {
+		id = FAV_AfterWar_Military_200
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 10.0
+		x = 25
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_201
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				category = ss_tech
+				bonus = 2
+				uses = 1
+			}
+			add_tech_bonus = {
+				category = dd_tech
+				category = cl_tech
+				bonus = 2
+				uses = 2
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = neutrality
+						has_government = fascism
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 3
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 4
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 3
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 2
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 2
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#大型舰
+	focus = {
+		id = FAV_AfterWar_Military_201
+		icon = GFX_focus_generic_navy_battleship2
+		cost = 10.0
+		x = 27
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_200
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = ca_tech
+				category = bb_tech
+				category = cv_tech
+				bonus = 2
+				uses = 2
+			}
+			navy_experience = 50
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = neutrality
+						has_government = fascism
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 3
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 4
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 3
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+			ELSE_IF = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 2
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+						building = dockyard
+							level > 2
+						}
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_210
+		icon = GFX_goal_generic_navy_submarine
+		cost = 10.0
+		x = 24
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_211
+			focus = FAV_AfterWar_Military_212
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_200
+		}
+		completion_reward = {
+			add_ideas = gene_focus_on_submarine
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_211
+		icon = GFX_goal_generic_army_doctrines
+		cost = 10.0
+		x = 26
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_210
+			focus = FAV_AfterWar_Military_212
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_200
+			focus = FAV_AfterWar_Military_201
+		}
+		completion_reward = {
+			add_ideas = gene_more_light_ships
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_212
+		icon = GFX_goal_generic_navy_battleship
+		cost = 10.0
+		x = 28
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_210
+			focus = FAV_AfterWar_Military_211
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_201
+		}
+		completion_reward = {
+			add_ideas = gene_more_light_ships
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_220
+		icon = GFX_goal_generic_navy_submarine
+		cost = 10.0
+		x = 24
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_210
+		}
+		completion_reward = {
+			add_ideas = MOT_Hunter_in_Sea
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_221
+		icon = GFX_goal_generic_army_doctrines
+		cost = 10.0
+		x = 26
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_211
+		}
+		completion_reward = {
+			add_ideas = MOT_Small_But_Good
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_222
+		icon = GFX_goal_generic_navy_battleship
+		cost = 10.0
+		x = 28
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_212
+		}
+		completion_reward = {
+			add_ideas = MOT_Big_and_Strong
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#获得船坞
+	focus = {
+		id = FAV_AfterWar_Military_230
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 10.0
+		x = 26
+		y = 6
+		prerequisite = {
+			focus = FAV_AfterWar_Military_220
+			focus = FAV_AfterWar_Military_221
+			focus = FAV_AfterWar_Military_222
+		}
+		completion_reward = {
+			navy_experience = 100
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+					building = dockyard
+						level > 3
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 4
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+					building = dockyard
+						level > 3
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 4
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+					building = dockyard
+						level > 3
+					}
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 4
+				}
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	##空军线
+	#小型机
+	focus = {
+		id = FAV_AfterWar_Military_300
+		icon = GFX_goal_generic_air_fighter
+		cost = 10.0
+		x = 37
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_301
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			air_experience = 50
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = neutrality
+						has_government = fascism
+					}
+				}
+				19 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+				39 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+				57 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+			}
+			ELSE_IF = {
+				19 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+				39 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+				57 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+			}
+			add_tech_bonus = {
+				category = light_plane_airframe
+				category = medium_plane_airframe
+				bonus = 2
+				uses = 2
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#中大
+	focus = {
+		id = FAV_AfterWar_Military_301
+		icon = GFX_goal_generic_air_bomber
+		cost = 10.0
+		x = 39
+		y = 2
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_300
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_000
+		}
+		completion_reward = {
+			air_experience = 50
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = neutrality
+						has_government = fascism
+					}
+				}
+				19 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+				39 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+				57 = {
+					add_building_construction = {
+						type = air_base
+						level = 7
+						instant_build = eys
+					}
+				}
+			}
+			ELSE_IF = {
+				19 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+				39 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+				57 = {
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = eys
+					}
+				}
+			}
+			add_tech_bonus = {
+				category = heavy_plane_airframe
+				category = medium_plane_airframe
+				bonus = 2
+				uses = 2
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#制空权
+	focus = {
+		id = FAV_AfterWar_Military_310
+		icon = GFX_focus_generic_air_defense
+		cost = 10.0
+		x = 36
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_311
+			focus = FAV_AfterWar_Military_312
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_300
+		}
+		completion_reward = {
+			add_ideas = gene_hunter_in_sky
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = battlefield_support_tree
+				category = operational_integrity_tree
+				category = cat_battlefield_support
+				category = cat_operational_integrity
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#支援
+	focus = {
+		id = FAV_AfterWar_Military_311
+		icon = GFX_focus_generic_armored_air_support
+		cost = 10.0
+		x = 38
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_310
+			focus = FAV_AfterWar_Military_312
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_300
+			focus = FAV_AfterWar_Military_301
+		}
+		completion_reward = {
+			add_ideas = MOT_burn_to_ash
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = battlefield_support_tree
+				category = cat_battlefield_support
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#战略轰炸
+	focus = {
+		id = FAV_AfterWar_Military_312
+		icon = GFX_focus_generic_long_range_aircraft
+		cost = 10.0
+		x = 40
+		y = 3
+		mutually_exclusive = {
+			focus = FAV_AfterWar_Military_311
+			focus = FAV_AfterWar_Military_310
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_301
+		}
+		completion_reward = {
+			add_ideas = MOT_Like_the_Sun
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = strategic_destruction_tree
+				category = cat_strategic_destruction
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_320
+		icon = GFX_focus_generic_air_defense
+		cost = 10.0
+		x = 36
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_310
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = battlefield_support_tree
+				category = operational_integrity_tree
+				category = cat_battlefield_support
+				category = cat_operational_integrity
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_321
+		icon = GFX_focus_generic_armored_air_support
+		cost = 10.0
+		x = 38
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_311
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = battlefield_support_tree
+				category = cat_battlefield_support
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_322
+		icon = GFX_focus_generic_long_range_aircraft
+		cost = 10.0
+		x = 40
+		y = 4
+		prerequisite = {
+			focus = FAV_AfterWar_Military_312
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = strategic_destruction_tree
+				category = cat_strategic_destruction
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#
+	focus = {
+		id = FAV_AfterWar_Military_330
+		icon = GFX_goal_generic_air_doctrine
+		cost = 10.0
+		x = 38
+		y = 6
+		prerequisite = {
+			focus = FAV_AfterWar_Military_320
+			focus = FAV_AfterWar_Military_321
+			focus = FAV_AfterWar_Military_322
+		}
+		completion_reward = {
+			air_experience = 100
+			add_tech_bonus = {
+				category = air_equipment
+				bonus = 2
+				uses = 1
+				ahead_reduction = 2
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_AfterWar_Military_350
+		icon = GFX_goal_generic_secret_weapon
+		cost = 10.0
+		x = 32
+		y = 8
+		prerequisite = {
+			focus = FAV_AfterWar_Military_140
+			focus = FAV_AfterWar_Military_230
+			focus = FAV_AfterWar_Military_330
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			add_ideas = gene_learn_war_in_war
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#外交线
+	focus = {
+		id = FAV_AfterWar_Diplomacy
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.0
+		x = 45
+		y = 1
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			set_rule = { can_create_factions = yes }
+			IF = {
+				limit = { has_government = fascism }
+				custom_effect_tooltip = join_facist_camp_decision
+				IF = {
+					limit = {
+						has_global_flag = FACIST_CAMP_ON
+					}
+					set_country_flag = try_join_facist_camp
+				}
+				ELSE_IF = {
+					create_faction = Global_Facist_Camp
+					set_country_flag = facist_camp_founder
+					set_global_flag = FACIST_CAMP_ON
+					custom_effect_tooltip = Faction_Help
+					unlock_decision_category_tooltip = Faction_Helper
+					set_country_flag = Faction_Help_On
+				}
+			}
+			IF = {
+				limit = { has_government = democratic }
+				custom_effect_tooltip = join_free_camp_decision
+				IF = {
+					limit = {
+						has_global_flag = FREE_CAMP_ON
+					}
+					set_country_flag = try_join_free_camp
+				}
+				ELSE_IF = {
+					create_faction = Global_Free_Camp
+					set_country_flag = free_camp_founder
+					set_global_flag = FREE_CAMP_ON
+					custom_effect_tooltip = Faction_Help
+					unlock_decision_category_tooltip = Faction_Helper
+					set_country_flag = Faction_Help_On
+				}
+			}
+			IF = {
+				limit = { has_government = communism }
+				custom_effect_tooltip = join_communist_camp_decision
+				IF = {
+					limit = {
+						has_global_flag = COMMUNIST_CAMP_ON
+					}
+					set_country_flag = try_join_communist_camp
+				}
+				ELSE_IF = {
+					create_faction = Global_Communist_Camp
+					set_country_flag = communist_camp_founder
+					set_global_flag = COMMUNIST_CAMP_ON
+					custom_effect_tooltip = Faction_Help
+					unlock_decision_category_tooltip = Faction_Helper
+					set_country_flag = Faction_Help_On
+				}
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				custom_effect_tooltip = join_neu_camp_decision
+				IF = {
+					limit = {
+						has_global_flag = NEU_CAMP_ON
+					}
+					set_country_flag = try_join_neu_camp
+				}
+				ELSE_IF = {
+					create_faction = Global_Neu_Camp
+					set_country_flag = neu_camp_founder
+					set_global_flag = NEU_CAMP_ON
+					custom_effect_tooltip = Faction_Help
+					unlock_decision_category_tooltip = Faction_Helper
+					set_country_flag = Faction_Help_On
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#终局
+	focus = {
+		id = FAV_Ending_0
+		icon = GFX_goal_DOT_02
+		cost = 10.0
+		x = 20
+		y = 9
+		prerequisite = {
+			focus = FAV_EB_Eco_End
+		}
+		prerequisite = {
+			focus = FAV_FP_Power_and_Glory
+		}
+		prerequisite = {
+			focus = FAV_AfterWar_Military_350
+		}
+		completion_reward = {
+			add_research_slots = 1
+			FAV_Upgrade_National_Ideas = yes
+			add_stability = 0.2
+			add_war_support = 0.2
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_Ending_1
+		icon = GFX_goal_generic_improve_relations
+		cost = 10.0
+		x = 20
+		y = 10
+		prerequisite = {
+			focus = FAV_Ending_0
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			add_tech_bonus = {
+				category = rocketry
+				category = nuclear
+				bonus = 5
+				ahead_reduction = 2
+				uses = 1
+			}
+			IF = {
+				limit = { country_exists = LYY }
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = LYY
+				}
+			}
+			IF = {
+				limit = { country_exists = KQP }
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = KQP
+				}
+			}
+			IF = {
+				limit = { country_exists = SHP }
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = SHP
+				}
+			}
+			IF = {
+				limit = { country_exists = GYP }
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = GYP
+				}
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = BRF
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = ABY
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = INA
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = INA
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = FON
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = NAT
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = PRI
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SUM
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SNE
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = TSU
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	##经济线
+	#红 
+	focus = {
+		id = FAV_RP_Teach_By_Gold
+		icon = GFX_MOT_EWAY1
+		cost = 7.20
+		x = 13
+		y = 4
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			add_tech_bonus = {
+				category = electronics
+				uses = 1
+				bonus = 1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_CCC
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#蓝 
+	focus = {
+		id = FAV_DP_Teach_By_Gold
+		icon = GFX_MOT_EWAY1
+		cost = 7.20
+		x = 13
+		y = 4
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			add_tech_bonus = {
+				category = electronics
+				uses = 1
+				bonus = 1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_DDD
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#灰 
+	focus = {
+		id = FAV_NP_Teach_By_Gold
+		icon = GFX_MOT_EWAY1
+		cost = 5
+		x = 13
+		y = 4
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			add_tech_bonus = {
+				category = electronics
+				uses = 1
+				bonus = 1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_NNN
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#黑 
+	focus = {
+		id = FAV_FP_Teach_By_Gold
+		icon = GFX_MOT_EWAY1
+		cost = 5
+		x = 13
+		y = 1
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				uses = 1
+				bonus = 1
+			}
+			add_tech_bonus = {
+				category = electronics
+				uses = 1
+				bonus = 1
+			}
+		}
+		allow_branch = {
+			has_global_flag = FAV_REUNION_FFF
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#民工 重建落日果酒业 FAV_EB_Eco_01
+	focus = {
+		id = FAV_EB_Eco_01
+		icon = GFX_goal_generic_trade
+		cost = 5
+		x = 12
+		y = 2
+		prerequisite = {
+			focus = FAV_RP_Teach_By_Gold
+			focus = FAV_NP_Teach_By_Gold
+			focus = FAV_DP_Teach_By_Gold
+			focus = FAV_FP_Teach_By_Gold
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Trade
+			47 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			49 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			63 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			143 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = democratic
+					}
+				}
+				144 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				47 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+				49 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = democratic
+							has_government = neutrality
+						}
+					}
+					63 = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = industrial_complex
+							level = 2
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#军工 追逐世界的脚步 FAV_EB_Eco_21
+	focus = {
+		id = FAV_EB_Eco_11
+		icon = GFX_goal_generic_small_arms
+		cost = 5
+		x = 14
+		y = 2
+		prerequisite = {
+			focus = FAV_RP_Teach_By_Gold
+			focus = FAV_NP_Teach_By_Gold
+			focus = FAV_DP_Teach_By_Gold
+			focus = FAV_FP_Teach_By_Gold
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Eco
+			30 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			32 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = fascism
+					}
+				}
+				31 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				30 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+					}
+				}
+				31 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = fascism
+							has_government = neutrality
+						}
+					}
+					32 = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = arms_factory
+							level = 2
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专民工1
+	focus = {
+		id = FAV_EB_Eco_02
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5
+		x = 11
+		y = 3
+		prerequisite = {
+			focus = FAV_EB_Eco_01
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = democratic
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = democratic
+							has_government = neutrality
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								level > 1
+							}
+						}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = industrial_complex
+							level = 2
+							instant_build = yes
+						}
+						set_building_level = {
+							type = infrastructure
+							level = 5
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专民工2
+	focus = {
+		id = FAV_EB_Eco_03
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5
+		x = 11
+		y = 4
+		prerequisite = {
+			focus = FAV_EB_Eco_02
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = democratic
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = democratic
+							has_government = neutrality
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								level > 1
+							}
+						}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = industrial_complex
+							level = 2
+							instant_build = yes
+						}
+						set_building_level = {
+							type = infrastructure
+							level = 5
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专民工3
+	focus = {
+		id = FAV_EB_Eco_04
+		icon = GFX_goal_generic_construct_civilian
+		cost = 5
+		x = 11
+		y = 5
+		prerequisite = {
+			focus = FAV_EB_Eco_03
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = democratic
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = democratic
+							has_government = neutrality
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								level > 1
+							}
+						}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = industrial_complex
+							level = 2
+							instant_build = yes
+						}
+						set_building_level = {
+							type = infrastructure
+							level = 5
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_EB_Eco_05
+		icon = GFX_goal_generic_construct_civilian
+		cost = 10
+		x = 11
+		y = 6
+		prerequisite = {
+			focus = FAV_EB_Eco_04
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 5
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#兼有1
+	focus = {
+		id = FAV_EB_Eco_12
+		icon = GFX_goal_generic_construction
+		cost = 5
+		x = 13
+		y = 3
+		prerequisite = {
+			focus = FAV_EB_Eco_01
+			focus = FAV_EB_Eco_11
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 10
+				state = 41
+			}
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 44
+			}
+			IF = {
+				limit = {
+					has_government = fascism
+				}
+				add_resource = {
+					type = steel
+					amount = 15
+					state = 44
+				}
+			}
+			IF = {
+				limit = {
+					has_government = neutrality
+				}
+				44 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			40 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+			41 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			44 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			45 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+					MOT_TradeLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				add_resource = {
+					type = steel
+					amount = 5
+					state = 41
+				}
+				add_resource = {
+					type = steel
+					amount = 10
+					state = 44
+				}
+				IF = {
+					limit = {
+						has_government = democratic
+					}
+					44 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+				IF = {
+					limit = {
+						has_government = communism
+					}
+					add_resource = {
+						type = steel
+						amount = 20
+						state = 44
+					}
+				}
+				40 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+				41 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+				44 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#兼有2
+	focus = {
+		id = FAV_EB_Eco_13
+		icon = GFX_goal_generic_construction
+		cost = 5
+		x = 13
+		y = 4
+		prerequisite = {
+			focus = FAV_EB_Eco_12
+		}
+		completion_reward = {
+			add_resource = {
+				type = chromium
+				amount = 10
+				state = 7
+			}
+			add_resource = {
+				type = chromium
+				amount = 20
+				state = 4
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = neutrality
+						has_government = fascism
+					}
+				}
+				add_resource = {
+					type = chromium
+					amount = 5
+					state = 7
+				}
+				add_resource = {
+					type = chromium
+					amount = 10
+					state = 4
+				}
+			}
+			6 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			3 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			4 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+			7 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+					MOT_TradeLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				add_resource = {
+					type = chromium
+					amount = 5
+					state = 3
+				}
+				add_resource = {
+					type = chromium
+					amount = 10
+					state = 7
+				}
+				IF = {
+					limit = {
+						has_government = communism
+					}
+					add_resource = {
+						type = chromium
+						amount = 5
+						state = 7
+					}
+					add_resource = {
+						type = chromium
+						amount = 10
+						state = 4
+					}
+				}
+				3 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+				6 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+				4 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+				7 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#兼有3
+	focus = {
+		id = FAV_EB_Eco_14
+		icon = GFX_goal_generic_construction
+		cost = 5
+		x = 13
+		y = 5
+		prerequisite = {
+			focus = FAV_EB_Eco_13
+		}
+		completion_reward = {
+			
+			add_resource = {
+				type = rubber
+				amount = 10
+				state = 9
+			}
+			add_resource = {
+				type = rubber
+				amount = 20
+				state = 10
+			}
+			IF = {
+				limit = {
+					has_government = fascism
+				}
+				add_resource = {
+					type = rubber
+					amount = 5
+					state = 9
+				}
+				add_resource = {
+					type = rubber
+					amount = 10
+					state = 10
+				}
+			}
+			9 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			10 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			13 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			23 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			IF = {
+				limit = {
+					has_government = neutrality
+				}
+				23 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+					MOT_TradeLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				add_resource = {
+					type = rubber
+					amount = 5
+					state = 9
+				}
+				add_resource = {
+					type = rubber
+					amount = 10
+					state = 10
+				}
+				IF = {
+					limit = { has_government = communism }
+					add_resource = {
+						type = rubber
+						amount = 5
+						state = 9
+					}
+					add_resource = {
+						type = rubber
+						amount = 10
+						state = 10
+					}
+				}
+				9 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+				10 = {
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = industrial_complex
+						level = 3
+					}
+				}
+				13 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+					}
+				}
+				23 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_EB_Eco_15
+		icon = GFX_goal_generic_construction
+		cost = 10
+		x = 13
+		y = 6
+		prerequisite = {
+			focus = FAV_EB_Eco_14
+		}
+		completion_reward = {
+
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专军工1
+	focus = {
+		id = FAV_EB_Eco_22
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5
+		x = 15
+		y = 3
+		prerequisite = {
+			focus = FAV_EB_Eco_11
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = neutrality
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = fascism
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								level > 1
+							}
+						}
+						add_building_construction = {
+							type = arms_factory
+							level = 2
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专军工2
+	focus = {
+		id = FAV_EB_Eco_23
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5
+		x = 15
+		y = 4
+		prerequisite = {
+			focus = FAV_EB_Eco_22
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = neutrality
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = fascism
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								level > 1
+							}
+						}
+						add_building_construction = {
+							type = arms_factory
+							level = 2
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#专军工3
+	focus = {
+		id = FAV_EB_Eco_24
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 5
+		x = 15
+		y = 5
+		prerequisite = {
+			focus = FAV_EB_Eco_23
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = neutrality
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				IF = {
+					limit = {
+						OR = {
+							has_government = communism
+							has_government = fascism
+						}
+					}
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								level > 1
+							}
+						}
+						add_building_construction = {
+							type = arms_factory
+							level = 2
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_EB_Eco_25
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10
+		x = 15
+		y = 6
+		prerequisite = {
+			focus = FAV_EB_Eco_24
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 3
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = FAV_EB_Eco_End
+		icon = GFX_goal_generic_military_sphere
+		cost = 10
+		x = 13
+		y = 8
+		prerequisite = {
+			focus = FAV_EB_Eco_05
+			focus = FAV_EB_Eco_15
+			focus = FAV_EB_Eco_25
+		}
+		completion_reward = {
+			FAV_Upgrade_National_Ideas = yes
+			custom_effect_tooltip = MOT_ExtraBonus_From_Industry
+			add_stability = 0.1
+			add_war_support = 0.1
+			every_military_industrial_organization = {
+				add_mio_size = 1
+			}
+			IF = {
+				limit = {
+					num_of_factories > 200
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_200
+				every_military_industrial_organization = {
+					add_mio_size = 1
+				}
+				add_tech_bonus = {
+					category = industry
+					uses = 1
+					ahead_reduction = 2
+					bonus = 1
+				}
+			}
+			IF = {
+				limit = {
+					num_of_factories > 300
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_300
+				every_military_industrial_organization = {
+					add_mio_size = 1
+				}
+				add_tech_bonus = {
+					category = cat_mechanized_equipment
+					uses = 1
+					ahead_reduction = 2
+					bonus = 1
+				}
+				add_tech_bonus = {
+					category = night_vision
+					uses = 1
+					ahead_reduction = 2
+					bonus = 1
+				}
+			}
+			IF = {
+				limit = {
+					num_of_factories > 400
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_400
+				add_stability = 0.1
+				add_war_support = 0.1
+				every_military_industrial_organization = {
+					add_mio_size = 1
+				}
+				every_owned_state = {
+					limit = { NOT = { has_state_category = wasteland } }
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			IF = {
+				limit = {
+					num_of_factories > 500
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_500
+				add_stability = 0.1
+				add_war_support = 0.1
+				every_military_industrial_organization = {
+					add_mio_size = 1
+				}
+				every_owned_state = {
+					limit = { NOT = { has_state_category = wasteland } }
+					add_extra_state_shared_building_slots = 1
+				}
+				every_owned_state = {
+					limit = { 
+						free_building_slots = {
+						building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			IF = {
+				limit = {
+					num_of_factories > 600
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_600
+				add_stability = 0.1
+				add_war_support = 0.1
+				every_military_industrial_organization = {
+					add_mio_size = 1
+				}
+				add_research_slots = 1
+				add_ideas = DOT_Government_Industry5
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+}

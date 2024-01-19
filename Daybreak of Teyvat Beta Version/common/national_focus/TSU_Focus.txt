@@ -1,0 +1,108 @@
+
+
+focus_tree = {
+	id = TSU
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = TSU
+		}
+	}
+	default = no
+	focus = {
+		id = TSU
+		icon = goal_Itto
+		cost = 10.00
+		x = 13
+		y = 0
+			completion_reward = {   
+					add_political_power = 160
+add_equipment_to_stockpile = { type = fighter_equipment_1  amount = 50 producer = MOT }
+add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
+add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 500 producer = INA }
+add_equipment_to_stockpile = { type = train_equipment amount = 500 producer = SUM }
+add_equipment_to_stockpile = { type = transport_plane_equipment_1  amount = 500 producer = PRI }
+country_event = { id = Ilyich_Character.1  days = 1  }
+country_event = { id = Ilyich_Weapon.1  days = 1  }
+				}
+
+	}
+	focus = {
+		id = TSU_SAN
+		icon = goal_Itto
+		cost = 10.00
+		prerequisite = {
+			focus = TSU
+		}
+		mutually_exclusive = {
+			focus = TSU_Itto
+			focus = TSU_INA
+		}
+		x = 10
+		y = 2
+			completion_reward = {   
+					SAN = {
+							set_autonomy = {
+									target = TSU
+									autonomous_state = autonomy_puppet
+								}
+						}
+						load_focus_tree = generic_focus
+				}
+
+	}
+	focus = {
+		id = TSU_INA
+		icon = goal_Itto
+		cost = 10.00
+		prerequisite = {
+			focus = TSU
+		}
+		mutually_exclusive = {
+			focus = TSU_Itto
+			focus = TSU_SAN
+		}
+		x = 16
+		y = 2
+			completion_reward = {   
+					INA = {
+							set_autonomy = {
+									target = TSU
+									autonomous_state = autonomy_puppet
+								}
+						}
+						load_focus_tree = generic_focus
+				}
+
+	}
+	focus = {
+		id = TSU_Itto
+		icon = goal_Itto
+		cost = 10.00
+		prerequisite = {
+			focus = TSU
+		}
+		mutually_exclusive = {
+			focus = TSU_SAN
+			focus = TSU_INA
+		}
+		x = 13
+		y = 2
+			completion_reward = {   
+				
+					declare_war_on = {
+							target = SAN
+							type = annex_everything
+						}
+					
+					declare_war_on = {
+							target = INA
+							type = annex_everything
+						}
+					
+					load_focus_tree = generic_focus
+				}
+
+	}
+}

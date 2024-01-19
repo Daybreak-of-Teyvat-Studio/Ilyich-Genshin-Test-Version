@@ -1,0 +1,444 @@
+VAN_Marana_worsen = {
+	add_to_variable = { VAN_Marana_dynamic_modifier_stability_weekly = -0.002 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_industrial_capacity_factory = -0.02 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_production_factory_efficiency_gain_factor = -0.02 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_production_factory_max_efficiency_factor = -0.03 }
+	add_to_variable = { VAN_solve_marana_cost = 5 } # 消除一个省份无留陀的花费
+    add_to_variable = { VAN_days_remove_solve_marana = 5 } # 消除一个省份无留陀的天数
+}
+
+VAN_Marana_ease = {
+	add_to_variable = { VAN_Marana_dynamic_modifier_stability_weekly = 0.002 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_industrial_capacity_factory = 0.02 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_production_factory_efficiency_gain_factor = 0.02 }
+	add_to_variable = { VAN_Marana_dynamic_modifier_production_factory_max_efficiency_factor = 0.03 }
+	add_to_variable = { VAN_solve_marana_cost = -5 } # 消除一个省份无留陀的花费
+    add_to_variable = { VAN_days_remove_solve_marana = -5 } # 消除一个省份无留陀的天数
+}
+
+VAN_political_thoughts_akademiya_effect_10 = {
+	set_variable = { VAN_political_thoughts_horizontal_delta = -10 }
+	VAN_political_thoughts_adjust_horizontal = yes
+}
+
+VAN_political_thoughts_akademiya_effect_n10 = {
+	set_variable = { VAN_political_thoughts_horizontal_delta = 10 }
+	VAN_political_thoughts_adjust_horizontal = yes
+}
+
+VAN_political_thoughts_nahida_effect_10 = {
+	set_variable = { VAN_political_thoughts_vertical_delta = -10 }
+	VAN_political_thoughts_adjust_vertical = yes
+}
+
+VAN_political_thoughts_nahida_effect_n10 = {
+	set_variable = { VAN_political_thoughts_vertical_delta = 10 }
+	VAN_political_thoughts_adjust_vertical = yes
+}
+
+# VAN_political_thoughts_adjust_horizontal 与 VAN_political_thoughts_adjust_vertical 为对外统一接口
+# 水平两个方向的调整，正方向为右
+# 使用前设置 VAN_political_thoughts_horizontal_delta
+VAN_political_thoughts_adjust_horizontal = {
+	set_variable = { VAN_political_thoughts_aranism_delta = VAN_political_thoughts_horizontal_delta }
+	VAN_political_thoughts_aranism_change = yes
+	set_variable = { VAN_political_thoughts_akademiya_delta = VAN_political_thoughts_horizontal_delta }
+	multiply_variable = { VAN_political_thoughts_akademiya_delta = -1 }
+	VAN_political_thoughts_akademiya_change = yes
+
+	# 判断和是否超过100
+	VAN_political_thoughts_horizontal_check_sum = yes
+
+	# 移动指针位置
+	VAN_political_thoughts_move_needle_horizontal = yes
+}
+
+# 竖直两个方向的调整，正方向为下
+# 使用前设置 VAN_political_thoughts_vertical_delta
+VAN_political_thoughts_adjust_vertical = {
+	set_variable = { VAN_political_thoughts_dream_delta = VAN_political_thoughts_vertical_delta }
+	VAN_political_thoughts_dream_change = yes
+	set_variable = { VAN_political_thoughts_nahida_delta = VAN_political_thoughts_vertical_delta }
+	multiply_variable = { VAN_political_thoughts_nahida_delta = -1 }
+	VAN_political_thoughts_nahida_change = yes
+
+	# 判断和是否超过100
+	VAN_political_thoughts_vertical_check_sum = yes
+
+	# 移动指针位置
+	VAN_political_thoughts_move_needle_vertical = yes
+}
+
+# 水平移动指针
+VAN_political_thoughts_move_needle_horizontal = {
+	set_variable = { VAN_political_thoughts_move_needle_horizontal_temp = VAN_political_thoughts_aranism }
+	multiply_variable = { VAN_political_thoughts_move_needle_horizontal_temp = VAN_political_thoughts_unit }
+	add_to_variable = { VAN_political_thoughts_move_needle_horizontal_temp = VAN_political_thoughts_needle_x_origin }
+	set_variable = { VAN_political_thoughts_needle_x = VAN_political_thoughts_move_needle_horizontal_temp }
+}
+
+# 水平移动指针
+VAN_political_thoughts_move_needle_vertical = {
+	set_variable = { VAN_political_thoughts_move_needle_vertical_temp = VAN_political_thoughts_dream }
+	multiply_variable = { VAN_political_thoughts_move_needle_vertical_temp = VAN_political_thoughts_unit }
+	add_to_variable = { VAN_political_thoughts_move_needle_vertical_temp = VAN_political_thoughts_needle_y_origin }
+	set_variable = { VAN_political_thoughts_needle_y = VAN_political_thoughts_move_needle_vertical_temp }
+}
+
+# 服从教令院思潮变化
+# 使用前设置 VAN_political_thoughts_akademiya_delta
+VAN_political_thoughts_akademiya_change = {
+	add_to_variable = { VAN_political_thoughts_akademiya = VAN_political_thoughts_akademiya_delta }
+	clamp_variable = {
+		var = VAN_political_thoughts_akademiya
+		max = 100
+		min = -100
+	}
+
+	# 先移除再添加，可以简化判断逻辑
+	if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_akademiya_20
+		}
+		remove_ideas = VAN_Idea_political_thoughts_akademiya_20
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_akademiya_40
+		}
+		remove_ideas = VAN_Idea_political_thoughts_akademiya_40
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_akademiya_60
+		}
+		remove_ideas = VAN_Idea_political_thoughts_akademiya_60
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_akademiya_80
+		}
+		remove_ideas = VAN_Idea_political_thoughts_akademiya_80
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_akademiya_100
+		}
+		remove_ideas = VAN_Idea_political_thoughts_akademiya_100
+	}
+
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 20 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_akademiya = 40 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_akademiya_20
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 40 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_akademiya = 60 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_akademiya_40
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 60 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_akademiya = 80 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_akademiya_60
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 80 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_akademiya = 100 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_akademiya_80
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 100 compare = equals }
+		}
+		add_ideas = VAN_Idea_political_thoughts_akademiya_100
+	}
+
+	VAN_political_thoughts_check_economy = yes
+	VAN_political_thoughts_check_trade = yes
+}
+
+# 兰那罗主义思潮变化
+# 使用前设置 VAN_political_thoughts_aranism_delta
+VAN_political_thoughts_aranism_change = {
+	add_to_variable = { VAN_political_thoughts_aranism = VAN_political_thoughts_aranism_delta }
+	clamp_variable = {
+		var = VAN_political_thoughts_aranism
+		max = 100
+		min = -100
+	}
+
+	# 先移除再添加，可以简化判断逻辑
+	if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_aranism_20
+		}
+		remove_ideas = VAN_Idea_political_thoughts_aranism_20
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_aranism_40
+		}
+		remove_ideas = VAN_Idea_political_thoughts_aranism_40
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_aranism_60
+		}
+		remove_ideas = VAN_Idea_political_thoughts_aranism_60
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_aranism_80
+		}
+		remove_ideas = VAN_Idea_political_thoughts_aranism_80
+	}
+	else_if = {
+		limit = {
+			has_idea = VAN_Idea_political_thoughts_aranism_100
+		}
+		remove_ideas = VAN_Idea_political_thoughts_aranism_100
+	}
+
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 20 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_aranism = 40 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_aranism_20
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 40 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_aranism = 60 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_aranism_40
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 60 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_aranism = 80 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_aranism_60
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 80 compare = greater_than_or_equals }
+			check_variable = { VAN_political_thoughts_aranism = 100 compare = less_than }
+		}
+		add_ideas = VAN_Idea_political_thoughts_aranism_80
+	}
+	else_if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 100 compare = equals }
+		}
+		add_ideas = VAN_Idea_political_thoughts_aranism_100
+	}
+
+	# 兰那罗主义不影响贸易法案，因此不需要额外判断
+	VAN_political_thoughts_check_economy = yes
+
+	# 触发事件：桓那兰那的苏醒
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_aranism = 80 compare = greater_than_or_equals }
+			NOT = { has_country_flag = VAN_has_wake_up }
+		}
+		set_country_flag = VAN_has_wake_up
+		news_event = {
+			id = VAN_News.3
+			hours = 6
+		}
+		remove_ideas = VAN_Mahavanaranapna
+	}
+}
+
+# 拥护草之王思潮变化
+# 使用前设置 VAN_political_thoughts_nahida_delta
+VAN_political_thoughts_nahida_change = {
+	add_to_variable = { VAN_political_thoughts_nahida = VAN_political_thoughts_nahida_delta }
+	clamp_variable = {
+		var = VAN_political_thoughts_nahida
+		max = 100
+		min = -100
+	}
+}
+
+# 莎兰树之梦思潮变化
+# 使用前设置 VAN_political_thoughts_dream_delta
+VAN_political_thoughts_dream_change = {
+	add_to_variable = { VAN_political_thoughts_dream = VAN_political_thoughts_dream_delta }
+	clamp_variable = {
+		var = VAN_political_thoughts_dream
+		max = 100
+		min = -100
+	}
+}
+
+# 政治思潮发生变化后，检查是否要切回固定经济法案
+VAN_political_thoughts_check_economy = {
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 40 compare = less_than }
+			check_variable = { VAN_political_thoughts_aranism = 80 compare = less_than }
+			check_variable = { VAN_political_thoughts_nahida = 100 compare = less_than }
+			check_variable = { VAN_political_thoughts_dream = 60 compare = less_than }
+		}
+		add_ideas = VAN_Unique_Economy
+	}
+}
+
+# 政治思潮发生变化后，检查是否要切回固定贸易法案
+VAN_political_thoughts_check_trade = {
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 20 compare = less_than }
+			check_variable = { VAN_political_thoughts_nahida = 40 compare = less_than }
+		}
+		add_ideas = VAN_Unique_Trade
+	}
+}
+
+# 修改水平方向思潮后，检查是否与竖直思潮的和超过了100，如果超过，进行调整
+VAN_political_thoughts_horizontal_check_sum = {
+	# 通过if else，只寻找两个大于0的思潮进行相加判断
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_akademiya = 0 compare = greater_than }
+		}
+		if = {
+			limit = {
+				check_variable = { VAN_political_thoughts_nahida = 0 compare = greater_than }
+			}
+			set_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_akademiya }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_nahida }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_horizontal_check_sum_temp = 0 compare = greater_than }
+				}
+				set_variable = { VAN_political_thoughts_vertical_delta = VAN_political_thoughts_horizontal_check_sum_temp }
+				VAN_political_thoughts_adjust_vertical = yes
+			}
+		}
+		else = {
+			set_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_akademiya }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_dream }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_horizontal_check_sum_temp = 0 compare = greater_than }
+				}
+				multiply_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -1}
+				set_variable = { VAN_political_thoughts_vertical_delta = VAN_political_thoughts_horizontal_check_sum_temp }
+				VAN_political_thoughts_adjust_vertical = yes
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				check_variable = { VAN_political_thoughts_nahida = 0 compare = greater_than }
+			}
+			set_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_aranism }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_nahida }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_horizontal_check_sum_temp = 0 compare = greater_than }
+				}
+				set_variable = { VAN_political_thoughts_vertical_delta = VAN_political_thoughts_horizontal_check_sum_temp }
+				VAN_political_thoughts_adjust_vertical = yes
+			}
+		}
+		else = {
+			set_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_aranism }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = VAN_political_thoughts_dream }
+			add_to_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_horizontal_check_sum_temp = 0 compare = greater_than }
+				}
+				multiply_variable = { VAN_political_thoughts_horizontal_check_sum_temp = -1}
+				set_variable = { VAN_political_thoughts_vertical_delta = VAN_political_thoughts_horizontal_check_sum_temp }
+				VAN_political_thoughts_adjust_vertical = yes
+			}
+		}
+	}
+}
+
+# 修改竖直方向思潮后，检查是否与水平思潮的和超过了100，如果超过，进行调整
+VAN_political_thoughts_vertical_check_sum = {
+	# 通过if else，只寻找两个大于0的思潮进行相加判断
+	if = {
+		limit = {
+			check_variable = { VAN_political_thoughts_nahida = 0 compare = greater_than }
+		}
+		if = {
+			limit = {
+				check_variable = { VAN_political_thoughts_akademiya = 0 compare = greater_than }
+			}
+			set_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_nahida }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_akademiya }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_vertical_check_sum_temp = 0 compare = greater_than }
+				}
+				set_variable = { VAN_political_thoughts_horizontal_delta = VAN_political_thoughts_vertical_check_sum_temp }
+				VAN_political_thoughts_adjust_horizontal = yes
+			}
+		}
+		else = {
+			set_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_nahida }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_aranism }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_vertical_check_sum_temp = 0 compare = greater_than }
+				}
+				multiply_variable = { VAN_political_thoughts_vertical_check_sum_temp = -1}
+				set_variable = { VAN_political_thoughts_horizontal_delta = VAN_political_thoughts_vertical_check_sum_temp }
+				VAN_political_thoughts_adjust_horizontal = yes
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				check_variable = { VAN_political_thoughts_akademiya = 0 compare = greater_than }
+			}
+			set_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_dream }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_akademiya }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_vertical_check_sum_temp = 0 compare = greater_than }
+				}
+				set_variable = { VAN_political_thoughts_horizontal_delta = VAN_political_thoughts_vertical_check_sum_temp }
+				VAN_political_thoughts_adjust_horizontal = yes
+			}
+		}
+		else = {
+			set_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_dream }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = VAN_political_thoughts_aranism }
+			add_to_variable = { VAN_political_thoughts_vertical_check_sum_temp = -100 }
+			if = {
+				limit = {
+					check_variable = { VAN_political_thoughts_vertical_check_sum_temp = 0 compare = greater_than }
+				}
+				multiply_variable = { VAN_political_thoughts_vertical_check_sum_temp = -1}
+				set_variable = { VAN_political_thoughts_horizontal_delta = VAN_political_thoughts_vertical_check_sum_temp }
+				VAN_political_thoughts_adjust_horizontal = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,7804 @@
+##劳伦斯决议组
+LAW_DC_Seek_for_Help = {
+	##基础
+	#显示/隐藏基本决议
+	LAW_Hide_Basic_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_1 }
+				clr_country_flag = LAW_Not_Show_Decisions_1
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_1
+			}
+		}
+	}
+	#破坏蒙德稳定
+	LAW_Destroy_MOT_Stability = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+			MOT = {
+				add_stability = -0.02
+				add_war_support = -0.02
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#渗透骑士团
+	LAW_Permeate_In_Knights = {
+		icon = GFX_decision_recruit_operative
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			political_power_gain = 0.2
+		}
+		remove_effect = {
+			add_collaboration = {
+				target = MOT
+				value = 0.03
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#作出未来许诺
+	LAW_Promise_for_Future = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			stability_weekly = 0.05
+			war_support_weekly = 0.05
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
+		}
+	}
+	#鼓吹贵族时代
+	LAW_Propaganda_for_Nobles = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = var:LAW_Cost_of_Decisions1
+		days_remove = 35
+		modifier = {
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Cost_More
+			add_to_variable = { LAW_Cost_of_Decisions1 = 10 }
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.6
+				has_war_support > 0.6
+			}
+		}
+	}
+	##贵族
+	#显示/隐藏贵族决议
+	LAW_Hide_Noble_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_2 }
+				clr_country_flag = LAW_Not_Show_Decisions_2
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_2
+			}
+		}
+	}
+	#捏造头衔
+	LAW_Create_Crown = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			has_stability > 0.5
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+			stability_weekly = -0.005
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Make_a_Crown
+			IF = {
+				limit = {
+					has_variable = LAW_Num_of_Crowns
+				}
+				add_to_variable = { LAW_Num_of_Crowns = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { LAW_Num_of_Crowns = 1 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#出售头衔
+	LAW_Sell_Crown = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_political_Power = 70
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#利诱贵族
+	LAW_By_Crown = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			random_list = {
+				50 = {
+					add_stability = 0.02
+					add_war_support = 0.02
+				}
+				25 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+				}
+				12 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+					add_political_power = 10
+				}
+				6 = {
+					add_stability = 0.05
+					add_political_power = 20
+				}
+				6 = {
+					add_war_support = 0.05
+					add_political_power = 20
+				}
+				1 = {
+					add_stability = 0.05
+					add_war_support = 0.05
+					add_political_power = 50
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取伊蒙洛卡战术文献
+	LAW_Get_Emoloka_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Emo
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取古恩希尔德军事理论
+	LAW_Get_GUN_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_GUN
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_command_power = 20
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	##自由派
+	#显示/隐藏自由派决议
+	LAW_Hide_Free_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			is_ai = no
+			has_country_flag = LAW_Connect_with_Lib
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_3 }
+				clr_country_flag = LAW_Not_Show_Decisions_3
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_3
+			}
+		}
+	}
+	#接受商人投资
+	LAW_Accept_Free_Investment = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+			has_stability > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Investment
+			add_to_variable = { LAW_Num_of_Investment = 1 }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			random_list = {
+				50 = {
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								type = industrial_complex
+								level > 0
+							}
+						}
+						add_building_construction = {
+							building = industrial_complex
+							level = 1
+						}
+					}
+				}
+				50 = {
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								type = infrastructure
+								level > 0
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							building = infrastructure
+							level = 1
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#吹嘘未来经济状况
+	LAW_Propaganda_for_Futural_Economy = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+		}
+		cost = 5
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.002
+			consumer_goods_factor = -0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#痛宰肥羊
+	LAW_Accept_Free_Investment = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			has_stability > 0.7
+		}
+		cost = 100
+		days_remove = 30
+		modifier = {
+			stability_weekly = -0.01
+		}
+		complete_effect = {
+			set_country_flag = LAW_Has_Killed_Sheep
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Investment
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.3
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = var:LAW_Num_of_Investment
+				add_building_construction = {
+					building = industrial_complex
+					level = var:LAW_Num_of_Investment
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Investment }
+				multiply_variable = { LAW_linshibianliang1 = 5 }
+				add = var:LAW_linshibianliang1
+			}
+		}
+	}
+	##坎瑞亚遗民
+	#显示/隐藏坎瑞亚决议
+	LAW_Hide_KNA_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			is_ai = no
+			has_country_flag = LAW_Connect_with_KNA
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_4 }
+				clr_country_flag = LAW_Not_Show_Decisions_4
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_4
+			}
+		}
+	}
+	#引进坎瑞亚生产技术
+	LAW_Innovation_of_KNA_Production = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Advance
+			add_to_variable = { LAW_Num_of_Advance = 1 }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						type = arms_factory
+						level > 0
+					}
+				}
+				add_building_construction = {
+					building = arms_factory
+					level = 1
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#生产网络构建协助
+	LAW_Connection_of_KNA_Production = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.5
+			industrial_capacity_factory = 0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#踹开坎瑞亚人
+	LAW_Out_KNA = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			has_war_support > 0.7
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = -0.01
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
+			set_country_flag = LAW_Has_Run_KNA
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Advance }
+			multiply_temp_variable = { LAW_linshibianliang1 = 30 }
+			add_political_power = var:LAW_linshibianliang1
+			add_popularity = {
+				ideology = communism
+				popularity = -0.5
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 1000
+				date > 1936.12.1
+			}
+		}
+	}
+	##其他势力
+	LAW_Hide_Dip_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_5 }
+				clr_country_flag = LAW_Not_Show_Decisions_5
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_5
+			}
+		}
+	}
+	#教会反对派空军训练
+	LAW_Train_From_FAV = {
+		icon = GFX_decision_generic_air
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			FAV = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			experience_gain_air_factor = 1
+			air_mission_xp_gain_factor = 1
+			air_training_xp_gain_factor	= 1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			air_experience = 20
+		}
+	}
+	#招募龙脊雪山领学者
+	LAW_Recruit_From_DRA = {
+		icon = GFX_decision_generic_research
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DRA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			research_speed_factor = 0.2
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+	}
+	#向风龙领走私军火
+	LAW_Cash_From_DVA = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DVA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			industrial_capacity_factory = -0.2
+			consumer_goods_factor = -0.3
+			stability_weekly = 0.003
+			war_support_weekly = 0.003
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#从奔狼领进口资源
+	LAW_Resources_From_ANR = {
+		icon = GFX_decision_oil
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			ANR = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			state_resources_factor = 0.2
+			production_lack_of_resource_penalty_factor = -0.5
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#同莱艮芬德领开展贸易
+	LAW_Trade_with_RAG = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			RAG = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 40
+		modifier = {
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#诱骗北方领移民
+	LAW_Pop_From_GUN = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			GUN = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 70
+		modifier = {
+			manpower_weekly = 1000
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+}
+##骑士团决议组
+#黑玫瑰之帜 简单粗暴的强力决议组
+MOT_FWay_Meeting = {
+	##三消
+	#增加决议数量上限 追随黑玫瑰的旗帜！
+	MOT_FD_More_Max = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			check_variable = { MOT_Decisions_Max < 6 }
+		}
+		cost = 100
+		days_re_enable = 75
+		days_remove = 45
+		modifier = {
+			consumer_goods_factor = 0.05
+			command_power_gain_mult = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_More_Decision_Max
+			add_to_variable = { MOT_Decisions_Max = 1 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	#消耗政治点
+	#提高生产效率增长 关注军工生产
+	MOT_FD_Make_Weapons = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.4
+			industrial_capacity_factory = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提高资源产出 投资资源产业
+	MOT_FD_Make_Resources = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			state_resources_factor = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#降低消费品 控制财政支出
+	MOT_FD_Make_Consumer = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			consumer_goods_factor = -0.08
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提供基础设施，增加建筑槽位 升级道路系统
+	MOT_FD_Make_Slots = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_owned_state = {
+				free_building_slots = {
+					building = infrastructure
+					level > 1
+				}
+			}
+		}
+		cost = 70
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 8
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+	#消耗指挥点
+	#降低抵抗 处理占领区反对者
+	MOT_FD_Down_Resistance = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			resistance_decay = 2
+			resistance_growth = -1
+			compliance_growth = -0.5
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#提高战争支持 举行军队游行
+	MOT_FD_Up_War_Support = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			war_support_weekly = 0.006
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_war_support = 0.06
+		}
+	}
+	#提高经验入账 专注军队改革
+	MOT_FD_Up_EXP = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+			navy_doctrine_cost_factor = -0.05
+			air_doctrine_cost_factor = -0.05
+			experience_gain_army_factor = 0.15
+			experience_gain_navy_factor = 0.15
+			experience_gain_navy_factor = 0.15
+			equipment_upgrade_xp_cost = -0.5
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#减少补给消耗，提供基础设施 强化军事补给系统
+	MOT_FD_Up_Supply = {
+		icon = GFX_decision_ger_military_buildup
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 40
+		days_remove = 80
+		modifier = {
+			civilian_factory_use = 6
+			supply_consumption_factor = -0.2
+		}
+		complete_effect = {
+			add_command_power = -30
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+
+	#消费品工厂
+	#获得民工 投资民用工业
+	MOT_FD_Get_Civilian = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_industrial_complex_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#获得军工 投资军事工业
+	MOT_FD_Get_Military = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_arms_factory_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 2
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#获得船坞 投资船舶工业
+	MOT_FD_Get_Dockyard = {
+		icon = GFX_decision_generic_construction
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 80
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			production_speed_dockyard_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						level > 2
+					}
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+	#加速动员 军事动员宣传
+	MOT_FD_Military_Pro = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		days_re_enable = 50
+		days_remove = 100
+		modifier = {
+			consumer_goods_factor = 0.05
+			mobilization_laws_cost_factor = -0.5
+			economy_cost_factor = -0.5
+			trade_laws_cost_factor = -0.5
+			mobilization_speed = 1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+		}
+	}
+}
+#铁腕之治 机制简单的强力决议组，功能较少
+MOT_GWay_Meeting = {
+	# 反对派力量 MOT_Power_of_Anti
+	# 力量差值 MOT_Power_Diff
+	# 调整力量
+	MOT_ND_Differ_the_Power = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+		}
+		cost = 50
+		days_re_enable = 60
+		days_remove = 60
+		modifier = {
+			neutrality_drift = 0.1
+			political_advisor_cost_factor = -0.33
+		}
+		complete_effect = {
+			set_variable = { MOT_Power_Change = -20 }
+			custom_effect_tooltip = MOT_Power_Add_20_Down_20
+			MOT_Power_Balance_Themselves = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	# 强化联系
+	MOT_ND_Strengthen_Connection = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			neutrality_drift = 0.1
+			high_command_cost_factor = -0.33
+			air_chief_cost_factor = -0.33
+			army_chief_cost_factor = -0.33
+			navy_chief_cost_factor = -0.33
+		}
+		complete_effect = {
+			set_variable = { MOT_Power_Change = 20 }
+			custom_effect_tooltip = MOT_Power_Add_20
+			MOT_Power_Coo_Add = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+	}
+	# 投资合作者
+	MOT_ND_Invest_Coo = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+		}
+		cost = 20
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			neutrality_drift = 0.1
+			consumer_goods_factor = 0.05
+			industrial_concern_cost_factor = -0.33
+			materiel_manufacturer_cost_factor = -0.33
+		}
+		complete_effect = {
+			set_variable = { MOT_Power_Change = 20 }
+			custom_effect_tooltip = MOT_Power_Add_20
+			MOT_Power_Coo_Add = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+	}
+	# 压制反对派
+	MOT_ND_Beat_Anti = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			neutrality_drift = 0.1
+			political_power_cost = 0.5
+		}
+		complete_effect = {
+			set_variable = { MOT_Power_Change = -20 }
+			custom_effect_tooltip = MOT_Power_Down_20
+			MOT_Power_Anti_Add = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+	}
+	# 镇压反对派
+	MOT_ND_Attack_Anti = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Power_Diff < 20 }
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			has_command_power > 29
+		}
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			neutrality_drift = 0.1
+			command_power_gain_mult = -0.25
+			tank_manufacturer_cost_factor = -0.33
+		}
+		complete_effect = {
+			add_command_power = -30
+			set_variable = { MOT_Power_Change = -30 }
+			custom_effect_tooltip = MOT_Power_Down_30
+			MOT_Power_Anti_Add = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+	}
+
+	#商人合作线
+	#差值20 提高生产效率增长 强化生产协同性
+	MOT_ND_Strengthen_Production = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 20 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_T
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 90
+		modifier = {
+			production_factory_start_efficiency_factor = 0.1
+			production_factory_efficiency_gain_factor = 0.4
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 10 }
+				custom_effect_tooltip = MOT_Power_Add_10_Down_10
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值40 减少消费品工厂 控制政府开支
+	MOT_ND_Strengthen_Consumer_Goods = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 40 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_T
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 120
+		modifier = {
+			consumer_goods_factor = -0.1
+			production_speed_industrial_complex_factor = 0.1
+			production_speed_infrastructure_factor = 0.1
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 20 }
+				custom_effect_tooltip = MOT_Power_Add_20_Down_20_2
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+			add_stability = -0.03
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值60 降低制造商、法案花费 调整发展环境
+	MOT_ND_Change_Laws = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 60 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_T
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 150
+		modifier = {
+			production_speed_industrial_complex_factor = 0.1
+			production_speed_infrastructure_factor = 0.1
+			industrial_concern_cost_factor = -0.35
+			naval_manufacturer_cost_factor = -0.35
+			aircraft_manufacturer_cost_factor = -0.35
+			materiel_manufacturer_cost_factor = -0.35
+			tank_manufacturer_cost_factor = -0.35
+			economy_cost_factor = -0.35
+			trade_laws_cost_factor = -0.35
+			mobilization_laws_cost_factor = -0.35
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 30 }
+				custom_effect_tooltip = MOT_Power_Add_30_Down_30
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+			add_stability = -0.03
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值80 加速民工建造 释放发展空间
+	MOT_ND_Strengthen_Development = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 80 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_T
+		}
+		cost = 50
+		days_re_enable = 60
+		days_remove = 180
+		modifier = {
+			production_speed_industrial_complex_factor = 0.2
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 40 }
+				custom_effect_tooltip = MOT_Power_Add_40_Down_40
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值100 加速全部建造，提高战争支持度 解放无形之手
+	MOT_ND_Strengthen_Market_Liberty = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 100 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_T
+		}
+		cost = 50
+		days_re_enable = 60
+		days_remove = 180
+		modifier = {
+			production_speed_buildings_factor = 0.25
+			war_support_weekly = 0.005
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 50 }
+				custom_effect_tooltip = MOT_Power_Add_50_Down_50
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	#乡绅合作线
+	#差值20 加快生产 协商工人激励措施
+	MOT_ND_Better_Production = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 20 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_L
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 90
+		modifier = {
+			industrial_capacity_factory = 0.3
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 10 }
+				custom_effect_tooltip = MOT_Power_Add_10_Down_10
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值40 提高政治点收入 寻求地方支持
+	MOT_ND_Better_Government = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 40 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_L
+		}
+		cost = 10
+		days_re_enable = 30
+		days_remove = 90
+		modifier = {
+			political_power_gain = 0.5
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 20 }
+				custom_effect_tooltip = MOT_Power_Add_20_Down_20_2
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+			add_political_power = 100
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值60 降低顾问、法案花费 调整政治状况
+	MOT_ND_Change_Government = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 60 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_L
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 120
+		modifier = {
+			political_advisor_cost_factor = -0.5
+			mobilization_laws_cost_factor = -0.35
+			economy_cost_factor = -0.35
+			trade_laws_cost_factor = -0.35
+			stability_weekly = 0.002
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 30 }
+				custom_effect_tooltip = MOT_Power_Add_30_Down_30
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值80 加速基础设施和军工建造 扩充工作岗位
+	MOT_ND_More_Jobs = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 80 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_L
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 150
+		modifier = {
+			production_speed_infrastructure_factor = 0.25
+			production_speed_arms_factory_factor = 0.15
+			stability_weekly = 0.002
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 40 }
+				custom_effect_tooltip = MOT_Power_Add_40_Down_40
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#差值100 加速全部建造 放松经济控制
+	MOT_ND_Faster_Build = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			set_temp_variable = { MOT_Diff_Need = 100 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Diff_X
+				check_variable = { MOT_Power_Diff > MOT_Diff_Need }
+			}
+		}
+		visible = {
+			has_country_flag = MOT_ND_Coo_L
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 150
+		modifier = {
+			production_speed_buildings_factor = 0.3
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				set_variable = { MOT_T_Power_Change = 50 }
+				custom_effect_tooltip = MOT_Power_Add_50_Down_50
+				MOT_Power_Balance_Themselves = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Meeting = yes
+			}
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+}
+#民主协商 数值调整小游戏，功能多样，强度较低
+MOT_DWay_Meeting = {
+	##调整力量及支持
+	#拨动天平
+	MOT_Influence_the_Balance = {
+		icon = GFX_decision_SWI_swiss_democratic_tradition_campaign
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			democratic_drift = 0.1
+			political_advisor_cost_factor = -0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Them_All = yes
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_political_power = 50
+		}
+	}
+	#博取支持
+	MOT_Seek_Support = {
+		icon = GFX_decision_SWI_swiss_democratic_tradition_campaign
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			democratic_drift = 0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Higher_Support_of_All = yes
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_political_power = 50
+		}
+	}
+	#接收提案
+	MOT_Get_Ideas = {
+		icon = GFX_decision_SWI_swiss_democratic_tradition_campaign
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 50
+		days_re_enable = 55
+		days_remove = 5
+		modifier = {
+			democratic_drift = 0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Higher_Power_of_All = yes
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_political_power = 50
+			country_event = Knights.1
+		}
+	}
+
+	##BUFF决议
+	##会消耗对应集团的力量，提高其支持，但降低剩下两个集团的支持
+	# MOT_Balance_People_Down = yes
+	# MOT_Balance_Trader_Down = yes
+	# MOT_Balance_Lords_Down = yes
+	##要求：对应集团不能最弱；必须保证力量平衡，即最大者的力量不能超过剩余二者之和
+	# MOT_Balance_Keeping = yes
+	# NOT = { Is_People_3rd = yes }
+	# NOT = { Is_Lords_3rd = yes }
+	# NOT = { Is_Trader_3rd = yes }
+	#展开：人民代表支持
+	MOT_DD_Unlock_PD = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		complete_effect = {
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDD_P
+				}
+				clr_country_flag = MOT_UnlockDD_P
+			}
+			ELSE_IF = {
+				set_country_flag = MOT_UnlockDD_P
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#加速生产 点燃劳动热情
+	MOT_DD_Work_Harder = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_People_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_P }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			industrial_capacity_factory = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_People_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_stability = -0.03
+		}
+	}
+	#加速动员 号召参加军队
+	MOT_DD_Mobile_Harder = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_People_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_P }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			mobilization_speed = 0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_People_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_war_support = -0.03
+		}
+	}
+	#加速生产效率增长
+	MOT_DD_Product_Smarter = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_People_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_P }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			political_power_gain = -0.2
+			production_factory_efficiency_gain_factor = 0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_People_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+		}
+	}
+	#展开：地主乡绅支持
+	MOT_DD_Unlock_LD = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		complete_effect = {
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDD_L
+				}
+				clr_country_flag = MOT_UnlockDD_L
+			}
+			ELSE_IF = {
+				set_country_flag = MOT_UnlockDD_L
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#提高稳定 道德强化运动
+	MOT_DD_Strengthen_Moral = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Lords_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_L }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			stability_weekly = 0.05
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Lords_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_stability = 0.03
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Lords_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				add_stability = 0.03
+			}
+		}
+	}
+	#增加资源 投资第一产业
+	MOT_DD_Get_Resources = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Lords_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_L }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			state_resources_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Lords_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Lords_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				random_owned_state = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+		}
+	}
+	#获得政治点 向[MOT_Meeting_Lords]寻求支持
+	MOT_DD_Get_PPs = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Lords_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_L }
+		}
+		cost = 30
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			mobilization_laws_cost_factor = -0.25
+			high_command_cost_factor = -0.25
+			air_chief_cost_factor = -0.25
+			army_chief_cost_factor = -0.25
+			navy_chief_cost_factor = -0.25
+			political_Power_gain = 0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Lords_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Lords_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				add_political_power = 50
+			}
+		}
+	}
+	#展开：商人集团支持
+	MOT_DD_Unlock_TD = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		complete_effect = {
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDD_T
+				}
+				clr_country_flag = MOT_UnlockDD_T
+			}
+			ELSE_IF = {
+				set_country_flag = MOT_UnlockDD_T
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#提高战争支持 进行军事准备
+	MOT_DD_Preparation_for_Warfare = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Trader_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_T }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			war_support_weekly = 0.005
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Trader_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_war_support = 0.03
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Trader_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				add_war_support = 0.03
+			}
+		}
+	}
+	#增加建造速度 投资经济发展
+	MOT_DD_Mora_for_Economic_Development = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Trader_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_T }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			production_speed_buildings_factor = 0.15
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Trader_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Trader_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#减少消费 寻求[MOT_Meeting_Trader]支持
+	MOT_DD_Seek_for_Ts_Help = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_the_Lowest
+				NOT = { Is_Trader_3rd = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_UnlockDD_T }
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 60
+		modifier = {
+			consumer_goods_factor = -0.08
+			trade_laws_cost_factor = -0.25
+			economy_cost_factor = -0.25
+			naval_manufacturer_cost_factor = -0.25
+			materiel_manufacturer_cost_factor = -0.25
+			aircraft_manufacturer_cost_factor = -0.25
+			tank_manufacturer_cost_factor = -0.25
+			industrial_concern_cost_factor = -0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			MOT_Balance_Trader_Down = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Better_when_Strongest
+			IF = {
+				limit = {
+					Is_Trader_1st = yes
+				}
+				custom_effect_tooltip = MOT_Better_for_Strongest
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	#增加决议数量上限
+	MOT_DD_More_Max = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				MOT_Balance_Keeping = yes
+			}
+		}
+		visible = { check_variable = { MOT_Decisions_Max < 5 } }
+		cost = 25
+		days_re_enable = 100
+		days_remove = 100
+		modifier = {
+			political_power_gain = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+			custom_effect_tooltip = MOT_Lower_P_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = -10 }
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			add_to_variable = { MOT_BasicPower_of_Lords = -10 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_to_variable = { MOT_Decisions_Max = 1 }
+			custom_effect_tooltip = MOT_More_Decision_Max
+		}
+	}
+}
+#为人民服务 机制简单、功能多样的强力决议组
+MOT_RWay_Meeting = {
+	#提高人民支持 玫瑰主义，人民的意志！
+	MOT_RD_Rosism_is_People = {
+		icon = GFX_decision_SOV_the_stalin_constitution
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			communism_drift = 0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = 0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = 0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#提高人民力量 入西风骑士团，做新蒙德青年！
+	MOT_RD_Be_Rosist = {
+		icon = GFX_decision_SOV_the_stalin_constitution
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+		}
+		cost = 50
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			communism_drift = 0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	
+	##消费人民支持及力量换取BUFF
+	##消费支持
+	#降低消费品 节约资源，为后人留下富足遗产
+	MOT_RD_Build_Better_Future = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			consumer_goods_factor = -0.05
+			trade_laws_cost_factor = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+		
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+		}
+	}
+	#提高战争支持 一场巨大而恐怖的战争正在前方等待我们
+	MOT_RD_A_Terror_War_Front = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			war_support_weekly = 0.005
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_war_support = 0.05
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#降低抵抗 不用害怕，新蒙德军不取民众一针一线！
+	MOT_RD_We_Are_the_One = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			resistance_target = -0.1
+			resistance_decay = 0.5
+			resistance_growth = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			every_controlled_state = {
+				limit = { has_resistance = yes }
+				add_resistance = -5
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#加速动员 追随温妮莎的脚步！
+	MOT_RD_Follow_Vernisa = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			mobilization_speed = 0.4
+			conscription_factor = 0.15
+			manpower_weekly = 1000
+			mobilization_laws_cost_factor = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_manpower = 10000
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#加速生产 向劳动模范学习！
+	MOT_RD_Learn_from_Labour_Idol = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			industrial_capacity_factory = 0.25
+			production_factory_max_efficiency_factor = 0.1
+			economy_cost_factor = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+
+	##消费力量
+	#加速建造 完善经济建设规划
+	MOT_RD_Better_Plan_of_Construction = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			production_speed_buildings_factor = 0.1
+			production_speed_infrastructure_factor = 0.1
+			production_speed_industrial_complex_factor = 0.1
+			production_speed_arms_factory_factor = 0.1
+			production_speed_dockyard_factor = 0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#提高稳定 平息社会动乱
+	MOT_RD_Calm_Social_Instability = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			stability_weekly = 0.005
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_stability = 0.05
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#提高顺从 安抚占领区人民
+	MOT_RD_Calm_Occupied_One = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		visible = {
+			any_controlled_state = { has_resistance = yes }
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			compliance_gain = 0.05
+			compliance_growth = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			every_controlled_state = {
+				limit = {
+					has_resistance = yes
+					compliance < 30
+				}
+				add_compliance = 5
+			}
+			every_controlled_state = {
+				limit = {
+					has_resistance = yes
+					compliance < 60	
+				}
+				add_compliance = 5
+			}
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#增加战略资源 优化战略资源分配部署
+	MOT_RD_Better_Resources = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			state_resources_factor = 0.2
+			production_lack_of_resource_penalty_factor = -0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+	#加速生产效率增长 强化生产单元协调
+	MOT_RD_Spread_Better_Production = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			line_change_production_efficiency_factor = 0.2
+			production_factory_start_efficiency_factor = 0.2
+			production_factory_efficiency_gain_factor = 0.25
+			materiel_manufacturer_cost_factor = -0.5
+			industrial_concern_cost_factor = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+	}
+
+	##消费两者，但是提高力量上限
+	#获取PP 摒弃落后观念，拥抱进步年代！
+	MOT_RD_Spread_Better_Idea = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			political_power_gain = 0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_political_power = 60
+			custom_effect_tooltip = MOT_PHigher_Limit_of_P
+			add_to_variable = { MOT_PLimit1_of_P = 1 }
+			add_to_variable = { MOT_PLimit2_of_P = 1 }
+		}
+	}
+	#获取工厂 用双手创造美好未来！
+	MOT_RD_the_Future_Will_be_Better = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			civilian_factory_use = 5
+			naval_manufacturer_cost_factor = -0.5
+			tank_manufacturer_cost_factor = -0.5
+			aircraft_manufacturer_cost_factor = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			custom_effect_tooltip = MOT_PHigher_Limit_of_P
+			add_to_variable = { MOT_PLimit1_of_P = 1 }
+			add_to_variable = { MOT_PLimit2_of_P = 1 }
+		}
+	}
+	#获取基础设施 打通全国大动脉，让乡村同胞走出大山！
+	MOT_RD_Build_Better_Infrastructure = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		visible = {
+			any_owned_state = {
+				free_building_slots = {
+					building = infrastructure
+					level > 1
+				}
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		days_remove = 70
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			custom_effect_tooltip = MOT_PHigher_Limit_of_P
+			add_to_variable = { MOT_PLimit1_of_P = 1 }
+			add_to_variable = { MOT_PLimit2_of_P = 1 }
+		}
+	}
+
+	##增加决议数量上限 聆听玫瑰骑士的声音！
+	MOT_RD_Listen_to_the_Rose = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Not_Higher_than_Max
+				check_variable = { MOT_Making_Decisions < MOT_Decisions_Max }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_PEnough_P_and_S
+				check_variable = { MOT_BasicSupport_People > 0.8 }
+				check_variable = { MOT_BasicPower_of_People > 80 }
+			}
+		}
+		visible = { check_variable = { MOT_Decisions_Max < 5 } }
+		cost = 25
+		days_re_enable = 150
+		days_remove = 10
+		modifier = {
+			political_power_gain = -0.5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Making_Decisions = 1 }
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.1 }
+			custom_effect_tooltip = MOT_Lower_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = -10 }
+			MOT_Var_Limit = yes
+			MOT_Re_Meeting = yes
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Making_Decisions = -1 }
+			add_to_variable = { MOT_Decisions_Max = 1 }
+			custom_effect_tooltip = MOT_More_Decision_Max
+		}
+	}
+}
+#造核系统
+MOT_Core_System = {
+	#占位用，说明
+	MOT_Tell_Text = {
+		icon = generic_decision
+		available = { always = no }
+		visible = { always = yes }
+	}
+	MOT_Integrate_It1 = {
+		icon = generic_prepare_civil_war
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Infantry_500
+				OR = {
+					has_equipment = {
+						infantry_equipment_1 > 499
+					}
+					has_equipment = {
+						infantry_equipment_2 > 499
+					}
+					has_equipment = {
+						infantry_equipment_3 > 499
+					}
+					has_equipment = {
+						infantry_equipment_4 > 499
+					}
+				}
+			}
+		}
+		state_target = yes
+		days_remove = 30
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 100000
+				state_population < 300001
+			}
+		}
+		custom_cost_text = decision_cost_CP_20
+		custom_cost_trigger = {
+			has_command_Power > 19
+		}
+		complete_effect = {
+			add_command_power = -20
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Core_It1 = {
+		icon = generic_decision
+		available = {
+		}
+		state_target = yes
+		days_remove = 30
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 100000
+				state_population < 300001
+			}
+		}
+		cost = 20
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Integrate_It2 = {
+		icon = generic_prepare_civil_war
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Infantry_1000
+				OR = {
+					has_equipment = {
+						infantry_equipment_1 > 999
+					}
+					has_equipment = {
+						infantry_equipment_2 > 999
+					}
+					has_equipment = {
+						infantry_equipment_3 > 999
+					}
+					has_equipment = {
+						infantry_equipment_4 > 999
+					}
+				}
+			}
+		}
+		state_target = yes
+		days_remove = 40
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 300000
+				state_population < 800001
+			}
+		}
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = {
+			has_command_Power > 49
+		}
+		complete_effect = {
+			add_command_power = -50
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Core_It2 = {
+		icon = generic_decision
+		available = {
+		}
+		state_target = yes
+		days_remove = 40
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 300000
+				state_population < 800001
+			}
+		}
+		cost = 50
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Integrate_It3 = {
+		icon = generic_prepare_civil_war
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Infantry_2000
+				OR = {
+					has_equipment = {
+						infantry_equipment_1 > 1999
+					}
+					has_equipment = {
+						infantry_equipment_2 > 1999
+					}
+					has_equipment = {
+						infantry_equipment_3 > 1999
+					}
+					has_equipment = {
+						infantry_equipment_4 > 1999
+					}
+				}
+			}
+		}
+		state_target = yes
+		days_remove = 60
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 800000
+				state_population < 1500001
+			}
+		}
+		custom_cost_text = decision_cost_CP_80
+		custom_cost_trigger = {
+			has_command_Power > 79
+		}
+		complete_effect = {
+			add_command_power = -80
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Core_It3 = {
+		icon = generic_decision
+		available = {
+		}
+		state_target = yes
+		days_remove = 60
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 800000
+				state_population < 1500001
+			}
+		}
+		cost = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Integrate_It4 = {
+		icon = generic_prepare_civil_war
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_Need_Infantry_3000
+				OR = {
+					has_equipment = {
+						infantry_equipment_1 > 2999
+					}
+					has_equipment = {
+						infantry_equipment_2 > 2999
+					}
+					has_equipment = {
+						infantry_equipment_3 > 2999
+					}
+					has_equipment = {
+						infantry_equipment_4 > 2999
+					}
+				}
+			}
+		}
+		state_target = yes
+		days_remove = 60
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 1500000
+			}
+		}
+		custom_cost_text = decision_cost_CP_120
+		custom_cost_trigger = {
+			has_command_Power > 119
+		}
+		complete_effect = {
+			add_command_power = -120
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -3000
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Core_It4 = {
+		icon = generic_decision
+		available = {
+		}
+		state_target = yes
+		days_remove = 80
+		on_map_mode = map_and_decisions_view
+		visible = {
+			FROM = {
+				is_core_of = MOT
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+				state_population > 1500000
+			}
+		}
+		cost = 80
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+}
+#对骑士团作战决议
+MOND_Anti_Knights = {
+	#一步不退
+	MOND_AK_NSB = {
+		icon = generic_nationalism
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 200
+		cost = 80
+		modifier = {
+			army_core_attack_factor = 0.1
+			army_core_defence_factor = 0.1
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#保卫边境
+	MOND_AK_Protect_our_Border = {
+		icon = generic_prepare_civil_war
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 200
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = { command_Power > 49 }
+		modifier = {
+			army_org_regain = 0.2
+			dig_in_speed_factor = 0.25
+			army_defense_factor = 0.1
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#针对策略
+	MOND_AK_Aim_to_Beat_MOT = {
+		icon = generic_reorganize_irregulars
+		fire_only_once = no
+		days_remove = 45
+		days_re_enable = 200
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = { command_Power > 49 }
+		modifier = {
+			targeted_modifier = {
+				tag = MOT
+				attack_bonus_against = 0.1
+				defense_bonus_against = 0.1
+			}
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#敌后破坏
+	MOND_AK_Let_Them_Back = {
+		icon = generic_operation
+		fire_only_once = no
+		days_remove = 20
+		days_re_enable = 40
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = { command_Power > 29 }
+		available = { num_of_civilian_factories_available_for_projects > 9 }
+		visible = { has_active_mission = MOT_Time_Has_to_Leave }
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			MOT = {
+				add_days_mission_timeout = { mission = MOT_Time_Has_to_Leave days = -20 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+}
+#示范性粮食系统
+MOT_Food_System = {
+	#计算粮食
+	MOT_Jisuan = {
+		icon = generic_ignite_civil_war
+		fire_only_once = no
+		days_remove = 1
+		days_re_enable = 0
+		remove_effect = { 
+			#初始粮食设置
+			IF = {
+				limit = {
+					has_variable = MOT_liangshiVolume
+				}
+			}
+			ELSE_IF = { set_variable = { MOT_liangshiVolume = 0 } }
+			
+			set_variable = { MOT_liangshiGet = num_of_civilian_factories }
+			set_variable = { MOT_liangshiCost = num_of_military_factories }
+			#设置一个临时变量，计算总体增减量
+			set_variable = { MOT_linshibianliang = MOT_liangshiGet }
+			subtract_from_variable = { MOT_linshibianliang = MOT_liangshiCost }
+			set_variable = { MOT_Total_Change_ofLiangshi = MOT_linshibianliang }
+			#粮食总量变化
+			add_to_variable = { MOT_liangshiVolume = MOT_Total_Change_ofLiangshi }
+			#根据总体增减量改变动态精神效果
+			set_variable = { MOT_consum_modifier = MOT_Total_Change_ofLiangshi }
+			divide_variable = { MOT_consum_modifier = -100 }
+			set_variable = { MOT_cons_modifier = MOT_Total_Change_ofLiangshi }
+			divide_variable = { MOT_cons_modifier = 25 }
+			set_variable = { MOT_eff_modifier = MOT_Total_Change_ofLiangshi }
+			divide_variable = { MOT_eff_modifier = 50 }
+			#增加或更新动态民族精神
+			IF = {
+				limit = {
+					NOT = {
+						has_dynamic_modifier = MOT_Food_to_Buff_dynamic_modifier
+					}
+				}
+				add_dynamic_modifier = { modifier = MOT_Food_to_Buff_dynamic_modifier days = -1 }
+			}
+			ELSE_IF = {
+				force_update_dynamic_modifier = yes
+			}
+			
+		}
+	}
+}
+#旅行者决议组
+MOT_Active_Traveller = {
+	#处理风魔龙
+	MOT_Dragon_Attack = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 400
+		activation = { has_global_flag = MOT_Attack_of_Dragon }
+		
+		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		timeout_effect = {
+			remove_ideas = MOT_Attack_of_Twalin
+			activate_mission = MOT_T_Dailying
+		}
+	}
+	#向旅行者出借天空之琴
+	MOT_SkyJean_for_T = {
+		icon = generic_army_support
+		fire_only_once = yes
+		days_remove = 10
+		cost = 50
+		visible = { has_active_mission = MOT_Dragon_Attack }
+		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -60 } }
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#护送旅行者前往风龙废墟
+	MOT_ArmyPro_for_T = {
+		icon = generic_decision
+		fire_only_once = yes
+		days_remove = 10
+		custom_cost_trigger = { command_power > 49 }
+		custom_cost_text = decision_cost_CP_50
+		visible = { has_active_mission = MOT_Dragon_Attack }
+		complete_effect = { add_command_power = -50 }
+		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -60 } }
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#帮助旅行者搜集风神瞳和宝箱
+	MOT_Political_Su_for_T = {
+		icon = generic_decision
+		fire_only_once = no
+		days_remove = 10
+		cost = 30
+		days_re_enable = 30
+		visible = { has_active_mission = MOT_Dragon_Attack }
+		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#向旅行者提供三流小说
+	MOT_Train_T = {
+		icon = generic_decision
+		fire_only_once = no
+		days_remove = 10
+		days_re_enable = 30
+		custom_cost_trigger = { command_power > 29 }
+		custom_cost_text = decision_cost_CP_30
+		visible = { has_active_mission = MOT_Dragon_Attack }
+		complete_effect = { add_command_Power = -30 }
+		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#赠送旅行者材料、摩拉和收藏品
+	MOT_Mora_T = {
+		icon = generic_decision
+		fire_only_once = no
+		days_remove = 10
+		days_re_enable = 30
+		visible = { has_active_mission = MOT_Dragon_Attack }
+		available = { num_of_civilian_factories_available_for_projects > 5 }
+		modifier = { civilian_factory_use = 5 }
+		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#旅行者完成日常委托中……
+	MOT_T_Dailying = {
+		icon = generic_decision
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 360
+		activation = { always = no }
+		available = { always = no }
+		
+		timeout_effect = {
+			activate_mission = MOT_T_Dailying
+		}
+		modifier = {
+			political_power_gain = 0.05
+			stability_weekly = 0.001
+		}
+	}
+	#向旅行者发布居民委托
+	MOT_T_Residents_Need = {
+		icon = generic_decision
+		fire_only_once = no
+		days_remove = 7
+		days_re_enable = 45
+		visible = { always = yes }
+		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		
+		modifier = {
+			consumer_goods_factor = -0.02
+		}
+		remove_effect = {
+			add_political_power = -30
+			add_to_variable = { MOT_Friendship_of_T = 1 }
+			random_list = {
+				25 = {
+					add_stability = 0.02
+				}
+				25 = {
+					add_war_support = 0.02
+				}
+				25 = {
+					add_political_power = 50
+				}
+				25 = {
+					add_command_power = 30
+				}
+			}
+		}
+	}
+	#向旅行者发布讨伐委托
+	MOT_T_Killing_Need = {
+		icon = generic_decision
+		fire_only_once = no
+		days_remove = 7
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		
+		modifier = {
+			consumer_goods_factor = -0.02
+		}
+		remove_effect = {
+			add_political_power = -50
+			add_to_variable = { MOT_Friendship_of_T = 1 }
+			random_list = {
+				25 = {
+					IF = {
+						limit = {
+							has_country_flag = MOT_WarDB
+							NOT = {
+								has_country_flag = MOT_WarDB_End
+							}
+						}
+						custom_effect_tooltip = MOT_get_res
+						MOT_Get_Resources_of_Warfare = yes
+					}
+					ELSE_IF = {
+						add_command_power = 25
+						add_political_power = 25
+					}
+				}
+				25 = {
+					add_stability = 0.03
+				}
+				25 = {
+					add_war_support = 0.03
+				}
+				25 = {
+					add_manpower = 1000
+				}
+			}
+		}
+	}
+	#给旅行者发原石
+	MOT_T_Get_YUANSHI = {
+		icon = decision_generic_fundraising
+		fire_only_once = no
+		days_remove = 1
+		days_re_enable = 60
+		visible = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		cost = 160
+		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		
+		modifier = {
+			
+		}
+		remove_effect = {
+			add_to_variable = { MOT_Friendship_of_T = 5 }
+		}
+	}
+	#协助旅行者刷深渊
+	MOT_T_Beat_Deep = {
+		icon = generic_army_support
+		fire_only_once = no
+		days_remove = 30
+		days_re_enable = 60
+		visible = { check_variable = { MOT_Friendship_of_T > 50 } }
+		cost = 100
+		available = { always = yes }
+		
+		modifier = {
+			
+		}
+		remove_effect = {
+			add_political_power = 120
+			army_experience = 40
+		}
+	}
+	#请求旅行者进行军事指导
+	MOT_T_Military_Help = {
+		icon = generic_military
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 30
+		visible = { check_variable = { MOT_Friendship_of_T > 20 } }
+		cost = 160
+		available = { always = yes }
+		
+		modifier = {
+			experience_gain_army = 1
+			land_doctrine_cost_factor = -0.1
+		}
+		remove_effect = {
+			
+		}
+	}
+	#请求旅行者协助工业建设
+	MOT_T_Industrial_Help = {
+		icon = generic_industry
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 30
+		visible = { check_variable = { MOT_Friendship_of_T > 40 } }
+		cost = 160
+		available = { always = yes }
+		
+		modifier = {
+			consumer_goods_factor = -0.05
+			production_speed_buildings_factor = 0.2
+		}
+		remove_effect = {
+			
+		}
+	}
+	#请求旅行者搜集战略资源
+	MOT_T_Res_Help = {
+		icon = generic_industry
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 30
+		visible = { check_variable = { MOT_Friendship_of_T > 30 } }
+		cost = 160
+		available = { always = yes }
+		
+		modifier = {
+			civilian_factory_use = 3
+			production_lack_of_resource_penalty_factor = -0.5
+		}
+		remove_effect = {
+			random_list = {
+				20 = {
+					every_owned_state = {
+						add_resource = { type = steel amount = 5 }
+					}
+				}
+				20 = {
+					every_owned_state = {
+						add_resource = { type = aluminium amount = 5 }
+					}
+				}
+				20 = {
+					every_owned_state = {
+						add_resource = { type = rubber amount = 5 }
+					}
+				}
+				20 = {
+					every_owned_state = {
+						add_resource = { type = tungsten amount = 5 }
+					}
+				}
+				20 = {
+					every_owned_state = {
+						add_resource = { type = chromium amount = 5 }
+					}
+				}
+			}
+		}
+	}
+	#请求旅行者采购武器装备
+	MOT_T_Equip_Help = {
+		icon = generic_industry
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 30
+		visible = { check_variable = { MOT_Friendship_of_T > 10 } }
+		cost = 160
+		available = { always = yes }
+		
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+			}
+		}
+	}
+}
+
+#稳固控制
+MOT_Strengthen_our_Control = {
+	#相关变量：
+	#西风教会领控制力 MOT_Control_in_FAV 初始30（骑士团是AI且是历史线:自动加30）
+	#西风教会领抵抗力 MOT_Resist_in_FAV 初始20（西风教会领是AI：自动加30）
+	#
+	#前劳伦斯领控制力MOT_Control_in_LAW 初始20（骑士团是AI且是历史线:自动加20）
+	#前劳伦斯领抵抗力MOT_Resist_in_LAW 初始30（劳伦斯领是AI：自动加20）
+	#army_manpower_in_state = { amount > 100000 state = 31 }
+	#古恩希尔德领控制力MOT_Control_in_GUN 初始40（骑士团是AI且是历史线:自动加20）
+	#古恩希尔德领渗透度MOT_Resist_in_GUN 初始10（劳伦斯领是AI：自动加10）
+	#army_manpower_in_state = { amount > 50000 state = 21 }
+	#蒙德城控制力MOT_Control_in_MOT 初始50（骑士团是AI:自动加20）
+	#蒙德城渗透度MOT_Resist_in_MOT 初始0（劳伦斯领是AI:自动加30）
+	#army_manpower_in_state = { amount > 50000 state = 1 }
+	#非关键区域影响力 MOT_Control_in_Others 初始10（骑士团是AI:自动加10）
+	#非关键区域抵抗力 MOT_Resist_in_Others（若风龙领、奔狼领、龙脊雪山领、清泉镇都是AI，自动加10）
+	#
+	#琴团长健康度 MOT_Jean_HP 初始100，每次加强决议效果减10，劳伦斯领每次破坏行动减5，西风教会、劳伦斯领、的离去减20（此时可以额外减10以减轻buff），到达0时进入诺艾尔线
+	MOT_Control_MOT = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_MOT = 15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_MOT = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_MOT > MOT_Control_in_MOT }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_FAV = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_FAV = 10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_FAV = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_FAV > MOT_Control_in_FAV }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_GUN = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_GUN = 15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_GUN = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_GUN > MOT_Control_in_GUN }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_LAW = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_LAW = 5 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_LAW = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_LAW < 50 }
+				add = 10
+			}
+		}
+	}
+	MOT_Mili_MOT = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 1 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_MOT = -15 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_MOT > MOT_Control_in_MOT }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_GUN = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 21 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_GUN = -15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_GUN = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_GUN > MOT_Control_in_GUN }
+				add = 40
+			}
+		}
+	}
+	MOT_Mili_FAV = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 8 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_FAV = -10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_FAV = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_FAV > MOT_Control_in_FAV }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_LAW = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 80000 state = 28 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = {
+				has_global_flag = MOT_Civil_War_Begun
+				has_global_flag = MOT_StControl_section2
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_LAW = -5 }
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_LAW < 50 }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_Others = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			OR = {
+				army_manpower_in_state = { amount > 10000 state = 34 }
+				army_manpower_in_state = { amount > 10000 state = 42 }
+				army_manpower_in_state = { amount > 10000 state = 57 }
+				army_manpower_in_state = { amount > 10000 state = 55 }
+			}
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_Others = -10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_Others = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_Others > MOT_Control_in_Others }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_Other = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 0
+		cost = 30
+		targets_dynamic = yes
+		allowed = {
+			
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = DRA
+					original_tag = SPI
+					original_tag = DVA
+					original_tag = ANR
+				}
+				exists = yes
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_Others = 10 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_Others > MOT_Control_in_Others }
+				add = 20
+			}
+		}
+	}
+	MOT_Law_Action = {
+		icon = generic_scorched_earth
+		days_re_enable = 0
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		modifier = { stability_weekly = -0.005 }
+		activation = {
+			always = no
+		}
+		available = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Law_high_Resist
+			activate_mission = MOT_Law_Action
+			add_to_variable = { MOT_Control_in_LAW = 10 }
+			random_list = {
+				20 = {
+					add_to_variable = { MOT_Control_in_LAW = 5 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Control_in_LAW = 5 }
+						custom_effect_tooltip = MOT_LAWAction_10
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Control_in_FAV = 10 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Control_in_FAV = 5 }
+						custom_effect_tooltip = MOT_LAWAction_11
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Control_in_MOT = 5 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Control_in_MOT = 5 }
+						custom_effect_tooltip = MOT_LAWAction_12
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Control_in_GUN = 5 }
+					custom_effect_tooltip = MOT_LAWAction_13
+				}
+				20 = {
+					add_to_variable = { MOT_Control_in_Others = 10 }
+					custom_effect_tooltip = MOT_LAWAction_14
+				}
+			}
+		}
+	}
+	MOT_StControl_Jean_Work_Busier = {
+		icon = generic_decision
+		days_remove = 10
+		days_re_enable = 20
+		cost = 0
+		fire_only_once = no
+		remove_effect = {
+			add_political_power = 30
+			add_command_power = 30
+			add_to_variable = { MOT_Jean_HP = -8 }
+			hidden_effect = {
+				random_list = {
+					25 = {
+						add_to_variable = { MOT_Jean_HP = -10 }
+					}
+					25 = {
+						add_to_variable = { MOT_Jean_HP = -15 }
+					}
+					25 = {
+						add_to_variable = { MOT_Jean_HP = -20 }
+					}
+					25 = {
+						
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				check_variable = { MOT_Jean_HP < 20 }
+				is_historical_focus_on = yes
+				add = -10000
+			}
+			modifier = {
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Fascism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+				}
+				add = 10000
+			}
+		}
+	}
+}
+#战前谋划
+LAW_Preparation_Before_War = {
+	#能够降低琴团长健康度
+	#能够以较低的价格提高各地区渗透度、抵抗力并在内战开始时根据比率对骑士团造成debuff、导致骑士团控制区分裂、减少骑士团初始士气等级和作战资源
+	#必须在自身抵抗力高于控制力时才能开战（AI在开局九月后才会开战），随着时间的推进，劳伦斯抵抗力会越来越容易获得
+	#相关变量：
+	#愚人众力量 LAW_Power_of_Fools 初始50，会在使用增兵和破坏决议时提高
+	#贵族派力量 LAW_Power_of_Nobles 初始50，会在使用建设和渗透决议时提高
+	#增兵、建设决议使用越多，初始的作战资源越多
+	MOT_Civil_War_1_LAW = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 200
+		activation = { always = no }
+		
+		available = { MOT = { surrender_progress > 0.6 } }
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_Stop
+			set_global_flag = MOT_Civil_War_1_End
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			LAW = {
+				mark_focus_tree_layout_dirty = yes
+			}
+			hidden_effect = {
+				white_peace = MOT
+				MOT = { remove_mission = MOT_Civil_War_1_MOT }
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_End_for_Debuff
+			transfer_state = 35
+			set_global_flag = MOT_Civil_War_1_End
+			every_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.9
+			}
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			LAW = {
+				mark_focus_tree_layout_dirty = yes
+			}
+			every_other_country = {
+				limit = {
+					NOT = { original_tag = FAV }
+					has_war_together_with = MOT
+				}
+				white_peace = LAW
+			}
+			hidden_effect = {
+				MOT = {
+					end_puppet = DRA
+					end_puppet = SPI
+					end_puppet = FAV
+					end_puppet = GUN
+					end_puppet = RAG
+					end_puppet = DVA
+					end_puppet = ANR
+				}
+				white_peace = DRA
+				white_peace = SPI
+				white_peace = GUN
+				white_peace = RAG
+				white_peace = DVA
+				white_peace = ANR
+				start_peace_conference = {
+					tag = MOT
+					score_factor = 0.2
+					message = MOT_Won_3
+				}
+				MOT = { remove_mission = MOT_Civil_War_1_MOT }
+			}
+		}
+		modifier = {
+			war_support_factor = 0.2
+			hidden_modifier = {
+				army_speed_factor = -0.2
+				org_loss_when_moving = 1
+			}
+			targeted_modifier = {
+				tag = MOT
+				attack_bonus_against = 0.2
+			}
+		}
+	}
+	LAW_HigherResist_of_LAW = {
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		fire_only_once = no
+		remove_effect = {
+			custom_effect_tooltip = LAW_High_Resist_Here
+			add_to_variable = { MOT.MOT_Resist_in_LAW = 10 }
+			IF = {
+				limit = { has_global_flag = MOT_StControl_section2 }
+				add_to_variable = { MOT_Resist_in_LAW = 10 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	LAW_Begin_Civil_WAR = {
+		days_remove = 30
+		days_re_enable = 0
+		cost = 0
+		fire_only_once = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_Resist_Enough
+				check_variable = { MOT.MOT_Resist_in_LAW > MOT.MOT_Control_in_LAW }
+			}
+		}
+		war_with_on_remove = MOT
+		remove_effect = {
+			MOT = { end_puppet = LAW }
+			set_global_flag = MOT_Civil_War_Begun
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+			country_event = {
+				id = Knights.48
+				days = 85
+			}
+			country_event = {
+				id = Knights.49
+				days = 80
+			}
+			activate_mission = MOT_Civil_War_1_LAW
+			set_cosmetic_tag = LAW_Noble_Army
+			hidden_effect = {
+				RAG = {
+					#set_cosmetic_tag = RAG_RAGRAG
+				}
+				SPI = { set_cosmetic_tag = SPI_Town_of_Freedom }
+				MOT = {
+					set_country_flag = MOT_WarDB 
+					activate_mission = MOT_Civil_War_1_MOT
+					activate_mission = MOT_Monthly_Rush
+					country_event = Knights.7
+					country_event = {
+						id = Knights.23
+						days = 70
+					}
+					country_event = {
+						id = Knights.24
+						days = 75
+					}
+					country_event = {
+						id = Knights.47
+						days = 70
+					}
+				}
+			}
+			set_country_flag = LAW_WarDB 
+			MOT = { set_country_flag = MOT_WarDB }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				date > 1937.3.1
+				add = 1000
+			}
+		}
+	}
+}
+
+#决胜千里
+MOT_War_Decisions_of_Us = {
+	#能消耗作战资源获取临时buff、获取军工以及宣战
+	#相关变量：
+	#作战资源 MOT_Resources_for_War 以政治点数、指挥点数、占用民工兑换，也可以通过蒙德议会获得，在每一次胜利时自动获得一定量，获取效率与士气等级成正比
+	#士气等级 MOT_Level_of_WarSupport 数值上等于战争支持 度乘10去尾，影响临时buff的强度和可用决议，同时会减少心理预期时间
+	#撤军限制时间 MOT_Time_of_Leave 为90或180，可以通过各种决议增加
+	#心理预期时间 MOT_Time_of_Expectation 以五级100天为基础，每改变一级改变5天，若是10级则定为60天，1级则定为300天；黑线前置国策可以取消心理预期时间
+	#心理预期时间变化 MOT_Time_Change
+	MOT_Civil_War_1_MOT = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 200
+		activation = { always = no }
+		
+		available = { LAW = { surrender_progress > 0.6 } }
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_Stop
+			set_global_flag = MOT_Civil_War_1_End
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			LAW = {
+				mark_focus_tree_layout_dirty = yes
+			}
+			every_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.10
+			}
+			hidden_effect = {
+				white_peace = { tag = LAW message = MOT_Won_2 }
+				LAW = { remove_mission = MOT_Civil_War_1_LAW }
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_End_for_Debuff
+			set_global_flag = MOT_Civil_War_1_End
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			LAW = {
+				mark_focus_tree_layout_dirty = yes
+			}
+			transfer_state = 32
+			every_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.11
+			}
+			hidden_effect = {
+				start_peace_conference = {
+					tag = LAW
+					score_factor = 0.2
+					message = MOT_Won_1
+				}
+				LAW = { remove_mission = MOT_Civil_War_1_LAW }
+			}
+		}
+		modifier = {
+			war_support_factor = 0.2
+			hidden_modifier = {
+				army_speed_factor = -0.2
+				org_loss_when_moving = 1
+			}
+			targeted_modifier = {
+				tag = LAW
+				attack_bonus_against = 0.2
+			}
+		}
+	}
+	#每月更新
+	MOT_Monthly_Rush = {
+		icon = generic_decision
+		days_re_enable = 0
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		available = { has_country_flag = MOT_WarDB_End }
+		activation = { always = no }
+		modifier = {
+			political_power_gain = var:MOT_Level_Buff
+			army_core_attack_factor = var:MOT_Level_Buff
+			army_core_defence_factor = var:MOT_Level_Buff
+		}
+		timeout_effect = {
+			MOT_Monthly_Revote = yes
+			activate_mission = MOT_Monthly_Rush
+			#重计算士气等级
+			MOT_Re_Level_of_WS = yes
+			#重计算各团体力量及支持
+			MOT_Re_Org_PowerandSupport = yes
+			#重计算各类动议支持
+			MOT_Re_Decisions_Support = yes
+			#根据当前士气等级获得定期作战资源
+			custom_effect_tooltip = MOT_get_res
+			MOT_Get_Resources_of_Warfare = yes
+			#根据当前力量最高者获得要求
+			MOT_Get_Tasks_from_P = yes
+			#将临时数值全部减半
+			MOT_DivideTheExtra = yes
+			IF = {
+				limit = {
+					OR = {
+						has_country_flag = {
+							flag = MOT_Doing_Want
+							days > 120
+						}
+						AND = {
+							has_country_flag = {
+								flag = MOT_Doing_Want
+								days > 60
+							}
+							has_country_flag = {
+								flag = MOT_Waitfor_Sometime
+								days > 60
+							}
+						}
+					}
+				}
+				random = {
+					chance = 50
+					# country_event = Knights.1
+				}
+			}
+		}
+	}
+	#舆论期望 软性撤离时间
+	MOT_Time_Willing_to_Leave = {
+		icon = generic_prepare_civil_war
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = MOT_Time_of_Expectation
+		activation = { always = no }
+		available = { MOT = { has_war = no } }
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Despair_From_Failure2
+			IF = {
+				limit = {
+					has_war_support > 0.1
+				}
+				add_stability = -0.02
+				add_war_support = -0.02
+				IF = {
+					limit = {
+						has_war_support > 0.2
+					}
+					add_stability = -0.03
+					add_war_support = -0.03
+				}
+				IF = {
+					limit = {
+						has_war_support > 0.4
+					}
+					add_stability = -0.05
+					add_war_support = -0.05
+				}
+				IF = {
+					limit = {
+						has_war_support > 0.6
+					}
+					add_war_su
+					add_stability = -0.05pport = -0.05
+				}
+				IF = {
+					limit = {
+						has_war_support > 0.7
+					}
+					add_stability = -0.05
+					add_war_support = -0.05
+				}
+				IF = {
+					limit = {
+						has_war_support > 0.8
+					}
+					add_stability = -0.05
+					add_war_support = -0.05
+				}
+				IF = {
+					limit = {
+						has_war_support > 0.9
+					}
+					add_stability = -0.05
+					add_war_support = -0.05
+				}
+				IF = {
+					limit = {
+						has_war_support = 1
+					}
+					add_stability = -0.05
+					add_war_support = -0.05
+				}
+			}
+		}
+	}
+	#作战决议
+	MOT_War_Declare_Tension = {
+		icon = generic_form_nation
+		days_re_enable = 0
+		days_remove = 30
+		fire_only_once = no
+		war_with_target_on_complete = yes
+		cost = 50
+		available = {
+			MOT = {
+				has_war = no
+				NOT = {
+					has_country_flag = MOT_Preing_for_New_War
+				}
+			}
+			OR = {
+				NOT = { original_tag = FAV }
+				has_country_flag = FAV_Broken_Connection
+			}
+		}
+		targets_dynamic = yes
+		target_root_trigger = {
+        	has_war = no
+			has_country_flag = MOT_Begin_WarDec
+			NOT = {
+				has_country_flag = MOT_Preing_for_New_War
+			}
+    	}
+		target_trigger = {
+			FROM = {
+				is_neighbor_of = MOT
+				OR = {
+					original_tag = RAG
+					original_tag = SPI
+					original_tag = DRA
+					original_tag = DVA
+					original_tag = FAV
+					original_tag = GUN
+					original_tag = ANR
+					AND = {
+						original_tag = LAW
+						has_country_flag = MOT_Last_Game
+					}
+				}
+				NOT = {
+					is_puppet_of = MOT
+					is_subject_of = MOT
+				}
+			}
+		}
+		targets = { SPI RAG FAV DVA GUN ANR LAW }
+		complete_effect = {
+			MOT = {
+				set_country_flag = MOT_Preing_for_New_War
+				IF = {
+					FROM = {
+						OR = {
+							original_tag = RAG
+							original_tag = DVA
+							original_tag = DRA
+						}
+					}
+					add_political_power = -50
+				}
+				IF = {
+					FROM = {
+						OR = {
+							original_tag = GUN
+							original_tag = FAV
+							original_tag = ANR
+						}
+					}
+					add_political_power = -30
+				}
+			}
+		}
+		remove_effect = {
+			clr_country_flag = MOT_Preing_for_New_War
+			MOT = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+			MOT_Level_to_Time = yes
+			#activate_mission = MOT_Time_Has_to_Leave
+			activate_mission = MOT_Time_Willing_to_Leave
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				FROM = {
+					original_tag = FAV
+				}
+				add = 110
+			}
+			modifier = {
+				FROM = {
+					original_tag = SPI
+				}
+				add = 100
+			}
+			modifier = {
+				AND = {
+					SPI = {
+						exists = no
+					}
+					FROM = {
+						original_tag = ANR
+					}
+				}
+				add = 100
+			}
+			modifier = {
+				AND = {
+					SPI = {
+						exists = no
+					}
+					FROM = {
+						original_tag = FAV
+					}
+				}
+				add = 90
+			}
+			modifier = {
+				AND = {
+					SPI = {
+						exists = no
+					}
+					FROM = {
+						original_tag = DVA
+					}
+				}
+				add = 80
+			}
+			modifier = {
+				AND = {
+					SPI = {
+						exists = no
+					}
+					FROM = {
+						original_tag = GUN
+					}
+				}
+				add = 60
+			}
+			modifier = {
+				has_war = yes
+				add = -10000
+			}
+		}
+	}
+	#以政治点换作战资源
+	MOT_WD_Poli_for_Res = {
+		icon = generic_industry
+		days_re_enable = 40
+		days_remove = 20
+		cost = 60
+		fire_only_once = no
+		available = { always = yes }
+		visible = { has_country_flag = MOT_WarDB }
+		modifier = {
+			
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_get_res
+			add_to_variable = { MOT_Resources_for_War = 30 }
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 5 }
+					add_to_variable = { MOT_Resources_for_War = 10 }
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 8 }
+					add_to_variable = { MOT_Resources_for_War = 10 }
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				has_political_Power < 100
+				add = -100
+			}
+		}
+	}
+	#以指挥点换作战资源
+	MOT_WD_ComP_for_Res = {
+		icon = generic_industry
+		days_re_enable = 20
+		days_remove = 10
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		fire_only_once = no
+		available = { always = yes }
+		visible = { has_country_flag = MOT_WarDB }
+		modifier = {
+			
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_get_res
+			add_to_variable = { MOT_Resources_for_War = 15 }
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 5 }
+					add_to_variable = { MOT_Resources_for_War = 5 }
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 8 }
+					add_to_variable = { MOT_Resources_for_War = 5 }
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				has_command_Power < 100
+				add = -100
+			}
+		}
+	}
+	#以占用民工换作战资源
+	MOT_WD_Civil_for_Res = {
+		icon = generic_industry
+		days_re_enable = 40
+		days_remove = 20
+		fire_only_once = no
+		available = {
+			num_of_civilian_factories_available_for_projects > 9
+		}
+		visible = { has_country_flag = MOT_WarDB }
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_get_res
+			add_to_variable = { MOT_Resources_for_War = 30 }
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 5 }
+					add_to_variable = { MOT_Resources_for_War = 10 }
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_Level_of_WarSupport > 8 }
+					add_to_variable = { MOT_Resources_for_War = 10 }
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#资源换经验
+	MOT_WD_Res_for_EXP = {
+		icon = generic_military
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			experience_gain_army_unit_factor = 0.5
+			experience_gain_factor = 0.5
+			experience_gain_army_factor = 0.5
+			land_doctrine_cost_factor = -0.1
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = no
+				add = 0
+			}
+		}
+	}
+	#资源换核心攻防
+	MOT_WD_Res_for_AD = {
+		icon = generic_military
+		days_re_enable = 60
+		days_remove = 30
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			army_core_attack_factor = 0.15
+			army_core_defence_factor = 0.15
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 1000
+			}
+		}
+	}
+	#资源换组织减伤
+	MOT_WD_Res_for_Org = {
+		icon = generic_military
+		days_re_enable = 60
+		days_remove = 30
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			org_loss_when_moving = -0.3
+			army_org_factor = 0.2
+			army_org_gain = 0.4
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+			add_temporary_buff_to_units = {
+				org_damage_multiplier = -0.3
+				combat_breakthrough = 0.3
+				days = 30
+			}
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 100
+			}
+		}
+	}
+	#资源换速度
+	MOT_WD_Res_for_Speed = {
+		icon = generic_military
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			army_speed_factor = 0.2
+			army_attack_speed_factor = 0.2
+			army_morale_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 220
+			}
+		}
+	}
+	#资源换夜战
+	MOT_WD_Res_for_NightA = {
+		icon = generic_military
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			land_night_attack = 0.2
+			initiative_factor = 0.2
+			recon_factor = 1
+			planning_speed = 0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 220
+			}
+		}
+	}
+	#资源换防御
+	MOT_WD_Res_for_Def = {
+		icon = generic_military
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 99 }
+			surrender_progress > 0.1
+		}
+		custom_cost_text = MOT_RES100
+		modifier = {
+			army_core_attack_factor = 0.25
+			army_core_defence_factor = 0.25
+			dig_in_speed = 1
+			dig_in_speed_factor = 0.2
+			max_dig_in_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -100 }
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				surrender_progress > 0.4
+				add = 2000
+			}
+		}
+	}
+	#资源换补给
+	MOT_WD_Res_for_Supp = {
+		icon = generic_wreckers
+		days_re_enable = 60
+		days_remove = 30
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			supply_consumption_factor = -0.25
+			out_of_supply_factor = -0.25
+			supply_factor = 0.1
+			no_supply_grace = 72
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+			supply_units = 72
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 0
+			}
+		}
+	}
+	#资源换军工
+	MOT_WD_Res_for_ArmsFac = {
+		icon = generic_wreckers
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 99 }
+		}
+		custom_cost_text = MOT_RES100
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -100 }
+		}
+		remove_effect = {
+			MOT = {
+				Get_two_Arms = yes
+			}
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				has_war = yes
+				add = 0
+			}
+		}
+	}
+	#资源换生产
+	MOT_WD_Res_for_ArmsPro = {
+		icon = generic_wreckers
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			industrial_capacity_factory = 0.25
+			production_factory_start_efficiency_factor = 0.1
+			production_factory_efficiency_gain_factor = 0.5
+			production_factory_start_efficiency_factor = 0.2
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				has_war = yes
+				add = 0
+			}
+		}
+	}
+	#资源换人力
+	MOT_WD_Res_for_Manp = {
+		icon = generic_wreckers
+		days_re_enable = 30
+		days_remove = 70
+		fire_only_once = no
+		available = {
+			check_variable = { MOT_Resources_for_War > 49 }
+		}
+		custom_cost_text = MOT_RES50
+		modifier = {
+			training_time_factor = -0.25
+		}
+		complete_effect = {
+			add_to_variable = { MOT_Resources_for_War = -50 }
+		}
+		remove_effect = {
+			add_manpower = 30000
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_war = yes
+				add = 220
+			}
+		}
+	}
+}
+
+#运筹帷幄
+LAW_Our_War_Decisions = {
+#能够消耗作战资源削弱骑士团（尤其是作战资源、士气等级和限制时间）及之后的敌人；劳伦斯领必须先击败骑士团才能继续扩张，这场战争会在一个固定的时间到来
+#可以看到骑士团的士气等级和作战资源
+#相关变量：
+#作战资源LAW_Resources_for_War 以政治点数、指挥点数、占用民工兑换，也可以通过窃取决议以一定比例偷窃骑士团的作战资源
+#蒙德城渗透度LAW_Power_in_City 等级越高，解锁削弱决议越多，可以通过决议获得，会在行动时消耗。如果有足够多的情报，可以使用更有效率的决议提高
+}
+
+
+MOT_Propaganda_Insides = {
+	#各任务的显示界面
+	#能通过宣传影响战争支持度、延长各任务的时间、增加心理预期时间变化、降低劳伦斯领渗透度
+	#相关变量：
+	#民意基础支持 MOT_BasicSupport_People 0-100，初始为50
+	#商团基础支持 MOT_BasicSupport_Trader 0-100，初始为60
+	#乡绅基础支持 MOT_BasicSupport_Lords 0-100，初始为40
+	#民意稳定力量 MOT_BasicPower_of_People 0-100，初始为10，分为6个档次，可以解锁不同决议
+	#商团稳定力量 MOT_BasicPower_of_Trader 0-100，初始为50，分为6个档次，可以解锁不同决议
+	#乡绅稳定力量 MOT_BasicPower_of_Lords 0-100，初始为60，分为6个档次，可以解锁不同决议
+	#作战资源 MOT_Resources_for_War 以政治点数、指挥点数、占用民工兑换，也可以通过蒙德议会获得，在每一次胜利时自动获得一定量，获取效率与士气等级成正比
+	#士气等级 MOT_Level_of_WarSupport 数值上等于战争支持 度乘10去尾，影响临时buff的强度和可用决议，同时会减少心理预期时间
+	#撤军限制时间 MOT_Time_of_Leave 为90或180，可以通过各种决议增加
+	#心理预期时间 MOT_Time_of_Expectation 以五级100天为基础，每改变一级改变5天，若是10级则定为60天，1级则定为300天；黑线前置国策可以取消心理预期时间
+	#心理预期时间变化 MOT_HADTime_Change MOT_EXPTime_Change 
+	#预防性宣传
+	MOT_Prop_Pre = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		modifier = {
+			war_support_weekly = -0.005
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Down_EXPtime
+			add_to_variable = { MOT_EXPTime_Change = 5 }
+			IF = {
+				limit = {
+					has_idea = MOT_Recorder
+				}
+				custom_effect_tooltip = MOT_Recorder_Bonus
+				add_to_variable = { MOT_EXPTime_Change = 3 }
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#巩固大后方
+	MOT_Base_Pre = {
+		icon = generic_police_action
+		days_re_enable = 30
+		days_remove = 30
+		cost = 60
+		fire_only_once = no
+		modifier = {
+			stability_weekly = 0.005
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Down_HADtime
+			add_to_variable = { MOT_HADTime_Change = 5 }
+			IF = {
+				limit = {
+					has_idea = MOT_Recorder
+				}
+				custom_effect_tooltip = MOT_Recorder_Bonus
+				add_to_variable = { MOT_HADTime_Change = 3 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				check_variable = { MOT_HADTime_Change > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				has_political_power < 100
+			}
+		}
+	}
+	#蒙德需要您
+	MOT_Prop_for_War = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		modifier = {
+			war_support_weekly = 0.01
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			add_war_support = 0.05
+			IF = {
+				limit = {
+					has_idea = MOT_Recorder
+				}
+				custom_effect_tooltip = MOT_Recorder_Bonus
+				add_war_support = 0.02
+			}
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				has_war_support > 0.8
+			}
+		}
+	}
+}
+MOT_National_Congress = {
+	#决议难度分为五级：0，一定会通过；1，要求支持 率达到1/4；2,1/3；3,1/2,；4,2/3；5,必须全票通过
+	#相关变量：
+	#忠诚派力量 MOT_BasicPower_of_AlwaysSupport 初始为30
+	#忠诚派临时力量 MOT_ExtraPower_of_AlwaysSupport 每月除以二
+	#忠诚派总和力量 MOT_SUMPower_of_AlwaysSupport 
+	#民意基础支持 MOT_BasicSupport_People 0-1，初始为0.5
+	#商团基础支持 MOT_BasicSupport_Trader 0-1，初始为0.6
+	#乡绅基础支持 MOT_BasicSupport_Lords 0-1，初始为0.4
+	#民意稳定力量 MOT_BasicPower_of_People 0-100，初始为10，分为6个档次，可以解锁不同决议
+	#商团稳定力量 MOT_BasicPower_of_Trader 0-100，初始为50，分为6个档次，可以解锁不同决议
+	#乡绅稳定力量 MOT_BasicPower_of_Lords 0-100，初始为60，分为6个档次，可以解锁不同决议
+	#总票数 MOT_SUM_Votes 等于各团体总和力量 之和
+	#争取民意支持
+	MOT_Get_support_of_People = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 100
+		fire_only_once = no
+		visible = { NOT = { has_country_flag = MOT_G_Way_Focus_Done } }
+		modifier = {
+			industrial_capacity_factory = 0.25
+			industry_free_repair_factor = 0.5
+			production_factory_efficiency_gain_factor = 0.25
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_P
+		
+			add_to_variable = { MOT_BasicSupport_People = 0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 5 }
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#争取商团支持
+	MOT_Get_support_of_Trader = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 150
+		fire_only_once = no
+		visible = { NOT = { has_country_flag = MOT_GWay_TraderWay } }
+		modifier = {
+			consumer_goods_factor = -0.05
+			production_speed_buildings_factor = 0.2
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			custom_effect_tooltip = MOT_Higher_P_of_T
+			
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+			
+			IF = {
+				limit = { has_idea = MOT_Pre_of_Money }
+				custom_effect_tooltip = MOT_Trader_Higher_from_Money
+				add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+				add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+			}
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Jean_Ill } }
+				custom_effect_tooltip = MOT_Trader_Higher_from_Jean
+				add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			}
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#争取乡绅支持
+	MOT_Get_support_of_Lords = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 150
+		fire_only_once = no
+		modifier = {
+			mobilization_speed = 0.25
+			weekly_manpower = 500
+		}
+		visible = { NOT = { has_country_flag = MOT_GWay_TraderWay } }
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			custom_effect_tooltip = MOT_Higher_P_of_L
+			
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+			IF = {
+				limit = { has_idea = MOT_Pre_of_Old }
+				custom_effect_tooltip = MOT_Lords_Higher_from_Old
+				add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+				add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+			}
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Jean_Ill } }
+				custom_effect_tooltip = MOT_Lords_Higher_from_Jean
+				add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			}
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#打击反对派
+	MOT_Down_Power_of_Oppo = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		modifier = {
+			stability_weekly = 0.005
+			political_power_gain = 0.05
+		}
+		visible = {
+			has_country_flag = MOT_UnlockDecision_LT2
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_completed_focus = MOT_P1_Jean_G_T_Begin }
+				custom_effect_tooltip = MOT_Lower_S_of_L
+				custom_effect_tooltip = MOT_Lower_P_of_L
+				add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+				add_to_variable = { MOT_BasicPower_of_Lords = -10 }
+			}
+			ELSE_IF = {
+				limit = { has_completed_focus = MOT_P1_Jean_G_Lords_Begin }
+				custom_effect_tooltip = MOT_Lower_S_of_T
+				custom_effect_tooltip = MOT_Lower_P_of_T
+				add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+				add_to_variable = { MOT_BasicPower_of_Trader = -10 }
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+			
+			
+		}
+		remove_effect = {
+			IF = {
+				limit = { has_completed_focus = MOT_P1_Jean_G_Lords_Begin }
+				custom_effect_tooltip = MOT_Higher_S_of_L
+				custom_effect_tooltip = MOT_Higher_P_of_L
+				add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+				add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+				IF = {
+					limit = { has_idea = MOT_Pre_of_Old }
+					custom_effect_tooltip = MOT_Lords_Higher_from_Old
+					add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+					add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+				}
+				IF = {
+					limit = { NOT = { has_country_flag = MOT_Jean_Ill } }
+					custom_effect_tooltip = MOT_Lords_Higher_from_Jean
+					add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+				}
+			}
+			ELSE_IF = {
+				limit = { has_completed_focus = MOT_P1_Jean_G_T_Begin }
+				custom_effect_tooltip = MOT_Higher_S_of_T
+				custom_effect_tooltip = MOT_Higher_P_of_T
+				add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+				add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+					IF = {
+					limit = { has_idea = MOT_Pre_of_Old }
+					custom_effect_tooltip = MOT_Trader_Higher_from_Money
+					add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+					add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+				}
+				IF = {
+					limit = { NOT = { has_country_flag = MOT_Jean_Ill } }
+					custom_effect_tooltip = MOT_Trader_Higher_from_Jean
+					add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+				}
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#民意换商团、乡绅支持
+	MOT_People_for_TandL = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 70
+		cost = 100
+		fire_only_once = no
+		visible = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_UnlockDecision_P01
+					has_country_flag = MOT_UnlockDecision_P02
+					has_country_flag = MOT_UnlockDecision_P03
+					has_country_flag = MOT_UnlockDecision_P1
+					has_country_flag = MOT_UnlockDecision_P2
+					has_country_flag = MOT_UnlockDecision_P3
+				}
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.05
+			weekly_manpower = 500
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			
+			add_to_variable = { MOT_BasicSupport_People = -0.10 }
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#商团、乡绅支持换民意
+	MOT_People_from_TandL = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 60
+		cost = 30
+		fire_only_once = no
+		visible = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_UnlockDecision_L1
+					has_country_flag = MOT_UnlockDecision_T1
+				}
+			}
+		}
+		modifier = {
+			political_power_cost = 0.25
+			industrial_capacity_factory = 0.25
+			industry_free_repair_factor = 0.5
+			production_factory_efficiency_gain_factor = 0.25
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			
+			add_to_variable = { MOT_BasicSupport_People = 0.10 }
+			add_to_variable = { MOT_BasicSupport_Trader = -0.05 }
+			add_to_variable = { MOT_BasicSupport_Lords = -0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P01
+				}
+				add_political_power = 25
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P02
+				}
+				add_stability = 0.02
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P03
+				}
+				add_war_support = 0.02
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P04
+				}
+				custom_effect_tooltip = MOT_Higher_P_of_P
+				add_to_variable = { MOT_BasicPower_of_People = 3 }
+			}
+			IF = {
+				limit = {
+					has_country_flag = MOT_UnlockDecision_P05
+				}
+				custom_effect_tooltip = MOT_Lower_P_of_L
+				custom_effect_tooltip = MOT_Lower_P_of_T
+				add_to_variable = { MOT_BasicPower_of_Trader = -3 }
+				add_to_variable = { MOT_BasicPower_of_Lords = -3 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	# 强化军民联系
+	MOT_Stengthen_Connection_B_Army_and_People = {
+		icon = generic_nationalism
+		days_re_enable = 60
+		days_remove = 35
+		cost = 0
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_P1 }
+		modifier = {
+			political_power_cost = 1
+			war_support_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_war_support = 0.05
+		}
+	}
+	# 改善军队待遇
+	MOT_Better_Army_Condition = {
+		icon = generic_nationalism
+		days_re_enable = 60
+		days_remove = 35
+		cost = 0
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_P2 }
+		modifier = {
+			consumer_goods_factor = 0.1
+			war_support_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_war_support = 0.05
+		}
+	}
+	# 占领区土地改革
+	MOT_Land_Reform_on_Occupied = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 35
+		cost = 30
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_No_Lower_than	
+				NOT = {
+					check_variable = { MOT_LRO_Number > 5 }
+				}
+			}
+		}
+		visible = { has_country_flag = MOT_UnlockDecision_P3 }
+		modifier = {
+			political_power_cost = 0.5
+			stability_weekly = 0.01
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_People = 6 }
+			IF = {
+				limit = {
+					has_variable = MOT_LRO_Number
+				}
+				add_to_variable = { MOT_LRO_Number = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { MOT_LRO_Number = 1 }
+			}
+		}
+	}
+	#红 没收通敌者产业
+	MOT_Capture_Betrayers_Wealth = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_No_Lower_than	
+				NOT = {
+					check_variable = { MOT_CBW_Number > 5 }
+				}
+			}
+		}
+		visible = {
+			has_country_flag = MOT_UnlockDecision_P4
+		}
+		modifier = {
+			political_power_gain = 0.5
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+			IF = {
+				limit = {
+					has_variable = MOT_CBW_Number
+				}
+				add_to_variable = { MOT_CBW_Number = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { MOT_CBW_Number = 1 }
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			custom_effect_tooltip = MOT_Lower_P_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+		}
+	}
+	# 维护团结
+	MOT_Keep_United = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 60
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_D1
+			NOT = { has_country_flag = MOT_G_Way_Focus_Done }
+		}
+		modifier = {
+			political_power_gain = 0.1
+			stability_weekly = 0.002
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_Higher_All_S
+			custom_effect_tooltip = MOT_Higher_P_of_L
+			custom_effect_tooltip = MOT_Higher_P_of_T
+			custom_effect_tooltip = MOT_Higher_P_of_P
+			add_to_variable = { MOT_BasicPower_of_Lords = 10 }
+			add_to_variable = { MOT_BasicPower_of_Trader = 10 }
+			add_to_variable = { MOT_BasicPower_of_People = 5 }
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			add_to_variable = { MOT_BasicSupport_People = 0.05 }
+		}
+	}
+	# 协商共进
+	MOT_Being_United = {
+		icon = generic_nationalism
+		days_re_enable = 30
+		days_remove = 60
+		cost = 100
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_D4
+			NOT = { has_country_flag = MOT_G_Way_Focus_Done }
+			NOT = {
+				AND = {
+					check_variable = { MOT_SLimit1_of_P > 1.25 }
+					check_variable = { MOT_SLimit1_of_T > 1.25 }
+					check_variable = { MOT_SLimit1_of_L > 1.25 }
+				}
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_SHigher_Limit_of_P
+			custom_effect_tooltip = MOT_SHigher_Limit_of_T
+			custom_effect_tooltip = MOT_SHigher_Limit_of_L
+			IF = {
+				limit = { check_variable = { MOT_SLimit1_of_P < 1.25 } }
+				add_to_variable = { MOT_SLimit1_of_P = 0.05 }
+				add_to_variable = { MOT_SLimit2_of_P = 0.05 }
+			}
+			IF = {
+				limit = { check_variable = { MOT_SLimit1_of_T < 1.25 } }
+				add_to_variable = { MOT_SLimit1_of_T = 0.05 }
+				add_to_variable = { MOT_SLimit2_of_T = 0.05 }
+			}
+			IF = {
+				limit = { check_variable = { MOT_SLimit1_of_L < 1.25 } }
+				add_to_variable = { MOT_SLimit1_of_L = 0.05 }
+				add_to_variable = { MOT_SLimit2_of_L = 0.05 }
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+	}
+	#压制异议 
+	MOT_Oppress_the_Opposites = {
+		icon = generic_police_action
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = { NOT = { has_country_flag = MOT_UnlockDecision_D4 } }
+		modifier = {
+			stablity_factor = -0.1
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_All_P
+			custom_effect_tooltip = MOT_Lower_All_S
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+			
+			add_to_variable = { MOT_BasicSupport_People = -0.1 }
+			add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+			add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+			
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#改善现状
+	MOT_Better_the_Situation = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+		}
+		modifier = {
+			consumer_goods_factor = 0.05
+			stability_weekly = 0.002
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_More_AlwaysSupport
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+			IF = {
+				limit = { has_country_flag = MOT_Jean_Ill }
+				custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+				add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 10 }
+			}
+			add_to_variable = { MOT_BasicPower_of_AlwaysSupport = 1 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	MOT_Dont_Show1 = {
+		icon = generic_decision
+		days_re_enable = 1
+		days_remove = 0
+		cost = 0
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		complete_effect = { set_country_flag = MOT_Not_Show_Dec1 }
+		ai_will_do = { base = 0 }
+	}
+	MOT_Show_It1 = {
+		icon = generic_decision
+		days_re_enable = 1
+		days_remove = 0
+		cost = 0
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			has_country_flag = MOT_Not_Show_Dec1
+		}
+		complete_effect = { clr_country_flag = MOT_Not_Show_Dec1 }
+		ai_will_do = { base = 0 }
+	}
+	#红线 追随玫瑰骑士
+	MOT_Follow_the_Roses = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			has_country_flag = MOT_UnlockDecision_P5
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = { political_power_gain = 0.5 }
+		complete_effect = {
+			IF = {
+				limit = { is_ai = no }
+				custom_effect_tooltip = MOT_Lower_P_of_P
+				add_to_variable = { MOT_BasicPower_of_People = -5 }
+				custom_effect_tooltip = MOT_Lower_S_of_P
+				add_to_variable = { MOT_BasicSupport_People = -0.10 }
+				MOT_Lower_AlwaysS = yes
+			}
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_stability < 0.6
+				add = 100
+			}
+			modifier = {
+				has_stability < 0.8
+				add = 100
+			}
+		}
+	}
+	#民意支持：
+	#稳定战支换PP 组织政治运动
+	MOT_WSST_to_PP = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 60
+		cost = 10
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+			has_country_flag = MOT_UnlockDecision_P01
+		}
+		available = {
+			has_stability > 0.7
+			has_war_support > 0.7
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			political_power_gain = 1
+			war_support_weekly = -0.005
+			stability_weekly = -0.005
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			add_political_power = 10
+		}
+	}
+	#WS换ST 平衡战争支出
+	MOT_WS_to_ST = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 60
+		cost = 10
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+			has_country_flag = MOT_UnlockDecision_P02
+		}
+		available = {
+			has_war_support > 0.7
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			war_support_weekly = 0.01
+			stability_weekly = -0.01
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#ST换WS 强迫战争动员
+	MOT_ST_to_WS = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 60
+		cost = 10
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+			has_country_flag = MOT_UnlockDecision_P03
+		}
+		available = {
+			has_war_support > 0.7
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			stability_weekly = 0.01
+			war_support_weekly = -0.01
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#快速提高稳定 实现政治承诺
+	MOT_PP_to_ST = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 60
+		cost = 10
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+			has_country_flag = MOT_UnlockDecision_P04
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			stability_weekly = 0.01
+			political_power_cost = 1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#改善物资供给
+	MOT_Better_Supply = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = { consumer_goods_factor = 0.1 }
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = 0.10 }
+			MOT_Lower_AlwaysS = yes
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_stability = 0.1
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_stability < 0.6
+				add = 100
+			}
+			modifier = {
+				has_stability < 0.8
+				add = 100
+			}
+		}
+	}
+	#兵役审查 以后可以做个小事件来改变效果
+	MOT_Examine_National_Service = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			weekly_manpower = 1000
+			war_support_factor = 0.01
+			mobilization_speed = 0.25
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_manpower < 100000
+				add = 100
+			}
+		}
+	}
+	#强制战争债券
+	MOT_Compulsive_War_Donation = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				MOT_People_Decision_Can_Enter = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.1
+			stability_factor = -0.1
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			MOT_Lower_AlwaysS = yes
+			add_to_variable = { MOT_BasicSupport_Trader = -0.05 }
+			add_to_variable = { MOT_BasicSupport_Lords = -0.05 }
+			MOT_Var_Limit = yes
+			MOT_Re_Org_PowerandSupport = yes
+			add_to_variable = { var = dx value = 500 }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_get_res
+			MOT_Get_Resources_of_Warfare = yes
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#政治动员
+	MOT_Political_Mobilizing = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_People_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			political_Power_gain = 0.5
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_political_power = 50
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#商团支持：
+	#出售头衔
+	MOT_Sell_Crown = {
+		icon = generic_fundraising
+		days_re_enable = 30
+		days_remove = 60
+		cost = 10
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_T1 }
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.3 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Trader_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.05
+			production_speed_buildings_factor = 0.15
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+			add_political_power = 30
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			custom_effect_tooltip = MOT_Higher_P_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+	}
+	#社会运行的本源逻辑
+	MOT_Basic_Rule = {
+		icon = generic_fundraising
+		days_re_enable = 30
+		days_remove = 90
+		cost = 50
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_T2 }
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.6 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Trader_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.25
+			production_factory_max_efficiency_factor = 0.1
+			industrial_capacity_factory = 0.1
+			consumer_goods_factor = -0.05
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			custom_effect_tooltip = MOT_Higher_P_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			add_to_variable = { MOT_BasicPower_of_Trader = 5 }
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+	}
+	#大本营发布
+	MOT_Control_Propaganda1 = {
+		icon = generic_fundraising
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_LT2
+			has_country_flag = MOT_UnlockDecision_T1
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Trader_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	#军需品公开招标
+	MOT_Publicly_Purchasing_Mate = {
+		icon = generic_fundraising
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Trader_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			consumer_goods_factor = 0.1
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			random_list = {
+				25 = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 2500
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = artillery_equipment
+						amount = 250
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 400
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = motorized_equipment
+						amount = 500
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#收缴民间武装
+	MOT_Take_over_Peoples_Equipment = {
+		icon = generic_fundraising
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+						MOT_Trader_Decision_Can_Enter = yes
+					}
+				}
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+			
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+			
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			random_list = {
+				25 = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 1500
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = artillery_equipment
+						amount = 200
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 300
+					}
+				}
+				25 = {
+					add_equipment_to_stockpile = {
+						type = motorized_equipment
+						amount = 400
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#乡绅支持：
+	#放松土地流转
+	MOT_Less_Land_Exchange = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_L1 }
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.3 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Lords_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.05
+			manpower_weekly = 2000
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			custom_effect_tooltip = MOT_Higher_P_of_L
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			
+		}
+	}
+	#授权地方自治
+	MOT_Local_Less = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 60
+		cost = 30
+		fire_only_once = no
+		visible = { has_country_flag = MOT_UnlockDecision_L1 }
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.6 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Lords_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			local_resources_factor = 0.5
+			political_power_gain = 0.5
+			stability_weekly = 0.005
+			manpower_weekly = 2000
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			custom_effect_tooltip = MOT_Higher_P_of_L
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			add_to_variable = { MOT_BasicPower_of_Lords = 5 }
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			
+		}
+	}
+	#言论统废合
+	MOT_Control_Propaganda2 = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 30
+		cost = 30
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_LT2
+			has_country_flag = MOT_UnlockDecision_L1
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Lords_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+		}
+		complete_effect = {
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	#占领区土地再分配
+	MOT_Redistribute_Land = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					AND = {
+						MOT_Lords_Decision_Can_Enter = yes
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			
+			add_to_variable = { MOT_BasicPower_of_Lords = 10 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			add_to_variable = { var = dx value = 500 }
+			random_owned_state = {
+				limit = { NOT = { has_state_category = wasteland } }
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = { NOT = { has_state_category = wasteland } }
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#宣传家庭意识
+	MOT_Prop_Sense_of_Family = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			stability_weekly = 0.005
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_stability < 0.6
+				add = 50
+			}
+			modifier = {
+				has_stability < 0.5
+				add = 50
+			}
+		}
+	}
+	#民意不支持：
+	#拓宽战争资金来源
+	MOT_Excessive_Currency = {
+		icon = generic_operation
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			consumer_goods_factor = -0.1
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_P
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			add_to_variable = { var = dx value = 500 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#强制征兵
+	MOT_Compulsorily_Conscript = {
+		icon = generic_operation
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			stability_factor = -0.1
+			manpower_weekly = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			add_to_variable = { MOT_BasicSupport_People = -0.05 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+			add_to_variable = { var = dx value = 300 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#商团不支持：
+	#缩减出口贸易
+	MOT_Lower_Export = {
+		icon = generic_factory
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Trade_Law_Up = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#提高贸易税率
+	MOT_Higher_Trader_Tax = {
+		icon = generic_factory
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				original_tag = MOT
+			}
+		}
+		modifier = {
+			min_export = -0.2
+			
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_T
+			custom_effect_tooltip = MOT_Lower_P_of_T
+			add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+			add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#乡绅不支持：
+	#树立劳动妇女代表
+	MOT_Pre_of_Working_Women = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				OR = {
+					MOT_Lords_Decision_Can_Enter = yes
+					is_ai = yes
+				}
+				tooltip = MOT_Dec_Can_Enter
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				tag = MOT
+			}
+		}
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.1
+			industrial_capacity_factory = 0.1
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#战时土地征用
+	MOT_Military_Land_Acquisition = {
+		icon = generic_speech
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_Lords_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				tag = MOT
+			}
+		}
+		modifier = {
+			production_speed_bunker_factor = 0.4
+			production_speed_coastal_bunker_factor = 0.4
+			production_speed_anti_air_building_factor = 0.4
+			production_speed_arms_factory_factor = 0.2
+			production_speed_dockyard_factor = 0.2
+			production_speed_fuel_silo_factor = 0.2
+			production_speed_rail_way_factor = 0.2
+			production_speed_synthetic_refinery_factor = 0.2
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_S_of_L
+			custom_effect_tooltip = MOT_Lower_P_of_L
+			add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+			
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	# 全体支持：
+	# 动议：凝聚力量
+	MOT_Keep_Stable = {
+		icon = generic_operation
+		days_re_enable = 30
+		days_remove = 60
+		cost = 60
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_D3
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.8 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_All_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				tag = MOT
+			}
+		}
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+			political_power_gain = 0.25
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	# 万众一心
+	MOT_From_Union = {
+		icon = generic_operation
+		days_remove = 90
+		cost = 0
+		fire_only_once = no
+		visible = {
+			has_country_flag = MOT_UnlockDecision_D3
+			NOT = { has_global_flag = MOT_REUNITED }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 1 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_All_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_People_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Lords_S
+				original_tag = MOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_Trader_S
+				tag = MOT
+			}
+		}
+		modifier = {
+			political_power_gain = 0.5
+			industrial_capacity_factory = 0.25
+			production_factory_efficiency_gain_factor = 0.5
+			consumer_goods_factor = -0.1
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	#仅死忠派支持：
+	#扩大征兵
+	MOT_Larger_Conscription = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			custom_trigger_tooltip = {
+				OR = {
+					is_ai = yes
+					set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+					MOT_No_Decision_Can_Enter = yes
+				}
+				tooltip = MOT_Dec_Can_Enter
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_No_S
+				tag = MOT
+			}
+		}
+		modifier = {
+			mobilization_speed = 0.25
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Manpower_Law_Up = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#经济动员
+	MOT_Larger_Economy = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			custom_trigger_tooltip = {
+				OR = {
+					is_ai = yes
+					MOT_No_Decision_Can_Enter = yes
+				}
+				tooltip = MOT_Dec_Can_Enter
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_No_S
+				tag = MOT
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Mobile_Law_Up = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#政治压制
+	MOT_Political_Contorl = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				OR = {
+					is_ai = yes
+					MOT_No_Decision_Can_Enter = yes
+				}
+				tooltip = MOT_Dec_Can_Enter
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_No_S
+				tag = MOT
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_All_P
+			add_to_variable = { MOT_BasicPower_of_People = -5 }
+			add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+			add_to_variable = { MOT_BasicPower_of_Lords = -5 }
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#爱国法案
+	MOT_Loyality_for_Nation = {
+		icon = generic_decision
+		days_re_enable = 30
+		days_remove = 70
+		cost = 50
+		fire_only_once = no
+		visible = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = { has_global_flag = MOT_REUNITED }
+			NOT = { has_country_flag = MOT_Not_Show_Dec1 }
+		}
+		available = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.33 }
+			custom_trigger_tooltip = {
+				tooltip = MOT_Dec_Can_Enter
+				OR = {
+					is_ai = yes
+					MOT_No_Decision_Can_Enter = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MOT_Tool_No_S
+				tag = MOT
+			}
+		}
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Higher_S_of_P
+			custom_effect_tooltip = MOT_Higher_S_of_T
+			custom_effect_tooltip = MOT_Higher_S_of_L
+			add_to_variable = { MOT_BasicSupport_People = 0.05 }
+			add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+			add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+			MOT_Var_Limit = yes
+			MOT_Lower_AlwaysS = yes
+			MOT_Re_Org_PowerandSupport = yes
+		}
+		remove_effect = {
+			IF = {
+				limit = { is_ai = yes }
+				add_political_power = 50
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+}
+political_actions = {
+	#内战恢复临时决议
+	MOT_Retire_from_Civil_War = {
+		visible = {
+			OR = {
+				has_idea = gene_Rebuild_our_nation5
+				has_idea = gene_Rebuild_our_nation4
+				has_idea = gene_Rebuild_our_nation3
+				has_idea = gene_Rebuild_our_nation2
+				has_idea = gene_Rebuild_our_nation1
+			}
+		}
+		modifier = {
+			civilian_factory_use = 20
+		}
+		days_remove = 120
+		remove_effect = {
+			DRA_Rebuild_Improved = yes
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+}
+
+MOT_control_DVA_category = {
+	#整军备战
+	MOT_embattle = {
+
+		visible = {
+			has_country_flag = MOT_control_DVA_flag
+		}
+
+		ai_will_do = {
+			base = 100
+		}
+
+		available = {
+			has_idea = DVA_colonical_industrial3
+		}
+
+		cost = 100
+
+		days_remove = 180
+
+		complete_effect = {		
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial3
+				add_idea = DVA_colonical_industrial_mic
+			}
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial_mic
+				add_idea = DVA_colonical_industrial3
+			}
+		}
+	}
+
+	#全力生产
+	MOT_full_production = {
+
+		visible = {
+			has_country_flag = MOT_control_DVA_flag
+		}
+
+		ai_will_do = {
+			base = 100
+		}
+
+		available = {
+			has_idea = DVA_colonical_industrial3
+		}
+
+		cost = 100
+
+		days_remove = 180
+
+		complete_effect = {		
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial3
+				add_idea = DVA_colonical_industrial_cic
+			}
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = DVA_colonical_industrial_cic
+				add_idea = DVA_colonical_industrial3
+			}
+		}
+	}
+}

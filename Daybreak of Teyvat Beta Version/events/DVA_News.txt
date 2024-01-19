@@ -1,0 +1,109 @@
+﻿###########################
+# Dvalins_news Events
+###########################
+
+add_namespace = dva.news
+
+#第二次蒙德内战？
+news_event = {
+	id = dva.news.1
+	title = dva.news.1.t
+	desc = dva.news.1.d
+	picture = GFX_Event_news_01
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = dva.news.1.a
+		trigger = {
+			original_tag = DVA
+		}
+	}
+	option = {
+		name = dva.news.1.b
+		trigger = { 
+			NOT = { original_tag = DVA }
+			Is_MOT = yes
+		}
+	}
+	option = {
+		name = dva.news.1.c
+		trigger = { 
+			NOT = { Is_MOT = yes }
+		}
+	}
+}
+
+#至冬国入侵风龙领
+news_event = {
+	id = dva.news.2
+	title = dva.news.2.t
+	desc = dva.news.2.d
+	picture = GFX_Event_news_02
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = dva.news.2.a
+		trigger = {
+			original_tag = DVA
+		}
+		if = {
+			limit = {
+				has_country_flag = DVA_independent_flag
+			}
+			MOT = {
+				set_autonomy = {
+					target = DVA
+					autonomy_state = MOT_viceregal_division
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			custom_effect_tooltip = DVA_ab_brave_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = DVA_independent_flag
+				}
+			}
+			effect_tooltip = {
+				MOT = {
+					end_puppet = DVA
+				}
+				give_guarantee = DVA
+				give_military_access = DVA
+			}
+			custom_effect_tooltip = DVA_knights_brave_tt
+		}
+	}
+	option = {
+		name = dva.news.2.b
+		trigger = { 
+			NOT = { original_tag = DVA }
+			Is_MOT = yes
+			NOT = {
+				OR = {
+					original_tag = MOT
+					MOT = { has_war_with = SNE }
+				}
+			}
+		}
+	}
+	option = {
+		name = dva.news.2.c
+		trigger = { 
+			NOT = { Is_MOT = yes }
+		}
+	}
+	option = {
+		name = dva.news.2.d
+		trigger = {
+			original_tag = MOT
+			MOT = { has_war_with = SNE }
+		}
+	}
+}

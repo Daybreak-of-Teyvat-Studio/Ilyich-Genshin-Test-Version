@@ -1,0 +1,5285 @@
+﻿###########################
+# Knights Events
+###########################
+
+add_namespace = Knights
+
+#议会提案
+country_event = {
+	id = Knights.1
+	title = Knights.1.t
+	desc = Knights.1.d
+	picture = GFX_event_DRA03
+	
+	is_triggered_only = yes
+	#随机提案
+	option = {
+		name = Knights.1.a
+		clr_country_flag = MOT_Waitfor_Sometime
+		clr_country_flag = MOT_Doing_Want
+		set_country_flag = MOT_Doing_Want
+		random_list = {
+			MOT_BasicPower_of_People = {
+				#MOT_Need_of_Peolpe = yes
+			}
+			MOT_BasicPower_of_Trader = {
+				#MOT_Need_of_Trader = yes
+			}
+			MOT_BasicPower_of_Lords = {
+				#MOT_Need_of_Lords = yes
+			}
+		}
+	}
+	#全部拒绝
+	option = {
+		name = Knights.1.b
+		clr_country_flag = MOT_Waitfor_Sometime
+		clr_country_flag = MOT_Doing_Want
+		set_country_flag = MOT_Waitfor_Sometime
+		set_country_flag = MOT_Doing_Want
+		add_political_power = -25
+		trigger = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.5 }
+			MOT_No_Decision_Can_Enter = yes
+		}
+		custom_effect_tooltip = MOT_AS_Power_High
+	}
+	#人民提案
+	option = {
+		name = Knights.1.c
+		clr_country_flag = MOT_Waitfor_Sometime
+		clr_country_flag = MOT_Doing_Want
+		set_country_flag = MOT_Doing_Want
+		custom_effect_tooltip = MOT_People_Power_High
+		trigger = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			#MOT_People_Decision_Can_Enter = yes
+		}
+		MOT_Need_of_Peolpe = yes
+	}
+	#商会提案
+	option = {
+		name = Knights.1.e
+		clr_country_flag = MOT_Waitfor_Sometime
+		clr_country_flag = MOT_Doing_Want
+		set_country_flag = MOT_Doing_Want
+		custom_effect_tooltip = MOT_Trader_Power_High
+		trigger = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			#MOT_Trader_Decision_Can_Enter = yes
+		}
+		MOT_Need_of_Trader = yes
+	}
+	#乡绅提案
+	option = {
+		name = Knights.1.f
+		clr_country_flag = MOT_Waitfor_Sometime
+		clr_country_flag = MOT_Doing_Want
+		set_country_flag = MOT_Doing_Want
+		custom_effect_tooltip = MOT_Lords_Power_High
+		trigger = {
+			set_temp_variable = { MOT_Difficulty_of_Enter = 0.66 }
+			#MOT_Lords_Decision_Can_Enter = yes
+		}
+		MOT_Need_of_Lords = yes
+	}
+}
+#黑夜前的最后一分钟
+country_event = {
+	id = Knights.2
+	title = Knights.2.t
+	desc = Knights.2.d
+	picture = GFX_event_MOT13
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.2.a
+		army_experience = 15
+		hidden_effect = { country_event = { id = Knights.67 days = 3 } }
+		hidden_effect = { country_event = { id = Knights.68 days = 5 } }
+		MOT_SET_Section_1_Vars = yes
+		MOT_Re_Decisions_Support = yes
+		set_country_flag = MOT_National_CongressBegan
+	}
+	option = {
+		name = Knights.2.b
+		add_command_power = 50
+		hidden_effect = { country_event = { id = Knights.67 days = 3 } }
+		hidden_effect = { country_event = { id = Knights.68 days = 5 } }
+		MOT_SET_Section_1_Vars = yes
+		MOT_Re_Decisions_Support = yes
+		set_country_flag = MOT_National_CongressBegan
+	}
+	option = {
+		name = Knights.2.c
+		add_political_power = 50
+		hidden_effect = { country_event = { id = Knights.67 days = 3 } }
+		hidden_effect = { country_event = { id = Knights.68 days = 5 } }
+		MOT_SET_Section_1_Vars = yes
+		MOT_Re_Decisions_Support = yes
+		set_country_flag = MOT_National_CongressBegan
+	}
+}
+#蒙德城的美好一天
+country_event = {
+	id = Knights.3
+	title = Knights.3.t
+	desc = Knights.3.d
+	picture = GFX_event_MOT12
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.3.a
+		hidden_effect = { 
+			set_global_flag = MOT_News_Show1
+			country_event = { id = Knights.88 random_hours = 12 }
+			set_country_flag = MOT_Change_Tree1
+			load_focus_tree = { tree = NewMOT_Focus_00 keep_completed = yes }
+		}
+	}
+	option = {
+		name = Knights.3.b
+		hidden_effect = { 
+			set_global_flag = MOT_News_Show1
+			country_event = { id = Knights.88 random_hours = 12 }
+			set_country_flag = MOT_Change_Tree1
+			load_focus_tree = { tree = NewMOT_Focus_00 keep_completed = yes }
+		}
+	}
+}
+#风魔龙袭击
+country_event = {
+	id = Knights.4
+	title = Knights.4.t
+	desc = Knights.4.d
+	picture = GFX_event_MOT003
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.4.a
+		set_global_flag = MOT_Attack_of_Dragon
+		add_timed_idea = { idea = MOT_Attack_of_Twalin days = 360 }
+		1 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 2
+			}
+		}
+		2 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 2
+			}
+		}
+		hidden_effect = {
+			set_global_flag = MOT_News_Show2
+			country_event = { id = Knights.5 days = 3 }
+			country_event = { id = Knights.22 days = 5 }
+			set_country_flag = MOT_Change_Tree1
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+#棘冠修女来报
+country_event = {
+	id = Knights.5
+	title = Knights.5.t
+	desc = Knights.5.d
+	picture = GFX_event_MOT13
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.5.a
+		unlock_decision_category_tooltip = MOT_Strengthen_our_Control
+		set_country_flag = MOT_SControl
+	}
+	option = {
+		name = Knights.5.b
+		unlock_decision_category_tooltip = MOT_Strengthen_our_Control
+		set_country_flag = MOT_SControl
+	}
+}
+#见习玫瑰骑士
+country_event = {
+	id = Knights.6
+	title = Knights.6.t
+	desc = Knights.6.d
+	picture = GFX_event_MOT21
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.6.a
+		activate_advisor = MOT_Noelle
+	}
+	option = {
+		name = Knights.6.b
+		activate_advisor = MOT_Noelle
+	}
+}
+#危机爆发
+country_event = {
+	id = Knights.7
+	title = Knights.7.t
+	desc = Knights.7.d
+	picture = GFX_event_MOT25
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.7.a
+		add_stability = -0.1
+		add_war_support = 0.1
+		FAV = { activate_mission = FAV_MOT_War }
+		custom_effect_tooltip = MOT_Cost_of_Meeting_Higher
+		add_to_variable = { MOT_Meeting_Cost = 0.5 }
+		custom_effect_tooltip = MOT_Temp_War
+		add_war_support = 0.05
+		hidden_effect = { country_event = Knights.70 }
+		add_ideas = MOT_Debuff_Resour_Shortage
+		add_dynamic_modifier = { modifier = MOT_Dusk_dynamic_modifier }
+		mark_focus_tree_layout_dirty = yes
+		
+		hidden_effect = {
+			country_event = { id = Knights.12 days = 10 }
+			country_event = { id = Knights.13 days = 20 }
+			country_event = { id = Knights.14 days = 30 }
+			country_event = { id = Knights.15 days = 40 }
+			country_event = { id = Knights.16 days = 50 }
+			country_event = { id = Knights.17 days = 60 }
+			country_event = { id = Knights.19 days = 80 }
+		}
+	}
+	option = {
+		name = Knights.7.b
+		add_stability = -0.1
+		add_war_support = 0.1
+		FAV = { activate_mission = FAV_MOT_War }
+		custom_effect_tooltip = MOT_Cost_of_Meeting_Higher
+		add_to_variable = { MOT_Meeting_Cost = 0.5 }
+		custom_effect_tooltip = MOT_Temp_War
+		add_war_support = 0.05
+		hidden_effect = { country_event = Knights.70 }
+		add_ideas = MOT_Debuff_Resour_Shortage
+		add_dynamic_modifier = { modifier = MOT_Dusk_dynamic_modifier }
+		mark_focus_tree_layout_dirty = yes
+		
+		hidden_effect = {
+			country_event = { id = Knights.12 days = 10 }
+			country_event = { id = Knights.13 days = 20 }
+			country_event = { id = Knights.14 days = 30 }
+			country_event = { id = Knights.15 days = 40 }
+			country_event = { id = Knights.16 days = 50 }
+			country_event = { id = Knights.17 days = 60 }
+			country_event = { id = Knights.18 days = 70 }
+			country_event = { id = Knights.19 days = 80 }
+		}
+	}
+}
+#高塔孤王的丧钟
+country_event = {
+	id = Knights.8
+	title = Knights.8.t
+	desc = Knights.8.d
+	picture = GFX_event_MOT24
+	trigger = {
+		tag = MOT
+		has_war_with = LAW
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		OR = {
+			surrender_progress > 0.1
+			LAW = { surrender_progress > 0.15 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.8.a
+		add_war_support = 0.05
+		MOT_Noelle = {
+			add_skill_level = 1
+			add_attack = 2
+			add_country_leader_trait = MOT_Noelle_Hero_of_MOT
+		}
+	}
+	option = {
+		name = Knights.8.b
+		add_war_support = 0.05
+		MOT_Noelle = {
+			add_skill_level = 1
+			add_logistics = 2
+			add_country_leader_trait = MOT_Noelle_Hero_of_MOT
+		}
+	}
+}
+#西风骑士退却
+country_event = {
+	id = Knights.9
+	title = Knights.9.t
+	desc = Knights.9.d
+	picture = GFX_event_MOT25
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		set_global_flag = MOT_Knights_Lost
+	}
+	option = {
+		name = Knights.9.a
+		add_war_support = 0.1
+		MOT_Night_Up = yes
+		trigger = {
+			original_tag = MOT
+		}
+	}
+	option = {
+		name = Knights.9.b
+		add_war_support = 0.05
+		trigger = {
+			original_tag = LAW
+		}
+	}
+	option = {
+		name = Knights.9.c
+		add_stability = 0.05
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#战线稳固
+country_event = {
+	id = Knights.10
+	title = Knights.10.t
+	desc = Knights.10.d
+	picture = GFX_event_LAW_01
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		set_global_flag = MOT_No_Lost
+	}
+	option = {
+		name = Knights.10.a
+		add_stability = -0.05
+		add_war_support = 0.05
+		trigger = {
+			original_tag = MOT
+		}
+	}
+	option = {
+		name = Knights.10.b
+		add_war_support = 0.05
+		trigger = {
+			original_tag = LAW
+		}
+	}
+	option = {
+		name = Knights.10.c
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#坚冰骑士退却
+country_event = {
+	id = Knights.11
+	title = Knights.11.t
+	desc = Knights.11.d
+	picture = GFX_event_MOT24
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		set_global_flag = MOT_Nobles_Lost
+	}
+	option = {
+		name = Knights.11.a
+		add_stability = 0.1
+		MOT_Night_Down = yes
+		trigger = {
+			original_tag = MOT
+		}
+	}
+	option = {
+		name = Knights.11.b
+		add_war_support = -0.05
+		add_stability = -0.05
+		trigger = {
+			original_tag = LAW
+		}
+	}
+	option = {
+		name = Knights.11.c
+		add_stability = -0.05
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#奔狼领脱离控制
+country_event = {
+	id = Knights.12
+	title = Knights.12.t
+	desc = Knights.12.d
+	picture = GFX_event_MOT003
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = Knights.12.a
+		trigger = { original_tag = MOT }
+		MOT_Night_Up = yes
+		end_puppet = ANR
+		add_stability = -0.01
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
+
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+			add_stability = -0.02
+			add_war_support = 0.01
+			random_list = {
+				25 = {
+					add_timed_idea = { idea = gene_less_burden days = 40 }
+				}
+				25 = {
+					add_stability = -0.02
+				}
+				25 = {
+					add_manpower = -1000
+				}
+				25 = {
+					add_political_power = -20
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+				add_stability = -0.01
+				random_list = {
+					25 = {
+						add_timed_idea = { idea = gene_less_burden days = 10 }
+					}
+					25 = {
+						add_stability = -0.01
+					}
+					25 = {
+						add_manpower = -500
+					}
+					25 = {
+						add_political_power = -5
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.12.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.12.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+
+#清泉镇脱离控制
+country_event = {
+	id = Knights.13
+	title = Knights.13.t
+	desc = Knights.13.d
+	picture = GFX_event_MOT003
+	immediate = {
+		hidden_effect = {
+			country_event = { id = Knights.12 days = 10 }
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = Knights.13.a
+		MOT_Night_Up = yes
+		add_ideas = MOT_Debuff_Food_Shortage
+		trigger = { original_tag = MOT }
+		add_stability = -0.01
+		end_puppet = SPI
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+			add_stability = -0.02
+			add_war_support = 0.01
+			random_list = {
+				25 = {
+					add_timed_idea = { idea = gene_less_burden days = 40 }
+				}
+				25 = {
+					add_stability = -0.02
+				}
+				25 = {
+					add_manpower = -1000
+				}
+				25 = {
+					add_political_power = -20
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+				add_stability = -0.01
+				random_list = {
+					25 = {
+						add_timed_idea = { idea = gene_less_burden days = 10 }
+					}
+					25 = {
+						add_stability = -0.01
+					}
+					25 = {
+						add_manpower = -500
+					}
+					25 = {
+						add_political_power = -5
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.13.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.13.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+
+#迪卢克封闭莱艮芬德领
+country_event = {
+	id = Knights.14
+	title = Knights.14.t
+	desc = Knights.14.d
+	picture = GFX_event_DRA04
+	immediate = {
+		hidden_effect = {
+			country_event = { id = Knights.13 days = 10 }
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = Knights.14.a
+		MOT_Night_Up = yes
+		add_ideas = MOT_Debuff_Goods_Shortage
+		trigger = { original_tag = MOT }
+		add_stability = -0.01
+		end_puppet = RAG
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+			add_stability = -0.02
+			add_war_support = 0.01
+			random_list = {
+				25 = {
+					add_timed_idea = { idea = gene_less_burden days = 40 }
+				}
+				25 = {
+					add_stability = -0.02
+				}
+				25 = {
+					add_manpower = -1000
+				}
+				25 = {
+					add_political_power = -20
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+				add_stability = -0.01
+				random_list = {
+					25 = {
+						add_timed_idea = { idea = gene_less_burden days = 10 }
+					}
+					25 = {
+						add_stability = -0.01
+					}
+					25 = {
+						add_manpower = -500
+					}
+					25 = {
+						add_political_power = -5
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.14.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.14.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#龙脊雪山领政府失联
+country_event = {
+	id = Knights.15
+	title = Knights.15.t
+	desc = Knights.15.d
+	picture = GFX_event_DRA02
+	immediate = {
+		hidden_effect = {
+			country_event = { id = Knights.14 days = 10 }
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = Knights.15.a
+		MOT_Night_Up = yes
+		trigger = { original_tag = MOT }
+		add_stability = -0.01
+		add_ideas = MOT_Debuff_Tech_Shortage
+		end_puppet = DRA
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+			add_stability = -0.02
+			add_war_support = 0.01
+			random_list = {
+				25 = {
+					add_timed_idea = { idea = gene_less_burden days = 40 }
+				}
+				25 = {
+					add_stability = -0.02
+				}
+				25 = {
+					add_manpower = -1000
+				}
+				25 = {
+					add_political_power = -20
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+				add_stability = -0.01
+				random_list = {
+					25 = {
+						add_timed_idea = { idea = gene_less_burden days = 10 }
+					}
+					25 = {
+						add_stability = -0.01
+					}
+					25 = {
+						add_manpower = -500
+					}
+					25 = {
+						add_political_power = -5
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.15.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.15.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#西风教会激进派独走
+country_event = {
+	id = Knights.16
+	title = Knights.16.t
+	desc = Knights.16.d
+	picture = GFX_event_DRA04
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = Knights.16.a
+		trigger = { original_tag = MOT }
+		add_stability = -0.03
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_FAV }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_FAV } }
+			add_stability = -0.05
+			add_war_support = 0.02
+			MOT_Night_Up = yes
+			end_puppet = FAV
+			add_ideas = MOT_Debuff_Prop_Shortage
+			FAV = {
+				set_politics = {
+					ruling_party = democratic
+					last_election = "1933.1.24"
+					election_frequency = 48
+					elections_allowed = no
+				}
+			}
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = MOT_Lower_Damage
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_FAV } }
+				custom_effect_tooltip = MOT_Not_Lose_Control
+				add_stability = -0.01
+				FAV = {
+					add_autonomy_score = -1000
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.16.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.16.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+				original_tag = FAV
+			}
+		}
+	}
+	option = {
+		name = Knights.16.e
+		MOT = {
+			end_puppet = FAV
+		}
+		trigger = {
+			original_tag = FAV
+		}
+	}
+}
+#古恩希尔德领异动
+country_event = {
+	id = Knights.17
+	title = Knights.17.t
+	desc = Knights.17.d
+	picture = GFX_event_DRA04
+	trigger = {
+		GUN = {
+			is_puppet = no
+			is_subject = no
+		}
+		NOT = { original_tag = GUN }
+		has_global_flag = MOT_Civil_War_Begun
+		NOT = { has_country_flag = MOT_Event_Show17 }
+	}
+	immediate = {
+		set_country_flag = MOT_Event_Show17
+	}
+	is_triggered_only = no
+	fire_only_once = no
+	option = {
+		name = Knights.17.a
+		trigger = { original_tag = MOT }
+		add_stability = -0.03
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_GUN }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_GUN } }
+			add_stability = -0.05
+			add_war_support = 0.02
+			end_puppet = GUN
+			MOT_Night_Up = yes
+			add_ideas = MOT_Debuff_Man_Shortage
+		}
+		ELSE_IF = {
+			custom_effect_tooltip = MOT_Lower_Damage
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_GUN } }
+				custom_effect_tooltip = MOT_Not_Lose_Control
+				add_stability = -0.01
+				GUN = { add_autonomy_score = -1000 }
+			}
+		}
+	}
+	option = {
+		name = Knights.17.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.17.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#风龙领脱离掌控
+country_event = {
+	id = Knights.18
+	title = Knights.18.t
+	desc = Knights.18.d
+	picture = GFX_event_DRA04
+	is_triggered_only = no
+	trigger = {
+		DVA = {
+			is_puppet = no
+			is_subject = no
+		}
+		NOT = { original_tag = DVA }
+		NOT = { has_country_flag = MOT_Event_Show18 }
+	}
+	immediate = {
+		hidden_effect = {
+			country_event = { id = Knights.17 days = 10 }
+			set_country_flag = MOT_Event_Show18
+		}
+	}
+	fire_only_once = no
+	option = {
+		name = Knights.18.a
+		trigger = { original_tag = MOT }
+		MOT_Night_Up = yes
+		add_stability = -0.01
+		end_puppet = DVA
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+			add_stability = -0.02
+			add_war_support = 0.01
+			random_list = {
+				25 = {
+					add_timed_idea = { idea = gene_less_burden days = 40 }
+				}
+				25 = {
+					add_stability = -0.02
+				}
+				25 = {
+					add_manpower = -1000
+				}
+				25 = {
+					add_political_power = -20
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
+				add_stability = -0.01
+				random_list = {
+					25 = {
+						add_timed_idea = { idea = gene_less_burden days = 10 }
+					}
+					25 = {
+						add_stability = -0.01
+					}
+					25 = {
+						add_manpower = -500
+					}
+					25 = {
+						add_political_power = -5
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.18.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.18.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#蒙德城骚乱
+country_event = {
+	id = Knights.19
+	title = Knights.19.t
+	desc = Knights.19.d
+	picture = GFX_event_DRA04
+	trigger = {
+		has_global_flag = MOT_Civil_War_Begun
+		Is_MOT = yes
+		NOT = { has_country_flag = MOT_landebianle1 }
+	}
+	immediate = { 
+		set_country_flag = MOT_landebianle1
+		hidden_effect = { country_event = { id = Knights.15 days = 10 } } 
+	}
+	is_triggered_only = no
+	fire_only_once = no
+	option = {
+		name = Knights.19.a
+		trigger = { original_tag = MOT }
+		add_stability = -0.03
+		set_country_flag = MOT_PP_Unlock
+		mark_focus_tree_layout_dirty = yes
+		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_MOT }
+		IF = {
+			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_MOT } }
+			add_stability = -0.1
+			add_war_support = 0.05
+			1 = {
+				damage_building = {
+					type = industrial_complex
+					damage = 3
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 3
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 3
+				}
+			}
+			2 = {
+				damage_building = {
+					type = industrial_complex
+					damage = 2
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 2
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 2
+				}
+			}
+		}
+		ELSE_IF = {
+			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
+			custom_effect_tooltip = MOT_Lower_Damage
+			IF = {
+				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_MOT } }
+				add_stability = -0.01
+				1 = {
+					damage_building = {
+						type = industrial_complex
+						damage = 1
+					}
+					damage_building = {
+						type = infrastructure
+						damage = 1
+					}
+					damage_building = {
+						type = arms_factory
+						damage = 1
+					}
+				}
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = MOT_Lower_Damage
+			}
+		}
+	}
+	option = {
+		name = Knights.19.b
+		add_political_power = 5
+		trigger = { original_tag = LAW }
+	}
+	option = {
+		name = Knights.19.c
+		add_stability = 0.01
+		trigger = {
+			NOT = {
+				original_tag = LAW
+				original_tag = MOT
+			}
+		}
+	}
+}
+#满目疮痍……重振旗鼓（确认进入琴线）
+country_event = {
+	id = Knights.20
+	title = Knights.20.t
+	desc = Knights.20.d
+	picture = GFX_event_MOT12
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.20.a
+		set_country_flag = MOT_Begin_WarDec
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = Knights.20.b
+		set_country_flag = MOT_Begin_WarDec
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+#温迪回归
+#统一后可用的顾问全部放在这里
+country_event = {
+	id = Knights.21
+	title = Knights.21.t
+	desc = Knights.21.d
+	picture = GFX_event_MOT001
+	fire_only_once = yes
+	is_triggered_only = no
+	
+	trigger = {
+		NOT = { has_government = fascism }
+		has_global_flag = MOT_REUNITED
+		Is_MOT = yes
+	}
+
+	option = {
+		name = Knights.21.a
+		custom_effect_tooltip = MOT_Return_of_Them
+		hidden_effect = {
+			recruit_character = MOT_Windy
+			recruit_character = MOT_Fischl
+			recruit_character = MOT_Rosary
+			recruit_character = MOT_Barbara
+			recruit_character = MOT_Diona
+			recruit_character = MOT_Bennett
+		}
+	}
+	option = {
+		name = Knights.21.b
+		custom_effect_tooltip = MOT_Return_of_Them
+		hidden_effect = {
+			recruit_character = MOT_Windy
+			recruit_character = MOT_Fischl
+			recruit_character = MOT_Rosary
+			recruit_character = MOT_Barbara
+			recruit_character = MOT_Diona
+			recruit_character = MOT_Bennett
+		}
+	}
+}
+#异世旅人的到来
+country_event = {
+	id = Knights.22
+	title = Knights.22.t
+	desc = Knights.22.d
+	picture = GFX_event_MOT003
+	trigger = { has_idea = MOT_Attack_of_Twalin }
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.22.a
+		set_country_flag = MOT_Traveller_Came
+		activate_mission = MOT_Dragon_Attack
+	}
+	option = {
+		name = Knights.22.b
+		set_country_flag = MOT_Traveller_Came
+		activate_mission = MOT_Dragon_Attack
+	}
+}
+#部分乡绅投靠旧贵族军
+country_event = {
+	id = Knights.23
+	title = Knights.23.t
+	desc = Knights.23.d
+	picture = GFX_event_MOT003
+	trigger = {
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		OR = {
+			tag = MOT
+		}
+		has_war_with = LAW
+		OR = {
+			MOT = { surrender_progress > 0.1 }
+			LAW = { surrender_progress > 0.1 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.23.a
+		add_stability = -0.2
+		IF = {
+			limit = { has_completed_focus = MOT_Focus_Beat_the_Lords }
+			custom_effect_tooltip = MOT_Bonus_From_PressCons
+			add_war_support = 0.1
+			add_timed_idea = { idea = MOT_Betrayal_of_Lords days = 60 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = MOT_Betrayal_of_Lords days = 120 }
+		}
+		custom_effect_tooltip = MOT_Sin_Evidence
+	}
+	option = {
+		name = Knights.23.b
+		add_stability = -0.2
+		IF = {
+			limit = { has_completed_focus = MOT_Focus_Beat_the_Lords }
+			custom_effect_tooltip = MOT_Bonus_From_PressCons
+			add_war_support = 0.1
+			add_timed_idea = { idea = MOT_Betrayal_of_Lords days = 60 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = MOT_Betrayal_of_Lords days = 120 }
+		}
+		custom_effect_tooltip = MOT_Sin_Evidence
+	}
+}
+#商人的行径
+country_event = {
+	id = Knights.24
+	title = Knights.24.t
+	desc = Knights.24.d
+	picture = GFX_event_MOT22
+	trigger = {
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		OR = {
+			tag = MOT
+		}
+		has_war_with = LAW
+		OR = {
+			MOT = { surrender_progress > 0.2 }
+			LAW = { surrender_progress > 0.2 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.24.a
+		add_war_support = -0.2
+		IF = {
+			limit = { has_completed_focus = MOT_Focus_Beat_the_Traders }
+			custom_effect_tooltip = MOT_Bonus_From_PressFree
+			add_stability = 0.1
+			add_timed_idea = { idea = MOT_Betrayal_of_Traders days = 60 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = MOT_Betrayal_of_Traders days = 120 }
+		}
+		custom_effect_tooltip = MOT_Sin_Evidence
+	}
+	option = {
+		name = Knights.24.b
+		add_war_support = -0.2
+		IF = {
+			limit = { has_completed_focus = MOT_Focus_Beat_the_Traders }
+			custom_effect_tooltip = MOT_Bonus_From_PressFree
+			add_stability = 0.1
+			add_timed_idea = { idea = MOT_Betrayal_of_Traders days = 60 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = MOT_Betrayal_of_Traders days = 120 }
+		}
+		custom_effect_tooltip = MOT_Sin_Evidence
+	}
+}
+#骑士团要求清泉镇归顺 25
+country_event = {
+	id = Knights.25
+	title = Knights.25.t
+	desc = Knights.25.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.25.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.26 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -1000
+				date < 1939.1.1
+			}
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.25.b
+		MOT = { country_event = Knights.27 }
+		ai_chance = { base = 60 }
+	}
+}
+#清泉镇同意 26
+country_event = {
+	id = Knights.26
+	title = Knights.26.t
+	desc = Knights.26.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.26.a
+		annex_country = { target = SPI transfer_troops = yes }
+	}
+}
+#清泉镇拒绝 27
+country_event = {
+	id = Knights.27
+	title = Knights.27.t
+	desc = Knights.27.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.27.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求莱艮芬德归顺 28
+country_event = {
+	id = Knights.28
+	title = Knights.28.t
+	desc = Knights.28.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.28.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.29 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -1000
+				date < 1939.1.1
+			}
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.28.b
+		MOT = { country_event = Knights.30 }
+		ai_chance = { base = 70 }
+	}
+}
+#莱艮芬德同意 29
+country_event = {
+	id = Knights.29
+	title = Knights.29.t
+	desc = Knights.29.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.29.a
+		annex_country = { target = RAG transfer_troops = yes }
+	}
+}
+#莱艮芬德拒绝 30
+country_event = {
+	id = Knights.30
+	title = Knights.30.t
+	desc = Knights.30.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.30.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求雪山归顺31
+country_event = {
+	id = Knights.31
+	title = Knights.31.t
+	desc = Knights.31.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.31.b
+		MOT = { country_event = Knights.33 }
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = Knights.31.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.32 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -1000
+				date < 1939.1.1
+			}
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+}
+#龙脊雪山领同意32
+country_event = {
+	id = Knights.32
+	title = Knights.32.t
+	desc = Knights.32.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.32.a
+		annex_country = { target = DRA transfer_troops = yes }
+	}
+}
+#龙脊雪山领拒绝33
+country_event = {
+	id = Knights.33
+	title = Knights.33.t
+	desc = Knights.33.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.33.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求奔狼领归顺34
+country_event = {
+	id = Knights.34
+	title = Knights.31.t
+	desc = Knights.34.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.31.b
+		MOT = { country_event = Knights.36 }
+		ai_chance = { base = 60 }
+	}
+	option = {
+		name = Knights.31.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.35 }
+		ai_chance = {
+			base = 40
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+}
+#奔狼领同意35
+country_event = {
+	id = Knights.35
+	title = Knights.35.t
+	desc = Knights.35.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.32.a
+		annex_country = { target = ANR transfer_troops = yes }
+	}
+}
+#奔狼领拒绝36
+country_event = {
+	id = Knights.36
+	title = Knights.36.t
+	desc = Knights.36.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.33.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求风龙领归顺37
+country_event = {
+	id = Knights.37
+	title = Knights.31.t
+	desc = Knights.37.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.31.b
+		MOT = { country_event = Knights.39 }
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = Knights.31.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.38 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -1000
+				date < 1939.1.1
+			}
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+}
+#风龙领同意38
+country_event = {
+	id = Knights.38
+	title = Knights.38.t
+	desc = Knights.38.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.32.a
+		annex_country = { target = DVA transfer_troops = yes }
+	}
+}
+#风龙领拒绝39
+country_event = {
+	id = Knights.39
+	title = Knights.39.t
+	desc = Knights.39.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.33.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求西风教会归顺40
+country_event = {
+	id = Knights.40
+	title = Knights.31.t
+	desc = Knights.40.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.31.b
+		MOT = { country_event = Knights.42 }
+		ai_chance = {
+			base = 70
+		}
+	}
+	option = {
+		name = Knights.31.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.41 }
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = -1000
+				date < 1939.1.1
+			}
+			modifier = {
+				add = -20
+				OR = {
+					tag = DRA
+					tag = RAG
+					tag = FAV
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 10
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 10
+				has_government = ROOT
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+					tag = MOT
+					ratio < 0.3
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					ic_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					strength_ratio = {
+						tag = MOT
+						ratio > 0.5
+					}
+					has_opinion = { target = MOT value < -10 }
+				}
+			}
+		}
+	}
+}
+#西风教会同意41
+country_event = {
+	id = Knights.41
+	title = Knights.41.t
+	desc = Knights.41.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.32.a
+		annex_country = { target = FAV transfer_troops = yes }
+	}
+}
+#西风教会拒绝42
+country_event = {
+	id = Knights.42
+	title = Knights.42.t
+	desc = Knights.42.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.33.a
+		add_war_support = 0.05
+	}
+}
+#骑士团要求古恩希尔德领归顺43
+country_event = {
+	id = Knights.43
+	title = Knights.31.t
+	desc = Knights.43.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.31.b
+		MOT = { country_event = Knights.45 }
+		ai_chance = {
+			base = 100
+			modifier = { 
+				add = 100
+				OR = { 
+					country_exists = DRA
+					country_exists = RAG
+					country_exists = FAV
+					country_exists = LAW
+				}
+			}
+			modifier = {
+				add = 100
+				date < 1941.1.1
+			}
+			modifier = {
+				add = 100
+				ic_ratio = { tag = MOT ratio > 0.5 }
+			}
+			modifier = {
+				add = 100
+				strength_ratio = { tag = MOT ratio > 0.5 }
+			}
+			modifier = {
+				add = 100
+				has_opinion = { target = MOT value < 0 }
+			}
+			modifier = {
+				add = 500
+				GUN = { is_ai = no }
+			}
+		}
+	}
+	option = {
+		name = Knights.31.a
+		MOT = { change_tag_from = ROOT }
+		MOT = { country_event = Knights.44 }
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = 100
+				has_opinion = { target = MOT value > 50 }
+			}
+			modifier = {
+				add = 100
+				has_opinion = { target = MOT value > 80 }
+			}
+			modifier = {
+				add = 100
+				strength_ratio = { tag = MOT  ratio < 0.3 }
+			}
+		}
+	}
+}
+#古恩希尔德领同意44
+country_event = {
+	id = Knights.44
+	title = Knights.44.t
+	desc = Knights.44.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.32.a
+		annex_country = { target = GUN transfer_troops = yes }
+	}
+}
+#古恩希尔德领拒绝45
+country_event = {
+	id = Knights.45
+	title = Knights.45.t
+	desc = Knights.45.d
+	picture = GFX_event_MOT22
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = Knights.33.a
+		add_war_support = 0.05
+		# create_wargoal = { type = puppet_wargoal_focus  target = GUN }
+		# diplomatic_relation = { country = GUN  relation = non_aggression_pact   active = yes }
+	}
+}
+#决战时刻46
+#47 人民支持战争
+country_event = {
+	id = Knights.47
+	title = Knights.47.t
+	desc = Knights.47.d
+	picture = GFX_event_MOT22
+	trigger = {
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		has_war_with = LAW
+		OR = {
+			tag = MOT
+		}
+		OR = {
+			MOT = { surrender_progress > 0.15 }
+			LAW = { surrender_progress > 0.15 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.47.a
+		add_stability = 0.1
+		add_timed_idea = { idea = MOT_Support_From_P DAYS = 180 }
+	}
+	option = {
+		name = Knights.47.b
+		add_war_support = 0.1
+		add_timed_idea = { idea = MOT_Support_From_P DAYS = 180 }
+	}
+}
+#48 愚人众作战迟缓
+country_event = {
+	id = Knights.48
+	title = Knights.48.t
+	desc = Knights.48.d
+	picture = GFX_event_MOT22
+	trigger = {
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		has_war_with = MOT
+		OR = {
+			tag = LAW
+		}
+		OR = {
+			MOT = { surrender_progress > 0.15 }
+			LAW = { surrender_progress > 0.15 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.48.a
+		add_stability = -0.2
+		add_timed_idea = { idea = MOT_Betrayal_of_Fool DAYS = 120 }
+	}
+	option = {
+		name = Knights.48.b
+		add_war_support = -0.2
+		add_timed_idea = { idea = MOT_Betrayal_of_Fool DAYS = 120 }
+	}
+}
+#49 雇佣兵劫掠乡镇
+country_event = {
+	id = Knights.49
+	title = Knights.49.t
+	desc = Knights.49.d
+	picture = GFX_event_MOT22
+	trigger = {
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+		has_war_with = MOT
+		OR = {
+			tag = LAW
+		}
+		OR = {
+			MOT = { surrender_progress > 0.15 }
+			LAW = { surrender_progress > 0.15 }
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.49.a
+		add_stability = -0.2
+		add_timed_idea = { idea = MOT_Betrayal_of_Army DAYS = 120 }
+	}
+	option = {
+		name = Knights.49.b
+		add_war_support = -0.2
+		add_timed_idea = { idea = MOT_Betrayal_of_Army DAYS = 120 }
+	}
+}
+#50 浪沫旋舞
+country_event = {
+	id = Knights.50
+	title = Knights.50.t
+	desc = Knights.50.d
+	picture = GFX_event_MOT22
+	trigger = {
+		tag = LAW
+		has_war_with = MOT
+		not = { has_global_flag = MOT_Civil_War_1_End }
+		OR = {
+			surrender_progress > 0.1
+			MOT = { surrender_progress > 0.15 }
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = Knights.50.a
+	}
+}
+#51 风暴将至 
+country_event = {
+	id = Knights.51
+	title = Knights.51.t
+	desc = Knights.51.d
+	picture = GFX_event_MOT22
+	trigger = {
+		tag = MOT
+		date > 1936.8.1	
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.51.a
+		add_stability = -0.1
+		set_global_flag = MOT_StControl_section2
+		custom_effect_tooltip = MOT_Section_2_Begin
+		add_stability = -0.05
+		add_war_support = 0.05
+	}
+}
+#52 代劳伦斯传檄天下文
+country_event = {
+	id = Knights.52
+	title = Knights.52.t
+	desc = Knights.52.d
+	trigger = {
+		OR = {
+			tag = MOT
+			tag = LAW
+		}
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	option = {
+		name = Knights.52.a
+		trigger = { original_tag = MOT }
+		every_country = {
+			limit = {
+				Is_MOT = yes
+			}
+			add_timed_idea = { idea = MOT_Fire_of_Civil_War days = 720 }
+		}
+	}
+	option = {
+		name = Knights.52.b
+		trigger = { original_tag =LAW }
+	}
+}
+#53 蒙德决定去死
+country_event = {
+	id = Knights.53
+	title = Knights.53.t
+	desc = Knights.53.d
+	picture = GFX_event_MOT003
+	trigger = {
+		OR = {
+			tag = MOT
+			tag = LAW
+		}
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	option = {
+		name = Knights.53.a
+		add_political_power = 25
+	}
+	option = {
+		name = Knights.53.b
+		add_war_support = 0.02
+	}
+}
+#54 蒙德迷情
+country_event = {
+	id = Knights.54
+	title = Knights.54.t
+	desc = Knights.54.d
+	trigger = {
+		tag = MOT
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	option = {
+		name = Knights.54.a
+		hidden_effect = { country_event = { id = Knights.54 days = 10 } }
+	}
+}
+#蒙德城粮食危机解除 55
+country_event = {
+	id = Knights.55
+	title = Knights.55.t
+	desc = Knights.55.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Food_Shortage
+		34 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.55.a
+
+		remove_ideas = MOT_Debuff_Food_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_SPI
+				}
+			}
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+		}
+	}
+}
+#学者动身回归蒙德城 56
+country_event = {
+	id = Knights.56
+	title = Knights.56.t
+	desc = Knights.56.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Tech_Shortage
+		42 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.56.a
+		remove_ideas = MOT_Debuff_Tech_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_DRA
+				}
+			}
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+		}
+	}
+}
+#古恩希尔德乡村居民踊跃参军 57
+country_event = {
+	id = Knights.57
+	title = Knights.57.t
+	desc = Knights.57.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Man_Shortage
+		22 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.57.a
+		remove_ideas = MOT_Debuff_Man_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_GUN
+				}
+			}
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+		}
+	}
+}
+#工业原料补足 58
+country_event = {
+	id = Knights.58
+	title = Knights.58.t
+	desc = Knights.58.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Resour_Shortage
+		31 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.58.a
+		remove_ideas = MOT_Debuff_Resour_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_LAW
+				}
+			}
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+		}
+	}
+}
+#商品供应恢复 59
+country_event = {
+	id = Knights.59
+	title = Knights.59.t
+	desc = Knights.59.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Goods_Shortage
+		47 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.59.a
+		remove_ideas = MOT_Debuff_Goods_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_RAG
+				}
+			}
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+		}
+	}
+}
+#舆论攻击消退 60
+country_event = {
+	id = Knights.60
+	title = Knights.60.t
+	desc = Knights.60.d
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_idea = MOT_Debuff_Prop_Shortage
+		8 = {
+			owner = {
+				OR = {
+					tag = MOT
+					is_subject_of = MOT
+					is_puppet_of = MOT
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.60.a
+		remove_ideas = MOT_Debuff_Prop_Shortage
+		MOT_Night_Down = yes
+		add_political_power = 100
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = MOT_More_AlwaysSupport
+		add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 40 }
+		IF = {
+			limit = { has_country_flag = MOT_Jean_Ill }
+			custom_effect_tooltip = MOT_Noe_Bonus_for_ASUp
+			add_to_variable = { MOT_ExtraPower_of_AlwaysSupport = 20 }
+			IF = {
+				limit = {
+					has_country_leader = {
+						character = MOT_Noelle
+						ruling_only = yes
+					}
+				}
+				custom_effect_tooltip = MOT_Noelle_Get_Bonus
+				add_to_variable = { MOT_Noelle_Exp = 2 }
+				MOT_Noelle = {
+					add_country_leader_trait = MOT_Noelle_Hero_of_DVA
+				}
+			}
+		}
+	}
+}
+# 61 决战时刻
+country_event = {
+	id = Knights.61
+	title = Knights.61.t
+	desc = Knights.61.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	trigger = {
+		has_war_with = LAW
+		has_global_flag = MOT_Civil_War_1_End
+	}
+	
+	option = {
+		name = Knights.61.a
+		add_war_support = 0.1
+	}
+}
+#乡绅支持战争 62
+country_event = {
+	id = Knights.62
+	title = Knights.62.t
+	desc = Knights.62.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.62.a
+		add_timed_idea = { idea = MOT_WAR_ANTI_LAW1 days = 180 }
+	}
+}
+#商人支持战争 63
+country_event = {
+	id = Knights.63
+	title = Knights.63.t
+	desc = Knights.63.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.63.a
+		add_timed_idea = { idea = MOT_WAR_ANTI_LAW2 days = 180 }
+	}
+}
+#人民支持战争 64
+country_event = {
+	id = Knights.64
+	title = Knights.64.t
+	desc = Knights.64.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.64.a
+		add_timed_idea = { idea = MOT_WAR_ANTI_LAW3 days = 180 }
+	}
+}
+#狮牙派踊跃支持战争 65
+country_event = {
+	id = Knights.65
+	title = Knights.65.t
+	desc = Knights.65.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.65.a
+		add_timed_idea = { idea = MOT_WAR_ANTI_LAW4 days = 120 }
+	}
+}
+#玫瑰派踊跃支持战争 66
+country_event = {
+	id = Knights.66
+	title = Knights.66.t
+	desc = Knights.66.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.66.a
+		add_timed_idea = { idea = MOT_WAR_ANTI_LAW4 days = 240 }
+	}
+}
+#枫丹的舆论影响 67
+country_event = {
+	id = Knights.67
+	title = Knights.67.t
+	desc = Knights.67.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.67.a
+	}
+}
+#“及时雨”舒伯特 68
+country_event = {
+	id = Knights.68
+	title = Knights.68.t
+	desc = Knights.68.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.68.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+#舒伯特起兵 69
+country_event = {
+	id = Knights.69
+	title = Knights.69.t
+	desc = Knights.69.d
+	trigger = {
+		MOT = { has_war_with = LAW }
+		OR = {
+			tag = MOT
+			tag = LAW
+			tag = RAG
+			tag = SPI
+			tag = DRA
+			tag = GUN
+			tag = FAV
+		}
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.69.a
+		add_stability = -0.1
+		add_war_support = 0.05
+		trigger = { original_tag = MOT }
+	}
+	option = {
+		name = Knights.69.b
+		add_stability = -0.05
+		trigger = { NOT = { or = { original_tag =MOT tag = LAW } } }
+	}
+	option = {
+		name = Knights.69.c
+		add_war_support = 0.05
+		trigger = { original_tag = LAW }
+	}
+}
+#优菈？ 70
+country_event = {
+	id = Knights.70
+	title = Knights.70.t
+	desc = Knights.70.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.70.a
+		add_stability = -0.01
+		country_event = { id = Knights.71 days = 3 }
+	}
+}
+#优菈口供 71
+country_event = {
+	id = Knights.71
+	title = Knights.71.t
+	desc = Knights.71.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.71.a
+		add_stability = -0.01
+		country_event = { id = Knights.72 days = 3 }
+	}
+	option = {
+		name = Knights.71.b
+		add_stability = -0.01
+		country_event = { id = Knights.72 days = 3 }
+	}
+}
+#浪花骑士叛逃 72
+country_event = {
+	id = Knights.72
+	title = Knights.72.t
+	desc = Knights.72.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.72.a
+		add_stability = -0.01
+	}
+}
+#贵族的浪花 73
+country_event = {
+	id = Knights.73
+	title = Knights.73.t
+	desc = Knights.73.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.73.a
+	}
+}
+#教会主教布道 74
+country_event = {
+	id = Knights.74
+	title = Knights.74.t
+	desc = Knights.74.d
+	trigger = {
+		tag = MOT
+		has_war_with = LAW
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.74.a
+	}
+}
+#贵族游行示威 75
+country_event = {
+	id = Knights.75
+	title = Knights.75.t
+	desc = Knights.75.d
+	trigger = {
+		tag = MOT
+		has_war_with = LAW
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.75.a
+	}
+}
+#跳舞战术 76
+country_event = {
+	id = Knights.76
+	title = Knights.76.t
+	desc = Knights.76.d
+	trigger = {
+		has_war_with = MOT
+		tag = LAW
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.76.a
+	}
+}
+#77 应征入伍
+country_event = {
+	id = Knights.77
+	title = Knights.77.t
+	desc = Knights.77.d
+	trigger = {
+		tag = MOT
+		has_war_with = LAW
+		NOT = { has_global_flag = MOT_Civil_War_1_End }
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.77.a
+		add_war_support = 0.01
+	}
+
+}
+#78 教会反对派
+country_event = {
+	id = Knights.78
+	title = Knights.78.t
+	desc = Knights.78.d
+	trigger = {
+		date > 1936.6.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.78.a
+		add_stability = -0.03
+		add_political_power = 30
+		add_to_variable = { MOT_Control_in_FAV = -20 }
+		custom_effect_tooltip = MOT_Influ_on_FAV_Down
+	}
+	option = {
+		name = Knights.78.b
+		add_stability = -0.01
+		add_political_power = -30
+		add_to_variable = { MOT_Control_in_FAV = 10 }
+		custom_effect_tooltip = MOT_Influ_on_FAV_Up
+		
+	}
+
+}
+#79 龙脊雪山领要求
+country_event = {
+	id = Knights.79
+	title = Knights.79.t
+	desc = Knights.79.d
+	trigger = {
+		date > 1936.4.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.79.a
+		add_stability = -0.01
+		add_political_power = 30
+		add_to_variable = { MOT_Control_in_Others = -20 }
+		custom_effect_tooltip = MOT_Influ_on_Others_Down
+	}
+	option = {
+		name = Knights.79.b
+		add_political_power = -30
+		add_to_variable = { MOT_Control_in_Others = 10 }
+		custom_effect_tooltip = MOT_Influ_on_Others_Up
+	}
+
+}
+#80 难民离开风起地
+country_event = {
+	id = Knights.80
+	title = Knights.80.t
+	desc = Knights.80.d
+	trigger = {
+		has_global_flag = MOT_Civil_War_1_End
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.80.a
+		3 = { add_manpower = -50000 }
+		53 = { add_manpower = 10000 }
+		54 = { add_manpower = 10000 }
+		55 = { add_manpower = 25000 }
+	}
+
+}
+#81 琴梦1
+country_event = {
+	id = Knights.81
+	title = Knights.81.t
+	desc = Knights.81.d
+	trigger = {
+		date > 1936.3.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.81.b
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+
+}
+#82 琴梦2
+country_event = {
+	id = Knights.82
+	title = Knights.82.t
+	desc = Knights.82.d
+	trigger = {
+		date > 1936.4.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.82.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+
+}
+#83 琴梦3
+country_event = {
+	id = Knights.83
+	title = Knights.83.t
+	desc = Knights.83.d
+	trigger = {
+		date > 1936.6.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.83.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+	}
+
+}
+#84 琴梦4
+country_event = {
+	id = Knights.84
+	title = Knights.84.t
+	desc = Knights.84.d
+	trigger = {
+		date > 1936.5.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.84.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+	}
+
+}
+#85 琴梦5
+country_event = {
+	id = Knights.84
+	title = Knights.84.t
+	desc = Knights.84.d
+	trigger = {
+		date > 1936.7.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.84.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+	}
+
+}
+#86 琴梦6
+country_event = {
+	id = Knights.86
+	title = Knights.86.t
+	desc = Knights.86.d
+	trigger = {
+		date > 1936.8.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.86.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+
+}
+#87 琴梦7
+country_event = {
+	id = Knights.87
+	title = Knights.87.t
+	desc = Knights.87.d
+	trigger = {
+		date > 1936.3.15
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.87.a
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+
+}
+#88 主唱的故事
+country_event = {
+	id = Knights.88
+	title = Knights.88.t
+	desc = Knights.88.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.88.a
+		hidden_effect = { country_event = Knights.4 }
+	}
+
+}
+#89 审判地主
+country_event = {
+	id = Knights.89
+	title = Knights.89.t
+	desc = Knights.89.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	#放任
+	option = {
+		name = Knights.89.a
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		custom_effect_tooltip = MOT_Higher_P_of_L
+		custom_effect_tooltip = MOT_SHigher_Limit_of_L
+		add_to_variable = { MOT_BasicPower_of_Lords = 10 }
+		add_to_variable = { MOT_BasicSupport_Lords = 0.1 }
+		add_to_variable = { MOT_SLimit1_of_L = 0.05 }
+		add_to_variable = { MOT_SLimit2_of_L = 0.05 }
+		add_stability = -0.1
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	#部分抓捕
+	option = {
+		name = Knights.89.b
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		custom_effect_tooltip = MOT_Higher_P_of_L
+		custom_effect_tooltip = MOT_SHigher_Limit_of_L
+		add_to_variable = { MOT_BasicPower_of_Lords = 10 }
+		add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.05 }
+		add_stability = 0.05
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		add_timed_idea = { idea = MOT_Betrayal_of_Lords days = -60 }
+	}
+	#全面清算
+	option = {
+		name = Knights.89.c
+		custom_effect_tooltip = MOT_Lower_S_of_L
+		custom_effect_tooltip = MOT_Lower_P_of_L
+		add_to_variable = { MOT_BasicPower_of_Lords = -10 }
+		add_to_variable = { MOT_BasicSupport_Lords = -0.1 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.15 }
+		add_stability = 0.05
+		add_political_power = 50
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		remove_ideas = MOT_Betrayal_of_Lords
+	}
+	#趁机打压
+	option = {
+		name = Knights.89.e
+		custom_effect_tooltip = MOT_Lower_S_of_L
+		custom_effect_tooltip = MOT_Lower_P_of_L
+		custom_effect_tooltip = MOT_SLower_Limit_of_L
+		add_to_variable = { MOT_BasicPower_of_Lords = -20 }
+		add_to_variable = { MOT_BasicSupport_Lords = -0.2 }
+		add_to_variable = { MOT_SLimit1_of_L = -0.05 }
+		add_to_variable = { MOT_SLimit2_of_L = -0.05 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.2 }
+		add_political_power = 70
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		remove_ideas = MOT_Betrayal_of_Lords
+	}
+
+}
+#90 审判商人
+country_event = {
+	id = Knights.90
+	title = Knights.90.t
+	desc = Knights.90.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	#放任
+	option = {
+		name = Knights.90.a
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		custom_effect_tooltip = MOT_Higher_P_of_T
+		custom_effect_tooltip = MOT_SHigher_Limit_of_T
+		add_to_variable = { MOT_BasicPower_of_Trader = 10 }
+		add_to_variable = { MOT_BasicSupport_Trader = 0.1 }
+		add_to_variable = { MOT_SLimit1_of_T = 0.05 }
+		add_to_variable = { MOT_SLimit2_of_T = 0.05 }
+		add_stability = -0.1
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	#部分抓捕
+	option = {
+		name = Knights.90.b
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		custom_effect_tooltip = MOT_Higher_P_of_T
+		custom_effect_tooltip = MOT_SHigher_Limit_of_T
+		add_to_variable = { MOT_BasicPower_of_Trader = 10 }
+		add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.05 }
+		add_stability = 0.05
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		add_timed_idea = { idea = MOT_Betrayal_of_Traders days = -60 }
+	}
+	#全面清算
+	option = {
+		name = Knights.90.c
+		custom_effect_tooltip = MOT_Lower_S_of_T
+		custom_effect_tooltip = MOT_Lower_P_of_T
+		add_to_variable = { MOT_BasicPower_of_Trader = -5 }
+		add_to_variable = { MOT_BasicSupport_Trader = -0.1 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.15 }
+		add_stability = 0.05
+		add_political_power = 50
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		remove_ideas = MOT_Betrayal_of_Traders
+	}
+	#趁机打压
+	option = {
+		name = Knights.90.e
+		custom_effect_tooltip = MOT_Lower_S_of_T
+		custom_effect_tooltip = MOT_Lower_P_of_T
+		custom_effect_tooltip = MOT_SLower_Limit_of_T
+		add_to_variable = { MOT_BasicPower_of_Trader = -15 }
+		add_to_variable = { MOT_BasicSupport_Trader = -0.2 }
+		add_to_variable = { MOT_SLimit1_of_T = -0.05 }
+		add_to_variable = { MOT_SLimit2_of_T = -0.05 }
+		custom_effect_tooltip = MOT_Higher_S_of_P
+		add_to_variable = { MOT_BasicSupport_People = 0.2 }
+		add_political_power = 70
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+		remove_ideas = MOT_Betrayal_of_Traders
+	}
+
+}
+#91 与地主合作2
+country_event = {
+	id = Knights.91
+	title = Knights.91.t
+	desc = Knights.91.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.91.a
+		add_stability = 0.1
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		add_to_variable = { MOT_BasicSupport_Lords = 0.1 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	option = {
+		name = Knights.91.b
+		add_stability = 0.1
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		add_to_variable = { MOT_BasicSupport_Lords = 0.1 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+
+}
+#92 与商人合作2
+country_event = {
+	id = Knights.92
+	title = Knights.92.t
+	desc = Knights.92.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.92.a
+		add_political_power = 100
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		add_to_variable = { MOT_BasicSupport_Trader = 0.1 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	option = {
+		name = Knights.92.b
+		add_political_power = 100
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		add_to_variable = { MOT_BasicSupport_Trader = 0.1 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+}
+#93 与地主合作1
+country_event = {
+	id = Knights.93
+	title = Knights.93.t
+	desc = Knights.93.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.93.a
+		add_stability = 0.05
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	option = {
+		name = Knights.93.b
+		add_stability = 0.05
+		custom_effect_tooltip = MOT_Higher_S_of_L
+		add_to_variable = { MOT_BasicSupport_Lords = 0.05 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+}
+#94 与商人合作1
+country_event = {
+	id = Knights.94
+	title = Knights.94.t
+	desc = Knights.94.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.94.a
+		add_political_power = 50
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+	option = {
+		name = Knights.94.b
+		add_political_power = 50
+		custom_effect_tooltip = MOT_Higher_S_of_T
+		add_to_variable = { MOT_BasicSupport_Trader = 0.05 }
+		MOT_Var_Limit = yes
+		MOT_Re_Org_PowerandSupport = yes
+	}
+}
+#95 清泉镇火灾
+country_event = {
+	id = Knights.95
+	title = Knights.95.t
+	desc = Knights.95.d
+	trigger = {
+		date > 1937.1.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.95.a
+		add_political_power = 30
+		add_to_variable = { MOT_Control_in_Others = -10 }
+		custom_effect_tooltip = MOT_Influ_on_Others_Down
+	}
+	option = {
+		name = Knights.95.b
+		add_political_power = -30
+		add_to_variable = { MOT_Control_in_Others = 10 }
+		custom_effect_tooltip = MOT_Influ_on_Others_Up
+	}
+}
+#96 古恩希尔德领人口贩卖案件
+country_event = {
+	id = Knights.96
+	title = Knights.96.t
+	desc = Knights.96.d
+	trigger = {
+		date > 1937.2.1
+		tag = MOT
+	}
+	is_triggered_only = no
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.96.a
+		add_political_power = 30
+		add_to_variable = { MOT_Control_in_GUN = -10 }
+		custom_effect_tooltip = MOT_Influ_on_GUN_Down
+	}
+	option = {
+		name = Knights.96.b
+		add_political_power = -30
+		add_to_variable = { MOT_Control_in_GUN = 10 }
+		custom_effect_tooltip = MOT_Influ_on_GUN_Up
+	}
+}
+#97 挽歌
+country_event = {
+	id = Knights.97
+	title = Knights.97.t
+	desc = Knights.97.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.97.a
+		hidden_effect = { country_event = { id = Knights.98 days = 10 } }
+	}
+}
+#98 哀恸
+country_event = {
+	id = Knights.98
+	title = Knights.98.t
+	desc = Knights.98.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.98.a
+	}
+}
+#99 变与不变
+country_event = {
+	id = Knights.99
+	title = Knights.99.t
+	desc = Knights.99.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.99.a
+	}
+}
+#100 蒙德强化
+country_event = {
+	id = Knights.100
+	title = Knights.100.t
+	desc = Knights.100.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { difficulty > -1 }
+				add_ideas = MOT_ST0
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 50000
+			}
+			IF = {
+				limit = { difficulty > 0 }
+				swap_ideas = {
+					add_idea = MOT_ST1
+					remove_idea = MOT_ST0
+				}
+				MOT_Noelle = {
+					add_skill_level = 1
+					add_max_trait = 1
+					add_attack = 1
+					add_defense = 1
+					add_planning = 1
+				}
+				MOT_Jean = {
+					add_skill_level = 1
+					add_max_trait = 1
+					add_attack = 1
+					add_defense = 1
+					add_planning = 1
+				}
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 50000
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				swap_ideas = {
+					add_idea = MOT_ST2
+					remove_idea = MOT_ST1
+				}
+				MOT_Noelle = {
+					add_skill_level = 1
+					add_max_trait = 1
+					add_attack = 1
+					add_defense = 1
+					add_planning = 1
+				}
+				MOT_Jean = {
+					add_skill_level = 1
+					add_max_trait = 1
+					add_attack = 1
+					add_defense = 1
+					add_planning = 1
+				}
+				add_political_power = 100
+				add_command_power = 100
+				add_manpower = 100000
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				swap_ideas = {
+					add_idea = MOT_ST3
+					remove_idea = MOT_ST2
+				}
+				MOT_Noelle = {
+					add_skill_level = 2
+					add_max_trait = 2
+					add_attack = 2
+					add_defense = 2
+					add_planning = 1
+				}
+				MOT_Jean = {
+					add_skill_level = 2
+					add_max_trait = 2
+					add_attack = 2
+					add_defense = 2
+					add_planning = 1
+				}
+				add_political_power = 150
+				add_command_power = 150
+				add_manpower = 150000
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				swap_ideas = {
+					add_idea = MOT_ST4
+					remove_idea = MOT_ST3
+				}
+				MOT_Noelle = {
+					add_skill_level = 4
+					add_max_trait = 4
+					add_attack = 4
+					add_defense = 4
+					add_planning = 3
+				}
+				MOT_Jean = {
+					add_skill_level = 4
+					add_max_trait = 4
+					add_attack = 4
+					add_defense = 4
+					add_planning = 3
+				}
+				add_political_power = 250
+				add_command_power = 250
+				add_manpower = 250000
+				add_ideas = DOT_Government_Industry5
+				add_ideas = DOT_Government_Army6
+				add_ideas = DOT_Government_Control7
+			}
+		}
+	}
+	option = {
+		name = Knights.100.a
+		
+	}
+}
+#101 龙脊雪山领强化
+country_event = {
+	id = Knights.101
+	title = Knights.101.t
+	desc = Knights.101.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { difficulty > -1 }
+				add_ideas = DRA_ST0
+				add_political_power = 50
+				add_command_power = 10
+				add_manpower = 50000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+				add_tech_bonus = {
+					category = industry
+					bonus = 1
+					uses = 4
+				}
+				add_tech_bonus = {
+					category = electronics
+					bonus = 1
+					uses = 4
+				}
+			}
+			IF = {
+				limit = { difficulty > 0 }
+				swap_ideas = {
+					add_idea = DRA_ST1
+					remove_idea = DRA_ST0
+				}
+				add_political_power = 50
+				add_command_power = 10
+				add_manpower = 50000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+				}
+				add_tech_bonus = {
+					category = infantry_equipment
+					bonus = 1
+					uses = 4
+					ahead_reduction = 2
+				}
+				add_tech_bonus = {
+					category = support_tech
+					bonus = 1
+					uses = 4
+					ahead_reduction = 2
+				}
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				swap_ideas = {
+					add_idea = DRA_ST2
+					remove_idea = DRA_ST1
+				}
+				add_political_power = 100
+				add_command_power = 10
+				add_manpower = 100000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+				}
+				add_equipment_to_stockpile = {
+					type = motorized_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis_1
+					amount = 1000
+					variant_name = "Panzer III"
+				}
+				add_tech_bonus = {
+					category = night_vision
+					bonus = 1
+					uses = 2
+					ahead_reduction = 10
+				}
+				add_tech_bonus = {
+					category = armor
+					bonus = 1
+					uses = 6
+					ahead_reduction = 4
+				}
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				swap_ideas = {
+					add_idea = DRA_ST3
+					remove_idea = DRA_ST2
+				}
+				add_equipment_to_stockpile = {
+					type = motorized_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis_1
+					amount = 3000
+					variant_name = "Panzer III"
+				}
+				add_stability = 0.2
+				add_war_support = 0.2
+				add_political_power = 150
+				add_command_power = 50
+				add_manpower = 100000
+				add_tech_bonus = {
+					category = artillery_equipment
+					bonus = 1
+					uses = 4
+					ahead_reduction = 4
+				}
+				add_tech_bonus = {
+					category = support_tech
+					bonus = 1
+					uses = 4
+					ahead_reduction = 4
+				}
+				add_tech_bonus = {
+					category = cat_mechanized_equipment
+					bonus = 1
+					uses = 4
+					ahead_reduction = 4
+				}
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				swap_ideas = {
+					add_idea = DRA_ST4
+					remove_idea = DRA_ST3
+				}
+				add_political_power = 250
+				add_command_power = 250
+				add_manpower = 200000
+				add_ideas = DOT_Government_Industry5
+				add_ideas = DOT_Government_Army5
+				add_ideas = DOT_Government_Research5
+				add_tech_bonus = {
+					category = rocketry
+					bonus = 1
+					uses = 4
+					ahead_reduction = 10
+				}
+				add_tech_bonus = {
+					category = nuclear
+					bonus = 1
+					uses = 4
+					ahead_reduction = 10
+				}
+				add_tech_bonus = {
+					category = industry
+					bonus = 1
+					uses = 4
+					ahead_reduction = 10
+				}
+				add_tech_bonus = {
+					category = electronics
+					bonus = 1
+					uses = 4
+					ahead_reduction = 10
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.101.a
+			IF = {
+				limit = { difficulty > 0 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 2
+				}
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 5
+				}
+			}
+	}
+}
+#102 莱艮芬德领强化
+country_event = {
+	id = Knights.102
+	title = Knights.102.t
+	desc = Knights.102.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { difficulty > -1 }
+				add_ideas = RAG_ST0
+				add_political_power = 20
+				add_command_power = 20
+				add_manpower = 50000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 200
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 200
+				}
+			}
+			IF = {
+				limit = { difficulty > 0 }
+				swap_ideas = {
+					add_idea = RAG_ST1
+					remove_idea = RAG_ST0
+				}
+				add_political_power = 20
+				add_command_power = 20
+				add_manpower = 50000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 200
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 200
+				}
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				swap_ideas = {
+					add_idea = RAG_ST2
+					remove_idea = RAG_ST1
+				}
+				add_political_power = 20
+				add_command_power = 20
+				add_manpower = 50000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 200
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 200
+				}
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				swap_ideas = {
+					add_idea = RAG_ST3
+					remove_idea = RAG_ST2
+				}
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 100000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+				}
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				swap_ideas = {
+					add_idea = RAG_ST4
+					remove_idea = RAG_ST3
+				}
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 100000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+				}
+				add_ideas = DOT_Government_Industry5
+				add_ideas = DOT_Government_Army5
+				add_ideas = DOT_Government_Agri5
+			}
+		}
+	}
+	option = {
+		name = Knights.102.a
+	}
+}
+#103 奔狼领强化
+country_event = {
+	id = Knights.103
+	title = Knights.103.t
+	desc = Knights.103.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { difficulty > -1 }
+				add_ideas = AN_ST0
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 100000
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 1
+					add_manpower = 200000
+				}
+			}
+			IF = {
+				limit = { difficulty > 0 }
+				swap_ideas = {
+					add_idea = AN_ST1
+					remove_idea = AN_ST0
+				}
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 100000
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 1
+					add_manpower = 200000
+				}
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				swap_ideas = {
+					add_idea = AN_ST2
+					remove_idea = AN_ST1
+				}
+				add_political_power = 100
+				add_command_power = 100
+				add_manpower = 200000
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				swap_ideas = {
+					add_idea = AN_ST3
+					remove_idea = AN_ST2
+				}
+				add_political_power = 150
+				add_command_power = 150
+				add_manpower = 200000
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				swap_ideas = {
+					add_idea = AN_ST4
+					remove_idea = AN_ST3
+				}
+				add_political_power = 250
+				add_command_power = 250
+				add_manpower = 300000
+			}
+		}
+	}
+	option = {
+		name = Knights.103.a
+			IF = {
+				limit = { difficulty > 0 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 2
+				}
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 4
+				}
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				every_owned_state = {
+					add_extra_state_shared_building_slots = 10
+				}
+			}
+	}
+}
+#104 饥饿之灾
+country_event = {
+	id = Knights.104
+	title = Knights.104.t
+	desc = Knights.104.d
+	is_triggered_only = no
+	fire_only_once = yes
+	trigger = {
+		has_idea = MOT_Debuff_Food_Shortage
+		date > 1937.6.1
+	}
+	immediate = {
+		set_country_flag = MOT_Debuff1
+	}
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.104.a
+		add_stability = -0.05
+	}
+	option = {
+		name = Knights.104.b
+		add_war_support = -0.05
+	}
+	option = {
+		name = Knights.104.c
+		add_political_power = -100
+	}
+}
+#105 刀兵之灾
+country_event = {
+	id = Knights.105
+	title = Knights.105.t
+	desc = Knights.105.d
+	is_triggered_only = no
+	fire_only_once = yes
+	trigger = {
+		has_idea = MOT_Debuff_Man_Shortage
+		date > 1937.7.1
+	}
+	immediate = {
+		set_country_flag = MOT_Debuff2
+	}
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.105.a
+		add_stability = -0.05
+	}
+	option = {
+		name = Knights.105.b
+		add_war_support = -0.05
+	}
+	option = {
+		name = Knights.105.c
+		add_political_power = -100
+	}
+}
+#106 失业之灾
+country_event = {
+	id = Knights.106
+	title = Knights.106.t
+	desc = Knights.106.d
+	is_triggered_only = no
+	fire_only_once = yes
+	trigger = {
+		has_idea = MOT_Debuff_Resour_Shortage
+		date > 1937.8.1
+	}
+	immediate = {
+		set_country_flag = MOT_Debuff3
+	}
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.106.a
+		add_stability = -0.05
+	}
+	option = {
+		name = Knights.106.b
+		add_war_support = -0.05
+		add_manpower = 50000
+	}
+	option = {
+		name = Knights.106.c
+		add_political_power = -100
+	}
+}
+#107 贫乏之灾
+country_event = {
+	id = Knights.107
+	title = Knights.107.t
+	desc = Knights.107.d
+	is_triggered_only = no
+	fire_only_once = yes
+	trigger = {
+		has_idea = MOT_Debuff_Goods_Shortage
+		date > 1937.8.1
+	}
+	immediate = {
+		set_country_flag = MOT_Debuff4
+	}
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.107.a
+		add_stability = -0.05
+	}
+	option = {
+		name = Knights.107.b
+		add_war_support = -0.05
+	}
+	option = {
+		name = Knights.107.c
+		add_political_power = -100
+	}
+}
+#108 非议之灾
+country_event = {
+	id = Knights.108
+	title = Knights.108.t
+	desc = Knights.108.d
+	is_triggered_only = no
+	fire_only_once = yes
+	trigger = {
+		has_idea = MOT_Debuff_Prop_Shortage
+		date > 1937.8.1
+	}
+	immediate = {
+		set_country_flag = MOT_Debuff5
+	}
+	picture = GFX_event_MOT003
+	
+	option = {
+		name = Knights.108.a
+		add_stability = -0.05
+	}
+	option = {
+		name = Knights.108.b
+		add_war_support = -0.05
+	}
+	option = {
+		name = Knights.108.c
+		add_political_power = -100
+	}
+}
+#109 说明
+country_event = {
+	id = Knights.109
+	title = Knights.109.t
+	desc = Knights.109.d
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.109.a
+	}
+	option = {
+		name = Knights.109.b
+		set_country_flag = MOT_Not_See_Teller
+	}
+	option = {
+		name = Knights.109.c
+		country_event = Knights.110
+	}
+	option = {
+		name = Knights.109.e
+		country_event = Knights.111
+	}
+	option = {
+		name = Knights.109.f
+		country_event = Knights.112
+	}
+}
+#110 骑士团说明
+country_event = {
+	id = Knights.110
+	title = Knights.110.t
+	desc = Knights.110.d
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.110.a
+	}
+	option = {
+		name = Knights.110.b
+		country_event = Knights.109
+	}
+}
+#111 龙脊雪山领说明
+country_event = {
+	id = Knights.111
+	title = Knights.111.t
+	desc = Knights.111.d
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.111.a
+	}
+	option = {
+		name = Knights.111.b
+		country_event = Knights.109
+	}
+}
+#112 狼领莱领说明
+country_event = {
+	id = Knights.112
+	title = Knights.112.t
+	desc = Knights.112.d
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.112.a
+	}
+	option = {
+		name = Knights.112.b
+		country_event = Knights.109
+	}
+}
+#113 诺艾尔特质升级1
+country_event = {
+	id = Knights.113
+	title = Knights.113.t
+	desc = Knights.113.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 5 }
+			has_global_flag = MOT_REUNITED
+			date > 1938.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_No_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.113.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_No_Experience
+			add = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+}
+#114 诺艾尔特质升级2
+country_event = {
+	id = Knights.114
+	title = Knights.114.t
+	desc = Knights.114.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		OR = {
+			check_variable = { MOT_Noelle_Exp > 10 }
+			has_global_flag = MOT_REUNITED
+			date > 1940.1.1
+		}
+		has_country_leader = {
+			character = MOT_Noelle
+			ruling_only = yes
+		}
+		MOT_Noelle = {
+			has_trait = MOT_Noelle_Not_Enough_Experience
+		}
+	}
+	
+	option = {
+		name = Knights.114.a
+		swap_ruler_traits = {
+			remove = MOT_Noelle_Not_Enough_Experience
+			add = MOT_Noelle_Little_Experience
+		}
+	}
+}
+#115 略感疲惫
+country_event = {
+	id = Knights.115
+	title = Knights.115.t
+	desc = Knights.115.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			check_variable = {
+				MOT_Jean_HP < 0
+			}
+		}
+		NOT = { has_global_flag = MOT_Civil_War_Begun }
+	}
+	
+	option = {
+		name = Knights.115.a
+		custom_effect_tooltip = MOT_Enter_Noelle
+		set_country_flag = MOT_JeanWill_Fall
+		MOT_Jean = {
+			add_unit_leader_trait = sick
+		}
+	}
+}
+
+#116 琴团长倒下
+country_event = {
+	id = Knights.116
+	title = Knights.116.t
+	desc = Knights.116.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		OR = {
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Communism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Fascism
+			}
+			has_game_rule = {
+				rule = MOT_ChoosetheWay
+				option = MOT_NoelleWay_Democrazy
+			}
+			has_country_flag = MOT_JeanWill_Fall
+		}
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	option = {
+		name = Knights.116.a
+		MOT_Jean = {
+			add_unit_leader_trait = wounded
+			add_country_leader_trait = MOT_Fall_Down
+		}
+		hidden_effect = {
+			set_global_flag = MOT_News_Show3
+		}
+	}
+}
+#117 紧急提拔
+country_event = {
+	id = Knights.117
+	title = Knights.117.t
+	desc = Knights.117.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		MOT_Jean = {
+			has_trait = MOT_Fall_Down
+		}
+		has_country_flag = MOT_Noelle_Hero1
+	}
+	option = {
+		name = Knights.117.a
+		set_country_flag = MOT_Jean_Ill
+		mark_focus_tree_layout_dirty = yes
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = MOT_Noelle
+			promote_leader = yes
+			country_leader = {
+				ideology = moderatism
+				expire = "1965.1.1.1"
+				traits = { 
+					MOT_Noelle_No_Experience
+					MOT_Noelle_Jean_Give
+					MOT_Noelle_Flower_without_Honor
+				}
+			}
+		}
+		IF = {
+			limit = { has_country_flag = MOT_Noelle_Strengthened }
+			custom_effect_tooltip = MOT_Noelle_BetterNow
+			MOT_Noelle = {
+				hidden_effect = {
+					swap_country_leader_traits = {
+						remove = MOT_Noelle_No_Experience
+						add = MOT_Noelle_Not_Enough_Experience
+						ideology = Rosism
+					}
+				}
+				swap_country_leader_traits = {
+					remove = MOT_Noelle_No_Experience
+					add = MOT_Noelle_Not_Enough_Experience
+					ideology = moderatism
+				}
+			}
+		}
+	}
+}
+#118 暂时的稳定
+country_event = {
+	id = Knights.118
+	title = Knights.118.t
+	desc = Knights.118.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		has_country_flag = MOT_Jean_Ill
+		has_global_flag = {
+			flag = MOT_Civil_War_1_End
+			days > 30
+		}
+	}
+	
+	option = {
+		name = Knights.118.a
+	}
+}
+#119 骑士们的歌声
+country_event = {
+	id = Knights.119
+	title = Knights.119.t
+	desc = Knights.119.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = Knights.119.a
+		add_war_support = 0.05
+	}
+}
+#120 演出的极致
+country_event = {
+	id = Knights.120
+	title = Knights.120.t
+	desc = Knights.120.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.120.a
+		add_war_support = 0.05
+	}
+}
+#121 诺艾尔在战场
+country_event = {
+	id = Knights.121
+	title = Knights.121.t
+	desc = Knights.121.d
+	fire_only_once = yes
+	is_triggered_only = n
+	trigger = {
+		original_tag = MOT
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	option = {
+		name = Knights.121.a
+		set_country_flag = MOT_Noelle_Hero1
+	}
+}
+#122 诺艾尔的日记1
+country_event = {
+	id = Knights.122
+	title = Knights.122.t
+	desc = Knights.122.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Jean_Ill
+			days > 40
+		}
+	}
+	option = {
+		name = Knights.122.a
+		add_political_power = 30
+		add_to_variable = { MOT_Noelle_Exp = 1 }
+	}
+}
+#123 诺艾尔的日记2
+country_event = {
+	id = Knights.123
+	title = Knights.123.t
+	desc = Knights.123.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.123.a
+		add_stability = 0.1
+	}
+}
+#124 诺艾尔的日记3
+country_event = {
+	id = Knights.124
+	title = Knights.124.t
+	desc = Knights.124.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.124.a
+		add_stability = 0.06
+		add_war_support = 0.05
+	} 
+}
+#125 诺艾尔黑线前置 阶段1
+country_event = {
+	id = Knights.125
+	title = Knights.125.t
+	desc = Knights.125.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_RWay_Done }
+		NOT = { has_country_flag = MOT_REUNITED }
+		has_country_flag = MOT_Jean_Ill
+		date > 1937.9.1
+		OR = {
+			has_stability < 0.6
+			has_war_support < 0.6
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.125.a
+		custom_effect_tooltip = MOT_FWay_Route
+		set_country_flag = MOT_FWay_1
+		add_political_power = 200
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = 1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = -100
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.125.b
+		custom_effect_tooltip = MOT_NoFWay_Route
+		add_political_power = 100
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = -1000
+				has_game_rule = {
+					rule = MOT_ChoosetheWay
+					option = MOT_NoelleWay_Fascism
+				}
+			}
+			modifier = {
+				add = 1000
+				OR = {
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Communism
+					}
+					has_game_rule = {
+						rule = MOT_ChoosetheWay
+						option = MOT_NoelleWay_Democrazy
+					}
+				}
+			}
+		}
+	}
+}
+
+#126 诺艾尔黑线前置 阶段2
+country_event = {
+	id = Knights.126
+	title = Knights.126.t
+	desc = Knights.126.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_NoFWay_Route }
+		NOT = { has_country_flag = MOT_RWay_Done }
+		NOT = { has_country_flag = MOT_REUNITED }
+		has_country_flag = {
+			flag = MOT_FWay_1
+			days > 30
+		}
+		OR = {
+			has_stability < 0.5
+			has_war_support < 0.5
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.126.a
+		set_country_flag = MOT_FWay_2
+	}
+}
+#127 诺艾尔黑线 阶段三
+country_event = {
+	id = Knights.127
+	title = Knights.127.t
+	desc = Knights.127.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		NOT = { has_country_flag = MOT_NoFWay_Route }
+		NOT = { has_country_flag = MOT_RWay_Done }
+		NOT = { has_country_flag = MOT_REUNITED }
+		has_country_flag = {
+			flag = MOT_FWay_2
+			days > 60
+		}
+		OR = {
+			has_stability < 0.3
+			has_war_support < 0.3
+		}
+	}
+	is_triggered_only = no
+	
+	option = {
+		name = Knights.127.a
+		country_event = { id = Knights.136 hours = 6 }
+	}
+}
+#128 进入诺艾尔黑线 结晶之夜
+country_event = {
+	id = Knights.128
+	title = Knights.128.t
+	desc = Knights.128.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.128.a
+		set_country_flag = MOT_Noelle_Blacken
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = no
+			last_election = "1936.1.1"
+			election_frequency = 48
+		}
+		add_country_leader_role = {
+			character = MOT_Noelle
+			promote_leader = yes
+			country_leader = {
+				ideology = falangism
+				expire = "1965.1.1.1"
+				traits = { 
+					MOT_Noelle_Black_Mandate
+					MOT_Noelle_Flower_without_Honor
+					MOT_Noelle_Little_Experience
+				}
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = MOT_Enter_BlackWay
+	}
+}
+#129 病房前·黑
+country_event = {
+	id = Knights.129
+	title = Knights.129.t
+	desc = Knights.129.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.129.a
+		custom_effect_tooltip = MOT_AfterCW_Black
+		country_event = { id = Knights.139 hours = 6 }
+	}
+	option = {
+		name = Knights.129.b
+		trigger = { NOT = { has_country_flag = MOT_FWay_Done } }
+		custom_effect_tooltip = MOT_AfterCW_Blue
+		country_event = { id = Knights.142 hours = 6 }
+	}
+}
+#130 病房前·红
+country_event = {
+	id = Knights.130
+	title = Knights.130.t
+	desc = Knights.130.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.130.a
+		trigger = {
+			has_country_flag = MOT_RWay_Done
+		}
+		custom_effect_tooltip = MOT_AfterCW_Red
+		country_event = { id = Knights.140 hours = 6 }
+	}
+	option = {
+		name = Knights.130.b
+		custom_effect_tooltip = MOT_AfterCW_Blue
+		country_event = { id = Knights.142 hours = 6 }
+	}
+}
+#131 诺艾尔的日记：最后一页
+country_event = {
+	id = Knights.131
+	title = Knights.131.t
+	desc = Knights.131.d
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = {
+			flag = MOT_Noelle_Blacken
+			days > 80
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.131.a
+		add_political_power = 100
+	}
+}
+#132 羽球节
+country_event = {
+	id = Knights.132
+	title = Knights.132.t
+	desc = Knights.132.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		date > 1935.06.01
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.132.a
+		add_political_power = 10
+	}
+}
+#133 风花节 琴
+country_event = {
+	id = Knights.133
+	title = Knights.133.t
+	desc = Knights.133.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		NOT = { has_country_flag = MOT_Jean_Ill }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.133.a
+		add_war_support = 0.02
+	}
+}
+#134 风花节 诺艾尔
+country_event = {
+	id = Knights.134
+	title = Knights.134.t
+	desc = Knights.134.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		has_country_flag = MOT_Jean_Ill
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.134.a
+		add_war_support = 0.02
+	}
+}
+#135 风花节 和平线
+country_event = {
+	id = Knights.135
+	title = Knights.135.t
+	desc = Knights.135.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		date > 1936.12.01
+		NOT = { has_global_flag = MOT_Civil_War_Begun }
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.135.a
+		add_stability = 0.02
+	}
+}
+#136 决意
+country_event = {
+	id = Knights.136
+	title = Knights.136.t
+	desc = Knights.136.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.136.a
+		country_event = { id = Knights.128 hours = 6 }
+	}
+}
+#137 琴团长蓝线胜利
+country_event = {
+	id = Knights.137
+	title = Knights.137.t
+	desc = Knights.137.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.137.a
+		add_political_power = 100
+	}
+	option = {
+		name = Knights.137.b
+		add_political_power = 100
+	}
+}
+#138 琴团长灰线胜利
+country_event = {
+	id = Knights.138
+	title = Knights.138.t
+	desc = Knights.138.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.138.a
+		add_political_power = 100
+	}
+	option = {
+		name = Knights.138.b
+		add_political_power = 100
+	}
+}
+#139 诺艾尔黑线胜利
+country_event = {
+	id = Knights.139
+	title = Knights.139.t
+	desc = Knights.139.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.139.a
+		add_political_power = 100
+		MOT_REUNION_FFF = yes
+		MOT_Show_Noelle_BuffDark = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = Knights.139.b
+		add_political_power = 100
+		MOT_REUNION_FFF = yes
+		MOT_Show_Noelle_BuffDark = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+#140 诺艾尔红线胜利1
+country_event = {
+	id = Knights.140
+	title = Knights.140.t
+	desc = Knights.140.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.140.a
+		country_event = Knights.141
+	}
+}
+#141 诺艾尔红线胜利2
+country_event = {
+	id = Knights.141
+	title = Knights.141.t
+	desc = Knights.141.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.141.a
+		add_political_power = 100
+		custom_effect_tooltip = MOT_Swap_Support
+		remove_dynamic_modifier = { modifier = MOT_Support_From_Meeting }
+		add_dynamic_modifier = { modifier = MOT_Support_From_Committee }
+		country_event = { id = Knights.143 days = 1 }
+	}
+	option = {
+		name = Knights.141.b
+		add_political_power = 100
+		custom_effect_tooltip = MOT_Swap_Support
+		remove_dynamic_modifier = { modifier = MOT_Support_From_Meeting }
+		add_dynamic_modifier = { modifier = MOT_Support_From_Committee }
+		country_event = { id = Knights.143 days = 1 }
+	}
+}
+#142 诺艾尔让位
+country_event = {
+	id = Knights.142
+	title = Knights.142.t
+	desc = Knights.142.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.142.a
+		add_political_power = 100
+		MOT_REUNION_DDD = yes
+	}
+	option = {
+		name = Knights.142.b
+		add_political_power = 100
+		MOT_REUNION_DDD = yes
+	}
+}
+#143 大会
+country_event = {
+	id = Knights.143
+	title = Knights.143.t
+	desc = Knights.143.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.143.a
+		custom_effect_tooltip = MOT_Unlock_Red_Focus
+		country_event = { id = Knights.144 hours = 6 }
+	}
+}
+#144 军事经费负担？
+country_event = {
+	id = Knights.144
+	title = Knights.144.t
+	desc = Knights.144.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.144.a
+		set_country_flag = MOT_RWay_1_Military
+		country_event = { id = Knights.145 hours = 6 }
+	}
+	option = {
+		name = Knights.144.b
+		set_country_flag = MOT_RWay_1_Peace
+		country_event = { id = Knights.145 hours = 6 }
+	}
+}
+#145 经济体制？
+country_event = {
+	id = Knights.145
+	title = Knights.145.t
+	desc = Knights.145.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.145.a
+		set_country_flag = MOT_RWay_2_Plan
+		country_event = { id = Knights.146 hours = 6 }
+	}
+	option = {
+		name = Knights.145.b
+		set_country_flag = MOT_RWay_2_Completion
+		country_event = { id = Knights.146 hours = 6 }
+	}
+	option = {
+		name = Knights.145.c
+		set_country_flag = MOT_RWay_2_Demo
+		country_event = { id = Knights.146 hours = 6 }
+	}
+}
+#146 解决敌人？
+country_event = {
+	id = Knights.146
+	title = Knights.146.t
+	desc = Knights.146.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.146.a
+		set_country_flag = MOT_Rway_3_Beat
+		country_event = { id = Knights.147 hours = 6 }
+	}
+	option = {
+		name = Knights.146.b
+		set_country_flag = MOT_Rway_3_Union
+		country_event = { id = Knights.147 hours = 6 }
+	}
+}
+#147 选拔行政人员？
+country_event = {
+	id = Knights.147
+	title = Knights.147.t
+	desc = Knights.147.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.147.a
+		set_country_flag = MOT_Rway_4_From
+		country_event = { id = Knights.148 hours = 6 }
+	}
+	option = {
+		name = Knights.147.b
+		set_country_flag = MOT_Rway_4_Know
+		country_event = { id = Knights.148 hours = 6 }
+	}
+	option = {
+		name = Knights.147.c
+		set_country_flag = MOT_Rway_4_Meeting
+		country_event = { id = Knights.148 hours = 6 }
+	}
+}
+#148 政党制度？
+country_event = {
+	id = Knights.148
+	title = Knights.148.t
+	desc = Knights.148.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.148.a
+		set_country_flag = MOT_Rway_5_Common
+		country_event = { id = Knights.149 hours = 6 }
+	}
+	option = {
+		name = Knights.148.b
+		set_country_flag = MOT_Rway_5_One
+		country_event = { id = Knights.149 hours = 6 }
+	}
+	option = {
+		name = Knights.148.c
+		set_country_flag = MOT_Rway_5_Dem
+		country_event = { id = Knights.149 hours = 6 }
+	}
+}
+#149 税制改革？
+country_event = {
+	id = Knights.149
+	title = Knights.149.t
+	desc = Knights.149.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.149.a
+		set_country_flag = MOT_Rway_6_Mild
+		country_event = { id = Knights.150 hours = 6 }
+	}
+	option = {
+		name = Knights.149.b
+		set_country_flag = MOT_Rway_6_Stronger
+		country_event = { id = Knights.150 hours = 6 }
+	}
+}
+#150 税制改革？
+country_event = {
+	id = Knights.150
+	title = Knights.150.t
+	desc = Knights.150.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.150.a
+		set_country_flag = MOT_Rway_7_Liber
+		country_event = { id = Knights.151 hours = 6 }
+	}
+	option = {
+		name = Knights.150.b
+		set_country_flag = MOT_Rway_7_Free
+		country_event = { id = Knights.151 hours = 6 }
+	}
+}
+#151 大会闭幕
+country_event = {
+	id = Knights.151
+	title = Knights.151.t
+	desc = Knights.151.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.151.a
+		MOT_REUNION_CCC = yes
+		MOT_Show_Noelle_BuffRED = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+#152 琴苏醒 红线
+country_event = {
+	id = Knights.152
+	title = Knights.152.t
+	desc = Knights.152.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.152.a
+		country_event = { id = Knights.130 hours = 6 }
+	}
+}
+#153 琴苏醒 黑线
+country_event = {
+	id = Knights.153
+	title = Knights.153.t
+	desc = Knights.153.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.153.a
+		country_event = { id = Knights.129 hours = 6 }
+	}
+}
+#154 蒙德被附庸势力转为过渡国策
+country_event = {
+	id = Knights.154
+	title = Knights.154.t
+	desc = Knights.154.d
+	fire_only_once = yes
+	
+	trigger = {
+		OR = {
+			Is_MOT = yes
+			overlord = { Is_MOT = yes }
+		}
+		NOT = { has_autonomy_state = autonomy_MOT_Auto_State }
+		OR = {
+			is_subject = yes
+			is_puppet = yes
+		}
+		NOT = {
+			original_tag = DVA
+		}
+	}
+	is_triggered_only = yes
+	
+	option = {
+		name = Knights.154.a
+		load_focus_tree = GFS_Focus_00
+	}
+}
+#纠正意识形态
+country_event = {
+	id = Knights.155
+	title = Knights.155.t
+	desc = Knights.155.d
+	fire_only_once = no
+	trigger = {
+		original_tag = MOT
+		OR = {
+			AND = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				NOT = { has_country_flag = MOT_Noelle_Blacken }
+				neutrality < 0.5
+			}
+			AND = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				has_country_flag = MOT_Noelle_Blacken
+				fascism < 0.5
+			}
+		}
+	}
+	is_triggered_only = no
+	option = {
+		name = Knights.155.a
+		add_political_power = -50
+		IF = {
+			limit = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				NOT = { has_country_flag = MOT_Noelle_Blacken }
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+		}
+		IF = {
+			limit = {
+				NOT = { has_global_flag = MOT_REUNITED }
+				has_country_flag = MOT_Noelle_Blacken
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.2
+			}
+		}
+	}
+}
+#趣味事件 新作小说《我的代团长不可能这么萌》
+country_event = {
+	id = Knights.156
+	title = Knights.156.t
+	desc = Knights.156.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_leader = MOT_Noelle
+		has_global_flag = {
+			flag = MOT_REUNITED
+			days > 90
+		}
+	}
+	immediate = {
+		set_country_flag = MOT_Fun_Event1
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.156.a
+		add_political_power = -10
+		add_stability = 0.01
+	}
+	option = {
+		name = Knights.156.b
+		add_political_power = 10
+	}
+}
+#趣味事件 新作小说《代理团长与七公主不得不说的故事》
+country_event = {
+	id = Knights.157
+	title = Knights.157.t
+	desc = Knights.157.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_leader = MOT_Noelle
+		date > 1939.6.1
+		has_global_flag = {
+			flag = MOT_REUNITED
+			days > 90
+		}
+	}
+	immediate = {
+		set_country_flag = MOT_Fun_Event1
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.157.a
+		add_political_power = -10
+		add_stability = 0.01
+	}
+	option = {
+		name = Knights.157.b
+		add_political_power = 10
+	}
+}
+#趣味事件 新作漫画《燃烧之魂》 红
+country_event = {
+	id = Knights.158
+	title = Knights.158.t
+	desc = Knights.158.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Fun_Event1
+			days > 90
+		}
+		has_government = communism
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.158.a
+		add_political_power = 10
+	}
+}
+#趣味事件 新作漫画《糖与避难所》 蓝
+country_event = {
+	id = Knights.159
+	title = Knights.159.t
+	desc = Knights.159.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Fun_Event1
+			days > 90
+		}
+		has_government = democratic
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.159.a
+		add_political_power = 10
+	}
+}
+#趣味事件 新作漫画《光明之魂》 灰
+country_event = {
+	id = Knights.160
+	title = Knights.160.t
+	desc = Knights.160.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Fun_Event1
+			days > 90
+		}
+		has_government = neutrality
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.160.a
+		add_political_power = 10
+	}
+}
+#趣味事件 新作漫画《香辛料与避难所》 黑
+country_event = {
+	id = Knights.161
+	title = Knights.161.t
+	desc = Knights.161.d
+	fire_only_once = yes
+	trigger = {
+		original_tag = MOT
+		has_country_flag = {
+			flag = MOT_Fun_Event1
+			days > 90
+		}
+		has_government = fascism
+	}
+	is_triggered_only = yes
+	option = {
+		name = Knights.161.a
+		add_political_power = 10
+	}
+}
+#教会强化
+country_event = {
+	id = Knights.162
+	title = Knights.162.t
+	desc = Knights.162.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_MOT003
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { difficulty > -1 }
+				add_ideas = FAV_ST0
+				add_political_power = 50
+				
+				add_manpower = 50000
+			}
+			IF = {
+				limit = { difficulty > 0 }
+				swap_ideas = {
+					add_idea = FAV_ST1
+					remove_idea = FAV_ST0
+				}
+				add_political_power = 50
+				add_command_power = 50
+				add_manpower = 50000
+			}
+			IF = {
+				limit = { difficulty > 1 }
+				swap_ideas = {
+					add_idea = FAV_ST2
+					remove_idea = FAV_ST1
+				}
+				add_political_power = 100
+				add_command_power = 100
+				add_manpower = 100000
+			}
+			IF = {
+				limit = { difficulty > 2 }
+				swap_ideas = {
+					add_idea = FAV_ST3
+					remove_idea = FAV_ST2
+				}
+				add_political_power = 150
+				add_command_power = 150
+				add_manpower = 150000
+			}
+			IF = {
+				limit = { difficulty > 3 }
+				swap_ideas = {
+					add_idea = FAV_ST4
+					remove_idea = FAV_ST3
+				}
+				add_political_power = 250
+				add_command_power = 250
+				add_manpower = 250000
+				add_ideas = DOT_Government_Industry5
+				add_ideas = DOT_Government_Army5
+				add_ideas = DOT_Government_Agri5
+			}
+		}
+	}
+	option = {
+		name = Knights.162.a
+	}
+}

@@ -1,0 +1,133 @@
+ability = {
+	#诞生式·大地之潮
+	DRA_Albedo_Flood_of_Earth = {
+		name = ABILITY_DRA_Albedo_Flood_of_Earth
+		desc = ABILITY_DRA_Albedo_Flood_of_Earth_DESC
+		icon = GFX_ability_last_stand
+		
+		sound_effect = command_power_ability_offensive
+		cost = 0.25
+		type = army_leader
+		duration = 140
+		cooldown = 350
+		unit_modifiers = {
+			
+		}
+		one_time_effect = {
+			add_temporary_buff_to_units = {
+				combat_entrenchment = 3
+				combat_defense = 3
+				combat_breakthrough = 0.5
+				str_damage_multiplier = -0.5
+				war_support_reduction_on_damage = -1
+				days = 20
+				tooltip = ABILITY_DRA_Albedo_Flood_of_Earth_TOOLTIP
+			}
+		}
+		allowed = {
+			is_leading_army_group = no
+			is_border_war = no
+			has_ability = DRA_Albedo_Flood_of_Earth
+		}
+		
+		ai_will_do = {
+			factor = -1
+			modifier = {
+				FROM = {
+					command_power > 1.5
+				}
+				check_variable = { num_units_defensive_combats > 6 }
+				
+				set_temp_variable = { temp = avg_defensive_combat_status }
+				check_variable = { temp < 0.40 }
+				check_variable = { ai_random > temp }
+				
+				add = 20
+			}
+		}
+	}
+	#混元熵增论
+	DRA_Sucrose_Chumeizhihuan = {
+		name = ABILITY_DRA_Sucrose_Chumeizhihuan
+		desc = ABILITY_DRA_Sucrose_Chumeizhihuan_DESC
+		icon = GFX_ability_chi_force_attack
+		
+		sound_effect = command_power_ability_offensive
+		cost = 0.1
+		type = army_leader
+		duration = 210
+		cooldown = 140
+		unit_modifiers = {
+			experience_gain_army_unit_factor = 2
+		}
+		one_time_effect = {
+		}
+		allowed = {
+			has_ability = DRA_Sucrose_Chumeizhihuan
+		}
+		
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				FROM = {
+					command_power > 1.5
+				}
+				check_variable = { num_units_offensive_combats > 1 }
+				
+				set_temp_variable = { temp = avg_offensive_combat_status }
+				check_variable = { temp > 0.35 }
+				check_variable = { ai_random > temp }
+				
+				factor = 5
+			}
+		}
+		
+	}
+	#空间电势结界
+	DRA_Lisa_KongjianDianshiJiejie = {
+		name = ABILITY_DRA_Lisa_KongjianDianshiJiejie
+		desc = ABILITY_DRA_Lisa_KongjianDianshiJiejie_DESC
+		icon = GFX_ability_last_stand
+		
+		sound_effect = command_power_ability_offensive
+		cost = 0.25
+		type = army_leader
+		duration = 360
+		cooldown = 480
+		unit_modifiers = {
+			initiative_factor = 1
+			land_night_attack = 0.2
+		}
+		one_time_effect = {
+			add_temporary_buff_to_units = {
+				org_damage_multiplier = -1
+				war_support_reduction_on_damage = -1
+				cannot_retreat_while_attacking = 1
+				days = 15
+				tooltip = ABILITY_DRA_Lisa_KongjianDianshiJiejie_TOOLTIP
+			}
+		}
+		allowed = {
+			is_leading_army_group = no
+			has_ability = DRA_Lisa_KongjianDianshiJiejie
+		}
+		
+		ai_will_do = {
+			factor = -1
+			modifier = {
+				FROM = {
+					command_power > 1.5
+				}
+				check_variable = { num_units_offensive_combats > 6 }
+				
+				set_temp_variable = { temp = avg_offensive_combat_status }
+				check_variable = { temp > 0.45 }
+				check_variable = { ai_random > temp }
+				
+				add = 15
+			}
+		}
+		
+	}
+		
+}

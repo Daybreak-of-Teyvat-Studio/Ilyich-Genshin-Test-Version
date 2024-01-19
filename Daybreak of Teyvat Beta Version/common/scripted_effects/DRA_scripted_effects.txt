@@ -1,0 +1,3348 @@
+##丽莎决议
+#蜂群变色
+DRA_Change_Bees_Color = {
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_a
+		}
+		set_cosmetic_tag = DRA_US
+	}
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_b
+		}
+		set_cosmetic_tag = DRA_Big_Us
+	}
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_c
+		}
+		set_cosmetic_tag = DRA_Ocean
+	}
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_d
+		}
+		set_cosmetic_tag = DRA_Great_Us
+	}
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_e
+		}
+		set_cosmetic_tag = DRA_Bees
+	}
+	IF = {
+		limit = {
+			has_country_flag = DRA_Fengqun_f
+		}
+		set_cosmetic_tag = DRA_genshin
+	}
+}
+#丽莎结局
+DRA_Lisa_Enter_Ending = {
+	IF = {
+		limit = {
+			has_country_flag = DRA_LisaComp_Catch_Without_Agreement
+		}
+		set_country_flag = DRA_REUNION_3_F
+		country_event = dragonspine.68
+		add_war_support = 0.2
+		add_stability = 0.2
+		add_political_power = 200
+		hidden_effect = {
+			news_event = { days = 2 id = DRA_news.10 }
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_country_flag = DRA_Stronger_Sense
+		}
+		country_event = dragonspine.67
+	}
+	ELSE_IF = {
+		IF = {
+			limit = {
+				is_ai = no
+			}
+			play_song = "兰斯超战略"
+		}
+		set_country_flag = DRA_REUNION_3_D
+		add_ideas = gene_high_welfare
+		add_war_support = -0.2
+		add_stability = 0.2
+		add_political_power = 200
+		country_event = dragonspine.66
+		hidden_effect = {
+			news_event = { days = 2 id = DRA_news.9 }
+		}
+	}
+}
+#升级“下午茶的愿景”
+DRA_Tea_Up = {
+	IF = {
+		limit = {
+			has_idea = DRA_our_will_for_tea_time1
+		}
+		swap_ideas = {
+			remove_idea = DRA_our_will_for_tea_time1
+			add_idea = DRA_our_will_for_tea_time2
+		}
+		hidden_effect = {
+			remove_ideas = DRA_our_will_for_tea_time3
+			remove_ideas = DRA_defeat_fear_create_future
+			remove_ideas = DRA_our_will_for_tea_time1
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_our_will_for_tea_time2
+		}
+		swap_ideas = {
+			remove_idea = DRA_our_will_for_tea_time2
+			add_idea = DRA_our_will_for_tea_time3
+		}
+		hidden_effect = {
+			remove_ideas = DRA_defeat_fear_create_future
+			remove_ideas = DRA_our_will_for_tea_time2
+			remove_ideas = DRA_our_will_for_tea_time1
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_our_will_for_tea_time3
+		}
+		swap_ideas = {
+			remove_idea = DRA_our_will_for_tea_time3
+			add_idea = DRA_defeat_fear_create_future
+		}
+		hidden_effect = {
+			remove_ideas = DRA_our_will_for_tea_time3
+			remove_ideas = DRA_our_will_for_tea_time2
+			remove_ideas = DRA_our_will_for_tea_time1
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_defeat_fear_create_future
+		}
+		add_political_power = 100
+		get_three_civilian = yes
+		get_three_civilian = yes
+		hidden_effect = {
+			remove_ideas = DRA_our_will_for_tea_time3
+			remove_ideas = DRA_our_will_for_tea_time2
+			remove_ideas = DRA_our_will_for_tea_time1
+		}
+	}
+}
+#获得难民数目
+DRA_Get_Popu = {
+	#应当在使用此效果之前，提前
+	#set_variable = { DRA_Man_Gain = 目标数值 }
+	set_variable = { lin_shi1 = DRA_All_Entertainment }
+	add_to_variable = { lin_shi1 = 100 }
+	divide_variable = { lin_shi1 = 100 }
+	multiply_variable = { DRA_Man_Gain = lin_shi1 }
+	add_to_variable = { DRA_Refugee_Manpower = DRA_Man_Gain }
+	clear_variable = DRA_Man_Gain
+}
+#获得反对力度
+DRA_CA_More = {
+	#应当在使用此效果之前，提前
+	#set_variable = { DRA_Anti_Gain = 目标数值 }
+	IF = {
+		limit = {
+			has_country_flag = DRA_Cover_our_Res
+		}
+		divide_variable = { DRA_Anti_Gain = 2 }
+		round_variable = DRA_Anti_Gain
+	}
+	add_to_variable = { DRA_Disagreement_of_C = DRA_Anti_Gain }
+	clear_variable = DRA_Anti_Gain
+}
+#奖励舒适度
+DRA_Entertaiment_gain = {
+	#应当在使用此效果之前，提前
+	#set_variable = { DRA_Enter_Gain = 目标数值 }
+	set_variable = {
+		var = DRA_enterzengjia1
+		value = 100
+	}
+	add_to_variable = { DRA_enterzengjia1 = DRA_Enter_Gain_Up }
+	divide_variable = { DRA_enterzengjia1 = 100 }
+	multiply_variable = { DRA_Enter_Gain = DRA_enterzengjia1 }
+	round_variable = DRA_Enter_Gain
+	add_to_variable = { DRA_Bonus_Entertainment = DRA_Enter_Gain }
+	DRA_Lisa_Entertainment = yes
+	clear_variable = DRA_Enter_Gain_Up
+	clear_variable = DRA_enterzengjia1
+}
+#消耗舒适度
+DRA_Entertaiment_cost = {
+	#应当在使用此效果之前，提前
+	#set_variable = { DRA_Enter_Cost = 目标数值 }
+	set_variable = {
+		var = DRA_enterjianyi
+		value = 100
+	}
+	subtract_from_variable = { DRA_enterjianyi = DRA_Enter_Cost_Down }
+	divide_variable = { DRA_enterjianyi = 100 }
+	multiply_variable = { DRA_Enter_Cost = DRA_enterjianyi }
+	round_variable = DRA_Enter_Cost
+	add_to_variable = { DRA_Used_Entertainment = DRA_Enter_Cost }
+	DRA_Lisa_Entertainment = yes
+	clear_variable = DRA_Enter_Cost
+	clear_variable = DRA_enterjianyi
+}
+#计算舒适度
+DRA_Lisa_Entertainment = {
+	set_variable = { linshibianliang = num_of_civilian_factories }
+	add_to_variable = { linshibianliang = DRA_Bonus_Entertainment }
+	subtract_from_variable = { linshibianliang = DRA_Used_Entertainment }
+	set_variable = { DRA_All_Entertainment = linshibianliang }
+}
+#难民入境
+DRA_Lisa_Get_Refugees = {
+	#第一级：总和舒适度在9以上，未安置难民少于3001
+	set_variable = {
+		var = linshibianliang
+		value = DRA_All_Entertainment
+	}
+	set_variable = {
+		var = linshibianliang2
+		value = threat
+	}
+	add_to_variable = { linshibianliang2 = 1 }
+	IF = {
+		limit = {
+			check_variable = { DRA_All_Entertainment > 9 }
+			check_variable = { DRA_Refugee_Manpower < 3001 }
+		}
+		custom_effect_tooltip = DRA_LisaRefugees1
+		add_political_power = DRA_All_Entertainment
+		add_stability = 0.01
+		divide_variable = { linshibianliang = 40 }
+		add_to_variable = { linshibianliang = 1 }
+		set_variable = {
+			var = linshibianliang3
+			value = 4000
+		}
+		multiply_variable = { linshibianliang3 = linshibianliang }
+		multiply_variable = { linshibianliang3 = linshibianliang2 }
+		add_to_variable = { DRA_Refugee_Manpower = linshibianliang3 }
+	}
+	#第二级：总和舒适度不是负数
+	ELSE_IF = {
+		limit = {
+			check_variable = { DRA_All_Entertainment > -1 }
+		}
+		custom_effect_tooltip = DRA_LisaRefugees2
+		add_political_power = DRA_All_Entertainment
+		divide_variable = { linshibianliang = 40 }
+		add_to_variable = { linshibianliang = 1 }
+		set_variable = {
+			var = linshibianliang3
+			value = 3000
+		}
+		multiply_variable = { linshibianliang3 = linshibianliang }
+		multiply_variable = { linshibianliang3 = linshibianliang2 }
+		add_to_variable = { DRA_Refugee_Manpower = linshibianliang3 }
+	}
+	#第三级：未安置难民少于5001
+	ELSE_IF = {
+		limit = {
+			check_variable = { DRA_Refugee_Manpower < 5001 }
+		}
+		custom_effect_tooltip = DRA_LisaRefugees3
+		divide_variable = { linshibianliang = 20 }
+		add_to_variable = { linshibianliang = -1 }
+		multiply_variable = { linshibianliang = -1 }
+		set_variable = {
+			var = linshibianliang3
+			value = 2000
+		}
+		multiply_variable = { linshibianliang3 = linshibianliang }
+		multiply_variable = { linshibianliang3 = linshibianliang2 }
+		add_to_variable = { DRA_Refugee_Manpower = linshibianliang3 }
+	}
+	#第五级·难民离去：总和舒适度在-19以下
+	#在第四级之前优先判定第五级
+	ELSE_IF = {
+		limit = {
+			check_variable = { DRA_All_Entertainment < -19 }
+		}
+		custom_effect_tooltip = DRA_LisaRefugees5
+		add_stability = -0.02
+		divide_variable = { linshibianliang = -20 }
+		set_variable = {
+			var = linshibianliang3
+			value = 1000
+		}
+		set_variable = {
+			var = linshibianliang2
+			value = threat
+		}
+		add_to_variable = { linshibianliang2 = -1 }
+		multiply_variable = { linshibianliang2 = -1 }
+		multiply_variable = { linshibianliang3 = linshibianliang }
+		multiply_variable = { linshibianliang3 = linshibianliang2 }
+		subtract_from_variable = { DRA_Refugee_Manpower = linshibianliang3 }
+	}
+	#第四级：以上均不满足
+	ELSE_IF = {
+		custom_effect_tooltip = DRA_LisaRefugees4
+		add_stability = -0.01
+		set_variable = {
+			var = linshibianliang3
+			value = 1000
+		}
+		multiply_variable = { linshibianliang3 = linshibianliang2 }
+		add_to_variable = { DRA_Refugee_Manpower = linshibianliang3 }
+	}
+	clear_variable = linshibianliang
+	clear_variable = linshibianliang2
+	clear_variable = linshibianliang3
+	
+}
+#科研周期
+DRA_Lisa_Research_Round = {
+	#依照权力强度来加政治点数
+	set_variable = {
+		var = linshibianliang
+		value = DRA_Power_of_Committee
+	}
+	divide_variable = { linshibianliang = 3 }
+	round_variable = linshibianliang
+	add_political_power = linshibianliang
+	clear_variable = linshibianliang
+	#依照权力强度来改变获得的科研点数
+	set_variable = {
+		var = linshibianliang2
+		value = DRA_Reseach_Points_perMonth
+	}
+	set_variable = {
+		var = linshibianliang3
+		value = DRA_Disagreement_of_C
+	}
+	multiply_variable = { linshibianliang3 = DRA_Power_of_Committee }
+	divide_variable = { linshibianliang3 = 200 }
+	round_variable = linshibianliang3
+	IF = {
+		limit = {
+			check_variable = { linshibianliang3 > DRA_Reseach_Points_perMonth }
+		}
+		set_variable = { linshibianliang3 = DRA_Reseach_Points_perMonth }
+	}
+	subtract_from_variable = { linshibianliang2 = linshibianliang3 }
+	add_to_variable = { DRA_Reseach_Points = linshibianliang2 }
+	custom_effect_tooltip = DRA_Lisa_Get_Points
+	clear_variable = linshibianliang2
+	clear_variable = linshibianliang3
+}
+
+#计算砂糖结局
+DRA_Sucrose_Ending = {
+	set_variable = {
+		var = Sucrose_Ending
+		value = 0
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_Bright_Star_of_Harmony
+		}
+		add_to_variable = { Sucrose_Ending = 20 }
+	}
+	IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_cultural_conflict4
+				has_idea = gene_cultural_conflict3
+				has_idea = gene_cultural_conflict2
+				has_idea = gene_cultural_conflict1
+			}
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			check_variable = { DRA_Sur_Innovation_Acceptance > 100 }
+		}
+		add_to_variable = { Sucrose_Ending = 10 }
+	}
+	IF = {
+		limit = {
+			check_variable = { DRA_Sur_Innovation_Acceptance > 200 }
+		}
+		add_to_variable = { Sucrose_Ending = 10 }
+	}
+	IF = {
+		limit = {
+			date < 1939.1.1
+		}
+		add_to_variable = { Sucrose_Ending = 10 }
+	}
+	IF = {
+		limit = {
+			date < 1940.1.1
+		}
+		add_to_variable = { Sucrose_Ending = 10 }
+	}
+	IF = {
+		limit = {
+			date < 1941.1.1
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			num_of_factories > 150
+		}
+		add_to_variable = { Sucrose_Ending = 10 }
+	}
+	IF = {
+		limit = {
+			num_of_factories > 100
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			DRA_Sucrose = {
+				skill > 3
+			}
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			DRA_Sucrose = {
+				skill > 5
+			}
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			DRA_Sucrose = {
+				skill > 6
+			}
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			DRA_Sucrose = {
+				skill > 7
+			}
+		}
+		add_to_variable = { Sucrose_Ending = 5 }
+	}
+	IF = {
+		limit = {
+			check_variable = { DRA_Sur_Innovation_Acceptance > 50 }
+		}
+		set_country_flag = DRA_Sur_PEnd
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = { DRA_Sur_Innovation_Acceptance < 51 }
+		}
+		set_country_flag = DRA_Sur_NEnd
+	}
+}
+#砂糖结局
+DRA_Sur_Enter_Ending = {
+	IF = {
+		limit = {
+			has_country_flag = DRA_Sur_PEnd
+		}
+		IF = {
+			limit = {
+				is_ai = no
+			}
+			play_song = "我的荣耀"
+		}
+		set_country_flag = DRA_REUNION_2_C
+		add_ideas = gene_middle_welfare
+		add_war_support = -0.2
+		add_stability = 0.2
+		add_political_power = 200
+		country_event = dragonspine.34
+		hidden_effect = {
+			news_event = { days = 2 id = DRA_news.3 }
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_country_flag = DRA_Sur_NEnd
+		}
+		IF = {
+			limit = {
+				is_ai = no
+			}
+			play_song = "兰斯超战略"
+		}
+		set_country_flag = DRA_REUNION_2_D
+		add_ideas = gene_middle_welfare
+		add_war_support = -0.2
+		add_stability = 0.2
+		add_political_power = 200
+		country_event = dragonspine.35
+		hidden_effect = {
+			news_event = { days = 2 id = DRA_news.4 }
+		}
+	}
+}
+##砂糖研究与推广
+#体力、精神定期变化
+SR_Sucrose_HPMP_Change = {
+	SH_Sum_Level = yes
+	add_to_variable = { DRA_Sucrose_MP = DRA_Sucrose_Sum }
+	IF = {
+		limit = {
+			OR = {
+				check_variable = {
+					DRA_Sucrose_MP < 10
+				}
+			}
+		}
+		random_list = {
+			50 = {
+			}
+			50 = {
+				hidden_effect = {
+					country_event = dragonspine.71
+				}
+			}
+		}
+		
+	}
+	IF = {
+		limit = {
+			OR = {
+				check_variable = {
+					DRA_Sucrose_HP < 10
+				}
+			}
+		}
+		random_list = {
+			50 = {
+			}
+			50 = {
+				hidden_effect = {
+					country_event = dragonspine.72
+				}
+			}
+		}
+		
+	}
+	IF = {
+		limit = {
+			OR = {
+				check_variable = {
+					DRA_Sucrose_MP > 90
+				}
+				check_variable = {
+					DRA_Sucrose_HP > 90
+				}
+			}
+		}
+		random_list = {
+			75 = {
+			}
+			25 = {
+				hidden_effect = {
+					country_event = dragonspine.73
+				}
+			}
+		}
+		
+	}
+	IF = {
+		limit = {
+			OR = {
+				check_variable = {
+					DRA_Sucrose_HP < 20
+				}
+				check_variable = {
+					DRA_Sucrose_MP < 20
+				}
+			}
+		}
+		add_to_variable = { DRA_Sucrose_HP = 15 }
+		add_to_variable = { DRA_Sucrose_MP = 10 }
+		add_political_power = 15
+		
+	}
+	ELSE_IF = {
+		limit = {
+			OR = {
+				check_variable = {
+					DRA_Sucrose_HP < 60
+				}
+				check_variable = {
+					DRA_Sucrose_MP < 60
+				}
+			}
+		}
+		add_to_variable = { DRA_Sucrose_HP = 30 }
+		add_to_variable = { DRA_Sucrose_MP = 15 }
+		add_political_power = 25
+	}
+	ELSE_IF = {
+		add_to_variable = { DRA_Sucrose_HP = 30 }
+		add_to_variable = { DRA_Sucrose_MP = 20 }
+		add_political_power = 40
+	}
+	IF = {
+		limit = {
+			is_ai = yes
+		}
+		add_to_variable = { DRA_Sucrose_HP = 10 }
+		add_to_variable = { DRA_Sucrose_MP = 10 }
+		add_political_power = 20
+	}
+	IF = {
+		limit = {
+			is_ai = yes
+			date > 1938.1.1
+		}
+		add_to_variable = { DRA_Sucrose_HP = 10 }
+		add_to_variable = { DRA_Sucrose_MP = 10 }
+		add_political_power = 20
+	}
+	IF = {
+		limit = {
+			check_variable = {
+				DRA_Sucrose_HP > 100
+			}
+			NOT = {
+				has_country_flag = DRA_Sucrose_Str
+			}
+		}
+		set_variable = { DRA_Sucrose_HP = 100 }
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = {
+				DRA_Sucrose_HP > 120
+			}
+			has_country_flag = DRA_Sucrose_Str
+		}
+		set_variable = { DRA_Sucrose_HP = 120 }
+	}
+	IF = {
+		limit = {
+			check_variable = {
+				DRA_Sucrose_MP > 100
+			}
+			NOT = {
+				has_country_flag = DRA_Sucrose_Mental
+			}
+		}
+		set_variable = { DRA_Sucrose_MP = 100 }
+	}
+	ELSE_IF = {
+		limit = {
+			check_variable = {
+				DRA_Sucrose_MP > 120
+			}
+			has_country_flag = DRA_Sucrose_Mental
+		}
+		set_variable = { DRA_Sucrose_MP = 120 }
+	}
+	IF ={
+		limit = {
+			has_country_flag = DRA_Sucrose_Str
+		}
+		add_to_variable = { DRA_Sucrose_HP = 5 }
+	}
+	IF ={
+		limit = {
+			has_country_flag = DRA_Sucrose_Mental
+		}
+		add_to_variable = { DRA_Sucrose_MP = 5 }
+	}
+}
+##砂糖对外援助
+#判定破坏行动成功与否
+SH_Check_Success = {
+	IF = {
+		limit = {
+			DRA = {
+				has_country_flag = DRA_Success_0
+			}
+		}
+		DRA = {
+			clr_country_flag = DRA_Success_0
+		}
+		random_list = {
+			98 = {
+				custom_effect_tooltip = DRA_Good_Action
+			}
+			2 = {
+				country_event = dragonspine.28
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			DRA = {
+				has_country_flag = DRA_Success_1
+			}
+		}
+		DRA = {
+			clr_country_flag = DRA_Success_1
+		}
+		random_list = {
+			90 = {
+				custom_effect_tooltip = DRA_Good_Action
+			}
+			10 = {
+				country_event = dragonspine.28
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			DRA = {
+				has_country_flag = DRA_Success_2
+			}
+		}
+		DRA = {
+			clr_country_flag = DRA_Success_2
+		}
+		random_list = {
+			80 = {
+				custom_effect_tooltip = DRA_Good_Action
+			}
+			20 = {
+				country_event = dragonspine.28
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			DRA = {
+				has_country_flag = DRA_Success_3
+			}
+		}
+		DRA = {
+			clr_country_flag = DRA_Success_3
+		}
+		random_list = {
+			70 = {
+				custom_effect_tooltip = DRA_Good_Action
+			}
+			30 = {
+				country_event = dragonspine.28
+			}
+		}
+	}
+}
+#破坏行动套餐
+SH_Sum_Break_Action = {
+	SH_Poli_One = yes
+	SH_Steal_Mora = yes
+	SH_Stop_One = yes
+	SH_Collab_One = yes
+	SH_break_One = yes
+	SH_Prop_One = yes
+}
+#计算医护等级总和
+SH_Sum_Level = {
+	set_variable = {
+		var = DRA_Sucrose_Sum
+		value = 0
+	}
+	every_other_country = {
+		limit = {
+			Is_MOT = yes
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			DRA = {
+				add_to_variable = { DRA_Sucrose_Sum = 1 }
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			DRA = {
+				add_to_variable = { DRA_Sucrose_Sum = 2 }
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			DRA = {
+				add_to_variable = { DRA_Sucrose_Sum = 3 }
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			DRA = {
+				add_to_variable = { DRA_Sucrose_Sum = 5 }
+			}
+		}
+	}
+}
+#检验升级追逐和平
+SH_Check_Ideas = {
+	IF = {
+		limit = {
+			has_idea = DRA_chasing_peace1
+		}
+		IF = {
+			check_variable = {
+				DRA_Sucrose_sum > 5
+			}
+			swap_ideas = {
+				remove_idea = DRA_chasing_peace1
+				add_idea = DRA_chasing_peace2
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_chasing_peace2
+		}
+		IF = {
+			limit = {
+				check_variable = {
+					DRA_Sucrose_sum > 15
+				}
+			}
+			swap_ideas = {
+				remove_idea = DRA_chasing_peace2
+				add_idea = DRA_chasing_peace3
+			}
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_chasing_peace3
+		}
+		IF = {
+			limit = {
+				check_variable = {
+					DRA_Sucrose_sum > 25
+				}
+			}
+			swap_ideas = {
+				remove_idea = DRA_chasing_peace3
+				add_idea = DRA_Bright_Star_of_Harmony
+			}
+		}
+	}
+}
+#政治支持
+SH_Poli_One = {
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			DRA = {
+				add_political_power = 30
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			DRA = {
+				add_political_power = 20
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			DRA = {
+				add_political_power = 15
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			DRA = {
+				add_political_power = 10
+			}
+		}
+}
+#窃取资金
+SH_Steal_Mora = {
+	every_other_country = {
+		limit = {
+			Is_Mond = yes
+		}
+	
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			random_list = {
+				90 = {
+					add_timed_idea = {
+							idea = gene_low_burden
+							days = 60
+					}
+					DRA = {
+						add_timed_idea = {
+							idea = gene_less_burden
+							days = 25
+						}
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			random_list = {
+				85 = {
+					add_timed_idea = {
+							idea = gene_low_burden
+							days = 50
+					}
+					DRA = {
+						add_timed_idea = {
+							idea = gene_less_burden
+							days = 20
+						}
+					}
+				}
+				15 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			random_list = {
+				80 = {
+					add_timed_idea = {
+							idea = gene_low_burden
+							days = 40
+					}
+					DRA = {
+						add_timed_idea = {
+							idea = gene_less_burden
+							days = 15
+						}
+					}
+				}
+				20 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			random_list = {
+				75 = {
+					add_timed_idea = {
+							idea = gene_low_burden
+							days = 30
+					}
+					DRA = {
+						add_timed_idea = {
+							idea = gene_less_burden
+							days = 10
+						}
+					}
+				}
+				25 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+	}
+}
+#窃取武器：单国
+SH_Stop_One = {
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 1500
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 400
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 400
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 1000
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 300
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 300
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 800
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 200
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 200
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 500
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 100
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 100
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+}
+#窃取武器
+SH_Steal_Weapon = {
+	
+	every_other_country = {
+		limit = {
+			Is_Mond = yes
+		}
+	
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 1500
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 400
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 400
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 1000
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 300
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 300
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 800
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 200
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 200
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			random_list = {
+				40 = {
+					send_equipment = {
+						type = infantry_equipment
+						amount = 500
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = artillery_equipment
+						amount = 100
+						target = DRA
+					}
+				}
+				25 = {
+					send_equipment = {
+						type = support_equipment
+						amount = 100
+						target = DRA
+					}
+				}
+				10 = {
+					custom_effect_tooltip = Bad_end
+				}
+			}
+		}
+	}
+}
+#合作密谈
+SH_Collab_One = {
+	
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			DRA = {
+				add_collaboration = {
+					target = ROOT
+					value = 0.1
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			DRA = {
+				add_collaboration = {
+					target = ROOT
+					value = 0.06
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			DRA = {
+				add_collaboration = {
+					target = ROOT
+					value = 0.04
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			DRA = {
+				add_collaboration = {
+					target = ROOT
+					value = 0.02
+				}
+			}
+		}
+}
+#破坏军工生产
+SH_break_One = {
+	
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			add_timed_idea = { idea = Anti_Wea_Flood2 days = 60 }
+			add_timed_idea = { idea = Anti_Wea_Flood1 days = 100 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			add_war_support = -0.06
+			add_timed_idea = { idea = Anti_Wea_Flood2 days = 40 }
+			add_timed_idea = { idea = Anti_Wea_Flood1 days = 80 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			add_war_support = -0.04
+			add_timed_idea = { idea = Anti_Wea_Flood2 days = 20 }
+			add_timed_idea = { idea = Anti_Wea_Flood1 days = 60 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			add_war_support = -0.02
+			add_timed_idea = { idea = Anti_Wea_Flood1 days = 60 }
+		}
+}
+#反战宣传
+SH_Prop_One = {
+	
+		IF = {
+			limit = {
+				has_idea = DRA_great_call_for_peace
+			}
+			add_war_support = -0.1
+			add_timed_idea = { idea = Anti_War_Flood2 days = 60 }
+			add_timed_idea = { idea = Anti_War_Flood1 days = 100 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace3
+			}
+			add_war_support = -0.06
+			add_timed_idea = { idea = Anti_War_Flood2 days = 40 }
+			add_timed_idea = { idea = Anti_War_Flood1 days = 80 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace2
+			}
+			add_war_support = -0.04
+			add_timed_idea = { idea = Anti_War_Flood2 days = 20 }
+			add_timed_idea = { idea = Anti_War_Flood1 days = 60 }
+		}
+		IF = {
+			limit = {
+				has_idea = DRA_call_for_peace1
+			}
+			add_war_support = -0.02
+			add_timed_idea = { idea = Anti_War_Flood1 days = 60 }
+		}
+}
+#清空砂糖派遣等级（无惩罚）
+SH_Medical_None3 = {
+	IF = {
+		limit = {
+		    has_idea = DRA_great_call_for_peace
+		}
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace3
+		}
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace2
+		}
+	}
+	IF = {
+		limit = {
+		    has_idea = DRA_call_for_peace1
+		}
+		
+	}
+	remove_ideas = DRA_call_for_peace1
+	remove_ideas = DRA_call_for_peace2
+	remove_ideas = DRA_call_for_peace3
+	remove_ideas = DRA_great_call_for_peace
+}
+#清空砂糖派遣等级（低惩罚）
+SH_Medical_None2 = {
+	IF = {
+		limit = {
+		    has_idea = DRA_great_call_for_peace
+		}
+		add_war_support = -0.1
+		add_political_power = -100
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace3
+		}
+		add_war_support = -0.05
+		add_political_power = -50
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace2
+		}
+		add_war_support = -0.03
+		add_political_power = -30
+	}
+	IF = {
+		limit = {
+		    has_idea = DRA_call_for_peace1
+		}
+		add_war_support = -0.02
+		add_political_power = -20
+		
+	}
+	remove_ideas = DRA_call_for_peace1
+	remove_ideas = DRA_call_for_peace2
+	remove_ideas = DRA_call_for_peace3
+	remove_ideas = DRA_great_call_for_peace
+}
+#清空砂糖派遣等级（有惩罚）
+SH_Medical_None = {
+	IF = {
+		limit = {
+		    has_idea = DRA_great_call_for_peace
+		}
+		add_war_support = -0.3
+		add_political_power = -500
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace3
+		}
+		add_war_support = -0.15
+		add_political_power = -150
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace2
+		}
+		add_war_support = -0.1
+		add_political_power = -100
+	}
+	IF = {
+		limit = {
+		    has_idea = DRA_call_for_peace1
+		}
+		add_war_support = -0.05
+		add_political_power = -50
+		
+	}
+	remove_ideas = DRA_call_for_peace1
+	remove_ideas = DRA_call_for_peace2
+	remove_ideas = DRA_call_for_peace3
+	remove_ideas = DRA_great_call_for_peace
+}
+#降低砂糖派遣等级（无惩罚）
+SH_Medical_Down = {
+	IF = {
+		limit = {
+		    has_idea = DRA_great_call_for_peace
+		}
+		add_ideas = DRA_call_for_peace3
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace3
+		}
+		add_ideas = DRA_call_for_peace2
+	}
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace2
+		}
+		add_ideas = DRA_call_for_peace1
+	}
+	IF = {
+		limit = {
+		    has_idea = DRA_call_for_peace1
+		}
+		remove_ideas = DRA_call_for_peace1
+	}
+}
+#升级砂糖派遣等级
+SH_Medical_Up = {
+	IF = {
+		limit = {
+			has_idea = DRA_call_for_peace1
+		}
+		remove_ideas = DRA_call_for_peace1
+		add_ideas = DRA_call_for_peace2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_call_for_peace2
+		}
+		remove_ideas = DRA_call_for_peace2
+		add_ideas = DRA_call_for_peace3
+	}
+	ELSE_IF = {
+		limit = {
+		    has_idea = DRA_call_for_peace3
+		}
+		remove_ideas = DRA_call_for_peace3
+		add_ideas = DRA_great_call_for_peace
+	}
+	ELSE_IF = {
+		limit = {
+		    has_idea = DRA_great_call_for_peace
+		}
+		add_stability = 0.02
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+			    has_idea = DRA_call_for_peace1
+			    has_idea = DRA_call_for_peace2
+			    has_idea = DRA_call_for_peace3
+				has_idea = DRA_great_call_for_peace
+			}
+		}
+		add_ideas = DRA_call_for_peace1
+	}
+}
+#全体派遣
+SH_Help_All = {
+	every_other_country = {
+		limit = {
+			Is_Mond = yes
+		}
+		country_event = dragonspine.22
+	}
+}
+
+##阵营互助
+#政治互助
+FH_Pol_Connect = {
+	
+	every_other_country = {
+		limit = {
+			exists = yes
+			is_in_faction_with = ROOT
+		}
+		add_political_power = 30
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Pol_Help1
+				}	
+			}
+			add_timed_idea = { idea = FE_Pol_Help1 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Pol_Help2
+				}	
+			}
+			add_timed_idea = { idea = FE_Pol_Help2 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Pol_Help3
+				}	
+			}
+			add_timed_idea = { idea = FE_Pol_Help3 days = 90 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = FE_Pol_Help1 days = 30 }
+			add_timed_idea = { idea = FE_Pol_Help2 days = 30 }
+			add_timed_idea = { idea = FE_Pol_Help3 days = 30 }
+		}
+	}
+}
+#军事交流
+FH_Mil_Connect = {
+	
+	every_other_country = {
+		limit = {
+			exists = yes
+			is_in_faction_with = ROOT
+		}
+		army_experience = 10
+		navy_experience = 10
+		air_experience = 10
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Mil_Help1
+				}	
+			}
+			add_timed_idea = { idea = FE_Mil_Help1 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Mil_Help2
+				}	
+			}
+			add_timed_idea = { idea = FE_Mil_Help2 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Mil_Help3
+				}	
+			}
+			add_timed_idea = { idea = FE_Mil_Help3 days = 90 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = FE_Mil_Help1 days = 30 }
+			add_timed_idea = { idea = FE_Mil_Help2 days = 30 }
+			add_timed_idea = { idea = FE_Mil_Help3 days = 30 }
+		}
+	}
+}
+#经济互助
+FH_Eco_Connect = {
+	
+	every_other_country = {
+		limit = {
+			exists = yes
+			is_in_faction_with = ROOT
+		}
+		random_list = {
+			40 = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			20 = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			20 = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			20 = {
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Eco_Help1
+				}	
+			}
+			add_timed_idea = { idea = FE_Eco_Help1 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Eco_Help2
+				}	
+			}
+			add_timed_idea = { idea = FE_Eco_Help2 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Eco_Help3
+				}	
+			}
+			add_timed_idea = { idea = FE_Eco_Help3 days = 90 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = FE_Eco_Help1 days = 30 }
+			add_timed_idea = { idea = FE_Eco_Help2 days = 30 }
+			add_timed_idea = { idea = FE_Eco_Help3 days = 30 }
+		}
+	}
+}
+#科技交流
+FH_Resaerch_Trans = {
+	
+	every_other_country = {
+		limit = {
+			exists = yes
+			is_in_faction_with = ROOT
+		}
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Research_Help1
+				}	
+			}
+			add_timed_idea = { idea = FE_Research_Help1 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Research_Help2
+				}	
+			}
+			add_timed_idea = { idea = FE_Research_Help2 days = 90 }
+		}
+		ELSE_IF = {
+			limit = {
+				NOT = {
+					has_idea = FE_Research_Help3
+				}	
+			}
+			add_timed_idea = { idea = FE_Research_Help3 days = 90 }
+		}
+		ELSE_IF = {
+			add_timed_idea = { idea = FE_Research_Help1 days = 30 }
+			add_timed_idea = { idea = FE_Research_Help2 days = 30 }
+			add_timed_idea = { idea = FE_Research_Help3 days = 30 }
+		}
+	}
+}
+
+
+#一个国家升级
+DRA_country_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_one_country1
+		}
+		swap_ideas = {
+			remove_idea = gene_one_country1
+			add_idea = gene_one_country2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_country2
+		}
+		swap_ideas = {
+			remove_idea = gene_one_country2
+			add_idea = gene_one_country3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_country3
+		}
+		swap_ideas = {
+			remove_idea = gene_one_country3
+			add_idea = gene_one_country4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_one_country1
+				has_idea = gene_one_country2
+				has_idea = gene_one_country3
+				has_idea = gene_one_country4
+			}
+		}
+		add_ideas = gene_one_country1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_country4
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#一个民族升级
+DRA_Naiton_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_one_nation1
+		}
+		swap_ideas = {
+			remove_idea = gene_one_nation1
+			add_idea = gene_one_nation2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_nation2
+		}
+		swap_ideas = {
+			remove_idea = gene_one_nation2
+			add_idea = gene_one_nation3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_nation3
+		}
+		swap_ideas = {
+			remove_idea = gene_one_nation3
+			add_idea = gene_one_nation4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_one_nation1
+				has_idea = gene_one_nation2
+				has_idea = gene_one_nation3
+				has_idea = gene_one_nation4
+			}
+		}
+		add_ideas = gene_one_nation1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_one_nation4
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+		add_war_support = 0.05
+	}
+}
+
+#阿贝少专属精神升级
+DRA_Flame_Improved = {
+	IF = {
+		limit = {
+			has_idea = DRA_Brilliant_Nation1
+		}
+		swap_ideas = {
+			remove_idea = DRA_Brilliant_Nation1
+			add_idea = DRA_Brilliant_Nation2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_Brilliant_Nation2
+		}
+		swap_ideas = {
+			remove_idea = DRA_Brilliant_Nation2
+			add_idea = DRA_Brilliant_Nation3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_Brilliant_Nation3
+		}
+		swap_ideas = {
+			remove_idea = DRA_Brilliant_Nation3
+			add_idea = DRA_Brilliant_Nation4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_Brilliant_Nation4
+		}
+		swap_ideas = {
+			remove_idea = DRA_Brilliant_Nation4
+			add_idea = DRA_Brilliant_Nation5
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = DRA_Brilliant_Nation1
+				has_idea = DRA_Brilliant_Nation2
+				has_idea = DRA_Brilliant_Nation3
+				has_idea = DRA_Brilliant_Nation4
+				has_idea = DRA_Brilliant_Nation5
+			}
+		}
+		add_ideas = DRA_Brilliant_Nation4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DRA_Brilliant_Nation5
+		}
+		add_stability = 0.05
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+
+#随机地区获得1民工1军工
+DRA_Random_Constructed1 = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 0
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+		}
+	}
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 0
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+#随机地区获得2民工2军工
+DRA_Random_Constructed2 = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+		}
+	}
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = {
+			type = arms_factory
+			level = 2
+			instant_build = yes
+		}
+	}
+}
+
+#内战恢复
+DRA_Rebuild_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_Rebuild_our_nation5
+		}
+		swap_ideas = {
+			remove_idea = gene_Rebuild_our_nation5
+			add_idea = gene_Rebuild_our_nation4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_Rebuild_our_nation4
+		}
+		swap_ideas = {
+			remove_idea = gene_Rebuild_our_nation4
+			add_idea = gene_Rebuild_our_nation3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_Rebuild_our_nation3
+		}
+		swap_ideas = {
+			remove_idea = gene_Rebuild_our_nation3
+			add_idea = gene_Rebuild_our_nation2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_Rebuild_our_nation2
+		}
+		swap_ideas = {
+			remove_idea = gene_Rebuild_our_nation2
+			add_idea = gene_Rebuild_our_nation1
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_Rebuild_our_nation1
+		}
+		swap_ideas = {
+			remove_idea = gene_Rebuild_our_nation1
+			add_idea = gene_Rebuilt_nation
+		}
+	}
+	ELSE_IF = {
+		add_stability = 0.05
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#集约农业精神升级
+DRA_Inten_Frams_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_efficient_intensive_agriculture1
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_intensive_agriculture1
+			add_idea = gene_efficient_intensive_agriculture2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_intensive_agriculture2
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_intensive_agriculture2
+			add_idea = gene_efficient_intensive_agriculture3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_intensive_agriculture3
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_intensive_agriculture3
+			add_idea = gene_efficient_intensive_agriculture4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_efficient_intensive_agriculture1
+				has_idea = gene_efficient_intensive_agriculture2
+				has_idea = gene_efficient_intensive_agriculture3
+				has_idea = gene_efficient_intensive_agriculture4
+			}
+		}
+		add_ideas = gene_efficient_intensive_agriculture1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_intensive_agriculture4
+		}
+		every_owned_state = {
+			add_manpower = 50000
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#大农场生产精神升级
+DRA_Large_Frams_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_advanced_large_farms1
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_large_farms1
+			add_idea = gene_advanced_large_farms2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_large_farms2
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_large_farms2
+			add_idea = gene_advanced_large_farms3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_large_farms3
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_large_farms3
+			add_idea = gene_advanced_large_farms4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_advanced_large_farms1
+				has_idea = gene_advanced_large_farms2
+				has_idea = gene_advanced_large_farms3
+				has_idea = gene_advanced_large_farms4
+			}
+		}
+		add_ideas = gene_advanced_large_farms1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_large_farms4
+		}
+		every_owned_state = {
+			add_manpower = 50000
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#先进管理精神升级
+DRA_Management_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_labour_active_21
+		}
+		swap_ideas = {
+			remove_idea = gene_labour_active_21
+			add_idea = gene_labour_active_22
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_labour_active_22
+		}
+		swap_ideas = {
+			remove_idea = gene_labour_active_22
+			add_idea = gene_labour_active_23
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_labour_active_23
+		}
+		swap_ideas = {
+			remove_idea = gene_labour_active_23
+			add_idea = gene_labour_active_24
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_labour_active_21
+				has_idea = gene_labour_active_22
+				has_idea = gene_labour_active_23
+				has_idea = gene_labour_active_24
+			}
+		}
+		add_ideas = gene_labour_active_21
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_labour_active_24
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#高效资源开采升级
+DRA_Eff_Resources_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_advanced_resources_production1
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_resources_production1
+			add_idea = gene_advanced_resources_production2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_resources_production2
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_resources_production2
+			add_idea = gene_advanced_resources_production3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_resources_production3
+		}
+		swap_ideas = {
+			remove_idea = gene_advanced_resources_production3
+			add_idea = gene_advanced_resources_production4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_advanced_resources_production1
+				has_idea = gene_advanced_resources_production2
+				has_idea = gene_advanced_resources_production3
+				has_idea = gene_advanced_resources_production4
+			}
+		}
+		add_ideas = gene_advanced_resources_production1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_advanced_resources_production4
+		}
+		add_timed_idea = { idea = gene_less_burden days = 120 }
+	}
+}
+#高效科研精神升级
+DRA_Eff_Research_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_efficient_research1
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_research1
+			add_idea = gene_efficient_research2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_research2
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_research2
+			add_idea = gene_efficient_research3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_research3
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_research3
+			add_idea = gene_efficient_research4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_efficient_research1
+				has_idea = gene_efficient_research2
+				has_idea = gene_efficient_research3
+				has_idea = gene_efficient_research4
+			}
+		}
+		add_ideas = gene_efficient_research1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_research4
+		}
+		add_political_power = 50
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#高效教育精神升级
+DRA_Eff_Education_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_efficient_education1
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_education1
+			add_idea = gene_efficient_education2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_education2
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_education2
+			add_idea = gene_efficient_education3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_education3
+		}
+		swap_ideas = {
+			remove_idea = gene_efficient_education3
+			add_idea = gene_efficient_education4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_efficient_education1
+				has_idea = gene_efficient_education2
+				has_idea = gene_efficient_education3
+				has_idea = gene_efficient_education4
+			}
+		}
+		add_ideas = gene_efficient_education1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_efficient_education4
+		}
+		add_political_power = 50
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#平等教育精神升级
+DRA_Equal_Education_Improved = {
+	IF = {
+		limit = {
+			has_idea = gene_equal_education1
+		}
+		swap_ideas = {
+			remove_idea = gene_equal_education1
+			add_idea = gene_equal_education2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_equal_education2
+		}
+		swap_ideas = {
+			remove_idea = gene_equal_education2
+			add_idea = gene_equal_education3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_equal_education3
+		}
+		swap_ideas = {
+			remove_idea = gene_equal_education3
+			add_idea = gene_equal_education4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_equal_education1
+				has_idea = gene_equal_education2
+				has_idea = gene_equal_education3
+				has_idea = gene_equal_education4
+			}
+		}
+		add_ideas = gene_equal_education1
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_equal_education4
+		}
+		add_political_power = 50
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+	}
+}
+#百花齐放精神升级
+DRA_united_improved = {
+	IF = {
+		limit = {
+			has_idea = gene_common_ground_among_us3
+		}
+		swap_ideas = {
+			remove_idea = gene_common_ground_among_us3
+			add_idea = gene_common_ground_among_us4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_common_ground_among_us2
+		}
+		swap_ideas = {
+			remove_idea = gene_common_ground_among_us2
+			add_idea = gene_common_ground_among_us3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_common_ground_among_us1
+		}
+		swap_ideas = {
+			remove_idea = gene_common_ground_among_us1
+			add_idea = gene_common_ground_among_us2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_common_ground_among_us4
+			}
+		}			
+		add_ideas = gene_common_ground_among_us1
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_common_ground_among_us1
+				has_idea = gene_common_ground_among_us2
+				has_idea = gene_common_ground_among_us3
+				has_idea = gene_common_ground_among_us4
+			}
+		}			
+		add_political_power = 50
+	}
+}
+#政府团结精神升级
+DRA_union_improved = {
+	IF = {
+		limit = {
+			has_idea = gene_united_as_one_man3
+		}
+		swap_ideas = {
+			remove_idea = gene_united_as_one_man3
+			add_idea = gene_united_as_one_man4
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_united_as_one_man2
+		}
+		swap_ideas = {
+			remove_idea = gene_united_as_one_man2
+			add_idea = gene_united_as_one_man3
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = gene_united_as_one_man1
+		}
+		swap_ideas = {
+			remove_idea = gene_united_as_one_man1
+			add_idea = gene_united_as_one_man2
+		}
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_united_as_one_man4
+			}
+		}	
+		add_ideas = gene_united_as_one_man1
+	}
+	ELSE_IF = {
+		limit = {
+			NOT = {
+				has_idea = gene_united_as_one_man1
+				has_idea = gene_united_as_one_man2
+				has_idea = gene_united_as_one_man3
+				has_idea = gene_united_as_one_man4
+			}
+		}
+		add_political_power = 50
+	}
+}
+#粮食供应恢复
+DRA_Farms_Improved = {
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = gene_not_enough_farms4
+					has_idea = gene_not_enough_farms3
+					has_idea = gene_not_enough_farms2
+					has_idea = gene_not_enough_farms1
+				}
+			}
+			add_stability = 0.1
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_not_enough_farms4
+			}
+			swap_ideas = {
+				remove_idea = gene_not_enough_farms4
+				add_idea = gene_not_enough_farms3
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_not_enough_farms3
+			}
+			swap_ideas = {
+				remove_idea = gene_not_enough_farms3
+				add_idea = gene_not_enough_farms2
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_not_enough_farms2
+			}
+			swap_ideas = {
+				remove_idea = gene_not_enough_farms2
+				add_idea = gene_not_enough_farms1
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_not_enough_farms1
+			}
+			remove_ideas = gene_not_enough_farms1
+		}
+		add_political_power = 50
+}
+#工人积极性回升
+DRA_Initia_Improved = {
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = gene_low_initiative4
+					has_idea = gene_low_initiative3
+					has_idea = gene_low_initiative2
+					has_idea = gene_low_initiative1
+				}
+			}
+			add_political_power = 100
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_low_initiative4
+			}
+			swap_ideas = {
+				remove_idea = gene_low_initiative4
+				add_idea = gene_low_initiative3
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_low_initiative3
+			}
+			swap_ideas = {
+				remove_idea = gene_low_initiative3
+				add_idea = gene_low_initiative2
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_low_initiative2
+			}
+			swap_ideas = {
+				remove_idea = gene_low_initiative2
+				add_idea = gene_low_initiative1
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_low_initiative1
+			}
+			remove_ideas = gene_low_initiative1
+		}
+		add_stability = 0.05
+}
+#文化缓和（二级）
+DRA_Cult_Improved = {
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = gene_cultural_conflict4
+					has_idea = gene_cultural_conflict3
+					has_idea = gene_cultural_conflict2
+					has_idea = gene_cultural_conflict1
+				}
+			}
+			add_political_power = 100
+			IF = {
+				limit = {
+					has_country_flag = DRA_Sucrose_Up
+				}
+				IF = {
+					limit = {
+						NOT = {
+							has_idea = gene_cultural_harmony
+						}
+					}
+					add_ideas = gene_cultural_harmony
+				}
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_cultural_conflict4
+			}
+			swap_ideas = {
+				remove_idea = gene_cultural_conflict4
+				add_idea = gene_cultural_conflict3
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_cultural_conflict3
+			}
+			swap_ideas = {
+				remove_idea = gene_cultural_conflict3
+				add_idea = gene_cultural_conflict2
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_cultural_conflict2
+			}
+			swap_ideas = {
+				remove_idea = gene_cultural_conflict2
+				add_idea = gene_cultural_conflict1
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_cultural_conflict1
+			}
+			remove_ideas = gene_cultural_conflict1
+		}
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = gene_cultural_conflict4
+					has_idea = gene_cultural_conflict3
+					has_idea = gene_cultural_conflict2
+					has_idea = gene_cultural_conflict1
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = DRA_Sucrose_Up
+				}
+				IF = {
+					limit = {
+						NOT = {
+							has_idea = gene_cultural_harmony
+						}
+					}
+					add_ideas = gene_cultural_harmony
+				}
+			}
+			add_stability = 0.02
+		}
+}
+#军心回升
+DRA_Morale_Improved = {
+		IF = {
+			limit = {
+				NOT = {
+					has_idea = gene_down_army4
+					has_idea = gene_down_army3
+					has_idea = gene_down_army2
+					has_idea = gene_down_army1
+				}
+			}
+			add_war_support = 0.1
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_down_army4
+			}
+			swap_ideas = {
+				remove_idea = gene_down_army4
+				add_idea = gene_down_army3
+			}
+		}
+		IF = {
+		    limit = {
+				has_idea = gene_down_army3
+			}
+			swap_ideas = {
+				remove_idea = gene_down_army3
+				add_idea = gene_down_army2
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_down_army2
+			}
+			swap_ideas = {
+				remove_idea = gene_down_army2
+				add_idea = gene_down_army1
+			}
+		}
+		IF = {
+			limit = {
+				has_idea = gene_down_army1
+			}
+			remove_ideas = gene_down_army1
+		}
+		add_stability = 0.02
+}
+#整合附庸、加核心
+Add_Mond_Cores = {
+	every_other_country = {
+		limit = {
+			Is_Mond = yes
+			is_subject_of = FROM
+		}
+		FROM = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+	every_state = {	
+		limit = {
+			OR = {
+				is_core_of = MOT
+				is_core_of = SPI
+				is_core_of = RAG
+				is_core_of = GUN
+				is_core_of = FAV
+				is_core_of = DVA
+				is_core_of = LAW
+				is_core_of = DRA
+			}
+		}
+		add_core_of = FROM
+	}
+	every_state = {	
+		limit = {
+			OR = {
+				is_core_of = MOT
+				is_core_of = SPI
+				is_core_of = RAG
+				is_core_of = GUN
+				is_core_of = FAV
+				is_core_of = DVA
+				is_core_of = LAW
+				is_core_of = DRA
+			}
+		}
+		add_core_of = ROOT
+	}
+	every_state = {	
+		limit = {
+			OR = {
+				is_core_of = MOT
+			}
+		}
+		add_core_of = FROM
+	}
+	every_state = {	
+		limit = {
+			OR = {
+				is_core_of = MOT
+			}
+		}
+		add_core_of = ROOT
+	}
+	53 = {
+		add_core_of = FROM
+	}
+	54 = {
+		add_core_of = FROM
+	}
+	55 = {
+		add_core_of = FROM
+	}
+	56 = {
+		add_core_of = FROM
+	}
+	53 = {
+		add_core_of = ROOT
+	}
+	54 = {
+		add_core_of = ROOT
+	}
+	55 = {
+		add_core_of = ROOT
+	}
+	56 = {
+		add_core_of = ROOT
+	}
+}
+#清除核心
+Clear_Mond_Cores = {
+	every_state = {	
+		limit = {
+			controller = {
+				OR = {
+					tag = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = ROOT
+					}
+				}
+			}
+			remove_core_of = MOT
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = SPI
+					}
+				}
+			}
+			remove_core_of = SPI
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = ANR
+					}
+				}
+			}
+			remove_core_of = ANR
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = RAG
+					}
+				}
+			}
+			remove_core_of = RAG
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = GUN
+					}
+				}
+			}
+			remove_core_of = GUN
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = LAW
+					}
+				}
+			}
+			remove_core_of = LAW
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = FAV
+					}
+				}
+			}
+			remove_core_of = FAV
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = DVA
+					}
+				}
+			}
+			remove_core_of = DVA
+		}
+		IF = {
+			limit = {
+				NOT = {
+					ROOT = {
+						original_tag = DRA
+					}
+				}
+			}
+			remove_core_of = DRA
+		}
+	}
+}
+#清除龙脊雪山的全部Debuff
+DRA_Clear_Debuff = {
+	remove_ideas = gene_political_chaos4
+	remove_ideas = gene_political_chaos3
+	remove_ideas = gene_political_chaos2
+	remove_ideas = gene_political_chaos1
+	remove_ideas = gene_not_enough_farms4
+	remove_ideas = gene_not_enough_farms3
+	remove_ideas = gene_not_enough_farms2
+	remove_ideas = gene_not_enough_farms1
+	remove_ideas = gene_down_army4
+	remove_ideas = gene_down_army3
+	remove_ideas = gene_down_army2
+	remove_ideas = gene_down_army1
+	remove_ideas = gene_cultural_conflict4
+	remove_ideas = gene_cultural_conflict3
+	remove_ideas = gene_cultural_conflict2
+	remove_ideas = gene_cultural_conflict1
+	remove_ideas = gene_low_initiative4
+	remove_ideas = gene_low_initiative3
+	remove_ideas = gene_low_initiative2
+	remove_ideas = gene_low_initiative1
+	remove_ideas = DRA_chasing_peace1
+	remove_ideas = DRA_chasing_peace2
+	remove_ideas = DRA_chasing_peace3
+}
+#全部地区获得1民工
+AllGet_one_Civilian = {
+	ROOT = {
+		every_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得1民工
+Get_one_Civilian = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得2民工
+Get_two_Civilian = {
+	ROOT = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 1
+				include_locked = yes
+			}
+		}
+		
+		add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+		}
+	}
+	}
+}
+#随机地区获得3民工
+Get_three_Civilian = {
+	ROOT = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 2
+				include_locked = yes
+			}
+		}
+		
+		add_building_construction = {
+			type = industrial_complex
+			level = 3
+			instant_build = yes
+		}
+	}
+	}
+}
+#所有地区获得1军工
+AllGet_one_Arms = {
+	ROOT = {
+	every_controlled_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 0
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+	}
+}
+#随机地区获得1军工
+Get_one_Arms = {
+	ROOT = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 0
+				include_locked = yes
+			}
+		}
+		
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+	}
+}
+#随机地区获得2军工
+Get_two_Arms = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得3军工
+Get_three_Arms = {
+	ROOT = {
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 2
+				include_locked = yes
+			}
+		}
+		
+		add_building_construction = {
+			type = arms_factory
+			level = 3
+			instant_build = yes
+		}
+	}
+	}
+}
+#所有地区获得1基建
+AllGet_one_Infra = {
+		ROOT = {
+		every_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得1基建
+Get_one_Infra = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得2基建
+Get_two_Infra = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+#随机地区获得3基建
+Get_three_Infra = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 2
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+		}
+	}
+}
+strengthen_inno = {
+	IF = {
+		limit = {
+			is_ai = yes
+		}
+		add_to_variable = {
+			DRA_Sur_Innovation_Acceptance = 50
+			add_political_power = 300
+		}
+	}
+	add_to_variable = {
+		DRA_Sur_Innovation_Acceptance = 5
+	}
+}
+get_poli = {
+	IF = {
+		limit = {
+			ROOT = {
+				is_ai = yes
+			}
+		}
+		ROOT = {
+			add_political_power = 20
+		}
+	}
+	add_political_power = 10
+}
+get_forts = {
+	IF = {
+		limit = {
+			ROOT = {
+				is_ai = yes
+			}
+		}
+		ROOT = {
+			every_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						is_owned_by = FROM
+					}
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
+		}
+	}
+	ROOT = {
+		every_owned_state = {
+			limit = {
+				any_neighbor_state = {
+					is_owned_by = FROM
+				}
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_border = yes
+				}
+			}
+		}
+	}
+}
+get_sw = {
+	IF = {
+		limit = {
+			ROOT = {
+				is_ai = yes
+			}
+		}
+		add_war_support = 0.1
+		add_stability = 0.1
+		add_political_power = 300
+	}
+	add_war_support = 0.05
+	add_stability = 0.05
+}
+Get_one_slots = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				NOT = {
+					has_state_category = wasteland
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+Get_two_slots = {
+	ROOT = {
+		random_owned_state = {
+			limit = {
+				NOT = {
+					has_state_category = wasteland
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+}

@@ -1,0 +1,5333 @@
+#
+FAV_Want_Money = {
+    #基础决议
+    #主动宣传
+    FAV_Raise_our_Fans = {
+        cost = 30
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 25
+                check_variable = { FAV.FAV_Number_of_Fans < LAW.FAV_Number_of_Fans }
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 15 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #出售芭芭拉握手券
+    FAV_Sell_Barbara_Quan = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        icon = generic_prepare_civil_war
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+
+        }
+        modifier = {
+            political_power_cost = 0.25
+            consumer_goods_factor = -0.1
+            power_balance_weekly = -0.001
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 5 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #大众焦点：著作签售会
+    FAV_Sell_Barbara_Key = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_speech
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.15
+            consumer_goods_factor = -0.1
+            power_balance_weekly = -0.001
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 5 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+        }
+    }
+    #舆论热度高于50
+    #在神学辩论中植入广告
+    FAV_AD_in_the_Debate = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_speech
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 49 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.25
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Infra = yes
+        }
+    }
+    #大众焦点：为商品代言
+    FAV_Become_the_AD = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 49 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        icon = generic_nationalism
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 40
+        modifier = {
+            political_power_cost = 0.5
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #高于100
+    #出售芭芭拉“周边”
+    FAV_Sell_Goods_of_Bar = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 40
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            power_balance_weekly = -0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #大众焦点：出售棘冠修女“谷子”
+    FAV_Sell_Goods_of_Maids = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 60
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.5
+            power_balance_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Civs = yes
+        }
+    }
+    #大众焦点：呼吁物资捐献
+    FAV_Call_for_Things = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 30
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 99 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = 0.25
+            stability_weekly = 0.005
+            power_balance_weekly = -0.002
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Infra = yes
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 150
+                producer = MOT
+            }
+        }
+    }
+    #高于200
+    #联络兵器黑市
+    FAV_Connection_with_Weapon_Market = {
+        cost = 0
+        ai_will_do = {
+            base = 50
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 30
+        days_remove = 30
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            war_support_weekly = 0.005
+            power_balance_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 514
+                producer = FON
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 114
+                producer = LYY
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 191
+                producer = SUM
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 810
+                producer = MOT
+            }
+        }
+    }
+    #引导资金流入
+    FAV_Guide_Mora_In = {
+        cost = 0
+        ai_will_do = {
+            base = 101
+            modifier = {
+                factor = 0
+                has_political_Power < -50
+            }
+        }
+        icon = generic_factory
+        fire_only_once = no
+        days_re_enable = 0
+        days_remove = 40
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_1_Arms = yes
+        }
+    }
+    #大众焦点：呼唤舆论支持
+    FAV_Call_for_Support_of_Pupular = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_re_enable = 15
+        days_remove = 45
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            political_power_cost = -0.5
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+        }
+    }
+    #大众焦点：从现在开始改变蒙德！
+    FAV_Call_for_Volunteers = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_propaganda
+        fire_only_once = no
+        days_remove = 45
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 199 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            power_balance_weekly = -0.005
+            stability_weekly = 0.005
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    #高于400
+    #大众焦点：登上天国的第一级阶梯
+    FAV_First_Floor_of_Heaven = {
+        cost = 0
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_oppression
+        fire_only_once = yes
+        days_remove = 1
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 399 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        complete_effect = {
+            custom_effect_tooltip = FAV_Only_Once
+            FAV_Get_1_Arms = yes
+            FAV_Get_1_Civs = yes
+            FAV_Get_1_Infra = yes
+            FAV_Get_1_Infra = yes
+            add_stability = 0.1
+            add_war_support = 0.1
+            add_political_power = 100
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    #高于500
+    #大众焦点：在世界的中心呼唤捐款
+    FAV_In_the_Center_of_Call = {
+        cost = 150
+        ai_will_do = {
+            base = 1000
+        }
+        icon = generic_fundraising
+        fire_only_once = no
+        days_remove = 90
+        visible = {
+            check_variable = { FAV_Number_of_Fans > 499 }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang5 = 499 }
+                check_variable = { FAV_Number_of_Fans > FAV_linshibianliang5 }
+                tooltip = FAV_NoF_Check
+            }
+            FAV_Is_Popularly_Focused = yes
+        }
+        modifier = {
+            power_balance_weekly = -0.01
+        }
+        cancel_trigger = {
+            has_global_flag = MOT_Civil_War_Begun
+        }
+        remove_effect = {
+            FAV_Get_2_Arms = yes
+            FAV_Get_2_Civs = yes
+            FAV_Get_2_Infra = yes
+            FAV_Get_2_Infra = yes
+            add_political_power = 200
+            add_stability = 0.1
+            add_war_support = 0.1
+        }
+    }
+}
+##使徒行迹
+FAV_Heart_of_Church = {
+    #交换变量
+    FAV_Hide_Exchange = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        days_re_enable = 1
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Not_Show_HOC1 }
+                clr_country_flag = FAV_Not_Show_HOC1
+            }
+            ELSE_IF = {
+                set_country_flag = FAV_Not_Show_HOC1
+            }
+        }
+    }
+    FAV_Zeal_to_Eff = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Zeal > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Zeal
+            custom_effect_tooltip = FAV_Higher_Eff
+            subtract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Zeal_to_Pop = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Zeal > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                modifier = {
+                    add = 10
+                    set_temp_variable = { FAV_Linshibianliang1 = FAV_Action_Population }
+                    add_to_temp_variable = { FAV_Linshibianliang1 = 10 }
+                    check_variable = { FAV_Action_Zeal > FAV_Linshibianliang1 }
+                }
+            }
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Zeal
+            custom_effect_tooltip = FAV_Higher_Pop
+            subtract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Eff_to_Zeal = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Efficiency > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Eff
+            custom_effect_tooltip = FAV_Higher_Zeal
+            subtract_from_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Eff_to_Pop = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Efficiency > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Eff
+            custom_effect_tooltip = FAV_Higher_Pop
+            subtract_from_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Pop_to_Eff = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Population > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            custom_effect_tooltip = FAV_Higher_Eff
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_Pop_to_Zeal = {
+        cost = 10
+        visible = {
+            NOT = { has_country_flag = FAV_Not_Show_HOC1 }
+        }
+        available = {
+            check_variable = { FAV_Action_Population > 0.04 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+        fire_only_once = no
+        days_re_enable = 35
+        complete_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            custom_effect_tooltip = FAV_Higher_Zeal
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_WS_to_Pop = {
+        custom_cost_text = decision_cost_WS_5
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        available = { has_war_support > 0.5 }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_war_support > 0.94
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        complete_effect = {
+            add_war_support = -0.05
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_PP_to_Eff = {
+        cost = 50
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_political_Power > 490
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            FAV_Org_DM = yes
+        }
+    }
+    FAV_ST_to_Zeal = {
+        custom_cost_text = decision_cost_ST_5
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC1 } }
+        available = { has_stability > 0.5 }
+        fire_only_once = no
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 50
+                has_stability > 0.94
+            }
+        }
+        days_re_enable = 20
+        days_remove = 20
+        complete_effect = {
+            add_stability = -0.05
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            FAV_Org_DM = yes
+        }
+    }
+    #发展点兑奖区
+    FAV_Hide_Invest = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+        }
+        days_re_enable = 1
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Not_Show_HOC2 }
+                clr_country_flag = FAV_Not_Show_HOC2
+            }
+            ELSE_IF = {
+                set_country_flag = FAV_Not_Show_HOC2
+            }
+        }
+    }
+    FAV_Invest_Government = {
+        icon = generic_propaganda
+        custom_cost_text = decision_cost_Power_50
+        custom_cost_trigger = { check_variable = { FAV_Power_Points > 49 } }
+        available = {  }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            add_to_variable = { FAV_Power_Points = -50 }
+            add_political_power = 50
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                date < 1937.6.1
+            }
+        }
+    }
+    FAV_Invest_Industry = {
+        icon = generic_industry
+        custom_cost_text = decision_cost_dynamic_developcostI
+        custom_cost_trigger = {
+            OR = {
+                AND = {
+                    OR = {
+                        has_idea = DOT_Government_Industry4
+                        has_idea = DOT_Government_Industry5
+                        check_variable = { FAV_Num_of_Deve_1 = 0 }
+                    }
+                    check_variable = { FAV_Power_Points > 49 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_1 > 0 }
+                    check_variable = { FAV_Num_of_Deve_1 < 3 }
+                    check_variable = { FAV_Power_Points > 99 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_1 = 3 }
+                    check_variable = { FAV_Power_Points > 199 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_1 > 3 }
+                    check_variable = { FAV_Power_Points > 499 }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Industry4
+                        has_idea = DOT_Government_Industry5
+                        check_variable = { FAV_Num_of_Deve_1 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 < 3 }
+                    check_variable = { FAV_Num_of_Deve_1 > 0 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 = 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_1 > 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            add_to_variable = { FAV_Num_of_Deve_1 = 1 }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Industry4
+                        has_idea = DOT_Government_Industry5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_InduDeve
+                random_list = {
+                    50 = {
+                        random_owned_state = {
+                            limit = {
+                                free_building_slots = {
+                                    building = industrial_complex
+                                    level > 0
+                                }
+                            }
+                            add_extra_state_shared_building_slots = 1
+                            add_building_construction = {
+                                type = industrial_complex
+                                level = 1
+                            }
+                        }
+                    }
+                    50 = {
+                        random_owned_state = {
+                            limit = {
+                                free_building_slots = {
+                                    building = arms_factory
+                                    level > 0
+                                }
+                            }
+                            add_extra_state_shared_building_slots = 1
+                            add_building_construction = {
+                                type = arms_factory
+                                level = 1
+                            }
+                        }
+                    }
+                }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Industry4
+                            has_idea = DOT_Government_Industry5
+                        }
+                    }
+                }
+			    FAV_Better_Deve_of_I1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Agriculture = {
+        icon = generic_fundraising
+        custom_cost_text = decision_cost_dynamic_developcostA
+        custom_cost_trigger = {
+            OR = {
+                AND = {
+                    OR = {
+                        has_idea = DOT_Government_Agri4
+                        has_idea = DOT_Government_Agri5
+                        check_variable = { FAV_Num_of_Deve_2 = 0 }
+                    }
+                    check_variable = { FAV_Power_Points > 49 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_2 > 0 }
+                    check_variable = { FAV_Num_of_Deve_2 < 3 }
+                    check_variable = { FAV_Power_Points > 99 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_2 = 3 }
+                    check_variable = { FAV_Power_Points > 199 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_2 > 3 }
+                    check_variable = { FAV_Power_Points > 499 }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Agri4
+                        has_idea = DOT_Government_Agri5
+                        check_variable = { FAV_Num_of_Deve_2 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 > 0 }
+                    check_variable = { FAV_Num_of_Deve_2 < 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 = 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_2 > 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            add_to_variable = { FAV_Num_of_Deve_2 = 1 }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Agri4
+                        has_idea = DOT_Government_Agri5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_AgriDeve
+                random_owned_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = infrastructure
+                            level > 0
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 1
+                    add_building_construction = {
+                        type = infrastructure
+                        level = 1
+                    }
+                }
+                random_owned_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = infrastructure
+                            level > 0
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 1
+                    add_building_construction = {
+                        type = infrastructure
+                        level = 1
+                    }
+                }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Agri4
+                            has_idea = DOT_Government_Agri5
+                        }
+                    }
+                }
+			    FAV_Better_Deve_of_A1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Control = {
+        icon = generic_political_support
+        custom_cost_text = decision_cost_dynamic_developcostG
+        custom_cost_trigger = {
+            OR = {
+                AND = {
+                    OR = {
+                        has_idea = DOT_Government_Control5
+                        has_idea = DOT_Government_Control6
+                        has_idea = DOT_Government_Control7
+                        has_idea = DOT_Government_Control8
+                        check_variable = { FAV_Num_of_Deve_3 = 0 }
+                    }
+                    check_variable = { FAV_Power_Points > 49 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_3 > 0 }
+                    check_variable = { FAV_Num_of_Deve_3 < 3 }
+                    check_variable = { FAV_Power_Points > 99 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_3 = 3 }
+                    check_variable = { FAV_Power_Points > 199 }
+                }
+                AND = {
+                    check_variable = { FAV_Num_of_Deve_3 > 3 }
+                    check_variable = { FAV_Power_Points > 499 }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Control5
+                        has_idea = DOT_Government_Control6
+                        has_idea = DOT_Government_Control7
+                        has_idea = DOT_Government_Control8
+                        check_variable = { FAV_Num_of_Deve_3 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 < 3 }
+                    check_variable = { FAV_Num_of_Deve_3 > 0 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 = 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Control5
+                            has_idea = DOT_Government_Control6
+                            has_idea = DOT_Government_Control7
+                            has_idea = DOT_Government_Control8
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_3 > 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            add_to_variable = { FAV_Num_of_Deve_3 = 1 }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = {  }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Control5
+                        has_idea = DOT_Government_Control6
+                        has_idea = DOT_Government_Control7
+                        has_idea = DOT_Government_Control8
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_GoveDeve
+                add_political_power = 80
+                add_command_power = 30
+            }
+            ELSE_IF = {
+			    MOT_Up_Level_of_Poli = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Technology = {
+        icon = generic_research
+        custom_cost_text = decision_cost_dynamic_developcostR
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                            check_variable = { FAV_Num_of_Deve_4 = 0 }  
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 < 3 }
+                        check_variable = { FAV_Num_of_Deve_4 > 0 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 = 3 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_4 > 3 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Research4
+                        has_idea = DOT_Government_Research5
+                        check_variable = { FAV_Num_of_Deve_4 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 < 3 }
+                    check_variable = { FAV_Num_of_Deve_4 > 0 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 = 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Research4
+                            has_idea = DOT_Government_Research5
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_4 > 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            add_to_variable = { FAV_Num_of_Deve_4 = 1 }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        modifier = { research_speed_factor = 0.25 }
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Research4
+                        has_idea = DOT_Government_Research5
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_ReseDeve
+            }
+            ELSE_IF = {
+			    FAV_Better_Deve_of_R1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+    FAV_Invest_Army = {
+        icon = generic_prepare_civil_war
+        custom_cost_text = decision_cost_dynamic_developcostArmy
+        custom_cost_trigger = {
+            IF = {
+                OR = {
+                    AND = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                            check_variable = { FAV_Num_of_Deve_5 = 0 }
+                        }
+                        check_variable = { FAV_Power_Points > 49 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 > 0 }
+                        check_variable = { FAV_Num_of_Deve_5 < 3 }
+                        check_variable = { FAV_Power_Points > 99 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 = 3 }
+                        check_variable = { FAV_Power_Points > 199 }
+                    }
+                    AND = {
+                        check_variable = { FAV_Num_of_Deve_5 > 3 }
+                        check_variable = { FAV_Power_Points > 499 }
+                    }
+                }
+            }
+        }
+        visible = { NOT = { has_country_flag = FAV_Not_Show_HOC2 } }
+        complete_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Army4
+                        has_idea = DOT_Government_Army5
+                        has_idea = DOT_Government_Army6
+                        has_idea = DOT_Government_Army7
+                        check_variable = { FAV_Num_of_Deve_5 = 0 }
+                    }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 50 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 < 3 }
+                    check_variable = { FAV_Num_of_Deve_5 > 0 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 100 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 = 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 200 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            IF = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_idea = DOT_Government_Army4
+                            has_idea = DOT_Government_Army5
+                            has_idea = DOT_Government_Army6
+                            has_idea = DOT_Government_Army7
+                        }
+                    }
+                    check_variable = { FAV_Num_of_Deve_5 > 3 }
+                }
+                set_temp_variable = { FAV_linshibianliang_P = 500 }
+                custom_effect_tooltip = FAV_Lower_Power
+                subtract_from_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+            }
+            add_to_variable = { FAV_Num_of_Deve_5 = 1 }
+        }
+        days_re_enable = 90
+        days_remove = 60
+        remove_effect = {
+            IF = {
+                limit = {
+                    OR = {
+                        has_idea = DOT_Government_Army4
+                        has_idea = DOT_Government_Army5
+                        has_idea = DOT_Government_Army6
+                        has_idea = DOT_Government_Army7
+                    }
+                }
+                custom_effect_tooltip = FAV_Bonus_From_ArmyDeve
+                army_experience = 30
+                navy_experience = 30
+                air_experience = 30
+            }
+            ELSE_IF = {
+			    FAV_Better_Deve_of_AR1 = yes
+            }
+        }
+        ai_will_do = { base = 1000 }
+    }
+}
+##组织行动
+#相关变量：
+# 同时可执行决议数 FAV_MaxNumber_of_Action FAV_HasNumber_of_Action
+FAV_Basing_on_Development = {
+    #隐藏/显示发展水平不足导致的不可用决议
+    FAV_Show_Them_Or_Not = {
+        cost = 0
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                has_country_flag = FAV_Not_Show_BOD1
+            }
+        }
+        fire_only_once = no
+        days_re_enable = 1
+        days_remove = 0
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Not_Show_BOD1 }
+                clr_country_flag = FAV_Not_Show_BOD1
+            }
+            ELSE_IF = {
+                set_country_flag = FAV_Not_Show_BOD1
+            }
+        }
+    }
+    #增加可执行决议上限
+    FAV_More_Max_of_Decisions_1 = {
+        cost = 0
+        icon = generic_nationalism
+        days_remove = 0
+        fire_only_once = yes
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        visible = {
+            OR = {
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_More_Decisions_We_can_Take
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+    }
+    FAV_More_Max_of_Decisions_2 = {
+        cost = 0
+        icon = generic_nationalism
+        days_remove = 0
+        fire_only_once = yes
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        visible = {
+            OR = {
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_More_Decisions_We_can_Take
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+    }
+    FAV_More_Max_of_Decisions_3 = {
+        cost = 0
+        icon = generic_nationalism
+        days_remove = 0
+        fire_only_once = yes
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        visible = {
+            OR = {
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_More_Decisions_We_can_Take
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+    }
+    FAV_More_Max_of_Decisions_4 = {
+        cost = 0
+        icon = generic_nationalism
+        days_remove = 0
+        fire_only_once = yes
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        visible = {
+            OR = {
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_More_Decisions_We_can_Take
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+    }
+    ##农业
+    #2级 乡村巡回讲道
+    FAV_BOD_Agri_2_Village_Speech = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability < 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri2
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        modifier = {
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #3级 吸引农民参军
+    FAV_BOD_Agri_3_Village_Mobili = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.6
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        modifier = {
+            mobilization_speed_factor = 0.25
+            manpower_weekly = 1000
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #3级 红 组织农业合作社
+    FAV_BOD_Agri_3_Village_Cooperative = {
+        cost = 30
+        icon = generic_industry
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            has_government = communism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+            }
+        }
+        modifier = {
+            communism_drift = 0.05
+            political_power_gain = 0.05
+            production_speed_infrastructure_factor = 0.25
+            production_speed_industrial_complex_factor = 0.15
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #3级 黑 乡村宗教集会
+    FAV_BOD_Agri_3_Village_Holy = {
+        cost = 30
+        icon = generic_speech
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            has_government = fascism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                has_ideas = DOT_Government_Agri3
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            fascism_drift = 0.1
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级 农业生产调整
+    FAV_BOD_Agri_4_Village_Production = {
+        cost = 30
+        icon = generic_wreckers
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            consumer_goods_factor = -0.2
+            stability_weekly = -0.002
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级农业 红 推广枫丹农业机械
+    FAV_BOD_Agri_4_Production_Machine = {
+        cost = 30
+        icon = generic_wreckers
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            local_resources_factor = 0.2
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #4级农业 红 动员乡村建设
+    FAV_BOD_Agri_4_Construction = {
+        cost = 30
+        icon = generic_factory
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            production_speed_infrastructure_factor = 0.25
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = infrastructure
+                        level > 2
+                    }
+                }
+                add_building_construction = {
+                    type = infantry_equipment
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #农业4级 蓝 鼓励乡镇企业发展
+    FAV_BOD_Agri_4_Enterprise = {
+        cost = 50
+        icon = generic_fundraising
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = democratic
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            production_speed_industrial_complex_factor = 0.2
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #农业四级 灰 温和农业整合
+    FAV_BOD_Agri_4_Annex_Land = {
+        cost = 60
+        icon = generic_fundraising
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = neutrality
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Agri4
+                has_ideas = DOT_Government_Agri5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 5
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #工业2级 投资工业生产
+    FAV_BOD_Indu_2_Invest_Fatories = {
+        cost = 80
+        icon = generic_factory
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Industry2
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry2
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 5
+            stability_weekly = -0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 190
+                any_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 3
+                    }
+                }
+            }
+        }
+    }
+    #工业3级 工人激励行动
+    FAV_BOD_Indu_3_Workers_Initiative = {
+        cost = 30
+        icon = generic_nationalism
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            war_support_weekly = -0.005
+            industrial_capacity_factory = 0.1
+            production_factory_efficiency_gain_factor = 0.25
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业3级 红/黑 军工业强制整合
+    FAV_BOD_Indu_3_Arms_Merge = {
+        cost = 60
+        icon = generic_military
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 6
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = communism
+                has_government = fascism
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 7
+            stability_weekly = -0.005
+            production_speed_arms_factory_factor = 0.2
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 1
+                    }
+                    add_building_construction = {
+                        type = arms_factory
+                        level = 2
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #灰/蓝 安抚工人情绪
+    FAV_BOD_Indu_3_Workers_Mood = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = democratic
+                has_government = neutrality
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry3
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业4级 举办城镇游行
+    FAV_BOD_Indu_4_City_Activity = {
+        cost = 30
+        icon = generic_nationalism
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            num_of_civilian_factories_available_for_projects > 2
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 3
+            political_power_cost = -0.25
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业四级 红 宣传平等思想
+    FAV_BOD_Indu_4_Equality_Ideas = {
+        cost = 0
+        icon = generic_nationalism
+        days_re_enable = 35
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_war_support < 0.8
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业四级 黑 调和阶级矛盾
+    FAV_BOD_Indu_4_Mild_Level = {
+        cost = 70
+        icon = generic_speech
+        days_re_enable = 35
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability < 0.8
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            stability_weekly = 0.01
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #工业四级灰/蓝 企业临时减税
+    FAV_BOD_Indu_4_Arms_Expand = {
+        cost = 60
+        icon = generic_fundraising
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 6
+            OR = {
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = democratic
+                has_government = neutrality
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Industry4
+                has_ideas = DOT_Government_Industry5
+            }
+        }
+        modifier = {
+            civilian_factory_use = 7
+            stability_weekly = -0.005
+            production_speed_arms_factory_factor = 0.2
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            random_owned_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        level > 1
+                    }
+                    add_building_construction = {
+                        type = arms_factory
+                        level = 2
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #政治二级 维护社会稳定
+    FAV_BOD_Control_Social_Stability = {
+        cost = 30
+        icon = generic_decision
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            stability_weekly = 0.005
+            political_power_cost = 0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            add_stability = 0.05
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治二级 扩张政治机关
+    FAV_BOD_Control_Expand_Breu = {
+        cost = 50
+        icon = generic_decision
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            has_stability > 0.8
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            civilian_factory_use = 5
+            political_power_gain = 0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            add_political_power = 50
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治二级 黑 宣传宗教狂热
+    FAV_BOD_Control_Prop_Zeal = {
+        cost = 30
+        icon = generic_brainwash
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control2
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            war_support_weekly = 0.005
+            political_power_cost = 0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            add_war_support = 0.05
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治三级 开展激进宣传
+    FAV_BOD_Control_3_Prop_War = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            war_support_weekly = 0.005
+            political_power_cost = 0.25
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            add_war_support = 0.05
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治三级 红 削弱官僚主义
+    FAV_BOD_Control_3_Less_Breu = {
+        cost = 30
+        icon = generic_form_nation
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            stability_weekly = -0.005
+            political_power_cost = -0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治三级 灰 强化官僚主义
+    FAV_BOD_Control_3_More_Breu = {
+        cost = 30
+        icon = generic_decision
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            num_of_civilian_factories_available_for_projects > 4
+            OR = {
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = neutrality
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control3
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            stability_weekly = 0.005
+            civilian_factory_use = 5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治四级 政治高效运行
+    FAV_BOD_Control_4_Faster_Action = {
+        cost = 0
+        icon = generic_morale_bonus
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            political_power_cost = -0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治四级 蓝 引导社会舆论
+    FAV_BOD_Control_4_Faster_Action = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = democratic
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            war_support_weekly = 0.005
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #政治四级 黑 异端审判运动
+    FAV_BOD_Control_4_Faster_Action = {
+        cost = 70
+        icon = generic_brainwash
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = fascism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Control4
+                has_ideas = DOT_Government_Control5
+                has_ideas = DOT_Government_Control6
+                has_ideas = DOT_Government_Control7
+                has_ideas = DOT_Government_Control8
+            }
+        }
+        modifier = {
+            war_support_weekly = 0.005
+            stability_weekly = 0.005
+            political_power_cost = 1
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #军队2级 加紧训练项目
+    FAV_BOD_Army_2_Faster_Training = {
+        cost = 30
+        icon = generic_military
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army2
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army2
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            training_time_army_factor = -0.2
+            minimum_training_level = -0.1
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10  
+        }
+    }
+    #军队3级 研究前沿学说
+    FAV_BOD_Army_3_Doctrine_Research = {
+        cost = 30
+        icon = generic_research
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            experience_gain_army_factor = 0.25
+            experience_gain_navy_factor = 0.25
+            experience_gain_air_factor = 0.25
+            land_doctrine_cost_factor = -0.1
+            political_power_cost = 0.5
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10  
+        }
+    }
+    #军队3级黑/灰 镇压地区不满
+    FAV_BOD_Army_3_Oppress = {
+        cost = 30
+        icon = generic_oppression
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                has_government = fascism
+                has_government = neutrality
+            }
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army3
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            war_support_weekly = -0.005
+            stability_weekly = 0.005
+            resistance_target = -0.2
+            resistance_activity = -1
+            resistance_decay = 4
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.02 }
+            custom_effect_tooltip = FAV_Lower_Pop
+            subtract_from_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10  
+        }
+    }
+    #军队4级 鼓舞全军士气
+    FAV_BOD_Army_4_Encouragement = {
+        cost = 30
+        icon = generic_military
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            army_attack_factor = 0.05
+            army_attack_speed_factor = 0.2
+            army_speed_factor = 0.1
+            land_night_attack = 0.1
+            army_morale_factor = 0.2
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10  
+        }
+    }
+    #军队4级 军事设施建设
+    FAV_BOD_Army_4_Entrenchgement = {
+        cost = 30
+        icon = generic_construction
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            political_power_cost = 0.5
+            dig_in_speed_factor = 2
+            production_speed_coastal_bunker_factor = 0.25
+            production_speed_naval_base_factor = 0.25
+            production_speed_radar_station_factor = 0.25
+            production_speed_bunker_factor = 0.25
+            production_speed_air_base_factor = 0.25
+            production_speed_anti_air_building_factor = 0.25
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+        }
+        ai_will_do = {
+            base = 10  
+        }
+    }
+    #军队4级红 强化军民联系
+    FAV_BOD_Army_4_Better_Connection = {
+        cost = 30
+        icon = generic_propaganda
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            has_government = communism
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Army4
+                has_ideas = DOT_Government_Army5
+                has_ideas = DOT_Government_Army6
+            }
+        }
+        modifier = {
+            political_power_cost = -0.5
+            experience_gain_army_factor = -0.25
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Army4
+                        has_ideas = DOT_Government_Army5
+                        has_ideas = DOT_Government_Army6
+                    }
+                }
+                add_war_support = 0.05
+            }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Army5
+                        has_ideas = DOT_Government_Army6
+                    }
+                }
+                add_stability = 0.05
+            }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    #研究3级 专注装备研究
+    FAV_BOD_Army_3_Focus_on_Weapons = {
+        cost = 30
+        icon = generic_research
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+        }
+        modifier = {
+            research_speed_factor = -0.1
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research3
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = infantry_weapons
+                    category = support_tech
+                    category = armor
+                    category = artillery
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = infantry_weapons
+                    category = support_tech
+                    category = armor
+                    category = artillery
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #研究3级 专注海空研究
+    FAV_BOD_Army_3_Focus_on_NavyAir = {
+        cost = 30
+        icon = generic_research
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+        }
+        modifier = {
+            research_speed_factor = -0.1
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research3
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = air_equipment
+                    category = naval_equipment
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = air_equipment
+                    category = naval_equipment
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+    #研究3级 专注建设研究
+    FAV_BOD_Army_3_Focus_on_Development = {
+        cost = 30
+        icon = generic_research
+        days_re_enable = 70
+        days_remove = 70
+        fire_only_once = no
+        available = {
+            OR = {
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+            custom_effect_tooltip = {
+                tooltip = FAV_Not_More_Than_Max
+                check_variable = { FAV_MaxNumber_of_Action > FAV_HasNumber_of_Action }
+            }
+        }
+        visible = {
+            OR = {
+                NOT = { has_country_flag = FAV_Not_Show_BOD1 }
+                has_ideas = DOT_Government_Research3
+                has_ideas = DOT_Government_Research4
+                has_ideas = DOT_Government_Research5
+            }
+        }
+        modifier = {
+            research_speed_factor = -0.1
+        }
+        complete_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = 1 }
+        }
+        remove_effect = {
+            add_to_variable = { FAV_MaxNumber_of_Action = -1 }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research3
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = industry
+                    category = electronics
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+            IF = {
+                limit = {
+                    OR = {
+                        has_ideas = DOT_Government_Research4
+                        has_ideas = DOT_Government_Research5
+                    }
+                }
+                add_tech_bonus = {
+                    category = industry
+                    category = electronics
+                    bonus = 0.5
+                    uses = 1
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+        }
+    }
+}
+##神学辩论
+#相关变量：
+# 分数 我方 FAV_Victory_Ps_We 对方 FAV_Victory_Ps_They
+# 手段 我方 FAV_Action_Type_We 对方 FAV_Action_Type_They
+# 手段 0 无 1 集会 2 黑料 3 破坏
+# 对抗轮数 FAV_Had_Fight_Times FAV_All_Fight_Times
+# 辩论轮数 FAV_Had_Talk_Times FAV_All_Talk_Times
+# 辩论胜数 FAV_Times_we_Won
+# 显示的分数变化 FAV_Difference_of_VP
+FAV_Difference_on_Bible = {
+    #分数换政治点
+    FAV_DOB_VP_to_PP = {
+        available = { check_variable = { FAV_Victory_Ps_We > 49 } }
+        cost = 0
+        days_re_enable = 10
+        days_remove = 10
+        fire_only_once = no
+        complete_effect = {
+            IF = {
+                limit = { is_ai = no }
+                set_temp_variable = { FAV_Difference_of_VP = 50 }
+                custom_effect_tooltip = FAV_Lost_VP_number
+                subtract_from_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+            }
+        }
+        remove_effect = {
+            add_political_power = 20
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                check_variable = { FAV_Victory_Ps_We > 600 }
+                add = 100
+            }
+        }
+    }
+    #显示我方手段
+    FAV_Show_our_Action = {
+        available = { always = yes }
+        cost = 0
+        days_re_enable = 0
+        days_remove = 0
+        fire_only_once = no
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Show_Decisions1 }
+                clr_country_flag = FAV_Show_Decisions1
+            }
+            ELSE_IF = {
+               set_country_flag = FAV_Show_Decisions1
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    #更换行动为 展开集会
+    FAV_Change_our_Action1 = {
+        available = { always = yes }
+        visible = {
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+            NOT = { check_variable = { FAV_Action_Type_We = 1 } } 
+        }
+        cost = 5
+        days_re_enable = 0
+        days_remove = 0
+        fire_only_once = no
+        complete_effect = {
+            set_variable = { FAV_Action_Type_We = 1 }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 1000
+                check_variable = { FAV_Action_Type_They = 2 }
+            }
+        }
+    }
+    #更换行动为 揭露黑料
+    FAV_Change_our_Action2 = {
+        available = { always = yes }
+        visible = {
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+            NOT = { check_variable = { FAV_Action_Type_We = 2 } } 
+        }
+        cost = 5
+        days_re_enable = 0
+        days_remove = 0
+        fire_only_once = no
+        complete_effect = {
+            set_variable = { FAV_Action_Type_We = 2 }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 1000
+                check_variable = { FAV_Action_Type_They = 3 }
+            }
+        }
+    }
+    #更换行动为 阴谋破坏
+    FAV_Change_our_Action3 = {
+        available = { always = yes }
+        visible = {
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+            NOT = { check_variable = { FAV_Action_Type_We = 3 } } 
+        }
+        cost = 5
+        days_re_enable = 0
+        days_remove = 0
+        fire_only_once = no
+        complete_effect = {
+            set_variable = { FAV_Action_Type_We = 3 }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 1000
+                check_variable = { FAV_Action_Type_They = 1 }
+            }
+        }
+    }
+    #芭芭拉线决议
+    #政治点换分数
+    FAV_Barbara_PP_to_VP = {
+        icon = generic_nationalism
+        available = { always = yes }
+        visible = {
+            has_country_flag = FAV_Talk_Barbara_Unlock1
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+        }
+        cost = 20
+        days_re_enable = 10
+        days_remove = 10
+        modifier = {
+        }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.02
+			}
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 10 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+            set_temp_variable = { FAV_Difference_of_VP = 40 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                check_variable = { FAV_Victory_Ps_We < 500 }
+            }
+        }
+    }
+    #占用民用换分数
+    FAV_Barbara_Civ_to_VP = {
+        icon = generic_fundraising
+        available = { always = yes }
+        visible = {
+            has_country_flag = FAV_Talk_Barbara_Unlock2
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+        }
+        cost = 0
+        days_re_enable = 10
+        days_remove = 10
+        modifier = {
+            civilian_factory_use = 5
+        }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.02
+			}
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 10 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+            set_temp_variable = { FAV_Difference_of_VP = 40 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                check_variable = { FAV_Victory_Ps_We < 500 }
+            }
+        }
+    }
+    #直接获得分数
+    FAV_Barbara_Nothing_to_VP = {
+        icon = generic_speech
+        available = {
+            custom_trigger_tooltip = {
+                check_variable = { FAV_Victory_Ps_We > 199 }
+                tooltip = FAV_Has_Enough_VP
+            }
+        }
+        visible = {
+            has_country_flag = FAV_Talk_Barbara_Unlock3
+            NOT = { has_country_flag = FAV_Show_Decisions1 }
+        }
+        cost = 10
+        days_re_enable = 10
+        days_remove = 20
+        modifier = {
+        }
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+        }
+        remove_effect = {
+            set_temp_variable = { FAV_linshibianliang4 = 10 }
+            custom_effect_tooltip = FAV_tt_Raise_Fans
+            add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+            set_temp_variable = { FAV_Difference_of_VP = 40 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                check_variable = { FAV_Victory_Ps_We < 500 }
+            }
+        }
+    }
+	#显示对方手段
+    FAV_Show_Their_Action = {
+        available = { always = yes }
+        cost = 0
+        days_re_enable = 0
+        days_remove = 0
+        fire_only_once = no
+        complete_effect = {
+            IF = {
+                limit = { has_country_flag = FAV_Show_Decisions2 }
+                clr_country_flag = FAV_Show_Decisions2
+            }
+            ELSE_IF = {
+               set_country_flag = FAV_Show_Decisions2
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+
+    #罗莎莉亚线决议
+    #查明对方行动
+    FAV_Know_Their_Action = {
+        icon = generic_police_action
+        available = { always = yes }
+        visible = {
+            has_country_flag = FAV_Talk_Rosary_Unlock1
+            NOT = { has_country_flag = FAV_Know_Enemy_Action }
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		cost = 20
+        days_re_enable = 15
+        days_remove = 10
+        fire_only_once = no
+        complete_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.02
+			}
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_We_will_Know_Their_Action
+            set_country_flag = FAV_Know_Enemy_Action
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    #指挥点换胜利分数提高
+    FAV_CP_to_VP = {
+        icon = generic_operation
+        available = { always = yes }
+		custom_cost_trigger = {
+			command_power > 29
+		}
+        visible = {
+            has_country_flag = FAV_Talk_Rosary_Unlock2
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		custom_cost_text = decision_cost_CP_30
+        days_re_enable = 10
+        days_remove = 10
+        fire_only_once = no
+        complete_effect = {
+            add_command_power = -30
+        }
+        modifier = {
+        }
+        remove_effect = {
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.02
+			}
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 100
+                check_variable = { FAV_Victory_Ps_We < 500 }
+            }
+        }
+    }
+    #直接让对方行动变为无
+    FAV_Turn_Their_Aciton_to_No = {
+        icon = generic_prepare_civil_war
+        available = { always = yes }
+		custom_cost_trigger = {
+			command_power > 29
+		}
+        visible = {
+            has_country_flag = FAV_Talk_Rosary_Unlock3
+            NOT = { has_country_flag = FAV_Show_Decisions2 }
+        }
+		custom_cost_text = decision_cost_CP_30
+        days_re_enable = 20
+        days_remove = 5
+        fire_only_once = no
+        complete_effect = {
+            add_command_power = -30
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+        }
+        modifier = {
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Change_Their_Action
+            set_variable = { FAV_Action_Type_They = 0 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    #对抗倒计时
+	FAV_TimeOver_of_Fight = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 15
+		activation = { always = no }
+		available = { has_global_flag = MOT_Civil_War_Begun }
+        cancel_trigger = { has_country_flag = FAV_End_our_Talk }
+		timeout_effect = {
+            #结算对抗结果
+            FAV_End_of_This_Fight = yes
+            IF = { 
+                limit = {
+                    OR = {
+                        check_variable = { FAV_Had_Fight_Times = FAV_All_Fight_Times }
+                        check_variable = { FAV_Had_Fight_Times > FAV_All_Fight_Times }
+                    }
+                }
+                #如果完成了一次辩论中应有的全部对抗，则开始辩论
+                FAV_End_of_This_Talk = yes
+                add_to_variable = { FAV_Had_Talk_Times = 1 }
+            }
+            ELSE_IF = {
+                #如果未完成一次辩论中应有的全部对抗，则对抗计数加一
+                add_to_variable = { FAV_Had_Fight_Times = 1 }
+            }
+            IF = {
+                limit = {
+                    OR = {
+                        check_variable = { FAV_Had_Talk_Times = FAV_All_Talk_Times }
+                        check_variable = { FAV_Had_Talk_Times > FAV_All_Talk_Times }
+                    }
+                }  
+                #如果完成了全部辩论，则结束猜拳决议组
+                set_country_flag = FAV_End_of_our_Talks
+                FAV_End_of_All_Talk = yes
+            }
+            IF = {
+                limit = { NOT = { has_country_flag = FAV_End_of_our_Talks } }
+                activate_mission = FAV_TimeOver_of_Fight 
+            }
+		}
+	}
+}
+#争取自主权
+FAV_Get_Free = {
+    #提高抵抗度：和平
+    FAV_Higher_our_Resistance1 = {
+        available = { always = yes }
+        visible = {
+        }
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = decision_cost_CP_20
+        complete_effect = {
+            add_command_power = -20
+        }
+        days_re_enable = 30
+        days_remove = 30
+        fire_only_once = no
+        modifier = {
+            
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT1
+            MOT = {
+                country_event = Church.24
+            }
+            IF = {
+                limit = { MOT = { is_ai = yes } }
+                MOT = { add_to_variable = 5 }
+                IF = {
+                    limit = { FAV = { is_ai = yes } }
+                    MOT = { add_to_variable = 5 }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #降低控制力：和平
+    FAV_Lower_Mot_Control = {
+        available = { always = yes }
+        visible = {
+        }
+        cost = 30
+        days_re_enable = 30
+        days_remove = 30
+        fire_only_once = no
+        modifier = {
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT2
+            MOT = {
+                country_event = Church.25
+            }
+            IF = {
+                limit = { MOT = { is_ai = yes } }
+                MOT = { add_to_variable = 5 }
+                IF = {
+                    limit = { FAV = { is_ai = yes } }
+                    MOT = { add_to_variable = 5 }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #提高抵抗度：冲突
+    FAV_Higher_our_Resistance2 = {
+        available = { always = yes }
+        visible = {
+        }
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = decision_cost_CP_20
+        complete_effect = {
+            add_command_power = -20
+        }
+        fire_only_once = no
+        days_re_enable = 15
+        days_remove = 30
+        modifier = {
+            
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_tt_Ask_for_MOT3
+            LAW = {
+                country_event = Church.26
+            }
+            hidden_effect = {
+                MOT = {
+                    country_event = Church.27
+                }
+            }
+            IF = {
+                limit = { MOT = { is_ai = yes } }
+                MOT = { add_to_variable = 5 }
+                IF = {
+                    limit = { FAV = { is_ai = yes } }
+                    MOT = { add_to_variable = 5 }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 10
+            modifier = {
+                add = 90
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV }
+                }
+            }
+        }
+    }
+    #终结哑谜
+    FAV_End_This = {
+        available = {
+            has_global_flag = MOT_Civil_War_Begun
+            custom_trigger_tooltip = {
+                tooltip = FAV_Enough_Resistance
+                MOT = {
+                    check_variable = { MOT_Control_in_FAV < MOT_Resist_in_FAV }
+                }
+            }
+        }
+        visible = {
+            date < 1938.1.1
+            OR = {
+                is_puppet_of = MOT
+            }
+            OR = {
+                is_subject_of = MOT
+            }
+            has_autonomy_state = autonomy_MOT_Auto_State
+        }
+        fire_only_once = yes
+        days_remove = 1
+        modifier = {
+
+        }
+        complete_effect = {
+
+        }
+        remove_effect = {
+            every_country = {
+                limit = {
+                    Is_MOT = yes
+                }
+                country_event = Knights.16
+            }
+        }
+        ai_will_do = {
+            base = 10000
+        }
+
+    }
+}
+#权力平衡1
+FAV_Original_power_balance_category = {
+    #消弭争端
+    FAV_Down_our_Fight = {
+        icon = generic_political_support
+        available = {
+            OR = {
+                hidden_trigger = { is_ai = yes }
+                AND = {
+                    power_balance_value = {
+                        id = FAV_Original_power_balance
+                        value < 0.25
+                    }
+                    power_balance_value = {
+                        id = FAV_Original_power_balance
+                        value > -0.25
+                    }
+                }
+            }
+        }
+        days_remove = 180
+        days_re_enable = 0
+        remove_effect = {
+            remove_ideas = FAV_Fight_Inside
+        }
+        cancel_trigger = {
+            OR = {
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value > 0.3
+                }
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value < -0.3
+                }
+            }
+        }
+        cancel_effect = {
+            add_political_power = 50
+        }
+        cost = 50
+        fire_only_once = no
+        visible = {
+            has_idea = FAV_Fight_Inside
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10000
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+            }
+        }
+    }
+    #胜利3 芭芭拉 仅一次 摘取胜利果实
+    FAV_Catch_the_Fruit = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.8
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
+			}
+        }
+        modifier = {
+            power_balance_weekly = -0.1
+        }
+        days_remove = 100
+        days_re_enable = 70
+        fire_only_once = yes
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利3 罗莎莉亚 仅一次 确保完全控制
+    FAV_Ensure_our_Victory = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.8
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 3 }
+				tooltip = FAV_Need_Victory_3
+			}
+        }
+        modifier = {
+            power_balance_weekly = 0.1
+        }
+        days_remove = 100
+        days_re_enable = 70
+        fire_only_once = yes
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #调整平衡
+    FAV_Stable_the_Balance = {
+        icon = generic_form_nation
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.7
+            }
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.7
+            }
+            NOT = {
+                power_balance_value = {
+                    id = FAV_Original_power_balance
+                    value = 0
+                }
+            }
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 2 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+        }
+        modifier = {
+        }
+        remove_effect = {
+            FAV_Weaker_Stronger2 = yes
+        }
+        days_remove = 10
+        days_re_enable = 10
+        fire_only_once = no
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #芭芭拉 号召支持
+    FAV_Call_for_Support = {
+        icon = generic_political_support
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.25
+            }
+        }
+        modifier = {
+            political_power_cost = -0.2
+            power_balance_weekly = -0.002
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 0
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVLeft_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRight_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #罗莎莉亚 调集修女
+    FAV_Call_for_Sisters = {
+        icon = generic_police_action
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.25
+            }
+        }
+        modifier = {
+            command_power_gain_mult = 0.2
+            power_balance_weekly = 0.002
+        }
+        days_remove = 30
+        days_re_enable = 30
+        cost = 0
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVRight_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeft_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #芭芭拉 募集捐款
+    FAV_Call_for_Fundrasing = {
+        icon = generic_fundraising
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.1
+            }
+        }
+        modifier = {
+            consumer_goods_factor = -0.1
+            production_speed_buildings_factor = 0.1
+            power_balance_weekly = -0.002
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 35
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVLeft_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRight_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #罗莎莉亚 加速动员
+    FAV_Call_for_Mobilization = {
+        icon = generic_fundraising
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.1
+            }
+        }
+        modifier = {
+            production_factory_efficiency_gain_factor = 0.3
+            production_speed_arms_factory_factor = 0.2
+            power_balance_weekly = 0.002
+        }
+        fire_only_once = no
+        days_remove = 35
+        days_re_enable = 35
+        custom_cost_text = decision_cost_CP_20
+        custom_cost_trigger = {
+            has_command_power > 19
+        }
+        complete_effect = {
+            add_command_power = -20
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVRight_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeft_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #经济线解锁 共通 推进生产进步
+    FAV_Focusing_on_Industry = {
+        icon = generic_industry
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0
+            }
+            has_completed_focus = FAV_Research_Industry
+        }
+        modifier = {
+            power_balance_weekly = -0.002
+        }
+        complete_effect = {
+            add_timed_idea = { idea = FAV_Temp_Focus_on_Industry_Res days = 70 }
+        }
+        fire_only_once = no
+        days_remove = 70
+        days_re_enable = 70
+        cost = 35
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济线解锁 共通 推进军事进步
+    FAV_Focusing_on_Militia = {
+        icon = generic_military
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0
+            }
+            has_completed_focus = FAV_Research_Electricity
+        }
+        modifier = {
+            power_balance_weekly = 0.002
+        }
+        complete_effect = {
+            add_timed_idea = { idea = FAV_Temp_Focus_on_Military_Res days = 70 }
+        }
+        fire_only_once = no
+        days_remove = 70
+        days_re_enable = 70
+        cost = 35
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 芭芭拉 加速农业改造
+    FAV_Faster_Agricultural_Reform = {
+        icon = generic_morale_bonus
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.25
+            }
+            has_completed_focus = FAV_They_will_be_Full
+        }
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
+        }
+        modifier = {
+            power_balance_weekly = -0.002
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+        }
+        remove_effect = {
+            FAV_Get_1_Infra = yes
+            FAV_Get_1_Infra = yes
+        }
+        fire_only_once = no
+        days_remove = 35
+        days_re_enable = 35
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 罗莎莉亚 敦促军事建设
+    FAV_Faster_Military_Building = {
+        icon = generic_factory
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.25
+            }
+            has_completed_focus = FAV_Happy_one_Will_be_End
+        }
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
+        }
+        fire_only_once = no
+        modifier = {
+            power_balance_weekly = 0.002
+            war_support_weekly = 0.005
+            production_factory_efficiency_gain_factor = 0.2
+        }
+        complete_effect = {
+        }
+        remove_effect = {
+            FAV_Get_2_Arms = yes
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 芭芭拉 试行改革措施
+    FAV_Faster_Political_Reform = {
+        icon = generic_decision
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.5
+            }
+            has_completed_focus = FAV_Spread_our_Talk
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
+        }
+        modifier = {
+            political_power_cost = -0.5
+            political_advisor_cost_factor = -0.25
+            power_balance_weekly = -0.002
+        }
+        remove_effect = {
+            add_political_power = 70
+        }
+        days_remove = 70
+        days_re_enable = 35
+        cost = 70
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 罗莎莉亚 加强地区控制
+    FAV_Stronger_State_Control = {
+        icon = generic_oppression
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.5
+            }
+            has_completed_focus = FAV_Your_Father_Looking
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
+        }
+        modifier = {
+            power_balance_weekly = 0.002
+            war_support_weekly = 0.005
+            stability_weekly = 0.005
+            army_chief_cost_factor = -0.33
+            high_command_cost_factor = -0.33
+        }
+        complete_effect = {
+            add_command_power = -50
+        }
+        remove_effect = {
+            add_command_power = 50
+        }
+        days_remove = 35
+        days_re_enable = 35
+        custom_cost_text = decision_cost_CP_30
+        custom_cost_trigger = {
+            has_command_power > 49
+        }
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利1 芭芭拉 鼓舞士气
+    FAV_Up_our_WS = {
+        icon = generic_propaganda
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.4
+            }
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+            has_war_support < 0.8
+        }
+        fire_only_once = no
+        modifier = {
+            war_support_weekly = 0.005
+            war_support_factor = 0.2
+            power_balance_weekly = -0.001
+        }
+        days_remove = 70
+        days_re_enable = 70
+        cost = 30
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利1 罗莎莉亚 稳定社会
+    FAV_Up_our_St = {
+        icon = generic_supply_lines
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.4
+            }
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+            has_stability < 0.8
+        }
+        fire_only_once = no
+        modifier = {
+            stability_weekly = 0.005
+            stability_factor = 0.2
+            power_balance_weekly = 0.001
+        }
+        days_remove = 70
+        days_re_enable = 70
+        cost = 30
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利2 芭芭拉 经济调整
+    FAV_Change_our_Eco_Law = {
+        icon = generic_wreckers
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.1
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
+			}
+            has_stability > 0.6
+        }
+        fire_only_once = no
+        modifier = {
+            trade_laws_cost_factor = -0.5
+            economy_cost_factor = -0.33
+            power_balance_weekly = -0.005
+        }
+        days_remove = 30
+        days_re_enable = 70
+        cost = 30
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #胜利2 罗莎莉亚 政治施压
+    FAV_Change_our_Arm_Law = {
+        icon = generic_political_support
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.1
+            }
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
+			}
+            has_war_support > 0.6
+        }
+        fire_only_once = no
+        modifier = {
+            mobilization_laws_cost_factor = -0.5
+            political_advisor_cost_factor = -0.2
+            power_balance_weekly = 0.005
+        }
+        days_remove = 30
+        days_re_enable = 70
+        cost = 30
+        ai_will_do = {
+            base = 20
+        }
+    }
+}
+#拉近关系
+FAV_Better_Connection = {
+    FAV_PeaceTalk_Bonus_Army = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Army } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.38
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.38 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.38 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    FAV_PeaceTalk_Bonus_Characters = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Character } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.37
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.37 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.37 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    FAV_PeaceTalk_Bonus_Cores = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Core } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV_Influence_on_Friend > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV_Influence_on_Friend = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.39
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.39 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.39 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    FAV_Talk_with_MOT = {
+		icon = generic_nationalism
+		fire_only_once = yes
+        visible = {
+            has_global_flag = FAV_Allow_Union
+            NOT = { has_country_flag = FAV_Broken_Connection }
+            NOT = { has_country_flag = FAV_Start_to_Unite }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = FAV_Influence_Enough
+                set_temp_variable = { FAV_Linshibianliang4 = 19 }
+                add_to_temp_variable = { FAV_Linshibianliang4 = FAV_Friends_Influence_on_Us }
+                check_variable = { FAV_Influence_on_Friend > FAV_Linshibianliang4 }
+            }
+        }
+        cost = 50
+        days_remove = 30
+        complete_effect = {
+            MOT = { set_country_flag = FAV_Start_to_Unite }
+            LAW = { set_country_flag = FAV_Start_to_Unite }
+        }
+        remove_effect = {
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.40 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.40 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -1000
+                OR = {
+                    AND = {
+                        has_country_flag = FAV_Help_MOT
+                        MOT = { is_ai = no }
+                    }
+                    AND = {
+                        has_country_flag = FAV_Help_LAW
+                        LAW = { is_ai = no }
+                    }
+                }
+            }
+        }
+    }
+    FAV_MOT_War = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 200
+		activation = { always = no }
+		available = { MOT = { NOT = { has_war_with = LAW } } }
+        cancel_trigger = { has_country_flag = FAV_End_our_Talk }
+		timeout_effect = {
+            custom_effect_tooltip = FAV_Mot_CW1_Will_End
+            set_global_flag = FAV_Allow_Union
+		}
+    }
+    #我们的影响力 FAV_Influence_on_Friend
+	#盟友影响力 FAV_Friends_Influence_on_Us
+    #运送武器
+    FAV_Send_Weapons = {
+        fire_only_once = no
+        days_re_enable = 20
+        days_remove = 10
+        visible = {
+            OR = {
+                AND = {
+                    has_war_together_with = MOT
+                    has_country_flag = FAV_Help_MOT
+                }
+                AND = {
+                    has_war_together_with = LAW
+                    has_country_flag = FAV_Help_LAW
+                }
+            }
+        }
+        available = {
+            has_equipment = {
+                infantry_equipment > 1999
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Up_Influ_Church
+            set_country_flag = FAV_Have_Sent_Ws
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.28 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.28 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -100
+                has_country_flag = FAV_Have_Sent_Ws
+            }
+        }
+    }
+    #军事顾问
+    FAV_Send_Military_Help = {
+        custom_cost_text = decision_cost_CP_20
+        custom_cost_trigger = { has_command_Power > 19 }
+        fire_only_once = no
+        days_re_enable = 40
+        days_remove = 10
+        visible = {
+            OR = {
+                AND = {
+                    has_war_together_with = MOT
+                    has_country_flag = FAV_Help_MOT
+                }
+                AND = {
+                    has_war_together_with = LAW
+                    has_country_flag = FAV_Help_LAW
+                }
+            }
+        }
+        available = {
+        }
+        complete_effect = { add_command_power = -20 }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Up_Influ_Church
+            set_country_flag = FAV_Have_Military_Help
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.29 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.29 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -100
+                has_country_flag = FAV_Have_Military_Help
+            }
+        }
+    }
+    #输送补给
+    FAV_Send_Supply = {
+        custom_cost_text = decision_cost_CP_20
+        custom_cost_trigger = { has_command_Power > 19 }
+        fire_only_once = no
+        days_re_enable = 40
+        days_remove = 10
+        visible = {
+            OR = {
+                AND = {
+                    has_war_together_with = MOT
+                    has_country_flag = FAV_Help_MOT
+                }
+                AND = {
+                    has_war_together_with = LAW
+                    has_country_flag = FAV_Help_LAW
+                }
+            }
+        }
+        available = {
+        }
+        complete_effect = { add_command_power = -20 }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Up_Influ_Church
+            set_country_flag = FAV_Have_St_Help
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.30 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.30 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -100
+                has_country_flag = FAV_Have_St_Help
+            }
+        }
+    }
+    #鼓舞士气
+    FAV_Military_Propaganda = {
+        cost = 50
+        fire_only_once = no
+        days_re_enable = 40
+        days_remove = 10
+        visible = {
+            OR = {
+                AND = {
+                    has_war_together_with = MOT
+                    has_country_flag = FAV_Help_MOT
+                }
+                AND = {
+                    has_war_together_with = LAW
+                    has_country_flag = FAV_Help_LAW
+                }
+            }
+        }
+        available = {
+            MOT = {
+                OR = {
+                    has_stability < 0.8
+                    has_war_support < 0.8
+                }
+            }
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Up_Influ_Church
+            set_country_flag = FAV_Have_WS_Help
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.31 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.31 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -100
+                has_country_flag = FAV_Have_WS_Help
+            }
+        }
+    }
+    #展开传
+    FAV_Closer_Propaganda = {
+        cost = 50
+        fire_only_once = no
+        days_re_enable = 25
+        days_remove = 25
+        visible = {
+            OR = {
+                AND = {
+                    has_country_flag = FAV_Help_MOT
+                    NOT = { has_war_with = MOT }
+                }
+                AND = {
+                    has_country_flag = FAV_Help_LAW
+                    NOT = { has_war_with = LAW }
+                }
+            }
+        }
+        available = {
+        }
+        remove_effect = {
+            custom_effect_tooltip = FAV_Up_Influ_Church
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.32 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.32 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+}
+#和平谈判
+MOT_Better_Connection = {
+    FAV_PeaceTalk_Bonus_Army = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Army } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.38
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.38 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.38 }
+            }
+        }
+        ai_will_do = {
+            base = 100
+        }
+    }
+    FAV_PeaceTalk_Bonus_Characters = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = { NOT = { has_country_flag = FAV_UnionBonus_Get_Character } }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.37
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                MOT = { country_event = Church.37 }
+            }
+            IF = {
+                limit = {
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                LAW = { country_event = Church.37 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    MOT_PeaceTalk_Bonus_Cores = {
+        icon = generic_form_nation
+        fire_only_once = yes
+        visible = {
+            NOT = { has_country_flag = FAV_UnionBonus_Get_Core }
+            NOT = { original_tag = MOT }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                set_temp_variable = { FAV_linshibianliang3 = 14 }
+                tooltip = FAV_Need_Influence_Number
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_linshibianliang3 }
+            }
+        }
+        cost = 20
+        days_remove = 10
+        complete_effect = { add_to_variable = { FAV.FAV_Friends_Influence_on_Us = -15 } }\
+        remove_effect = {
+            FAV = {
+                country_event = Church.39
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_MOT
+                }
+                MOT = { country_event = Church.39 }
+            }
+            IF = {
+                limit = {
+                    has_country_flag = FAV_Help_LAW
+                }
+                LAW = { country_event = Church.39 }
+            }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+    MOT_Talk_with_FAV = {
+		icon = generic_nationalism
+		fire_only_once = yes
+        visible = {
+            has_global_flag = FAV_Allow_Union
+            NOT = { has_country_flag = FAV_Broken_Connection }
+            NOT = { has_country_flag = FAV_Start_to_Unite }
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = FAV_Influence_Enough
+                set_temp_variable = { FAV_Linshibianliang4 = 19 }
+                add_to_temp_variable = { FAV_Linshibianliang4 = FAV.FAV_Influence_on_Friend }
+                check_variable = { FAV.FAV_Friends_Influence_on_Us > FAV_Linshibianliang4 }
+            }
+        }
+        cost = 50
+        days_remove = 30
+        complete_effect = {
+            FAV = { set_country_flag = FAV_Start_to_Unite }
+        }
+        remove_effect = {
+            FAV = { country_event = Church.40 }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -1000
+                FAV = { is_ai = no }
+            }
+        }
+    }
+    #教会反对派的影响力 FAV.FAV_Influence_on_Friend
+	#我们的影响力 FAV.FAV_Friends_Influence_on_Us
+    MOT_Attack_Directly = {
+        fire_only_once = yes
+        cost = 100
+        days_remove = 30
+        complete_effect = {
+            add_stability = -0.1
+            custom_effect_tooltip = FAV_Lock_the_Cat
+            set_country_flag = FAV_Broken_Connection
+            FAV = {
+                set_country_flag = FAV_Broken_Connection
+            }
+        }
+        icon = generic_ignite_civil_war
+        available = { always = yes }
+        visible = { always = yes }
+        remove_effect = {
+            IF = {
+                limit = {
+                    original_tag = LAW
+                }
+                create_wargoal = {
+                    type = annex_everything
+                    target = FAV
+                }
+                FAV = {
+                    create_wargoal = {
+                        type = annex_everything
+                        target = LAW
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 1000
+                date > 1938.6.1
+            }
+            modifier = {
+                add = 1000
+                date > 1938.1.1
+                original_tag = LAW
+            }
+        }
+    }
+    #支援教会反对派建设
+    MOT_Help_Construction = {
+        fire_only_once = no
+        days_re_enable = 10
+        days_remove = 40
+        visible = {
+            has_war = no
+            OR = {
+                AND = {
+                    original_tag = MOT
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                AND = {
+                    original_tag = LAW
+                    FAV = { has_country_flag = FAV_Help_LAW }
+                }
+            }
+        }
+        available = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
+        modifier = {
+            civilian_factory_use = 6
+        }
+        remove_effect = {
+            IF = {
+                limit = { original_tag = MOT }
+                custom_effect_tooltip = FAV_Up_Influ_Knights
+            }
+            IF = {
+                limit = { original_tag = LAW }
+                custom_effect_tooltip = FAV_Up_Influ_LAW
+            }
+            FAV = { country_event = Church.33 }
+            set_country_flag = MOT_Economic_Help_Fav
+            IF = {
+                limit = { has_country_flag = MOT_Economic_Help_Fav }
+                set_country_flag = MOT_Economic_Help_Fav2
+            }
+        }
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = -50
+                has_country_flag = MOT_Economic_Help_Fav
+            }
+            modifier = {
+                add = -50
+                has_country_flag = MOT_Economic_Help_Fav2
+            }
+        }
+    }
+    #支持教会反对派政治行动
+    MOT_Help_Political = {
+        cost = 40
+        fire_only_once = no
+        days_re_enable = 10
+        days_remove = 40
+        visible = {
+            has_war = no
+            OR = {
+                AND = {
+                    original_tag = MOT
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                AND = {
+                    original_tag = LAW
+                    FAV = { has_country_flag = FAV_Help_LAW }
+                }
+            }
+        }
+        available = {
+        }
+        modifier = {
+        }
+        remove_effect = {
+            IF = {
+                limit = { original_tag = MOT }
+                custom_effect_tooltip = FAV_Up_Influ_Knights
+            }
+            IF = {
+                limit = { original_tag = LAW }
+                custom_effect_tooltip = FAV_Up_Influ_LAW
+            }
+            FAV = { country_event = Church.34 }
+            set_country_flag = MOT_Political_Help_Fav
+            IF = {
+                limit = { has_country_flag = MOT_Political_Help_Fav }
+                set_country_flag = MOT_Political_Help_Fav2
+            }
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -50
+                has_country_flag = MOT_Research_Help_Fav
+            }
+            modifier = {
+                add = -50
+                has_country_flag = MOT_Research_Help_Fav2
+            }
+        }
+    }
+    #向教会反对派传递技术资料
+    MOT_Help_Research = {
+        cost = 40
+        fire_only_once = no
+        days_re_enable = 10
+        days_remove = 40
+        visible = {
+            has_war = no
+            OR = {
+                AND = {
+                    original_tag = MOT
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                AND = {
+                    original_tag = LAW
+                    FAV = { has_country_flag = FAV_Help_LAW }
+                }
+            }
+        }
+        available = {
+        }
+        modifier = {
+            research_speed_factor = -0.1
+        }
+        remove_effect = {
+            IF = {
+                limit = { original_tag = MOT }
+                custom_effect_tooltip = FAV_Up_Influ_Knights
+            }
+            IF = {
+                limit = { original_tag = LAW }
+                custom_effect_tooltip = FAV_Up_Influ_LAW
+            }
+            FAV = { country_event = Church.35 }
+            set_country_flag = MOT_Research_Help_Fav
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                add = -100
+                has_country_flag = MOT_Research_Help_Fav
+            }
+        }
+    }
+    #强化对教会反对派的影响
+    MOT_Higher_Influence = {
+        cost = 40
+        fire_only_once = no
+        days_re_enable = 10
+        days_remove = 40
+        visible = {
+            NOT = { has_war_with = FAV }
+            OR = {
+                AND = {
+                    original_tag = MOT
+                    FAV = { has_country_flag = FAV_Help_MOT }
+                }
+                AND = {
+                    original_tag = LAW
+                    FAV = { has_country_flag = FAV_Help_LAW }
+                }
+            }
+        }
+        available = {
+        }
+        modifier = {
+        }
+        remove_effect = {
+            IF = {
+                limit = { original_tag = MOT }
+                custom_effect_tooltip = FAV_Up_Influ_Knights
+            }
+            IF = {
+                limit = { original_tag = LAW }
+                custom_effect_tooltip = FAV_Up_Influ_LAW
+            }
+            FAV = { country_event = Church.36 }
+        }
+        ai_will_do = {
+            base = 0
+        }
+    }
+}

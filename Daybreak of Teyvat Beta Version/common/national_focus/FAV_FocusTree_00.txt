@@ -1,0 +1,6262 @@
+focus_tree = {
+	id = FAV_Focus_00
+	#西风教会领国策树
+	country = {
+		factor = 0
+		modifier = {
+			add = 1000
+			tag = FAV
+		}
+	}
+	initial_show_position = {
+		focus = FAV_Why_do_you_Leave
+	}
+	default = no
+	reset_on_civilwar = no
+	continuous_focus_position = { x = 300 y = 3000 }
+	###开头介绍
+	#教会反对派的故事……
+	focus = {
+		id = FAV_the_Story_of_Church
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 1.00
+		x = 15
+		y = 1
+		completion_reward = {
+			hidden_effect = {
+				set_party_name = {
+					ideology = neutrality
+					long_name = FAV_neutrality_p_0_long
+					name = FAV_neutrality_p_0
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = FAV_fascism_p_0_long
+					name = FAV_fascism_p_0
+				}
+				set_party_name = {
+					ideology = genshin
+					long_name = FAV_genshin_p_0_long
+					name = FAV_genshin_p_0
+				}
+			}
+			set_country_flag = FAV_Unlock_DecCat3
+			add_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			country_event = Church.16
+			custom_effect_tooltip = FAV_UnlockDecisionCat_05
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		allow_branch = {
+			NOT = { has_country_flag = FAV_Show_Focus_Tree2 }
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#……起源于蒙德的悲鸣
+	focus = {
+		id = FAV_Originate_From_Sorrow_of_Mot
+		icon = GFX_goals_TNO_Hunger
+		cost = 1.00
+		x = 17
+		y = 1
+		completion_reward = {
+			hidden_effect = {
+				set_party_name = {
+					ideology = democratic
+					long_name = FAV_democratic_p_0_long
+					name = FAV_democratic_p_0
+				}
+				set_party_name = {
+					ideology = communism
+					long_name = FAV_communism_p_0_long
+					name = FAV_communism_p_0
+				}
+				set_party_name = {
+					ideology = genshin
+					long_name = FAV_genshin_p_0_long
+					name = FAV_genshin_p_0
+				}
+			}
+			set_country_flag = FAV_Unlock_DecCat4
+			country_event = Church.15
+			custom_effect_tooltip = FAV_UnlockDecisionCat_03
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		allow_branch = {
+			NOT = { has_country_flag = FAV_Show_Focus_Tree2 }
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#我的神，我的神，为什么离弃我？
+	#出自圣经新约，耶稣死前的呼喊
+	focus = {
+		id = FAV_Why_do_you_Leave
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 1.00
+		x = 16
+		y = 2
+		prerequisite = {
+			focus = FAV_Originate_From_Sorrow_of_Mot
+		}
+		prerequisite = {
+			focus = FAV_the_Story_of_Church
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			set_country_flag = FAV_Unlock_Bop1
+			set_power_balance = {
+				id = FAV_Original_power_balance
+				set_default = yes
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -0.2
+			}
+			custom_effect_tooltip = FAV_UnlockDecisionCat_04
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#暗中策划
+	focus = {
+		id = FAV_Prepare_in_Shadow
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 1.00
+		x = 16
+		y = 3
+		prerequisite = {
+			focus = FAV_Why_do_you_Leave
+		}
+		completion_reward = {
+			FAV_Org_DM = yes
+			add_political_power = 100
+			country_event = Church.17
+		}
+		available = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#末世的晓谕
+	##出自圣经新约，“末世”即弥赛亚降临之后的日子，之后需要寻求赎罪等待审判
+	##这里的意思是神已经不会降临，教会反对派将自己成为“救主”拯救蒙德
+	focus = {
+		id = FAV_Call_of_Savior
+		icon = GFX_goal_generic_propaganda
+		cost = 1.00
+		x = 16
+		y = 4
+		prerequisite = {
+			focus = FAV_Prepare_in_Shadow
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_war_support = 0.1
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            subtract_from_variable = { FAV_Action_Zeal = FAV_linshibianliang_Pop }
+			country_event = Church.17
+			FAV_Change_Their_Action = yes
+			set_country_flag = FAV_Begin_Talking
+			hidden_effect = { activate_mission = FAV_TimeOver_of_Fight }
+			
+			custom_effect_tooltip = FAV_UnlockDecisionCat_02
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	###辩论强化线
+	#芭芭拉 真理实证
+	focus = {
+		id = FAV_Prove_the_Truth
+		icon = GFX_goal_generic_improve_relations
+		cost = 1.00
+		x = 15
+		y = 5
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			custom_effect_tooltip = FAV_Talk_Barbara1_Act
+			set_country_flag = FAV_Talk_Barbara_Unlock1
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#罗莎莉亚 知己知彼 FAV_Know_our_Enemies
+	focus = {
+		id = FAV_Know_our_Enemies
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 1.00
+		x = 17
+		y = 5
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+			custom_effect_tooltip = FAV_Talk_Rosary1_Act
+			set_country_flag = FAV_Talk_Rosary_Unlock1
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.1
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#芭芭拉 食我之肉
+	focus = {
+		id = FAV_Eat_my_Meat
+		icon = GFX_goal_generic_consumer_goods
+		cost = 2.00
+		x = 15
+		y = 6
+		prerequisite = {
+			focus = FAV_Prove_the_Truth
+			focus = FAV_Know_our_Enemies
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			custom_effect_tooltip = FAV_Talk_Barbara2_Act
+			set_country_flag = FAV_Talk_Barbara_Unlock2
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				has_country_flag = {
+					flag = FAV_Reform_Poli
+					days > 69
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#罗莎莉亚 饮敌之血 FAV_Drink_their_Blood
+	focus = {
+		id = FAV_Drink_their_Blood
+		icon = GFX_Goal_Forget_the_Promise
+		cost = 2.00
+		x = 17
+		y = 6
+		prerequisite = {
+			focus = FAV_Prove_the_Truth
+			focus = FAV_Know_our_Enemies
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			custom_effect_tooltip = FAV_Talk_Rosary2_Act
+			set_country_flag = FAV_Talk_Rosary_Unlock2
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				has_country_flag = {
+					flag = FAV_Reform_Poli
+					days > 69
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#芭芭拉 我常与你们同在，直到世界的末日
+	focus = {
+		id = FAV_with_you_Until_the_Day
+		icon = GFX_Goal_Political_Coo
+		cost = 3.00
+		x = 15
+		y = 7
+		prerequisite = {
+			focus = FAV_Drink_their_Blood
+			focus = FAV_Eat_my_Meat
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			custom_effect_tooltip = FAV_Talk_Barbara3_Act
+			set_country_flag = FAV_Talk_Barbara_Unlock3
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.15
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < -0.3
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				has_country_flag = {
+					flag = FAV_Reform_Poli
+					days > 69
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 2000
+		}
+	}
+	#罗莎莉亚 你改悔罢，因为那日子近了 FAV_You_Regret_for_the_Coming_Day
+	focus = {
+		id = FAV_You_Regret_for_the_Coming_Day
+		icon = GFX_goals_TNO_Kill2
+		cost = 3.00
+		x = 17
+		y = 7
+		prerequisite = {
+			focus = FAV_Drink_their_Blood
+			focus = FAV_Eat_my_Meat
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			custom_effect_tooltip = FAV_Talk_Rosary3_Act
+			set_country_flag = FAV_Talk_Rosary_Unlock3
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.15
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0.3
+			}
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				has_country_flag = {
+					flag = FAV_Reform_Poli
+					days > 69
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 2000
+		}
+	}
+	###辩论奖励线
+	##胜利1次可走
+	#PP 团队建设 FAV_Build_our_union
+	focus = {
+		id = FAV_Build_our_union
+		icon = GFX_Goal_Happy_Coo
+		cost = 3.00
+		x = 13
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+			MOT_Up_Level_of_Poli = yes
+			add_political_power = 100
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#武器 执起刀兵 FAV_Take_up_Weapons
+	focus = {
+		id = FAV_Take_up_Weapons
+		icon = GFX_goal_KX_goals_182
+		cost = 3.00
+		x = 11
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Build_our_union
+			focus = FAV_Heaven_with_Me
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 4000
+				producer = MOT
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#人力 同我乐园中 FAV_Heaven_with_Me
+	focus = {
+		id = FAV_Heaven_with_Me
+		icon = GFX_goal_KX_goals_156
+		cost = 3.00
+		x = 9
+		y = 5
+		mutually_exclusive = {
+			focus = FAV_Build_our_union
+			focus = FAV_Take_up_Weapons
+		}
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			MOT_Better_Agri = yes
+			every_owned_state = {
+				add_manpower = 191981
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				set_temp_variable = { FAV_linshibianliang = 0 }
+				check_variable = { FAV_Times_we_Won > FAV_linshibianliang }
+				tooltip = FAV_Need_Victory_Number
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	##胜利2次可走
+	#稳定战支 宣我荣光 FAV_Call_my_Glory
+	focus = {
+		id = FAV_Call_my_Glory
+		icon = GFX_Goal_Fight_for_Reunion
+		cost = 4.00
+		x = 13
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			add_stability = 0.1
+			add_war_support = 0.1
+			add_political_power = 100
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#全地区人口及建筑槽 全局准备 FAV_Preparation_for_the_Future
+	focus = {
+		id = FAV_Preparation_for_the_Future
+		icon = goal_DOT_03
+		cost = 4.00
+		x = 11
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Time_we_Get_Glory
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Eff }
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+			add_manpower = 114514
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#坦克飞机 人子得荣耀之时 FAV_Time_we_Get_Glory
+	focus = {
+		id = FAV_Time_we_Get_Glory
+		icon = goal_DOT_02
+		cost = 4.00
+		x = 9
+		y = 6
+		mutually_exclusive = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+		}
+		prerequisite = {
+			focus = FAV_Take_up_Weapons
+			focus = FAV_Heaven_with_Me
+			focus = FAV_Build_our_union
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 1000
+				producer = SNE
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 1000
+				producer = SNE
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 1 }
+				tooltip = FAV_Need_Victory_1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+	##胜利3次可走
+	#获得步炮师 照旨意而行 FAV_Follow_the_Fate
+	focus = {
+		id = FAV_Follow_the_Fate
+		icon = GFX_goal_56_goals_36
+		cost = 5.00
+		x = 13
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Call_of_Progress
+			focus = FAV_Become_Justice_of_God
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			custom_effect_tooltip = FAV_Get_6_Artillery_Unit
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Holy Knights\" division_template = \"Barbatos' Knights\" start_experience_factor = 0.5"
+					owner = FAV
+					count = 6
+				}
+			}
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#提高工业等级 进步的先声 FAV_Call_of_Progress
+	focus = {
+		id = FAV_Call_of_Progress
+		icon = GFX_goals_TNO_Industry2
+		cost = 5.00
+		x = 11
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Become_Justice_of_God
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_P = 50 }
+            custom_effect_tooltip = FAV_Higher_Power
+            add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+			FAV_Better_Deve_of_R1 = yes
+			FAV_Better_Deve_of_I1 = yes
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.1
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获得坦克部队 成为神的义 FAV_Become_Justice_of_God
+	focus = {
+		id = FAV_Become_Justice_of_God
+		icon = GFX_goals_TNO_Kill3
+		cost = 5.00
+		x = 9
+		y = 7
+		mutually_exclusive = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Call_of_Progress
+		}
+		prerequisite = {
+			focus = FAV_Call_my_Glory
+			focus = FAV_Preparation_for_the_Future
+			focus = FAV_Time_we_Get_Glory
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			custom_effect_tooltip = FAV_Get_4_Armors_Unit
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Holy Sisters\" division_template = \"Sisters with Thistles and Thorns\" start_experience_factor = 1"
+					owner = FAV
+					count = 4
+				}
+			}
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.1
+			}
+			FAV_Better_Deve_of_AR1 = yes
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 2 }
+				tooltip = FAV_Need_Victory_2
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	##最终奖励
+	#——成了！ 提高政府等级 FAV_Get_It
+	focus = {
+		id = FAV_Get_It
+		icon = GFX_goals_TNO_Fight
+		cost = 5.00
+		x = 11
+		y = 8
+		prerequisite = {
+			focus = FAV_Follow_the_Fate
+			focus = FAV_Call_of_Progress
+			focus = FAV_Become_Justice_of_God
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			
+            set_temp_variable = { FAV_linshibianliang_P = 50 }
+            custom_effect_tooltip = FAV_Higher_Power
+            add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+			IF = {
+				limit = {
+					check_variable = { FAV_Times_we_Won > 4 }
+				}
+				custom_effect_tooltip = FAV_More_Bonus_for_Full_Victory
+				FAV_Better_Deve_of_I1 = yes
+				FAV_Better_Deve_of_AR1 = yes
+			}
+			FAV_Stronger_Stronger = yes
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { FAV_Times_we_Won > 3 }
+				tooltip = FAV_Need_Victory_3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	###战前准备线
+	#共通：强化自主权 FAV_Strengthen_our_Power
+	focus = {
+		id = FAV_Strengthen_our_Power
+		icon = GFX_goal_continuous_boost_freedom
+		cost = 5.00
+		x = 23
+		y = 5
+		prerequisite = {
+			focus = FAV_Call_of_Savior
+		}
+		completion_reward = {
+			custom_effect_tooltip = FAV_Better_Isolation
+			MOT = {
+				add_to_variable = { MOT_Control_in_FAV = -20 }
+				add_to_variable = { MOT_Resist_in_FAV = 20 }
+			}
+			set_country_flag = FAV_Prepare_to_be_Independent
+			custom_effect_tooltip = FAV_UnlockDecisionCat_01
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#生命水的泉源 FAV_Source_of_Life
+	focus = {
+		id = FAV_Source_of_Life
+		icon = GFX_Goal_develop_Agri2
+		cost = 5.00
+		x = 22
+		y = 6
+		prerequisite = {
+			focus = FAV_Strengthen_our_Power
+		}
+		mutually_exclusive = {
+			focus = FAV_Open_the_Seven
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			set_country_flag = FAV_Completed_Focus_1
+			add_tech_bonus = {
+				category = industry
+				category = electronics
+				bonus = 0.5
+				uses = 2
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#揭开七印 FAV_Open_the_Seven
+	focus = {
+		id = FAV_Open_the_Seven
+		icon = GFX_Goal_Strengthen_Unity
+		cost = 5.00
+		x = 24
+		y = 6
+		prerequisite = {
+			focus = FAV_Strengthen_our_Power
+		}
+		mutually_exclusive = {
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Eff }
+			set_country_flag = FAV_Completed_Focus_2
+			add_tech_bonus = {
+				category = support_equipment
+				category = infantry_equipment
+				category = artillery
+				bonus = 0.5
+				uses = 2
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#共通：吸收枫丹技术 FAV_Research_Industry
+	focus = {
+		id = FAV_Research_Industry
+		icon = GFX_goals_TNO_Education2
+		cost = 5.00
+		x = 23
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				bonus = 1
+				uses = 2
+			}
+			FAV_Weaker_Stronger = yes
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.5
+			}
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.5
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#共通：研究虚空装置 FAV_Research_Electricity
+	focus = {
+		id = FAV_Research_Electricity
+		icon = GFX_goals_TNO_Education3
+		cost = 5.00
+		x = 23
+		y = 8
+		prerequisite = {
+			focus = FAV_Research_Industry
+		}
+		completion_reward = {
+			set_country_flag = FAV_Extra_Bonus_3
+			add_tech_bonus = {
+				category = electronics
+				bonus = 1
+				uses = 2
+			}
+			FAV_Weaker_Stronger = yes
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.5
+			}
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.5
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 他们必得饱足 FAV_They_will_be_Full
+	focus = {
+		id = FAV_They_will_be_Full
+		icon = GFX_Goal_For_Bread
+		cost = 10.00
+		x = 21
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			FAV_Get_2_Civs = yes
+			FAV_Get_2_Civs = yes
+            set_temp_variable = { FAV_Difference_of_VP = 100 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 他们必承受土地 FAV_They_will_get_Land
+	focus = {
+		id = FAV_They_will_get_Land
+		icon = GFX_Goal_develop_Agri2
+		cost = 5.00
+		x = 21
+		y = 8
+		prerequisite = {
+			focus = FAV_They_will_be_Full
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			FAV_Better_Deve_of_A1 = yes
+			set_country_flag = FAV_Extra_Bonus_2
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Civs = yes
+            set_temp_variable = { FAV_Difference_of_VP = 100 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 登山宝训 FAV_Spread_our_Talk
+	focus = {
+		id = FAV_Spread_our_Talk
+		icon = GFX_goals_TNO_genericwork10
+		cost = 10.00
+		x = 19
+		y = 7
+		prerequisite = {
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			add_stability = 0.05
+			add_political_power = 100
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#芭芭拉： 不是废掉，乃是要成全 FAV_Mild_Change
+	focus = {
+		id = FAV_Mild_Change
+		icon = GFX_goals_TNO_Peace
+		cost = 5.00
+		x = 19
+		y = 8
+		prerequisite = {
+			focus = FAV_Spread_our_Talk
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			set_country_flag = FAV_Extra_Bonus_1
+			add_stability = 0.05
+			add_political_power = 100
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 喜笑的人有祸了 FAV_Happy_one_Will_be_End
+	focus = {
+		id = FAV_Happy_one_Will_be_End
+		icon = GFX_goal_KX_goals_212
+		cost = 10.00
+		x = 25
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+			focus = FAV_Source_of_Life
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 兵刃不可不利 FAV_Research_Weapons
+	focus = {
+		id = FAV_Research_Weapons
+		icon = GFX_goal_KX_goals_15
+		cost = 5.00
+		x = 25
+		y = 8
+		prerequisite = {
+			focus = FAV_Happy_one_Will_be_End
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			FAV_Better_Deve_of_I1 = yes
+			set_country_flag = FAV_Extra_Bonus_1
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_tech_bonus = {
+				category = armor
+				bonus = 1
+				uses = 2
+			}
+			IF = {
+				limit = {
+					NOT = { has_ideas = war_economy }
+					NOT = { has_ideas = tot_economic_mobilisation }
+				}
+				add_ideas = partial_economic_mobilisation
+			}
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.1
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 你父在暗中察看 FAV_Your_Father_Looking
+	focus = {
+		id = FAV_Your_Father_Looking
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 10.00
+		x = 27
+		y = 7
+		prerequisite = {
+			focus = FAV_Open_the_Seven
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			add_war_support = 0.05
+			add_political_power = 100
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.05
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#罗莎莉亚： 不叫全身堕入地狱 FAV_Not_All_Fallen
+	focus = {
+		id = FAV_Not_All_Fallen
+		icon = GFX_goals_TNO_Kill3
+		cost = 5.00
+		x = 27
+		y = 8
+		prerequisite = {
+			focus = FAV_Your_Father_Looking
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.03 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			set_country_flag = FAV_Extra_Bonus_2
+			add_war_support = 0.05
+			army_experience = 50
+            set_temp_variable = { FAV_Difference_of_VP = 50 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.1
+			}
+			IF = {
+				limit = {
+					NOT = { has_ideas = closed_economy }
+				}
+				add_ideas = limited_exports
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#擦去一切的眼泪 FAV_Wipe_all_Tear
+	focus = {
+		id = FAV_Wipe_all_Tear
+		icon = GFX_goal_56_goals_1
+		cost = 10.00
+		x = 21
+		y = 9
+		prerequisite = {
+			focus = FAV_They_will_get_Land
+			focus = FAV_Mild_Change
+			focus = FAV_Research_Electricity
+		}
+		completion_reward = {
+			add_research_slots = 1
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = -0.2
+			}
+            set_temp_variable = { FAV_Difference_of_VP = 200 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus1
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+				}
+				FAV_Get_2_Civs = yes
+				set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+				custom_effect_tooltip = FAV_Higher_Pop
+				add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_2
+				}
+				FAV_Get_2_Civs = yes
+				FAV_Better_Deve_of_A1 = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Get_2_Civs = yes
+				set_temp_variable = { FAV_linshibianliang_P = 50 }
+				custom_effect_tooltip = FAV_Higher_Power
+				add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+					has_country_flag = FAV_Extra_Bonus_2
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Better_Deve_of_R1 = yes
+			}
+		}
+		available = {
+			has_country_flag = FAV_Completed_Focus_1
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < -0.4
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#天国是他们的 FAV_Heaven_is_Theirs
+	focus = {
+		id = FAV_Heaven_is_Theirs
+		icon = GFX_goal_KX_goals_71
+		cost = 5.00
+		x = 25
+		y = 9
+		mutually_exclusive = {
+			focus = FAV_Wipe_all_Tear
+		}
+		prerequisite = {
+			focus = FAV_Research_Weapons
+			focus = FAV_Not_All_Fallen
+			focus = FAV_Research_Electricity
+		}
+		completion_reward = {
+			add_research_slots = 1
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			add_power_balance_value = {
+				id = FAV_Original_power_balance
+				value = 0.2
+			}
+            set_temp_variable = { FAV_Difference_of_VP = 150 }
+            custom_effect_tooltip = FAV_Gain_VP_number
+            add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus1
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+				}
+				FAV_Get_2_Arms = yes
+				set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+				custom_effect_tooltip = FAV_Higher_Zeal
+				add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_2
+				}
+				FAV_Get_2_Civs = yes
+				FAV_Get_2_Arms = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Get_2_Arms = yes
+				set_temp_variable = { FAV_linshibianliang_P = 50 }
+				custom_effect_tooltip = FAV_Higher_Power
+				add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+			}
+			IF = {
+				limit = {
+					NOT = {
+						OR = {
+							has_ideas = service_by_requirement
+							has_ideas = all_adults_serve
+							has_ideas = scraping_the_barrel
+						}
+					}
+				}
+				add_ideas = extensive_conscription
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Extra_Bonus_1
+					has_country_flag = FAV_Extra_Bonus_2
+					has_country_flag = FAV_Extra_Bonus_3
+				}
+				FAV_Better_Deve_of_AR1 = yes
+			}
+		}
+		available = {
+			has_country_flag = FAV_Completed_Focus_2
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0.4
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		ai_will_do = {
+			base = 20
+		}
+	}
+	#星辰坠落于地
+	focus = {
+		id = FAV_Stars_Fell
+		icon = GFX_Goal_Forget_the_Promise
+		cost = 1.00
+		x = 16
+		y = 8
+		completion_reward = {
+			IF = {
+				limit = { has_global_flag = MOT_Civil_War_Begun }
+				
+				add_stability = -0.05
+				add_war_support = 0.05
+
+				set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+				custom_effect_tooltip = FAV_Higher_Zeal_Max
+				add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+				set_variable = { FAV_Influence_on_Friend = 10 }
+				set_variable = { FAV_Friends_Influence_on_Us = 0 }
+				remove_power_balance = {
+					id = FAV_Original_power_balance
+				}
+				set_country_flag = FAV_Unlock_DecCat2
+				custom_effect_tooltip = FAV_New_Decisions_Category
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = FAV_tt_Should_Knoe
+			}
+		}
+		allow_branch = {
+		}
+		available = {
+			has_global_flag = MOT_Civil_War_Begun
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#颂赞归给羔羊
+	focus = {
+		id = FAV_Honor_for_People
+		icon = GFX_Goal_FAV_Left_Side_2
+		cost = 1.00
+		x = 14
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Take_our_Hands
+			focus = FAV_Play_the_Show
+		}
+		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_C }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.2 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+
+			set_cosmetic_tag = FAV_Comm_of_AntiChurch
+			custom_effect_tooltip = FAV_Run_the_Facist
+			MOT = {
+				give_military_access = FAV
+			}
+			set_country_flag = FAV_Facist_Run
+			remove_ideas = FAV_Fight_Inside
+			remove_ideas = FAV_Holy_Bible
+			add_stability = 0.1
+			set_politics = {
+				ruling_party = communism
+				last_election = "1935.1.24"
+				election_frequency = 48
+				elections_allowed = yes
+			}
+			add_country_leader_role = {
+				character = FAV_Barbara
+				promote_leader = yes
+				country_leader = {
+					ideology = marxism
+					expire = "1965.1.1.1"
+					traits = {
+						FAV_Star_of_Tomorrow
+						FAV_Liberated_Church
+						FAV_All_for_One_for_All
+					}
+				}
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_1
+				name = FAV_communism_p_1_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_1
+				name = FAV_democratic_p_1_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_1
+				name = FAV_neutrality_p_1_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_1
+				name = FAV_fascism_p_1_long
+			}
+			hidden_effect = {
+				set_popularities = {
+					communism = 0.6
+					democratic = 0.2
+					neutrality = 0.1
+					fascism = 0.05
+					genshin = 0.05
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < -0.3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#携手并进 FAV_Take_our_Hands
+	focus = {
+		id = FAV_Take_our_Hands
+		icon = GFX_Goal_Political_Coo
+		cost = 1.00
+		x = 16
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Play_the_Show
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+
+			remove_ideas = FAV_Fight_Inside
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_2
+				name = FAV_communism_p_2_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_2
+				name = FAV_democratic_p_2_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_2
+				name = FAV_neutrality_p_2_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_2
+				name = FAV_fascism_p_2_long
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > -0.31
+			}
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.31
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#吹响七枝号 FAV_Play_the_Show
+	focus = {
+		id = FAV_Play_the_Show
+		icon = GFX_Goal_FAV_Right_Side_2
+		cost = 1.00
+		x = 18
+		y = 9
+		prerequisite = {
+			focus = FAV_Stars_Fell
+		}
+		mutually_exclusive = {
+			focus = FAV_Take_our_Hands
+			focus = FAV_Honor_for_People
+		}
+		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_F }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
+            set_temp_variable = { FAV_linshibianliang_Z = 0.2 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+			set_cosmetic_tag = FAV_Fasc_of_AntiChurch
+			custom_effect_tooltip = FAV_Run_the_Communist
+			set_country_flag = FAV_Communist_Run
+			remove_ideas = FAV_Fight_Inside
+			remove_ideas = FAV_Holy_Army
+			add_war_support = 0.1
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = FAV_communism_p_3
+				name = FAV_communism_p_3_long
+			}
+			set_party_name = {
+				ideology = democratic
+				long_name = FAV_democratic_p_3
+				name = FAV_democratic_p_3_long
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = FAV_neutrality_p_3
+				name = FAV_neutrality_p_3_long
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = FAV_fascism_p_3
+				name = FAV_fascism_p_3_long
+			}
+			hidden_effect = {
+				set_popularities = {
+					fascism = 0.7
+					neutrality = 0.15
+					communism = 0.05
+					democratic = 0.05
+					genshin = 0.05
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+				}
+			}
+			has_global_flag = MOT_Civil_War_Begun
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value > 0.3
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#奇迹闪光
+	focus = {
+		id = FAV_Light_of_Miracle
+		icon = GFX_Goal_FAV_Left_Side
+		cost = 1.00
+		x = 15
+		y = 10
+		prerequisite = {
+			focus = FAV_Take_our_Hands
+		}
+		mutually_exclusive = {
+			focus = FAV_Judge_Angel
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+			set_cosmetic_tag = FAV_Left_of_AntiChurch
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.2
+			}
+			add_stability = 0.1
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#代行裁判
+	focus = {
+		id = FAV_Judge_Angel
+		icon = GFX_Goal_FAV_Right_Side
+		cost = 1.00
+		x = 17
+		y = 10
+		prerequisite = {
+			focus = FAV_Take_our_Hands
+		}
+		mutually_exclusive = {
+			focus = FAV_Light_of_Miracle
+		}
+		completion_reward = {
+			hidden_effect = {
+				add_dynamic_modifier = { modifier = FAV_DM_Name_N }
+				remove_dynamic_modifier = { modifier = FAV_DM_Name_D }
+			}
+            set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			
+			set_cosmetic_tag = FAV_Right_of_AntiChurch
+			set_politics = {
+				ruling_party = neutrality
+				last_election = "1935.1.24"
+				election_frequency = 48
+				elections_allowed = no
+			}
+			add_country_leader_role = {
+				character = FAV_Rosary
+				promote_leader = yes
+				country_leader = {
+					ideology = oligarchism
+					expire = "1965.1.1.1"
+					traits = {
+						FAV_Present_Judge
+						FAV_Sin_Kill_Pray
+					}
+				}
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.3
+			}
+			add_war_support = 0.1
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#团结一切力量
+	focus = {
+		id = FAV_Unite_Us
+		icon = GFX_56_goals_28
+		cost = 5.00
+		x = 16
+		y = 11
+		prerequisite = {
+			focus = FAV_Judge_Angel
+			focus = FAV_Light_of_Miracle
+		}
+		completion_reward = {
+			IF = {
+				limit = { has_government = democratic }
+				set_temp_variable = { FAV_linshibianliang_Z = -0.1 }
+				custom_effect_tooltip = FAV_Higher_Zeal
+				add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+				set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+				custom_effect_tooltip = FAV_Higher_Pop
+				add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+				custom_effect_tooltip = FAV_Higher_Zeal
+				add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+				set_temp_variable = { FAV_linshibianliang_Pop = -0.1 }
+				custom_effect_tooltip = FAV_Higher_Pop
+				add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+			}
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            
+			add_political_power = 100
+			IF = {
+				limit = { has_government = democratic }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.3
+				}
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.3
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#消灭旧贵族
+	focus = {
+		id = FAV_End_the_Old_Nobles
+		icon = GFX_goal_56_goals_35
+		cost = 1.00
+		x = 14
+		y = 11
+		prerequisite = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Light_of_Miracle
+			focus = FAV_Judge_Angel
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			declare_war_on = {
+				target = LAW
+				type = annex_everything
+			}
+			MOT = {
+				country_event = Church.45
+			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_LAW2 days = 200 }
+			custom_effect_tooltip = FAV_Influence_DecCat
+			set_global_flag = FAV_Unlock_DecCat1
+			set_country_flag = FAV_Help_MOT
+			add_opinion_modifier = {
+				target = MOT
+				modifier = FAV_partnership
+			}
+			MOT = {
+				give_military_access = FAV
+			}
+			MOT = {
+				add_opinion_modifier = {
+					target = FAV
+					modifier = FAV_partnership
+				}
+			}
+			add_opinion_modifier = {
+				target = LAW
+				modifier = FAV_Anti_Government
+			}
+			LAW = {
+				add_opinion_modifier = {
+					target = FAV
+					modifier = FAV_Anti_Government
+				}
+			}
+		}
+		available = {
+			power_balance_value = {
+				id = FAV_Original_power_balance
+				value < 0.1
+			}
+		}
+		will_lead_to_war_with = LAW
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#袭击骑士团
+	focus = {
+		id = FAV_Attack_the_Knights
+		icon = GFX_goal_KX_goals_216
+		cost = 1.00
+		x = 18
+		y = 11
+		prerequisite = {
+			focus = FAV_Light_of_Miracle
+			focus = FAV_Judge_Angel
+		}
+		will_lead_to_war_with = MOT
+		completion_reward = {
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+			LAW = {
+				country_event = Church.45
+			}
+			add_timed_idea = { idea = FAV_Tactic_Anti_MOT2 days = 200 }
+			custom_effect_tooltip = FAV_Influence_DecCat
+			set_global_flag = FAV_Unlock_DecCat1
+			set_country_flag = FAV_Help_LAW
+			add_opinion_modifier = {
+				target = LAW
+				modifier = FAV_partnership
+			}
+			LAW = {
+				add_opinion_modifier = {
+					target = FAV
+					modifier = FAV_partnership
+				}
+			}
+			add_opinion_modifier = {
+				target = MOT
+				modifier = FAV_Anti_Government
+			}
+			MOT = {
+				add_opinion_modifier = {
+					target = FAV
+					modifier = FAV_Anti_Government
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#快速突进
+	focus = {
+		id = FAV_War1_Quick_Attack
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 18
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Attack_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#持正待机
+	focus = {
+		id = FAV_War1_Defense_Stably
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 16
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Defense_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#迟滞敌军
+	focus = {
+		id = FAV_War1_Return_Stably
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 2.00
+		prerequisite = {
+			focus = FAV_Attack_the_Knights
+			focus = FAV_End_the_Old_Nobles
+		}
+		x = 14
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = MOT_Temp_Back_Order days = 60 }
+		}
+		available = {
+			NOT = {
+				has_ideas = MOT_Temp_Attack_Order
+				has_ideas = MOT_Temp_Defense_Order
+				has_ideas = MOT_Temp_Back_Order
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#共通 芭芭拉冲突经济线
+	#打土豪分田地
+	focus = {
+		id = FAV_EcoB_Divide_the_Land
+		icon = GFX_goal_KX_goals_269
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Honor_for_People
+			focus = FAV_Take_our_Hands
+		}
+		x = 12
+		y = 10
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.01 }
+			MOT_Up_Level_of_Poli = yes
+			DRA_united_improved = yes
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Pop = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_LandReform_St_Bonus
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 3000
+					producer = MOT
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+					producer = MOT
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Pop = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_LandReform_Ws_Bonus
+				add_manpower = 200000
+				FAV_Get_2_Arms = yes
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			add_manpower = 200000
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#拉拢进步派
+	focus = {
+		id = FAV_EcoB_Cooperation_with_Them
+		icon = GFX_goal_KX_goals_281
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoB_Divide_the_Land
+		}
+		x = 12
+		y = 11
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+			add_political_power = 50
+			IF = {
+				limit = { has_government = communism }
+				add_popularity = {
+					ideology = communism
+					popularity = 0.1
+				}
+			}
+			IF = {
+				limit = { has_government = democratic }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.1
+				}
+			}
+			IF = {
+				limit = { has_government = neutrality }
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.1
+				}
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Eff = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_Propaganda_St_Bonus
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 500
+					producer = MOT
+				}
+				add_political_power = 50
+				add_command_power = 50
+				IF = {
+					limit = { has_government = communism }
+					add_popularity = {
+						ideology = communism
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = democratic }
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = neutrality }
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.1
+					}
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Eff = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_Propaganda_Ws_Bonus
+				FAV_Get_2_Arms = yes
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 500
+					producer = MOT
+				}
+				IF = {
+					limit = { has_government = communism }
+					add_popularity = {
+						ideology = communism
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = democratic }
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.1
+					}
+				}
+				IF = {
+					limit = { has_government = neutrality }
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.1
+					}
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#动员工人
+	focus = {
+		id = FAV_EcoB_Mobilize_Workers
+		icon = GFX_goal_KX_goals_157
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_EcoB_Cooperation_with_Them
+		}
+		x = 12
+		y = 12
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+			FAV_Better_Deve_of_I1 = yes
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			IF = {
+				limit = { has_stability > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_DBDB_St_Bonus
+				FAV_Get_2_Arms = yes
+				add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+            	add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_DBDB_Ws_Bonus
+				FAV_Get_2_Arms = yes
+				add_timed_idea = { idea = MOT_Win_on_Pro_Line days = 100 }
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			IF = {
+				limit = { NOT = { has_ideas = tot_economic_mobilisation } }
+				add_ideas = war_economy
+			}
+			custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#芭芭拉征募
+	focus = {
+		id = FAV_EcoB_Expand_the_Government
+		icon = GFX_C_Goal_Government
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_EcoB_Mobilize_Workers
+		}
+		x = 12
+		y = 13
+		completion_reward = {
+			set_temp_variable = { FAV_linshibianliang_P = 50 }
+			custom_effect_tooltip = FAV_Higher_Power
+			add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+			MOT_Up_Level_of_Poli = yes
+			DRA_united_improved = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#共通 罗莎莉亚冲突军事线
+	#洗净死的毒钩
+	focus = {
+		id = FAV_MilR_End_Army_Corruption
+		icon = goals_RAGweqrijwoajfoiasjtw
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_Play_the_Show
+			focus = FAV_Take_our_Hands
+		}
+		x = 20
+		y = 10
+		completion_reward = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+			FAV_Better_Deve_of_AR1 = yes
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				army_experience = 50
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_manpower = 250000
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#纪律严苛
+	focus = {
+		id = FAV_MilR_Hard_Law
+		icon = GFX_goals_TNO_genericwork9
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilR_End_Army_Corruption
+		}
+		x = 20
+		y = 11
+		completion_reward = {
+			set_temp_variable = { FAV_linshibianliang_Eff = 0.01 }
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 1
+				cost_reduction = 0.5
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Eff = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				add_tech_bonus = {
+					category = support_tech
+					bonus = 1
+					uses = 1
+					ahead_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Eff = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_manpower = 150000
+				add_doctrine_cost_reduction = {
+					category = land_doctrine
+					uses = 1
+					cost_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#神把一切仇敌、都放在他的脚下。
+	focus = {
+		id = FAV_MilR_Zealous_Spirit
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_MilR_Hard_Law
+		}
+		x = 20
+		y = 12
+		completion_reward = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.01 }
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 1
+				cost_reduction = 0.5
+			}
+			custom_effect_tooltip = FAV_Better_Statu_More_Bonus
+			IF = {
+				limit = { has_stability > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_St_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_St_Bonus
+				add_tech_bonus = {
+					category = artillery
+					bonus = 1
+					uses = 1
+					ahead_reduction = 0.5
+				}
+			}
+			ELSE_IF = {
+				add_stability = 0.05
+			}
+			IF = {
+				limit = { has_war_support > 0.89 }
+				add_to_temp_variable = { FAV_linshibianliang_Z = 0.02 }
+				custom_effect_tooltip = FAV_Better_Ws_to_More_Bonus
+				custom_effect_tooltip = FAV_ArmyReform_Ws_Bonus
+				add_tech_bonus = {
+					category = armor
+					bonus = 1
+					uses = 1
+					ahead_reduction = 1
+				}
+			}
+			ELSE_IF = {
+				add_war_support = 0.05
+			}
+			custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#蔷薇般盛开
+	focus = {
+		id = FAV_MilR_Blossom_like_Rose
+		icon = GFX_Goal_Fight_for_Reunion
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_MilR_Zealous_Spirit
+		}
+		x = 20
+		y = 13
+		completion_reward = {
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+			custom_effect_tooltip = FAV_Higher_Zeal
+			add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+			FAV_Better_Deve_of_AR1 = yes
+			add_ideas = FAV_Saint_Army
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#芭芭拉军事线
+	#启蒙其头脑
+	focus = {
+		id = FAV_MilB_Lighten_their_Mind
+		icon = GFX_goal_56_goals_9
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Honor_for_People
+		}
+		x = 10
+		y = 10
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+			
+			add_ideas = gene_military_democracy
+			add_stability = -0.05
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 70 }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#红色随军牧师
+	focus = {
+		id = FAV_MilB_Red_Army_Chaplain
+		icon = GFX_goal_56_goals_1
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_MilB_Lighten_their_Mind
+		}
+		x = 10
+		y = 11
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			add_command_power = 100
+			add_stability = 0.05
+			add_timed_idea = { idea = MOT_BecomingBetter_of_Mass days = 70 }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#年轻的温妮莎向前进
+	focus = {
+		id = FAV_MilB_Young_Vanisa_Forward
+		icon = GFX_goal_56_goals_3
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_MilB_Red_Army_Chaplain
+		}
+		x = 10
+		y = 12
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+			add_war_support = 0.1
+			army_experience = 25
+			FAV_Better_Deve_of_AR1 = yes
+			DRA_united_improved = yes
+			add_ideas = FAV_People_Army
+			IF = {
+				limit = {
+					NOT = {
+						OR = {
+							has_ideas = service_by_requirement
+							has_ideas = all_adults_serve
+							has_ideas = scraping_the_barrel
+						}
+					}
+				}
+				add_ideas = extensive_conscription
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#罗莎莉亚经济线
+	#没收反对派资产
+	focus = {
+		id = FAV_EcoR_Lighten_their_Mind
+		icon = GFX_goal_56_goals_14
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Play_the_Show
+		}
+		x = 22
+		y = 10
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			add_stability = -0.05
+			add_political_power = 100
+			add_timed_idea = { idea = gene_less_burden days = 70 }
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Civs = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#军事化经济
+	focus = {
+		id = FAV_EcoR_Military_Economy
+		icon = GFX_goals_TNO_Government_Break1
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_EcoR_Lighten_their_Mind
+		}
+		x = 22
+		y = 11
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+			IF = {
+				limit = { NOT = { has_ideas = tot_economic_mobilisation } }
+				add_ideas = war_economy
+			}
+			add_ideas = closed_economy
+			add_war_support = 0.05
+			FAV_Get_2_Arms = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#神明的锋刃
+	focus = {
+		id = FAV_EcoR_Holy_Sword
+		icon = GFX_goals_TNO_Kill1
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_EcoR_Military_Economy
+		}
+		x = 22
+		y = 12
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			MOT_Up_Level_of_Poli = yes
+			add_war_support = 0.1
+			add_stability = 0.1
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#强化联系
+	focus = {
+		id = FAV_Strengthen_Connection_Between
+		icon = GFX_goals_TNO_Peace
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_War1_Return_Stably
+			focus = FAV_War1_Defense_Stably
+			focus = FAV_War1_Quick_Attack
+		}
+		x = 15
+		y = 13
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			IF = {
+				limit = {
+					has_country_flag = FAV_Help_MOT
+				}
+				add_opinion_modifier = {
+					target = MOT
+					modifier = FAV_Better_partnership
+				}
+				MOT = {
+					add_opinion_modifier = {
+						target = FAV
+						modifier = FAV_Better_partnership
+					}
+				}
+			}
+			IF = {
+				limit = {
+					has_country_flag = FAV_Help_LAW
+				}
+				add_opinion_modifier = {
+					target = LAW
+					modifier = FAV_Better_partnership
+				}
+				LAW = {
+					add_opinion_modifier = {
+						target = FAV
+						modifier = FAV_Better_partnership
+					}
+				}
+			}
+			set_country_flag = FAV_Has_Comp_Strengthen_Connection_Between
+			set_variable = { FAV_Better_C = 0 }
+		}
+		available = {
+			NOT = { has_country_flag = FAV_Broken_Connection }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#玫瑰之刺
+	focus = {
+		id = FAV_Thorn_of_Rose
+		icon = GFX_goals_TNO_Shadow1
+		cost = 5.00
+		prerequisite = {
+			focus = FAV_War1_Return_Stably
+			focus = FAV_War1_Defense_Stably
+			focus = FAV_War1_Quick_Attack
+		}
+		x = 17
+		y = 13
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_war_support = 0.05
+			set_variable = { FAV_Better_War_against_LAWMOT = 0 }
+			MOT = {
+				remove_opinion_modifier = {
+					target = FAV
+					modifier = FAV_partnership
+				}
+				remove_opinion_modifier = {
+					target = FAV
+					modifier = FAV_Better_partnership
+				}
+			}
+			LAW = {
+				remove_opinion_modifier = {
+					target = FAV
+					modifier = FAV_partnership
+				}
+				remove_opinion_modifier = {
+					target = FAV
+					modifier = FAV_Better_partnership
+				}
+			}
+		}
+		available = {
+			OR = {
+				NOT = { has_country_flag = FAV_Has_Comp_Strengthen_Connection_Between }
+				has_country_flag = FAV_Broken_Connection
+			}
+		}
+		bypass = {
+			has_country_flag = FAV_Broken_Connection
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 10
+		}
+	}
+	#强化思想交流
+	focus = {
+		id = FAV_Bond_of_Idea
+		icon = GFX_Goal_Happy_Coo
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 15
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_political_power = 30
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#强化经济联系
+	focus = {
+		id = FAV_Bond_of_Economy
+		icon = GFX_Goal_Happy_Coo
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 13
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_timed_idea = { idea = gene_less_burden days = 60 }
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#强化军事合作
+	focus = {
+		id = FAV_Bond_of_Mili
+		icon = GFX_Goal_Happy_Coo
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Strengthen_Connection_Between
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 11
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			army_experience = 25
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			add_to_variable = { FAV_Influence_on_Friend = 10 }
+			add_to_variable = { FAV_Better_C = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究战术习惯
+	focus = {
+		id = FAV_Research_Their_Tactic
+		icon = GFX_goal_KX_goals_408
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 17
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			army_experience = 25
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究地形情报
+	focus = {
+		id = FAV_Research_Their_Mount
+		icon = GFX_goal_KX_goals_408
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 19
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_command_power = 50
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#研究地方群众
+	focus = {
+		id = FAV_Research_Their_Mass
+		icon = GFX_goal_KX_goals_408
+		cost = 1.00
+		prerequisite = {
+			focus = FAV_Thorn_of_Rose
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 21
+		y = 14
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			add_political_power = 40
+			add_to_variable = { FAV_Better_War_against_LAWMOT = 1 }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#求同存异
+	focus = {
+		id = FAV_Our_Common_Goal
+		icon = GFX_goal_KX_goals_408
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Bond_of_Economy
+			focus = FAV_Bond_of_Mili
+			focus = FAV_Bond_of_Idea
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 13
+		y = 15
+		completion_reward = {
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			custom_effect_tooltip = FAV_Up_Influ_Church
+			custom_effect_tooltip = FAV_More_Completed_More_Bonus
+			multiply_variable = { FAV_Better_C = 10 }
+			add_to_variable = { FAV_Influence_on_Friend = FAV_Better_C }
+            set_temp_variable = { FAV_linshibianliang_Pop = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = var:FAV_Better_C
+			}
+		}
+	}
+	#刀 兵 动
+	focus = {
+		id = FAV_Beginning_of_a_new_War
+		icon = goal_RAGk
+		cost = 10.00
+		prerequisite = {
+			focus = FAV_Research_Their_Mass
+			focus = FAV_Research_Their_Mount
+			focus = FAV_Research_Their_Tactic
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way35
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 34
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		x = 19
+		y = 15
+		will_lead_to_war_with = LAW
+		will_lead_to_war_with = MOT
+		completion_reward = {
+			custom_effect_tooltip = FAV_Lock_the_Cat
+			set_country_flag = FAV_Broken_Connection
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+			custom_effect_tooltip = FAV_More_Completed_More_Attack
+			IF = {
+				limit = { has_country_flag = FAV_Help_LAW }
+				declare_war_on = {
+					target = LAW
+					type = annex_everything
+				}
+			}
+			IF = {
+				limit = { has_country_flag = FAV_Help_MOT }
+				declare_war_on = {
+					target = MOT
+					type = annex_everything
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 0 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW1 DAYS = 60 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT1 DAYS = 60 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 1 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW1 DAYS = 120 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT1 DAYS = 120 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 2 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW2 DAYS = 150 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT2 DAYS = 150 }
+				}
+			}
+			IF = {
+				limit = { check_variable = { FAV_Better_War_against_LAWMOT = 3 } }
+				IF = {
+					limit = { has_country_flag = FAV_Help_LAW }
+					add_timed_idea = { idea = FAV_Tactic_Anti_LAW3 DAYS = 180 }
+				}
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					add_timed_idea = { idea = FAV_Tactic_Anti_MOT3 DAYS = 180 }
+				}
+			}
+            set_temp_variable = { FAV_linshibianliang_Z = 0.05 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+		}
+		bypass = {
+			OR = {
+				AND = {
+					has_country_flag = FAV_Help_MOT
+					MOT = { exists = no }
+				}
+				AND = {
+					has_country_flag = FAV_Help_LAW
+					LAW = { exists = no }
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = var:FAV_Better_C
+			}
+		}
+	}
+	#共通 新约风神书
+	focus = {
+		id = FAV_Rewrite_our_Bible
+		icon = GFX_goal_DOT_02
+		cost = 10
+		prerequisite = {
+			focus = FAV_Our_Common_Goal
+			focus = FAV_Beginning_of_a_new_War
+		}
+		available = {
+			num_of_owned_factories > 60
+			MOT = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+			LAW = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+			2 = {
+				owner = FAV
+			}
+		}
+		x = 16
+		y = 16
+		select_effect = {
+			country_event = { id = Church.46 days = 1 }
+			country_event = { id = Church.47 days = 5 }
+			country_event = { id = Church.48 days = 9 }
+			country_event = { id = Church.49 days = 13 }
+			country_event = { id = Church.50 days = 17 }
+			country_event = { id = Church.51 days = 21 }
+			country_event = { id = Church.52 days = 25 }
+			country_event = { id = Church.53 days = 29 }
+			country_event = { id = Church.54 days = 33 }
+			country_event = { id = Church.55 days = 37 }
+			country_event = { id = Church.56 days = 41 }
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			
+            set_temp_variable = { FAV_linshibianliang_P = 50 }
+            custom_effect_tooltip = FAV_Higher_Power
+            add_to_variable = { FAV_Power_Points = FAV_linshibianliang_P }
+
+			set_global_flag = FAV_Show_News_Bible
+			remove_ideas = FAV_Heresy_of_Religion
+			remove_ideas = FAV_Heresy_of_Religion2
+			remove_ideas = FAV_Heresy_of_Religion3
+			annex_country = {
+				target = MOT
+				transfer_troops = no
+			}
+			annex_country = {
+				target = LAW
+				transfer_troops = no
+			}
+			remove_ideas = FAV_Holy_Government
+			remove_ideas = FAV_Holy_Bible
+			add_research_slots = 1
+			set_country_flag = FAV_Show_Focus_Tree1
+			mark_focus_tree_layout_dirty = yes
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
+	#蒙德启明共和国
+	focus = {
+		id = FAV_Peoples_Republic_of_MOT
+		icon = GFX_Goal_Victory_of_Communism
+		cost = 10
+		prerequisite = {
+			focus = FAV_Rewrite_our_Bible
+		}
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+			has_government = communism
+		}
+		x = 16
+		y = 17
+		allow_branch = {
+			always = no
+		}
+		completion_reward = {
+			set_cosmetic_tag = FAV_Republic_of_People
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			hidden_effect = {
+				set_popularities = {
+					communism = 0.6
+					democratic = 0.25
+					genshin = 0.1
+					neutrality = 0.05
+					fascism = 0
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
+	#神圣蒙德联邦（蓝）
+	focus = {
+		id = FAV_Establish_Federation
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		prerequisite = {
+			focus = FAV_Rewrite_our_Bible
+		}
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+			has_government = democratic
+		}
+		x = 16
+		y = 17
+		allow_branch = {
+			always = no
+		}
+		completion_reward = {
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			hidden_effect = {
+				set_popularities = {
+					democratic = 0.5
+					neutrality = 0.3
+					communism = 0.1
+					genshin = 0.05
+					fascism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
+	#神圣蒙德联邦（灰）
+	focus = {
+		id = FAV_Establish_Federation
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		prerequisite = {
+			focus = FAV_Rewrite_our_Bible
+		}
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+			has_government = neutrality
+		}
+		x = 16
+		y = 17
+		allow_branch = {
+			always = no
+		}
+		completion_reward = {
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			hidden_effect = {
+				set_popularities = {
+					neutrality = 0.5
+					democratic = 0.3
+					fascism = 0.1
+					genshin = 0.05
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
+	#神圣蒙德（黑）
+	focus = {
+		id = FAV_Establish_Federation
+		icon = GFX_Goal_Victory_of_Fascism
+		cost = 10
+		prerequisite = {
+			focus = FAV_Rewrite_our_Bible
+		}
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+			has_government = fascism
+		}
+		x = 16
+		y = 17
+		allow_branch = {
+			always = no
+		}
+		completion_reward = {
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			add_research_slots = 1
+			add_stability = 0.2
+			add_war_support = -0.2
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			hidden_effect = {
+				set_popularities = {
+					fascism = 0.75
+					neutrality = 0.15
+					democratic = 0.05
+					genshin = 0
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 51000
+		}
+	}
+
+	##以下为四线通用的战中国策
+	#迈向蒙德统一
+	focus = {
+		id = FAV_Towards_Union
+		icon = GFX_goals_TNO_Fight
+		cost = 10
+		available = {
+		}
+		x = 33
+		y = 10
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		bypass = {
+			always = yes
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#挖掘战备潜力
+	focus = {
+		id = FAV_Dig_Potential_of_War
+		icon = GFX_goals_TNO_Blood5
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 28
+		y = 11
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				bonus = 1
+				uses = 1
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#战中经济线最终效果：
+	#提供一个经济buff，消除教士政府、圣徒军队、工农业冲击、神圣科研
+	#推广草元素药剂
+	focus = {
+		id = FAV_Spread_Grass_Potion
+		icon = GFX_Goal_develop_Agri2
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		x = 22
+		y = 12
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = town
+						has_state_category = pastoral
+						has_state_category = small_island
+						has_state_category = rural
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_ideas = FAV_Holy_Agriculture
+						has_ideas = FAV_Holy_Agriculture2
+						has_ideas = FAV_Holy_Agriculture3
+					}
+				}
+				FAV_Down_Debuff_of_Agri = yes
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = FAV_Better_Bonus_For_Deve	
+				every_owned_state = {
+					limit = {
+						OR = {
+							has_state_category = town
+							has_state_category = pastoral
+							has_state_category = small_island
+							has_state_category = rural
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#南方资源加工业
+	focus = {
+		id = FAV_Southern_Industry
+		icon = GFX_goal_EAW_92
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		x = 24
+		y = 12
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 29
+			}
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 30
+			}
+			add_resource = {
+				type = aluminium
+				amount = 12
+				state = 32
+			}
+			IF = {
+				limit = {
+					OR = {
+						has_ideas = FAV_Holy_Industry
+						has_ideas = FAV_Holy_Industry2
+						has_ideas = FAV_Holy_Industry3
+					}
+				}
+				FAV_Down_Debuff_of_Indu = yes
+			}
+			ELSE_IF = {
+				custom_effect_tooltip = FAV_Better_Bonus_For_Deve
+				28 = { add_extra_state_shared_building_slots = 1 }
+				29 = { add_extra_state_shared_building_slots = 1 }
+				30 = { add_extra_state_shared_building_slots = 1 }
+				32 = { add_extra_state_shared_building_slots = 1 }
+				31 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				add_resource = {
+					type = oil
+					amount = 10
+					state = 30
+				}
+			}
+		}
+	}
+	#规划北方领农业
+	focus = {
+		id = FAV_Northern_Agriculture
+		icon = GFX_goal_EAW_4
+		cost = 5
+		available = {
+			owns_state = 17
+			owns_state = 18
+			owns_state = 21
+			owns_state = 22
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Spread_Grass_Potion
+		}
+		x = 19
+		y = 13
+		completion_reward = {
+			custom_effect_tooltip = FAV_Max_Infra_Higher_Bonus
+			17 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			18 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			21 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			22 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#清泉镇农业升级
+	focus = {
+		id = FAV_Level_Up_SPI_Agriculture
+		icon = GFX_Goal_develop_Agri
+		cost = 10
+		available = {
+			owns_state = 34
+			owns_state = 35
+			owns_state = 36
+			owns_state = 37
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Spread_Grass_Potion
+			focus = FAV_Southern_Industry
+		}
+		x = 21
+		y = 13
+		completion_reward = {
+			FAV_Down_Debuff_of_Agri = yes
+			custom_effect_tooltip = FAV_Max_Infra_Higher_Bonus
+			34 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			35 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			36 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			37 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#教会领设施翻新
+	focus = {
+		id = FAV_Better_Production_FAV
+		icon = GFX_goal_DOT_01
+		cost = 10
+		available = {
+			owns_state = 6
+			owns_state = 7
+			owns_state = 8
+			owns_state = 10
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Spread_Grass_Potion
+			focus = FAV_Southern_Industry
+		}
+		x = 23
+		y = 13
+		completion_reward = {
+			FAV_Down_Debuff_of_Indu = yes
+			FAV_Down_Debuff_of_Agri = yes
+			custom_effect_tooltip = FAV_Max_Infra_Higher_Bonus
+			6 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			7 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			8 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			10 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#投资晨曦领酒业
+	focus = {
+		id = FAV_Invest_RAG_Wine
+		icon = GFX_Goal_Happy_Coo
+		cost = 10
+		available = {
+			owns_state = 50
+			owns_state = 52
+			owns_state = 63
+			owns_state = 360
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Spread_Grass_Potion
+			focus = FAV_Southern_Industry
+		}
+		x = 25
+		y = 13
+		completion_reward = {
+			FAV_Down_Debuff_of_Indu = yes
+			custom_effect_tooltip = FAV_Max_Infra_Higher_Bonus
+			50 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			52 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			360 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			63 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#发展雪山兵工业
+	focus = {
+		id = FAV_Develop_DRA_Factory
+		icon = goal_RAGsfg
+		cost = 10
+		available = {
+			owns_state = 41
+			owns_state = 46
+			owns_state = 51
+			owns_state = 43
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Spread_Grass_Potion
+			focus = FAV_Southern_Industry
+		}
+		x = 27
+		y = 13
+		completion_reward = {
+			FAV_Down_Debuff_of_Indu = yes
+			custom_effect_tooltip = FAV_Max_Infra_Higher_Bonus
+			41 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			46 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			51 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			43 = {
+				IF = {
+					limit = {
+						non_damaged_building_level = {
+							building = infrastructure
+							level > 4
+						}
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#粮食自给
+	focus = {
+		id = FAV_Give_our_Food
+		icon = GFX_goals_TNO_Agriculture
+		cost = 10
+		available = {
+
+		}
+		bypass = {
+			NOT = {
+				OR = {
+					has_ideas = FAV_Holy_Agriculture
+					has_ideas = FAV_Holy_Agriculture2
+					has_ideas = FAV_Holy_Agriculture3
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Northern_Agriculture
+			focus = FAV_Level_Up_SPI_Agriculture
+			focus = FAV_Better_Production_FAV
+		}
+		x = 21
+		y = 14
+		completion_reward = {
+			add_political_power = -100
+			IF = {
+				limit = { has_ideas = FAV_Holy_Agriculture3 }
+				remove_ideas = FAV_Holy_Agriculture3
+			}
+			IF = {
+				limit = { has_ideas = FAV_Holy_Agriculture2 }
+				remove_ideas = FAV_Holy_Agriculture2
+			}
+			IF = {
+				limit = { has_ideas = FAV_Holy_Agriculture }
+				swap_ideas = {
+					remove_idea = FAV_Holy_Agriculture
+					add_idea = FAV_Holy_Agriculture3
+				}
+			}
+		}
+	}
+	#拒倾销于国门外
+	focus = {
+		id = FAV_Defend_FON_Industry
+		icon = GFX_goals_TNO_genericwork11
+		cost = 10
+		available = {
+
+		}
+		bypass = {
+			NOT = {
+				OR = {
+					has_ideas = FAV_Holy_Industry
+					has_ideas = FAV_Holy_Industry2
+					has_ideas = FAV_Holy_Industry3
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Invest_RAG_Wine
+			focus = FAV_Develop_DRA_Factory
+			focus = FAV_Better_Production_FAV
+		}
+		x = 25
+		y = 14
+		completion_reward = {
+			add_political_power = -100
+			IF = {
+				limit = { has_ideas = FAV_Holy_Industry3 }
+				remove_ideas = FAV_Holy_Industry3
+			}
+			IF = {
+				limit = { has_ideas = FAV_Holy_Industry2 }
+				remove_ideas = FAV_Holy_Industry2
+			}
+			IF = {
+				limit = { has_ideas = FAV_Holy_Industry }
+				swap_ideas = {
+					remove_idea = FAV_Holy_Industry
+					add_idea = FAV_Holy_Industry3
+				}
+			}
+		}
+	}
+	#加基建
+	focus = {
+		id = FAV_Improve_Village_Infrastructure
+		icon = GFX_goals_TNO_genericwork7
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Give_our_Food
+		}
+		x = 20
+		y = 15
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					NOT = { has_Ideas = FAV_Basis_on_Countryside }
+				}
+				add_ideas = FAV_Basis_on_Countryside
+			}
+		}
+	}
+	#送适役人口和建筑槽
+	focus = {
+		id = FAV_Improve_Village_Production
+		icon = GFX_goals_TNO_genericwork12
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Give_our_Food
+		}
+		x = 22
+		y = 15
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level < 2
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			IF = {
+				limit = {
+					NOT = { has_Ideas = FAV_Prosperity_of_City }
+				}
+				add_ideas = FAV_Prosperity_of_City
+			}
+		}
+	}
+	#送民工厂
+	focus = {
+		id = FAV_Improve_Civil_Development
+		icon = GFX_goals_TNO_genericwork5
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Defend_FON_Industry
+		}
+		x = 24
+		y = 15
+		completion_reward = {
+			FAV_Get_2_Civs = yes
+			FAV_Get_2_Civs = yes
+			FAV_Get_2_Civs = yes
+			IF = {
+				limit = {
+					NOT = { has_Ideas = FAV_Basis_on_Countryside }
+				}
+				add_ideas = FAV_Basis_on_Countryside
+			}
+		}
+	}
+	#送生产buff和军工
+	focus = {
+		id = FAV_Improve_Arms_Development
+		icon = GFX_goals_TNO_Industry
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Defend_FON_Industry
+		}
+		x = 26
+		y = 15
+		completion_reward = {
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+			FAV_Get_2_Arms = yes
+			IF = {
+				limit = {
+					NOT = { has_Ideas = FAV_Prosperity_of_City }
+				}
+				add_ideas = FAV_Prosperity_of_City
+			}
+		}
+	}
+	#吸收骑士团人才
+	focus = {
+		id = FAV_People_Wanted
+		icon = GFX_goals_TNO_genericwork10
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		x = 29
+		y = 12
+		completion_reward = {
+			army_experience = 30
+			add_command_power = 50
+			add_tech_bonus = {
+				category = naval_equipment
+				bonus = 0.5
+				uses = 2
+			}
+			add_tech_bonus = {
+				category = electronics
+				category = industry
+				bonus = 0.5
+				uses = 2
+			}
+		}
+	}
+	#军队重组
+	focus = {
+		id = FAV_Reorganize_Army
+		icon = GFX_Goal_Fight_for_Reunion
+		cost = 10
+		available = {
+			has_command_power > 99
+		}
+		bypass = {
+			NOT = { has_ideas = FAV_Holy_Army }
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_People_Wanted
+		}
+		x = 29
+		y = 13
+		completion_reward = {
+			add_command_power = -100
+			remove_ideas = FAV_Holy_Army
+		}
+	}
+	#三军建制
+	focus = {
+		id = FAV_Land_Navy_and_Air
+		icon = GFX_Goal_Strengthen_Unity
+		cost = 5
+		available = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_People_Wanted
+		}
+		x = 29
+		y = 14
+		completion_reward = {
+			navy_experience = 30
+			air_experience = 30
+		}
+	}
+	#向璃月学习
+	focus = {
+		id = FAV_Learn_From_Liyue
+		icon = GFX_MOT_MM2
+		cost = 5
+		ai_will_do = {
+			base = 100
+		}
+		mutually_exclusive = {
+			focus = FAV_Learn_From_Fon
+		}
+		prerequisite = {
+			focus = FAV_Land_Navy_and_Air
+		}
+		x = 28
+		y = 15
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 1
+				cost_reduction = 0.5
+			}
+		}
+	}
+	#向枫丹看齐
+	focus = {
+		id = FAV_Learn_From_Fon
+		icon = GFX_MOT_MM3
+		cost = 5
+		ai_will_do = {
+			base = 100
+		}
+		mutually_exclusive = {
+			focus = FAV_Learn_From_Liyue
+		}
+		prerequisite = {
+			focus = FAV_Land_Navy_and_Air
+			focus = FAV_College_of_Barbara2
+			focus = FAV_College_of_Barbara
+		}
+		x = 30
+		y = 15
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = cat_superior_firepower
+				category = cat_mobile_warfare
+				uses = 2
+				cost_reduction = 0.3
+			}
+		}
+	}
+	#农村扫盲运动（红）
+	focus = {
+		id = FAV_Village_Know_Words
+		icon = GFX_Goal_Education
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		allow_branch = {
+			has_government = communism
+		}
+		x = 31
+		y = 12
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			DRA_Equal_Education_Improved = yes
+		}
+	}
+	#补贴教育行业
+	focus = {
+		id = FAV_Mora_for_Education
+		icon = GFX_Goal_Education
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		allow_branch = {
+			has_government = democratic
+			has_country_flag = FAV_Show_Focus_Tree1
+		}
+		x = 31
+		y = 12
+		completion_reward = {
+			DRA_Equal_Education_Improved = yes
+		}
+	}
+	#芭芭拉学院（蓝）
+	focus = {
+		id = FAV_College_of_Barbara
+		icon = GFX_goal_56_goals_15
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Mora_for_Education
+		}
+		bypass = {
+			NOT = { has_Ideas = FAV_Holy_Tech }
+		}
+		allow_branch = {
+			has_government = democratic
+			has_country_flag = FAV_Show_Focus_Tree1
+		}
+		x = 31
+		y = 13
+		completion_reward = {
+			add_political_power = -50
+			remove_ideas = FAV_Holy_Tech
+		}
+	}
+	#提高工人素质
+	focus = {
+		id = FAV_Better_Knowledge_of_Workers
+		icon = GFX_goal_56_goals_9
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Village_Know_Words
+		}
+		allow_branch = {
+			has_government = communism
+		}
+		x = 31
+		y = 13
+		completion_reward = {
+			add_timed_idea = { idea = gene_less_burden days = 90 }
+			DRA_Equal_Education_Improved = yes
+		}
+	}
+	#芭芭拉大学（红）
+	focus = {
+		id = FAV_College_of_Barbara2
+		icon = GFX_goal_56_goals_15
+		cost = 5
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Better_Knowledge_of_Workers
+		}
+		bypass = {
+			NOT = { has_Ideas = FAV_Holy_Tech }
+		}
+		allow_branch = {
+			has_government = communism
+		}
+		x = 31
+		y = 14
+		completion_reward = {
+			remove_ideas = FAV_Holy_Tech
+		}
+	}
+	#整肃研究秩序
+	focus = {
+		id = FAV_Clean_Tech_Corruption
+		icon = GFX_goal_56_goals_15
+		cost = 10
+		available = {
+
+		}
+		ai_will_do = {
+			base = 100
+		}
+		prerequisite = {
+			focus = FAV_Dig_Potential_of_War
+		}
+		allow_branch = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		x = 31
+		y = 12
+		completion_reward = {
+			add_political_power = -100
+			remove_ideas = FAV_Holy_Tech
+			add_ideas = FAV_Saint_Tech
+		}
+	}
+
+	#重建控制
+	focus = {
+		id = FAV_Construct_Local_Government
+		icon = GFX_Goal_Dealt_Oppo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 38
+		y = 11
+		completion_reward = {
+			custom_effect_tooltip = FAV_Complete_Union_Get_Cores
+			add_stability = 0.05
+			every_owned_state = {
+				add_resistance = -10
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合蒙德城
+	focus = {
+		id = FAV_Integrate_Mot_City
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			1 = { is_owned_by = FAV }
+			2 = { is_owned_by = FAV }
+			3 = { is_owned_by = FAV }
+			4 = { is_owned_by = FAV }
+			12 = { is_owned_by = FAV }
+			35 = { is_owned_by = FAV }
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		bypass = {
+			AND = {
+				1 = { is_core_of = FAV }
+				2 = { is_core_of = FAV }
+				3 = { is_core_of = FAV }
+				4 = { is_core_of = FAV }
+				12 = { is_core_of = FAV }
+				35 = { is_core_of = FAV }
+			}
+		}
+		x = 36
+		y = 12
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			1 = {
+				add_core_of	= FAV
+			}
+			2 = {
+				add_core_of	= FAV
+			}
+			3 = {
+				add_core_of	= FAV
+			}
+			4 = {
+				add_core_of	= FAV
+			}
+			12 = {
+				add_core_of	= FAV
+			}
+			35 = {
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合南方领
+	focus = {
+		id = FAV_Integrate_LAW
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = LAW }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		x = 38
+		y = 12
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = LAW
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = LAW }
+				}
+				is_core_of = MOT
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#向西进发
+	focus = {
+		id = FAV_Attack_West
+		icon = goal_RAGk
+		cost = 5
+		available = {
+			OR = {
+				RAG = { exists = yes }
+				SPI = { exists = yes }
+			}
+		}
+		prerequisite = {
+			focus = FAV_Integrate_Mot_City
+			focus = FAV_Integrate_LAW
+		}
+		x = 36
+		y = 13
+		bypass = {
+			RAG = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+			SPI = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = SPI
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = RAG
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#向西进发
+	focus = {
+		id = FAV_Attack_DRA
+		icon = goal_RAGk
+		cost = 5
+		available = {
+			DRA = { exists = yes }
+		}
+		prerequisite = {
+			focus = FAV_Integrate_Mot_City
+			focus = FAV_Integrate_LAW
+		}
+		x = 38
+		y = 13
+		bypass = {
+			DRA = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = SPI
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = RAG
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合清泉镇
+	focus = {
+		id = FAV_Integrate_SPI
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = SPI }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_West
+		}
+		x = 34
+		y = 14
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = SPI }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -35
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = SPI
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#进攻北方领
+	focus = {
+		id = FAV_Attack_GUN
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 5
+		available = {
+			GUN = { exists = yes }
+		}
+		prerequisite = {
+			focus = FAV_Construct_Local_Government
+		}
+		x = 40
+		y = 12
+		bypass = {
+			GUN = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = GUN
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合北方领
+	focus = {
+		id = FAV_Integrate_GUN
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = GUN }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_GUN
+		}
+		x = 40
+		y = 13
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = GUN }
+				}
+				is_core_of = FAV
+			}
+		}
+		completion_reward = {
+			add_political_power = -35
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = GUN
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合龙脊雪山
+	focus = {
+		id = FAV_Integrate_DRA
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = DRA }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_DRA
+		}
+		x = 38
+		y = 14
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = DRA }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = DRA
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合莱艮芬德
+	focus = {
+		id = FAV_Integrate_RAG
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = RAG }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_West
+		}
+		x = 36
+		y = 14
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = RAG }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = RAG
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#进攻奔狼领
+	focus = {
+		id = FAV_Attack_ANI
+		icon = goal_RAGk
+		cost = 5
+		available = {
+			all_other_country = {
+				IF = {
+					limit = { original_tag = ANR }
+					exists = yes
+				}
+			}
+		}
+		prerequisite = {
+			focus = FAV_Integrate_RAG
+		}
+		x = 37
+		y = 15
+		bypass = {
+			all_other_country = {
+				IF = {
+					limit = { original_tag = ANR }
+					OR = {
+						exists = no
+						is_subject_of = FAV
+						is_puppet_of = FAV
+					}
+				}
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = ANR
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合奔狼领
+	focus = {
+		id = FAV_Integrate_ANI
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = and }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_ANI
+		}
+		x = 37
+		y = 16
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = and }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = and
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	focus = {
+		id = FAV_Attack_DVA
+		icon = goal_RAGk
+		cost = 5
+		available = {
+			DVA = { exists = yes }
+		}
+		prerequisite = {
+			focus = FAV_Integrate_ANI
+			focus = FAV_Integrate_GUN
+		}
+		x = 39
+		y = 17
+		bypass = {
+			DVA = {
+				OR = {
+					exists = no
+					is_subject_of = FAV
+					is_puppet_of = FAV
+				}
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = DVA
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#整合风龙领
+	focus = {
+		id = FAV_Integrate_DVA
+		icon = GFX_Goal_Political_Coo
+		cost = 10
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = FAV_PP_Way70
+				OR = {
+					has_country_flag = {
+						flag = FAV_Reform_Poli
+						days > 69
+					}
+					NOT = { has_country_flag = FAV_Reform_Poli }
+				}
+			}
+			all_state = {
+				IF = {
+					limit = { is_core_of = DVA }
+				}
+				is_owned_by	= FAV
+			}
+		}
+		prerequisite = {
+			focus = FAV_Attack_DVA
+		}
+		x = 39
+		y = 18
+		bypass = {
+			all_state = {
+				IF = {
+					limit = { is_core_of = DVA }
+				}
+				is_core_of = MOT
+			}
+		}
+		completion_reward = {
+			add_political_power = -70
+			every_owned_state = {
+				add_resistance = -10
+			}
+			every_state = {
+				limit = {
+					is_core_of = DVA
+				}
+				add_core_of	= FAV
+			}
+			clr_country_flag = FAV_Reform_Poli
+			set_country_flag = FAV_Reform_Poli
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = yes
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#红线统一 明日之星冉冉升起
+	focus = {
+		id = FAV_REnd_Rising_Star
+		icon = GFX_Goal_Victory_of_Communism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = communism
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+			
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_CCC
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_CCC
+			set_cosmetic_tag = FAV_Republic_of_People
+			FAV_Barbara = {
+				add_country_leader_trait = FAV_Light_of_Miracle
+			}
+			set_country_leader_description = {
+				desc = FAV_Barbara_REND_desc
+			}
+			set_global_flag = FAV_Union_Show_News_CCC
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				play_song = "SAVE Medley"
+				set_popularities = {
+					communism = 0.6
+					democratic = 0.25
+					genshin = 0.1
+					neutrality = 0.05
+					fascism = 0
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#蓝线统一 光辉的季节
+	focus = {
+		id = FAV_BEnd_Season_of_Light
+		icon = GFX_Goal_Victory_of_Democrazy
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = democratic
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_DDD
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_DDD
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Barbara = {
+				add_country_leader_trait = FAV_Light_Idol
+			}
+			set_country_leader_description = {
+				desc = FAV_Barbara_BEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					democratic = 0.5
+					neutrality = 0.3
+					communism = 0.1
+					genshin = 0.05
+					fascism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#灰线统一 稳定与虔诚的归来
+	focus = {
+		id = FAV_GEnd_Stability_Return
+		icon = GFX_Goal_Victory_of_Fascism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = neutrality
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_NNN
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_NNN
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Rosary = {
+				add_country_leader_trait = FAV_Shadow_Listening
+			}
+			set_country_leader_description = {
+				desc = FAV_Rosary_GEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.4
+			add_war_support = -0.4
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					neutrality = 0.5
+					democratic = 0.3
+					fascism = 0.1
+					genshin = 0.05
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#黑线统一 那日子近了
+	focus = {
+		id = FAV_FEnd_the_Day_Coming
+		icon = GFX_Goal_Victory_of_Fascism
+		cost = 10
+		available = {
+			MOT_Reunite_Trigger_Get = yes
+		}
+		prerequisite = {
+			focus = FAV_Towards_Union
+		}
+		x = 33
+		y = 11
+		allow_branch = {
+			has_country_flag = FAV_Show_Focus_Tree1
+			has_government = fascism
+		}
+		completion_reward = {
+            set_temp_variable = { FAV_linshibianliang_Eff = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Eff
+            add_to_variable = { FAV_Action_Efficiency = FAV_linshibianliang_Eff }
+            custom_effect_tooltip = FAV_Higher_Eff_Max
+            add_to_variable = { FAV_Action_Efficiency_Max = FAV_linshibianliang_Eff }
+            
+			set_temp_variable = { FAV_linshibianliang_Pop = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Pop
+            add_to_variable = { FAV_Action_Population = FAV_linshibianliang_Pop }
+            custom_effect_tooltip = FAV_Higher_Pop_Max
+            add_to_variable = { FAV_Action_Population_Max = FAV_linshibianliang_Pop }
+            
+			set_temp_variable = { FAV_linshibianliang_Z = 0.1 }
+            custom_effect_tooltip = FAV_Higher_Zeal
+            add_to_variable = { FAV_Action_Zeal = FAV_linshibianliang_Z }
+            custom_effect_tooltip = FAV_Higher_Zeal_Max
+            add_to_variable = { FAV_Action_Zeal_Max = FAV_linshibianliang_Z }
+
+			custom_effect_tooltip = FAV_Union_Focus
+			custom_effect_tooltip = FAV_Union_Focus_FFF
+			set_global_flag = MOT_REUNITED
+			set_global_flag = FAV_REUNION_FFF
+			set_cosmetic_tag = FAV_Holy_MOT_Federation
+			FAV_Rosary = {
+				add_country_leader_trait = FAV_Faith_of_Death
+			}
+			set_country_leader_description = {
+				desc = FAV_Rosary_FEND_desc
+			}
+			add_ideas = gene_Rebuild_our_nation5
+			custom_effect_tooltip = MOT_PRE_FOR_REBUILD
+			add_research_slots = 1
+			add_stability = 0.2
+			add_war_support = -0.2
+			add_political_power = 200
+			every_state = {
+				limit = {
+					is_core_of = MOT
+				}
+				add_core_of = FAV
+			}
+			FAV_Unite_the_MOT = yes
+			hidden_effect = {
+				set_popularities = {
+					fascism = 0.75
+					neutrality = 0.15
+					democratic = 0.05
+					genshin = 0
+					communism = 0.05
+				}
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		cancelable = no
+
+		ai_will_do = {
+			base = 100
+		}
+	}
+}

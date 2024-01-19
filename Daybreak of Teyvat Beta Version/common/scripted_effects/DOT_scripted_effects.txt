@@ -1,0 +1,502 @@
+#随机触发负面效果
+LYY_WashII_RandomEvent = {
+	set_variable = { LYY_Linshibianliang1 = 1 }
+	randomize_variable = {
+		var = LYY_Linshibianliang1
+		min = 1
+		max = 100
+		distribution = uniform
+		integer = yes
+	}
+	IF = { limit = { check_variable = { LYY_Linshibianliang1 = 1 } }
+		set_variable = { LYY_Linshibianliang1 = 50 }
+	}
+	multiply_variable = { LYY_Linshibianliang2 = 10 }
+	IF = {
+		limit = { check_variable = { LYY_Press_Level = 3 } }
+		add_to_variable = { LYY_Linshibianliang2 = 5 }
+	}
+	IF = {
+		limit = { check_variable = { LYY_Press_Level = 4 } }
+		add_to_variable = { LYY_Linshibianliang2 = 10 }
+	}
+	subtract_from_variable = { LYY_Linshibianliang1 = LYY_Linshibianliang2 }
+	IF = {
+		limit = { check_variable = { LYY_Linshibianliang1 < LYY_Work_Pressure } }
+		random_list = {
+			25 = {
+				country_event = LYYwash.1
+			}
+			25 = {
+				country_event = LYYwash.2
+			}
+			25 = {
+				country_event = LYYwash.3
+			}
+			25 = {
+				country_event = LYYwash.4
+			}
+		}
+	}
+	clear_variable = LYY_Linshibianliang1
+	clear_variable = LYY_Linshibianliang2
+}
+DRA_state_level_up = {
+	random_owned_state = {
+		limit = {
+			OR = {
+				has_state_category = city
+				has_state_category = town
+				has_state_category = large_town
+				has_state_category = rural
+			}
+		}
+		IF = {
+			limit = {
+				has_state_category = city
+			}
+			set_state_category = large_city
+		}
+		ELSE_IF = {
+			limit = {
+				has_state_category = town
+			}
+			set_state_category = city
+		}
+		ELSE_IF = {
+			limit = {
+				has_state_category = large_town
+			}
+			set_state_category = town
+		}
+		ELSE_IF = {
+			limit = {
+				has_state_category = rural
+			}
+			set_state_category = large_town
+		}
+	}
+}
+#工业升级
+Industry_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_Government_Industry1
+		}
+		add_ideas = DOT_Government_Industry2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Industry2
+		}
+		add_ideas = DOT_Government_Industry3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Industry3
+		}
+		add_ideas = DOT_Government_Industry4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Industry4
+		}
+		add_ideas = DOT_Government_Industry5
+	}
+}
+#农业升级
+Agri_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_Government_Agri1
+		}
+		add_ideas = DOT_Government_Agri2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Agri2
+		}
+		add_ideas = DOT_Government_Agri3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Agri3
+		}
+		add_ideas = DOT_Government_Agri4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Agri4
+		}
+		add_ideas = DOT_Government_Agri5
+	}
+}
+#军队升级
+Army_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_Government_Army1
+		}
+		add_ideas = DOT_Government_Army2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Army2
+		}
+		add_ideas = DOT_Government_Army3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Army3
+		}
+		add_ideas = DOT_Government_Army4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Army4
+		}
+		add_ideas = DOT_Government_Army5
+	}
+}
+#科研升级
+Research_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_Government_Research1
+		}
+		add_ideas = DOT_Government_Research2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Research2
+		}
+		add_ideas = DOT_Government_Research3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Research3
+		}
+		add_ideas = DOT_Government_Research4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Research4
+		}
+		add_ideas = DOT_Government_Research5
+	}
+}
+#政府控制力升级
+Control_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_Government_Control1
+		}
+		add_ideas = DOT_Government_Control2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Control2
+		}
+		add_ideas = DOT_Government_Control3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Control3
+		}
+		add_ideas = DOT_Government_Control4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Control4
+		}
+		add_ideas = DOT_Government_Control5
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Control5
+		}
+		add_ideas = DOT_Government_Control6
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_Government_Control6
+		}
+		add_ideas = DOT_Government_Control7
+	}
+}
+#规模升级
+Size_Up = {
+	IF = {
+		limit = {
+			Is_MOT = yes
+		}
+		MOTSize_Up = yes
+	}
+	IF = {
+		limit = {
+			Is_LYY = yes
+		}
+		LYYSize_Up = yes
+	}
+	IF = {
+		limit = {
+			Is_INA = yes
+		}
+		INASize_Up = yes
+	}
+	IF = {
+		limit = {
+			Is_SUM = yes
+		}
+		SUMSize_Up = yes
+	}
+	IF = {
+		limit = {
+			Is_Nothing = yes
+		}
+		NothingSize_Up = yes
+	}
+}
+
+MOTSize_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_MOTGovernment_Size1
+		}
+		add_ideas = DOT_MOTGovernment_Size2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_MOTGovernment_Size2
+		}
+		add_ideas = DOT_MOTGovernment_Size3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_MOTGovernment_Size3
+		}
+		add_ideas = DOT_MOTGovernment_Size4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_MOTGovernment_Size4
+		}
+		add_ideas = DOT_MOTGovernment_Size5
+	}
+}
+LYYSize_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_LYYGovernment_Size1
+		}
+		add_ideas = DOT_LYYGovernment_Size2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_LYYGovernment_Size2
+		}
+		add_ideas = DOT_LYYGovernment_Size3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_LYYGovernment_Size3
+		}
+		add_ideas = DOT_LYYGovernment_Size4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_LYYGovernment_Size4
+		}
+		add_ideas = DOT_LYYGovernment_Size5
+	}
+}
+INASize_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_INAGovernment_Size1
+		}
+		add_ideas = DOT_INAGovernment_Size2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_INAGovernment_Size2
+		}
+		add_ideas = DOT_INAGovernment_Size3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_INAGovernment_Size3
+		}
+		add_ideas = DOT_INAGovernment_Size4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_INAGovernment_Size4
+		}
+		add_ideas = DOT_INAGovernment_Size5
+	}
+}
+SUMSize_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_SUMGovernment_Size1
+		}
+		add_ideas = DOT_SUMGovernment_Size2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_SUMGovernment_Size2
+		}
+		add_ideas = DOT_SUMGovernment_Size3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_SUMGovernment_Size3
+		}
+		add_ideas = DOT_SUMGovernment_Size4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_SUMGovernment_Size4
+		}
+		add_ideas = DOT_SUMGovernment_Size5
+	}
+}
+NothingSize_Up = {
+	IF = {
+		limit = {
+			has_idea = DOT_geneGovernment_Size1
+		}
+		add_ideas = DOT_geneGovernment_Size2
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_geneGovernment_Size2
+		}
+		add_ideas = DOT_geneGovernment_Size3
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_geneGovernment_Size3
+		}
+		add_ideas = DOT_geneGovernment_Size4
+	}
+	ELSE_IF = {
+		limit = {
+			has_idea = DOT_geneGovernment_Size4
+		}
+		add_ideas = DOT_geneGovernment_Size5
+	}
+}
+NCup_Reduce_Points = {
+	IF = {
+		limit = {
+			check_variable = { DOT_PRIcup_Point > 3 }
+		}
+		add_to_variable = { DOT_PRIcup_Point = -2 }
+	}
+}
+NCup_add_Our_Points = {
+	add_to_variable = { DOT_PRIcup_Point = 2 }
+}
+NCup_Multi_Our_Points = {
+	multiply_variable = { DOT_PRIcup_Point = 1.1 }
+	round_variable = DOT_PRIcup_Point
+}
+NCup_Multi_Our_Points2 = {
+	multiply_variable = { DOT_PRIcup_Point = 1.2 }
+	round_variable = DOT_PRIcup_Point
+}
+NCup_SUM_Our_Points = {
+	set_variable = { global.DOT_PRIcup_SUMPoint = 0 }
+	every_country = {
+		limit = { NOT = { original_tag = PRI } }
+		add_to_variable = { global.DOT_PRIcup_SUMPoint = THIS.DOT_PRIcup_Point }
+	}
+}
+NCup_Holder_Random_Vic = {
+	set_variable = { THIS.DOT_Ac1_VicRate = DOT_PRIcup_Point }
+	IF = { 
+		limit = { check_variable = { global.DOT_PRIcup_SUMPoint > 0 } }
+		divide_variable = { THIS.DOT_Ac1_VicRate = global.DOT_PRIcup_SUMPoint }
+	}
+	ELSE_IF = {
+		divide_variable = { THIS.DOT_Ac1_VicRate = 100 }
+	}
+	multiply_variable = { THIS.DOT_Ac1_VicRate = 2.5 }
+	set_variable = { THIS.DOT_NCup_Linshibianliang = 0 }
+	randomize_variable = {
+		var = DOT_NCup_Linshibianliang
+		min = 0
+		max = 1
+		distribution = uniform
+		integer = yes
+	}
+	IF = { 
+		limit = { check_variable = { THIS.DOT_NCup_Linshibianliang = 0 } } 
+		set_variable_to_random = {
+			var = THIS.DOT_NCup_Linshibianliang
+			min = 0
+			max = 1
+			integer = no
+		}
+	}
+	IF = { 
+		limit = { check_variable = { THIS.DOT_NCup_Linshibianliang = 0 } } 
+		set_variable = { THIS.DOT_NCup_Linshibianliang = 0.5  }
+	}
+	IF = {
+		limit = { check_variable = { THIS.DOT_NCup_Linshibianliang < THIS.DOT_Ac1_VicRate } }
+		add_timed_idea = { idea = Nilotpala_Cup_Beast_Tamers_Tournament_Champion  days = 365 } 
+		add_to_variable = { var = dx value = 10 }
+		set_country_flag = DOT_AC1_Winner
+		set_global_flag = DOT_AC1_End
+	}
+}
+NCup_Random_Vic = {
+	IF = {
+		limit = { has_global_flag = DOT_AC1_End }
+	}
+	ELSE_IF = {
+		set_variable = { THIS.DOT_Ac1_VicRate = DOT_PRIcup_Point }
+		divide_variable = { THIS.DOT_Ac1_VicRate = global.DOT_PRIcup_SUMPoint }
+		multiply_variable = { THIS.DOT_Ac1_VicRate = 2 }
+		set_variable = { THIS.DOT_NCup_Linshibianliang = 0 }
+		randomize_variable = {
+			var = THIS.DOT_NCup_Linshibianliang
+			min = 0
+			max = 1
+			distribution = uniform
+			integer = yes
+		}
+		IF = { 
+			limit = { check_variable = { THIS.DOT_NCup_Linshibianliang = 0 } } 
+			set_variable_to_random = {
+				var = THIS.DOT_NCup_Linshibianliang
+				min = 0
+				max = 1
+				integer = no
+			}
+		}
+		IF = { 
+			limit = { check_variable = { THIS.DOT_NCup_Linshibianliang = 0 } } 
+			set_variable = { THIS.DOT_NCup_Linshibianliang = 0.5  }
+		}
+		IF = {
+			limit = {
+				check_variable = { THIS.DOT_NCup_Linshibianliang < THIS.DOT_Ac1_VicRate }
+				NOT = { any_other_country = { has_idea = Nilotpala_Cup_Beast_Tamers_Tournament_Champion } }
+			}
+			add_timed_idea = { idea = Nilotpala_Cup_Beast_Tamers_Tournament_Champion  days = 365 } 
+			add_to_variable = { var = dx value = 10 }
+			set_country_flag = DOT_AC1_Winner
+			set_global_flag = DOT_AC1_End
+		}
+	}
+}
+NCup_Get_Vic = {
+	add_timed_idea = { idea = Nilotpala_Cup_Beast_Tamers_Tournament_Champion  days = 365 } 
+	add_to_variable = { var = dx value = 10 }
+	set_country_flag = DOT_AC1_Winner
+	set_global_flag = DOT_AC1_End
+}

@@ -1,0 +1,302 @@
+﻿add_namespace = SAN
+country_event = { #八酿危机？
+	id = SAN.1
+	title = SAN.1.t
+	desc = SAN.1.d
+	picture = GFX_news_event_SAN.1
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = SAN.1.1 #将首犯枭首示众
+		add_war_support = -0.15
+	}
+
+	option = {
+		name = SAN.1.2 #掩盖过去
+		add_war_support = 0.10
+		add_to_variable = {
+        SAN_radicalism = 1
+       }
+    }
+}
+country_event = { #寻求合作者
+	id = SAN.2
+	title = SAN.2.t
+	desc = SAN.2.d
+	picture = GFX_news_event_INA.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = SAN.2.1#幕府中的流亡者
+	add_to_variable = {
+        SAN_radicalism = 1
+       }
+       #这将允许万叶加入。
+	}
+	
+
+	option = {
+		name = SAN.2.2#璃月
+		add_to_variable = {
+         SAN_prestige = -1
+       }
+	   add_equipment_to_stockpile = { type = infantry_equipment_0  amount = 21241  producer = LYY }
+       add_equipment_to_stockpile = { type = train_equipment amount = 4335 producer = LYY  }
+	   add_equipment_to_stockpile = { type = artillery_equipment_1  amount = 981  producer = LYY }
+	   add_equipment_to_stockpile = { type = light_tank_chassis_1 amount = 113 producer = LYY } 
+	}
+
+	option = {
+		name = SAN.2.3#八重宫司
+	   	add_to_variable = {
+         SAN_yaesupport = 1
+       }
+	    add_stability = 0.15
+	}
+}
+country_event = { #翻修珊瑚宫
+	id = SAN.3
+	title = SAN.3.t
+	desc = SAN.3.d
+	picture = GFX_news_event_INA.2
+	fire_only_once = no
+	is_triggered_only = yes
+    #小修
+		option = {
+		name = san.3.1#小
+		add_manpower = -500
+		add_political_power = -10
+		192 = {
+			add_extra_state_shared_building_slots = 2
+	        add_building_construction = {
+	            type = infrastructure
+	            level = 1
+	            instant_build = yes
+	        }
+		}
+		trigger = {
+
+		}
+	}
+
+	option = {
+		name = san.3.2#中
+		add_manpower = -1500
+		add_political_power = -25
+		192 = {
+			add_extra_state_shared_building_slots =4
+	        add_building_construction = {
+	            type = infrastructure
+	            level = 2
+	            instant_build = yes
+	        }
+		}
+
+		trigger = {
+
+		}
+	}
+
+	option = {
+		name = san.3.3#大
+		add_manpower = -2500
+		add_political_power = -50
+		192 = {
+			add_extra_state_shared_building_slots = 6
+	        add_building_construction = {
+	            type = infrastructure
+	            level = 4
+	            instant_build = yes
+	        }
+		}
+
+		trigger = {
+
+		}
+	}
+}
+country_event = { #奉行丑闻
+	id = SAN.4
+	title = SAN.4.t
+	desc = SAN.4.d
+	picture = GFX_news_event_SAN.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = SAN.4.1#必须严惩三奉行
+			add_to_variable = {
+        SAN_prestige = 2
+       }
+		if = {
+		      limit = {
+				has_idea = SAN_government_corruption
+			}
+	   remove_ideas = SAN_government_corruption
+		trigger = {	  	
+	    }
+     #移除腐败政府#	
+	  add_political_power = -50
+		}
+	}
+
+	option = {
+		name = SAN.4.2#奉行必须严惩，但看在神子面上，放过社奉行
+		add_to_variable = {
+        SAN_prestige = 1
+       }
+		add_to_variable = {
+         SAN_yaesupport = 1
+       }
+		add_political_power = 10
+		 add_stability = 0.05
+		trigger = { 
+		}
+	}
+
+	option = {
+		name = SAN.4.3#算了，还得依靠他们治国呢
+		add_to_variable = {
+        SAN_prestige = -2
+       }
+		 add_political_power = 150
+		trigger = {
+		}
+	}
+	}
+	country_event = { #欺上瞒下
+	id = SAN.5
+	title = SAN.5.t
+	desc = SAN.5.d
+	picture = GFX_news_event_SAN.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = SAN.5.1#罪己诏，惩戒奉行，废除锁国，眼狩令#
+		add_to_variable = {
+        SAN_prestige =0
+       }
+	
+     #移除眼狩锁国#
+	 			if = {
+      limit = {
+				has_idea = SAN_eyeseek
+			}
+	   remove_ideas = SAN_eyeseek
+	 }			
+	 if = {
+      limit = {
+				has_idea = SAN_locked
+			}
+	   remove_ideas = SAN_locked
+	 }
+	  add_political_power = -100
+		trigger = {}
+	}
+
+	option = {
+		name = SAN.5.2#奉行必须严惩，废除眼狩
+		add_to_variable = {
+        SAN_prestige =1
+       }
+
+		
+		#移除眼狩
+			if = {
+      limit = {
+				has_idea = SAN_eyeseek
+			}
+	   remove_ideas = SAN_eyeseek
+	 }
+		 add_political_power = -50
+
+		trigger = {}
+	}
+	option = {
+		name = SAN.5.3#罪己诏，废除锁国#
+		change_variable = {
+      	add_to_variable = {
+        SAN_prestige = -2
+       }
+		#移除眼锁国
+			if = {
+		      limit = {
+				has_idea = SAN_locked
+			}
+	   remove_ideas = SAN_locked
+	    }
+	
+		 add_political_power = -50
+
+			trigger = {}
+	}
+	}
+
+	option = {
+		name = SAN.5.4#将军大人永远不会错
+		add_to_variable = {
+        SAN_prestige = 2
+       }
+		add_political_power = 250
+		trigger = {
+		}
+	}
+	}
+	country_event = { #行政权力
+	id = SAN.6
+	title = SAN.6.t
+	desc = SAN.6.d
+	picture = GFX_news_event_SAN.2
+	# major = yes
+	fire_only_once = no
+	is_triggered_only = yes
+
+	option = {
+		name = SAN.6.1#让三奉行来#
+		add_to_variable = {
+        SAN_prestige = -1
+       }
+		add_political_power = 100
+		trigger = {
+		}
+	}
+
+	option = {
+		name = SAN.6.2#让神子来#
+	  add_to_variable = {
+         SAN_yaesupport = 1
+       }
+      add_political_power = 50
+		trigger = {
+		}
+	}
+	option = {
+		name = SAN.6.3#选择那些忠诚的民间人士#
+		add_to_variable = {
+        SAN_prestige = 0
+       }
+       add_political_power = 50
+		trigger = {
+		}
+	}
+
+	option = {
+		name = SAN.6.4#将军亲政
+		add_to_variable = {
+        SAN_prestige = 2
+       }
+		 SAN_Raiden = {
+		 add_logistics = 2
+		trigger = {
+		 }
+
+		}
+	}
+	}
