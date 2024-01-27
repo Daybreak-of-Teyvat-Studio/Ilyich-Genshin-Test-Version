@@ -38,3 +38,5 @@
 - [可能遇到的一些git操作问题](GithubDocs/GitTutorial.md)
 
 - [一些更灵活的进阶操作（非必须）](GithubDocs/UseVSCode.md)
+
+- [变更代码合并方式](GithubDocs/RebaseMerge.md)
