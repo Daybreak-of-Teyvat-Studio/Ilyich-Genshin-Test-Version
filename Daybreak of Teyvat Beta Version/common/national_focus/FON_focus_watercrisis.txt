@@ -1,0 +1,490 @@
+focus_tree = {
+    id = FON_focus_tree_watercrisis
+    country = {
+        factor = 0
+        modifier = {
+            add = 10
+            tag = FON
+        }
+    }
+
+continuous_focus_position = {
+    x=0 
+    y =1500
+}
+
+default = no
+
+#好戏开场
+ focus = {
+    id = FON_magictime
+    icon = GFX_focus_generic_concessions
+
+    x = 10
+    y = 0
+
+    cost = 1
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    completion_reward = {
+        add_stability = 0.05
+        hidden_effect={
+        country_event = {id=FON.1} #事件：少女神秘消失，开始调查
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#调查真相
+ focus = {
+    id = FON_search
+    icon = GFX_focus_hun_elect_a_king
+
+    relative_position_id = FON_magictime
+    x = 0
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_magictime
+    }
+
+    completion_reward = {
+        add_political_power = 20
+        hidden_effect = {
+            country_event = {days = 2 id =FON.2} #事件：发现溶解的事实，恐慌开始蔓延
+            country_event = {days = 5 id =FON.3} #事件：莱欧斯利发来汇报
+        } 
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#处理胎海水
+ focus = {
+    id = FON_waterdeal
+    icon = GFX_focus_eng_concessions_to_the_trade_unions
+
+    relative_position_id = FON_search
+    x = 0
+    y = 1
+
+    cost = 10
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+
+    prerequisite = {
+        focus = FON_search
+    }
+
+    completion_reward ={
+        add_political_power = 20
+        hidden_effect = {
+            country_event = {days = 3 id = FON.4} #事件：白淞镇水位上升
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#救灾物资至冬
+ focus = {
+    id = FON_resources_left
+    icon = GFX_focus_prc_agrarian_socialism
+
+    relative_position_id = FON_waterdeal
+    x = -1
+    y = 1
+
+    cost = 10
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_waterdeal
+    }
+    mutually_exclusive = {focus = FON_resources_right}
+
+    completion_reward = {
+        add_political_power = 50
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#救灾物资枫丹
+ focus = {
+    id = FON_resources_right
+    icon = GFX_goal_support_communism
+
+    relative_position_id = FON_waterdeal
+    x = 1
+    y = 1
+
+    cost = 10
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_waterdeal
+    }
+    mutually_exclusive = {
+        focus = FON_resources_left
+    }
+    
+
+    completion_reward = {
+        add_political_power = 50
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#刺玟会人员
+ focus = {
+    id = FON_people_left
+    icon = GFX_focus_attack_britain
+
+    relative_position_id = FON_waterdeal
+    x = -1
+    y = 2.5
+
+    cost = 10
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_resources_left 
+        focus = FON_resources_right
+    }
+    mutually_exclusive = {
+        focus = FON_people_right
+    }
+
+    completion_reward = {
+        add_political_power = 50
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#枫丹官方人员
+ focus = {
+    id = FON_people_right
+    icon = GFX_focus_AST_war_japan
+
+    relative_position_id = FON_waterdeal
+    x = 1 
+    y = 2.5
+
+    cost = 10
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_resources_left 
+        focus = FON_resources_right
+    }
+    mutually_exclusive = {
+        focus = FON_people_left
+    }
+
+    completion_reward = {
+        add_political_power = 50
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#审判芙芙
+ focus = {
+    id = FON_kingjudge
+    icon = GFX_focus_generic_socialist_science
+
+    relative_position_id = FON_waterdeal
+    x = 0
+    y = 3.7
+    
+    cost = 5
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_people_left 
+        focus = FON_people_right
+    }
+
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.5} #事件：船中密会
+    } 
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#娜维娅的协助
+ focus = {
+    id = FON_judge_naweiya
+    icon = GFX_focus_generic_polish_deal
+
+    relative_position_id = FON_kingjudge
+    x = -2.5
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass={
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_kingjudge
+    }
+
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.6} #事件：娜维娅与那维莱特的谈话
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#愚人众的协助
+ focus = {
+    id = FON_judge_puren
+    icon = GFX_focus_generic_join_comintern
+
+    relative_position_id = FON_kingjudge
+    x = 2.5
+    y = 1
+
+    cost = 5
+    available ={
+
+    }
+    bypass={
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = FON_kingjudge
+    }
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.7} #事件：仆人来访
+    } 
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#那维莱特的心意
+ focus = {
+    id = FON_judge_naweilaite
+    icon = GFX_focus_ger_return_of_the_kaiser
+
+    relative_position_id = FON_kingjudge
+    x = 0
+    y = 1
+
+    cost = 5
+
+    available ={
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus= FON_kingjudge
+    }
+
+    completion_reward = {
+        add_political_power = 50
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#罪人舞步旋
+focus = {
+    id = FON_final_date
+    icon = GFX_goal_support_communism
+
+    relative_position_id = FON_kingjudge
+    x = 0
+    y = 2
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus= FON_judge_naweiya 
+    }
+
+    prerequisite = {
+        focus = FON_judge_naweilaite
+    }
+
+    prerequisite = {
+        focus = FON_judge_puren
+    }
+
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.8} #事件：罪人舞步旋
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+}
