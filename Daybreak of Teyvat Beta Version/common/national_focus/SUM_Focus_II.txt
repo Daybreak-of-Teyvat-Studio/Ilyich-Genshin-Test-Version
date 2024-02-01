@@ -349,8 +349,15 @@ focus_tree={
 		prerequisite={focus=The_Sailors_of_Port_Omos_Rise_up}
 		cost=7.00
 		completion_reward={
-			
-		
+			every_state = {
+				limit = {
+					AND = {
+                        NOT = { is_core_of = SUM }
+                        is_core_of = VAN
+                    }
+				}
+				add_core_of = SUM
+			}		
 			add_popularity={
 				ideology=genshin
 				popularity=0.1
@@ -812,8 +819,29 @@ focus_tree={
 		prerequisite={focus=Mining_the_World_Tree}
 		prerequisite={focus=Sumeru_Flying_Competition}
 		cost=7.00
+		available = {
+			VAN = { is_subject = no }
+			SDH = { is_subject = no }
+			SGD = { is_subject = no }
+			SGS = { is_subject = no }
+		}
 		completion_reward={
-			
+			create_wargoal = {
+                type = take_core_state
+                target = VAN
+            }
+			create_wargoal = {
+                type = take_core_state
+                target = SGD
+            }
+			create_wargoal = {
+                type = take_core_state
+                target = SDH
+            }
+			create_wargoal = {
+                type = take_core_state
+                target = SGS
+            }
 		
 			load_focus_tree=generic_focus
 			add_political_power=10
@@ -854,7 +882,19 @@ focus_tree={
 		prerequisite={focus=The_Dream_of_Desert_Dwellers}
 		cost=7.00
 		completion_reward={
-			
+			every_state = {
+				limit = {
+					AND = {
+						NOT = { is_core_of = SUM }
+						OR = {
+							is_core_of = SDH
+							is_core_of = SGD
+                            is_core_of = SGS
+						}
+					}
+				}
+				add_core_of = SUM
+			}
 		
 			add_political_power=10
 			add_manpower=100
