@@ -168,3 +168,35 @@ country_event = {
 		custom_effect_tooltip = VAN.5.1_tt
 	}
 }
+
+# 服从教令院思潮倾向提升
+country_event = {
+	id = VAN.6
+	title = VAN.6.t
+	desc = VAN.6.d
+	picture = GFX_event_VAN05 # 图片用一样的就行
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	option = {
+		name = VAN.6.1
+		hidden_effect = {
+			set_variable = { VAN_political_thoughts_horizontal_delta = -10 }
+			VAN_political_thoughts_adjust_horizontal = yes
+
+			IF = {
+				limit = {
+					check_variable = { VAN_political_thoughts_akademiya = 100 compare = less_than }
+				}
+				country_event = {
+					id = VAN.6
+					days = 40
+				}
+			}
+		}
+		custom_effect_tooltip = VAN.6.1_tt
+	}
+}
