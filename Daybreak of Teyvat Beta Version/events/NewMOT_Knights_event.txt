@@ -247,13 +247,7 @@ country_event = {
 		mark_focus_tree_layout_dirty = yes
 		
 		hidden_effect = {
-			country_event = { id = Knights.12 days = 10 }
-			country_event = { id = Knights.13 days = 20 }
-			country_event = { id = Knights.14 days = 30 }
-			country_event = { id = Knights.15 days = 40 }
-			country_event = { id = Knights.16 days = 50 }
-			country_event = { id = Knights.17 days = 60 }
-			country_event = { id = Knights.19 days = 80 }
+			set_global_flag = MOT_Break_Begin_1
 		}
 	}
 	option = {
@@ -271,14 +265,7 @@ country_event = {
 		mark_focus_tree_layout_dirty = yes
 		
 		hidden_effect = {
-			country_event = { id = Knights.12 days = 10 }
-			country_event = { id = Knights.13 days = 20 }
-			country_event = { id = Knights.14 days = 30 }
-			country_event = { id = Knights.15 days = 40 }
-			country_event = { id = Knights.16 days = 50 }
-			country_event = { id = Knights.17 days = 60 }
-			country_event = { id = Knights.18 days = 70 }
-			country_event = { id = Knights.19 days = 80 }
+			set_global_flag = MOT_Break_Begin_1
 		}
 	}
 }
@@ -435,8 +422,17 @@ country_event = {
 	title = Knights.12.t
 	desc = Knights.12.d
 	picture = GFX_event_MOT003
-	is_triggered_only = yes
+	is_triggered_only = no
 	fire_only_once = no
+	trigger = {
+		Is_MOT = yes
+		has_global_flag = MOT_Break_Begin_1
+		NOT = { has_country_flag = MOT_See_Break_1 }
+	}
+	immediate = {
+		set_country_flag = MOT_See_Break_1
+		set_global_flag = MOT_Break_Begin_2
+	}
 	option = {
 		name = Knights.12.a
 		trigger = { original_tag = MOT }
@@ -499,7 +495,15 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+				original_tag = ANR
 			}
+		}
+	}
+	option = {
+		name = Knights.12.e
+		add_political_power = 10
+		trigger = {
+			original_tag = ANR
 		}
 	}
 }
@@ -510,12 +514,16 @@ country_event = {
 	title = Knights.13.t
 	desc = Knights.13.d
 	picture = GFX_event_MOT003
-	immediate = {
-		hidden_effect = {
-			country_event = { id = Knights.12 days = 10 }
-		}
+	trigger = {
+		Is_MOT = yes
+		has_global_flag = MOT_Break_Begin_2
+		NOT = { has_country_flag = MOT_See_Break_2 }
 	}
-	is_triggered_only = yes
+	immediate = {
+		set_country_flag = MOT_See_Break_2
+		set_global_flag = MOT_Break_Begin_3
+	}
+	is_triggered_only = no
 	fire_only_once = no
 	option = {
 		name = Knights.13.a
@@ -579,8 +587,26 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+				original_tag = SPI
 			}
 		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 100000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.13.e
+		add_war_support = 0.01
+		trigger = { original_tag = SPI }
 	}
 }
 
@@ -590,12 +616,16 @@ country_event = {
 	title = Knights.14.t
 	desc = Knights.14.d
 	picture = GFX_event_DRA04
-	immediate = {
-		hidden_effect = {
-			country_event = { id = Knights.13 days = 10 }
-		}
+	trigger = {
+		Is_MOT = yes
+		has_global_flag = MOT_Break_Begin_3
+		NOT = { has_country_flag = MOT_See_Break_3 }
 	}
-	is_triggered_only = yes
+	immediate = {
+		set_country_flag = MOT_See_Break_3
+		set_global_flag = MOT_Break_Begin_4
+	}
+	is_triggered_only = no
 	fire_only_once = no
 	option = {
 		name = Knights.14.a
@@ -659,8 +689,33 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+				original_tag = RAG
 			}
 		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 200000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.14.e
+		add_war_support = 0.01
+		trigger = { original_tag = RAG }
 	}
 }
 #龙脊雪山领政府失联
@@ -669,12 +724,16 @@ country_event = {
 	title = Knights.15.t
 	desc = Knights.15.d
 	picture = GFX_event_DRA02
-	immediate = {
-		hidden_effect = {
-			country_event = { id = Knights.14 days = 10 }
-		}
+	trigger = {
+		Is_MOT = yes
+		has_global_flag = MOT_Break_Begin_4
+		NOT = { has_country_flag = MOT_See_Break_4 }
 	}
-	is_triggered_only = yes
+	immediate = {
+		set_country_flag = MOT_See_Break_4
+		set_global_flag = MOT_Break_Begin_5
+	}
+	is_triggered_only = no
 	fire_only_once = no
 	option = {
 		name = Knights.15.a
@@ -738,8 +797,26 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+				original_tag = DRA
 			}
 		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 150000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.15.e
+		add_war_support = 0.01
+		trigger = { original_tag = DRA }
 	}
 }
 #西风教会激进派独走
@@ -748,6 +825,15 @@ country_event = {
 	title = Knights.16.t
 	desc = Knights.16.d
 	picture = GFX_event_DRA04
+	trigger = {
+		Is_MOT = yes
+		has_global_flag = MOT_Break_Begin_5
+		NOT = { has_country_flag = MOT_See_Break_5 }
+	}
+	immediate = {
+		set_country_flag = MOT_See_Break_5
+		set_global_flag = MOT_Break_Begin_6
+	}
 	is_triggered_only = yes
 	fire_only_once = no
 	option = {
@@ -797,6 +883,25 @@ country_event = {
 				original_tag = LAW
 				original_tag = MOT
 				original_tag = FAV
+			}
+		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 200000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 	}
@@ -866,8 +971,26 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+				original_tag = GUN
 			}
 		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 200000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = Knights.17.b
+		add_political_power = 10
+		trigger = { original_tag = GUN }
 	}
 }
 #风龙领脱离掌控
@@ -887,7 +1010,6 @@ country_event = {
 	}
 	immediate = {
 		hidden_effect = {
-			country_event = { id = Knights.17 days = 10 }
 			set_country_flag = MOT_Event_Show18
 		}
 	}
@@ -955,6 +1077,18 @@ country_event = {
 				original_tag = MOT
 			}
 		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 100000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
 	}
 }
 #蒙德城骚乱
@@ -970,7 +1104,6 @@ country_event = {
 	}
 	immediate = { 
 		set_country_flag = MOT_landebianle1
-		hidden_effect = { country_event = { id = Knights.15 days = 10 } } 
 	}
 	is_triggered_only = no
 	fire_only_once = no
@@ -1052,6 +1185,25 @@ country_event = {
 			NOT = {
 				original_tag = LAW
 				original_tag = MOT
+			}
+		}
+		IF = {
+			limit = { original_tag = ANR }
+			custom_effect_tooltip = ANR_Bonus_From_War
+			every_owned_state = { add_manpower = 200000 }
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 	}
