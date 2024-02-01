@@ -1,7 +1,7 @@
 scripted_gui = {
 
-	DVA_Committee_ui = {
-		window_name = "Commune_committee_window"
+	DVA_Committee_ui1 = {
+		window_name = "Commune_committee_window1"
 		context_type = player_context
 
 		visible = {
@@ -9,6 +9,7 @@ scripted_gui = {
 		}
 
 		effects = {
+            #常驻页面
             Tab_Button1_click = {
                 set_variable = { DVA_committee_surface = 1 }
             }
@@ -48,9 +49,14 @@ scripted_gui = {
             Close_Button_click = {
                 set_variable = { DVA_committee_surface = 0 }
             }
+            #执委会页面
+            Tab_Button1a_click = {
+                set_variable = { DVA_committee_surface1 = 1 }
+            }
         }
         
         triggers = {
+            #常驻页面
             Tab_Button1_click_enabled = {
                 NOT = {
                     check_variable = { DVA_committee_surface = 1 }
@@ -153,9 +159,17 @@ scripted_gui = {
             Close_Button_visible = {
                 check_variable = { DVA_committee_surface > 0 }
             }
+            #执委会页面
+            Tab_Button1a_click_enabled = {
+                check_variable = { DVA_committee_surface1 = 0 }
+            }
+            Tab_Button1a_visible = {
+                check_variable = { DVA_committee_surface = 1 }
+            }
         }
 
 		properties = {
+            #执委会页面
 			commissioner_potrait1_icon = {
 				image = "GFX_commissioner_potrait_Amber"
 			}
@@ -171,6 +185,33 @@ scripted_gui = {
             commissioner_potrait5_icon = {
 				image = "GFX_commissioner_potrait_Bennett"
 			}
+		}
+
+		ai_enabled = {
+            always = no
+        }
+	}
+
+    #执委会页面
+    DVA_Committee_ui1a = {
+		window_name = "Commune_committee_window1a"
+		context_type = player_context
+        parent_window_name = "Commune_committee_window1"
+
+		visible = {
+			check_variable = { DVA_committee_surface1 = 1 }
+		}
+
+		effects = {
+            #
+        }
+        
+        triggers = {
+            #
+        }
+
+		properties = {
+			#
 		}
 
 		ai_enabled = {
