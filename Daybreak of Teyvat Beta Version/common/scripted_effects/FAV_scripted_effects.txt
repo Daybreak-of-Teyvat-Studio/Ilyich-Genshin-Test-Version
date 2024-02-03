@@ -839,6 +839,20 @@ FAV_End_of_This_Fight = {
 	set_variable = { FAV_Action_Type_They = 0 }
 	set_variable = { FAV_Gap_of_Points = FAV_Victory_Ps_We }
 	subtract_from_variable = { FAV_Gap_of_Points = FAV_Victory_Ps_They }
+	IF = {
+		limit = {
+			is_ai = yes
+			difficulty > 3
+		}
+		add_to_variable = { FAV_Victory_Ps_We = 50 }
+	}
+	IF = {
+		limit = {
+			is_ai = yes
+			difficulty > 2
+		}
+		add_to_variable = { FAV_Victory_Ps_We = 50 }
+	}
 	hidden_effect = {
 		random_list = {
 			39 = {
@@ -855,7 +869,10 @@ FAV_End_of_This_Fight = {
 			}
 		}
 		IF = {
-			limit = { is_ai = yes }
+			limit = {
+				is_ai = yes
+				difficulty > 3
+			}
 			IF = {
 				limit = { check_variable = { FAV_Action_Type_They = 1 } }
 				set_variable = { FAV_Action_Type_We = 3 }
