@@ -7802,3 +7802,925 @@ MOT_control_DVA_category = {
 		}
 	}
 }
+##奇观决议组
+#巴巴托斯大神像
+MOT_Wonder_DecCat_Statue = {
+	MOT_Wonder_Dec_Statue_Get_Buff = {
+		visible = { always = yes }
+		available = {
+			hidden_trigger = {
+				OR = {
+					AND = {
+						check_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+						NOT = { has_idea = MOT_Wonder_Great_Statue_of_Barbartos_1 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Statue_Buildx = 2 }
+						NOT = { has_idea = MOT_Wonder_Great_Statue_of_Barbartos_2 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Statue_Buildx > 2 }
+						NOT = { has_idea = MOT_Wonder_Great_Statue_of_Barbartos_3 }
+					}
+				}
+			}
+		}
+		cost = 10
+		fire_only_once = no
+		complete_effect = {
+			remove_ideas = {
+				MOT_Wonder_Great_Statue_of_Barbartos_1
+				MOT_Wonder_Great_Statue_of_Barbartos_2
+				MOT_Wonder_Great_Statue_of_Barbartos_3
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_1
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_2
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx > 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_3
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Wonder_Dec_Statue = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 2
+			}
+		}
+		available = {
+			num_of_available_civilian_factories > 9
+			NOT = { check_variable = { global.MOT_Wonder_Statue_Buildx > 2 } }
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Statue_Buildx = 0 }
+					}
+					has_manpower > 99999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+					}
+					has_manpower > 249999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Statue_Buildx = 2 }
+					}
+					has_manpower > 499999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 0 }
+				}
+				add_manpower = -100000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+				}
+				add_manpower = -250000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx > 1 }
+				}
+				add_manpower = -500000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 0 }
+				}
+				add_manpower = 80000
+				2 = { add_manpower = 40000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+				}
+				add_manpower = 200000
+				2 = { add_manpower = 100000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Statue_Buildx > 1 }
+				}
+				add_manpower = 400000
+				2 = { add_manpower = 200000 }
+			}
+			remove_ideas = {
+				MOT_Wonder_Great_Statue_of_Barbartos_1
+				MOT_Wonder_Great_Statue_of_Barbartos_2
+				MOT_Wonder_Great_Statue_of_Barbartos_3
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Statue_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_1
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_2
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Statue_of_Barbartos_3
+			}
+			add_to_variable = { global.MOT_Wonder_Statue_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 2 }
+		}
+	}
+}
+#风起地大树
+MOT_Wonder_DecCat_Tree = {
+	MOT_Wonder_Dec_Tree_Get_Buff = {
+		visible = { always = yes }
+		available = {
+			hidden_trigger = {
+				OR = {
+					AND = {
+						check_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+						NOT = { has_idea = MOT_Wonder_Great_Tree_1 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Tree_Buildx = 2 }
+						NOT = { has_idea = MOT_Wonder_Great_Tree_2 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Tree_Buildx > 2 }
+						NOT = { has_idea = MOT_Wonder_Great_Tree_3 }
+					}
+				}
+			}
+		}
+		cost = 10
+		fire_only_once = no
+		complete_effect = {
+			remove_ideas = {
+				MOT_Wonder_Great_Tree_1
+				MOT_Wonder_Great_Tree_2
+				MOT_Wonder_Great_Tree_3
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_1
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_2
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx > 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_3
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Wonder_Dec_Tree = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 4
+			}
+		}
+		available = {
+			num_of_available_civilian_factories > 9
+			NOT = { check_variable = { global.MOT_Wonder_Tree_Buildx > 2 } }
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Tree_Buildx = 0 }
+					}
+					has_manpower > 99999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+					}
+					has_manpower > 249999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Tree_Buildx = 2 }
+					}
+					has_manpower > 499999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 0 }
+				}
+				add_manpower = -100000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+				}
+				add_manpower = -250000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx > 1 }
+				}
+				add_manpower = -500000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 0 }
+				}
+				add_manpower = 60000
+				4 = { add_manpower = 80000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+				}
+				add_manpower = 150000
+				4 = { add_manpower = 200000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tree_Buildx > 1 }
+				}
+				add_manpower = 300000
+				4 = { add_manpower = 400000 }
+			}
+			remove_ideas = {
+				MOT_Wonder_Great_Tree_1
+				MOT_Wonder_Great_Tree_2
+				MOT_Wonder_Great_Tree_3
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Tree_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_1
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_2
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				add_ideas = MOT_Wonder_Great_Tree_3
+			}
+			add_to_variable = { global.MOT_Wonder_Tree_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 4 }
+		}
+	}
+}
+#北陆图书馆
+MOT_Wonder_DecCat_Library = {
+	MOT_Wonder_Dec_Library_Get_Buff = {
+		visible = { always = yes }
+		available = {
+			hidden_trigger = {
+				OR = {
+					AND = {
+						check_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+						NOT = { has_idea = MOT_Wonder_Northern_Library_1 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Library_Buildx = 2 }
+						NOT = { has_idea = MOT_Wonder_Northern_Library_2 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Library_Buildx > 2 }
+						NOT = { has_idea = MOT_Wonder_Northern_Library_3 }
+					}
+				}
+			}
+		}
+		cost = 10
+		fire_only_once = no
+		complete_effect = {
+			remove_ideas = {
+				MOT_Wonder_Northern_Library_1
+				MOT_Wonder_Northern_Library_2
+				MOT_Wonder_Northern_Library_3
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_1
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 2 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_2
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx > 2 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_3
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Wonder_Dec_Library = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 1
+			}
+		}
+		available = {
+			NOT = { global.MOT_Wonder_Library_Buildx > 2 }
+			num_of_available_civilian_factories > 14
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Library_Buildx = 0 }
+					}
+					has_manpower > 49999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+					}
+					has_manpower > 199999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Library_Buildx = 2 }
+					}
+					has_manpower > 399999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 15
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 0 }
+				}
+				add_manpower = -50000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+				}
+				add_manpower = -200000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx > 1 }
+				}
+				add_manpower = -400000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 0 }
+				}
+				add_manpower = 40000
+				1 = { add_manpower = 20000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+				}
+				add_manpower = 100000
+				1 = { add_manpower = 80000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Library_Buildx > 1 }
+				}
+				add_manpower = 320000
+				1 = { add_manpower = 160000 }
+			}
+			remove_ideas = {
+				MOT_Wonder_Northern_Library_1
+				MOT_Wonder_Northern_Library_2
+				MOT_Wonder_Northern_Library_3
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Library_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_1
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_2
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				add_ideas = MOT_Wonder_Northern_Library_3
+			}
+			add_to_variable = { global.MOT_Wonder_Library_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 1 }
+		}
+	}
+}
+#千风神殿
+MOT_Wonder_DecCat_Temple = {
+	MOT_Wonder_Dec_Temple_Get_Buff = {
+		visible = { always = yes }
+		available = {
+			hidden_trigger = {
+				OR = {
+					AND = {
+						check_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+						NOT = { has_idea = MOT_Wonder_Wind_Temple_1 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Temple_Buildx = 2 }
+						NOT = { has_idea = MOT_Wonder_Wind_Temple_2 }
+					}
+					AND = {
+						check_variable = { global.MOT_Wonder_Temple_Buildx > 2 }
+						NOT = { has_idea = MOT_Wonder_Wind_Temple_3 }
+					}
+				}
+			}
+		}
+		cost = 10
+		fire_only_once = no
+		complete_effect = {
+			remove_ideas = {
+				MOT_Wonder_Wind_Temple_1
+				MOT_Wonder_Wind_Temple_2
+				MOT_Wonder_Wind_Temple_3
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_1
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 2 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_2
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx > 2 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_3
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	MOT_Wonder_Dec_Temple = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 9
+			}
+		}
+		available = {
+			num_of_available_civilian_factories > 9
+			NOT = { check_variable = { global.MOT_Wonder_Temple_Buildx > 2 } }
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Temple_Buildx = 0 }
+					}
+					has_manpower > 99999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+					}
+					has_manpower > 249999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Temple_Buildx = 2 }
+					}
+					has_manpower > 499999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 0 }
+				}
+				add_manpower = -100000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+				}
+				add_manpower = -250000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 2 }
+				}
+				add_manpower = -500000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 0 }
+				}
+				add_manpower = 80000
+				9 = { add_manpower = 40000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+				}
+				add_manpower = 200000
+				9 = { add_manpower = 100000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Temple_Buildx = 2 }
+				}
+				add_manpower = 400000
+				9 = { add_manpower = 200000 }
+			}
+			remove_ideas = {
+				MOT_Wonder_Wind_Temple_1
+				MOT_Wonder_Wind_Temple_2
+				MOT_Wonder_Wind_Temple_3
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Temple_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_1
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_2
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				add_ideas = MOT_Wonder_Wind_Temple_3
+			}
+			add_to_variable = { global.MOT_Wonder_Temple_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 9 }
+		}
+	}
+}
+#孤王高塔
+MOT_Wonder_DecCat_Tower = {
+	MOT_Wonder_Dec_Tower = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 60
+			}
+		}
+		available = {
+			num_of_available_civilian_factories > 14
+			NOT = { check_variable = { global.MOT_Wonder_Tower_Buildx > 2 } }
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Tower_Buildx = 0 }
+					}
+					has_manpower > 99999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Tower_Buildx = 1 }
+					}
+					has_manpower > 249999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Tower_Buildx = 2 }
+					}
+					has_manpower > 499999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 15
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx = 0 }
+				}
+				add_manpower = -100000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx = 1 }
+				}
+				add_manpower = -250000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx > 1 }
+				}
+				add_manpower = -500000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx = 0 }
+				}
+				add_manpower = 80000
+				60 = { add_manpower = 40000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx = 1 }
+				}
+				add_manpower = 200000
+				60 = { add_manpower = 100000 }
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Tower_Buildx > 1 }
+				}
+				add_manpower = 400000
+				60 = { add_manpower = 200000 }
+			}
+			hidden_effect = {
+				60 = {
+					remove_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_1 }
+					remove_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_2 }
+					remove_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_3 }
+				}
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Tower_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				60 = { add_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_1 } }
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				60 = { add_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_2 } }
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				60 = { add_dynamic_modifier = { modifier = MOT_Wonder_Tower_of_King_3 } }
+			}
+			add_to_variable = { global.MOT_Wonder_Tower_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 60 }
+		}
+	}
+}
+#蒲公英海
+MOT_Wonder_DecCat_Sea = {
+	MOT_Wonder_Dec_Sea = {
+		visible = { always = yes }
+		highlight_states = {
+			highlight_state_targets = {
+				state = 20
+				state = 91
+				state = 92
+				state = 94
+				state = 95
+			}
+		}
+		available = {
+			num_of_available_civilian_factories > 4
+			NOT = { check_variable = { global.MOT_Wonder_Sea_Buildx > 2 } }
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase0
+						check_variable = { global.MOT_Wonder_Sea_Buildx = 0 }
+					}
+					has_manpower > 199999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase1
+						check_variable = { global.MOT_Wonder_Sea_Buildx = 1 }
+					}
+					has_manpower > 399999
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = MOT_Wonder_Built_Phase2
+						check_variable = { global.MOT_Wonder_Sea_Buildx = 2 }
+					}
+					has_manpower > 799999
+				}
+			}
+		}
+		days_remove = 360
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Wonder_Manpower_Using
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx = 0 }
+				}
+				add_manpower = -200000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx = 1 }
+				}
+				add_manpower = -400000
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx > 1 }
+				}
+				add_manpower = -800000
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx = 0 }
+				}
+				add_manpower = 150000
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_manpower = 40000
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx = 1 }
+				}
+				add_manpower = 300000
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_manpower = 80000
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { global.MOT_Wonder_Sea_Buildx > 1 }
+				}
+				add_manpower = 600000
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_manpower = 200000
+				}
+			}
+			every_owned_state = {
+				limit = { has_state_flag = MOT_Wonder_Dandelion }
+				remove_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_1 }
+				remove_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_2 }
+				remove_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_3 }
+			}
+			custom_effect_tooltip = MOT_Wonder_Higher_Built
+			set_temp_variable = { MOT_LinshibianliangW = global.MOT_Wonder_Sea_Buildx }
+			add_to_temp_variable = { MOT_LinshibianliangW = 1 }
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 1 }
+				}
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_1 }
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW = 2 }
+				}
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_2 }
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { MOT_LinshibianliangW > 2 }
+				}
+				every_owned_state = {
+					limit = { has_state_flag = MOT_Wonder_Dandelion }
+					add_dynamic_modifier = { modifier = MOT_Wonder_Sea_of_dandelion_3 }
+				}
+			}
+			add_to_variable = { global.MOT_Wonder_Sea_Buildx = 1 }
+		}
+		cancel_trigger = {
+			NOT = { controls_state = 20 }
+			NOT = { controls_state = 91 }
+			NOT = { controls_state = 92 }
+			NOT = { controls_state = 94 }
+			NOT = { controls_state = 95 }
+		}
+	}
+}
