@@ -15,9 +15,5 @@
   - 或者直接在本地打开GitHub Desktop，克隆仓库`https://github.com/Daybreak-of-Teyvat-Studio/Ilyich-Genshin-Test-Version.git`。
 - 如果遇到克隆速度慢的问题，可尝试挂梯子，或者使用[steampp](https://steampp.net/)。
 
-## 一些推荐配置（非必须）
-- 打开.git/config文件（.git是隐藏文件夹，看不到的话可以百度如何查看隐藏文件夹），在末尾添加：
-  ```
-  [pull]
-      rebase = true
-  ```
+## 一些需要的配置
+- rebase配置，详见[变更代码合并方式](RebaseMerge.md)
