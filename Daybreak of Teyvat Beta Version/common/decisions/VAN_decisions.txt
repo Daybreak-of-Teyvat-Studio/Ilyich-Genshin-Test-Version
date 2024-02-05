@@ -65,6 +65,36 @@ VAN_political_thoughts_decision_categories = {
 	# 		custom_effect_tooltip = VAN_political_thoughts_nahida_effect_n10_tt
 	# 	}
 	# }
+
+	VAN_political_thoughts_decision_task_unit_limit = {
+		icon = infiltrate_state
+		activation = {
+			has_country_flag = VAN_flag_running_task_unit_limit
+		}
+		available = {
+			VAN_unit_not_greater_than_limit = yes
+		}
+		is_good = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		timeout_effect = {
+			SUM = {
+				create_wargoal = {
+					type = annex_everything
+					target = VAN
+				}
+			}
+			hidden_effect = {
+				clr_country_flag = VAN_flag_running_task_unit_limit
+				set_country_flag = VAN_flag_fail_task_unit_limit
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				clr_country_flag = VAN_flag_running_task_unit_limit
+			}
+		}
+	}
 }
 
 # Vanarana:0 "桓那兰那" 401
