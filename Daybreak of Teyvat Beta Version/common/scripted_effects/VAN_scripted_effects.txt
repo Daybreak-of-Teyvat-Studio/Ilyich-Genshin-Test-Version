@@ -442,3 +442,20 @@ VAN_political_thoughts_vertical_check_sum = {
 		}
 	}
 }
+
+VAN_enable_unit_limit_effect = {
+	set_variable = { VAN_max_division = VAN_default_unit_limit }
+	set_country_flag = VAN_flag_enable_unit_limit
+}
+
+VAN_check_unit_limit_effect = {
+	IF = {
+		limit = {
+			check_variable = { num_divisions = VAN_max_division compare = greater_than }
+			has_country_flag = VAN_flag_enable_unit_limit
+			NOT = { has_country_flag = VAN_flag_running_task_unit_limit } # mutex
+			NOT = { has_country_flag = VAN_flag_fail_task_unit_limit } # 任务失败一次就不用再触发了
+		}
+		country_event = { id = VAN.7 }
+	}
+}
