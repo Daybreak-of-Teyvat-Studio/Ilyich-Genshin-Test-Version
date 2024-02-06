@@ -1,5 +1,136 @@
 #把暂时用不上的东西放在这里，方便以后需要时取用
 	
+	LYY_Wonder_Build_Dec_127_Move = {
+		visible = {
+			NOT = { has_country_flag = LYY_Wonder_Unlock_Move }
+		}
+		available = {
+			original_tag = LYY
+			constrols_state = LYY_Location_of_127
+			NOT = { has_global_flag = LYY_127_Moving }
+		}
+		custom_cost_text = decision_cost_CP_20
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		complete_effect = {
+			add_command_power = -20
+			set_country_flag = LYY_Wonder_Unlock_Move
+		}
+	}
+	LYY_Wonder_Build_Dec_127_Move_Off = {
+		visible = {
+			has_country_flag = LYY_Wonder_Unlock_Move
+		}
+		complete_effect = {
+			clr_country_flag = LYY_Wonder_Unlock_Move
+		}
+	}
+	LYY_Wonder_Build_Dec_127_Moveto = {
+		target_root_trigger = {
+			has_country_flag = LYY_Wonder_Unlock_Move
+			controls_state = global.LYY_Location_of_127
+			NOT = { has_global_flag = LYY_127_Moving }
+		}
+		visible =  {
+			ROOT = {
+				NOT = { has_global_flag = LYY_127_Moving }
+			}
+		}
+		allowed = {
+			is_ai = no
+		}
+		target_array = ROOT.controlled_states
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = {
+					has_state_flag = DOT_Has_a_Wonder
+				}
+			}
+		}
+		fire_only_once = no
+		days_remove = 30
+		icon = generic_prepare_civil_war
+		state_target = yes
+		on_map_mode = map_only
+		complete_effect = {
+			ROOT = {
+				clr_country_flag = LYY_Wonder_Unlock_Move
+				set_global_flag = LYY_127_Moving
+			}
+		}
+		remove_effect = {
+			ROOT = {
+				clr_global_flag = LYY_127_Moving
+			}
+			set_variable = { global.LYY_Location_of_127 = FROM.id }
+			FROM = {
+				add_manpower = 4
+				set_state_flag = DOT_Has_a_Wonder
+				set_state_flag = DOT_Hanging_127
+				IF = {
+					limit = {
+						check_variable = { MOT_Wonder_127_Buildx = 1 }
+						add_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_1
+						}
+					}
+				}
+				IF = {
+					limit = {
+						check_variable = { MOT_Wonder_127_Buildx = 2 }
+						add_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_2
+						}
+					}
+				}
+				IF = {
+					limit = {
+						check_variable = { MOT_Wonder_127_Buildx = 3 }
+						add_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_3
+						}
+					}
+				}
+			}
+			var:LYY_Last_Location_of_127 = {
+				add_manpower = -4
+				clr_state_flag = DOT_Has_a_Wonder
+				clr_state_flag = DOT_Hanging_127
+				IF = {
+					limit = {
+						check_variable = { global.MOT_Wonder_127_Buildx = 1 }
+						remove_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_1
+						}
+					}
+				}
+				IF = {
+					limit = {
+						check_variable = { global.MOT_Wonder_127_Buildx = 2 }
+						remove_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_2
+						}
+					}
+				}
+				IF = {
+					limit = {
+						check_variable = { global.MOT_Wonder_127_Buildx = 3 }
+						remove_dynamic_modifier = {
+							modifier = MOT_Wonder_DM_127_3
+						}
+					}
+				}
+			}
+			remove_from_array = {
+				array = global.wonder_state_array
+				value = global.LYY_Last_Location_of_127.id
+			}
+			add_to_array = { global.wonder_state_array = LYY_Location_of_127.id }
+			set_variable = { global.LYY_Last_Location_of_127 = FROM.id }
+		}
+	}
 	on_capitulation_immediate = {
 		effect = {
 			IF = {
