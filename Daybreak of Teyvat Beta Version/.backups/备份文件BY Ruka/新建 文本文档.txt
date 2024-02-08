@@ -1,5 +1,324 @@
 #把暂时用不上的东西放在这里，方便以后需要时取用
+	#教会繁杂的权力平衡决议
 	
+    #芭芭拉 号召支持
+    FAV_Call_for_Support = {
+        icon = generic_political_support
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < 0.25
+            }
+        }
+        modifier = {
+            political_power_cost = -0.2
+            power_balance_weekly = -0.002
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 0
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVLeft_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRight_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #罗莎莉亚 调集修女
+    FAV_Call_for_Sisters = {
+        icon = generic_police_action
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > -0.25
+            }
+        }
+        modifier = {
+            command_power_gain_mult = 0.2
+            power_balance_weekly = 0.002
+        }
+        days_remove = 30
+        days_re_enable = 30
+        cost = 0
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVRight_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeft_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #芭芭拉 募集捐款
+    FAV_Call_for_Fundrasing = {
+        icon = generic_fundraising
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.1
+            }
+        }
+        modifier = {
+            consumer_goods_factor = -0.1
+            production_speed_buildings_factor = 0.1
+            power_balance_weekly = -0.002
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 35
+        fire_only_once = no
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVLeft_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRight_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #罗莎莉亚 加速动员
+    FAV_Call_for_Mobilization = {
+        icon = generic_fundraising
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.1
+            }
+        }
+        modifier = {
+            production_factory_efficiency_gain_factor = 0.3
+            production_speed_arms_factory_factor = 0.2
+            power_balance_weekly = 0.002
+        }
+        fire_only_once = no
+        days_remove = 35
+        days_re_enable = 35
+        custom_cost_text = decision_cost_CP_20
+        custom_cost_trigger = {
+            has_command_power > 19
+        }
+        complete_effect = {
+            add_command_power = -20
+        }
+        ai_will_do = {
+            base = 100
+            modifier = {
+                has_game_rule = {
+                    rule = MOT_ChooseFAVWay
+                    option = MOT_FAVRight_Route
+                }
+                add = 900
+            }
+            modifier = {
+                OR = {
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeft_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVRightUnion_Route
+                    }
+                    has_game_rule = {
+                        rule = MOT_ChooseFAVWay
+                        option = MOT_FAVLeftUnion_Route
+                    }
+                }
+                add = -1000
+            }
+        }
+    }
+    #经济 芭芭拉 加速农业改造
+    FAV_Faster_Agricultural_Reform = {
+        icon = generic_morale_bonus
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.25
+            }
+            has_completed_focus = FAV_They_will_be_Full
+        }
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
+        }
+        modifier = {
+            power_balance_weekly = -0.002
+            stability_weekly = 0.005
+        }
+        complete_effect = {
+        }
+        remove_effect = {
+            FAV_Get_1_Infra = yes
+            FAV_Get_1_Infra = yes
+        }
+        fire_only_once = no
+        days_remove = 35
+        days_re_enable = 35
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 罗莎莉亚 敦促军事建设
+    FAV_Faster_Military_Building = {
+        icon = generic_factory
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.25
+            }
+            has_completed_focus = FAV_Happy_one_Will_be_End
+        }
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
+        }
+        fire_only_once = no
+        modifier = {
+            power_balance_weekly = 0.002
+            war_support_weekly = 0.005
+            production_factory_efficiency_gain_factor = 0.2
+        }
+        complete_effect = {
+        }
+        remove_effect = {
+            FAV_Get_2_Arms = yes
+        }
+        days_remove = 35
+        days_re_enable = 35
+        cost = 50
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 芭芭拉 试行改革措施
+    FAV_Faster_Political_Reform = {
+        icon = generic_decision
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value < -0.5
+            }
+            has_completed_focus = FAV_Spread_our_Talk
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Open_the_Seven }
+        }
+        modifier = {
+            political_power_cost = -0.5
+            political_advisor_cost_factor = -0.25
+            power_balance_weekly = -0.002
+        }
+        remove_effect = {
+            add_political_power = 70
+        }
+        days_remove = 70
+        days_re_enable = 35
+        cost = 70
+        ai_will_do = {
+            base = 20
+        }
+    }
+    #经济 罗莎莉亚 加强地区控制
+    FAV_Stronger_State_Control = {
+        icon = generic_oppression
+        available = {
+            power_balance_value = {
+                id = FAV_Original_power_balance
+                value > 0.5
+            }
+            has_completed_focus = FAV_Your_Father_Looking
+        }
+        fire_only_once = no
+        visible = {
+            NOT = { has_completed_focus = FAV_Source_of_Life }
+        }
+        modifier = {
+            power_balance_weekly = 0.002
+            war_support_weekly = 0.005
+            stability_weekly = 0.005
+            army_chief_cost_factor = -0.33
+            high_command_cost_factor = -0.33
+        }
+        complete_effect = {
+            add_command_power = -50
+        }
+        remove_effect = {
+            add_command_power = 50
+        }
+        days_remove = 35
+        days_re_enable = 35
+        custom_cost_text = decision_cost_CP_30
+        custom_cost_trigger = {
+            has_command_power > 49
+        }
+        ai_will_do = {
+            base = 20
+        }
+    }
+	
+	#群玉阁移动决议
 	LYY_Wonder_Build_Dec_127_Move = {
 		visible = {
 			NOT = { has_country_flag = LYY_Wonder_Unlock_Move }
