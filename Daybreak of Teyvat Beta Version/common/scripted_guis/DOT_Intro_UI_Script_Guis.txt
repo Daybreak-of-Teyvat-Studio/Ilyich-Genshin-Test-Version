@@ -1,15 +1,49 @@
 scripted_gui = {
-  DOT_Intro_UI_01 = {
-    window_name = "DOT_Intro_UI_window_01"
-    context_type = player_context
-    visible = { 
-       NOT= { has_country_flag = DOT_Intro_UI_Hide }
-       is_ai = no
-    }
-    effects = {
-        DOT_Intro_UI_OK_click = {
-            set_country_flag = DOT_Intro_UI_Hide       
-            }
-    }
-}
+	DOT_Intro_UI_01 = {
+		window_name = "DOT_Intro_UI_window_01"
+		context_type = player_context
+		visible = { 
+			NOT= { has_country_flag = DOT_Intro_UI_Hide }
+			is_ai = no
+		}
+		effects = {
+			DOT_Intro_UI_NEXT_click = {
+				set_country_flag = DOT_Intro_UI_Hide
+				set_country_flag = DOT_Intro_flag
+				if = {
+					limit = {
+						Is_MOT = yes
+					}
+					set_variable = { DOT_Intro_var = 1 }
+				}
+				else_if = {
+					limit = {
+						original_tag = LYY
+					}
+					set_variable = { DOT_Intro_var = 3 }
+				}
+				else_if = {
+					limit = {
+						original_tag = SAN
+					}
+					set_variable = { DOT_Intro_var = 3 }
+				}
+				else_if = {
+					limit = {
+						original_tag = SUM
+					}
+					set_variable = { DOT_Intro_var = 4 }
+				}
+				else_if = {
+					limit = {
+						original_tag = FON
+					}
+					set_variable = { DOT_Intro_var = 5 }
+				}
+			}
+			DOT_Intro_UI_OK_click = {
+				set_country_flag = DOT_Intro_UI_Hide
+			}
+		}
+	}
 }
