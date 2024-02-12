@@ -3972,7 +3972,9 @@ MOT_Active_Traveller = {
 		}
 	}
 }
-
+#宏观调控
+MOT_Wide_Control = {
+}
 #稳固控制
 MOT_Strengthen_our_Control = {
 	#相关变量：
@@ -3992,13 +3994,29 @@ MOT_Strengthen_our_Control = {
 	#非关键区域抵抗力 MOT_Resist_in_Others（若风龙领、奔狼领、龙脊雪山领、清泉镇都是AI，自动加10）
 	#
 	#琴团长健康度 MOT_Jean_HP 初始100，每次加强决议效果减10，劳伦斯领每次破坏行动减5，西风教会、劳伦斯领、的离去减20（此时可以额外减10以减轻buff），到达0时进入诺艾尔线
+	#显示/隐藏控制、抵抗调整决议
+	MOT_Hide_Control_Decisions = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		available = { hidden_trigger = { is_ai = no } }
+		complete_effect = {
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Hide_Decisions1 } }
+				set_country_flag = MOT_Hide_Decisions1
+			}
+			ELSE_IF = {
+				clr_country_flag = MOT_Hide_Decisions1
+			}
+		}
+	}
 	MOT_Control_MOT = {
 		icon = generic_political_support
 		days_remove = 30
 		days_re_enable = 10
 		cost = 40
 		fire_only_once = no
-		
 		allowed = {
 			original_tag = MOT
 		}
@@ -4009,6 +4027,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		
@@ -4051,6 +4070,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		
@@ -4093,6 +4113,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		
@@ -4135,6 +4156,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		
@@ -4179,6 +4201,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		remove_effect = {
@@ -4216,6 +4239,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		remove_effect = {
@@ -4259,6 +4283,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		remove_effect = {
@@ -4302,6 +4327,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = {
 				has_global_flag = MOT_Civil_War_Begun
 				has_global_flag = MOT_StControl_section2
@@ -4347,6 +4373,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		remove_effect = {
@@ -4387,6 +4414,7 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
 			NOT = { has_global_flag = MOT_Civil_War_Begun }
 		}
 		target_trigger = {
@@ -4478,59 +4506,517 @@ MOT_Strengthen_our_Control = {
 			}
 		}
 	}
-	MOT_StControl_Jean_Work_Busier = {
-		icon = generic_decision
-		days_remove = 10
-		days_re_enable = 20
-		cost = 0
+	##对单势力生效的决议
+	#显示/隐藏单势力决议
+	MOT_Hide_One_Decisions = {
 		fire_only_once = no
-		remove_effect = {
-			add_political_power = 30
-			add_command_power = 30
-			add_to_variable = { MOT_Jean_HP = -8 }
-			hidden_effect = {
-				random_list = {
-					25 = {
-						add_to_variable = { MOT_Jean_HP = -10 }
-					}
-					25 = {
-						add_to_variable = { MOT_Jean_HP = -15 }
-					}
-					25 = {
-						add_to_variable = { MOT_Jean_HP = -20 }
-					}
-					25 = {
-						
-					}
-				}
-			}
+		allowed = {
+			original_tag = MOT
 		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				check_variable = { MOT_Jean_HP < 20 }
-				is_historical_focus_on = yes
-				add = -10000
+		available = { hidden_trigger = { is_ai = no } }
+		complete_effect = {
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Hide_Decisions2 } }
+				set_country_flag = MOT_Hide_Decisions2
 			}
-			modifier = {
-				OR = {
-					has_game_rule = {
-						rule = MOT_ChoosetheWay
-						option = MOT_NoelleWay_Fascism
-					}
-					has_game_rule = {
-						rule = MOT_ChoosetheWay
-						option = MOT_NoelleWay_Democrazy
-					}
-					has_game_rule = {
-						rule = MOT_ChoosetheWay
-						option = MOT_NoelleWay_Communism
-					}
-				}
-				add = 10000
+			ELSE_IF = {
+				clr_country_flag = MOT_Hide_Decisions2
 			}
 		}
 	}
+	#降低任一蒙德势力的政治点数
+	MOT_One_Lower_PP = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		target_root_trigger = {
+			NOT = { has_country_flag = MOT_Hide_Decisions2 }
+		}
+		target_trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_St_Control_Enough
+				IF = {
+					limit = { FROM = { original_tag = FAV } }
+					ROOT = { check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = LAW } }
+					ROOT = { check_variable = { MOT_Control_in_LAW > MOT_Resist_in_LAW } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = GUN } }
+					ROOT = { check_variable = { MOT_Control_in_GUN > MOT_Resist_in_GUN } }
+				}
+				IF = {
+					limit = {
+						FROM = {
+							OR = {
+								original_tag = ANR
+								original_tag = RAG
+								original_tag = SPI
+								original_tag = DRA
+								original_tag = DVA
+							}
+						}
+					}
+					ROOT = { check_variable = { MOT_Control_in_Others > MOT_Resist_in_Others } }
+				}
+			}
+		}
+		targets = {
+			LAW SPI RAG ANR DVA FAV GUN DRA
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean5
+			add_to_variable = { MOT_Jean_HP = -5 }
+			custom_effect_tooltip = MOT_tt_Reduce_One_PP
+			FROM = {
+				country_event = Knights.178
+			}
+		}
+	}
+	#降低任一蒙德势力的三军经验和指挥点数
+	MOT_One_Lower_CP = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		target_root_trigger = {
+			NOT = { has_country_flag = MOT_Hide_Decisions2 }
+		}
+		target_trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_St_Control_Enough
+				IF = {
+					limit = { FROM = { original_tag = FAV } }
+					ROOT = { check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = LAW } }
+					ROOT = { check_variable = { MOT_Control_in_LAW > MOT_Resist_in_LAW } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = GUN } }
+					ROOT = { check_variable = { MOT_Control_in_GUN > MOT_Resist_in_GUN } }
+				}
+				IF = {
+					limit = {
+						FROM = {
+							OR = {
+								original_tag = ANR
+								original_tag = RAG
+								original_tag = SPI
+								original_tag = DRA
+								original_tag = DVA
+							}
+						}
+					}
+					ROOT = { check_variable = { MOT_Control_in_Others > MOT_Resist_in_Others } }
+				}
+			}
+		}
+		targets = {
+			LAW SPI RAG ANR DVA FAV GUN DRA
+		}
+		fire_only_once = yes
+		icon = generic_army_support
+		cost = 20
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean5
+			add_to_variable = { MOT_Jean_HP = -5 }
+			custom_effect_tooltip = MOT_tt_Reduce_One_CP
+			FROM = {
+				country_event = Knights.179
+			}
+		}
+	}
+	#抽人力
+	MOT_One_Lower_MP = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		target_root_trigger = {
+			NOT = { has_country_flag = MOT_Hide_Decisions2 }
+		}
+		target_trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MOT_St_Control_Enough
+				IF = {
+					limit = { FROM = { original_tag = FAV } }
+					ROOT = { check_variable = { MOT_Control_in_FAV > MOT_Resist_in_FAV } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = LAW } }
+					ROOT = { check_variable = { MOT_Control_in_LAW > MOT_Resist_in_LAW } }
+				}
+				IF = {
+					limit = { FROM = { original_tag = GUN } }
+					ROOT = { check_variable = { MOT_Control_in_GUN > MOT_Resist_in_GUN } }
+				}
+				IF = {
+					limit = {
+						FROM = {
+							OR = {
+								original_tag = ANR
+								original_tag = RAG
+								original_tag = SPI
+								original_tag = DRA
+								original_tag = DVA
+							}
+						}
+					}
+					ROOT = { check_variable = { MOT_Control_in_Others > MOT_Resist_in_Others } }
+				}
+			}
+		}
+		targets = {
+			LAW SPI RAG ANR DVA FAV GUN DRA
+		}
+		fire_only_once = yes
+		icon = generic_speech
+		cost = 20
+		complete_effect = {
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean5
+			add_to_variable = { MOT_Jean_HP = -5 }
+			custom_effect_tooltip = MOT_tt_Reduce_One_MP
+			FROM = {
+				country_event = Knights.180
+			}
+		}
+	}
+	##全蒙德生效的决议
+	#显示/隐藏全蒙德决议
+	MOT_Hide_Mass_Decisions = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		available = { hidden_trigger = { is_ai = no } }
+		complete_effect = {
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Hide_Decisions3 } }
+				set_country_flag = MOT_Hide_Decisions3
+			}
+			ELSE_IF = {
+				clr_country_flag = MOT_Hide_Decisions3
+			}
+		}
+	}
+	#降低全蒙德的政治点数消耗
+	MOT_Mass_Policy_00 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_0 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_0
+			set_country_flag = MOT_Chose_Policy_0
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_PP_Up days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.181
+			}
+		}
+	}
+	#提高全蒙德的政治点数消耗
+	MOT_Mass_Policy_01 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_0 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_0
+			set_country_flag = MOT_Chose_Policy_0
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_PP_Down days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.182
+			}
+		}
+	}
+	#增加全蒙德的指挥点数和经验获取
+	MOT_Mass_Policy_10 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_1 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_1
+			set_country_flag = MOT_Chose_Policy_1
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_CP_UP days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.183
+			}
+		}
+	}
+	#减少全蒙德的指挥点数和经验获取
+	MOT_Mass_Policy_11 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_1 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_1
+			set_country_flag = MOT_Chose_Policy_1
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_CP_Down days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.184
+			}
+		}
+	}
+	#降低全蒙德的训练时间
+	MOT_Mass_Policy_20 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_2 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_2
+			set_country_flag = MOT_Chose_Policy_2
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_Train_Up days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.185
+			}
+		}
+	}
+	#提升全蒙德的训练时间
+	MOT_Mass_Policy_21 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_2 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_2
+			set_country_flag = MOT_Chose_Policy_2
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_Train_Down days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.186
+			}
+		}
+	}
+	#提高全蒙德建设速度、人力
+	MOT_Mass_Policy_30 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_3 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_3
+			set_country_flag = MOT_Chose_Policy_3
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_Cons_Up days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.187
+			}
+		}
+	}
+	#降低全蒙德建设速度，并提高消费品
+	MOT_Mass_Policy_31 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_3 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_3
+			set_country_flag = MOT_Chose_Policy_3
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			custom_effect_tooltip = MOT_tt_Mass_Effect
+			add_timed_idea = { idea = MOT_Knights_Cons_Down days = 360 }
+			every_other_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.188
+			}
+		}
+	}
+	#全蒙德获得对劳伦斯领、至冬的攻防加成，两年
+	MOT_Mass_Policy_40 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_4 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_4
+			set_country_flag = MOT_Chose_Policy_4
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			add_timed_idea = { idea = MOT_Knights_Against_Out days = 360 }
+			every_other_country = {
+				limit = {
+					Is_MOT = yes
+				}
+				country_event = Knights.189
+			}
+		}
+	}
+	#全蒙德获得对西风骑士团的攻防Debuff，两年
+	MOT_Mass_Policy_41 = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Chose_Policy_4 }
+			NOT = { has_country_flag = MOT_Hide_Decisions3 }
+		}
+		fire_only_once = yes
+		icon = generic_decision
+		cost = 20
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_tt_Mass_4
+			set_country_flag = MOT_Chose_Policy_4
+			custom_effect_tooltip = MOT_Lower_Health_of_Jean10
+			add_to_variable = { MOT_Jean_HP = -10 }
+			show_ideas_tooltip = MOT_Knights_Against_In
+			custom_effect_tooltip = MOT_tt_Mass_Effect2
+			every_other_country = {
+				limit = {
+					Is_MOT = yes
+				}
+				country_event = Knights.190
+			}
+			remove_ideas = MOT_Knights_Against_In
+		}
+	}
+	##特殊势力决议
+	#显示/隐藏特殊决议
+	#压制教会反对派舆论热度
+	#遏制教会反对派影响力扩张
+	#支持芭芭拉
+	#支持罗莎莉亚
+	#降低龙脊雪山领的战争支持度2年
+	#支持阿贝多
+	#支持砂糖
+	#支持丽莎
+	#降低莱艮芬德对俩邻居的攻防两年
+	#降低劳伦斯领的征召兵力2年
+	#提高劳伦斯领改革难度
+	#改善奔狼领基础设施（提高难民流入）
+	#风龙领决议
+	#提高古恩希尔德和平统一概率
 }
 #战前谋划
 LAW_Preparation_Before_War = {
@@ -4930,24 +5416,30 @@ MOT_War_Decisions_of_Us = {
 			}
     	}
 		target_trigger = {
-			FROM = {
-				is_neighbor_of = MOT
-				OR = {
-					original_tag = RAG
-					original_tag = SPI
-					original_tag = DRA
-					original_tag = DVA
-					original_tag = FAV
-					original_tag = GUN
-					original_tag = ANR
-					AND = {
-						original_tag = LAW
-						has_country_flag = MOT_Last_Game
+			OR = {
+				FROM = {
+					is_neighbor_of = MOT
+					OR = {
+						original_tag = RAG
+						original_tag = SPI
+						original_tag = DRA
+						original_tag = DVA
+						original_tag = FAV
+						original_tag = GUN
+						original_tag = ANR
+					}
+					NOT = {
+						is_puppet_of = MOT
+						is_subject_of = MOT
 					}
 				}
-				NOT = {
-					is_puppet_of = MOT
-					is_subject_of = MOT
+				AND = {
+					ROOT = {
+						has_country_flag = MOT_Last_Game
+					}
+					FROM = {
+						original_tag = LAW
+					}
 				}
 			}
 		}
