@@ -3416,35 +3416,35 @@ focus_tree = {
 				has_completed_focus=INA_newina
 			}
 			OR={
-				has_full_control_of_state=146
-				has_full_control_of_state=147
+				has_full_control_of_state=255
+				has_full_control_of_state=256
 			}
 		}
 		completion_reward={
-			146={
+			255={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
-					add_manpower=10000
+					add_manpower=120000
 					add_extra_state_shared_building_slots=4
 					add_building_construction={
 						type=infrastructure
-						level=5
+						level = 1
 						instant_build=yes
 					}
 				}
 			}
-			147={
+			256={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
-					add_manpower=10000
+					add_manpower=120000
 					add_extra_state_shared_building_slots=4
 					add_building_construction={
 						type=infrastructure
-						level=5
+						level = 1
 						instant_build=yes
 					}
 				}
@@ -3466,19 +3466,33 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY }
 		available={
 			OR={
-				has_full_control_of_state=153
+				has_full_control_of_state=262
+				has_full_control_of_state=263
 			}
 		}
 		completion_reward={
-			153={
+			262={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
-					add_extra_state_shared_building_slots=6
+					add_extra_state_shared_building_slots=4
 					add_building_construction={
 						type=infrastructure
-						level=2
+						level=1
+						instant_build=yes
+					}
+				}
+			}
+			263={
+				if={
+					limit={
+						is_controlled_by=ROOT
+					}
+					add_extra_state_shared_building_slots=4
+					add_building_construction={
+						type=infrastructure
+						level=1
 						instant_build=yes
 					}
 				}
@@ -3500,15 +3514,16 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY }
 		available={
 			OR={
-				has_full_control_of_state=153
+				has_full_control_of_state=309
 			}
 		}
 		completion_reward={
-			153={
+			309={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
+					add_extra_state_shared_building_slots=4
 					add_building_construction = {
 					type = industrial_complex
 					level = 2
@@ -3523,7 +3538,7 @@ focus_tree = {
 	}	
 	#重建工业。
 	focus={
-		id=INA__reorganizetheindustry
+		id=INA_reorganizetheindustry
 		icon=GFX_goal_generic_production2
 		x=0
 		y=1
@@ -3670,16 +3685,16 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY }
 		available={
 			has_completed_focus=INA_yaegovernment
-			has_full_control_of_state=152
-			has_full_control_of_state=153
+			has_full_control_of_state=261
+			has_full_control_of_state=260
 		}
 		completion_reward={
-			152={
+			261={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
-					add_manpower=2000000
+					add_manpower = 2000000
 					add_extra_state_shared_building_slots=6
 					add_building_construction={
 						type=infrastructure
@@ -3688,17 +3703,17 @@ focus_tree = {
 					}
 				}
 			}
-            153={
+            260={
 				if={
 					limit={
 						is_controlled_by=ROOT
 					}
-					add_manpower=4000000
+					add_manpower = 2000000
 					add_extra_state_shared_building_slots=6
 					add_building_construction={
 						type=infrastructure
-						level=2
-						instant_build=yes
+						level = 2
+						instant_build = yes
 					}
 				}
 			}
@@ -3720,7 +3735,7 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_INDUSTRY }
 		completion_reward={
-		152={
+		260={
 			if={
 					limit={
 						is_controlled_by=ROOT
@@ -3766,14 +3781,24 @@ focus_tree = {
 		x=0
 		y=1
 		relative_position_id =INA_rebuiding_mainisland
-		prerequisite={focus=INA_rebuiding_mainisland}
+		prerequisite={focus=INA_rebuiding_mainisland
+		focus=INA_rebuiding_temple}
 		cost=5.00
 		search_filters = {FOCUS_FILTER_INDUSTRY }
 		available={
+			available={
+				OR={
+					has_completed_focus = INA_newina
+					has_completed_focus = INA_yaegovernment
+				}
+				OR={
+					has_full_control_of_state=345
+				}
+			}
 		}
 		completion_reward={
-		146={
-		 add_extra_state_shared_building_slots = 1
+		345={
+		 add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
 					level = 1
@@ -3794,17 +3819,29 @@ focus_tree = {
 		prerequisite={focus=INA_constructionsector}
 		cost=5.00
 		search_filters = {FOCUS_FILTER_INDUSTRY }
-		available={
+		available=
+		{	OR={
+			has_full_control_of_state=345
+			has_full_control_of_state=311
+		}
 		}
 		completion_reward={
-		146={
-		 add_extra_state_shared_building_slots = 1
+		345={
+		 add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
 					level = 1
 					instant_build = yes
 				}
-		}}
+		}
+		311={
+			add_extra_state_shared_building_slots = 2
+				   add_building_construction = {
+					   type = arms_factory
+					   level = 1
+					   instant_build = yes
+				   }
+		   }}
 		ai_will_do={
 		factor=1
 		}
@@ -3823,7 +3860,7 @@ focus_tree = {
 		available={
 		}
 		completion_reward={
-			147={
+			345={
 		     add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -3850,7 +3887,7 @@ focus_tree = {
 		available={
 		}
 		completion_reward={
-			146={
+			311={
 		 add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -4932,10 +4969,10 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_full_control_of_state = 150
-				has_full_control_of_state = 152
-				has_full_control_of_state = 154
-				has_full_control_of_state = 156
+				has_full_control_of_state = 262
+				has_full_control_of_state = 255
+				has_full_control_of_state = 265
+				has_full_control_of_state = 264
 	
 			}
 		}
@@ -4949,7 +4986,7 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					150 = {
+					262 = {
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
 							building = dockyard
@@ -4958,7 +4995,7 @@ focus_tree = {
 						}
 					}
 				}
-				150 = {
+				262 = {
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = dockyard
@@ -4988,7 +5025,7 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					152 = {
+					255 = {
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
 							building = dockyard
@@ -4997,7 +5034,7 @@ focus_tree = {
 						}
 					}
 				}
-				152 = { 
+				255 = { 
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = dockyard
@@ -5026,7 +5063,7 @@ focus_tree = {
 				}
 			}if = {
 				limit = {
-					154 = {
+					265 = {
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
 							building = dockyard
@@ -5035,7 +5072,7 @@ focus_tree = {
 						}
 					}
 				}
-				154 = { 
+				265 = { 
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = dockyard
@@ -5064,7 +5101,7 @@ focus_tree = {
 				}
 			}if = {
 				limit = {
-					156 = {
+					264 = {
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
 							building = dockyard
@@ -5073,7 +5110,7 @@ focus_tree = {
 						}
 					}
 				}
-				156 = { #TUSCANY (La Spezia)
+				264 = { #TUSCANY (La Spezia)
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = dockyard
@@ -5650,10 +5687,11 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		available = {
-			152 = { is_controlled_by = ROOT }
+			262 = { is_controlled_by = ROOT }
+			263 = { is_controlled_by = ROOT }
 		}
 		completion_reward = {
-			  152 = {
+			  262 = {
           add_building_construction = {
             type = bunker
             level = 3
@@ -5664,6 +5702,17 @@ focus_tree = {
             }
           }
         }
+		263 = {
+			add_building_construction = {
+			  type = bunker
+			  level = 3
+			  instant_build = yes
+			  province = {
+				  all_provinces = yes
+				  limit_to_border = yes
+			  }
+			}
+		  }
 			add_ideas = FRA_fortification_focus
 		}
 	}
@@ -5915,16 +5964,16 @@ focus_tree = {
 
 		available = {
 			OR = {
-				has_full_control_of_state = 153
-				has_full_control_of_state = 146
-				has_full_control_of_state = 158
+				has_full_control_of_state = 311
+				has_full_control_of_state = 269
+				has_full_control_of_state = 261
 			}
 		}
 
 		completion_reward = {
 			air_experience = 50
 			random_owned_controlled_state = {
-				prioritize = { 153 }
+				prioritize = { 311 }
 				if = {
 					limit = { 
 						is_controlled_by = ROOT
@@ -5937,7 +5986,7 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {	
-				prioritize = { 158 } 
+				prioritize = { 269 } 
 					if = {
 						limit = { 
 							is_controlled_by = ROOT
@@ -5950,7 +5999,7 @@ focus_tree = {
 					}
 				}
 			random_owned_controlled_state = {	
-				prioritize = { 146 }
+				prioritize = { 261 }
 				if = {
 					limit = { 
 						is_controlled_by = ROOT
@@ -6313,8 +6362,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = INA_ironways
 		cost = 10
-
-		available_if_capitulated = yes
+		available = {NOT = { has_idea = INA_ironways }}
 
 		completion_reward = {
 		add_ideas = INA_ironways 
@@ -6438,10 +6486,27 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
+			if = {
+				limit = { has_idea = INA_army_corruption_5 }
+				remove_ideas = INA_army_corruption_5
+			}
+			if = {
+				limit = { has_idea = INA_army_corruption_4 }
+				remove_ideas = INA_army_corruption_4
+			}
 			 	if = {
 				limit = { has_idea = INA_army_corruption_3 }
 				remove_ideas = INA_army_corruption_3
 			}
+			if = {
+				limit = { has_idea = INA_army_corruption_2 }
+				remove_ideas = INA_army_corruption_2
+			}
+			if = {
+				limit = { has_idea = INA_army_corruption_1 }
+				remove_ideas = INA_army_corruption_1
+			}
+	
 			army_experience = 10
 			add_doctrine_cost_reduction = {
 				name = INA_army_reform
@@ -6449,7 +6514,6 @@ focus_tree = {
 				uses = 2
 				category = land_doctrine
 			}
-			custom_effect_tooltip = available_designer
 
 		}
 	}
