@@ -1,3 +1,54 @@
+#第一层UI
+scripted_gui = {
+	DOT_Intro_UI_01 = {
+		window_name = "DOT_Intro_UI_window_01"
+		context_type = player_context
+		visible = { 
+			NOT= { has_country_flag = DOT_Intro_UI_Hide }
+			is_ai = no
+		}
+		effects = {
+			DOT_Intro_UI_NEXT_click = {
+				set_country_flag = DOT_Intro_UI_Hide
+				set_country_flag = DOT_Intro_flag
+				if = {
+					limit = {
+						Is_MOT = yes
+					}
+					set_variable = { DOT_Intro_var = 1 }
+				}
+				else_if = {
+					limit = {
+						original_tag = LYY
+					}
+					set_variable = { DOT_Intro_var = 2 }
+				}
+				else_if = {
+					limit = {
+						original_tag = INA
+					}
+					set_variable = { DOT_Intro_var = 3 }
+				}
+				else_if = {
+					limit = {
+						original_tag = SUM
+					}
+					set_variable = { DOT_Intro_var = 4 }
+				}
+				else_if = {
+					limit = {
+						original_tag = FON
+					}
+					set_variable = { DOT_Intro_var = 5 }
+				}
+			}
+			DOT_Intro_UI_OK_click = {
+				set_country_flag = DOT_Intro_UI_Hide
+			}
+		}
+	}
+}
+#第二层UI
 scripted_gui = {
 	DOT_Intro_gui = {
 		window_name = "DOT_Intro_window"
@@ -5,6 +56,7 @@ scripted_gui = {
 		visible = { 
 			has_country_flag = DOT_Intro_flag
 			is_ai = no
+			or = { Is_MOT = yes Is_LYY = yes}
 		}
 		effects = {
 			DOT_Intro_UI_1_click = {
@@ -24,11 +76,6 @@ scripted_gui = {
 			}
 			Close_Button_click = {
 				clr_country_flag = DOT_Intro_flag  
-			}
-		}
-		properties = {
-			intro_bg = {
-				image = "[Get_INTRO_BACKGROUND]"
 			}
 		}
 		triggers = {
