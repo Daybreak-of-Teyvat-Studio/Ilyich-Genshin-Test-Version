@@ -2,18 +2,21 @@ capital = 500
 
 oob = "FON_1936"
 set_research_slots = 5
-set_stability = 1
-set_war_support = 1
+set_stability = 0.52
+set_war_support = 0.38
 add_ideas = {
-	Daybreak_of_Teyvat
-	FON_Philosophies_of_Order
-	LYY_economic_reform_idea
+	FON_government_with_low_efficiency
+	FON_high_time_of_economy
+	FON_science_with_bureaucratism
+	FON_judge_machine
+	FON_time_in_peace
+	FON_conflict_1
+	FON_crisis_of_population
 }
 
 ###胚胎海危机花费变量###
-set_variable = { FON_Primordial_Sea_cost = 10 }
-set_variable = { FON_Primordial_Sea_cost_increase = 2 }
-set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = FON_Primordial_Sea_cost }
+set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 } #治水花费
+set_variable = { FON_Percent_of_Preparation = 0 } #准备度
 
 set_politics = {
 	ruling_party = genshin
@@ -22,23 +25,17 @@ set_politics = {
 	elections_allowed = yes
 }
 set_popularities = {
-	democratic = 10
-	fascism = 15
-	communism = 15
+	democratic = 14
+	fascism = 3
+	communism = 18
 	neutrality = 10
-	genshin = 50
+	genshin = 55
 }
 
-create_country_leader = {
-	name = "Furina"
-	desc = "Furina_desc"
-	picture = "gfx/leaders/LY/Furina.dds"
-	expire = "1999.1.1"
-	ideology = genshin
-	traits = {
-		#
-	}
-}
+
+#领袖
+recruit_character = FON_Furina
+recruit_character = FON_Neuvillette
 
 create_country_leader = {
 	name = "Liney"
@@ -85,26 +82,7 @@ create_country_leader = {
 	}
 }
 
-create_field_marshal = {
-	name = "Furina"
-	portrait_path = "gfx/leaders/LY/Furina.dds"
-	traits = { Hydro_Vision }
-	skill = 5
-	attack_skill = 5
-	defense_skill = 5
-	planning_skill = 5
-	logistics_skill = 5
-}
-create_field_marshal = {
-	name = "Neuvillette"
-	portrait_path = "gfx/leaders/LY/Neuvillette.dds"
-	traits = { Hydro_Vision }
-	skill = 5
-	attack_skill = 5
-	defense_skill = 5
-	planning_skill = 5
-	logistics_skill = 5
-}
+#将军、元帅
 create_corps_commander = {
 	name = "Linette"
 	portrait_path = "gfx/leaders/LY/Linette.dds"
@@ -161,27 +139,136 @@ create_corps_commander = {
 
 #####通用#######
 set_research_slots = 4
-set_war_support = 1
 set_convoys = 500
-set_stability = 1
 add_command_power = 20
 starting_train_buffer = 5
 set_naval_oob = "DOT_1936_naval"
+
+#基础科技
 set_technology = {
-#一般科技
-infantry_weapons = 1  motorised_infantry = 1  basic_train = 1
-tech_support = 1  tech_engineers = 1  tech_recon = 1
-gw_artillery = 1  interwar_antiair = 1  interwar_antitank = 1
-electronic_mechanical_engineering = 1  fuel_silos = 1
-#简化科技
-early_submarine = 1  early_destroyer = 1  early_light_cruiser = 1
-early_heavy_cruiser = 1  early_battleship = 1  early_battlecruiser = 1   early_carrier = 1
-transport = 1  fighter1 = 1  early_bomber = 1  gwtank = 1 basic_light_tank = 1 basic_heavy_tank = 1
-#改装科技	
-early_ship_hull_light = 1  early_ship_hull_submarine = 1  early_ship_hull_cruiser = 1  basic_battery = 1  basic_torpedo = 1
-iw_small_airframe = 1  iw_medium_airframe = 1  iw_large_airframe = 1  heavy_fighter1 = 1  heavy_fighter1 = 1
-gwtank_chassis = 1  engines_1 = 1  aa_lmg = 1
-#特殊科技 
-sikon_proto = 1 sikon_single_heavy = 1  protomech = 1
+
+#步兵科技
+infantry_weapons = 1
+tech_trucks = 1
+motorised_infantry = 1
+tech_mountaineers = 1
+marines = 1
+
+#支援装备
+tech_support = 1
+tech_recon = 1
+tech_engineers = 1
+
+#火炮科技
+gw_artillery = 1
+interwar_antiair = 1
+interwar_antitank = 1
+
+#火车科技
+basic_train = 1
 }
+
+#飞机
+#BBA开启
+if = {
+	limit = { has_dlc_bba = yes }
+	set_air_oob = "FON_air_bba"
+	set_technology = {
+		aa_lmg = 1
+		engines_1 = 1
+		early_bombs = 1
+		aircraft_construction = 1
+		iw_small_airframe = 1
+		iw_medium_airframe = 1
+		basic_medium_airframe = 1
+	}
+}
+
+#飞机
+#BBA关闭
+if = {
+	limit = { has_dlc_bba = no }
+	set_air_oob = "GER_air_legacy"
+	set_technology = {
+		early_fighter = 1
+		cv_early_fighter = 1
+		fighter1 = 1
+		CAS1 = 1
+	}
+}
+
+#坦克
+#NSB开启
+if = {
+	limit = { has_dlc_nsb = yes }
+	set_technology = {
+		gwtank_chassis = 1
+		basic_light_tank_chassis = 1
+	}
+}
+
+#坦克
+#NSB关闭
+if = {
+	limit = { has_dlc_nsb = no }
+	set_technology = {
+		gwtank = 1
+		basic_light_tank = 1
+	}
+}
+
+#海军
+#MTG开启
+if = {
+	limit = { has_dlc_mtg = yes }
+	set_technology = {
+		early_ship_hull_submarine = 1
+		early_ship_hull_light = 1
+		basic_ship_hull_light = 1
+		early_ship_hull_cruiser = 1
+		basic_ship_hull_cruiser = 1
+		early_ship_hull_heavy = 1
+		early_ship_hull_carrier = 1
+
+		## Modules##
+		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		basic_torpedo = 1
+		improved_ship_torpedo_launcher = 1
+		basic_battery = 1
+		basic_light_battery = 1
+		basic_medium_battery = 1
+		basic_cruiser_armor_scheme = 1
+
+		### Transport ###
+		mtg_transport = 1
+	}
+}
+
+#海军
+#MTG关闭
+if = {
+	limit = { has_dlc_mtg = no }
+	set_technology = {
+		early_submarine = 1
+		early_destroyer = 1
+		early_light_cruiser = 1
+		early_heavy_cruiser = 1
+		early_battleship = 1
+		early_battlecruiser = 1
+		early_carrier = 1
+
+		### Transport ###
+		transport = 1
+	}
+}
+
+#特殊科技 
+set_technology = {
+	sikon_proto = 1 
+	sikon_single_heavy = 1  
+	protomech = 1
+}
+
+
 

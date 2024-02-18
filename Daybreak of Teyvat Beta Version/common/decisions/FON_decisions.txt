@@ -1,21 +1,58 @@
 #胚胎海危机决议组
 FON_Primordial_Sea_decision_categories = {
-    FON_increase_Neuvillette_repulse_Primordial_Sea = {
-        
-        icon = GFX_decision_generic_decision
-        
+
+	#	set_variable = { FON_Percent_of_Preparation=0 }
+	#	set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
+
+	#胎海水危机
+	FON_watercrisis_mission = {
+		activation = {
+			has_completed_focus = FON_search
+		}
+
+		allowed = {
+			tag = FON
+		}
+		
+		available = {
+
+		}
+
+		cancel_trigger = {
+			has_completed_focus = FON_final_date
+			FON_Percent_of_Preparation > 0.8
+		}
+
+		days_mission_timeout = 180
+
+		is_good = no
+
+		timeout_effect = {
+			country_event = {days = 7 id = FON.11} #灭世事件（All gone）
+		}
+
+		cancel_effect = {
+			country_event = {days = 7 id = FON.12} #大洪水（正常线路）
+		}
+
+	}
+
+
+	#加固封印
+    FON_Neuvillette_repulse_Primordial_Sea = {
+      
         ai_will_do = {
-			base = 20
+			base = 15
 			modifier = {
 				factor = 10
 				check_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost > 10 } 
 			}
 			modifier = {
-				factor = 10
+				factor = 5
 				check_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost > 20 } 
 			}
 			modifier = {
-				factor = 5
+				factor = 1
 				check_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost > 40 }
 			}
 		}
@@ -25,32 +62,300 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		available = {
-
+			
 		}
 
 		visible = {
+			has_completed_focus = FON_search
         }
 
-        days_remove = 2
+        days_remove = 7
 
-        days_re_enable = 4
+        days_re_enable = 30
 
         cost = FON_Neuvillette_repulse_Primordial_Sea_cost
         
-        complete_effect = {
-			
-		}
-
-		
         remove_effect = {
-			
-			set_variable = { FON_Primordial_Sea_cost = FON_Neuvillette_repulse_Primordial_Sea_cost }
-			FON_increase_Neuvillette_repulse_Primordial_Sea_cost_effect = yes
-			set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = FON_Primordial_Sea_cost }
-			clear_variable = FON_Primordial_Sea_cost 
-
-			custom_effect_tooltip = FON_Primordial_Sea_cooldown_tt
+			add_days_mission_timeout = {
+				mission = FON_ending_the_crisis
+				days = 30
+			}
+			mutiply_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 2 }
 		}
+		
 	}
 
+	#北国的饮食！
+	FON_food_from_SNE = {
+
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+			NOT = { has_war_with = SNE }
+		}
+		visible = {
+			has_completed_focus = FON_resources_left
+		}
+		available = {
+			
+		}
+
+		cost = 20
+
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+		}
+
+		modifier = {
+			consumer_goods_factor = -0.1
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+
+	}
+
+	#北国的帐篷！
+	FON_tents_from_SNE = {
+
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+			NOT = { has_war_with = SNE }
+		}
+		visible = {
+			has_completed_focus = FON_resources_left
+		}
+		available = {
+			
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+		}
+
+		modifier = {
+			consumer_goods_factor = -0.05
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+	}
+
+	#北国的设备！
+	FON_devices_from_SNE = {
+	
+			ai_will_do = {
+				base = 15
+				modifier={
+	
+				}
+			} 
+			allowed={
+				NOT = { has_war_with = SNE }
+			}
+			visible = {
+				has_completed_focus = FON_resources_left
+			}
+			available = {
+				
+			}
+
+			cost = 30
+
+			remove_effect = {
+				add_command_power = -10
+				add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+				add_equipment_to_stockpile ={ type=motorized_0 amount=50 producer=SNE }
+			}
+	
+			days_remove = 7
+			days_re_enable = 30
+	}
+
+	#枫丹的饮食！
+	FON_food_from_FON = {
+
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+			
+		}
+		visible = {
+			has_completed_focus = FON_resources_right
+		}
+		available = {
+			
+		}
+
+		cost = 20
+
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+		}
+
+		modifier = {
+			consumer_goods_factor = 0.1
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+	}
+
+	#枫丹的帐篷！
+	FON_tents_from_FON = {
+
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		visible = {
+			has_completed_focus = FON_resources_right
+		}
+		available = {
+			
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+		}
+
+		modifier = {
+			consumer_goods_factor = 0.05
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+	}
+
+	#枫丹的设备！
+	FON_devices_from_FON = {
+	
+			ai_will_do = {
+				base = 15
+				modifier={
+	
+				}
+			} 
+			allowed={
+
+			}
+			visible = {
+				has_completed_focus = FON_resources_right
+			}
+			available = {
+	
+			}
+
+			cost = 30
+
+			remove_effect = {
+				add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+			}
+
+			modifier = {
+				industrial_capacity_factory = 0.05
+			}
+	
+			days_remove = 7
+			days_re_enable = 30
+	}
+
+	#组织刺玟会支援
+	FON_people_from_left = {
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		visible = {
+			has_completed_focus = FON_people_left
+		}
+		available = {
+
+		}
+
+		cost = 5
+
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.05
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+	}
+
+	#组织政府人员救援
+	FON_people_from_right = {
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		available = {
+			
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+
+		visible = {
+			has_completed_focus = FON_people_right
+		}
+		available = {
+
+		}
+
+		cost = 5
+
+		remove_effect = {
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.05
+		}
+
+		days_remove = 7
+		days_re_enable = 30
+	}
 }
