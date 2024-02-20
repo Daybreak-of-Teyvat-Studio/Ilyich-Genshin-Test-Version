@@ -79,6 +79,175 @@ on_actions = {
 			}
 		}
 	}
+	#ROOT is new controller
+	#FROM is old controller
+	#FROM.FROM is state ID
+	on_state_control_changed = {
+		effect = {
+			#蒙德势力自动启用约法三章
+			FROM.FROM = {
+				IF = {
+					limit = {
+						NOT = { is_core_of = ROOT }
+						impassable = no
+						is_core_of = MOT
+						ROOT = { Is_MOT = yes }
+					}
+					set_temp_variable = { integration_target = THIS }
+					ROOT = { var:integration_target = { set_occupation_law_where_available = DOT_Emergency_Occupy } }
+				}
+			}
+			#攻陷新闻
+			
+			IF = {
+				limit = {
+					has_war_with = FROM
+					FROM.FROM = {
+						is_owned_by = FROM
+						NOT = { has_state_flag = city_has_fallen_once }
+					}
+				}
+				FROM.FROM = { save_event_target_as = fallen_state }
+				#西风大教堂
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.1
+				}
+				#教会反对派攻克西风大教堂
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = {
+							controls_province = 885
+							original_tag = FAV
+						}
+					}
+					news_event = DOT_ControlProvince.16
+				}
+				#蒙德城门
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.2
+				}
+				#风起地
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.3
+				}
+				##劳伦斯攻入风起地
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = {
+							controls_province = 885
+							original_tag = LAW
+						}
+					}
+					news_event = DOT_ControlProvince.4
+				}
+				#千风神殿
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.5
+				}
+				#劳伦斯堡
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.6
+				}
+				#达达乌帕城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.7
+				}
+				##西风骑士团攻克达达乌帕城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = {
+							controls_province = 885
+							original_tag = LAW
+						}
+					}
+					news_event = DOT_ControlProvince.8
+				}
+				#清泉镇
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.9
+				}
+				#安德琉斯谷
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.10
+				}
+				#风王高塔
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.11
+				}
+				#营地城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.12
+				}
+				#雪山顶
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.13
+				}
+				#星落崖
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.14
+				}
+				#晨曦酒庄
+				IF = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = DOT_ControlProvince.15
+				}
+			}
+		}
+	}
 	on_capitulation = {
 		effect = {
 			#### 以下为战争结语gui
