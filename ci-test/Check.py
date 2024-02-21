@@ -1,5 +1,6 @@
 import os
 import sys
+import chardet
 
 blackList = ["Daybreak of Teyvat Alpha Version\common\备份文件", "Daybreak of Teyvat Alpha Version/common/备份文件", 
              "Daybreak of Teyvat Alpha Version\.backups", "Daybreak of Teyvat Alpha Version/.backups",
@@ -40,6 +41,28 @@ def CheckDirQuotation(dirPath):
             allFilesCorrect = (CheckFileQuotation(filePath) and allFilesCorrect)
         elif os.path.isdir(filePath):
             allFilesCorrect = (CheckDirQuotation(filePath) and allFilesCorrect)
+    return allFilesCorrect
+
+# 检测本地化文件的编码格式
+def CheckFileEncoding(filePath):
+    with open(filePath, 'rb') as f:
+        det = chardet.detect(f.read())
+        if det['encoding'] == "UTF-8-SIG": # utf-8-bom会被chardet检测为UTF-8-SIG
+            return True
+        print("文件出错: %s 文件编码格式为: %s" % (filePath, det['encoding']))
+        return False
+
+def CheckDirEncoding(dirPath):
+    allFilesCorrect = True
+    files = os.listdir(dirPath)
+    for file in files:
+        filePath = os.path.join(dirPath, file)
+        if filePath in blackList:
+            continue
+        elif os.path.isfile(filePath) and ".yml" in file:
+            allFilesCorrect = (CheckFileEncoding(filePath) and allFilesCorrect)
+        elif os.path.isdir(filePath):
+            allFilesCorrect = (CheckDirEncoding(filePath) and allFilesCorrect)
     return allFilesCorrect
 
 # 检测txt、gui文件的大括号匹配
@@ -87,8 +110,11 @@ def main():
     modPath = "Daybreak of Teyvat Beta Version"
     if not CheckDirBracket(modPath):
         sys.exit(1)
-    chineseLocalisationPath = "Daybreak of Teyvat Beta Version/localisation/simp_chinese" # 目前只检测中文
-    if not CheckDirQuotation(chineseLocalisationPath):
+    chineseLocalisationPath = "Daybreak of Teyvat Beta Version/localisation/simp_chinese"
+    englishLocalisationPath = "Daybreak of Teyvat Beta Version/localisation/english"
+    if not CheckDirQuotation(chineseLocalisationPath): # 目前引号只检测中文
+        sys.exit(1)
+    if not (CheckDirEncoding(chineseLocalisationPath) and CheckDirEncoding(englishLocalisationPath)):
         sys.exit(1)
 
 if __name__ == "__main__":
