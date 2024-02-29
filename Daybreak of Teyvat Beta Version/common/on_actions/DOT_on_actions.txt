@@ -40,11 +40,29 @@ on_actions = {
 #		}
 #	}
 	#战争结语
+	#ROOT是胜者
+	#FROM是败者
 	on_capitulation = {
 		effect = {
-			#### 以下为战争结语gui
-			if = {
+			#满足下面任一limit里面的条件才会刷战争结语
+			#璃月
+			IF = {
 				limit = {
+					#只要败者是璃月势力就触发
+					FROM = {
+						Is_LYY = yes
+					}
+				}
+				#触发窗口
+				set_global_flag = sp_warpeace_show_gui
+				FROM = { save_global_event_target_as = winning_country }
+				ROOT = { save_global_event_target_as = losing_country }
+				add_to_variable = { global.sp_warpeace_dirty = 1 }
+			}
+			#蒙德内战用
+			IF = {
+				limit = {
+					#胜败双方都必须是蒙德势力，即蒙德内战中触发
 					AND = {
 						FROM = {
 							OR = {
