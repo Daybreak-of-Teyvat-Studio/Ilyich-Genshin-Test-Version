@@ -639,3 +639,198 @@ GUN_Factions_Decisions = {
 	}
 ############################
 }
+GUN_Expand_Our_Land = {
+	GUN_Colonize_New_Land = {
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		target_root_trigger = {
+		}
+		visible = {
+			NOT = { has_country_flag = GUN_Colonizing }
+		}
+		target_trigger = {
+			FROM = { is_owned_by = MHL }
+		}
+		icon = generic_scorched_earth
+		cost = 20
+		days_remove = 60
+		complete_effect = {
+			add_manpower = -10000
+			set_variable = { GUN_Colonizing_State = FROM.state_id }
+			ROOT = {
+				set_country_flag = GUN_Colonizing
+			}
+			FROM = {
+				set_state_flag = GUN_Colonizer_Coming
+			}
+		}
+		remove_effect = {
+			ROOT = {
+				clr_state_flag = GUN_Colonizer_Coming
+			}
+			FROM = {
+				clr_country_flag = GUN_Colonizing
+				transfer_state_to = GUN
+			}
+			clear_variable = GUN_Colonizing_State
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				factor = 0
+				num_of_available_civilian_factories < 6
+			}
+		}
+	}
+	GUN_Build_Railway = {
+		visible = { has_country_flag = GUN_Colonizing }
+		cost = 10
+		available = {
+			num_of_available_civilian_factories > 4
+			NOT = { has_country_flag = GUN_Developing }
+		}
+		icon = generic_industry
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 15
+		complete_effect = {
+			set_country_flag = GUN_Developing
+		}
+		remove_effect = {
+			clr_country_flag = GUN_Developing
+			every_state = {
+				limit = { has_state_flag = GUN_Colonizer_Coming }
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+	GUN_Build_Industry = {
+		visible = { has_country_flag = GUN_Colonizing }
+		cost = 15
+		available = {
+			num_of_available_civilian_factories > 4
+			NOT = { has_country_flag = GUN_Developing }
+		}
+		icon = generic_industry
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 20
+		complete_effect = {
+			set_country_flag = GUN_Developing
+		}
+		remove_effect = {
+			clr_country_flag = GUN_Developing
+			every_state = {
+				limit = { has_state_flag = GUN_Colonizer_Coming }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 800 }
+	}
+	GUN_Build_ArmsPro = {
+		visible = { has_country_flag = GUN_Colonizing }
+		cost = 15
+		available = {
+			num_of_available_civilian_factories > 4
+			NOT = { has_country_flag = GUN_Developing }
+		}
+		icon = generic_industry
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 20
+		complete_effect = {
+			set_country_flag = GUN_Developing
+		}
+		remove_effect = {
+			clr_country_flag = GUN_Developing
+			every_state = {
+				limit = { has_state_flag = GUN_Colonizer_Coming }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 900 }
+	}
+	GUN_Build_Manpower = {
+		visible = { has_country_flag = GUN_Colonizing }
+		cost = 15
+		available = {
+			num_of_available_civilian_factories > 4
+			NOT = { has_country_flag = GUN_Developing }
+		}
+		icon = generic_speech
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 20
+		complete_effect = {
+			set_country_flag = GUN_Developing
+		}
+		remove_effect = {
+			clr_country_flag = GUN_Developing
+			every_state = {
+				limit = { has_state_flag = GUN_Colonizer_Coming }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { GUN_linshibianliang = THIS.state_population_k }
+				multiply_temp_variable = { GUN_linshibianliang = 1000 }
+				add_manpower = GUN_linshibianliang 
+			}
+		}
+		ai_will_do = { base = 800 }
+	}
+	GUN_War_on_SDS = {
+		visible = {
+			SDS = { exists = yes }
+		}
+		icon = generic_ignite_civil_war
+		available = {
+			date > 1937.6.1
+			has_war_support > 0.7
+			ic_ratio = {
+				tag = SDS
+				ratio > 1.5
+			}
+			strength_ratio = {
+				tag = SDS
+				ratio > 1
+			}
+		}
+		war_with_on_remove = SDS
+		remove_effect = {
+			declare_war_on = {
+				target = SDS
+				type = annex_everything
+			}
+		}
+		ai_will_do = { base = 1000 }
+	}
+}
