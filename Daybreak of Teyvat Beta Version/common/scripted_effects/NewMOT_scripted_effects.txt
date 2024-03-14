@@ -1,3 +1,138 @@
+#初始化劳伦斯
+LAW_Start_All_Vars = {
+	set_variable = { LAW_Level_of_ST = 0 }
+	set_variable = { LAW_Whole_Icy_Power = 0 }
+	set_variable = { LAW_Whole_Fool_Power = 0 }
+	set_variable = { LAW_Whole_Noble_Angry = 0 }
+	
+
+	set_variable = { LAW_Num_of_Investment = 0 }
+	set_variable = { LAW_Cost_of_Decisions1 = 15 }
+	set_variable = { LAW_Cost_of_Decisions2 = 15 }
+	set_variable = { LAW_Cost_of_Decisions3 = 25 }
+	set_variable = { LAW_Cost_of_Decisions4 = 25 }
+	set_variable = { LAW_Num_of_Crowns = 0 }
+	set_variable = { LAW_State_Corruption = 100 }
+	set_variable = { LAW_State_Efficiency = 0 }
+	set_variable = { LAW_State_Population = 0 }
+	set_variable = { LAW_State_Intelligen = 0 }
+	set_variable = { LAW_DM_army_morale_factor = -0.1 }
+	set_variable = { LAW_DM_supply_consumption_factor = 0.2 }
+	set_variable = { LAW_DM_required_garrison_factor = 0.5 }
+	set_variable = { LAW_DM_resistance_target = 0.2 }
+	set_variable = { LAW_DM_resistance_activity = 0.25 }
+	set_variable = { LAW_DM_resistance_damage_to_garrison = 0.5 }
+	set_variable = { LAW_DM_compliance_growth = -0.25 }
+	set_variable = { LAW_DM_conscription_factor = -0.25 }
+	set_variable = { LAW_DM_resistance_growth = 0.25 }
+	set_variable = { LAW_DM_army_core_attack_factor = 0.1 }
+	set_variable = { LAW_DM_army_core_defence_factor = -0.1 }
+	set_variable = { LAW_DM_political_power_cost = 0.25 }
+	set_variable = { LAW_DM_consumer_goods_factor = 0.25 }
+	set_variable = { LAW_DM_stability_factor = -0.1 }
+	set_variable = { LAW_DM_war_support_factor = -0.1 }
+	set_variable = { LAW_DM_research_speed_factor = -0.2 }
+	set_variable = { LAW_DM_production_factory_max_efficiency_factor = -0.1 }
+	set_variable = { LAW_DM_production_speed_buildings_factor = -0.15 }
+	set_variable = { LAW_DM_land_doctrine_cost_factor = 0.15 }
+	set_variable = { LAW_DM_navy_doctrine_cost_factor = 0.15 }
+	set_variable = { LAW_DM_air_doctrine_cost_factor = 0.15 }
+	set_variable = { LAW_DM_experience_gain_army_factor = -0.25 }
+	set_variable = { LAW_DM_experience_gain_navy_factor = -0.25 }
+	set_variable = { LAW_DM_experience_gain_air_factor = -0.25 }
+	IF = {
+		limit = { is_ai = no }
+		set_variable = { FAV_Number_of_Fans = 1 }
+	}
+}
+#坚冰之道强化 1
+LAW_Strengthen_Route_of_Eula1 = {
+	custom_effect_tooltip = LAW_tt_Title_of_Strength
+	IF = {
+		limit = { has_country_flag = LAW_DM_JishuS }
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_11
+		clr_country_flag = LAW_DM_JishuS
+		add_to_variable = { LAW_DME_breakthrough_factor = 0.01 }
+		add_to_variable = { LAW_DME_army_attack_speed_factor = 0.01 }
+		add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.01 }
+	}
+	ELSE = {
+		set_country_flag = LAW_DM_JishuS
+	}
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_12
+	add_to_variable = { LAW_DME_political_power_factor = 0.01 }
+	add_to_variable = { LAW_DME_political_power_cost = -0.01 }
+	add_to_variable = { LAW_DME_fascism_drift = 0.01 }
+	force_update_dynamic_modifier = yes
+}
+#坚冰之道强化 2
+LAW_Strengthen_Route_of_Eula2 = {
+	custom_effect_tooltip = LAW_tt_Strengthen_ROE_20
+	add_to_variable = { LAW_DME_breakthrough_factor = 0.01 }
+	add_to_variable = { LAW_DME_army_attack_speed_factor = 0.01 }
+	add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.01 }
+	add_to_variable = { LAW_DME_political_power_factor = 0.02 }
+	add_to_variable = { LAW_DME_political_power_cost = -0.02 }
+	add_to_variable = { LAW_DME_fascism_drift = 0.02 }
+	force_update_dynamic_modifier = yes
+}
+#坚冰之道强化 3
+LAW_Strengthen_Route_of_Eula3 = {
+	IF = {
+		limit = { has_country_flag = LAW_DM_JishuS }
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_31
+		clr_country_flag = LAW_DM_JishuS
+		add_to_variable = { LAW_DME_breakthrough_factor = 0.02 }
+		add_to_variable = { LAW_DME_army_attack_speed_factor = 0.02 }
+		add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.02 }
+	}
+	ELSE = {
+		set_country_flag = LAW_DM_JishuS
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_11
+		add_to_variable = { LAW_DME_breakthrough_factor = 0.01 }
+		add_to_variable = { LAW_DME_army_attack_speed_factor = 0.01 }
+		add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.01 }
+	}
+	custom_effect_tooltip = LAW_tt_Strengthen_ROE_32
+	add_to_variable = { LAW_DME_political_power_factor = 0.03 }
+	add_to_variable = { LAW_DME_political_power_cost = -0.03 }
+	add_to_variable = { LAW_DME_fascism_drift = 0.03 }
+	force_update_dynamic_modifier = yes
+}
+#坚冰之道强化 4
+LAW_Strengthen_Route_of_Eula4 = {
+	custom_effect_tooltip = LAW_tt_Strengthen_ROE_40
+	add_to_variable = { LAW_DME_breakthrough_factor = 0.02 }
+	add_to_variable = { LAW_DME_army_attack_speed_factor = 0.02 }
+	add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.02 }
+	add_to_variable = { LAW_DME_political_power_factor = 0.04 }
+	add_to_variable = { LAW_DME_political_power_cost = -0.04 }
+	add_to_variable = { LAW_DME_fascism_drift = 0.04 }
+	force_update_dynamic_modifier = yes
+}
+#坚冰之道强化 5
+LAW_Strengthen_Route_of_Eula5 = {
+	IF = {
+		limit = { has_country_flag = LAW_DM_JishuS }
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_51
+		clr_country_flag = LAW_DM_JishuS
+		add_to_variable = { LAW_DME_breakthrough_factor = 0.03 }
+		add_to_variable = { LAW_DME_army_attack_speed_factor = 0.03 }
+		add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.03 }
+	}
+	ELSE = {
+		set_country_flag = LAW_DM_JishuS
+		custom_effect_tooltip = LAW_tt_Strengthen_ROE_31
+		add_to_variable = { LAW_DME_breakthrough_factor = 0.02 }
+		add_to_variable = { LAW_DME_army_attack_speed_factor = 0.02 }
+		add_to_variable = { LAW_DME_production_speed_buildings_factor = 0.02 }
+	}
+	custom_effect_tooltip = LAW_tt_Strengthen_ROE_52
+	add_to_variable = { LAW_DME_political_power_factor = 0.05 }
+	add_to_variable = { LAW_DME_political_power_cost = -0.05 }
+	add_to_variable = { LAW_DME_fascism_drift = 0.05 }
+	force_update_dynamic_modifier = yes
+}
 #刷新璃月奇观效果
 LYY_Flash_Effect_of_Wonder = {
 	IF = {
@@ -1263,9 +1398,9 @@ MOT_Re_Meeting = {
 		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
 		multiply_variable = { MOT_People_EffGain_modifier = 0.75 }
 		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
-		multiply_variable = { MOT_People_SuppFac_modifier = 0.5 }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.25 }
 		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
-		multiply_variable = { MOT_People_MaxEff_modifier = 0.25 }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.15 }
 	}
 	ELSE_IF = {
 		clamp_variable = {
@@ -1282,19 +1417,19 @@ MOT_Re_Meeting = {
 		multiply_variable = { MOT_Modifier_From_People = MOT_BasicSupport_People }
 		divide_variable = { MOT_Modifier_From_People = 100 }
 		set_variable = { MOT_People_ConsFac_modifier = MOT_Modifier_From_People }
-		multiply_variable = { MOT_People_ConsFac_modifier = 0.3 }
+		multiply_variable = { MOT_People_ConsFac_modifier = 0.25 }
 		set_variable = { MOT_People_EffGain_modifier = MOT_Modifier_From_People }
 		multiply_variable = { MOT_People_EffGain_modifier = 0.5 }
 		set_variable = { MOT_People_SuppFac_modifier = MOT_Modifier_From_People }
-		multiply_variable = { MOT_People_SuppFac_modifier = 0.3 }
+		multiply_variable = { MOT_People_SuppFac_modifier = 0.15 }
 		set_variable = { MOT_People_MaxEff_modifier = MOT_Modifier_From_People }
-		multiply_variable = { MOT_People_MaxEff_modifier = 0.2 }
+		multiply_variable = { MOT_People_MaxEff_modifier = 0.1 }
 		
 		set_variable = { MOT_Modifier_From_Trader = MOT_BasicPower_of_Trader }
 		multiply_variable = { MOT_Modifier_From_Trader = MOT_BasicSupport_Trader }
 		divide_variable = { MOT_Modifier_From_Trader = 100 }
 		set_variable = { MOT_Trader_BuilSpeed_modifier = MOT_Modifier_From_Trader }
-		multiply_variable = { MOT_Trader_BuilSpeed_modifier = 0.25 }
+		multiply_variable = { MOT_Trader_BuilSpeed_modifier = 0.15 }
 		set_variable = { MOT_Trader_ConsGoods_modifier = MOT_Modifier_From_Trader }
 		multiply_variable = { MOT_Trader_ConsGoods_modifier = -0.1 }
 
@@ -1406,7 +1541,7 @@ MOT_SET_Section_1_Vars = {
 	set_variable = { MOT_PLimit1_of_T = 100 }
 	set_variable = { MOT_PLimit2_of_T = 10 }
 	#人民支持限
-	set_variable = { MOT_SLimit1_of_P = 1 }
+	set_variable = { MOT_SLimit1_of_P = 0.8 }
 	set_variable = { MOT_SLimit2_of_P = 0.2 }
 	#人民影响限
 	set_variable = { MOT_PLimit1_of_P = 75 }
