@@ -1949,12 +1949,12 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Going_Bad
 		}
-		x = 3
+		x = 5
 		y = 4
 		completion_reward = {
 			add_days_mission_timeout = {
 				mission = MOT_Dragon_Attack
-				days = -100
+				days = -180
 			}
 		}
 		available = {
@@ -1967,9 +1967,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
-			NOT = {
-				has_idea = MOT_Attack_of_Twalin
-			}
+			NOT = { has_active_mission = MOT_Dragon_Attack }
 		}
 		ai_will_do = {
 			base = 5
@@ -1987,7 +1985,7 @@ focus_tree = {
 		x = 9
 		y = 4
 		completion_reward = {
-			add_political_Power = 30
+			add_political_Power = 50
 		}
 		available = {
 			NOT = {
@@ -2016,10 +2014,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Going_Bad
 		}
-		x = 6
+		x = 7
 		y = 4
 		completion_reward = {
-			add_political_Power = 30
+			army_experience = 30
 		}
 		available = {
 			NOT = {
@@ -2035,7 +2033,6 @@ focus_tree = {
 		ai_will_do = {
 			base = 5
 		}
-
 	}
 	#竭泽而渔
 	focus = {
@@ -2045,10 +2042,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Going_Bad
 		}
-		x = 12
+		x = 11
 		y = 4
 		completion_reward = {
-			add_political_Power = 30
+			add_command_power = 30
 		}
 		available = {
 			NOT = {
@@ -2069,7 +2066,7 @@ focus_tree = {
 	#风起地工业转移
 	focus = {
 		id = MOT_Industrial_Change_to_Wind
-		icon = GFX_goal_generic_production2
+		icon = GFX_Goal_MOT_Production
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_For_Far_Future
@@ -2156,22 +2153,29 @@ focus_tree = {
 	#威慑劳伦斯领
 	focus = {
 		id = MOT_Suppress_Law
-		icon = GFX_goal_generic_demand_territory
+		icon = GFX_Goal_MOT_Attack_Noble
 		cost = 5.00
 		prerequisite = {
-			focus = MOT_For_Far_Future
+			focus = MOT_Industrial_Change_to_Wind
+			focus = MOT_Supporess_the_Whole_Mond
 		}
-		mutually_exclusive = {
-			focus = MOT_Suppress_DVA
-		}
-		x = 4
-		y = 5
+		x = 5
+		y = 6
 		completion_reward = {
-			add_war_support = 0.02
+			add_war_support = 0.05
 			custom_effect_tooltip = MOT_St_Control
 			add_to_variable = { MOT_Control_in_LAW = 20 }
 			custom_effect_tooltip = MOT_St_LowResist
 			add_to_variable = { MOT_Resist_in_LAW = -20 }
+			LAW = {
+				add_political_power = -30
+				set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_Angry }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+			}
 		}
 		available = {
 			NOT = {
@@ -2187,7 +2191,6 @@ focus_tree = {
 		ai_will_do = {
 			base = 5
 		}
-
 	}
 	#同西风教会交涉
 	focus = {
@@ -2195,19 +2198,26 @@ focus_tree = {
 		icon = GFX_Goal_Happy_Coo
 		cost = 5.00
 		prerequisite = {
-			focus = MOT_For_Far_Future
+			focus = MOT_Industrial_Change_to_Wind
+			focus = MOT_Suppress_the_Whole_Mond
 		}
 		mutually_exclusive = {
-			focus = MOT_Suppress_Law
+			focus = MOT_Suppress_DVA
 		}
-		x = 6
-		y = 5
+		x = 7
+		y = 6
 		completion_reward = {
-			add_stability = 0.02
+			add_stability = 0.05
 			custom_effect_tooltip = MOT_St_Control
 			add_to_variable = { MOT_Control_in_FAV = 20 }
 			custom_effect_tooltip = MOT_St_LowResist
 			add_to_variable = { MOT_Resist_in_FAV = -20 }
+			FAV = {
+				add_power_balance_value = -0.1
+				set_temp_variable = { FAV_linshibianliang4 = 25 }
+				custom_effect_tooltip = FAV_tt_Raise_Fans
+				add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+			}
 		}
 		available = {
 			NOT = {
@@ -2231,19 +2241,123 @@ focus_tree = {
 		}
 
 	}
+	#引诱旧贵族内讧
+	focus = {
+		id = MOT_Guide_Nobles
+		icon = GFX_Goal_Icy_Attack
+		cost = 3.00
+		prerequisite = {
+			focus = MOT_Suppress_Law
+		}
+		x = 5
+		y = 7
+		completion_reward = {
+			add_war_support = 0.1
+			LAW = {
+				add_stability = -0.1
+				add_war_support = -0.2
+				add_political_power = -50
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_Jean_Ill
+					has_global_flag = MOT_Civil_War_Begun
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			OR = {
+				has_country_flag = MOT_Jean_Ill
+				has_global_flag = MOT_Civil_War_Begun
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+
+	}
+	#引导神学辩论
+	focus = {
+		id = MOT_Guide_Religion
+		icon = GFX_MOT_PP3
+		cost = 3.00
+		prerequisite = {
+			focus = MOT_Suppress_DVA
+		}
+		x = 7
+		y = 7
+		completion_reward = {
+			add_stability = 0.1
+			FAV = {
+				add_stability = 0.1
+				add_war_support = -0.2
+				add_power_balance_value = -0.25
+				set_temp_variable = { FAV_linshibianliang4 = 50 }
+				custom_effect_tooltip = FAV_tt_Raise_Fans
+				add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
+				random_owned_state = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_state = {
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_Jean_Ill
+					has_global_flag = MOT_Civil_War_Begun
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			OR = {
+				has_country_flag = MOT_Jean_Ill
+				has_global_flag = MOT_Civil_War_Begun
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+
+	}
 	#加强关键区域控制
 	focus = {
 		id = MOT_Suppress_Important_Areas
-		icon = GFX_goal_generic_political_pressure
+		icon = GFX_goal_generic_military_sphere
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Try_Control_Scene
-			focus = MOT_For_Far_Future
+			focus = MOT_For_Nearby_Enemy
 		}
-		mutually_exclusive = {
-			focus = MOT_Suppress_the_Whole_Mond
-		}
-		x = 8
+		x = 10
 		y = 5
 		completion_reward = {
 			add_stability = 0.02
@@ -2260,6 +2374,9 @@ focus_tree = {
 				}
 			}
 		}
+		mutually_exclusive = {
+			focus = MOT_Suppress_the_Whole_Mond
+		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
@@ -2271,15 +2388,13 @@ focus_tree = {
 	#镇压全蒙德叛党
 	focus = {
 		id = MOT_Suppress_the_Whole_Mond
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_goal_generic_political_pressure
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Try_Control_Scene
+			focus = MOT_For_Far_Future
 		}
-		mutually_exclusive = {
-			focus = MOT_Suppress_Important_Areas
-		}
-		x = 10
+		x = 8
 		y = 5
 		completion_reward = {
 			add_stability = 0.02
@@ -2298,6 +2413,9 @@ focus_tree = {
 				}
 			}
 		}
+		mutually_exclusive = {
+			focus = MOT_Suppress_Important_Areas
+		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
@@ -2315,7 +2433,7 @@ focus_tree = {
 	#驱逐愚人众外交官
 	focus = {
 		id = MOT_Let_Fools_Leave
-		icon = GFX_goal_generic_forceful_treaty
+		icon = GFX_Goal_MOT_Write
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_Suppress_the_Whole_Mond
@@ -2488,7 +2606,7 @@ focus_tree = {
 			focus = MOT_Call_Back_Power
 			focus = MOT_Call_Back_Outer
 		}
-		x = 12
+		x = 16
 		y = 6
 		completion_reward = {
 			add_stability = 0.1
@@ -2513,7 +2631,7 @@ focus_tree = {
 	#大规模居民迁移
 	focus = {
 		id = MOT_Conscript_Outer
-		icon = GFX_Goal_For_Bread
+		icon = GFX_Goal_MOT_Write
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_For_Nearby_Enemy
@@ -2548,17 +2666,18 @@ focus_tree = {
 		}
 
 	}
+	#紧急全国财政收缩
 	#风起地南方防线
 	focus = {
 		id = MOT_Southern_Wall_of_Wind
-		icon = GFX_goal_generic_construct_military
+		icon = GFX_Goal_MOT_Defend
 		cost = 4.00
 		prerequisite = {
-			focus = MOT_Conscript_Outer
 			focus = MOT_Call_Back_Power
 			focus = MOT_Call_Back_Outer
+			focus = MOT_Suppress_Important_Areas
 		}
-		x = 16
+		x = 13
 		y = 6
 		completion_reward = {
 			37 = {
@@ -2608,7 +2727,7 @@ focus_tree = {
 		prerequisite = {
 			focus = MOT_Going_Bad
 		}
-		x = 15
+		x = 13
 		y = 4
 		completion_reward = {
 			set_country_flag = MOT_Noelle_Strengthened
@@ -2642,9 +2761,11 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_military
 		cost = 4.00
 		prerequisite = {
-			focus = MOT_Conscript_Outer
+			focus = MOT_Suppress_Important_Areas
+			focus = MOT_Call_Back_Power
+			focus = MOT_Call_Back_Outer
 		}
-		x = 14
+		x = 11
 		y = 6
 		completion_reward = {
 			5 = {
@@ -2723,16 +2844,97 @@ focus_tree = {
 		}
 
 	}
+	#关注北面
+	focus = {
+		id = MOT_Focus_on_North
+		icon = GFX_Goal_MOT_Balance
+		cost = 3.00
+		prerequisite = {
+			focus = MOT_Northern_Wall_of_Wind
+		}
+		x = 11
+		y = 7
+		completion_reward = {
+			LAW = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			FAV = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			GUN = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			DVA = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			ANR = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_Jean_Ill
+					has_global_flag = MOT_Civil_War_Begun
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 5
+		}
+	}
+	#关注南面
+	focus = {
+		id = MOT_Focus_on_South
+		icon = GFX_Goal_MOT_Balance
+		cost = 3.00
+		prerequisite = {
+			focus = MOT_Southern_Wall_of_Wind
+		}
+		x = 13
+		y = 7
+		completion_reward = {
+			LAW = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			RAG = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			SPI = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+			DRA = {
+				add_timed_idea = { idea = MOT_Knights_Against_In days = 360 }
+			}
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_country_flag = MOT_Jean_Ill
+					has_global_flag = MOT_Civil_War_Begun
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		ai_will_do = {
+			base = 5
+		}
+	}
 	#收拢骑士团部队
 	focus = {
 		id = MOT_Together_Knights
-		icon = GFX_goal_generic_army_doctrines
+		icon = GFX_Goal_MOT_Army_Organize
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Suppress_Important_Areas
 			focus = MOT_Suppress_the_Whole_Mond
 			focus = MOT_Ensure_Loyality_of_Meeting
-			focus = MOT_Southern_Wall_of_Wind
+			focus = MOT_Let_Bad_Guys_Go
 		}
 		x = 9
 		y = 7
@@ -2772,6 +2974,10 @@ focus_tree = {
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Together_Knights
+			focus = MOT_Guide_Nobles
+			focus = MOT_Guide_Religion
+			focus = MOT_Focus_on_North
+			focus = MOT_Focus_on_South
 		}
 		x = 10
 		y = 8
@@ -2785,6 +2991,14 @@ focus_tree = {
 					}
 				}
 				#MOT_Trade_Law_Up = yes
+			}
+			add_resource = {
+				type = steel
+				amount = 12
+			}
+			add_resource = {
+				type = oil
+				amount = 4
 			}
 		}
 		available = {
@@ -2807,10 +3021,14 @@ focus_tree = {
 	#强化指挥能力
 	focus = {
 		id = MOT_Focus_Command_More
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_Goal_MOT_Defend
 		cost = 10.00
 		prerequisite = {
 			focus = MOT_Together_Knights
+			focus = MOT_Guide_Nobles
+			focus = MOT_Guide_Religion
+			focus = MOT_Focus_on_North
+			focus = MOT_Focus_on_South
 		}
 		x = 12
 		y = 8
@@ -2838,16 +3056,16 @@ focus_tree = {
 	#打击保守派
 	focus = {
 		id = MOT_Focus_Beat_the_Lords
-		icon = GFX_goal_generic_neutrality_focus
+		icon = GFX_Goal_MOT_Balance
 		cost = 4.00
 		prerequisite = {
-			focus = MOT_Industrial_Change_to_Wind
+			focus = MOT_For_Far_Future
 		}
 		mutually_exclusive = {
 			focus = MOT_Focus_Beat_the_Traders
 		}
 		x = 6
-		y = 6
+		y = 5
 		completion_reward = {
 			custom_effect_tooltip = MOT_Lower_S_of_L
 			custom_effect_tooltip = MOT_Lower_P_of_L
@@ -2876,16 +3094,16 @@ focus_tree = {
 	#打击自由派
 	focus = {
 		id = MOT_Focus_Beat_the_Traders
-		icon = goal_RAGz
+		icon = GFX_Goal_MOT_Attack_Trader
 		cost = 4.00
 		prerequisite = {
-			focus = MOT_Industrial_Change_to_Wind
+			focus = MOT_For_Far_Future
 		}
 		mutually_exclusive = {
 			focus = MOT_Focus_Beat_the_Lords
 		}
 		x = 4
-		y = 6
+		y = 5
 		completion_reward = {
 			custom_effect_tooltip = MOT_Lower_S_of_T
 			custom_effect_tooltip = MOT_Lower_P_of_T
@@ -2915,9 +3133,10 @@ focus_tree = {
 	focus = {
 		id = MOT_Take_Weapons_of_Not_Central
 		icon = GFX_goal_generic_small_arms
-		cost = 4.00
+		cost = 5.00
 		prerequisite = {
-			focus = MOT_Conscript_Outer
+			focus = MOT_Call_Back_Power
+			focus = MOT_Call_Back_Outer
 		}
 		x = 18
 		y = 6
@@ -2955,10 +3174,14 @@ focus_tree = {
 	#修改征兵法案
 	focus = {
 		id = MOT_Focus_Conscript_More
-		icon = goal_RAGf
+		icon = GFX_Goal_MOT_Writing
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Together_Knights
+			focus = MOT_Guide_Nobles
+			focus = MOT_Guide_Religion
+			focus = MOT_Focus_on_North
+			focus = MOT_Focus_on_South
 		}
 		x = 6
 		y = 8
@@ -3004,6 +3227,10 @@ focus_tree = {
 		cost = 4.00
 		prerequisite = {
 			focus = MOT_Together_Knights
+			focus = MOT_Guide_Nobles
+			focus = MOT_Guide_Religion
+			focus = MOT_Focus_on_North
+			focus = MOT_Focus_on_South
 		}
 		x = 8
 		y = 8
@@ -3106,7 +3333,7 @@ focus_tree = {
 	#全军进攻
 	focus = {
 		id = MOT_War1_Attack_On_Them
-		icon = GFX_focus_hol_the_foundations_of_defense
+		icon = GFX_Goal_MOT_Flower
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_Storm_is_Coming2
@@ -3136,7 +3363,7 @@ focus_tree = {
 	#稳固阵线
 	focus = {
 		id = MOT_War1_Defense_For_Behinder
-		icon = GFX_focus_hol_the_foundations_of_defense
+		icon = GFX_Goal_MOT_Flower
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_Storm_is_Coming2
@@ -3168,7 +3395,7 @@ focus_tree = {
 	#迟滞敌军 
 	focus = {
 		id = MOT_War1_Back_But_Not_Flee
-		icon = GFX_focus_hol_the_foundations_of_defense
+		icon = GFX_Goal_MOT_Flower
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_Storm_is_Coming2
@@ -3197,7 +3424,7 @@ focus_tree = {
 	#战争的教训 
 	focus = {
 		id = MOT_War1_Lessons_From_War
-		icon = GFX_focus_RAJ_lions_of_the_great_war
+		icon = GFX_Goal_MOT_Write
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_War1_Attack_On_Them
@@ -3251,7 +3478,7 @@ focus_tree = {
 	#军备的重整 
 	focus = {
 		id = MOT_Prepare_Better_for_War
-		icon = GFX_focus_SOV_mobilization_plan
+		icon = GFX_Goal_MOT_Army_Organize
 		cost = 5.00
 		prerequisite = {
 			focus = MOT_War1_Attack_On_Them
@@ -3266,12 +3493,12 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = arms_factory
-						size > 1
+						size > 0
 					}
 				}
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}

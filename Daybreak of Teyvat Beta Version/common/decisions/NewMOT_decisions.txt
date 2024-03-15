@@ -3669,10 +3669,13 @@ MOT_Active_Traveller = {
 		selectable_mission = no
 		days_mission_timeout = 400
 		activation = { has_global_flag = MOT_Attack_of_Dragon }
-		
-		available = { NOT = { has_idea = MOT_Attack_of_Twalin } }
+		modifier = {
+			command_power_gain_mult = -1
+			stability_weekly = -0.01
+			consumer_goods_expected_value = 0.05
+		}
+		available = { always = no }
 		timeout_effect = {
-			remove_ideas = MOT_Attack_of_Twalin
 			activate_mission = MOT_T_Dailying
 		}
 	}
@@ -3681,7 +3684,7 @@ MOT_Active_Traveller = {
 		icon = generic_army_support
 		fire_only_once = yes
 		days_remove = 10
-		cost = 50
+		cost = 30
 		visible = { has_active_mission = MOT_Dragon_Attack }
 		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -60 } }
 		ai_will_do = {
@@ -3693,10 +3696,8 @@ MOT_Active_Traveller = {
 		icon = generic_decision
 		fire_only_once = yes
 		days_remove = 10
-		custom_cost_trigger = { command_power > 49 }
-		custom_cost_text = decision_cost_CP_50
+		cost = 30
 		visible = { has_active_mission = MOT_Dragon_Attack }
-		complete_effect = { add_command_power = -50 }
 		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -60 } }
 		ai_will_do = {
 			base = 1000
@@ -3707,8 +3708,9 @@ MOT_Active_Traveller = {
 		icon = generic_decision
 		fire_only_once = no
 		days_remove = 10
-		cost = 30
 		days_re_enable = 30
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		modifier = { civilian_factory_use = 5 }
 		visible = { has_active_mission = MOT_Dragon_Attack }
 		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
 		ai_will_do = {
@@ -3721,10 +3723,8 @@ MOT_Active_Traveller = {
 		fire_only_once = no
 		days_remove = 10
 		days_re_enable = 30
-		custom_cost_trigger = { command_power > 29 }
-		custom_cost_text = decision_cost_CP_30
+		cost = 30
 		visible = { has_active_mission = MOT_Dragon_Attack }
-		complete_effect = { add_command_Power = -30 }
 		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
 		ai_will_do = {
 			base = 1000
@@ -3737,7 +3737,7 @@ MOT_Active_Traveller = {
 		days_remove = 10
 		days_re_enable = 30
 		visible = { has_active_mission = MOT_Dragon_Attack }
-		available = { num_of_civilian_factories_available_for_projects > 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
 		modifier = { civilian_factory_use = 5 }
 		remove_effect = { add_days_mission_timeout = { mission = MOT_Dragon_Attack days = -30 } }
 		ai_will_do = {
