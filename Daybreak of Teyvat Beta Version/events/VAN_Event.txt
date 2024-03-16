@@ -224,3 +224,57 @@ country_event = {
 		custom_effect_tooltip = VAN.7.1_tt
 	}
 }
+
+# 向教令院出售步兵装备
+country_event = {
+	id = VAN.8
+	title = VAN.8.t
+	desc = VAN.8.d
+	picture = GFX_event_VAN07
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_variable = { VAN_sell_weapon_num_real = VAN_sell_weapon_num }
+			multiply_variable = { VAN_sell_weapon_num_real = -1 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = VAN_sell_weapon_num_real
+			}
+			add_to_variable = { var = dx value = VAN_sell_weapon_gain_mora }
+		}
+	}
+
+	option = {
+		name = VAN.8.1
+	}
+}
+
+# 向教令院出售的步兵装备数量不足，扣除摩拉
+country_event = {
+	id = VAN.9
+	title = VAN.9.t
+	desc = VAN.9.d
+	picture = GFX_event_VAN07
+	is_triggered_only = yes
+
+	trigger = {
+		tag = VAN
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_variable = { VAN_sell_weapon_punish_mora_real = VAN_sell_weapon_punish_mora }
+			multiply_variable = { VAN_sell_weapon_punish_mora_real = -1 }
+			add_to_variable = { var = dx value = VAN_sell_weapon_punish_mora_real }
+		}
+	}
+
+	option = {
+		name = VAN.9.1
+	}
+}
