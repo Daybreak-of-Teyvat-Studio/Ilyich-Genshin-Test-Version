@@ -583,7 +583,8 @@ ideas = {
 			removal_cost = -1
 			modifier = {
 				research_speed_factor = 0.1
-				army_core_attack_factor = 0.1
+				army_attack_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.2
 			}
 		}
 		#进步派的盲目支持
@@ -601,8 +602,8 @@ ideas = {
 			modifier = {
 				conscription_factor = -0.05
 				monthly_population = -0.05
-				army_attack_factor = 0.05
-				breakthrough_factor = 0.05
+				army_attack_factor = 0.03
+				breakthrough_factor = 0.03
 				army_morale_factor = -0.05
 			}
 		}
@@ -612,8 +613,8 @@ ideas = {
 			modifier = {
 				conscription_factor = -0.1
 				monthly_population = -0.1
-				army_attack_factor = 0.1
-				breakthrough_factor = 0.1
+				army_attack_factor = 0.6
+				breakthrough_factor = 0.6
 				army_morale_factor = -0.05
 			}
 		}
@@ -623,8 +624,8 @@ ideas = {
 			modifier = {
 				conscription_factor = -0.15
 				monthly_population = -0.15
-				army_attack_factor = 0.15
-				breakthrough_factor = 0.15
+				army_attack_factor = 0.1
+				breakthrough_factor = 0.1
 				army_morale_factor = -0.05
 			}
 		}
@@ -637,15 +638,30 @@ ideas = {
 				war_support_factor = 0.05
 				experience_gain_army_factor = 0.05
 				army_attack_speed_factor = 0.05
+				custom_modifier_tooltip = LAW_tt_Influence_Width_1
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.05
+				cic_to_target_factor = 0.01
 				extra_trade_to_target_factor = 0.1
 				trade_cost_for_target_factor = -0.1
 			}
 			on_remove = {
-				add_stability = -0.05
+				IF = {
+					limit = {
+						SNE = { exists = yes }
+						NOT = { has_country_flag = SNE_Break_Relationship }
+					}
+					add_ideas = LAW_Influence_of_SNE2
+				}
+			}
+			cancel = {
+				OR = {
+					check_variable = { LAW_Whole_Fool_Power > 20 }
+					SNE = { exists = no }
+					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+				}
 			}
 		}
 		LAW_Influence_of_SNE2 = {
@@ -659,12 +675,26 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.1
+				cic_to_target_factor = 0.03
 				extra_trade_to_target_factor = 0.2
 				trade_cost_for_target_factor = -0.2
 			}
 			on_remove = {
-				add_stability = -0.1
+				IF = {
+					limit = {
+						SNE = { exists = yes }
+						NOT = { has_country_flag = SNE_Break_Relationship }
+					}
+					add_ideas = LAW_Influence_of_SNE3
+				}
+			}
+			cancel = {
+				OR = {
+					check_variable = { LAW_Whole_Fool_Power > 50 }
+					SNE = { exists = no }
+					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+				}
 			}
 		}
 		LAW_Influence_of_SNE3 = {
@@ -678,12 +708,26 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.2
+				cic_to_target_factor = 0.05
 				extra_trade_to_target_factor = 0.4
 				trade_cost_for_target_factor = -0.35
 			}
 			on_remove = {
-				add_stability = -0.2
+				IF = {
+					limit = {
+						SNE = { exists = yes }
+						NOT = { has_country_flag = SNE_Break_Relationship }
+					}
+					add_ideas = LAW_Influence_of_SNE4
+				}
+			}
+			cancel = {
+				OR = {
+					check_variable = { LAW_Whole_Fool_Power > 100 }
+					SNE = { exists = no }
+					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+				}
 			}
 		}
 		LAW_Influence_of_SNE4 = {
@@ -697,12 +741,26 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.3
+				cic_to_target_factor = 0.1
 				extra_trade_to_target_factor = 0.7
 				trade_cost_for_target_factor = -0.5
 			}
 			on_remove = {
-				add_stability = -0.3
+				IF = {
+					limit = {
+						SNE = { exists = yes }
+						NOT = { has_country_flag = SNE_Break_Relationship }
+					}
+					add_ideas = LAW_Influence_of_SNE5
+				}
+			}
+			cancel = {
+				OR = {
+					check_variable = { LAW_Whole_Fool_Power > 200 }
+					SNE = { exists = no }
+					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+				}
 			}
 		}
 		LAW_Influence_of_SNE5 = {
@@ -716,12 +774,17 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.4
+				cic_to_target_factor = 0.2
 				extra_trade_to_target_factor = 1
 				trade_cost_for_target_factor = -0.75
 			}
-			on_remove = {
-				add_stability = -0.4
+			cancel = {
+				OR = {
+					check_variable = { LAW_Whole_Fool_Power > 200 }
+					SNE = { exists = no }
+					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+				}
 			}
 		}
 	}

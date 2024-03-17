@@ -23,6 +23,7 @@ ideas = {
 				OR = {
 					has_country_flag = SNE_Break_Relationship
 					has_war_with = SNE
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -46,6 +47,7 @@ ideas = {
 				OR = {
 					has_country_flag = SNE_Break_Relationship
 					has_war_with = SNE
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -67,6 +69,7 @@ ideas = {
 				OR = {
 					has_country_flag = SNE_Break_Relationship
 					has_war_with = SNE
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -93,6 +96,7 @@ ideas = {
 				OR = {
 					has_country_flag = SNE_Break_Relationship
 					has_war_with = SNE
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -115,6 +119,7 @@ ideas = {
 				OR = {
 					has_country_flag = SNE_Break_Relationship
 					has_war_with = SNE
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -136,7 +141,11 @@ ideas = {
 				trade_cost_for_target_factor = -0.1
 			}
 			cancel = {
-				has_war_with = SNE
+				OR = {
+					has_country_flag = SNE_Break_Relationship
+					has_war_with = SNE
+					SNE = { exists = no }
+				}
 			}
 		}
 		#至冬之盟
@@ -178,6 +187,8 @@ ideas = {
 						NOT = { has_war_together_with = SNE }
 					}
 					has_war_with = SNE
+					has_country_flag = SNE_Break_Relationship
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -196,8 +207,8 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.1
-				mic_to_target_factor = 0.1
+				cic_to_target_factor = 0.15
+				mic_to_target_factor = 0.15
 				extra_trade_to_target_factor = 1
 				trade_cost_for_target_factor = -0.3
 			}
@@ -205,6 +216,8 @@ ideas = {
 				OR = {
 					NOT = { is_subject_of = SNE }
 					NOT = { is_puppet_of = SNE }
+					has_country_flag = SNE_Break_Relationship
+					SNE = { exists = no }
 				}
 			}
 		}
@@ -223,17 +236,27 @@ ideas = {
 			}
 			targeted_modifier = {
 				tag = SNE
-				cic_to_target_factor = 0.5
-				mic_to_target_factor = 0.5
+				cic_to_target_factor = 0.25
+				mic_to_target_factor = 0.25
 				extra_trade_to_target_factor = 2
 				trade_cost_for_target_factor = -0.9
 			}
 			cancel = {
 				OR = {
-					NOT = { is_subject_of = SNE }
-					NOT = { is_puppet_of = SNE }
-					tag = SFS
-					tag = SDS
+					AND = {
+						OR = {
+							NOT = { is_subject_of = SNE }
+							NOT = { is_puppet_of = SNE }
+						}
+						NOT = {
+							OR = {
+								tag = SFS
+								tag = SDS
+							}
+						}
+					}
+					has_country_flag = SNE_Break_Relationship
+					SNE = { exists = no }
 				}
 			}
 		}
