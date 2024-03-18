@@ -8637,7 +8637,7 @@ MOT_Collect_Weapons = {
 			date < 1939.1.1
 		}
 		available = {
-			has_army_manpower > 500000
+			has_army_manpower > 250000
 			date < 1939.1.1
 		}
 		complete_effect = {
@@ -8651,11 +8651,12 @@ MOT_Collect_Weapons = {
 		cost = 0
 		days_remove = -1
 		visible = {
-			original_tag = MOT
+			date < 1939.1.1
 		}
 		available = {
-			has_army_manpower > 500000
-			has_global_flag = MOT_REUNITED
+			has_stability > 0.95
+			has_war_support > 0.95
+			has_political_power > 199
 		}
 		complete_effect = {
 			country_event = WeaponW.003
@@ -8664,8 +8665,90 @@ MOT_Collect_Weapons = {
 		ai_will_do = { base = 10 }
 	}
 	#狼的末路 004 莱艮芬德、奔狼领
+	MOT_Collect_Weapons_004 = {
+		cost = 0
+		days_remove = -1
+		allowed = {
+			OR = {
+				original_tag = RAG
+				original_tag = ANR
+			}
+		}
+		available = {
+			IF = {
+				limit = { original_tag = RAG }
+				date < 1938.1.1
+				ANR = { exists = no }
+				SPI = { exists = no }
+				owns_state = 55
+			}
+			ELSE = {
+				date < 1938.7.1
+				RAG = {
+					OR = {
+						exists = no
+						is_subject_of = ANR
+						is_puppet_of = ANR
+					}
+				}
+				SPI = {
+					OR = {
+						exists = no
+						is_subject_of = ANR
+						is_puppet_of = ANR
+					}
+				}
+				owns_state = 50
+			}
+		}
+		complete_effect = {
+			country_event = WeaponW.004
+		}
+		modifier = { army_attack_factor = 0.01 }
+		ai_will_do = { base = 10 }
+	}
 	#四风原典 005 教会反对派
-	#松籁响起之时 006
+	MOT_Collect_Weapons_005 = {
+		cost = 0
+		days_remove = -1
+		allowed = {
+			OR = {
+				original_tag = RAG
+				original_tag = ANR
+			}
+		}
+		available = {
+			IF = {
+				limit = { original_tag = FAV }
+				date < 1938.4.1
+				LAW = {
+					OR = {
+						exists = no
+						is_subject_of = MOT
+						is_puppet_of = MOT
+					}
+				}
+				owns_state = 32
+			}
+			ELSE = {
+				date < 1938.1.1
+				LAW = {
+					OR = {
+						exists = no
+						is_subject_of = MOT
+						is_puppet_of = MOT
+					}
+				}
+				owns_state = 32
+			}
+		}
+		complete_effect = {
+			country_event = WeaponW.005
+		}
+		modifier = { stability_weekly = 0.001 }
+		ai_will_do = { base = 10 }
+	}
+	#松籁响起之时 006 
 	#天空之傲 007
 	#天空之脊 008
 	#天空之卷 009 教会反对派
@@ -8676,6 +8759,21 @@ MOT_Collect_Weapons = {
 	#腐殖之剑 102
 	#祭礼剑 103 西风骑士团 古领
 	#西风剑 104 西风骑士团
+	MOT_Collect_Weapons_104 = {
+		cost = 0
+		days_remove = -1
+		visible = {
+			original_tag = MOT
+		}
+		available = {
+			has_global_flag = MOT_REUNITED
+		}
+		complete_effect = {
+			country_event = WeaponW.104
+		}
+		modifier = { command_power_gain_mult = 0.01 }
+		ai_will_do = { base = 10 }
+	}
 	#西风大剑 105 
 	#钟剑 106 诺艾尔
 	#幽夜的华尔兹 107 菲谢尔
