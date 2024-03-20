@@ -1,0 +1,525 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+# building_target
+##西风骑士团生产特色：空军优势、大量装甲、基础火炮
+MOT_Air_Production = {
+	allowed = { tag = MOT }
+	enable = { always = yes }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 50 }
+}
+MOT_Armor_Focus = {
+	allowed = { tag = MOT }
+	enable = {
+		has_army_manpower = { type = armor size < 200000 }
+	}
+	abort = {
+		has_army_manpower = { type = armor size > 300000 }
+	}
+
+	ai_strategy = { type = equipment_production_factor id = armor value = 50 }
+}
+MOT_Artillery_Production = {
+	allowed = { tag = MOT }
+	enable = { 
+		date < 1940.1.1
+		has_war = no
+		has_army_manpower = { size < 300000 }
+	}
+	abort = { always = no }
+
+	ai_strategy = { type = equipment_production_min_factories id = artillery value = 5 }
+}
+##雪山生产特色：大量空军，大量装甲
+DRA_Air_Production = {
+	allowed = { tag = DRA }
+	enable = { always = yes }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 80 }
+}
+DRA_Armor_Focus = {
+	allowed = { tag = DRA }
+	enable = {
+		has_army_manpower = { type = armor size < 300000 }
+	}
+	abort = {
+		has_army_manpower = { type = armor size > 400000 }
+	}
+
+	ai_strategy = { type = equipment_production_factor id = armor value = 80 }
+}
+DRA_Artillery_Production = {
+	allowed = { tag = DRA }
+	enable = { 
+		date < 1940.1.1
+		has_war = no
+		has_army_manpower = { size < 400000 }
+	}
+	abort = { always = no }
+
+	ai_strategy = { type = equipment_production_min_factories id = artillery value = 5 }
+}
+##教会生产特色：大量空军，海量填线
+FAV_Air_Production = {
+	allowed = { tag = FAV }
+	enable = { always = yes }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 75 }
+}
+FAV_Infantry_Production = {
+	allowed = { tag = FAV }
+	enable = { 
+		date < 1940.1.1
+		has_war = no
+		has_army_manpower = { size < 300000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = build_army id = infantry value = 50 }
+	ai_strategy = { type = force_build_armies value = 50 }
+	ai_strategy = { type = equipment_variant_production_factor id = infantry_equipment value = 10 }
+}
+FAV_artillery = {
+	allowed = { tag = FAV }
+	enable = { 
+		date < 1940.1.1
+		has_war = no
+		has_army_manpower = { size < 300000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories id = artillery value = 3 }
+}
+##莱艮芬德生产特色：大量火炮
+RAG_Infantry_Production = {
+	allowed = { tag = RAG }
+	enable = { 
+		date < 1940.1.1
+		has_war = no
+		has_army_manpower = { size < 300000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = force_build_armies value = 50 }
+	ai_strategy = { type = equipment_variant_production_factor id = infantry_equipment value = 5 }
+	ai_strategy = { type = equipment_variant_production_factor id = artillery_equipment value = 10 }
+	ai_strategy = { type = equipment_production_min_factories id = artillery value = 5 }
+}
+##单位操作
+###骑士团驻防蒙德城
+MOT_garrison_home = {
+	allowed = { tag = MOT }
+	enable = {
+		has_capitulated = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 1 value = 100000 }
+	ai_strategy = { type = strategic_air_importance id = 2 value = 100000 }
+	ai_strategy = { type = strategic_air_importance id = 3 value = 100000 }
+
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.05
+		order_id = 9
+		states = { 
+			1
+			2
+			3
+		}
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+###第一年，准备与劳伦斯作战
+MOT_Prepare_War_with_LAW = {
+	allowed = { tag = MOT }
+	enable = {
+		tag = MOT
+		date < 1937.6.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = LAW
+		value = 75
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = LAW
+		value = 200
+	}
+
+}
+LAW_Prepare_War_with_MOT = {
+	allowed = { tag = LAW }
+	enable = {
+		tag = LAW
+		date < 1937.6.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = MOT
+		value = 75
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = MOT
+		value = 200
+	}
+
+}
+###骑士团初次与劳伦斯作战
+MOT_War_LAW = {
+	allowed = {
+		tag = MOT
+	}
+	enable = {
+		tag = MOT
+		has_war_with = LAW
+		date < 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = LAW
+		execution_type = balanced
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+
+###劳伦斯与骑士团初次作战
+MOT_War_LAW = {
+	allowed = {
+		tag = LAW
+	}
+	enable = {
+		tag = LAW
+		has_war_with = MOT
+		date < 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = MOT
+		ratio = 0.8
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+
+###劳伦斯与清泉镇作战
+RAG_Prepare_War_with_SPI = {
+	allowed = { tag = RAG }
+	enable = {
+		tag = RAG
+		SPI = { exists = yes }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = declare_war
+		tag = SPI
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SPI
+		value = 40
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = SPI
+		value = 200
+	}
+}
+RAG_Prepare_War_with_ANR = {
+	allowed = { tag = RAG }
+	enable = {
+		tag = RAG
+		SPI = { exists = no }
+		ANR = { exists = yes }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = declare_war
+		tag = ANR
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = ANR
+		value = 40
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = ANR
+		value = 200
+	}
+}
+RAG_VS_SPI = {
+	allowed = {
+		tag = RAG
+	}
+	enable = {
+		tag = RAG
+		has_war_with = SPI
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = SPI
+		ratio = 0.8
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+RAG_VS_ANR = {
+	allowed = {
+		tag = RAG
+	}
+	enable = {
+		tag = RAG
+		has_war_with = ANR
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = ANR
+		ratio = 0.8
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+ANR_VS_RAG = {
+	allowed = {
+		tag = ANR
+	}
+	enable = {
+		tag = ANR
+		has_war_with = ANR
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = ANR
+		execution_type = careful
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+#雪山出山 首先干掉劳伦斯，其次选择莱艮芬德，最后选择西风骑士团
+DRA_Prepare_War_with_LAW = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = yes }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = LAW
+		value = 40
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = LAW
+		value = 200
+	}
+}
+DRA_VS_LAW = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = yes }
+		date > 1939.1.1
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = declare_war
+		tag = LAW
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_control
+		tag = LAW
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+DRA_Prepare_War_with_RAG = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = no }
+		RAG = { exists = yes }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = LAW
+		value = 40
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = LAW
+		value = 200
+	}
+}
+DRA_VS_LAW = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = yes }
+		date > 1939.1.1
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = declare_war
+		tag = RAG
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_control
+		tag = RAG
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+DRA_Prepare_War_with_MOT = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = no }
+		RAG = { exists = no }
+		MOT = { exists = yes }
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = MOT
+		value = 40
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = MOT
+		value = 200
+	}
+}
+DRA_VS_LAW = {
+	allowed = { tag = DRA }
+	enable = {
+		tag = DRA
+		LAW = { exists = yes }
+		date > 1939.1.1
+		has_global_flag = MOT_Civil_War_Begun
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = declare_war
+		tag = MOT
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_control
+		tag = MOT
+		execution_type = careful
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+
+###内战结束前，除雪山外不建民工
+MOT_Civil_War_Construction_Ratio = {
+	enable = {
+		Is_MOT = yes
+		NOT = { has_global_flag = MOT_REUNITED }
+		NOT = { original_tag = DRA }
+	}
+	abort_when_not_enabled = yes
+		
+	ai_strategy = { type = building_target id = arms_factory value = 200 }
+}
+###雪山的建设计划变化
+MOT_Civil_War_Construction_Ratio = {
+	enable = {
+		original_tag = DRA
+		date < 1938.1.1
+	}
+	abort_when_not_enabled = yes
+		
+	ai_strategy = { type = building_target id = industrial_complex value = 200 }
+}
+MOT_Civil_War_Construction_Ratio = {
+	enable = {
+		original_tag = DRA
+		date > 1938.1.1
+	}
+	abort_when_not_enabled = yes
+		
+	ai_strategy = { type = building_target id = arms_factory value = 400 }
+}
+###内战结束前不进行结盟
+EAI_GER_no_docking_rights_for_GER_outside_europe = {
+	enable = {
+		Is_MOT = no
+		NOT = { has_global_flag = MOT_REUNITED }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = alliance id = SPI target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = SPI target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = SPI target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = RAG target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = RAG target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = RAG target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = ANR target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = ANR target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = ANR target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = DVA target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = DVA target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = DVA target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = LAW target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = LAW target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = LAW target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = FAV target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = FAV target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = FAV target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = FAVGUN target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = FAVGUN target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = FAVGUN target = docking_rights value = -200 }
+	ai_strategy = { type = alliance id = MOT target = docking_rights value = -1000 }
+	ai_strategy = { type = diplo_action_desire id = MOT target = docking_rights value = -200 }
+	ai_strategy = { type = diplo_action_acceptance id = MOT target = docking_rights value = -200 }
+}
+#统一蒙德
+
+#
