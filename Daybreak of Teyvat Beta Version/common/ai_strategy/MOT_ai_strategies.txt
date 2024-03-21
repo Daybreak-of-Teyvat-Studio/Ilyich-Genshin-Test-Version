@@ -17,8 +17,7 @@ MOT_Air_Production = {
 	allowed = { tag = MOT }
 	enable = { always = yes }
 	abort_when_not_enabled = yes
-
-	ai_strategy = { type = air_factory_balance value = 50 }
+	ai_strategy = { type = air_factory_balance value = 60 }
 }
 MOT_Armor_Focus = {
 	allowed = { tag = MOT }
@@ -29,6 +28,11 @@ MOT_Armor_Focus = {
 		has_army_manpower = { type = armor size > 300000 }
 	}
 
+	ai_strategy = {
+		type = build_army
+		id = armor
+		value = 50
+	}
 	ai_strategy = { type = equipment_production_factor id = armor value = 50 }
 }
 MOT_Artillery_Production = {
@@ -134,8 +138,8 @@ MOT_garrison_home = {
 
 	ai_strategy = {
 		type = put_unit_buffers
-		ratio = 0.05
-		order_id = 9
+		ratio = 0.02
+		order_id = 1
 		states = { 
 			1
 			2
@@ -175,7 +179,7 @@ LAW_Prepare_War_with_MOT = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = MOT
-		value = 75
+		value = 1000
 	}
 	ai_strategy = {
 		type = prepare_for_war
@@ -235,7 +239,7 @@ RAG_Prepare_War_with_SPI = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = declare_war
+		type = conquer
 		tag = SPI
 		value = 1000
 	}
@@ -260,7 +264,7 @@ RAG_Prepare_War_with_ANR = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = declare_war
+		type = conquer
 		tag = ANR
 		value = 1000
 	}
@@ -358,7 +362,7 @@ DRA_VS_LAW = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = declare_war
+		type = conquer
 		tag = LAW
 		value = 1000
 	}
@@ -400,7 +404,7 @@ DRA_VS_LAW = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = declare_war
+		type = conquer
 		tag = RAG
 		value = 1000
 	}
@@ -425,7 +429,7 @@ DRA_Prepare_War_with_MOT = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = MOT
-		value = 40
+		value = 95
 	}
 	ai_strategy = {
 		type = prepare_for_war
@@ -443,7 +447,7 @@ DRA_VS_LAW = {
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
-		type = declare_war
+		type = conquer
 		tag = MOT
 		value = 1000
 	}
@@ -487,7 +491,7 @@ MOT_Civil_War_Construction_Ratio = {
 	ai_strategy = { type = building_target id = arms_factory value = 400 }
 }
 ###内战结束前不进行结盟
-EAI_GER_no_docking_rights_for_GER_outside_europe = {
+MOT_Not_Ally_Before_REUNITED = {
 	enable = {
 		Is_MOT = no
 		NOT = { has_global_flag = MOT_REUNITED }
@@ -520,6 +524,70 @@ EAI_GER_no_docking_rights_for_GER_outside_europe = {
 	ai_strategy = { type = diplo_action_desire id = MOT target = docking_rights value = -200 }
 	ai_strategy = { type = diplo_action_acceptance id = MOT target = docking_rights value = -200 }
 }
-#统一蒙德
+#西风骑士团不能召唤附庸对抗劳伦斯
+MOT_Not_Call_Puppet = {
+	enable = {
+		Is_MOT = yes
+		NOT = { tag = MOT }
+		date < 1938.1.1
+	}
 
-#
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dont_join_wars_with
+		id = MOT
+		value = 1000
+		target_country = LAW
+	}
+	
+}
+#西风骑士团和劳伦斯无视雪山和清泉镇边境
+MOT_Ignore_DRA = {
+	enable = {
+		tag = MOT
+		date < 1938.1.1
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = DRA
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = SPI
+		value = 100
+	}
+}
+LAW_Ignore_DRA = {
+	enable = {
+		tag = LAW
+		date < 1938.1.1
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		id = DRA
+		value = -1000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		id = SPI
+		value = -1000
+	}
+}
+#避免破产
+MOT_Avoid_Break = {
+	enable = {
+		Is_MOT = yes
+		check_variable = { overcome < 5 }
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		id = DRA
+		value = -1000
+	}
+}
