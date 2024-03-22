@@ -223,68 +223,80 @@ on_actions = {
                     NOT = { original_tag = PRI } # 天理不参与
                 }
                 # 先移除再添加，可以简化判断逻辑
-                IF = {
-                    limit = {
-                        has_idea = DOT_Treasury_1
-                    }
-                    remove_ideas = DOT_Treasury_1
-                }
-                ELSE_IF = {
-                    limit = {
-                        has_idea = DOT_Treasury_2
-                    }
-                    remove_ideas = DOT_Treasury_2
-                }
-                ELSE_IF = {
-                    limit = {
-                        has_idea = DOT_Treasury_3
-                    }
-                    remove_ideas = DOT_Treasury_3
-                }
-                ELSE_IF = {
-                    limit = {
-                        has_idea = DOT_Treasury_4
-                    }
-                    remove_ideas = DOT_Treasury_4
-                }
-                ELSE_IF = {
-                    limit = {
-                        has_idea = DOT_Treasury_5
-                    }
-                    remove_ideas = DOT_Treasury_5
-                }
+                remove_ideas = DOT_Treasury_1
+                remove_ideas = DOT_Treasury_2
+                remove_ideas = DOT_Treasury_3
+                remove_ideas = DOT_Treasury_4
+                remove_ideas = DOT_Treasury_5
+                remove_ideas = DOT_Rich_1
+                remove_ideas = DOT_Rich_2
+                remove_ideas = DOT_Rich_3
+                remove_ideas = DOT_Rich_4
                 # 根据dx范围添加idea
+                set_variable = { DOT_Mora_Linshibianliang1 = nmn }
+                set_variable = { DOT_Mora_Linshibianliang2 = dx }
+                divide_variable = { DOT_Mora_Linshibianliang2 = DOT_Mora_Linshibianliang1 }
                 IF = {
                     limit = {
-                        check_variable = { dx = 0 compare = greater_than_or_equals}
+                        check_variable = { DOT_Mora_Linshibianliang2 > 0 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 30 }
                     }
                     add_ideas = DOT_Treasury_1
                 }
+                IF = {
+                    limit = {
+                        check_variable = { DOT_Mora_Linshibianliang2 > 0 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 30 }
+                    }
+                    add_ideas = DOT_Rich_1
+                }
+                IF = {
+                    limit = {
+                        check_variable = { DOT_Mora_Linshibianliang2 > 30 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 90 }
+                    }
+                    add_ideas = DOT_Rich_2
+                }
+                IF = {
+                    limit = {
+                        check_variable = { DOT_Mora_Linshibianliang2 > 90 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 180 }
+                    }
+                    add_ideas = DOT_Rich_3
+                }
+                IF = {
+                    limit = {
+                        check_variable = { DOT_Mora_Linshibianliang2 > 180 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 360 }
+                    }
+                    add_ideas = DOT_Rich_4
+                }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { dx = -1000 compare = greater_than_or_equals}
-                        check_variable = { dx = 0 compare = less_than}
+                        check_variable = { DOT_Mora_Linshibianliang2 > -90 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < 0 }
                     }
                     add_ideas = DOT_Treasury_2
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { dx = -5000 compare = greater_than_or_equals}
-                        check_variable = { dx = -1000 compare = less_than}
+                        check_variable = { DOT_Mora_Linshibianliang2 > -180 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < -90 }
                     }
                     add_ideas = DOT_Treasury_3
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { dx = -10000 compare = greater_than_or_equals}
-                        check_variable = { dx = -5000 compare = less_than}
+                        check_variable = { DOT_Mora_Linshibianliang2 > -360 }
+                        check_variable = { DOT_Mora_Linshibianliang2 < -180 }
                     }
                     add_ideas = DOT_Treasury_4
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { dx = -10000 compare = less_than}
+                        check_variable = { DOT_Mora_Linshibianliang2 < -360 }
                     }
+                    set_country_flag = DOT_Break_Timing
                     add_ideas = DOT_Treasury_5
                 }
             }
