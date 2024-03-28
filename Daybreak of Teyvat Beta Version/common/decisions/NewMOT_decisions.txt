@@ -3568,8 +3568,8 @@ MOND_Anti_Knights = {
 		modifier = {
 			targeted_modifier = {
 				tag = MOT
-				attack_bonus_against = 0.1
-				defense_bonus_against = 0.1
+				attack_bonus_against = 0.2
+				defense_bonus_against = 0.2
 			}
 		}
 		complete_effect = { hidden_effect = { add_command_Power = -50 } }
@@ -8797,4 +8797,123 @@ MOT_Collect_Weapons = {
 	#幽夜的华尔兹 107 菲谢尔
 	#宗室大剑 108 优菈
 	#雪葬的星银 109
+}
+LAW_DC_Organize_Ice = {
+	#加大教育投资
+	LAW_More_Educational_Input = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		visible = {
+			LAW_Has_Completed_Idea1 = yes
+		}
+		modifier = {
+			consumer_goods_factor = 0.2
+			research_speed_factor = 0.1
+		}
+		ai_will_do = { base = 100 }
+	}
+	#专注行政事务
+	LAW_Focus_on_Governance = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		visible = {
+			LAW_Has_Completed_Idea2 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -1
+			political_power_cost = -1
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#专注军队事务
+	LAW_Sweep_Army_Corruption = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		visible = {
+			LAW_Has_Completed_Idea3 = yes
+		}
+		modifier = {
+			command_power_gain_mult = 1
+			political_power_cost = 1
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				has_war = yes
+			}
+		}
+	}
+	#专注民用建设
+	LAW_Focus_on_Consumer = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		visible = {
+			LAW_Has_Completed_Idea4 = yes
+		}
+		modifier = {
+			consumer_goods_factor = 0.05
+			political_power_cost = 0.1
+			production_speed_industrial_complex_factor = 0.15
+			production_speed_infrastructure_factor = 0.15
+		}
+		complete_effect = {
+			set_country_flag = LAW_Focusing_Industry
+		}
+		remove_effect = {
+			clr_country_flag = LAW_Focusing_Industry
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#专注军工生产
+	LAW_Focus_on_Arms = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		visible = {
+			LAW_Has_Completed_Idea4 = yes
+			NOT = { has_country_flag = LAW_Focusing_Industry }
+		}
+		modifier = {
+			consumer_goods_factor = 0.05
+			political_power_cost = 0.1
+			production_speed_arms_factory_factor = 0.15
+			production_speed_dockyard_factor = 0.15
+		}
+		complete_effect = {
+			set_country_flag = LAW_Focusing_Industry
+		}
+		remove_effect = {
+			clr_country_flag = LAW_Focusing_Industry
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#组织青年团游行
 }
