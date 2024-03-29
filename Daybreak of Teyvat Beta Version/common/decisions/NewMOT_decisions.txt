@@ -8987,14 +8987,23 @@ LAW_DC_Organize_Ice = {
 		}
 		modifier = {
 			war_support_weekly = 0.004
-			command_power_gain_mult = -0.5
 			fascism_drift = 0.01
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		complete_effect = {
+			add_command_power = -30
 		}
 		remove_effect = {
 			add_war_support = 0.01
 			IF = {
 				limit = {
-					has_idea = LAW_Youth_League_Tide2
+					OR = {
+						has_idea = LAW_Youth_League_Tide2
+						has_idea = LAW_Youth_League_Tide3
+					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_command_power = 10
@@ -9003,6 +9012,170 @@ LAW_DC_Organize_Ice = {
 				limit = {
 					has_idea = LAW_Youth_League_Tide3
 				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+			}
+		}
+	}
+	#重申浪花宣言
+	LAW_Recall_of_Tide = {
+		cost = 30
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea7 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea7 = yes
+		}
+		modifier = {
+			fascism_drift = 0.01
+			ice_power_gain = 2
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Call_of_Tide2
+						has_idea = LAW_Call_of_Tide3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 10
+			}
+			IF = {
+				limit = {
+					has_idea = LAW_Call_of_Tide3
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 4 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+	#提倡未来主义建筑
+	LAW_Support_Futurism = {
+		days_remove = 120
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea8 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea8 = yes
+		}
+		modifier = {
+			political_power_cost = 0.5
+			production_speed_infrastructure_factor = 0.1
+			consumer_goods_factor = -0.1
+		}
+	}
+	#提拔坚冰党员
+	LAW_Upgrade_Icy_Man = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		modifier = {
+			ice_power_gain = 3
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Political_impart2
+						has_idea = LAW_Political_impart3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 3 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+			IF = {
+				limit = { has_idea = LAW_Political_impart3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 30
+				set_temp_variable = { LAW_Change_of_Icy_Power = 1 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+		}
+	}
+	#展现亲民形象
+	LAW_Show_Popular_Out = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		modifier = { stability_weekly = 0.004 }
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Fundamental_Organization2
+						has_idea = LAW_Fundamental_Organization3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Fundamental_Organization3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_stability = 0.02
+			}
+		}
+	}
+	#发起群众运动
+	LAW_Popular_Action = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		modifier = {
+			stability_weekly = -0.005
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Fundamental_Organization2
+						has_idea = LAW_Fundamental_Organization3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Fundamental_Organization3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_war_support = 0.02
 			}
