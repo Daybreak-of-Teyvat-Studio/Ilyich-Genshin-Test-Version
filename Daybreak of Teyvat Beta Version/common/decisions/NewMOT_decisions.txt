@@ -8805,6 +8805,9 @@ LAW_DC_Organize_Ice = {
 		allowed = {
 			original_tag = LAW
 		}
+		available = {
+			LAW_Has_Completed_Idea1 = yes
+		}
 		visible = {
 			LAW_Has_Completed_Idea1 = yes
 		}
@@ -8819,6 +8822,9 @@ LAW_DC_Organize_Ice = {
 		days_remove = 180
 		allowed = {
 			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea2 = yes
 		}
 		visible = {
 			LAW_Has_Completed_Idea2 = yes
@@ -8841,6 +8847,9 @@ LAW_DC_Organize_Ice = {
 		allowed = {
 			original_tag = LAW
 		}
+		available = {
+			LAW_Has_Completed_Idea3 = yes
+		}
 		visible = {
 			LAW_Has_Completed_Idea3 = yes
 		}
@@ -8861,6 +8870,9 @@ LAW_DC_Organize_Ice = {
 		days_remove = 180
 		allowed = {
 			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea4 = yes
 		}
 		visible = {
 			LAW_Has_Completed_Idea4 = yes
@@ -8891,6 +8903,9 @@ LAW_DC_Organize_Ice = {
 		allowed = {
 			original_tag = LAW
 		}
+		available = {
+			LAW_Has_Completed_Idea4 = yes
+		}
 		visible = {
 			LAW_Has_Completed_Idea4 = yes
 			NOT = { has_country_flag = LAW_Focusing_Industry }
@@ -8915,5 +8930,82 @@ LAW_DC_Organize_Ice = {
 			}
 		}
 	}
+	#维护占领区治安
+	LAW_Oppress_Resistance = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		modifier = {
+			resistance_decay = 1
+			resistance_target = -0.1
+			command_power_gain_mult = -0.5
+		}
+		remove_effect = {
+		}
+	}
+	#处理反对派势力
+	LAW_Oppress_Oppose = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		modifier = {
+			communism_drift = -0.1
+			democratic_drift = -0.1
+			neutrality_drift = -0.1
+			genshin_drift = -0.1
+			command_power_gain_mult = -0.25
+			political_power_cost = -0.2
+		}
+		remove_effect = {
+		}
+	}
 	#组织青年团游行
+	LAW_Organize_Youth_Action = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		modifier = {
+			war_support_weekly = 0.004
+			command_power_gain_mult = -0.5
+			fascism_drift = 0.01
+		}
+		remove_effect = {
+			add_war_support = 0.01
+			IF = {
+				limit = {
+					has_idea = LAW_Youth_League_Tide2
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_command_power = 10
+			}
+			IF = {
+				limit = {
+					has_idea = LAW_Youth_League_Tide3
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+			}
+		}
+	}
 }
