@@ -740,6 +740,500 @@ LAW_DC_Seek_for_Help = {
 		}
 	}
 }
+LAW_DC_Organize_Fool = {
+	LAW_Fool_Ask_for_Economy = {
+		icon = generic_fundraising
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Economy
+				}
+				remove_idea = SNE_Fool_Help_Economy
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Economy
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Tech = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Tech
+				}
+				remove_idea = SNE_Fool_Help_Tech
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Tech
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Military = {
+		icon = generic_ignite_civil_war
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Military
+				}
+				remove_idea = SNE_Fool_Help_Military
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Military
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Gov = {
+		icon = generic_political_support
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Gov
+				}
+				remove_idea = SNE_Fool_Help_Gov
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Gov
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Police = {
+		icon = generic_police_action
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Police
+				}
+				remove_idea = SNE_Fool_Help_Police
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Police
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Economy = {
+		icon = generic_fundraising
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Economy
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Economy
+		}
+		cost = 30
+		days_re_enable = 60
+		modifier = {
+			consumer_goods_expected_value = -0.05
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 75 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 60 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 45 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 30 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Tech = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Tech
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Tech
+		}
+		cost = 60
+		days_re_enable = 120
+		modifier = {
+			research_speed_factor = 0.1
+			fool_power_gain = 1
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Military = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Military
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Military
+		}
+		cost = 60
+		days_re_enable = 60
+		modifier = {
+			experience_gain_army_unit_factor = 0.25
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 15
+				naval_experience = 10
+				air_experience = 10
+				add_command_power = 15
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 15
+				naval_experience = 10
+				air_experience = 5
+				add_command_power = 10
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 10
+				naval_experience = 5
+				air_experience = 5
+				add_command_power = 10
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 10
+				naval_experience = 5
+				air_experience = 5
+			}
+		}
+	}
+}
 ##骑士团决议组
 #黑玫瑰之帜 简单粗暴的强力决议组
 MOT_FWay_Meeting = {
