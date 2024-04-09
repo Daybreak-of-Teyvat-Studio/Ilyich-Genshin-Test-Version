@@ -858,6 +858,7 @@ LAW_DC_Organize_Fool = {
 			has_idea = SNE_Fool_Help_Economy
 		}
 		cost = 30
+		days_remove = 60
 		days_re_enable = 60
 		modifier = {
 			consumer_goods_expected_value = -0.05
@@ -1019,7 +1020,7 @@ LAW_DC_Organize_Fool = {
 			has_idea = SNE_Fool_Help_Tech
 		}
 		cost = 60
-		days_re_enable = 120
+		days_remove = 120
 		modifier = {
 			research_speed_factor = 0.1
 			fool_power_gain = 1
@@ -1183,6 +1184,7 @@ LAW_DC_Organize_Fool = {
 			has_idea = SNE_Fool_Help_Military
 		}
 		cost = 60
+		days_remove = 60
 		days_re_enable = 60
 		modifier = {
 			experience_gain_army_unit_factor = 0.25
@@ -1230,6 +1232,143 @@ LAW_DC_Organize_Fool = {
 				army_experience = 10
 				naval_experience = 5
 				air_experience = 5
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Gov = {
+		icon = generic_political_support
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Gov
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Gov
+		}
+		cost = 30
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			political_power_gain = 0.4
+			ice_power_gain = 3
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 30
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 20
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 15
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 10
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Police = {
+		icon = generic_police_action
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Police
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Police
+		}
+		cost = 30
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 3 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 3 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 1 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
 			}
 		}
 	}
