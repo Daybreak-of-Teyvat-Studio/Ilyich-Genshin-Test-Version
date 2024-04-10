@@ -3,6 +3,98 @@
 ###########################
 
 add_namespace = LYY
+add_namespace = LYY_Event
+add_namespace = Civil_War_of_Liyue
+
+# 触发内战
+country_event = {
+	id = Civil_War_of_Liyue.1
+	title = Civil_War_of_Liyue.1.t
+	desc = Civil_War_of_Liyue.1.d
+	picture = GFX_Civil_War_of_Liyue
+	# allowed = { original_tag = LYY }
+	fire_only_once = no
+	is_triggered_only = yes
+	mean_time_to_happen = { days = 1 }
+
+	option = { # 申鹤派
+	name = Civil_War_of_Liyue.1.a	   
+		set_capital = { state = 88 }
+		set_politics = { ruling_party = fascism }
+		country_event = { id = super.10 days = 1 }
+		add_ideas = { Great_Unity }	
+		hidden_effect = { LYY_setup_civil_war2 = yes }
+		hidden_effect = { LYY_setup_civil_war3 = yes }
+		create_faction = For_LYY
+		add_to_faction = LYY
+		trigger = {	TAG = LYY }
+		load_oob = "SHP_1936"
+		LYY = { end_puppet = BRF }
+		BRF = { leave_faction = yes }
+		clr_country_flag = LYY_Wash_decision_categories_II
+		clr_country_flag = Liyue_Nine_Nine_Six		
+	}
+
+	option = { # 刻晴派
+	name = Civil_War_of_Liyue.1.b
+		set_capital = { state = 64 }
+		set_politics = { ruling_party = communism }
+		country_event = { id = super.10 days = 1 }
+		add_ideas = { Great_Unity }
+		hidden_effect = { LYY_setup_civil_war1 = yes }
+		hidden_effect = { LYY_setup_civil_war2 = yes }
+		create_faction = For_LYY
+		add_to_faction = LYY
+		trigger = {	TAG = LYY }	
+		load_oob = "KQP_1936"
+		LYY = { end_puppet = BRF }
+		BRF = { leave_faction = yes }
+		clr_country_flag = LYY_Wash_decision_categories_II
+		clr_country_flag = Liyue_Nine_Nine_Six			
+
+	}
+	option = { # 甘雨派
+	name = Civil_War_of_Liyue.1.c
+		set_capital = { state = 125 }
+		set_politics = { ruling_party = democratic }
+		country_event = { id = super.10 days = 1 }
+		add_ideas = { Great_Unity }
+		hidden_effect = { LYY_setup_civil_war1 = yes }
+		hidden_effect = { LYY_setup_civil_war3 = yes }	
+		create_faction = For_LYY
+		add_to_faction = LYY
+		trigger = {	TAG = LYY }	
+		load_oob = "GYP_1936"
+		LYY = { end_puppet = BRF }
+		BRF = { leave_faction = yes }
+		clr_country_flag = LYY_Wash_decision_categories_II
+		clr_country_flag = Liyue_Nine_Nine_Six			
+
+	}
+}
+
+
+
+# 强制内战
+country_event = {	
+	id = Civil_War_of_Liyue.9
+	title = Civil_War_of_Liyue.8.t
+	desc = Civil_War_of_Liyue.8.d
+	picture = GFX_Civil_War_of_Liyue
+	is_triggered_only = no
+	# allowed = {  original_tag = LYY }
+	trigger = {
+	tag = LYY
+		date > 1938.8.16 
+		LYY = { has_completed_focus = Send_Rock_Emperor_to_the_Guillotine }
+	                }	
+	fire_only_once = yes
+	option = {
+		name = Civil_War_of_Liyue.8.a
+		trigger = { original_tag = LYY }
+		LYY = { complete_national_focus = The_First_Civil_War_of_Liyue	}
+	}
+}
 
 #石门战争	
 country_event = {
