@@ -68,6 +68,43 @@ on_actions = {
 			ELSE_IF = { add_to_variable = { DVA_Number_of_Months = 1 } }
 		}
 	}
+	on_monthly_RAG = {
+		IF = {
+			limit = {
+				is_ai = yes
+				NOT = { has_country_flag = RAG_Hide_1 }
+				SPI = {
+					is_puppet = no
+					is_subject = no
+				}
+			}
+			create_wargoal = {
+				target = SPI
+				type = annex_everything
+			}
+			set_country_flag = RAG_Hide_1
+		}
+		IF = {
+			limit = {
+				is_ai = yes
+				date > 1937.9.1
+				has_country_flag = RAG_Hide_1
+				NOT = { has_country_flag = RAG_Hide_2 }
+				SPI = {
+					OR = {
+						exists = no
+						is_subject = yes
+						is_puppet = yes
+					}
+				}
+			}
+			create_wargoal = {
+				target = ANR
+				type = annex_everything
+			}
+			set_country_flag = RAG_Hide_2
+		}
+	}
 	on_monthly_MOT = {
 		effect = {
 			IF = {
