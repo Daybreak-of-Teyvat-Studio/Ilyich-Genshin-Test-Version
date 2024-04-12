@@ -1375,11 +1375,83 @@ LAW_DC_Organize_Fool = {
 }
 LAW_DC_Organize_Noble = {
 	#一个任务，每次倒计时结束都会触发一个贵族负面事件 LAW_ON_Noble_Savege
+	LAW_ON_Noble_Savege = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 60
+		activation = { has_global_flag = MOT_Attack_of_Dragon }
+		modifier = {
+		}
+		available = { always = no }
+		timeout_effect = {
+			custom_effect_tooltip = LAW_tt_Random_Event_Noble
+			activate_mission = LAW_ON_Noble_Savege
+			hidden_effect = {
+				LAW_Noble_Event_Emerge = yes
+			}
+		}
+	}
 	#消耗大量政治点降低 LAW_Whole_Noble_Angry LAW_ON_Cool_Noble_Down
-	#消耗大量指挥点降低 LAW_Whole_Noble_Angry LAW_ON_Recruit_Noble
+	LAW_ON_Cool_Noble_Down = {
+		cost = 60
+		days_remove = 30
+		days_re_enable = 30
+		
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
+	#消耗大量稳定性降低 LAW_Whole_Noble_Angry LAW_ON_Recruit_Noble
+	LAW_ON_Recruit_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			war_support_factor = -0.3
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
 	#临时debuff，降低 LAW_Whole_Noble_Angry LAW_ON_Relax_Noble
+	LAW_ON_Relax_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			stability_factor = -0.3
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
 	#临时占用民工延缓负面事件 LAW_ON_Noble_Money
+	LAW_ON_Noble_Money = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			civilian_factory_use = 5
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 20 }
+		}
+	}
 	#消耗摩拉延缓负面事件 LAW_ON_Noble_Mora
+	LAW_ON_Noble_Money = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			mora_cost_daily = 3
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 20 }
+		}
+	}
 	#LAW_Congress_of_Corporation 经济民主解锁：降低 LAW_Noble_STST LAW_ON_Compete_Noble
 	#LAW_Youth_League_Tide 青年组织解锁：降低 LAW_Noble_STST LAW_ON_People_Unpopular_Noble
 	#LAW_Political_impart 政治开明解锁：延缓负面事件到来 LAW_ON_Lower_Noble_Power
@@ -4318,9 +4390,6 @@ MOT_Active_Traveller = {
 		days_mission_timeout = 400
 		activation = { has_global_flag = MOT_Attack_of_Dragon }
 		modifier = {
-			command_power_gain_mult = -1
-			stability_weekly = -0.01
-			consumer_goods_expected_value = 0.05
 		}
 		available = { always = no }
 		timeout_effect = {
