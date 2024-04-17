@@ -130,8 +130,15 @@ on_actions = {
 		}
 	}
 	on_monthly_LAW = {
-		add_to_variable = { LAW_Whole_Icy_Power = modifier@ice_power_gain }
-		add_to_variable = { LAW_Whole_Fool_Power = modifier@fool_power_gain }
+		IF = {
+			limit = {
+				has_country_flag = LAW_Begin_Mid
+			}
+			LAW_Monthly_Var_Change = yes
+		}
+		ELSE = {
+			limit = { has_country_flag = LAW_Begin_Fin }
+		}
 	}
 	#ROOT is new controller
 	#FROM is old controller
