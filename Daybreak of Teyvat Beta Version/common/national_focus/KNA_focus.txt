@@ -20,16 +20,26 @@ focus_tree = {
 		x = 8
 		y = 0
 		completion_reward = {
-			custom_effect_tooltip = kna_flag_12
+			custom_effect_tooltip = kna_tooltip_2
+			news_event = {
+				id = kna_story_1.2
+				days = 2
+			}
 		}
 	}
 	#内忧外患
 	focus = {
 		id = KNA_domestic_trouble_and_foreign_invasion
 		icon = GFX_KNA_domestic_trouble_and_foreign_invasion
-		cost = 3.00
+		cost = 4.00
 		x = 8
 		y = 1
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = kna_tooltip_3
+				has_country_flag = kna_focus_14
+			}
+		}
 		prerequisite = {
 			focus = KNA_promised_land
 		}
@@ -84,6 +94,11 @@ focus_tree = {
 		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
 		x = 3
 		y = 2
+		allow_branch = {
+			not = {
+				has_country_flag = kna_focus_15
+			}
+		}
 		available = {
 			always = no 
 		}
@@ -105,6 +120,22 @@ focus_tree = {
 		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
 		x = -3
 		y = 2
+		allow_branch = {
+			not = {
+				has_country_flag = kna_focus_15
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = kna_tooltip_4
+				or = {
+					has_country_flag = kna_decision_2
+					has_country_flag = kna_focus_6
+				}
+				
+			}
+			
+		}
 		mutually_exclusive = {
 			focus = Roll_your_butt
 			focus = KNA_Presbyterian_Church
@@ -124,6 +155,8 @@ focus_tree = {
 				ideology = marxism
 				trait = KNA_no_foreign
 			}
+			clr_country_flag = kna_focus_6
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	#外聘艾拉·马斯克
@@ -1101,12 +1134,21 @@ focus_tree = {
 		id = A_piece_of_steel_plate
 		cost = 1.00
 		x = 8
-		y = 19
+		y = 20
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				has_country_flag = kna_focus_15
+			}
+		}
 		prerequisite = {
-			focus = lets_have_a_long_lost_victory
 			focus = I_am_God_of_Cryo
 			focus = better_than_all_of
 			focus = KNA_be_perpendicular_and_horizontal
+		}
+		prerequisite = {
+			focus = lets_have_a_long_lost_victory
 		}
 		completion_reward = {
 			set_country_flag = KNA_focus_flag4
@@ -1271,6 +1313,13 @@ focus_tree = {
 		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
 		x = 13
 		y = 2
+		offset = {
+			x = -6
+			y = 0
+			trigger = {
+				has_country_flag = kna_focus_15
+			}
+		}
 		allow_branch = {
 			has_country_flag = kna_focus_6
 		}
@@ -1282,7 +1331,8 @@ focus_tree = {
 			focus = KNA_domestic_trouble_and_foreign_invasion
 		}
 		completion_reward = {
-
+			set_country_flag = kna_focus_15
+			mark_focus_tree_layout_dirty = yes 
 		}
 	}
 	#暗流汹涌
