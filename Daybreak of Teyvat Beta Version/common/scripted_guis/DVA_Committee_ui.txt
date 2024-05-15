@@ -319,33 +319,45 @@ scripted_gui = {
         
         triggers = {
             Army_strategy_Button_click_enabled = {
-                NOT = {
-                    check_variable = { DVA_strategy_surface = 1 }
-                }
+                #
             }
             Army_strategy_Button_visible = {
+                check_variable = { DVA_strategy_surface = 0 }
+                has_war = yes
                 NOT = {
-                    check_variable = { DVA_strategy_surface = 1 }
+                    OR = {
+                        has_idea = DVA_Strategy_Lighting_War
+                        has_idea = DVA_Strategy_Fast_War
+                        has_idea = DVA_Strategy_Wide_War
+                        has_idea = DVA_Strategy_Moving_War
+                        has_idea = DVA_Strategy_Defensive_War
+                        has_idea = DVA_Strategy_Long_War
+                    }
                 }
             }
             Army_strategy_Button_active_visible = {
-                NOT = {
-                    check_variable = { DVA_strategy_surface = 0 }
+                OR = {
+                    check_variable = { DVA_strategy_surface = 1 }
+                    has_idea = DVA_Strategy_Lighting_War
+                    has_idea = DVA_Strategy_Fast_War
+                    has_idea = DVA_Strategy_Wide_War
+                    has_idea = DVA_Strategy_Moving_War
+                    has_idea = DVA_Strategy_Defensive_War
+                    has_idea = DVA_Strategy_Long_War
                 }
             }
             Army_tactic_Button_click_enabled = {
-                NOT = {
-                    check_variable = { DVA_tactic_surface = 1 }
-                }
+                #
             }
             Army_tactic_Button_visible = {
-                NOT = {
-                    check_variable = { DVA_tactic_surface = 1 }
-                }
+                check_variable = { DVA_tactic_surface = 0 }
+                has_war = yes
+                NOT = { has_country_flag = DVA_tactic_ready_flag }
             }
             Army_tactic_Button_active_visible = {
-                NOT = {
-                    check_variable = { DVA_tactic_surface = 0 }
+                OR = {
+                    check_variable = { DVA_tactic_surface = 1 }
+                    has_country_flag = DVA_tactic_ready_flag
                 }
             }
         }
@@ -453,6 +465,116 @@ scripted_gui = {
             Army_strategy_Button6_click = {
                 add_ideas = DVA_Strategy_Long_War
                 set_variable = { DVA_strategy_surface = 0 }
+            }
+        }
+        
+        triggers = {
+            #
+        }
+
+		properties = {
+			#
+		}
+
+		ai_enabled = {
+            always = no
+        }
+	}
+    DVA_Committee_ui2_army_tactic = {
+		window_name = "Commune_committee_window2_army_tactic"
+		context_type = player_context
+        parent_window_name = "Commune_committee_window2"
+
+		visible = {
+			check_variable = { DVA_tactic_surface = 1 }
+		}
+
+		effects = {
+            Army_tactic_Button1_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Digger_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button2_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Defending_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button3_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Sprint_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button4_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Ruturn_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button5_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Attack_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button6_click = {
+                any_unit_leader = {
+                    add_trait = {
+                        character = THIS 
+                        trait = DVA_Tactic_Tempt_Trait
+                    } 
+                }
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
+            }
+            Army_tactic_Button7_click = {
+                add_ideas = DVA_Tactic_Resist
+                set_variable = { DVA_tactic_surface = 0 }
+                set_country_flag = {
+                    flag = DVA_tactic_ready_flag
+                    days = 90
+                }
             }
         }
         
