@@ -2,11 +2,11 @@
 LAW_Stablize_States = {
 	LAW_Call_for_Stability = {
 		icon = generic_propaganda
-		fire_only_once = yes
+		fire_only_once = no
 		selectable_mission = no
 		days_mission_timeout = 20
 		activation = { always = no }
-		available = { check_variable = { LAW_Num_of_Unstable_States = 0 } }
+		available = { NOT = { any_owned_state = has_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } } }
 		timeout_effect = {
 			custom_effect_tooltip = LAW_tt_Unstable_Effect
 			set_temp_variable = { LAW_TV_1 = LAW_Num_of_Unstable_States }
@@ -17,6 +17,39 @@ LAW_Stablize_States = {
 			add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 			custom_effect_tooltip = LAW_tt_More_Icy_Power
 			activate_mission = LAW_Call_for_Stability
+		}
+	}
+	LAW_Stable_Action = {
+		icon = generic_police_action
+		fire_only_once = no
+		days_remove = 20
+		state_target = any_controlled_state
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = { has_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
+			ROOT = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } }
+		}
+		custom_cost_text = decision_cost_CP_20
+		custom_cost_trigger = { has_command_power > 19 }
+		complete_effect = {
+			hidden_effect = { add_command_power = -20 }
+			
+			IF = {
+				limit = { LAW = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } } }
+				custom_effect_tooltip = LAW_tt_Occupy_Stablizing
+			}
+			ELSE = {
+				add_to_variable = { LAW_Var_Stablizing = 1 }
+			}
+		}
+		remove_effect = {
+			FROM = { remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
+			LAW  = {
+				add_stability = 0.01
+				custom_effect_tooltip = LAW_tt_Stabl_States
+				add_to_variable = { LAW_Num_of_Unstable_States = -1 }
+				add_to_variable = { LAW_Var_Stablizing = -1 }
+			}
 		}
 	}
 }
