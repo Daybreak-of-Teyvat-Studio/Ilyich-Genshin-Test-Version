@@ -74,6 +74,9 @@ DVA_debug_category = {
 			set_variable = { DVA_military_surface = 0 }
 			set_variable = { DVA_strategy_surface = 0 }
 			set_variable = { DVA_tactic_surface = 0 }
+			set_variable = { DVA_navy_construction_var1 = 0 }
+			set_variable = { DVA_navy_construction_var2 = 0 }
+			set_variable = { DVA_navy_construction_var3 = 0 }
 		}
 	}
 	DVA_test_decision2 = {
@@ -285,7 +288,10 @@ DVA_debug_category = {
 		cost = 0
 
 		complete_effect = {
-			set_variable = { DVA_military_surface = 1 }
+			declare_war_on = {
+				target = SDS
+				type = annex_everything
+			}
 		}
 	}
 	DVA_test_decision10 = {
@@ -308,7 +314,12 @@ DVA_debug_category = {
 		cost = 0
 
 		complete_effect = {
-			set_variable = { DVA_military_surface = 2 }
+			add_ideas = DVA_Strategy_Lighting_War
+			add_ideas = DVA_Strategy_Fast_War
+			add_ideas = DVA_Strategy_Wide_War
+			add_ideas = DVA_Strategy_Moving_War
+			add_ideas = DVA_Strategy_Defensive_War
+			add_ideas = DVA_Strategy_Long_War
 		}
 	}
 	DVA_test_decision11 = {
@@ -331,7 +342,53 @@ DVA_debug_category = {
 		cost = 0
 
 		complete_effect = {
-			set_variable = { DVA_military_surface = 3 }
+			add_ideas = DVA_Tactic_Resist
+		}
+	}
+	DVA_test_decision12 = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			#
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		complete_effect = {
+			create_equipment_variant = {
+				name = "未来级战列舰"		
+				type = ship_hull_heavy_4
+				name_group = DVA_BB_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_4
+					fixed_ship_anti_air_slot = ship_anti_air_4
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+					fixed_ship_radar_slot = ship_radar_4
+					fixed_ship_engine_slot = heavy_ship_engine_4
+					fixed_ship_secondaries_slot = dp_ship_secondaries_4
+					fixed_ship_armor_slot = ship_armor_bb_3
+					front_1_custom_slot = ship_heavy_battery_4
+					mid_1_custom_slot = ship_heavy_battery_4
+					mid_2_custom_slot = ship_heavy_battery_4
+					mid_3_custom_slot = ship_heavy_battery_4
+					rear_1_custom_slot = ship_heavy_battery_4
+				}
+			}
 		}
 	}
 }
@@ -340,7 +397,7 @@ DVA_mass_of_dvalin_category = {
 	
 	#第一阶段-清剿魔物-1
 
-	#中部地区-风龙废墟57
+	#中部地区-风龙废墟60 76
 
 	#清剿中部遗迹守卫
 	DVA_hunt_down_central_humanoid_ruin_machines = {
@@ -351,8 +408,12 @@ DVA_mass_of_dvalin_category = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_central_humanoid_ruin_machines
 			divisions_in_state = {
-				state = 57
-				size > 8
+				state = 60
+				size > 5
+			}
+			divisions_in_state = {
+				state = 76
+				size > 4
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -364,14 +425,18 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 57
-				size < 9
+				state = 60
+				size < 6
+			}
+			divisions_in_state = {
+				state = 76
+				size < 5
 			}
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 57
+				state = 60
 			} 
 		}
 
@@ -386,13 +451,17 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 57	
-					size > 8
+					state = 60
+					size > 5
+				}
+				divisions_in_state = {
+					state = 76
+					size > 4
 				}
 			}
 		}
 
-		#is_good = yes
+		##
 
 		complete_effect = {		
 			hidden_effect = {
@@ -443,8 +512,12 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 57
-				size < 9
+				state = 60
+				size < 6
+			}
+			divisions_in_state = {
+				state = 76
+				size < 5
 			}
 		}
 
@@ -454,7 +527,8 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 57
+				state = 60
+				state = 76
 			} 
 		}
 
@@ -532,13 +606,13 @@ DVA_mass_of_dvalin_category = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 57 }
+				prioritize = { 60 76 }
 				create_unit = {
-					division = "name = \"1. 风龙领民兵风龙废墟支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"1. 风龙废墟民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 				create_unit = {
-					division = "name = \"2. 风龙领民兵风龙废墟支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"2. 风龙废墟民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 			}
@@ -789,7 +863,7 @@ DVA_mass_of_dvalin_category = {
 		}
 	}
 
-	#北部地区-西风山62
+	#北部地区-61 83 84
 
 	#悬赏北部丘丘人
 	DVA_post_a_reward_of_hilichurls_in_the_northern_countryside = {
@@ -800,8 +874,16 @@ DVA_mass_of_dvalin_category = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
 			has_country_flag = DVA_northern_hilichurls
 			divisions_in_state = {
-				state = 62
-				size > 4
+				state = 61
+				size > 3
+			}
+			divisions_in_state = {
+				state = 83
+				size > 3
+			}
+			divisions_in_state = {
+				state = 84
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -810,7 +892,9 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 62
+				state = 61
+				state = 83
+				state = 84
 			}
 		}
 
@@ -822,8 +906,16 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 62	
-					size > 4
+					state = 61
+					size > 3
+				}
+				divisions_in_state = {
+					state = 83
+					size > 3
+				}
+				divisions_in_state = {
+					state = 84
+					size > 3
 				}
 			}
 		}
@@ -853,8 +945,16 @@ DVA_mass_of_dvalin_category = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_northern_hilichurls
 			divisions_in_state = {
-				state = 62
-				size > 4
+				state = 61
+				size > 3
+			}
+			divisions_in_state = {
+				state = 83
+				size > 3
+			}
+			divisions_in_state = {
+				state = 84
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -866,15 +966,25 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 62
-				size < 5
+				state = 61
+				size < 4
+			}
+			divisions_in_state = {
+				state = 83
+				size < 4
+			}
+			divisions_in_state = {
+				state = 84
+				size < 4
 			}
 			
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 62
+				state = 61
+				state = 83
+				state = 84
 			} 
 		}
 		visible = {
@@ -892,8 +1002,16 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 62	
-					size > 4
+					state = 61
+					size > 3
+				}
+				divisions_in_state = {
+					state = 83
+					size > 3
+				}
+				divisions_in_state = {
+					state = 84
+					size > 3
 				}
 			}
 		}
@@ -938,8 +1056,16 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 62
-				size < 5
+				state = 61
+				size < 4
+			}
+			divisions_in_state = {
+				state = 83
+				size < 4
+			}
+			divisions_in_state = {
+				state = 84
+				size < 4
 			}
 		}
 
@@ -949,7 +1075,9 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 62
+				state = 61
+				state = 83
+				state = 84
 			} 
 		}
 
@@ -1022,16 +1150,24 @@ DVA_mass_of_dvalin_category = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 62 }
+				prioritize = { 61 83 84 }
 				create_unit = {
-					division = "name = \"1. 风龙领民兵西风山支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"1. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"2. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"3. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 			}
 		}
 	}
 
-	#东北部地区-蒙森湾59
+	#东北部地区-蒙森湾63 77 85
 	#悬赏东北部丘丘人
 	DVA_post_a_reward_of_hilichurls_in_the_northeastern_countryside = {
 
@@ -1041,8 +1177,16 @@ DVA_mass_of_dvalin_category = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
 			has_country_flag = DVA_northeastern_hilichurls
 			divisions_in_state = {
-				state = 59
-				size > 4
+				state = 63
+				size > 3
+			}
+			divisions_in_state = {
+				state = 77
+				size > 3
+			}
+			divisions_in_state = {
+				state = 85
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1051,7 +1195,9 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 59
+				state = 63
+				state = 77
+				state = 85
 			}
 		}
 
@@ -1063,8 +1209,16 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 59	
-					size > 4
+					state = 63
+					size > 3
+				}
+				divisions_in_state = {
+					state = 77
+					size > 3
+				}
+				divisions_in_state = {
+					state = 85
+					size > 3
 				}
 			}
 		}
@@ -1094,8 +1248,16 @@ DVA_mass_of_dvalin_category = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_northeastern_hilichurls
 			divisions_in_state = {
-				state = 59
-				size > 4
+				state = 63
+				size > 3
+			}
+			divisions_in_state = {
+				state = 77
+				size > 3
+			}
+			divisions_in_state = {
+				state = 85
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1107,15 +1269,24 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 59
-				size < 5
+				state = 63
+				size < 4
 			}
-			
+			divisions_in_state = {
+				state = 77
+				size < 4
+			}
+			divisions_in_state = {
+				state = 85
+				size < 4
+			}		
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 59
+				state = 63
+				state = 77
+				state = 85
 			} 
 		}
 
@@ -1177,8 +1348,16 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 59
-				size < 5
+				state = 63
+				size < 4
+			}
+			divisions_in_state = {
+				state = 77
+				size < 4
+			}
+			divisions_in_state = {
+				state = 85
+				size < 4
 			}
 		}
 
@@ -1188,7 +1367,9 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 59
+				state = 63
+				state = 77
+				state = 85
 			} 
 		}
 
@@ -1261,16 +1442,24 @@ DVA_mass_of_dvalin_category = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 59 }
+				prioritize = { 63 77 85 }
 				create_unit = {
-					division = "name = \"1. 风龙领民兵蒙森湾支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"1. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"2. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"3. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 			}
 		}
 	}
 
-	#东部地区-明冠山地61
+	#东部地区-明冠山地64
 	#悬赏东部丘丘人
 	DVA_post_a_reward_of_hilichurls_in_the_eastern_countryside = {
 
@@ -1280,8 +1469,8 @@ DVA_mass_of_dvalin_category = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
 			has_country_flag = DVA_eastern_hilichurls
 			divisions_in_state = {
-				state = 61
-				size > 4
+				state = 64
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1290,7 +1479,7 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 61
+				state = 64
 			}
 		}
 
@@ -1302,8 +1491,8 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 61	
-					size > 4
+					state = 64	
+					size > 3
 				}
 			}
 		}
@@ -1333,8 +1522,8 @@ DVA_mass_of_dvalin_category = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_eastern_hilichurls
 			divisions_in_state = {
-				state = 61
-				size > 4
+				state = 64
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1346,15 +1535,15 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 61
-				size < 5
+				state = 64
+				size < 4
 			}
 			
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 61
+				state = 64
 			} 
 		}
 
@@ -1373,8 +1562,8 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 61	
-					size > 4
+					state = 64	
+					size > 3
 				}
 			}
 		}
@@ -1416,8 +1605,8 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 61
-				size < 5
+				state = 64
+				size < 4
 			}
 		}
 
@@ -1427,7 +1616,7 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 61
+				state = 64
 			} 
 		}
 
@@ -1500,9 +1689,9 @@ DVA_mass_of_dvalin_category = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 61 }
+				prioritize = { 64 }
 				create_unit = {
-					division = "name = \"1. 风龙领民兵明冠山地支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"1. 明冠山地民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 			}
@@ -1510,7 +1699,7 @@ DVA_mass_of_dvalin_category = {
 	}
 
 
-	#南部地区-特瓦林谷60
+	#南部地区-特瓦林谷74 75 78
 	#悬赏南部丘丘人
 	DVA_post_a_reward_of_hilichurls_in_the_southern_countryside = {
 
@@ -1520,8 +1709,16 @@ DVA_mass_of_dvalin_category = {
 			has_completed_focus = DVA_one_flew_over_stormterrors_lair
 			has_country_flag = DVA_southern_hilichurls
 			divisions_in_state = {
-				state = 60
-				size > 4
+				state = 74
+				size > 3
+			}
+			divisions_in_state = {
+				state = 75
+				size > 3
+			}
+			divisions_in_state = {
+				state = 78
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1542,8 +1739,16 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 60	
-					size > 4
+					state = 74
+					size > 3
+				}
+				divisions_in_state = {
+					state = 75
+					size > 3
+				}
+				divisions_in_state = {
+					state = 78
+					size > 3
 				}
 			}
 		}
@@ -1573,8 +1778,16 @@ DVA_mass_of_dvalin_category = {
 			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
 			has_country_flag = DVA_southern_hilichurls
 			divisions_in_state = {
-				state = 60
-				size > 4
+				state = 74
+				size > 3
+			}
+			divisions_in_state = {
+				state = 75
+				size > 3
+			}
+			divisions_in_state = {
+				state = 78
+				size > 3
 			}
 			NOT = {
 				has_country_flag = DVA_maintaining
@@ -1586,15 +1799,24 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 60
-				size < 5
+				state = 74
+				size < 4
 			}
-			
+			divisions_in_state = {
+				state = 75
+				size < 4
+			}
+			divisions_in_state = {
+				state = 78
+				size < 4
+			}		
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 60
+				state = 74
+				state = 75
+				state = 78
 			} 
 		}
 
@@ -1613,8 +1835,16 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 60	
-					size > 4
+					state = 74
+					size > 3
+				}
+				divisions_in_state = {
+					state = 75
+					size > 3
+				}
+				divisions_in_state = {
+					state = 78
+					size > 3
 				}
 			}
 		}
@@ -1656,8 +1886,16 @@ DVA_mass_of_dvalin_category = {
 
 		cancel_trigger = {
 			divisions_in_state = {
-				state = 60
-				size < 5
+				state = 74
+				size < 4
+			}
+			divisions_in_state = {
+				state = 75
+				size < 4
+			}
+			divisions_in_state = {
+				state = 78
+				size < 4
 			}
 		}
 
@@ -1667,7 +1905,9 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 60
+				state = 74
+				state = 75
+				state = 78
 			} 
 		}
 
@@ -1740,9 +1980,17 @@ DVA_mass_of_dvalin_category = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 60 }
+				prioritize = { 74 75 78 }
 				create_unit = {
-					division = "name = \"1. 风龙领民兵特瓦林谷支队\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					division = "name = \"1. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"2. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
+					owner = DVA
+				}
+				create_unit = {
+					division = "name = \"3. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
 					owner = DVA
 				}
 			}
@@ -1842,8 +2090,8 @@ DVA_mass_of_dvalin_category = {
 			}
 			divisions_in_border_state = {
 				size > 7
-				state = 57
-				border_state = 58
+				state = 82
+				border_state = 81
 			}
 		}
 
@@ -1856,7 +2104,7 @@ DVA_mass_of_dvalin_category = {
 				has_country_flag = DVA_central_humanoid_ruin_machines
 			}
 			NOT = {
-				58 = {
+				81 = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -1864,7 +2112,7 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 58
+				state = 81
 			}
 		}
 
@@ -1899,47 +2147,40 @@ DVA_mass_of_dvalin_category = {
 			NOT = {
 				has_war_with = SNE
 			}
-			57 = {
-				is_controlled_by = ROOT
-			}
-			58 = {
-				is_controlled_by = ROOT
-			}
-			59 = {
-				is_controlled_by = ROOT
-			}
-			60 = {
-				is_controlled_by = ROOT
-			}
-			61 = {
-				is_controlled_by = ROOT
-			}
 			62 = {
 				is_controlled_by = ROOT
 			}
-			divisions_in_state = {
-				state = 57
-				size > 0
+			79 = {
+				is_controlled_by = ROOT
 			}
-			divisions_in_state = {
-				state = 58
-				size > 0
+			80 = {
+				is_controlled_by = ROOT
 			}
-			divisions_in_state = {
-				state = 59
-				size > 0
+			81 = {
+				is_controlled_by = ROOT
 			}
-			divisions_in_state = {
-				state = 60
-				size > 0
-			}
-			divisions_in_state = {
-				state = 61
-				size > 0
+			82 = {
+				is_controlled_by = ROOT
 			}
 			divisions_in_state = {
 				state = 62
-				size > 0
+				size > 2
+			}
+			divisions_in_state = {
+				state = 79
+				size > 2
+			}
+			divisions_in_state = {
+				state = 80
+				size > 2
+			}
+			divisions_in_state = {
+				state = 81
+				size > 2
+			}
+			divisions_in_state = {
+				state = 82
+				size > 2
 			}
 		}
 
@@ -1961,28 +2202,24 @@ DVA_mass_of_dvalin_category = {
 			modifier = {
 				add = 200
 				divisions_in_state = {
-					state = 57	
-					size > 0
-				}
-				divisions_in_state = {
-					state = 58	
-					size > 0
-				}
-				divisions_in_state = {
-					state = 59	
-					size > 0
-				}
-				divisions_in_state = {
-					state = 60	
-					size > 0
-				}
-				divisions_in_state = {
-					state = 61	
-					size > 0
-				}
-				divisions_in_state = {
 					state = 62	
-					size > 0
+					size > 2
+				}
+				divisions_in_state = {
+					state = 79	
+					size > 2
+				}
+				divisions_in_state = {
+					state = 80	
+					size > 2
+				}
+				divisions_in_state = {
+					state = 81	
+					size > 2
+				}
+				divisions_in_state = {
+					state = 82	
+					size > 2
 				}
 			}
 		}
@@ -3015,7 +3252,7 @@ DVA_four_season_plan_category = {
 					}
 				}
 				Industry_Up = yes
-				#阻力country_event = dva.ab.101
+				#阻力country_event = dva.ab.107
 			}
 			if = {
 				limit = {
@@ -3025,7 +3262,1099 @@ DVA_four_season_plan_category = {
 				}
 				Industry_Up = yes
 				set_country_flag = DVA_success_of_progressive_industrialization_flag
-				#成功country_event = dva.ab.101
+				#成功country_event = dva.ab.108
+			}
+		}
+	}
+}
+
+DVA_ship_construction_category = {
+	#每一类型的船有三个相同的任务
+	#第一个类型，对应三个船台
+	DVA_ship1_construction1 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "黎明级战列舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = ship_heavy_battery_4
+						mid_2_custom_slot = ship_heavy_battery_4
+						mid_3_custom_slot = ship_heavy_battery_4
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "黎明级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "望风级战列舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = ship_heavy_battery_3
+						mid_2_custom_slot = ship_heavy_battery_3
+						mid_3_custom_slot = ship_heavy_battery_3
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "望风级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "自由级战列舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bb_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = ship_heavy_battery_2
+						mid_2_custom_slot = ship_heavy_battery_2
+						mid_3_custom_slot = ship_heavy_battery_2
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "自由级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "荣耀级战列舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bb_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = ship_heavy_battery_1
+						mid_2_custom_slot = ship_heavy_battery_1
+						mid_3_custom_slot = ship_heavy_battery_1
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "荣耀级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+		}
+	}
+	DVA_ship1_construction2 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "黎明级战列舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = ship_heavy_battery_4
+						mid_2_custom_slot = ship_heavy_battery_4
+						mid_3_custom_slot = ship_heavy_battery_4
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "黎明级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "望风级战列舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = ship_heavy_battery_3
+						mid_2_custom_slot = ship_heavy_battery_3
+						mid_3_custom_slot = ship_heavy_battery_3
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "望风级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "自由级战列舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bb_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = ship_heavy_battery_2
+						mid_2_custom_slot = ship_heavy_battery_2
+						mid_3_custom_slot = ship_heavy_battery_2
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "自由级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "荣耀级战列舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bb_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = ship_heavy_battery_1
+						mid_2_custom_slot = ship_heavy_battery_1
+						mid_3_custom_slot = ship_heavy_battery_1
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "荣耀级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+		}
+	}
+	DVA_ship1_construction3 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "黎明级战列舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = ship_heavy_battery_4
+						mid_2_custom_slot = ship_heavy_battery_4
+						mid_3_custom_slot = ship_heavy_battery_4
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "黎明级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "望风级战列舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bb_3
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = ship_heavy_battery_3
+						mid_2_custom_slot = ship_heavy_battery_3
+						mid_3_custom_slot = ship_heavy_battery_3
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "望风级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "自由级战列舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bb_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = ship_heavy_battery_2
+						mid_2_custom_slot = ship_heavy_battery_2
+						mid_3_custom_slot = ship_heavy_battery_2
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "自由级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "荣耀级战列舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BB_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bb_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = ship_heavy_battery_1
+						mid_2_custom_slot = ship_heavy_battery_1
+						mid_3_custom_slot = ship_heavy_battery_1
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "荣耀级战列舰"
+					}
+					requested_factories = 20
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+		}
+	}
+	#第二种类型-战巡
+	DVA_ship2_construction1 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "曙光级战列巡洋舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bc_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "曙光级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "风啸级战列巡洋舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "风啸级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "西风级战列巡洋舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "西风级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "守护级战列巡洋舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bc_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "守护级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+		}
+	}
+	DVA_ship2_construction2 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "曙光级战列巡洋舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bc_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "曙光级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "风啸级战列巡洋舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "风啸级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "西风级战列巡洋舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "西风级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "守护级战列巡洋舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bc_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "守护级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+		}
+	}
+	DVA_ship2_construction3 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_generic_naval_mine
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 180
+		#
+		fire_only_once = yes
+		cost = 0
+
+		ai_will_do = {
+			base = 1000
+		}
+
+		visible = {
+			#
+		}
+
+		modifier = {
+			dockyard_donations = -20
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_tech = advanced_heavy_battery
+					has_tech = antiair5
+					has_tech = advanced_fire_control_system
+					has_tech = advanced_centimetric_radar
+					has_tech = advanced_ship_hull_heavy
+					has_tech = advanced_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "曙光级战列巡洋舰"		
+					type = ship_hull_heavy_4
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_4
+						fixed_ship_anti_air_slot = ship_anti_air_4
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+						fixed_ship_radar_slot = ship_radar_4
+						fixed_ship_engine_slot = heavy_ship_engine_4
+						fixed_ship_secondaries_slot = dp_ship_secondaries_4
+						fixed_ship_armor_slot = ship_armor_bc_3
+						front_1_custom_slot = ship_heavy_battery_4
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_4
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "曙光级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = improved_heavy_battery
+					has_tech = antiair2
+					has_tech = improved_fire_control_system
+					has_tech = centimetric_radar
+					has_tech = improved_ship_hull_heavy
+					has_tech = improved_dp_light_battery
+					has_tech = improved_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "风啸级战列巡洋舰"		
+					type = ship_hull_heavy_3
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_3
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_3
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = dp_ship_secondaries_3
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_3
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_3
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "风啸级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_tech = basic_heavy_battery
+					has_tech = interwar_antiair
+					has_tech = basic_fire_control_system
+					has_tech = improved_decimetric_radar
+					has_tech = basic_ship_hull_heavy
+					has_tech = basic_dp_light_battery
+					has_tech = basic_heavy_armor_scheme
+				}
+				create_equipment_variant = {
+					name = "西风级战列巡洋舰"		
+					type = ship_hull_heavy_2
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = ship_radar_2
+						fixed_ship_engine_slot = heavy_ship_engine_2
+						fixed_ship_secondaries_slot = dp_ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bc_2
+						front_1_custom_slot = ship_heavy_battery_2
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_2
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "西风级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
+			}
+			else = {
+				create_equipment_variant = {
+					name = "守护级战列巡洋舰"		
+					type = ship_hull_heavy_1
+					name_group = DVA_BC_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = empty
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_1
+						fixed_ship_secondaries_slot = dp_ship_secondaries_1
+						fixed_ship_armor_slot = ship_armor_bc_1
+						front_1_custom_slot = ship_heavy_battery_1
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = empty
+						mid_3_custom_slot = empty
+						rear_1_custom_slot = ship_heavy_battery_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						version_name = "守护级战列巡洋舰"
+					}
+					requested_factories = 15
+					efficiency = 1.0
+					progress = 0.90
+					amount = 1
+				}
 			}
 		}
 	}

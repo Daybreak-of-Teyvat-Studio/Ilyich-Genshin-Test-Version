@@ -20,6 +20,7 @@ scripted_gui = {
                 set_variable = { DVA_military_surface = 1 }
                 set_variable = { DVA_strategy_surface = 0 }
                 set_variable = { DVA_tactic_surface = 0 }
+                DVA_shipyard_initialization = yes
             }
             Tab_Button3_click = {
                 set_variable = { DVA_committee_surface = 3 }
@@ -265,9 +266,13 @@ scripted_gui = {
             }
             Tab_Button2_click = {
                 set_variable = { DVA_military_surface = 2 }
+                set_variable = { DVA_strategy_surface = 0 }
+                set_variable = { DVA_tactic_surface = 0 }
             }
             Tab_Button3_click = {
                 set_variable = { DVA_military_surface = 3 }
+                set_variable = { DVA_strategy_surface = 0 }
+                set_variable = { DVA_tactic_surface = 0 }
             }
         }
         
@@ -619,7 +624,388 @@ scripted_gui = {
 		}
 
 		effects = {
+            Ship_Production_Button1_click = {
+                set_variable = { DVA_navy_construction_var1 = 1 }
+            }
+            Ship_Production_Button2_click = {
+                set_variable = { DVA_navy_construction_var2 = 1 }
+            }
+            Ship_Production_Button3_click = {
+                set_variable = { DVA_navy_construction_var3 = 1 }
+            }
+        }
+        
+        triggers = {
+            Ship_Production_Button1_click_visible = {
+                check_variable = { DVA_navy_construction_var1 = 0 }
+            }
+            Ship_Production_Button2_click_visible = {
+                check_variable = { DVA_navy_construction_var2 = 0 }
+            }
+            Ship_Production_Button3_click_visible = {
+                check_variable = { DVA_navy_construction_var3 = 0 }
+            }
+        }
+
+		properties = {
+			#
+		}
+
+		ai_enabled = {
+            always = no
+        }
+	}
+
+    #一共三个船台
+    #一号船台
+    DVA_Committee_ui2_navy_construction1 = {
+		window_name = "Commune_committee_window2_navy_construction1"
+		context_type = player_context
+        parent_window_name = "Commune_committee_window2_navy"
+
+		visible = {
+			check_variable = { DVA_navy_construction_var1 = 1 }
+		}
+
+		effects = {
+            Ship_Type_Button1_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction1
+                    add_to_variable = { DVA_navy_construction_var1 = 1 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction2
+                    add_to_variable = { DVA_navy_construction_var1 = 2 }
+                }
+                else = {
+                    activate_mission = DVA_ship1_construction3
+                    add_to_variable = { DVA_navy_construction_var1 = 3 }
+                }
+            }
+            Ship_Type_Button2_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction1
+                    add_to_variable = { DVA_navy_construction_var1 = 4 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction2
+                    add_to_variable = { DVA_navy_construction_var1 = 5 }
+                }
+                else = {
+                    activate_mission = DVA_ship2_construction3
+                    add_to_variable = { DVA_navy_construction_var1 = 6 }
+                }
+            }
+            Ship_Type_Button3_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction1
+                    add_to_variable = { DVA_navy_construction_var1 = 7 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction2
+                    add_to_variable = { DVA_navy_construction_var1 = 8 }
+                }
+                else = {
+                    activate_mission = DVA_ship3_construction3
+                    add_to_variable = { DVA_navy_construction_var1 = 9 }
+                }
+            }
+            Ship_Type_Button4_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction1
+                    add_to_variable = { DVA_navy_construction_var1 = 10 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction2
+                    add_to_variable = { DVA_navy_construction_var1 = 11 }
+                }
+                else = {
+                    activate_mission = DVA_ship4_construction3
+                    add_to_variable = { DVA_navy_construction_var1 = 12 }
+                }
+            }
+        }
+        
+        triggers = {
             #
+        }
+
+		properties = {
+			#
+		}
+
+		ai_enabled = {
+            always = no
+        }
+	}
+    #二号船台
+    DVA_Committee_ui2_navy_construction2 = {
+		window_name = "Commune_committee_window2_navy_construction2"
+		context_type = player_context
+        parent_window_name = "Commune_committee_window2_navy"
+
+		visible = {
+			check_variable = { DVA_navy_construction_var2 = 1 }
+		}
+
+		effects = {
+            Ship_Type_Button1_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction1
+                    add_to_variable = { DVA_navy_construction_var2 = 1 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction2
+                    add_to_variable = { DVA_navy_construction_var2 = 2 }
+                }
+                else = {
+                    activate_mission = DVA_ship1_construction3
+                    add_to_variable = { DVA_navy_construction_var2 = 3 }
+                }
+            }
+            Ship_Type_Button2_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction1
+                    add_to_variable = { DVA_navy_construction_var2 = 4 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction2
+                    add_to_variable = { DVA_navy_construction_var2 = 5 }
+                }
+                else = {
+                    activate_mission = DVA_ship2_construction3
+                    add_to_variable = { DVA_navy_construction_var2 = 6 }
+                }
+            }
+            Ship_Type_Button3_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction1
+                    add_to_variable = { DVA_navy_construction_var2 = 7 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction2
+                    add_to_variable = { DVA_navy_construction_var2 = 8 }
+                }
+                else = {
+                    activate_mission = DVA_ship3_construction3
+                    add_to_variable = { DVA_navy_construction_var2 = 9 }
+                }
+            }
+            Ship_Type_Button4_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction1
+                    add_to_variable = { DVA_navy_construction_var2 = 10 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction2
+                    add_to_variable = { DVA_navy_construction_var2 = 11 }
+                }
+                else = {
+                    activate_mission = DVA_ship4_construction3
+                    add_to_variable = { DVA_navy_construction_var2 = 12 }
+                }
+            }
+        }
+        
+        triggers = {
+            #
+        }
+
+		properties = {
+			#
+		}
+
+		ai_enabled = {
+            always = no
+        }
+	}
+    #三号船台
+    DVA_Committee_ui2_navy_construction1 = {
+		window_name = "Commune_committee_window2_navy_construction1"
+		context_type = player_context
+        parent_window_name = "Commune_committee_window2_navy"
+
+		visible = {
+			check_variable = { DVA_navy_construction_var3 = 1 }
+		}
+
+		effects = {
+            Ship_Type_Button1_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction1
+                    add_to_variable = { DVA_navy_construction_var3 = 1 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship1_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship1_construction2
+                    add_to_variable = { DVA_navy_construction_var3 = 2 }
+                }
+                else = {
+                    activate_mission = DVA_ship1_construction3
+                    add_to_variable = { DVA_navy_construction_var3 = 3 }
+                }
+            }
+            Ship_Type_Button2_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction1
+                    add_to_variable = { DVA_navy_construction_var3 = 4 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship2_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship2_construction2
+                    add_to_variable = { DVA_navy_construction_var3 = 5 }
+                }
+                else = {
+                    activate_mission = DVA_ship2_construction3
+                    add_to_variable = { DVA_navy_construction_var3 = 6 }
+                }
+            }
+            Ship_Type_Button3_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction1
+                    add_to_variable = { DVA_navy_construction_var3 = 7 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship3_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship3_construction2
+                    add_to_variable = { DVA_navy_construction_var3 = 8 }
+                }
+                else = {
+                    activate_mission = DVA_ship3_construction3
+                    add_to_variable = { DVA_navy_construction_var3 = 9 }
+                }
+            }
+            Ship_Type_Button4_click = {
+                if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction1
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction1
+                    add_to_variable = { DVA_navy_construction_var3 = 10 }
+                }
+                else_if = {
+                    limit = {
+                        NOT = {
+                            has_active_mission = DVA_ship4_construction2
+                        }
+                    }
+                    activate_mission = DVA_ship4_construction2
+                    add_to_variable = { DVA_navy_construction_var3 = 11 }
+                }
+                else = {
+                    activate_mission = DVA_ship4_construction3
+                    add_to_variable = { DVA_navy_construction_var3 = 12 }
+                }
+            }
         }
         
         triggers = {
