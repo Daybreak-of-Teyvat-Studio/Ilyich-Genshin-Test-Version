@@ -746,36 +746,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_gift_of_Alice
-		icon = GFX_goal_unknown
-		cost = 1
-		x = 18
-		y = 11
-		prerequisite = {
-			focus = DVA_bring_up_Spark_Knight
-		}
-		available = {
-			has_country_flag = DVA_helios_project_flag
-			has_completed_focus = DVA_establish_institute_of_Tower
-		}
-		completion_reward = {
-			country_event = dva.ab.21
-		}
-	}
-	focus = {
-		id = DVA_genius_or_psychotic
-		icon = GFX_goal_unknown
-		cost = 1
-		x = 24
-		y = 11
-		available = {
-			always = no
-		}
-		completion_reward = {
-			country_event = dva.ab.22
-		}
-	}
-	focus = {
 		id = DVA_Deal_With_Mass_Of_Dvalin
 		icon = GFX_DVA_Deal_With_Mass_Of_Dvalin
 		cost = 5
@@ -1446,7 +1416,6 @@ focus_tree = {
 				genshin = 10
 			}
 			set_cosmetic_tag = DVA_commune
-			
 		}
 	}
 	focus = {
@@ -1526,9 +1495,11 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = DVA_wind_returns
+			focus = DVA_liberate_Windrise
 		}
 		prerequisite = {
 			focus = DVA_Mondstadt_Spring
+			focus = DVA_liberate_Windrise
 		}
 		x = 11
 		y = 14
@@ -1536,8 +1507,13 @@ focus_tree = {
 			#
 		}
 		completion_reward = {
-			set_country_flag = DVA_start_research_plan_flag
-			remove_ideas = DVA_lack_of_scholar
+			#set_country_flag = DVA_start_research_plan_flag
+			if = {
+				limit = {
+					has_idea = DVA_lack_of_scholar
+				}
+				remove_ideas = DVA_lack_of_scholar
+			}
 			hidden_effect = {
 				Research_Up = yes
 			}
@@ -1555,11 +1531,16 @@ focus_tree = {
 		x = 13
 		y = 14
 		available = {
-			#
+			has_country_flag = DVA_helios_project_flag
 		}
 		completion_reward = {
 			set_country_flag = DVA_start_research_plan_flag
-			remove_ideas = DVA_lack_of_scholar
+			if = {
+				limit = {
+					has_idea = DVA_lack_of_scholar
+				}
+				remove_ideas = DVA_lack_of_scholar
+			}
 			hidden_effect = {
 				Research_Up = yes
 			}
@@ -1740,7 +1721,7 @@ focus_tree = {
 			has_war_with = PRI
 		}
 		completion_reward = {
-			custom_effect_tooltip = DOT_bypass_tt
+			#
 		}
 	}
 	focus = {
@@ -1749,9 +1730,9 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = DVA_vanish_into_thin_air_like_bubble
-			focus = DVA_tales_of_utopias
+			focus = DVA_Humanity_will_endure_forever
 		}
-		x = 12
+		x = 16
 		y = 20
 		available = {
 			has_war_with = PRI
@@ -1775,7 +1756,7 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_first_bell_before_dawn
 		}
-		x = 12
+		x = 16
 		y = 21
 		available = {
 			#
@@ -2087,11 +2068,8 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_gift_of_Alice
 		}
-		x = 16
+		x = 17
 		y = 12
-		available = {
-			#
-		}
 		completion_reward = {
 			country_event = dva.ab.23
 		}
@@ -2119,16 +2097,51 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_gift_of_Alice
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 18
+		y = 11
+		prerequisite = {
+			focus = DVA_bring_up_Spark_Knight
+		}
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.21
+		}
+	}
+	focus = {
+		id = DVA_constrution_of_stellaris_bureau
+		icon = GFX_goal_unknown
+		cost = 1
+		x = 21
+		y = 11
+		prerequisite = {
+			#
+		}
+		available = {
+			has_completed_focus = DVA_establish_institute_of_Tower
+		}
+		completion_reward = {
+			country_event = dva.ab.21
+		}
+	}
+	focus = {
 		id = DVA_improve_Dodoco_rocket
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
 			focus = DVA_gift_of_Alice
 		}
-		x = 18
+		prerequisite = {
+			focus = DVA_constrution_of_stellaris_bureau
+		}
+		x = 21
 		y = 12
 		available = {
-			#
+			has_country_flag = DVA_helios_project_flag
 		}
 		completion_reward = {
 			country_event = dva.ab.24
@@ -2142,7 +2155,7 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_improve_Dodoco_rocket
 		}
-		x = 18
+		x = 20
 		y = 13
 		available = {
 			#
@@ -2159,10 +2172,10 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_gift_of_Alice
 		}
-		x = 20
+		x = 19
 		y = 12
 		available = {
-			#
+			has_completed_focus = DVA_establish_institute_of_Tower
 		}
 		completion_reward = {
 			country_event = dva.ab.25
@@ -2172,11 +2185,27 @@ focus_tree = {
 		id = DVA_the_nigredo_processing_stage_of_alchemy
 		icon = GFX_goal_unknown
 		cost = 1
-		prerequisite = {
-			focus = DVA_genius_or_psychotic
+		x = 24
+		y = 11
+		available = {
+			has_country_flag = DVA_Albedo_visited
 		}
+		completion_reward = {
+			country_event = dva.ab.22
+		}
+	}
+	focus = {
+		id = DVA_genius_or_psychotic
+		icon = GFX_goal_unknown
+		cost = 1
 		x = 24
 		y = 12
+		prerequisite = {
+			focus = DVA_the_nigredo_processing_stage_of_alchemy
+		}
+		prerequisite = {
+			focus = DVA_constrution_of_stellaris_bureau
+		}
 		available = {
 			#
 		}
@@ -2189,7 +2218,7 @@ focus_tree = {
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
-			focus = DVA_the_nigredo_processing_stage_of_alchemy
+			focus = DVA_genius_or_psychotic
 		}
 		x = 22
 		y = 13
@@ -2205,9 +2234,9 @@ focus_tree = {
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
-			focus = DVA_the_nigredo_processing_stage_of_alchemy
+			focus = DVA_genius_or_psychotic
 		}
-		x = 26
+		x = 24
 		y = 13
 		available = {
 			#
@@ -2217,18 +2246,49 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_make_a_choice
-		icon = GFX_goal_unknown
+		id = DVA_the_wave
+		icon = GFX_DVA_the_wave
 		cost = 1
-		prerequisite = {
-			focus = DVA_power_of_the_asmoday
-			focus = DVA_exploring_the_essence_of_elements
-		}
 		prerequisite = {
 			focus = DVA_tales_from_high_sky_to_be_chanted
 		}
 		x = 20
+		y = 14
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.47
+		}
+	}
+	focus = {
+		id = DVA_castle_in_the_sky
+		icon = GFX_DVA_castle_in_the_sky
+		cost = 1
+		prerequisite = {
+			focus = DVA_the_wave
+		}
+		mutually_exclusive = {
+			focus = DVA_enforce_regulations_to_the_letter
+		}
+		x = 18
 		y = 15
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.32
+		}
+	}
+	focus = {
+		id = DVA_toll_the_funeral_bell
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_the_wave
+		}
+		x = 18
+		y = 16
 		available = {
 			#
 		}
@@ -2237,22 +2297,93 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_supreme_contract
+		id = DVA_enforce_regulations_to_the_letter
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
-			focus = DVA_make_a_choice
+			focus = DVA_the_wave
 		}
 		mutually_exclusive = {
-			focus = DVA_for_whom_the_bell_tolls
+			focus = DVA_castle_in_the_sky
 		}
-		x = 18
+		x = 20
+		y = 15
+		available = {
+			#
+		}
+		completion_reward = {
+			#country_event = dva.ab.32
+		}
+	}
+	focus = {
+		id = DVA_the_word_of_Protophanes
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_enforce_regulations_to_the_letter
+		}
+		x = 20
 		y = 16
 		available = {
 			#
 		}
 		completion_reward = {
-			country_event = dva.ab.32
+			#country_event = dva.ab.32
+		}
+	}
+	focus = {
+		id = DVA_liberation_theology
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_the_wave
+		}
+		prerequisite = {
+			focus = DVA_revolution_of_technology
+		}
+		x = 22
+		y = 16
+		available = {
+			#
+		}
+		completion_reward = {
+			country_event = dva.ab.33
+		}
+	}
+	focus = {
+		id = DVA_chopping_the_chain
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_liberation_theology
+		}
+		x = 22
+		y = 17
+		available = {
+			#
+		}
+		completion_reward = {
+			#country_event = dva.ab.33
+		}
+	}
+	focus = {
+		id = DVA_as_dark_night_comes
+		icon = GFX_goal_unknown
+		cost = 1
+		prerequisite = {
+			focus = DVA_toll_the_funeral_bell
+			focus = DVA_the_word_of_Protophanes
+		}
+		prerequisite = {
+			focus = DVA_chopping_the_chain
+		}
+		x = 20
+		y = 18
+		available = {
+			#
+		}
+		completion_reward = {
+			#country_event = dva.ab.33
 		}
 	}
 	focus = {
@@ -2356,10 +2487,10 @@ focus_tree = {
 		icon = goals_RAGqwejoqwrjoasg
 		cost = 1
 		prerequisite = {
-			focus = DVA_for_whom_the_bell_tolls
+			focus = DVA_as_dark_night_comes
 		}
-		x = 23
-		y = 18
+		x = 20
+		y = 19
 		available = {
 			#
 		}
@@ -2369,35 +2500,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_for_whom_the_bell_tolls
-		icon = GFX_goal_unknown
-		cost = 1
-		prerequisite = {
-			focus = DVA_make_a_choice
-		}
-		prerequisite = {
-			focus = DVA_revolution_of_technology
-		}
-		mutually_exclusive = {
-			focus = DVA_supreme_contract
-		}
-		x = 23
-		y = 16
-		available = {
-			#
-		}
-		completion_reward = {
-			country_event = dva.ab.33
-		}
-	}
-	focus = {
 		id = DVA_improve_the_technology_of_elements
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
 			focus = DVA_exploring_the_essence_of_elements
 		}
-		x = 27
+		x = 24
 		y = 14
 		available = {
 			#
@@ -2413,7 +2522,7 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_improve_the_technology_of_elements
 		}
-		x = 27
+		x = 24
 		y = 15
 		available = {
 			#

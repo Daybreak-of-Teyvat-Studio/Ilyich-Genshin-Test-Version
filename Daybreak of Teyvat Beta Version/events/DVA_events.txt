@@ -1073,10 +1073,11 @@ country_event = {
 
 	option = {
 		name = dva.ab.21.a
+		custom_effect_tooltip = DVA_Alice_gift_tt
 	}
 }
 
-#超越时代的问题
+#《蒙德炼金学会会刊》
 country_event = {
 	id = dva.ab.22
 	title = dva.ab.22.t
@@ -1088,23 +1089,9 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		#奇思妙想
 		name = dva.ab.22.a
-		ANR = {
-			country_event = {
-				id = dva.ab.52
-				days = 1
-			}
-		}
-	}
-	option = {
-		#天马行空
-		name = dva.ab.22.b
-		ANR = {
-			country_event = {
-				id = dva.ab.53
-				days = 1
-			}
+		set_variable = {
+			DVA_journal_right_icon_frame = 5
 		}
 	}
 }
@@ -1122,7 +1109,19 @@ country_event = {
 
 	option = {
 		name = dva.ab.23.a
-		#获得科技“改进型兔兔伯爵”，解锁“便携式兔兔伯爵”“兔兔伯爵挂件”组件
+		if = {
+			limit = { 
+				has_tech = tech_Baron_Bunny1
+			}
+			set_technology = {
+				tech_Baron_Bunny2 = 1
+			}
+		}
+		else = {
+			set_technology = {
+				tech_Baron_Bunny1 = 1
+			}
+		}
 	}
 }
 
@@ -1171,10 +1170,7 @@ country_event = {
 
 	option = {
 		name = dva.ab.26.a
-		add_popularity = {
-			ideology = communism
-			popularity = 0.05
-		}
+		#
 	}
 }
 
@@ -1666,6 +1662,83 @@ country_event = {
 	option = {
 		name = dva.ab.46.a
 		add_ideas = DVA_corruption
+	}
+}
+
+#拥抱未来
+country_event = {
+	id = dva.ab.47
+	title = dva.ab.47.t
+	desc = dva.ab.47.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.47.a
+		custom_effect_tooltip = DVA_future_choice2_tt
+		add_country_leader_role = {
+			character = DVA_Mona2
+			promote_leader = yes
+			country_leader = {
+				ideology = futurism
+				expire = "1965.1.1"
+				traits = { DVA_Star_Pioneer }
+			}
+		}
+		set_party_name = {
+			ideology = communism
+			long_name = DVA_communism_party_transcendence_long
+			name = DVA_communism_party_transcendence
+		}
+		country_event = dva.ab.48
+	}
+	option = {
+		name = dva.ab.47.b
+		custom_effect_tooltip = DVA_future_choice1_tt
+		set_country_leader_ideology = futurism
+		set_party_name = {
+			ideology = communism
+			long_name = DVA_communism_party_future_long
+			name = DVA_communism_party_future
+		}
+	}
+}
+
+#与神同行
+country_event = {
+	id = dva.ab.48
+	title = dva.ab.48.t
+	desc = dva.ab.48.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.48.a
+		set_country_flag = DVA_together_with_Venti_flag
+	}
+}
+
+#【群星】特别设计局
+country_event = {
+	id = dva.ab.49
+	title = dva.ab.49.t
+	desc = dva.ab.49.d
+	picture = GFX_report_event_finnish_letter
+	
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = dva.ab.49.a
+		set_country_flag = DVA_stellaris_build_flag
+		custom_effect_tooltip = DVA_stellaris_build_tt
 	}
 }
 
