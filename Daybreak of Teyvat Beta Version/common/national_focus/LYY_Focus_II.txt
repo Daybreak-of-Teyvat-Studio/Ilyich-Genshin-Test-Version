@@ -6,10 +6,10 @@ focus_tree = {
 		modifier = {
 			add = 100
 			or = {
-				# tag = LYY
-				# tag = GYP
-				# tag = SHP
-				# tag = KQP
+				tag = LYY
+				tag = GYP
+				tag = SHP
+				tag = KQP
 				tag = BRF
 				tag = CYG
 				tag = YLH
@@ -22,23 +22,26 @@ focus_tree = {
 	#岩与契约
 	focus = {
 		id = LYY_Rock_and_Covenant
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_2
 		cost = 7.00
 		x = 40
 		y = 2
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = { has_government = genshin }
+		available = { tag = LYY has_government = genshin }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50  
 			country_event = { id = LYY_Event.01 days = 5 }
-			load_focus_tree = generic_focus
+			country_event = { id = Ilyich_Character.1  days = 10 }
+			country_event = { id = Ilyich_Weapon.1  days = 10 }
+			# load_focus_tree = generic_focus
 		}
 	}
 	#LYY_Rite_of_Inviting:0"请仙典仪"
 	focus = {
 		id = LYY_Rite_of_Inviting
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_367
 		cost = 7.00
 		x = 0
 		y = 2
@@ -47,13 +50,18 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.02 days = 5 }
+			custom_effect_tooltip = LYY_Rite_of_Inviting_Decision_Begin
+			set_country_flag = LYY_Rite_of_Inviting_Decision_Begin
+			# clr_country_flag = LYY_Rite_of_Inviting_Decision_Begin
+			add_ideas = LYY_Event_02_t
 		}
 	}
 	focus = {
 		id = LYY_Rite_of_Inviting_01
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_206
 		cost = 7.00
 		x = -4
 		y = 2
@@ -62,13 +70,22 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.03 days = 5 }
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = { 
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
 		id = LYY_Rite_of_Inviting_02
-		icon = GFX_goal_unknown
+		icon = GFX_goal_EAW_2
 		cost = 7.00
 		x = 0
 		y = 2
@@ -77,13 +94,21 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.04 days = 5 }
+			remove_ideas = LYY_Low_Quality_Industry_idea
+			add_ideas = LYY_High_Quality_Industry_idea
+			army_experience = 10
+			air_experience = 10
+			navy_experience = 10
+			add_stability = 0.10
+			add_war_support = 0.10
 		}
 	}
 	focus = {
 		id = LYY_Rite_of_Inviting_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_366
 		cost = 7.00
 		x = 4
 		y = 2
@@ -92,15 +117,20 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.05 days = 5 }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 100  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 100  producer = LYY }
+			add_equipment_to_stockpile = { type = anti_tank_equipment  amount = 100  producer = LYY }
 		}
 	}
 	#LYY_Rite_of_Inviting_04:0"礼予天地四方" 
 	#进行请仙典仪
 	focus = {
 		id = LYY_Rite_of_Inviting_04
-		icon = GFX_goal_unknown
+		icon = GFX_goal_SOV_finish_the_five_year_plan
 		cost = 7.00
 		x = 0
 		y = 4
@@ -110,18 +140,26 @@ focus_tree = {
 			focus = LYY_Rite_of_Inviting_02
 			focus = LYY_Rite_of_Inviting_03
 		}
+		available = { 
+			check_variable = { LYY_Rite_of_Inviting_Index > 80 }
+		}
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.06 days = 5 }
+			remove_ideas = LYY_Event_02_t
+			custom_effect_tooltip = LYY_Rite_of_Inviting_Decision_End
+			set_country_flag = LYY_Rite_of_Inviting_Decision_End
+			clr_country_flag = LYY_Rite_of_Inviting_Decision_Begin
 		}
 	}
 	#LYY_Meeting_Liyue_Qixing:0"七星八门十二厅" 
 	#成立【凝光临时政府】
 	focus = {
 		id = LYY_Meeting_Liyue_Qixing
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_304
 		cost = 7.00
 		x = 0
 		y = 6
@@ -131,7 +169,8 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.07 days = 5 }
 		}
 	}
@@ -139,7 +178,7 @@ focus_tree = {
 	#璃月大萧条与凝光新政
 	focus = {
 		id = LYY_Crisis_Liyue_Economy
-		icon = GFX_goal_unknown
+		icon = GFX_DVA_remove_personality_cult_shine
 		cost = 7.00
 		x = 0
 		y = 2
@@ -148,13 +187,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			custom_effect_tooltip = LYY_Crisis_Liyue_Economy_Decision_Begin
+			add_ideas = LYY_ningguangism
 			# country_event = { id = LYY_Event.08 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Liyue_Economy_01
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_415
 		cost = 7.00
 		x = 0
 		y = 1
@@ -163,13 +205,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.0801 days = 5 }
+			add_ideas = LYY_Event_0801_t
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Liyue_Economy_02
-		icon = GFX_goal_unknown
+		icon = GFX_Goal_Diona_Unite
 		cost = 7.00
 		x = 0
 		y = 2
@@ -178,13 +223,17 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			remove_ideas = LYY_Crippled_Labor_Laws_idea
+			add_ideas = LYY_Completed_Labor_Laws_idea
 			country_event = { id = LYY_Event.0802 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = decryption_tech }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Liyue_Economy_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_385
 		cost = 7.00
 		x = 0
 		y = 3
@@ -193,13 +242,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_economic_reform_idea
 			country_event = { id = LYY_Event.0803 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Liyue_Economy_04
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_384
 		cost = 7.00
 		x = 0
 		y = 4
@@ -208,15 +260,18 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_second_five_year_plan   
 			country_event = { id = LYY_Event.0804 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = computing_tech }
 		}
 	}
 	#LYY_Crisis_Mighty_Illuminated_Adepti:0"三眼五显仙人" 
 	#仙人问罪危机
 	focus = {
 		id = LYY_Crisis_Mighty_Illuminated_Adepti
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_224
 		cost = 7.00
 		x = -10
 		y = 2
@@ -225,13 +280,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.09 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Mighty_Illuminated_Adepti_01
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_254
 		cost = 7.00
 		x = 0
 		y = 1
@@ -240,13 +297,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
 			country_event = { id = LYY_Event.0901 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = radar_tech }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Mighty_Illuminated_Adepti_02
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_409
 		cost = 7.00
 		x = 0
 		y = 2
@@ -255,13 +314,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
 			country_event = { id = LYY_Event.0902 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = night_vision }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Mighty_Illuminated_Adepti_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_26
 		cost = 7.00
 		x = 0
 		y = 3
@@ -270,13 +331,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = partial_economic_mobilisation
 			country_event = { id = LYY_Event.0903 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = rocketry }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Mighty_Illuminated_Adepti_04
-		icon = GFX_goal_unknown
+		icon = GFX_Goal_Icy_Victory
 		cost = 7.00
 		x = 0
 		y = 4
@@ -285,15 +349,26 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100
-			country_event = { id = LYY_Event.0904 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = limited_conscription
+			# 根据变量触发
+			IF  = { 
+				limit = { check_variable = { LYY_Crisis_Mighty_Illuminated_Adepti_Index > 80 } }
+				country_event = { id = LYY_Event.0904 days = 5 }
+			}
+			IF  = { 
+				limit = { check_variable = { LYY_Crisis_Mighty_Illuminated_Adepti_Index < 80 } }
+				country_event = { id = LYY_Event.090401 days = 5 }
+			}
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = para_tech }
 		}
 	}
 	#LYY_Crisis_Fatui_and_Osial:0"愚人众与奥赛尔" 
 	#愚人众与奥赛尔之乱
 	focus = {
 		id = LYY_Crisis_Fatui_and_Osial
-		icon = GFX_goal_unknown
+		icon = GFX_goal_LAW_the_Foold_02
 		cost = 7.00
 		x = 10
 		y = 2
@@ -302,12 +377,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50   
+			country_event = { id = LYY_Event.10 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = ship_modules_tech }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Fatui_and_Osial_01
-		icon = GFX_goal_unknown
+		icon = GFX_goal_56_goals_28
 		cost = 7.00
 		x = 0
 		y = 1
@@ -316,12 +394,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.1001 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_bomber }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Fatui_and_Osial_02
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_71
 		cost = 7.00
 		x = 0
 		y = 2
@@ -330,12 +411,15 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1002 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = cv_tech }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Fatui_and_Osial_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_315
 		cost = 7.00
 		x = 0
 		y = 3
@@ -344,12 +428,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1003 days = 5 }
+			add_ideas = LYY_Organization_The_Crux_Fleet
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_doctrine }
 		}
 	}
 	focus = {
 		id = LYY_Crisis_Fatui_and_Osial_04
-		icon = GFX_goal_unknown
+		icon = GFX_Goal_Icy_New_Army
 		cost = 7.00
 		x = 0
 		y = 4
@@ -358,158 +446,19 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = CHI_train_marines
+			country_event = { id = LYY_Event.1004 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_mines }
 		}
 	}
-	#LYY_Crisis_Water_and_Soil:0"仙山有茗沉玉浮琼" 
-	#沉玉谷水土危机
-	focus = {
-		id = LYY_Crisis_Water_and_Soil
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 20
-		y = 2
-		relative_position_id = LYY_Meeting_Liyue_Qixing
-		prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Water_and_Soil_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Crisis_Water_and_Soil
-		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Water_and_Soil_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Crisis_Water_and_Soil
-		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Water_and_Soil_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Crisis_Water_and_Soil
-		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Water_and_Soil_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Crisis_Water_and_Soil
-		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	#LYY_Crisis_Land_Amidst_Monoliths:0"浮世浮生千岩间" 
-	#未知危机
-	focus = {
-		id = LYY_Crisis_Land_Amidst_Monoliths
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = -20
-		y = 2
-		relative_position_id = LYY_Meeting_Liyue_Qixing
-		prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Land_Amidst_Monoliths_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
-		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Land_Amidst_Monoliths_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
-		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Land_Amidst_Monoliths_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
-		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Crisis_Land_Amidst_Monoliths_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
-		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
+	
 	#LYY_Rite_of_Parting:0"辞行久远之躯" 
 	#送仙典仪，引发七星内战
 	focus = {
 		id = LYY_Rite_of_Parting
-		icon = GFX_goal_unknown
+		icon = GFX_goal_SOV_finish_the_five_year_plan
 		cost = 7.00
 		x = 0
 		y = 8
@@ -520,337 +469,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			remove_ideas = LYY_ningguangism 
+			country_event = { id = LYY_Event.11 days = 5 }
 		}
 	}
 	#LYY_Keqing_Revolutionary_Committee:0"刻晴革命委员会" 
 	focus = {
 		id = LYY_Keqing_Revolutionary_Committee
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = -10
-		y = 2
-		relative_position_id = LYY_Rite_of_Parting
-		prerequisite = { 
-			focus = LYY_Rite_of_Parting
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Keqing_Revolutionary_Committee_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Keqing_Revolutionary_Committee
-		prerequisite = { 
-			focus = LYY_Keqing_Revolutionary_Committee
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Keqing_Revolutionary_Committee_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Keqing_Revolutionary_Committee
-		prerequisite = { 
-			focus = LYY_Keqing_Revolutionary_Committee
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Keqing_Revolutionary_Committee_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Keqing_Revolutionary_Committee
-		prerequisite = { 
-			focus = LYY_Keqing_Revolutionary_Committee
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Keqing_Revolutionary_Committee_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Keqing_Revolutionary_Committee
-		prerequisite = { 
-			focus = LYY_Keqing_Revolutionary_Committee
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	#LYY_Xianyun_Heavenly_Palace:0"三眼五显仙庭"
-	focus = {
-		id = LYY_Xianyun_Heavenly_Palace
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 10
-		y = 2
-		relative_position_id = LYY_Rite_of_Parting
-		prerequisite = { 
-			focus = LYY_Rite_of_Parting
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Xianyun_Heavenly_Palace_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Xianyun_Heavenly_Palace
-		prerequisite = { 
-			focus = LYY_Xianyun_Heavenly_Palace
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Xianyun_Heavenly_Palace_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Xianyun_Heavenly_Palace
-		prerequisite = { 
-			focus = LYY_Xianyun_Heavenly_Palace
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Xianyun_Heavenly_Palace_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Xianyun_Heavenly_Palace
-		prerequisite = { 
-			focus = LYY_Xianyun_Heavenly_Palace
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Xianyun_Heavenly_Palace_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Xianyun_Heavenly_Palace
-		prerequisite = { 
-			focus = LYY_Xianyun_Heavenly_Palace
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	#LYY_Yuehai_Pavilion_Alliance:0"月海亭诸省联盟"
-	focus = {
-		id = LYY_Yuehai_Pavilion_Alliance
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Rite_of_Parting
-		prerequisite = { 
-			focus = LYY_Rite_of_Parting
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Yuehai_Pavilion_Alliance_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Yuehai_Pavilion_Alliance
-		prerequisite = { 
-			focus = LYY_Yuehai_Pavilion_Alliance
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Yuehai_Pavilion_Alliance_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Yuehai_Pavilion_Alliance
-		prerequisite = { 
-			focus = LYY_Yuehai_Pavilion_Alliance
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Yuehai_Pavilion_Alliance_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Yuehai_Pavilion_Alliance
-		prerequisite = { 
-			focus = LYY_Yuehai_Pavilion_Alliance
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Yuehai_Pavilion_Alliance_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Yuehai_Pavilion_Alliance
-		prerequisite = { 
-			focus = LYY_Yuehai_Pavilion_Alliance
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	#LYY_Nation_Fatui_and_Osial:0"愚人众与奥赛尔"
-	focus = {
-		id = LYY_Nation_Fatui_and_Osial
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 20
-		y = 2
-		relative_position_id = LYY_Rite_of_Parting
-		prerequisite = { 
-			focus = LYY_Rite_of_Parting
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Nation_Fatui_and_Osial_01
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 1
-		relative_position_id = LYY_Nation_Fatui_and_Osial
-		prerequisite = { 
-			focus = LYY_Nation_Fatui_and_Osial
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Nation_Fatui_and_Osial_02
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 2
-		relative_position_id = LYY_Nation_Fatui_and_Osial
-		prerequisite = { 
-			focus = LYY_Nation_Fatui_and_Osial
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Nation_Fatui_and_Osial_03
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 3
-		relative_position_id = LYY_Nation_Fatui_and_Osial
-		prerequisite = { 
-			focus = LYY_Nation_Fatui_and_Osial
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	focus = {
-		id = LYY_Nation_Fatui_and_Osial_04
-		icon = GFX_goal_unknown
-		cost = 7.00
-		x = 0
-		y = 4
-		relative_position_id = LYY_Nation_Fatui_and_Osial
-		prerequisite = { 
-			focus = LYY_Nation_Fatui_and_Osial
-		}
-		ai_will_do = { factor = 1 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
-		}
-	}
-	#LYY_Ningguang_Provisional_Government:0"星罗宿列天权临"
-	focus = {
-		id = LYY_Ningguang_Provisional_Government
-		icon = GFX_goal_unknown
+		icon = goal_LYY_KeQing03
 		cost = 7.00
 		x = -20
 		y = 2
@@ -858,15 +486,324 @@ focus_tree = {
 		prerequisite = { 
 			focus = LYY_Rite_of_Parting
 		}
+		available = { has_government = communism }
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			remove_ideas = LYY_ningguangism
+			add_ideas = LYY_focus_on_china  
+			country_event = { id = LYY_Event.12 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Keqing_Revolutionary_Committee_01
+		icon = GFX_MOT_MM3
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Keqing_Revolutionary_Committee
+		prerequisite = { 
+			focus = LYY_Keqing_Revolutionary_Committee
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_peoples_war
+			country_event = { id = LYY_Event.1201 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+		}
+	}
+	focus = {
+		id = LYY_Keqing_Revolutionary_Committee_02
+		icon = GFX_goal_KX_goals_411
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Keqing_Revolutionary_Committee
+		prerequisite = { 
+			focus = LYY_Keqing_Revolutionary_Committee
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = CHI_military_affairs_commission
+			country_event = { id = LYY_Event.1202 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+	focus = {
+		id = LYY_Keqing_Revolutionary_Committee_03
+		icon = GFX_goal_KX_goals_396
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Keqing_Revolutionary_Committee
+		prerequisite = { 
+			focus = LYY_Keqing_Revolutionary_Committee
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_home_of_revolution
+			country_event = { id = LYY_Event.1203 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = cat_anti_tank }
+		}
+	}
+	focus = {
+		id = LYY_Keqing_Revolutionary_Committee_04
+		icon = GFX_goal_SOV_cohesion_first
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Keqing_Revolutionary_Committee
+		prerequisite = { 
+			focus = LYY_Keqing_Revolutionary_Committee
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1204 days = 5 }
+			add_ideas = LYY_revolutionary_military_commission
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = cat_anti_air }
+		}
+	}
+	#LYY_Xianyun_Heavenly_Palace:0"三眼五显仙庭"
+	focus = {
+		id = LYY_Xianyun_Heavenly_Palace
+		icon = goal_LYY_ShenHe03
+		cost = 7.00
+		x = 10
+		y = 2
+		relative_position_id = LYY_Rite_of_Parting
+		prerequisite = { 
+			focus = LYY_Rite_of_Parting
+		}
+		available = { has_government = fascism }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			remove_ideas = LYY_ningguangism
+			add_ideas = LYY_focus_on_china
+			add_political_power = 50 
+			country_event = { id = LYY_Event.15 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Xianyun_Heavenly_Palace_01
+		icon = GFX_goal_KX_goals_13
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Xianyun_Heavenly_Palace
+		prerequisite = { 
+			focus = LYY_Xianyun_Heavenly_Palace
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_shenhism
+			country_event = { id = LYY_Event.1501 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = military_police_tech }
+		}
+	}
+	focus = {
+		id = LYY_Xianyun_Heavenly_Palace_02
+		icon = GFX_goal_KX_goals_137
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Xianyun_Heavenly_Palace
+		prerequisite = { 
+			focus = LYY_Xianyun_Heavenly_Palace
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = PRI_Vision_Cryo 
+			country_event = { id = LYY_Event.1502 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = signal_company_tech }
+		}
+	}
+	focus = {
+		id = LYY_Xianyun_Heavenly_Palace_03
+		icon = GFX_goal_KX_goals_357
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Xianyun_Heavenly_Palace
+		prerequisite = { 
+			focus = LYY_Xianyun_Heavenly_Palace
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1503 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = cat_air_engine }
+		}
+	}
+	focus = {
+		id = LYY_Xianyun_Heavenly_Palace_04
+		icon = GFX_goal_56_goals_35
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Xianyun_Heavenly_Palace
+		prerequisite = { 
+			focus = LYY_Xianyun_Heavenly_Palace
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1504 days = 5 }
+			add_ideas = LYY_revolutionary_military_commission
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = plane_modules_tech }
+		}
+	}
+	#LYY_Yuehai_Pavilion_Alliance:0"月海亭诸省联盟"
+	focus = {
+		id = LYY_Yuehai_Pavilion_Alliance
+		icon = goal_LYY_GanYu03
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Rite_of_Parting
+		prerequisite = { 
+			focus = LYY_Rite_of_Parting
+		}
+		available = { has_government = neutrality }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			remove_ideas = LYY_ningguangism
+			add_ideas = LYY_focus_on_china
+			add_political_power = 50 
+			country_event = { id = LYY_Event.14 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Yuehai_Pavilion_Alliance_01
+		icon = GFX_goal_KX_goals_185
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Yuehai_Pavilion_Alliance
+		prerequisite = { 
+			focus = LYY_Yuehai_Pavilion_Alliance
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1401 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = night_vision }
+		}
+	}
+	focus = {
+		id = LYY_Yuehai_Pavilion_Alliance_02
+		icon = GFX_FON_waterdeal_shine
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Yuehai_Pavilion_Alliance
+		prerequisite = { 
+			focus = LYY_Yuehai_Pavilion_Alliance
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1402 days = 5 }
+			add_ideas = PRI_Vision_Cryo 
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = ship_modules_tech }
+		}
+	}
+	focus = {
+		id = LYY_Yuehai_Pavilion_Alliance_03
+		icon = GFX_MOT_For_Far_Future
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Yuehai_Pavilion_Alliance
+		prerequisite = { 
+			focus = LYY_Yuehai_Pavilion_Alliance
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_protracted_warfare
+			country_event = { id = LYY_Event.1403 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = synth_resources }
+		}
+	}
+	focus = {
+		id = LYY_Yuehai_Pavilion_Alliance_04
+		icon = GFX_Goal_Icy_Attack
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Yuehai_Pavilion_Alliance
+		prerequisite = { 
+			focus = LYY_Yuehai_Pavilion_Alliance
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1404 days = 5 }
+			add_ideas = LYY_revolutionary_military_commission
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = dispersed_industry_category }
+		}
+	}
+	
+	#LYY_Ningguang_Provisional_Government:0"星罗宿列天权临"
+	focus = {
+		id = LYY_Ningguang_Provisional_Government
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -10
+		y = 2
+		relative_position_id = LYY_Rite_of_Parting
+		available = { has_government = democratic }
+		prerequisite = { 
+			focus = LYY_Rite_of_Parting
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_ideas = LYY_focus_on_china
+			add_political_power = 50 
+			country_event = { id = LYY_Event.13 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Ningguang_Provisional_Government_01
-		icon = GFX_goal_unknown
+		icon = GFX_focus_generic_improve_the_administration
 		cost = 7.00
 		x = 0
 		y = 1
@@ -877,12 +814,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = CHI_legislative_yuan
+			country_event = { id = LYY_Event.1301 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = train_tech }
 		}
 	}
 	focus = {
 		id = LYY_Ningguang_Provisional_Government_02
-		icon = GFX_goal_unknown
+		icon = GFX_Goal_demo_economy
 		cost = 7.00
 		x = 0
 		y = 2
@@ -893,12 +834,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_Organization_Golden_House
+			country_event = { id = LYY_Event.1302 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = concentrated_industry_category }
 		}
 	}
 	focus = {
 		id = LYY_Ningguang_Provisional_Government_03
-		icon = GFX_goal_unknown
+		icon = GFX_FON_people_right
 		cost = 7.00
 		x = 0
 		y = 3
@@ -909,12 +854,16 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = PRI_Vision_Geo
+			country_event = { id = LYY_Event.1303 days = 5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = engineers_tech }
 		}
 	}
 	focus = {
 		id = LYY_Ningguang_Provisional_Government_04
-		icon = GFX_goal_unknown
+		icon = GFX_Goal_MOT_Army_Organize_shine
 		cost = 7.00
 		x = 0
 		y = 4
@@ -925,14 +874,18 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.1304 days = 5 }
+			add_ideas = LYY_revolutionary_military_commission
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = support_tech }
 		}
 	}
 	#LYY_Nation_New_Liyue:0"迫近的客星" 
 	#统一后新璃月国策树 A New Star Approaches
 	focus = {
 		id = LYY_Nation_New_Liyue
-		icon = GFX_goal_unknown
+		icon = goal_DOT_03
 		cost = 7.00
 		x = 0
 		y = 8
@@ -940,10 +893,18 @@ focus_tree = {
 		prerequisite = { 
 			focus = LYY_Rite_of_Parting
 		}
+		available = { 
+			owns_state = 156 controls_state = 156
+			owns_state = 121 controls_state = 121
+			owns_state = 144 controls_state = 144 
+		}
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_ideas = LYY_second_five_year_plan
+			# country_event = { id = LYY_Event.16 days = 5 }
 		}
 	}
 	focus = {
@@ -959,30 +920,127 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			add_timed_idea = { idea = LYY_Ningguang_plot days = 360 }
+			country_event = { id = LYY_Event.17 days = 5 }
+		}
+	}
+	#LYY_Nation_Fatui_and_Osial:0"愚人众与奥赛尔"
+	focus = {
+		id = LYY_Nation_Fatui_and_Osial
+		icon = GFX_goal_EAW_30
+		cost = 7.00
+		x = 20
+		y = 2
+		relative_position_id = LYY_Rite_of_Parting
+		prerequisite = { 
+			focus = LYY_Rite_of_Parting
+		}
+		available = { tag = YLH }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			# country_event = { id = LYY_Event.04 days = 5 }
+			load_focus_tree = generic_focus
+		}
+	}
+	# 奥赛尔
+	focus = {
+		id = LYY_Nation_Fatui_and_Osial_01
+		icon = GFX_goal_EAW_18
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Nation_Fatui_and_Osial
+		prerequisite = { focus = LYY_Nation_Fatui_and_Osial }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50 
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Nation_Fatui_and_Osial_02
+		icon = GFX_Goal_MOT_Balance
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Nation_Fatui_and_Osial
+		prerequisite = { 
+			focus = LYY_Nation_Fatui_and_Osial
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Nation_Fatui_and_Osial_03
+		icon = GFX_Goal_Tech_From_SNE
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Nation_Fatui_and_Osial
+		prerequisite = { 
+			focus = LYY_Nation_Fatui_and_Osial
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Nation_Fatui_and_Osial_04
+		icon = GFX_goal_56_goals_36
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Nation_Fatui_and_Osial
+		prerequisite = { 
+			focus = LYY_Nation_Fatui_and_Osial
+		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	#LYY_Nation_Black_Rock_Factory:0"天工造化炼万物" 
 	#黑岩厂国策树
 	focus = {
 		id = LYY_Nation_Black_Rock_Factory
-		icon = GFX_goal_unknown
+		icon = GFX_goal_56_goals_36
 		cost = 7.00
 		x = 30
 		y = 2
 		relative_position_id = LYY_Meeting_Liyue_Qixing
 		# prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
-		available = { original_tag = BRF }
+		available = { tag = BRF }
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			# country_event = { id = LYY_Event.04 days = 5 }
 			load_focus_tree = generic_focus
 		}
 	}
 	focus = {
 		id = LYY_Nation_Black_Rock_Factory_01
-		icon = GFX_goal_unknown
+		icon = GFX_DVA_tales_of_utopias
 		cost = 7.00
 		x = 0
 		y = 1
@@ -991,12 +1049,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Black_Rock_Factory_02
-		icon = GFX_goal_unknown
+		icon = GFX_goal_SOV_lessons_of_war_shine
 		cost = 7.00
 		x = 0
 		y = 2
@@ -1005,12 +1065,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Black_Rock_Factory_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_279
 		cost = 7.00
 		x = 0
 		y = 3
@@ -1019,12 +1081,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Black_Rock_Factory_04
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_15
 		cost = 7.00
 		x = 0
 		y = 4
@@ -1033,7 +1097,9 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	#LYY_Nation_Chenyu_Valley:0"仙山有茗沉玉浮琼"
@@ -1046,17 +1112,19 @@ focus_tree = {
 		y = 2
 		relative_position_id = LYY_Meeting_Liyue_Qixing
 		# prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
-		available = { original_tag = CYG }
+		available = { tag = CYG }
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			# country_event = { id = LYY_Event.04 days = 5 }
 			load_focus_tree = generic_focus
 		}
 	}
 	focus = {
 		id = LYY_Nation_Chenyu_Valley_01
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_136
 		cost = 7.00
 		x = 0
 		y = 1
@@ -1067,12 +1135,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Chenyu_Valley_02
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_184
 		cost = 7.00
 		x = 0
 		y = 2
@@ -1083,12 +1153,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Chenyu_Valley_03
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_247
 		cost = 7.00
 		x = 0
 		y = 3
@@ -1099,12 +1171,14 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	focus = {
 		id = LYY_Nation_Chenyu_Valley_04
-		icon = GFX_goal_unknown
+		icon = GFX_goal_KX_goals_337
 		cost = 7.00
 		x = 0
 		y = 4
@@ -1115,7 +1189,176 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 100  country_event = { id = LYY_Event.04 days = 5 }
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	#LYY_Crisis_Water_and_Soil:0"仙山有茗沉玉浮琼" 
+	#沉玉谷水土危机
+	focus = {
+		id = LYY_Crisis_Water_and_Soil
+		icon = GFX_goal_KX_goals_183
+		cost = 7.00
+		x = 20
+		y = 2
+		relative_position_id = LYY_Meeting_Liyue_Qixing
+		prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
+		available={ tag=ABY }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Water_and_Soil_01
+		icon = GFX_focus_VAN_Focus_SumeruVana
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Crisis_Water_and_Soil
+		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Water_and_Soil_02
+		icon = GFX_goal_KX_goals_137
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Crisis_Water_and_Soil
+		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Water_and_Soil_03
+		icon = GFX_goal_KX_goals_121
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Crisis_Water_and_Soil
+		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Water_and_Soil_04
+		icon = GFX_FON_resources_left_shine
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Crisis_Water_and_Soil
+		prerequisite = { focus = LYY_Crisis_Water_and_Soil }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	#LYY_Crisis_Land_Amidst_Monoliths:0"浮世浮生千岩间" 
+	#未知危机
+	focus = {
+		id = LYY_Crisis_Land_Amidst_Monoliths
+		icon = GFX_goal_56_goals_2
+		cost = 7.00
+		x = -20
+		y = 2
+		relative_position_id = LYY_Meeting_Liyue_Qixing
+		prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
+		available={ tag=ABY }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			load_focus_tree = LYY_focus
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Land_Amidst_Monoliths_01
+		icon = GFX_Goal_Icy_Art
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
+		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Land_Amidst_Monoliths_02
+		icon = GFX_Goal_MOT_Defend
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
+		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Land_Amidst_Monoliths_03
+		icon = GFX_Goal_Weapon_From_SNE
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
+		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_Crisis_Land_Amidst_Monoliths_04
+		icon = goal_The_Shrine_of_Shouki_no_Kami
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_Crisis_Land_Amidst_Monoliths
+		prerequisite = { focus = LYY_Crisis_Land_Amidst_Monoliths }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event.04 days = 5 }
 		}
 	}
 	#国策结束
