@@ -112,6 +112,13 @@ country_event = {
 	option = {
 		name = LYY_Event.0402.a
 		add_political_power = 10
+		release_puppet = CYG
+		CYG = {
+			# declare_war_on = { target = KQP  type = civil_war }
+			# declare_war_on = { target = GYP  type = civil_war }
+			# declare_war_on = { target = SHP  type = civil_war }
+			# declare_war_on = { target = LYY  type = civil_war }	 
+		}
 	}
 }
 country_event = {
@@ -193,15 +200,15 @@ country_event = {
 		country_event = { id = LYY_Event.0604 days = 5 }
 		add_ideas = LYY_Event_0603_t
 		set_politics = {
-			ruling_party = neutrality
+			ruling_party = democratic
 			last_election = "1936.1.1"
 			election_frequency = 48
 			elections_allowed = no
 		}
 		set_popularities = {
-			neutrality = 50
+			neutrality = 10
 			communism = 10
-			democratic = 10
+			democratic = 50
 			fascism = 10
 			genshin = 20
 		}
@@ -568,7 +575,12 @@ country_event = {
 		clr_country_flag = LYY_Crisis_Fatui_and_Osial_Decision_Begin
 		remove_ideas = LYY_Event_0606_t
 		release = YLH
-		YLH = { }
+		YLH = { 
+			declare_war_on = { target = KQP  type = civil_war }
+			declare_war_on = { target = GYP  type = civil_war }
+			declare_war_on = { target = SHP  type = civil_war }
+			declare_war_on = { target = LYY  type = civil_war }	 
+		}
 	}
 }
 # 送仙典仪，七星内战
@@ -1027,10 +1039,8 @@ country_event = {
 		add_ideas = { Great_Unity }
 		create_faction = For_LYY
 		load_oob = "SHP_1936"
-		LYY = { end_puppet = BRF }
-		BRF = { leave_faction = yes }
 		clr_country_flag = LYY_Wash_decision_categories_II
-		clr_country_flag = Liyue_Nine_Nine_Six		
+		clr_country_flag = Liyue_Nine_Nine_Six
 	}
 	option = { # 刻晴派
 		name = Civil_War_of_Liyue.1.b
@@ -1040,10 +1050,8 @@ country_event = {
 		add_ideas = { Great_Unity }
 		create_faction = For_LYY
 		load_oob = "KQP_1936"
-		LYY = { end_puppet = BRF }
-		BRF = { leave_faction = yes }
 		clr_country_flag = LYY_Wash_decision_categories_II
-		clr_country_flag = Liyue_Nine_Nine_Six	
+		clr_country_flag = Liyue_Nine_Nine_Six
 	}
 	option = { # 甘雨派
 		name = Civil_War_of_Liyue.1.c
@@ -1053,22 +1061,18 @@ country_event = {
 		add_ideas = { Great_Unity }
 		create_faction = For_LYY
 		load_oob = "GYP_1936"
-		LYY = { end_puppet = BRF }
-		BRF = { leave_faction = yes }
 		clr_country_flag = LYY_Wash_decision_categories_II
-		clr_country_flag = Liyue_Nine_Nine_Six	
+		clr_country_flag = Liyue_Nine_Nine_Six
 	}
 	option = { # NG派
-		name = Civil_War_of_Liyue.1.d
+		name = Civil_War_of_Liyue.1.e
 		LYY_setup_civil_war = yes
 		country_event = { id = super.10 days = 1 }
 		add_ideas = { Great_Unity }
 		create_faction = For_LYY
 		load_oob = "NGP_1936"
-		LYY = { end_puppet = BRF }
-		BRF = { leave_faction = yes }
 		clr_country_flag = LYY_Wash_decision_categories_II
-		clr_country_flag = Liyue_Nine_Nine_Six	
+		clr_country_flag = Liyue_Nine_Nine_Six
 	}
 }
 
@@ -1083,10 +1087,10 @@ country_event = {
 	is_triggered_only = no
 	# allowed = {  original_tag = LYY }
 	trigger = {
-	tag = LYY
+		tag = LYY
 		date > 1938.8.16 
 		LYY = { has_completed_focus = Send_Rock_Emperor_to_the_Guillotine }
-	                }	
+	}	
 	fire_only_once = yes
 	option = {
 		name = Civil_War_of_Liyue.8.a
@@ -1342,15 +1346,16 @@ country_event = {
 		OR = { tag = LYY tag = KQP }
 	}
 	option = {
-	     name = DOT_Tech.3.a
+	    name = DOT_Tech.3.a
 		add_political_power = 10
 		Ilyich_Keqing_Division = yes
 		random_owned_controlled_state = {
-	trigger = { ROOT = { has_full_control_of_state = PREV } }
-	create_unit = { 
-	division = "name = \"\" division_template = \"Keqing\" start_experience_factor = 0.5 start_equipment_factor = 0.9" 
-	owner = ROOT  count = 1
+		trigger = { ROOT = { has_full_control_of_state = PREV } }
+		create_unit = { 
+		division = "name = \"\" division_template = \"Keqing\" start_experience_factor = 0.5 start_equipment_factor = 0.9" 
+		owner = ROOT  count = 1
 		}
 		}
-		}
+	}
 }
+# 移除精神
