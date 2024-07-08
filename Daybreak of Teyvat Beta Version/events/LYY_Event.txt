@@ -115,6 +115,7 @@ country_event = {
 		add_political_power = 10
 		release_puppet = CYG
 		CYG = {
+			load_oob = "CYG_1936"
 			# declare_war_on = { target = KQP  type = civil_war }
 			# declare_war_on = { target = GYP  type = civil_war }
 			# declare_war_on = { target = SHP  type = civil_war }
@@ -618,6 +619,7 @@ country_event = {
 		add_war_support = 0.10
 		release = YLH
 		YLH = { 
+			load_oob = "YLH_1936"
 			declare_war_on = { target = KQP  type = civil_war }
 			declare_war_on = { target = GYP  type = civil_war }
 			declare_war_on = { target = SHP  type = civil_war }
@@ -1144,15 +1146,15 @@ country_event = {
 	is_triggered_only = yes
 	mean_time_to_happen = { days = 1 }
 	option = {
-	create_wargoal = { type = puppet_wargoal_focus  target = MOT }
-	create_wargoal = { type = puppet_wargoal_focus  target = RAG }
-	create_wargoal = { type = puppet_wargoal_focus  target = LAW }
-	create_wargoal = { type = puppet_wargoal_focus  target = GUN }
-	create_wargoal = { type = puppet_wargoal_focus  target = FAV }
-	create_wargoal = { type = puppet_wargoal_focus  target = DRA }
-	create_wargoal = { type = puppet_wargoal_focus  target = DVA }
-	create_wargoal = { type = puppet_wargoal_focus  target = ANR }
-	create_wargoal = { type = puppet_wargoal_focus  target = SPI }	
+	create_wargoal = { type = annex_everything  target = MOT }
+	create_wargoal = { type = annex_everything  target = RAG }
+	create_wargoal = { type = annex_everything  target = LAW }
+	create_wargoal = { type = annex_everything  target = GUN }
+	create_wargoal = { type = annex_everything  target = FAV }
+	create_wargoal = { type = annex_everything  target = DRA }
+	create_wargoal = { type = annex_everything  target = DVA }
+	create_wargoal = { type = annex_everything  target = ANR }
+	create_wargoal = { type = annex_everything  target = SPI }	
 		}
 }
 
@@ -1390,6 +1392,33 @@ country_event = {
 		owner = ROOT  count = 1
 		}
 		}
+	}
+}
+# 璃月统一补丁
+country_event = {
+	id = LYY.18
+	title = DOT_Tech.3.t
+	desc = DOT_Tech.3.d
+	picture = GFX_LYY_Event_P04
+	fire_only_once = yes
+	hidden = yes
+	trigger = {
+		OR = { tag = LYY tag = KQP  tag = CYG tag = GYP tag = SHP  TAG = BRF TAG = YLH }
+		date > 1941.1.1 
+	}
+	option = {
+	    name = DOT_Tech.3.a
+		create_wargoal = { type = annex_everything target = CYG }
+		create_wargoal = { type = annex_everything target = LYY }
+		create_wargoal = { type = annex_everything target = GYP }
+		create_wargoal = { type = annex_everything target = KQP }
+		create_wargoal = { type = annex_everything target = SHP }
+		create_wargoal = { type = annex_everything target = YLH }
+		create_wargoal = { type = annex_everything target = BRF }
+		every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = BRF } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = CYG } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = YLH } add_core_of = ROOT }
 	}
 }
 # 移除精神
