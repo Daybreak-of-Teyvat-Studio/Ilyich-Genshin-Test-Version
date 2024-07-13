@@ -13,7 +13,7 @@ focus_tree = {
 		id = LAW_Eula_Get_Crown
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 1.00
-		x = 10
+		x = 17
 		y = 1
 		completion_reward = {
 			hidden_effect = {
@@ -38,8 +38,12 @@ focus_tree = {
 		id = LAW_Prepare_to_Build_Knights
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 1.00
-		x = 10
-		y = 1
+		x = 17
+		y = 2
+		
+		prerequisite = {
+			focus = LAW_Eula_Get_Crown
+		}
 		completion_reward = {
 			hidden_effect = {
 			}
@@ -63,8 +67,15 @@ focus_tree = {
 		id = LAW_Knights_Reform_1
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 1.00
-		x = 4
-		y = 1
+		x = 15
+		y = 3
+		prerequisite = {
+			focus = LAW_Prepare_to_Build_Knights
+		}
+		mutually_exclusive = {
+			focus = LAW_Knights_Reform_2
+			focus = LAW_Knights_Reform_3
+		}
 		completion_reward = {
 			hidden_effect = {
 			}
@@ -94,8 +105,15 @@ focus_tree = {
 		id = LAW_Knights_Reform_2
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 1.00
-		x = 4
-		y = 1
+		x = 17
+		y = 3
+		prerequisite = {
+			focus = LAW_Prepare_to_Build_Knights
+		}
+		mutually_exclusive = {
+			focus = LAW_Knights_Reform_1
+			focus = LAW_Knights_Reform_3
+		}
 		completion_reward = {
 			hidden_effect = {
 			}
@@ -130,8 +148,15 @@ focus_tree = {
 		id = LAW_Knights_Reform_3
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 1.00
-		x = 4
-		y = 1
+		x = 19
+		y = 3
+		prerequisite = {
+			focus = LAW_Prepare_to_Build_Knights
+		}
+		mutually_exclusive = {
+			focus = LAW_Knights_Reform_2
+			focus = LAW_Knights_Reform_1
+		}
 		completion_reward = {
 			hidden_effect = {
 			}
@@ -164,18 +189,120 @@ focus_tree = {
 	
 	##完成镇压要求
 	#祭礼之书，翻开新章
+	focus = {
+		id = LAW_Eula_Story_Begins
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 1.00
+		x = 17
+		y = 4
+		prerequisite = {
+			focus = LAW_Knights_Reform_1
+			focus = LAW_Knights_Reform_2
+			focus = LAW_Knights_Reform_3
+		}
+		completion_reward = {
+			add_stability = 0.2
+		}
+		available = {
+			has_country_flag = LAW_States_Stable
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 
 	##经济线
+	focus = {
+		id = LAW_Eula_Begin_Dealt_Economy
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 5
+		y = 5
+		prerequisite = {
+			focus = LAW_Eula_Story_Begins
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				category = electronics
+				bonus = 1
+				uses = 2
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革一 生产进步
 	#改革二 经济民主
 	#改革三 经济调控
 
 	##军事线
+	focus = {
+		id = LAW_Eula_Begin_Dealt_Army
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 29
+		y = 5
+		prerequisite = {
+			focus = LAW_Eula_Story_Begins
+		}
+		completion_reward = {
+			army_experience = 25
+			navy_experience = 25
+			air_experience = 25
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革一 青年组织
 	#选择军事路线
 	#改革二 军事改革
 
 	##政治线
+	focus = {
+		id = LAW_Eula_Begin_Dealt_Government
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 17
+		y = 5
+		prerequisite = {
+			focus = LAW_Eula_Story_Begins
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革一 宣扬理念
 	#改革二 基层组织
 	#改革三 政治开明
@@ -185,11 +312,133 @@ focus_tree = {
 	
 
 	##愚人众线
+	focus = {
+		id = LAW_Eula_Begin_Dealt_Fools
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 11
+		y = 5
+		prerequisite = {
+			focus = LAW_Eula_Story_Begins
+		}
+		completion_reward = {
+			
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 
+	##统一线
+	focus = {
+		id = LAW_Eula_Begin_Dealt_Others
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 23
+		y = 5
+		prerequisite = {
+			focus = LAW_Eula_Story_Begins
+		}
+		completion_reward = {
+			
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 
 	##统一后危机
+	focus = {
+		id = LAW_Eula_Road_to_the_End
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 17
+		y = 11
+		completion_reward = {
+			
+		}
+		available = {
+			always = no
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#选择一：安抚旧贵族 将旧贵族愤怒压制到零，进入坏结局
+	focus = {
+		id = LAW_Eula_Stable_Nobles
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 18
+		y = 12
+		prerequisite = {
+			focus = LAW_Eula_Road_to_the_End
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+		}
+		available = {
+			always = no
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#选择二：消灭旧贵族 将旧贵族力量压制到零，进入好结局
+	focus = {
+		id = LAW_Eula_End_Nobles
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 16
+		y = 12
+		prerequisite = {
+			focus = LAW_Eula_Road_to_the_End
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Stable_Nobles
+		}
+		completion_reward = {
+			
+		}
+		available = {
+			always = no
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#行政改革
 	#控制军队
 	#治安管理
