@@ -57,6 +57,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -95,6 +96,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -138,6 +140,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -181,6 +184,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -210,6 +214,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -240,6 +245,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -270,6 +276,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -298,6 +305,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -322,7 +330,14 @@ focus_tree = {
 			focus = LAW_Eula_Story_Begins
 		}
 		completion_reward = {
-			
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 5000
+				producer = SNE
+			}
+			set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Fool_Angry
+			subtract_from_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
 		}
 		available = {
 		}
@@ -330,6 +345,393 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+
+	#压制愚人众影响力
+	focus = {
+		id = LAW_Eula_Fool_Suppress_Fool
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 12
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Fools
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Fool_From_Fool
+		}
+		completion_reward = {
+			set_contry_flag = LAW_Fool_Lower_Influence
+			custom_effect_tooltip = LAW_tt_Fool_Lower_Influence
+			add_stability = 0.05
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+
+	#借助至冬国的力量
+	focus = {
+		id = LAW_Eula_Fool_From_Fool
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 10
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Fools
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Fool_Suppress_Fool
+		}
+		completion_reward = {
+			set_contry_flag = LAW_Fool_More_Help
+			custom_effect_tooltip = LAW_tt_Fool_More_Help
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 500
+				producer = SNE
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#三个愚人众援助国策
+	focus = {
+		id = LAW_Eula_Fool_Bonus_1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 11
+		y = 7
+		prerequisite = {
+			focus = LAW_Eula_Fool_From_Fool
+			focus = LAW_Eula_Fool_Suppress_Fool
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = armor
+				bonus = 2
+				ahead_reduction = 1
+				uses = 1
+			}
+			add_war_support = 0.05
+			army_experience = 25
+			
+			set_temp_variable = { LAW_Change_of_Fool_Power = 20 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_tt_Change_From_Focus
+				add_tech_bonus = {
+					category = support_tech
+					bonus = 1
+					uses = 1
+				}
+				army_experience = 15
+			}
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_Fool_Lower_Influence
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_Less_Fool_Power
+				subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_Bonus_2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 11
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Fool_Bonus_1
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = air_equipment
+				bonus = 1
+				uses = 2
+			}
+			add_war_support = 0.05
+			air_experience = 25
+			
+			set_temp_variable = { LAW_Change_of_Fool_Power = 20 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_tt_Change_From_Focus
+				add_tech_bonus = {
+					category = air_equipment
+					bonus = 1
+					uses = 1
+				}
+				air_experience = 15
+			}
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_Fool_Lower_Influence
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_Less_Fool_Power
+				subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_Bonus_3
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 11
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Fool_Bonus_2
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = naval_equipment
+				bonus = 1
+				uses = 2
+			}
+			add_war_support = 0.05
+			navy_experience = 25
+			
+			set_temp_variable = { LAW_Change_of_Fool_Power = 20 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_tt_Change_From_Focus
+				add_tech_bonus = {
+					category = naval_equipment
+					bonus = 1
+					uses = 1
+				}
+				navy_experience = 15
+			}
+			IF = {
+				limit = { has_country_flag = LAW_Fool_More_Help }
+				custom_effect_tooltip = LAW_Fool_Lower_Influence
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_Less_Fool_Power
+				subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#三个强化愚人众换属性的国策
+	focus = {
+		id = LAW_Eula_Fool_More_Fools_1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 2.00
+		x = 9
+		y = 7
+		prerequisite = {
+			focus = LAW_Eula_Fool_From_Fool
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_More_Fools_2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 4.00
+		x = 9
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Fool_More_Fools_1
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_More_Fools_3
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 6.00
+		x = 9
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Fool_More_Fools_2
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_More_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#三个压制愚人众的国策
+	focus = {
+		id = LAW_Eula_Fool_Less_Fools_1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 2.00
+		x = 13
+		y = 7
+		prerequisite = {
+			focus = LAW_Eula_Fool_Suppress_Fool
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_Less_Fools_2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 4.00
+		x = 13
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Fool_Less_Fools_1
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Fool_Less_Fools_3
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 6.00
+		x = 13
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Fool_Less_Fools_2
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Fool_Power
+			subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -355,6 +757,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -378,6 +781,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -406,6 +810,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
@@ -434,6 +839,7 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		bypass = {
+			always = no
 		}
 		ai_will_do = {
 			base = 500
