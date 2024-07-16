@@ -226,7 +226,7 @@ focus_tree = {
 		id = LAW_Eula_Begin_Dealt_Economy
 		icon = GFX_focus_spr_crush_the_revolution
 		cost = 5.00
-		x = 5
+		x = 4
 		y = 5
 		prerequisite = {
 			focus = LAW_Eula_Story_Begins
@@ -251,9 +251,481 @@ focus_tree = {
 			base = 500
 		}
 	}
+	#民工1
+	focus = {
+		id = LAW_Eula_Eco_Civil1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 2
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Economy
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				bonus = 0.5
+				uses = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_C_1
+			set_country_flag = LAW_Unlock_Decisions_Invest_C_1
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#军工1
+	focus = {
+		id = LAW_Eula_Eco_Arms1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 4
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Economy
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_A_1
+			set_country_flag = LAW_Unlock_Decisions_Invest_A_1
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#获得稀缺资源1
+	focus = {
+		id = LAW_Eula_Eco_Reso1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 6
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Economy
+		}
+		completion_reward = {
+			add_resource = {
+				type = chromium
+				amount = 20
+				state = 29
+			}
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 29
+			}
+			29 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_R_1
+			set_country_flag = LAW_Unlock_Decisions_Invest_R_1
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革一 生产进步
+	focus = {
+		id = LAW_Eula_Eco_Reform1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 4
+		y = 7
+		prerequisite = {
+			focus = LAW_Eula_Eco_Civil1
+			focus = LAW_Eula_Eco_Arms1
+			focus = LAW_Eula_Eco_Reso1
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industy
+				category = electronics
+				bonus = 2
+				uses = 1
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#一级工会改革
+	focus = {
+		id = LAW_Eula_Eco_Reform1_1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 2
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Eco_Reform1_2
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Icy_Power = 30 }
+			custom_effect_tooltip = LAW_tt_Less_Icy_Power
+			subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+
+			add_ideas = LAW_Labour_Union1
+			custom_effect_tooltip = LAW_tt_LAW_Educate_Workers1
+		}
+		available = {
+			custom_effect_tooltip = {
+				tooltip = LAW_tt_Need_Icy_Power
+				check_variable = { LAW_Whole_Icy_Power > 29 }
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#二级工会改革
+	focus = {
+		id = LAW_Eula_Eco_Reform1_2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 4
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Icy_Power = 50 }
+			custom_effect_tooltip = LAW_tt_Less_Icy_Power
+			subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			add_ideas = LAW_Labour_Union2
+			custom_effect_tooltip = LAW_tt_LAW_Educate_Workers2
+		}
+		available = {
+			custom_effect_tooltip = {
+				tooltip = LAW_tt_Need_Icy_Power
+				check_variable = { LAW_Whole_Icy_Power > 49 }
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#三级工会改革
+	focus = {
+		id = LAW_Eula_Eco_Reform1_3
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 6
+		y = 8
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_2
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Icy_Power = 80 }
+			custom_effect_tooltip = LAW_tt_Less_Icy_Power
+			subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 20 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			add_ideas = LAW_Labour_Union3
+			custom_effect_tooltip = LAW_tt_LAW_Educate_Workers3
+		}
+		available = {
+			custom_effect_tooltip = {
+				tooltip = LAW_tt_Need_Icy_Power
+				check_variable = { LAW_Whole_Icy_Power > 79 }
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#民工2
+	focus = {
+		id = LAW_Eula_Eco_Civil2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 1
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_2
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = industry
+				bonus = 0.5
+				uses = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_C_2
+			set_country_flag = LAW_Unlock_Decisions_Invest_C_2
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#军工2
+	focus = {
+		id = LAW_Eula_Eco_Arms2
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 3
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_2
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_A_2
+			set_country_flag = LAW_Unlock_Decisions_Invest_A_2
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#科技卡1
+	focus = {
+		id = LAW_Eula_Eco_Tech1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 5
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_2
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				category = electronics
+				bonus = 2
+				uses = 1
+			}
+			add_tech_bonus = {
+				category = industry
+				bonus = 2
+				ahead_reduction = 1
+				uses = 1
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#船坞1
+	focus = {
+		id = LAW_Eula_Eco_Dock1
+		icon = GFX_focus_spr_crush_the_revolution
+		cost = 5.00
+		x = 7
+		y = 9
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform1_1
+			focus = LAW_Eula_Eco_Reform1_2
+			focus = LAW_Eula_Eco_Reform1_3
+		}
+		completion_reward = {
+			29 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = LAW_tt_LAW_Unlock_Decisions_Invest_D_1
+			set_country_flag = LAW_Unlock_Decisions_Invest_D_1
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革二 经济民主
-	#改革三 经济调控
+	#民工3
+	#军工3
+	#获得稀缺资源3
+	#科技卡2
+	#刷新投资决议
 
 	##军事线
 	focus = {
