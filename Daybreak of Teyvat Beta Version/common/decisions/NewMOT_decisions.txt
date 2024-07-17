@@ -1511,7 +1511,7 @@ LAW_DC_Organize_Noble = {
 		}
 	}
 	#消耗摩拉延缓负面事件 LAW_ON_Noble_Mora
-	LAW_ON_Noble_Money = {
+	LAW_ON_Noble_Mora = {
 		days_remove = 30
 		days_re_enable = 30
 		modifier = {
@@ -1522,6 +1522,32 @@ LAW_DC_Organize_Noble = {
 		}
 	}
 	#LAW_Congress_of_Corporation 经济民主解锁：降低 LAW_Noble_STST LAW_ON_Compete_Noble
+	LAW_ON_Compete_Noble = {
+		days_remove = 60
+		modifier = {
+			consumer_goods_factor = -0.02
+		}
+		visible = {
+			OR = {
+				has_idea = LAW_Congress_of_Corporation1
+				has_idea = LAW_Congress_of_Corporation2
+				has_idea = LAW_Congress_of_Corporation3
+			}
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation2 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+			}
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		}
+	}
 	#LAW_Youth_League_Tide 青年组织解锁：降低 LAW_Noble_STST LAW_ON_People_Unpopular_Noble
 	#LAW_Political_impart 政治开明解锁：延缓负面事件到来 LAW_ON_Lower_Noble_Power
 	#LAW_Winter_System 健全法制解锁：延缓负面事件到来 LAW_ON_Better_Noble_Law
@@ -10086,6 +10112,7 @@ LAW_DC_Organize_Ice = {
 			mobilization_laws_cost_factor = -0.25
 			economy_cost_factor = -0.25
 			trade_laws_cost_factor = -0.25
+			consumer_goods_factor = -0.1
 		}
 		remove_effect = {
 			IF = {
