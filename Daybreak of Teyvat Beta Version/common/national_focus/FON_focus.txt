@@ -1,5 +1,5 @@
 focus_tree = {
-    id = FON_focus_tree_watercrisis
+    id = FON_focus_tree
     country = {
         factor = 0
         modifier = {
@@ -14,6 +14,10 @@ continuous_focus_position = {
 }
 
 default = no
+
+########################################
+#####         胎海水危机国策树    -######
+########################################
 
 #好戏开场
  focus = {
@@ -34,6 +38,9 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_zero_trigger = yes
+    }
 
     completion_reward = {
         add_stability = 0.05
@@ -70,6 +77,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+
+    allow_branch = {
+        FON_is_stage_search_trigger = yes
+    }
 
     prerequisite = {
         focus = FON_magictime
@@ -111,6 +122,9 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
 
 
     prerequisite = {
@@ -152,6 +166,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
 
     prerequisite = {
         focus = FON_waterdeal
@@ -190,6 +208,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
 
     prerequisite = {
         focus = FON_waterdeal
@@ -231,6 +253,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
 
     prerequisite = {
         focus = FON_resources_left 
@@ -272,6 +298,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
 
     prerequisite = {
         focus = FON_resources_left 
@@ -312,6 +342,10 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
 
     prerequisite = {
         focus = FON_people_left 
@@ -355,6 +389,9 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
 
     prerequisite = {
         focus = FON_kingjudge
@@ -392,6 +429,9 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
 
     prerequisite = {
         focus = FON_kingjudge
@@ -429,6 +469,9 @@ default = no
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
 
     prerequisite = {
         focus= FON_kingjudge
@@ -466,6 +509,9 @@ focus = {
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
 
     prerequisite = {
         focus= FON_judge_naweiya 
@@ -491,4 +537,132 @@ focus = {
         }
     }
  }
+
+########################################
+#####         大选国策树          -######
+########################################
+
+#劫后余生
+focus = {
+    id = FON_life_after_death
+    icon = GFX_FON_life_after_death
+
+    x=7
+    y=0.5
+
+    cost = 1
+    available = {
+
+    }
+    bypass= {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+
+    completion_reward = {
+        add_political_power = 20
+        add_stability = 0.15
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+}
+
+#筹划大选
+focus = {
+    id = FON_preparation_for_election
+    icon = GFX_FON_preparation_for_election
+
+    relative_position_id = FON_life_after_death
+    x=0
+    y=1
+
+    cost = 2
+    available = {}
+    bypass = {}
+    prerequisite = {
+        focus = FON_life_after_death
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+
+    completion_reward = {
+        add_political_power = 100
+        country_event = {id=FON.13} #芙宁娜的去留
+        country_event = {id=FON.14} #枫丹民主化问题的始末
+    }
+}
+
+#激流勇退
+focus = {
+    id = FON_furina_leave
+    icon = GFX_FON_furina_leave
+
+    relative_position_id = FON_preparation_for_election
+    x=-1
+    y=1
+
+    cost=0
+    prerequisite = {
+        focus = FON_preparation_for_election
+    }
+    mutually_exclusive = {
+        focus = FON_furina_stay
+    }
+    available = {
+        always = no
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    
+}
+
+#迎难而上
+focus = {
+    id = FON_furina_stay
+    icon = GFX_FON_furina_stay
+
+    relative_position_id = FON_preparation_for_election
+    x=1
+    y=1
+
+    cost=0
+    prerequisite = {
+        focus = FON_preparation_for_election
+    }
+    mutually_exclusive = {
+        focus = FON_furina_leave
+    }
+    available = {
+        always = no
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+
+}
+
+
 }
