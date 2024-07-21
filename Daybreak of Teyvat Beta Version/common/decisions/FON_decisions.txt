@@ -18,25 +18,39 @@ FON_Primordial_Sea_decision_categories = {
 			hidden_trigger = {always = no}
 		}
 
-		cancel_trigger = {
-			has_completed_focus = FON_final_date
-			FON_Percent_of_Preparation > 0.8
-		}
-
-		days_mission_timeout = 180
+		days_mission_timeout = 220
 
 		is_good = no
 
 		timeout_effect = {
 			country_event = {days = 7 id = FON.11} #灭世事件（All gone）
 		}
-
-		remove_effect = {
-			country_event = {days = 7 id = FON.12} #大洪水（正常线路）
-		}
-
 	}
 
+	#结束危机
+	FON_ending_the_crisis = {
+		ai_will_do = {
+			base = 300
+		}
+
+		allowed = {
+
+		}
+
+		visible = {
+			has_completed_focus = FON_final_date
+		}
+
+		available = {
+			has_completed_focus = FON_final_date
+			check_variable = { FON_Percent_of_Preparation > 0.8 }
+		}
+
+		complete_effect = {
+			remove_mission = FON_watercrisis_mission
+			country_event = {days = 7 id = FON.12} #大洪水（正常线路）
+		}
+	}
 
 	#加固封印
     FON_Neuvillette_repulse_Primordial_Sea = {
@@ -80,7 +94,7 @@ FON_Primordial_Sea_decision_categories = {
 				mission = FON_watercrisis_mission
 				days = 30
 			}
-			multiply_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 2 }
+			add_to_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 20 }
 		}
 		
 	}
