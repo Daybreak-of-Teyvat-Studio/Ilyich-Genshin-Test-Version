@@ -1721,6 +1721,121 @@ communism_on_the_rise = {
 }
 
 political_actions = {
+	#工业进步决议
+	#工业进步1 萌芽——初步工业化
+	#良好的缩进格式有助于阅读和修改，按一下tab可以立刻空四格
+	DOT_Development_Industry_1 = {
+		icon = generic_construction #图标
+		cost = 150
+		allowed = {
+			NOT = {
+				original_tag = PRI #天理禁用 这个禁用是只在启动游戏时判定一次，而且看都看不到的
+			}
+		}
+		visible = {
+			has_idea = DOT_Government_Industry1 #拥有法案 萌芽工业化
+		}
+		available = {
+			num_of_owned_factories > 29 #国家工业总值大于29，即总工厂数大于等于30.没有大于等于符号
+			
+			#游戏不会显示变量判定的条件，所以要用custom_trigger_tooltip写一段文字让玩家知道有这个条件
+			#custom_effect_tooltip、custom_trigger_tooltip和custom_modifier_tooltip是给玩家显示一段游戏内没有的效果、修正、条件时的好帮手
+			custom_trigger_tooltip = {
+				tooltip = DOT_mora_Cost
+				check_variable = { dx > 64 } #摩拉库存至少有65
+			}
+		}
+		complete_effect = {
+			#添加初步工业化精神 法案类精神添加后会直接覆盖同一法案槽内正在生效的其他精神，比如战时经济会覆盖掉民用经济，两个法案不会同时生效
+			#但是为了让玩家知道这个决议的实际效果，我还是把移除工业化萌芽写了出来
+			remove_ideas = DOT_Government_Industry1
+			add_ideas = DOT_Government_Industry2
+
+			#游戏内不会显示变量变化的效果，所以需要用custom_effect_tooltip提醒玩家有变量（比如摩拉）变化了
+			#下面几行是消耗一定数量摩拉并给玩家显示消耗量的常用三段代码，改一下变量名写个tooltip就可以用于许多其他
+			set_temp_variable = { DOT_Change_of_Mora = 65 } #设置摩拉变动量为65.
+			#这里使用的是特殊的temp_variable，对它的变量操作会立刻执行，而不是像variable那样触发了效果才执行
+			#所以custom_effect_tooltip才能显示temp_variable的大小
+			subtract_from_variable = { dx = DOT_Change_of_Mora } #将国库摩拉减去摩拉变动量
+			#到底是谁想的把摩拉的变量名起成dx？这么短就不怕重名？我的建议是使用 TAG_Var_变量英文名的形式，比如 LAW_Var_Power_of_Fool这样
+			#变量名里的大写是我的个人习惯，不要模仿，在群星时容易出错
+			custom_effect_tooltip = DOT_mora_Spend #向玩家显示DOT_Change_of_Mora的大小
+		}
+		ai_will_do = { base = 100 }
+		
+	}
+	#接下来的几个决议都只是第一个的克隆版本，只是修改了几个数字
+	#其实也可以实现用一个决议满足全部的升级需求，不过这就下次再演示吧
+	DOT_Development_Industry_2 = {
+		icon = generic_construction
+		cost = 300
+		allowed = { NOT = { original_tag = PRI } }
+		visible = { has_idea = DOT_Government_Industry2 }
+		available = {
+			num_of_owned_factories > 99
+			
+			custom_trigger_tooltip = {
+				tooltip = DOT_mora_Cost
+				check_variable = { dx > 499 }
+			}
+		}
+		complete_effect = {
+			remove_ideas = DOT_Government_Industry2
+			add_ideas = DOT_Government_Industry3
+
+			set_temp_variable = { DOT_Change_of_Mora = 500 }
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+			custom_effect_tooltip = DOT_mora_Spend
+		}
+		ai_will_do = { base = 100 }
+	}
+	DOT_Development_Industry_3 = {
+		icon = generic_construction
+		cost = 600
+		allowed = { NOT = { original_tag = PRI } }
+		visible = { has_idea = DOT_Government_Industry3 }
+		available = {
+			num_of_owned_factories > 199
+			
+			custom_trigger_tooltip = {
+				tooltip = DOT_mora_Cost
+				check_variable = { dx > 2499 }
+			}
+		}
+		complete_effect = {
+			remove_ideas = DOT_Government_Industry3
+			add_ideas = DOT_Government_Industry4
+
+			set_temp_variable = { DOT_Change_of_Mora = 2500 }
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+			custom_effect_tooltip = DOT_mora_Spend
+		}
+		ai_will_do = { base = 100 }
+	}
+	DOT_Development_Industry_4 = {
+		icon = generic_construction
+		cost = 648
+		allowed = { NOT = { original_tag = PRI } }
+		visible = { has_idea = DOT_Government_Industry4 }
+		available = {
+			num_of_owned_factories > 399
+			
+			custom_trigger_tooltip = {
+				tooltip = DOT_mora_Cost
+				check_variable = { dx > 9999 }
+			}
+		}
+		complete_effect = {
+			remove_ideas = DOT_Government_Industry4
+			add_ideas = DOT_Government_Industry5
+
+			#我把各级的摩拉消耗量稍微提高了一些，不然就太容易提升了
+			set_temp_variable = { DOT_Change_of_Mora = 10000 }
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+			custom_effect_tooltip = DOT_mora_Spend
+		}
+		ai_will_do = { base = 100 }
+	}
 	give_refuge_ger = {
 
 		icon = generic_research
