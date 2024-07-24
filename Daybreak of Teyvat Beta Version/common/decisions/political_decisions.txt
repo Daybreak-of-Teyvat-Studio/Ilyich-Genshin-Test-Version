@@ -1773,7 +1773,10 @@ political_actions = {
 		icon = generic_construction
 		cost = 300
 		days_re_enable = 360
-		allowed = { NOT = { original_tag = PRI } }
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
 		visible = {
 			has_idea = DOT_Government_Industry2
 			DOT_Lock_Development_Dec = yes
@@ -1800,7 +1803,10 @@ political_actions = {
 		icon = generic_construction
 		cost = 600
 		days_re_enable = 360
-		allowed = { NOT = { original_tag = PRI } }
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
 		visible = {
 			has_idea = DOT_Government_Industry3
 			DOT_Lock_Development_Dec = yes
@@ -1827,7 +1833,10 @@ political_actions = {
 		icon = generic_construction
 		cost = 648
 		days_re_enable = 360
-		allowed = { NOT = { original_tag = PRI } }
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
 		visible = {
 			has_idea = DOT_Government_Industry4
 			DOT_Lock_Development_Dec = yes
@@ -1854,7 +1863,10 @@ political_actions = {
 	#农业进步决议 使用一个决议完成四种替换需求
 	DOT_Development_Agriculture = {
 		icon = generic_civil_support
-		allowed = { NOT = { original_tag = PRI } }
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
 		visible = {
 			NOT = { has_idea = DOT_Government_Agri5 }  #农业达到最高水平时不再显示
 			NOT = { original_tag = PRI }
@@ -1864,85 +1876,44 @@ political_actions = {
 		days_re_enable = 360
 		available = {
 			#条件里也可以使用if
+			set_temp_variable = { DOT_TV_Agri@THIS = 0 } #设置一个temp_variable
+			set_temp_variable = { DOT_TV_NOY@THIS = num_owned_states } #NOY就是num_of_yours 这里使用代码获得这一势力拥有的地区总数，给之后循环用
 			IF = {
 				limit = { has_idea = DOT_Government_Agri1 }
 				#农业发展水平一级的条件
 
-				#国内有任意6个State的基础设施数量大于等于2级 这个条件比较复杂，需要通过变量操作来实现
-				set_temp_variable = { DOT_TV_Agri = 0 } #设置一个temp_variable
-				all_owned_state = {  #every_owned_state是在effect里面使用的，条件一般是把every换成all
-					IF = {
-						limit = {
-							#基础设施等级超过1
-							non_damaged_building_level = {
-								building = infrastructure
-								size > 1
-							}
-						}
-						add_to_temp_variable = { DOT_TV_Agri = 1 } #每拥有一个满足条件的地区，给这个临时变量加1
-					}
-				}
+				#国内有任意6个State的基础设施数量大于等于2级
+				#这里用了一个循环操作，没有编程基础就别学了
+				#狗屎，循环也没用
+				has_stability > 0.5
 				custom_trigger_tooltip = {
 					tooltip = DOT_tt_Development_Agri_Need_1 #用这段文字替换掉下方条件的显示（不过变量的条件不会显示），若下方条件满足，则这段文字也显示满足条件
-					check_variable = { DOT_TV_Agri > 5 } #当变量大于5，即国内有任意6个State的基础设施数量大于等于2级时，显示条件完成
+					#check_variable = { DOT_TV_Agri@THIS > 5 } #当变量大于5，即国内有任意6个State的基础设施数量大于等于2级时，显示条件完成
 				}
 			}
 			ELSE_IF = {
 				limit = { has_idea = DOT_Government_Agri2 }
-				set_temp_variable = { DOT_TV_Agri = 0 }
-				all_owned_state = {
-					IF = {
-						limit = {
-							non_damaged_building_level = {
-								building = infrastructure
-								size > 2
-							}
-						}
-						add_to_temp_variable = { DOT_TV_Agri = 1 }
-					}
-				}
+				has_stability > 0.6
 				custom_trigger_tooltip = {
 					tooltip = DOT_tt_Development_Agri_Need_2
-					check_variable = { DOT_TV_Agri > 7 }
+					#check_variable = { DOT_TV_Agri@THIS > 7 }
 				}
 			}
 			ELSE_IF = {
 				limit = { has_idea = DOT_Government_Agri3 }
-				set_temp_variable = { DOT_TV_Agri = 0 }
-				all_owned_state = {
-					IF = {
-						limit = {
-							non_damaged_building_level = {
-								building = infrastructure
-								size > 3
-							}
-						}
-						add_to_temp_variable = { DOT_TV_Agri = 1 }
-					}
-				}
+				has_stability > 0.7
 				custom_trigger_tooltip = {
 					tooltip = DOT_tt_Development_Agri_Need_3
-					check_variable = { DOT_TV_Agri > 15 }
+					#check_variable = { DOT_TV_Agri@THIS > 15 }
 				}
 				
 			}
 			ELSE = {
 				limit = { has_idea = DOT_Government_Agri4 }
-				set_temp_variable = { DOT_TV_Agri = 0 }
-				all_owned_state = {
-					IF = {
-						limit = {
-							non_damaged_building_level = {
-								building = infrastructure
-								size > 4
-							}
-						}
-						add_to_temp_variable = { DOT_TV_Agri = 1 }
-					}
-				}
+				has_stability > 0.8
 				custom_trigger_tooltip = {
 					tooltip = DOT_tt_Development_Agri_Need_4
-					check_variable = { DOT_TV_Agri > 27 }
+					#check_variable = { DOT_TV_Agri > 27 }
 				}
 				
 			}
