@@ -2009,6 +2009,7 @@ political_actions = {
 			command_power_gain_mult = -0.25
 		}
 		available = {
+			NOT = { has_country_flag = DOT_Backing_Army }
 			#条件里也可以使用if
 			IF = {
 				limit = { has_idea = DOT_Government_Army1 }
@@ -2016,18 +2017,21 @@ political_actions = {
 				has_war_support > 0.25
 				has_political_power > 100
 				has_army_manpower = { size > 10000 }
+				land_doctrine_level > 0
 			}
 			ELSE_IF = {
 				limit = { has_idea = DOT_Government_Army2 }
 				has_war_support > 0.50
 				has_political_power > 200
 				has_army_manpower = { size > 100000 }
+				land_doctrine_level > 3
 			}
 			ELSE_IF = {
 				limit = { has_idea = DOT_Government_Army3 }
 				has_war_support > 0.70
 				has_political_power > 300
 				has_army_manpower = { size > 200000 }
+				land_doctrine_level > 6
 			}
 			ELSE = {
 				IF = {
@@ -2039,16 +2043,19 @@ political_actions = {
 					}
 					has_war_support > 0.98
 					has_political_power > 648
-					has_army_manpower = { size > 1000000 }
+					has_army_manpower = { size > 750000 }
+					land_doctrine_level > 10
 				}
 				ELSE = {
 					has_war_support > 0.85
 					has_political_power > 500
-					has_army_manpower = { size > 800000 }
+					has_army_manpower = { size > 500000 }
+					land_doctrine_level > 9
 				}
 			}
 		}
 		complete_effect = {
+			set_country_flag = DOT_Developing_Army
 			IF = {
 				limit = { has_idea = DOT_Government_Army1 }
 				add_political_power = -100
@@ -2077,6 +2084,7 @@ political_actions = {
 			}
 		}
 		remove_effect = {
+			clr_country_flag = DOT_Developing_Army
 			IF = {
 				limit = { has_idea = DOT_Government_Army1 }
 				remove_ideas = DOT_Government_Army1
@@ -2107,6 +2115,121 @@ political_actions = {
 					remove_ideas = DOT_Government_Army4
 					add_ideas = DOT_Government_Army5
 				}
+			}
+		}
+		ai_will_do = { base = 500 }
+	}
+	DOT_Back_Army_Development = {
+		icon = generic_prepare_civil_war
+		days_re_enable = 90
+		days_remove = 90
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
+		available = {
+			NOT = { has_country_flag = DOT_Developing_Army }
+		}
+		visible = {
+			OR = {
+				has_idea = DOT_Government_Army5
+				has_idea = DOT_Government_Army6
+			}
+		}
+		modifier = {
+			war_support_weekly = -0.002
+		}
+		complete_effect = {
+			add_command_power = -30
+			set_country_flag = DOT_Backing_Army
+		}
+		remove_effect = {
+			clr_country_flag = DOT_Backing_Army
+			add_ideas = DOT_Government_Army4
+		}
+	}
+	DOT_Development_Research = {
+		icon = generic_research
+		days_re_enable = 180
+		days_remove = 180
+		allowed = {
+			NOT = { original_tag = PRI }
+			is_ai = no #ai不可用
+		}
+		visible = {
+			#军事达到最高水平时不再显示
+			NOT = {
+				has_idea = DOT_Government_Research5
+			}
+			NOT = { original_tag = PRI }
+			DOT_Lock_Development_Dec = yes
+		}
+		modifier = {
+			research_speed_factor = -0.2
+		}
+		available = {
+			#条件里也可以使用if
+			IF = {
+				limit = { has_idea = DOT_Government_Research1 }
+				#发展水平一级的条件
+				has_political_power > 100
+				amount_research_slots > 2
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research2 }
+				has_political_power > 200
+				amount_research_slots > 3
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research3 }
+				has_political_power > 300
+				amount_research_slots > 4
+			}
+			ELSE = {
+				has_political_power > 648
+				amount_research_slots > 6
+			}
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_idea = DOT_Government_Research1 }
+				add_political_power = -100
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research2 }
+				add_political_power = -200
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research3 }
+				add_political_power = -300
+			}
+			ELSE = {
+				add_political_power = -648
+			}
+		}
+		remove_effect = {
+			IF = {
+				limit = { has_idea = DOT_Government_Research1 }
+				remove_ideas = DOT_Government_Research1
+				add_ideas = DOT_Government_Research2
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research2 }
+				remove_ideas = DOT_Government_Research2
+				add_ideas = DOT_Government_Research3
+			}
+			ELSE_IF = {
+				limit = { has_idea = DOT_Government_Research3 }
+				remove_ideas = DOT_Government_Research3
+				add_ideas = DOT_Government_Research4
+			}
+			ELSE = {
+				remove_ideas = DOT_Government_Research4
+				add_ideas = DOT_Government_Research5
 			}
 		}
 		ai_will_do = { base = 500 }
