@@ -55,6 +55,35 @@ Economist_Paimon = {
 		}
 		ai_will_do = { base = 0 }
 	}
+	#投资建设科学院
+	DOT_Invest_Academy = {
+		icon = generic_research
+		available = {
+			has_idea = DOT_Government_Research5
+			custom_trigger_tooltip = {
+				tooltip = DOT_mora_Cost
+				check_variable = { dx > 200000 }
+			}
+		}
+		visible = {
+			NOT = {
+				amount_research_slots > 7
+				has_country_flag = Mora_Hide_Decisions2
+			}
+		}
+		days_remove = 180
+		days_re_enable = 180
+		cost = 648
+		complete_effect = {
+			set_temp_variable = { DOT_Change_of_Mora = 200000 }
+			custom_effect_tooltip = DOT_mora_Spend
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+		}
+		remove_effect = {
+			add_research_slot = 1
+		}
+		ai_will_do = { base = 0 }
+	}
 	#氪一小单
 	Mora_For_Little_Genshin = {
 		icon = generic_political_support
