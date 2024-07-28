@@ -256,12 +256,37 @@ focus_tree = {
 		id = LAW_Eula_Eco_Civil1
 		icon = GFX_Goal_develop_Agri
 		cost = 5.00
-		x = 2
+		x = 1
 		y = 6
 		prerequisite = {
 			focus = LAW_Eula_Begin_Dealt_Economy
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_1
+					has_country_flag = LAW_Completed_Focus_Eco_Tech2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Agriculture
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			add_tech_bonus = {
 				category = industry
 				bonus = 0.5
@@ -306,12 +331,37 @@ focus_tree = {
 		id = LAW_Eula_Eco_Arms1
 		icon = GFX_goal_generic_construct_mil_factory
 		cost = 5.00
-		x = 4
+		x = 3
 		y = 6
 		prerequisite = {
 			focus = LAW_Eula_Begin_Dealt_Economy
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_1
+					has_country_flag = LAW_Completed_Focus_Eco_Tech2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Industry
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			random_owned_state = {
 				limit = {
 					free_building_slots = {
@@ -351,12 +401,28 @@ focus_tree = {
 		id = LAW_Eula_Eco_Reso1
 		icon = GFX_focus_generic_resource_extraction
 		cost = 5.00
-		x = 6
+		x = 5
 		y = 6
 		prerequisite = {
 			focus = LAW_Eula_Begin_Dealt_Economy
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+					has_country_flag = LAW_Completed_Focus_Eco_Tech2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
 			add_resource = {
 				type = chromium
 				amount = 20
@@ -389,6 +455,57 @@ focus_tree = {
 			base = 500
 		}
 	}
+	focus = {
+		id = LAW_Eula_Eco_Tech2
+		icon = GFX_goal_generic_construction
+		cost = 5.00
+		x = 7
+		y = 6
+		prerequisite = {
+			focus = LAW_Eula_Begin_Dealt_Economy
+		}
+		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_1
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			set_country_flag = LAW_Completed_Focus_Eco_Tech2
+			add_tech_bonus = {
+				category = naval_equipment
+				bonus = 1
+				uses = 1
+			}
+			add_tech_bonus = {
+				category = industry
+				bonus = 2
+				ahead_reduction = 1
+				uses = 1
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#改革一 生产进步
 	focus = {
 		id = LAW_Eula_Eco_Reform1
@@ -400,6 +517,7 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Civil1
 			focus = LAW_Eula_Eco_Arms1
 			focus = LAW_Eula_Eco_Reso1
+			focus = LAW_Eula_Eco_Tech2
 		}
 		completion_reward = {
 			add_tech_bonus = {
@@ -556,6 +674,31 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform1_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_1
+					has_country_flag = LAW_Completed_Focus_Eco_Tech1
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Agriculture
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			add_tech_bonus = {
 				category = industry
 				bonus = 0.5
@@ -608,6 +751,31 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform1_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_1
+					has_country_flag = LAW_Completed_Focus_Eco_Tech1
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Industry
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			random_owned_state = {
 				limit = {
 					free_building_slots = {
@@ -655,15 +823,32 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform1_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			set_contry_flag = LAW_Completed_Focus_Eco_Tech1
 			add_tech_bonus = {
-				category = electronics
+				category = excavation_tech
 				bonus = 2
+				ahead_reduction = 1
 				uses = 1
 			}
 			add_tech_bonus = {
 				category = industry
-				bonus = 2
-				ahead_reduction = 1
+				bonus = 1
 				uses = 1
 			}
 		}
@@ -692,6 +877,22 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform1_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+					has_country_flag = LAW_Completed_Focus_Eco_Tech1
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
 			29 = {
 				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
@@ -893,6 +1094,31 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform2_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Change_Line
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Agriculture
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			add_tech_bonus = {
 				category = industry
 				bonus = 0.5
@@ -945,6 +1171,30 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform2_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_2
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Industry
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				GFS_Improve_Industry_Level = yes
+			}
 			random_owned_state = {
 				limit = {
 					free_building_slots = {
@@ -992,6 +1242,21 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform2_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_D_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
 			add_resource = {
 				type = chromium
 				amount = 20
@@ -1036,6 +1301,21 @@ focus_tree = {
 			focus = LAW_Eula_Eco_Reform2_3
 		}
 		completion_reward = {
+			custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Research
+			IF = {
+				limit = {
+					has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+					has_country_flag = LAW_Unlock_Decisions_Invest_R_2
+				}
+				custom_effect_tooltip = LAW_tt_Bonus_for_Focuses_Completed
+				add_tech_bonus = {
+					category = electronics
+					category = industry
+					ahead_reduction = 0.5
+					bonus = 1
+				}
+			}
 			29 = {
 				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
