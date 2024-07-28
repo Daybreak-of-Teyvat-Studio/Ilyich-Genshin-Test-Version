@@ -1,0 +1,96 @@
+﻿#Here are all global events for any nation#
+
+add_namespace = developevent
+#this event will add equipment to the stock pile every year#
+country_event = { 
+	id = developevent.1
+	title = developevent.1.t
+	desc = developevent.1.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = developevent.1.a
+		ai_chance = { factor = 100 }
+		add_ideas = DOT_Dawn_of_Teyvat
+	}
+}
+
+
+country_event = {
+	id = developevent.2
+	title = developevent.2.t
+	desc = developevent.2.d
+	is_triggered_only = no
+	immediate = {
+		#事件条件一旦满足，就set DOT_F_Development_Event_On 这个flag
+		#事件里的immediate效果会直接写到事件文本下方，非常出戏，最好隐藏起来
+		hidden_effect = {
+			clr_country_flag = DOT_F_Development_Event_On
+			#clr即clear，会清除flag并重置其计时
+			#通过先clr再set的方式， 可以使得一个country_flag被反复用来计时——就像被倒放的沙漏那样
+			set_country_flag = DOT_F_Development_Event_On
+
+			#打上一个事件专属的flag，避免重复触发
+			set_country_flag = DOT_F_Development_Event_1_Watch
+		}
+	}
+	trigger = {
+		#这个OR中包含的条件，意思是：
+		#要么没有触发过同类事件（所以没有这一flag）
+		#要么距离上个事件已经过了100天了（所以flag自带的计时超过了99天）
+		OR = {
+			has_country_flag = {
+				flag = DOT_F_Development_Event_On
+				days > 99  #（这个days可以换成months years）
+			}
+			NOT = { has_country_flag = DOT_F_Development_Event_On }
+		}
+
+		#避免一个事件重复触发
+		NOT = { has_country_flag = DOT_F_Development_Event_1_Watch }
+
+		is_ai = no #不给ai观看，作为优化
+	}
+	fire_only_once = no
+	option = {
+		name = developevent.2.a
+		ai_chance = { factor = 100 }
+		#告诉玩家选错有惩罚
+		custom_effect_tooltip = DOT_tt_Wrong_Debuff
+		#显示惩罚的具体效果
+		set_temp_variable = { DOT_TV_Change_of_Inflation = 1 }
+		custom_effect_tooltip = DOT_tt_Mora_Inflation_Level_Up
+		#把实际效果隐藏起来
+		hidden_effect = {
+
+		}
+	}
+	option = {
+		name = developevent.2.b
+		ai_chance = { factor = 100 }
+		#告诉玩家选错有惩罚
+		custom_effect_tooltip = DOT_tt_Wrong_Debuff
+		#显示惩罚的具体效果
+		set_temp_variable = { DOT_TV_Change_of_Inflation = 1 }
+		custom_effect_tooltip = DOT_tt_Mora_Inflation_Level_Up
+		#把实际效果隐藏起来
+		hidden_effect = {
+			#造成实际惩罚
+			#add_to_variable = { inflation_level = DOT_TV_Change_of_Inflation }
+		}
+	}
+	option = {
+		name = developevent.2.c
+		ai_chance = { factor = 100 }
+		#告诉玩家选错有惩罚
+		custom_effect_tooltip = DOT_tt_Wrong_Debuff
+		#显示惩罚的具体效果
+		set_temp_variable = { DOT_TV_Change_of_Inflation = 1 }
+		custom_effect_tooltip = DOT_tt_Mora_Inflation_Level_Up
+		#把实际效果隐藏起来
+		hidden_effect = {
+			#造成实际惩罚
+			#add_to_variable = { inflation_level = DOT_TV_Change_of_Inflation }
+		}
+	}
+}
