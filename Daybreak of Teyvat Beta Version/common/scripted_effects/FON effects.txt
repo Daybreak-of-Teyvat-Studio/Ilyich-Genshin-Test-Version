@@ -1,0 +1,304 @@
+###枫丹大选###
+
+#set_variable = { FON_support_SdR = 2 } #刺玟会支持度
+#set_variable = { FON_support_HoH = 1} #壁炉之家支持度
+#set_variable = { FON_support_PLCF = 0 } #立宪自由党支持度
+#set_variable = { FON_support_CLDT = 1 } #工联支持度
+#set_variable = { FON_support_ADP = 1 } #乡民协会支持度
+#set_variable = { FON_support_UDPIEC = 1 } #工商业主同盟支持度
+#set_variable = { FON_support_PDLCF = 1 } #立宪帝国党支持度
+
+#合成公式如下：
+#枫丹社会大众党（Parti social Fontaine，PSF）= 刺玟会：Spina di Rosula（SdR）+ 工联（CLDT）非激进派
+#枫丹激进工人党（Parti ouvrier radical Fontaine，PORF）= 工联（CLDT）激进派 （按30%算）
+#枫丹联盟党（Parti Alliance Fontaine，PAF）= 壁炉之家：House of the Hearth（HoH）+ 工商业主同盟（UDPIEC）
+#枫丹乡村党（Parti du village de fontaine，PDVDF）= 乡民协会：Association des paysans（ADP）
+#立宪帝国党：Parti de l'empire constitutionnel Fontaine（PDLCF）
+
+
+FON_election_update_percentage_effect = {
+
+
+	#计算总体支持度
+	set_temp_variable = { FON_election_total_strength_temp_var = FON_support_SdR } 
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_HoH }
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_PLCF }
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_CLDT }
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_ADP }
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_UDPIEC }
+	add_to_temp_variable = { FON_election_total_strength_temp_var = FON_support_PDLCF }
+
+	#刺玟会支持度计算（以百分比计）
+	set_variable = { FON_SdR_election_percentage_var = FON_support_SdR }
+	divide_variable = { FON_SdR_election_percentage_var = FON_election_total_strength_temp_var }
+	#壁炉之家
+	set_variable = { FON_HoH_election_percentage_var = FON_support_HoH }
+	divide_variable = { FON_HoH_election_percentage_var = FON_election_total_strength_temp_var }
+	#立宪自由党
+	set_variable = { FON_PLCF_election_percentage_var = FON_support_PLCF }
+	divide_variable = { FON_PLCF_election_percentage_var = FON_election_total_strength_temp_var }
+	#工联
+	set_variable = { FON_CLDT_election_percentage_var = FON_support_CLDT }
+	divide_variable = { FON_CLDT_election_percentage_var = FON_election_total_strength_temp_var }
+	#乡民协会
+	set_variable = { FON_ADP_election_percentage_var = FON_support_ADP }
+	divide_variable = { FON_ADP_election_percentage_var = FON_election_total_strength_temp_var }
+	#工商业主同盟
+	set_variable = { FON_UDPIEC_election_percentage_var = FON_support_UDPIEC }
+	divide_variable = { FON_UDPIEC_election_percentage_var = FON_election_total_strength_temp_var }
+	#立宪帝国党
+	set_variable = { FON_PDLCF_election_percentage_var = FON_support_PDLCF }
+	divide_variable = { FON_PDLCF_election_percentage_var = FON_election_total_strength_temp_var }
+
+
+	##大选联盟支持度计算##
+
+	#社众党（刺玟会+工联）
+	set_variable = { FON_PSF_election_percentage_var = FON_support_SdR }
+	add_to_variable = { FON_PSF_election_percentage_var = FON_support_CLDT }
+	divide_variable = { FON_PSF_election_percentage_var = FON_election_total_strength_temp_var }
+
+	#联盟党（壁炉之家+工商业主联盟）
+	set_variable = { FON_PAF_election_percentage_var = FON_support_HoH }
+	add_to_variable = { FON_PAF_election_percentage_var = FON_support_UDPIEC }
+	divide_variable = { FON_PAF_election_percentage_var = FON_election_total_strength_temp_var }
+}
+
+#刺玟会支持度变化
+FON_SdR_pop_effect = {
+	add_to_variable = {
+		var = FON_support_SdR
+		value = 1
+		tooltip = FON_add_SdR_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_SdR_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_SdR
+		value = 1
+		tooltip = FON_remove_SdR_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_SdR
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#壁炉之家支持度变化
+FON_HoH_pop_effect = {
+	add_to_variable = {
+		var = FON_support_HoH
+		value = 1
+		tooltip = FON_add_HoH_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_HoH_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_HoH
+		value = 1
+		tooltip = FON_remove_HoH_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_HoH
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#立宪自由党支持度变化
+FON_PLCF_pop_effect = {
+	add_to_variable = {
+		var = FON_support_PLCF
+		value = 1
+		tooltip = FON_add_PLCF_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_PLCF_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_PLCF
+		value = 1
+		tooltip = FON_remove_PLCF_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_PLCF
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#工联支持度变化
+FON_CLDT_pop_effect = {
+	add_to_variable = {
+		var = FON_support_CLDT
+		value = 1
+		tooltip = FON_add_CLDT_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_CLDT_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_CLDT
+		value = 1
+		tooltip = FON_remove_CLDT_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_CLDT
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#乡民协会支持度变化
+FON_ADP_pop_effect = {
+	add_to_variable = {
+		var = FON_support_ADP
+		value = 1
+		tooltip = FON_add_ADP_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_ADP_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_ADP
+		value = 1
+		tooltip = FON_remove_ADP_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_ADP
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#工商业主同盟支持度变化
+FON_UDPIEC_pop_effect = {
+	add_to_variable = {
+		var = FON_support_UDPIEC
+		value = 1
+		tooltip = FON_add_UDPIEC_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_UDPIEC_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_UDPIEC
+		value = 1
+		tooltip = FON_remove_UDPIEC_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_UDPIEC
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#立宪帝国党支持度变化
+FON_PDLCF_pop_effect = {
+	add_to_variable = {
+		var = FON_support_PDLCF
+		value = 1
+		tooltip = FON_add_PDLCF_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_PDLCF_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_PDLCF
+		value = 1
+		tooltip = FON_remove_PDLCF_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_PDLCF
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#MVP结算
+FON_calculate_winner_effect = {
+	if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PAF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PLCF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_ADP_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PDLCF_election_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.1 days = 2 } #社众党胜利
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PAF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PLCF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_ADP_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PSF_election_percentage_var
+					value = FON_PDLCF_election_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.1 days = 2 } #社众党胜利
+	}
+	else_if = { #How the hell would you even get a 50/50 split I haven't done the math but okay
+		limit = {
+			NOT = {
+				AND = {
+					check_variable = {
+						var = HNN_kmt_election_percentage_var
+						value = HNN_zhao_election_percentage_var
+						compare = greater_than
+					}
+					check_variable = {
+						var = HNN_zhao_election_percentage_var
+						value = HNN_kmt_election_percentage_var
+						compare = greater_than
+					}
+				}
+			}
+		}
+		set_country_flag = HNN_electiontie
+		country_event = { id = hnn.fed.1 days = 2 }
+	}
+}
