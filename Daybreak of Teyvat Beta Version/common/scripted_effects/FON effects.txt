@@ -18,6 +18,7 @@
 
 FON_election_update_percentage_effect = {
 
+    ###政党支持度###
 
 	#计算总体支持度
 	set_temp_variable = { FON_election_total_strength_temp_var = FON_support_SdR } 
@@ -51,7 +52,7 @@ FON_election_update_percentage_effect = {
 	divide_variable = { FON_PDLCF_election_percentage_var = FON_election_total_strength_temp_var }
 
 
-	##大选联盟支持度计算##
+	##大选联盟支持度计算
 
 	#社众党（刺玟会+工联）
 	set_variable = { FON_PSF_election_percentage_var = FON_support_SdR }
@@ -62,7 +63,31 @@ FON_election_update_percentage_effect = {
 	set_variable = { FON_PAF_election_percentage_var = FON_support_HoH }
 	add_to_variable = { FON_PAF_election_percentage_var = FON_support_UDPIEC }
 	divide_variable = { FON_PAF_election_percentage_var = FON_election_total_strength_temp_var }
+
+    ###总统支持度###
+
+	#计算总体支持度
+	set_temp_variable = { FON_election_for_President_total_strength_temp_var = FON_support_Navia } 
+	add_to_temp_variable = { FON_election_for_President_total_strength_temp_var = FON_support_Liney }
+	add_to_temp_variable = { FON_election_for_President_total_strength_temp_var = FON_support_Charlotte }
+	add_to_temp_variable = { FON_election_for_President_total_strength_temp_var = FON_support_Furina }
+
+	#娜维娅支持度计算（以百分比计）
+	set_variable = { FON_Navia_election_for_President_percentage_var = FON_support_Navia }
+	divide_variable = { FON_Navia_election_for_President_percentage_var = FON_election_for_President_total_strength_temp_var }
+	#林尼
+	set_variable = { FON_Liney_election_for_President_percentage_var = FON_support_Liney }
+	divide_variable = { FON_Liney_election_for_President_percentage_var = FON_election_for_President_total_strength_temp_var }
+	#夏洛蒂
+	set_variable = { FON_Charlotte_election_for_President_percentage_var = FON_support_Charlotte }
+	divide_variable = { FON_Charlotte_election_for_President_percentage_var = FON_election_for_President_total_strength_temp_var }
+	#芙宁娜
+	set_variable = { FON_Furina_election_for_President_percentage_var = FON_support_Furina }
+	divide_variable = { FON_Furina_election_for_President_percentage_var = FON_election_for_President_total_strength_temp_var }
 }
+
+
+###政党支持度变化###
 
 #刺玟会支持度变化
 FON_SdR_pop_effect = {
@@ -225,8 +250,103 @@ FON_PDLCF_remove_pop_effect = {
 	FON_election_update_percentage_effect = yes
 }
 
+###领袖支持度变化###
+
+#娜维娅支持度变化
+FON_Navia_pop_effect = {
+	add_to_variable = {
+		var = FON_support_Navia
+		value = 1
+		tooltip = FON_add_Navia_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_Navia_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_Navia
+		value = 1
+		tooltip = FON_remove_Navia_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_Navia
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#林尼支持度变化
+FON_Liney_pop_effect = {
+	add_to_variable = {
+		var = FON_support_Liney
+		value = 1
+		tooltip = FON_add_Liney_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_Liney_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_Liney
+		value = 1
+		tooltip = FON_remove_Liney_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_Liney
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#夏洛蒂支持度变化
+FON_Charlotte_pop_effect = {
+	add_to_variable = {
+		var = FON_support_Charlotte
+		value = 1
+		tooltip = FON_add_Charlotte_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_Charlotte_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_Charlotte
+		value = 1
+		tooltip = FON_remove_Charlotte_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_Charlotte
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+#芙宁娜支持度变化
+FON_Furina_pop_effect = {
+	add_to_variable = {
+		var = FON_support_Furina
+		value = 1
+		tooltip = FON_add_Furina_votes_tt
+	}
+	FON_election_update_percentage_effect = yes
+}
+FON_Furina_remove_pop_effect = {
+	subtract_from_variable = {
+		var = FON_support_Furina
+		value = 1
+		tooltip = FON_remove_Furina_votes_tt
+	}
+	clamp_variable = {
+		var = FON_support_Furina
+		min = 0
+		max = 100
+	}
+	FON_election_update_percentage_effect = yes
+}
+
+
 #MVP结算
-FON_calculate_winner_effect = {
+FON_calculate_winner_party_effect = {
 	if = {
 		limit = {
 			AND = {
@@ -337,5 +457,96 @@ FON_calculate_winner_effect = {
 	}
 	else = {
 		country_event = { id = FON.election.5 days = 2 } #未出现胜者（此路线暂不完成，姑且做彩蛋处理，仅有代码）
+	}
+}
+
+FON_calculate_winner_leader_effect = {
+	if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_Navia_election_for_President_percentage_var
+					value = FON_Liney_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Navia_election_for_President_percentage_var
+					value = FON_Charlotte_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Navia_election_for_President_percentage_var
+					value = FON_Furina_election_for_President_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.6 days = 2 } #娜维娅胜利
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_Liney_election_for_President_percentage_var
+					value = FON_Navia_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Liney_election_for_President_percentage_var
+					value = FON_Charlotte_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Liney_election_for_President_percentage_var
+					value = FON_Furina_election_for_President_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.7 days = 2 } #林尼胜利
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_Charlotte_election_for_President_percentage_var
+					value = FON_Navia_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Charlotte_election_for_President_percentage_var
+					value = FON_Liney_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Charlotte_election_for_President_percentage_var
+					value = FON_Furina_election_for_President_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.8 days = 2 } #夏洛蒂胜利
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_Furina_election_for_President_percentage_var
+					value = FON_Navia_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Furina_election_for_President_percentage_var
+					value = FON_Liney_election_for_President_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_Furina_election_for_President_percentage_var
+					value = FON_Charlotte_election_for_President_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.9 days = 2 } #芙宁娜胜利
 	}
 }
