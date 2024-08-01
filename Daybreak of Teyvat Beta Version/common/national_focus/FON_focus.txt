@@ -626,6 +626,9 @@ focus = {
         add_political_power = 100
         country_event = {id=FON.13} #芙宁娜的去留
         country_event = {id=FON.14} #枫丹民主化问题的始末
+        hidden_effect = {
+            add_idea = FON_call_for_voting
+        }
     }
 }
 
@@ -654,6 +657,9 @@ focus = {
     available_if_capitulated = no
     allow_branch = {
         FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+        country_event = { id = FON.20 } #选择为谁拉票
     }
     
 }
@@ -684,7 +690,9 @@ focus = {
     allow_branch = {
         FON_is_stage_election_trigger = yes
     }
-
+    completion_reward = {
+        country_event = { id = FON.20 } #选择为谁拉票
+    }
 }
 
 
@@ -711,7 +719,7 @@ focus = {
         FON_Navia_candidate_trigger = yes
     }
     completion_reward = {
-        add_political_power = 40
+        add_political_power = 30
         country_event = { id = FON.21 } #和工人自由联合会的会晤
     }
 }
@@ -738,10 +746,63 @@ focus = {
         FON_Navia_candidate_trigger = yes
     }
     completion_reward = {
-        add_political_power = 40
+        add_political_power = 30
         country_event = { id = FON.22 } #灰河一日
     }
 }
 
-#
+#林尼国策：觥筹交错
+focus = {
+    id = FON_contact_UDPIEC
+    icon = GFX_FON_contact_UDPIEC
+
+    relative_position_id = FON_preparation_for_election
+    x = 0
+    y = 2
+
+    cost = 3
+    prerequisite = {
+        focus = FON_furina_leave
+        focus = FON_furina_stay
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+        FON_Liney_candidate_trigger = yes
+    }
+    completion_reward = {
+        add_political_power = 30
+        country_event = { id = FON.23 } #和工商业主同盟的会晤
+    }
+}
+
+#林尼国策：巡回演出
+focus = {
+    id = FON_display_for_voting
+    icon = GFX_FON_display_for_voting
+
+    relative_position_id = FON_preparation_for_election
+    x = 0
+    y = 3
+
+    cost = 4
+    prerequisite = {
+        focus = FON_contact_UDPIEC
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+        FON_Liney_candidate_trigger = yes
+    }
+    completion_reward = {
+        add_political_power = 30
+        country_event = { id = FON.24 } #巡回演出
+    }
+}
 }

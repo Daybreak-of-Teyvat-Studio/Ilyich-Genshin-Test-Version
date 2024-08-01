@@ -258,47 +258,84 @@ FON_calculate_winner_effect = {
 		limit = {
 			AND = {
 				check_variable = {
-					var = FON_PSF_election_percentage_var
-					value = FON_PAF_election_percentage_var
+					var = FON_PAF_election_percentage_var
+					value = FON_PSF_election_percentage_var
 					compare = greater_than
 				}
 				check_variable = {
-					var = FON_PSF_election_percentage_var
+					var = FON_PAF_election_percentage_var
 					value = FON_PLCF_election_percentage_var
 					compare = greater_than
 				}
 				check_variable = {
-					var = FON_PSF_election_percentage_var
+					var = FON_PAF_election_percentage_var
 					value = FON_ADP_election_percentage_var
 					compare = greater_than
 				}
 				check_variable = {
-					var = FON_PSF_election_percentage_var
+					var = FON_PAF_election_percentage_var
 					value = FON_PDLCF_election_percentage_var
 					compare = greater_than
 				}
 			}
 		}
-		country_event = { id = FON.election.1 days = 2 } #社众党胜利
+		country_event = { id = FON.election.2 days = 2 } #联盟党胜利
 	}
-	else_if = { #How the hell would you even get a 50/50 split I haven't done the math but okay
+	else_if = {
 		limit = {
-			NOT = {
-				AND = {
-					check_variable = {
-						var = HNN_kmt_election_percentage_var
-						value = HNN_zhao_election_percentage_var
-						compare = greater_than
-					}
-					check_variable = {
-						var = HNN_zhao_election_percentage_var
-						value = HNN_kmt_election_percentage_var
-						compare = greater_than
-					}
+			AND = {
+				check_variable = {
+					var = FON_PLCF_election_percentage_var
+					value = FON_PSF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PLCF_election_percentage_var
+					value = FON_PAF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PLCF_election_percentage_var
+					value = FON_ADP_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PLCF_election_percentage_var
+					value = FON_PDLCF_election_percentage_var
+					compare = greater_than
 				}
 			}
 		}
-		set_country_flag = HNN_electiontie
-		country_event = { id = hnn.fed.1 days = 2 }
+		country_event = { id = FON.election.3 days = 2 } #立宪自由党胜利
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = {
+					var = FON_PDLCF_election_percentage_var
+					value = FON_PSF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PDLCF_election_percentage_var
+					value = FON_PAF_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PDLCF_election_percentage_var
+					value = FON_ADP_election_percentage_var
+					compare = greater_than
+				}
+				check_variable = {
+					var = FON_PDLCF_election_percentage_var
+					value = FON_PLCF_election_percentage_var
+					compare = greater_than
+				}
+			}
+		}
+		country_event = { id = FON.election.4 days = 2 } #立宪帝国党胜利
+	}
+	else = {
+		country_event = { id = FON.election.5 days = 2 } #未出现胜者（此路线暂不完成，姑且做彩蛋处理，仅有代码）
 	}
 }
