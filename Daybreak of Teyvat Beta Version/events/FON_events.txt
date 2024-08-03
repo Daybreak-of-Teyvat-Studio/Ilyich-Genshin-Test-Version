@@ -239,6 +239,7 @@ country_event = {#罪人舞步旋3
 
 			}
 		}
+		promote_character = FON_Neuvillette
 	}
 	option = {
 		name = FON.10.b
@@ -248,6 +249,7 @@ country_event = {#罪人舞步旋3
 				
 			}
 		}
+		promote_character = FON_Neuvillette
 	}
 }
 
@@ -452,6 +454,17 @@ country_event = {#选择为谁拉票
 			activate_mission = FON_ADP_campaign_ADP
 			activate_mission = FON_UDPIEC_campaign_UDPIEC
 			activate_mission = FON_PDLCF_campaign_PDLCF
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = Semi-presidentialism
+						has_country_flag = presidentialism
+					}
+					activate_mission = FON_HoH_campaign_Liney
+					activate_mission = FON_PLCF_campaign_Charlotte
+					activate_mission = FON_PDLCF_campaign_Furina
+				}
+			}
 		}
 		custom_effect_tooltip = FON_vote_for_Navia_tt
 		mark_focus_tree_layout_dirty = yes
@@ -468,6 +481,17 @@ country_event = {#选择为谁拉票
 			activate_mission = FON_ADP_campaign_ADP
 			activate_mission = FON_UDPIEC_campaign_UDPIEC
 			activate_mission = FON_PDLCF_campaign_PDLCF
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = Semi-presidentialism
+						has_country_flag = presidentialism
+					}
+					activate_mission = FON_SdR_campaign_Navia
+					activate_mission = FON_PLCF_campaign_Charlotte
+					activate_mission = FON_PDLCF_campaign_Furina
+				}
+			}
 		}
 		custom_effect_tooltip = FON_vote_for_Liney_tt
 		mark_focus_tree_layout_dirty = yes		
@@ -483,6 +507,17 @@ country_event = {#选择为谁拉票
 			activate_mission = FON_ADP_campaign_ADP
 			activate_mission = FON_UDPIEC_campaign_UDPIEC
 			activate_mission = FON_PDLCF_campaign_PDLCF
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = Semi-presidentialism
+						has_country_flag = presidentialism
+					}
+					activate_mission = FON_HoH_campaign_Liney
+					activate_mission = FON_SdR_campaign_Navia
+					activate_mission = FON_PDLCF_campaign_Furina
+				}
+			}
 		}
 		custom_effect_tooltip = FON_vote_for_Charlotte_tt
 		mark_focus_tree_layout_dirty = yes
@@ -501,6 +536,17 @@ country_event = {#选择为谁拉票
 			activate_mission = FON_ADP_campaign_ADP
 			activate_mission = FON_UDPIEC_campaign_UDPIEC
 			activate_mission = FON_PLCF_campaign_PLCF
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = Semi-presidentialism
+						has_country_flag = presidentialism
+					}
+					activate_mission = FON_HoH_campaign_Liney
+					activate_mission = FON_PLCF_campaign_Charlotte
+					activate_mission = FON_SdR_campaign_Navia
+				}
+			}
 		}
 		custom_effect_tooltip = FON_vote_for_Furina_tt
 		mark_focus_tree_layout_dirty = yes
@@ -637,5 +683,483 @@ country_event = {#欧庇克莱的话剧
 			FON_election_update_percentage_effect = yes
 		}
 		custom_effect_tooltip = FON_add_PDLCF_votes_tt
+	}
+}
+
+
+
+
+#大选结算
+
+country_event = { #社众党胜利
+	id = FON.election.1
+	title = FON.election.1.t
+	desc = FON.election.1.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.1.a
+		if = {
+			limit = {
+				has_country_flag = parliamentarism
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag
+			set_politics = {
+				ruling_party = democratic_socialism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty =yes
+			custom_effect_tooltip = parliamentarism_Navia_government_tt
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = presidentialism
+					has_country_flag = Semi-presidentialism
+				}
+			}
+			set_country_flag = PSF_win_flag
+			FON_calculate_winner_leader_effect = yes
+			custom_effect_tooltip = FON_calculate_winner_leader_effect_tt
+		}
+	}
+}
+
+country_event = { #联盟党胜利
+	id = FON.election.2
+	title = FON.election.2.t
+	desc = FON.election.2.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.2.a
+		if = {
+			limit = {
+				has_country_flag = parliamentarism
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Liney_government_flag
+			set_politics = {
+				ruling_party = economic_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty =yes
+			custom_effect_tooltip = parliamentarism_Liney_government_tt
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = presidentialism
+					has_country_flag = Semi-presidentialism
+				}
+			}
+			set_country_flag = PAF_win_flag
+			FON_calculate_winner_leader_effect = yes
+			custom_effect_tooltip = FON_calculate_winner_leader_effect_tt
+		}
+	}
+}
+
+country_event = { #立宪自由党胜利
+	id = FON.election.3
+	title = FON.election.3.t
+	desc = FON.election.3.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.3.a
+		if = {
+			limit = {
+				has_country_flag = parliamentarism
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Charlotte_government_flag
+			set_politics = {
+				ruling_party = progressive_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty =yes
+			custom_effect_tooltip = parliamentarism_Charlotte_government_tt
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = presidentialism
+					has_country_flag = Semi-presidentialism
+				}
+			}
+			set_country_flag = PLCF_win_flag
+			FON_calculate_winner_leader_effect = yes
+			custom_effect_tooltip = FON_calculate_winner_leader_effect_tt
+		}
+	}
+}
+
+country_event = { #立宪帝国党胜利
+	id = FON.election.4
+	title = FON.election.4.t
+	desc = FON.election.4.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.4.a
+		if = {
+			limit = {
+				has_country_flag = parliamentarism
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Furina_government_flag
+			set_politics = {
+				ruling_party = powerful_president
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty =yes
+			custom_effect_tooltip = parliamentarism_Furina_government_tt
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = presidentialism
+					has_country_flag = Semi-presidentialism
+				}
+			}
+			set_country_flag = PDLCF_win_flag
+			FON_calculate_winner_leader_effect = yes
+			custom_effect_tooltip = FON_calculate_winner_leader_effect_tt
+		}
+	}
+}
+
+country_event = { #娜维娅胜利
+	id = FON.election.6
+	title = FON.election.6.t
+	desc = FON.election.6.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.6.a
+		if = {
+			limit = {
+				has_country_flag = PSF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag
+			set_politics = {
+				ruling_party = democratic_socialism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Navia_government_flag_tt
+			hidden_effect = {
+				complete_national_focus = FON_Navia_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PAF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag_with_PAF
+			set_politics = {
+				ruling_party = democratic_socialism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Navia_government_flag_with_PAF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Navia_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag_with_PLCF
+			set_politics = {
+				ruling_party = democratic_socialism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Navia_government_flag_with_PLCF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Navia_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PDLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag_with_PDLCF
+			set_politics = {
+				ruling_party = democratic_socialism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Navia_government_flag_with_PDLCF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Navia_government
+			}
+		}
+	}
+}
+
+country_event = { #林尼胜利
+	id = FON.election.7
+	title = FON.election.7.t
+	desc = FON.election.7.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.7.a
+		if = {
+			limit = {
+				has_country_flag = PAF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Liney_government_flag
+			set_politics = {
+				ruling_party = economic_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Liney_government_flag_tt
+			hidden_effect = {
+				complete_national_focus = FON_Liney_government
+			}
+			
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PSF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Liney_government_flag_with_PSF
+			set_politics = {
+				ruling_party = economic_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Liney_government_flag_with_PSF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Liney_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Liney_government_flag_with_PLCF
+			set_politics = {
+				ruling_party = economic_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Liney_government_flag_with_PLCF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Liney_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PDLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Liney_government_flag_with_PDLCF
+			set_politics = {
+				ruling_party = economic_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Liney_government_flag_with_PDLCF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Liney_government
+			}
+		}
+	}
+}
+
+country_event = { #夏洛蒂胜利
+	id = FON.election.8
+	title = FON.election.8.t
+	desc = FON.election.8.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.8.a
+		if = {
+			limit = {
+				has_country_flag = PSF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Charlotte_government_flag_with_PSF
+			set_politics = {
+				ruling_party = progressive_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Charlotte_government_flag_with_PSF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Charlotte_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PAF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Charlotte_government_flag_with_PAF
+			set_politics = {
+				ruling_party = progressive_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Charlotte_government_flag_with_PAF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Charlotte_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Navia_government_flag
+			set_politics = {
+				ruling_party = progressive_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Charlotte_government_flag_tt
+			hidden_effect = {
+				complete_national_focus = FON_Charlotte_government
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = PDLCF_win_flag
+			}
+			clr_country_flag = FON_stage_election_begins_flag
+			clr_country_flag = FON_vote_for_Navia
+			clr_country_flag = FON_vote_for_Liney
+			clr_country_flag = FON_vote_for_Charlotte
+			clr_country_flag = FON_vote_for_Furina
+			set_country_flag = FON_Charlotte_government_flag_with_PDLCF
+			set_politics = {
+				ruling_party = progressive_liberalism
+				election_frequency = 48 # Every 4 years
+				elections_allowed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+			custom_effect_tooltip = FON_Charlotte_government_flag_with_PDLCF_tt
+			hidden_effect = {
+				complete_national_focus = FON_Charlotte_government
+			}
+		}
+	}
+}
+
+country_event = { #芙宁娜胜利
+	id = FON.election.9
+	title = FON.election.9.t
+	desc = FON.election.9.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.election.9.a
+		clr_country_flag = FON_stage_election_begins_flag
+		clr_country_flag = FON_vote_for_Navia
+		clr_country_flag = FON_vote_for_Liney
+		clr_country_flag = FON_vote_for_Charlotte
+		clr_country_flag = FON_vote_for_Furina
+		set_country_flag = FON_Furina_government_flag
+		set_politics = {
+			ruling_party = powerful_president
+			election_frequency = 48 # Every 4 years
+			elections_allowed = yes
+		}
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = FON_Furina_government_flag_tt
+		hidden_effect = {
+			complete_national_focus = FON_Furina_government
+		}
 	}
 }
