@@ -1528,11 +1528,7 @@ LAW_DC_Organize_Noble = {
 			consumer_goods_factor = -0.02
 		}
 		visible = {
-			OR = {
-				has_idea = LAW_Congress_of_Corporation1
-				has_idea = LAW_Congress_of_Corporation2
-				has_idea = LAW_Congress_of_Corporation3
-			}
+			LAW_Has_Completed_Idea12 = yes
 		}
 		remove_effect = {
 			set_temp_variable = { LAW_Change_of_Noble_STST = 2 }
@@ -1549,8 +1545,63 @@ LAW_DC_Organize_Noble = {
 		}
 	}
 	#LAW_Youth_League_Tide 青年组织解锁：降低 LAW_Noble_STST LAW_ON_People_Unpopular_Noble
+	LAW_ON_Youth_Noble = {
+		days_remove = 60
+		cost = 60
+		modifier = {
+			stability_factor = -0.1
+		}
+		visible = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation2 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		}
+	}
 	#LAW_Political_impart 政治开明解锁：延缓负面事件到来 LAW_ON_Lower_Noble_Power
+	LAW_ON_PI_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			stablity_factor = -0.05
+		}
+		visible = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 30 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
 	#LAW_Winter_System 健全法制解锁：延缓负面事件到来 LAW_ON_Better_Noble_Law
+	LAW_ON_WS_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			political_power_cost = 0.25
+		}
+		visible = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 30 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
 
 	#平衡左移换政治点
 	#政治点换平衡右移
@@ -9935,7 +9986,7 @@ LAW_DC_Organize_Ice = {
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
-				set_temp_variable = { LAW_Change_of_Icy_Power = 3 }
+				set_temp_variable = { LAW_Change_of_Icy_Power = 4 }
 				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 				custom_effect_tooltip = LAW_tt_More_Icy_Power
 			}
@@ -9943,7 +9994,7 @@ LAW_DC_Organize_Ice = {
 				limit = { has_idea = LAW_Political_impart3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_political_power = 30
-				set_temp_variable = { LAW_Change_of_Icy_Power = 1 }
+				set_temp_variable = { LAW_Change_of_Icy_Power = 5 }
 				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 				custom_effect_tooltip = LAW_tt_More_Icy_Power
 			}
@@ -9982,7 +10033,7 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = { has_idea = LAW_Fundamental_Organization3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
-				set_temp_variable = { LAW_Change_of_Icy_Power = 10 }
+				set_temp_variable = { LAW_Change_of_Icy_Power = 6 }
 				custom_effect_tooltip = LAW_tt_More_Icy_Power
 				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 			}
@@ -10133,22 +10184,22 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = LAW_Labour_Union2
-						has_idea = LAW_Labour_Union3
+						has_idea = LAW_Congress_of_Corporation2
+						has_idea = LAW_Congress_of_Corporation3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_political_power = 15
 			}
 			IF = {
-				limit = { has_idea = LAW_Labour_Union3 }
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_political_power = 15
 			}
 		}
 	}
 	#筹划共同行动
-	LAW_Class_Together = {
+	LAW_Act_Together = {
 		days_remove = 60
 		cost = 30
 		allowed = {
@@ -10205,15 +10256,15 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = Level_of_LAW_Knights_of_Ice2
-						has_idea = Level_of_LAW_Knights_of_Ice3
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				army_experience = 10
 			}
 			IF = {
-				limit = { has_idea = Level_of_LAW_Knights_of_Ice3 }
+				limit = { has_idea = LAW_Knights_of_Ice3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				army_experience = 10
 			}
@@ -10240,8 +10291,8 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = Level_of_LAW_Knights_of_Ice2
-						has_idea = Level_of_LAW_Knights_of_Ice3
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
@@ -10250,7 +10301,7 @@ LAW_DC_Organize_Ice = {
 				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 			}
 			IF = {
-				limit = { has_idea = Level_of_LAW_Knights_of_Ice3 }
+				limit = { has_idea = LAW_Knights_of_Ice3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_war_support = 0.02
 			}
@@ -10277,8 +10328,8 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = Level_of_LAW_Knights_of_Ice2
-						has_idea = Level_of_LAW_Knights_of_Ice3
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
@@ -10287,7 +10338,7 @@ LAW_DC_Organize_Ice = {
 				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 			}
 			IF = {
-				limit = { has_idea = Level_of_LAW_Knights_of_Ice3 }
+				limit = { has_idea = LAW_Knights_of_Ice3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_war_support = 0.02
 			}
@@ -10316,15 +10367,15 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = Level_of_LAW_Knights_of_Ice2
-						has_idea = Level_of_LAW_Knights_of_Ice3
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_political_power = 15
 			}
 			IF = {
-				limit = { has_idea = Level_of_LAW_Knights_of_Ice3 }
+				limit = { has_idea = LAW_Knights_of_Ice3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				add_political_power = 15
 			}
@@ -10350,8 +10401,8 @@ LAW_DC_Organize_Ice = {
 			IF = {
 				limit = {
 					OR = {
-						has_idea = Level_of_LAW_Knights_of_Ice2
-						has_idea = Level_of_LAW_Knights_of_Ice3
+						has_idea = LAW_Icy_Judge_Court2
+						has_idea = LAW_Icy_Judge_Court3
 					}
 				}
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
@@ -10360,7 +10411,7 @@ LAW_DC_Organize_Ice = {
 				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
 			}
 			IF = {
-				limit = { has_idea = Level_of_LAW_Knights_of_Ice3 }
+				limit = { has_idea = LAW_Icy_Judge_Court3 }
 				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
 				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
 				custom_effect_tooltip = LAW_tt_Less_Fool_Power
