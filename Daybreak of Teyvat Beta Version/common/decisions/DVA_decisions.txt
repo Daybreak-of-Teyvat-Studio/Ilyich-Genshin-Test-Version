@@ -413,6 +413,29 @@ DVA_debug_category = {
 			}
 		}
 	}
+	DVA_test_decision14 = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			#
+		}
+
+		visible = {
+			#
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		complete_effect = {
+			load_oob = ABY_SS
+		}
+	}
 }
 DVA_Great_Baron_Bunny = {
 	DVA_Orbital_Bombing = {
@@ -2498,7 +2521,72 @@ DVA_helios_project_category = {
 			set_country_flag = DVA_helios_project_first_step_flag
 		}
 	}
-	#制造火箭零件
+	#第一阶段
+	#采购浮生石
+	DVA_purchase_Plaustrite = {
+
+		icon = generic_research
+		
+		available = {
+			has_completed_focus = DVA_restart_LYY_trade_route
+		}
+
+		cost = 0
+
+		ai_will_do = {
+			base = 100
+		}
+
+		visible = {
+			has_country_flag = DVA_helios_project_flag
+			has_country_flag = DVA_helios_project_first_step_flag
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			add_to_variable = {
+				var = DVA_helios_project_construction_step_progress
+				value = 20
+				tooltip = increase_DVA_helios_project_construction_step_progress_tt
+			}
+			set_temp_variable = { DOT_Change_of_Mora = -1000000 }
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+		}
+	}
+	#引进始基矿
+	DVA_import_Arkhium = {
+
+		icon = generic_research
+		
+		available = {
+			has_completed_focus = DVA_restart_FON_trade_route
+		}
+
+		cost = 0
+
+		ai_will_do = {
+			base = 100
+		}
+
+		visible = {
+			has_country_flag = DVA_helios_project_flag
+			has_country_flag = DVA_helios_project_first_step_flag
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			add_to_variable = {
+				var = DVA_helios_project_construction_step_progress
+				value = 20
+				tooltip = increase_DVA_helios_project_construction_step_progress_tt
+			}
+			set_temp_variable = { DOT_Change_of_Mora = -1000000 }
+			subtract_from_variable = { dx = DOT_Change_of_Mora }
+		}
+	}
+	#制造零件
 	DVA_manufacturing_rocket_parts = {
 
 		icon = generic_research
@@ -2518,10 +2606,17 @@ DVA_helios_project_category = {
 			has_country_flag = DVA_helios_project_first_step_flag
 		}
 
-		fire_only_once = yes
+		fire_only_once = no
 
-		complete_effect = {
-			#
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			mora_cost_daily = 5
+			add_to_variable = {
+				var = DVA_helios_project_construction_step_progress
+				value = 5
+				tooltip = DVA_helios_project_manufacturing_tt
+			}
 		}
 	}
 	#组装火箭
@@ -2544,10 +2639,16 @@ DVA_helios_project_category = {
 			has_country_flag = DVA_helios_project_first_step_flag
 		}
 
+		available = {
+			check_variable = {
+				DVA_helios_project_construction_step_progress > 99
+			}
+		}
+
 		fire_only_once = yes
 
 		complete_effect = {
-			#
+			clr_country_flag = DVA_helios_project_first_step_flag
 		}
 	}
 	#启程之日，触发事件“倒计时”

@@ -588,7 +588,7 @@ focus_tree = {
 		id = DVA_dockyard_of_dvalin
 		icon = GFX_focus_generic_refit_civilian_ships
 		cost = 1
-		x = 27
+		x = 26
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -639,10 +639,60 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_restart_FON_trade_route
+		icon = GFX_DVA_restart_FON_trade_route
+		cost = 3
+		x = 25
+		y = 3
+		prerequisite = {
+			focus = DVA_dockyard_of_dvalin
+		}
+		available = {
+			SFS = {
+				exists = no
+			}
+			FON = {
+				has_opinion = {
+					target = DVA
+					value > 69
+				}
+			}
+		}
+		continue_if_invalid = yes
+		completion_reward = {
+			add_equipment_to_stockpile = { type = convoy_1  amount = 100  }
+		}
+	}
+	focus = {
+		id = DVA_restart_LYY_trade_route
+		icon = GFX_DVA_restart_LYY_trade_route
+		cost = 3
+		x = 27
+		y = 3
+		prerequisite = {
+			focus = DVA_dockyard_of_dvalin
+		}
+		available = {
+			SFS = {
+				exists = no
+			}
+			LYY = {
+				has_opinion = {
+					target = DVA
+					value > 49
+				}
+			}
+		}
+		continue_if_invalid = yes
+		completion_reward = {
+			add_equipment_to_stockpile = { type = convoy_1  amount = 100  }
+		}
+	}
+	focus = {
 		id = DVA_Navy_in_decades
 		icon = GFX_focus_generic_africa_naval
 		cost = 1
-		x = 29
+		x = 30
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -663,7 +713,7 @@ focus_tree = {
 		id = DVA_Huge_waves_plan
 		icon = GFX_focus_SWE_coastal_support
 		cost = 1
-		x = 28
+		x = 29
 		y = 3
 		prerequisite = {
 			focus = DVA_Navy_in_decades
@@ -679,7 +729,7 @@ focus_tree = {
 		id = DVA_Deep_Blue
 		icon = GFX_focus_SWE_Vasa_II
 		cost = 1
-		x = 28
+		x = 29
 		y = 4
 		prerequisite = {
 			focus = DVA_Huge_waves_plan
@@ -709,7 +759,7 @@ focus_tree = {
 		id = DVA_practical_boatbuilding
 		icon = GFX_focus_generic_naval_discipline
 		cost = 1
-		x = 30
+		x = 31
 		y = 3
 		prerequisite = {
 			focus = DVA_Navy_in_decades
@@ -734,7 +784,7 @@ focus_tree = {
 		id = DVA_Big_surprise_in_water
 		icon = GFX_focus_generic_mine_warfare
 		cost = 1
-		x = 30
+		x = 31
 		y = 4
 		prerequisite = {
 			focus = DVA_practical_boatbuilding
@@ -2141,7 +2191,9 @@ focus_tree = {
 		x = 21
 		y = 12
 		available = {
-			has_country_flag = DVA_helios_project_flag
+			NOT = {
+				has_country_flag = DVA_helios_project_first_step_flag
+			}
 		}
 		completion_reward = {
 			country_event = dva.ab.24
