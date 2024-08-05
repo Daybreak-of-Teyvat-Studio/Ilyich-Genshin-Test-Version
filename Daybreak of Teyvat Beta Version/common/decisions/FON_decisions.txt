@@ -439,6 +439,7 @@ FON_Primordial_Sea_decision_categories = {
 
 #议会制版
 FON_election_decision_categories_parliamentarism = {
+	desc = {}
 	##激活大选
 	FON_election_mission = {
 		icon = GFX_decision_generic_political_rally
@@ -451,9 +452,7 @@ FON_election_decision_categories_parliamentarism = {
 		days_mission_timeout = 60
 
 		timeout_effect = {
-			hidden_effect = {
-				FON_calculate_winner_party_effect = yes
-			}
+			country_event = { id = FON.30 }
 			custom_effect_tooltip = FON_election_result_tt
 		}
 	}
@@ -1137,6 +1136,12 @@ FON_election_decision_categories_parliamentarism = {
 
 #（半）总统制版
 FON_election_decision_categories_parliamentarism = {
+		if = {
+			limit = {
+				FON_is_parliamentarism_trigger = yes
+			}
+			desc = FON_election_decision_categories_parliamentarism
+		}
 	##激活大选
 	FON_election_mission = {
 		icon = GFX_decision_generic_political_rally
@@ -1149,9 +1154,7 @@ FON_election_decision_categories_parliamentarism = {
 		days_mission_timeout = 60
 
 		timeout_effect = {
-			hidden_effect = {
-				FON_calculate_winner_party_effect = yes
-			}
+			country_event = { id = FON.30 }
 			custom_effect_tooltip = FON_election_result_tt
 		}
 	}
@@ -1172,13 +1175,14 @@ FON_election_decision_categories_parliamentarism = {
 					days < 5
 				}
 			}
-			has_country_flag = FON_vote_for_Navia
+			FON_Navia_candidate_trigger = yes
 		}
 
 		visible = {
 			NOT = { has_country_flag = FON_vote_for_Liney }
 			NOT = { has_country_flag = FON_vote_for_Charlotte }
 			NOT = { has_country_flag = FON_vote_for_Furina }
+			FON_Navia_candidate_trigger = yes
 		}
 		ai_will_do = { base = 0 }
 
@@ -1207,13 +1211,14 @@ FON_election_decision_categories_parliamentarism = {
 					days < 5
 				}
 			}
-			has_country_flag = FON_vote_for_Liney
+			FON_Liney_candidate_trigger = yes
 		}
 
 		visible = {
 			NOT = { has_country_flag = FON_vote_for_Navia }
 			NOT = { has_country_flag = FON_vote_for_Charlotte }
 			NOT = { has_country_flag = FON_vote_for_Furina }
+			FON_Liney_candidate_trigger = yes
 		}
 		ai_will_do = { base = 0 }
 
@@ -1312,13 +1317,16 @@ FON_election_decision_categories_parliamentarism = {
 					days < 5
 				}
 			}
-			has_country_flag = FON_vote_for_Navia
+			FON_Navia_candidate_trigger = yes
+			has_completed_focus = FON_contact_CLDT
 		}
 
 		visible = {
 			NOT = { has_country_flag = FON_vote_for_Liney }
 			NOT = { has_country_flag = FON_vote_for_Charlotte }
 			NOT = { has_country_flag = FON_vote_for_Furina }
+			has_completed_focus = FON_contact_CLDT
+			FON_Navia_candidate_trigger = yes
 		}
 		ai_will_do = { base = 0 }
 
@@ -1348,12 +1356,14 @@ FON_election_decision_categories_parliamentarism = {
 				}
 			}
 			has_country_flag = FON_vote_for_Liney
+			has_completed_focus = FON_contact_UDPIEC
 		}
 
 		visible = {
 			NOT = { has_country_flag = FON_vote_for_Navia }
 			NOT = { has_country_flag = FON_vote_for_Charlotte }
 			NOT = { has_country_flag = FON_vote_for_Furina }
+			has_completed_focus = FON_contact_UDPIEC
 		}
 		ai_will_do = { base = 0 }
 
@@ -1383,7 +1393,7 @@ FON_election_decision_categories_parliamentarism = {
 						flag = FON_campaigned_last_days
 						days < 3
 					}
-					has_country_flag = FON_vote_for_Navia
+					FON_Navia_candidate_trigger = yes
 				}
 
 			}
@@ -1393,9 +1403,7 @@ FON_election_decision_categories_parliamentarism = {
 			}
 		}
 		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Navia }
-			}
+			FON_Navia_candidate_trigger = no
 		}
 		ai_will_do = { base = 0 }
 
@@ -1424,7 +1432,7 @@ FON_election_decision_categories_parliamentarism = {
 						flag = FON_campaigned_last_days
 						days < 3
 					}
-					has_country_flag = FON_vote_for_Liney
+					FON_Liney_candidate_trigger = yes
 				}
 
 			}
@@ -1434,9 +1442,7 @@ FON_election_decision_categories_parliamentarism = {
 			}
 		}
 		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Liney }
-			}
+			FON_Liney_candidate_trigger = no
 		}
 		ai_will_do = { base = 0 }
 
@@ -1547,9 +1553,9 @@ FON_election_decision_categories_parliamentarism = {
 						flag = FON_campaigned_last_days
 						days < 3
 					}
-					has_country_flag = FON_vote_for_Navia
+					FON_Navia_candidate_trigger = yes
+					has_completed_focus = FON_contact_CLDT
 				}
-
 			}
 			check_variable = {
 				FON_support_CLDT > 0
@@ -1557,8 +1563,9 @@ FON_election_decision_categories_parliamentarism = {
 			}
 		}
 		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Navia }
+			NOT = {
+				FON_Navia_candidate_trigger = yes
+				has_completed_focus = FON_contact_CLDT
 			}
 		}
 		ai_will_do = { base = 0 }
@@ -1583,12 +1590,15 @@ FON_election_decision_categories_parliamentarism = {
 		allowed = {  }
 		available = {
 			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 3
+				OR = {
+					AND = {
+						has_country_flag = {
+							flag = FON_campaigned_last_days
+							days < 3
+						}
+						FON_Liney_candidate_trigger = yes
+						has_completed_focus = FON_contact_UDPIEC
 					}
-					has_country_flag = FON_vote_for_Liney
 				}
 
 			}
@@ -1599,7 +1609,10 @@ FON_election_decision_categories_parliamentarism = {
 		}
 		visible = {
 			if = {
-				NOT = { has_country_flag = FON_vote_for_Liney }
+				NOT = {
+					FON_Liney_candidate_trigger = yes
+					has_completed_focus = FON_contact_UDPIEC
+				}
 			}
 		}
 		ai_will_do = { base = 0 }
@@ -1851,6 +1864,10 @@ FON_election_decision_categories_parliamentarism = {
 				}
 			}
 			has_country_flag = FON_vote_for_Navia
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 
 		visible = {
@@ -1886,6 +1903,10 @@ FON_election_decision_categories_parliamentarism = {
 				}
 			}
 			has_country_flag = FON_vote_for_Liney
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 
 		visible = {
@@ -1921,6 +1942,10 @@ FON_election_decision_categories_parliamentarism = {
 				}
 			}
 			has_country_flag = FON_vote_for_Charlotte
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 
 		visible = {
@@ -1956,6 +1981,10 @@ FON_election_decision_categories_parliamentarism = {
 				}
 			}
 			has_country_flag = FON_vote_for_Furina
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 
 		visible = {
@@ -1999,6 +2028,10 @@ FON_election_decision_categories_parliamentarism = {
 				FON_support_Navia > 0
 				tooltip = FON_not_enough_Navia_tt
 			}
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 		visible = {
 			if = {
@@ -2039,6 +2072,10 @@ FON_election_decision_categories_parliamentarism = {
 			check_variable = {
 				FON_support_Liney > 0
 				tooltip = FON_not_enough_Liney_tt
+			}
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
 			}
 		}
 		visible = {
@@ -2081,6 +2118,10 @@ FON_election_decision_categories_parliamentarism = {
 				FON_support_Charlotte > 0
 				tooltip = FON_not_enough_Charlotte_tt
 			}
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
+			}
 		}
 		visible = {
 			if = {
@@ -2121,6 +2162,10 @@ FON_election_decision_categories_parliamentarism = {
 			check_variable = {
 				FON_support_Furina > 0
 				tooltip = FON_not_enough_Furina_tt
+			}
+			OR = {
+				has_country_flag = Semi-presidentialism
+				has_country_flag = presidentialism
 			}
 		}
 		visible = {

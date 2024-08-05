@@ -393,6 +393,7 @@ country_event = {#枫丹政治势力一览——壁炉之家与枫丹立宪自�
 		ai_chance = {
 			base = 0
 		}
+		country_event = { id = FON.17 }
 	}
 	option = {
 		name = FON.16.b
@@ -455,17 +456,31 @@ country_event = {#选择为谁拉票
 			activate_mission = FON_CLDT_campaign_CLDT
 			activate_mission = FON_ADP_campaign_ADP
 			activate_mission = FON_UDPIEC_campaign_UDPIEC
-			activate_mission = FON_PDLCF_campaign_PDLCF
 			if = {
 				limit = {
 					OR = {
-						has_country_flag = Semi-presidentialism
-						has_country_flag = presidentialism
+						FON_is_presidentialism_trigger = yes
+						FON_is_Semi_presidentialism_trigger = yes
 					}
-					activate_mission = FON_HoH_campaign_Liney
-					activate_mission = FON_PLCF_campaign_Charlotte
-					activate_mission = FON_PDLCF_campaign_Furina
 				}
+				activate_mission = FON_HoH_campaign_Liney
+				activate_mission = FON_PLCF_campaign_Charlotte
+			}
+			if = {
+				limit = {
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_PDLCF
+			}
+			if = {
+				limit = {
+					OR = {
+						FON_is_presidentialism_trigger = yes
+						FON_is_Semi_presidentialism_trigger = yes
+					}
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_Furina
 			}
 		}
 		custom_effect_tooltip = FON_vote_for_Navia_tt
@@ -489,10 +504,25 @@ country_event = {#选择为谁拉票
 						has_country_flag = Semi-presidentialism
 						has_country_flag = presidentialism
 					}
-					activate_mission = FON_SdR_campaign_Navia
-					activate_mission = FON_PLCF_campaign_Charlotte
-					activate_mission = FON_PDLCF_campaign_Furina
 				}
+				activate_mission = FON_SdR_campaign_Navia
+				activate_mission = FON_PLCF_campaign_Charlotte
+			}
+			if = {
+				limit = {
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_PDLCF
+			}
+			if = {
+				limit = {
+					OR = {
+						FON_is_presidentialism_trigger = yes
+						FON_is_Semi_presidentialism_trigger = yes
+					}
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_Furina
 			}
 		}
 		custom_effect_tooltip = FON_vote_for_Liney_tt
@@ -517,8 +547,23 @@ country_event = {#选择为谁拉票
 					}
 					activate_mission = FON_HoH_campaign_Liney
 					activate_mission = FON_SdR_campaign_Navia
-					activate_mission = FON_PDLCF_campaign_Furina
 				}
+			}
+			if = {
+				limit = {
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_PDLCF
+			}
+			if = {
+				limit = {
+					OR = {
+						FON_is_presidentialism_trigger = yes
+						FON_is_Semi_presidentialism_trigger = yes
+					}
+					check_variable = { FON_fufu = 2 }
+				}
+				activate_mission = FON_PDLCF_campaign_Furina
 			}
 		}
 		custom_effect_tooltip = FON_vote_for_Charlotte_tt
@@ -526,10 +571,7 @@ country_event = {#选择为谁拉票
 	}
 	option = {
 		name = FON.20.Furina
-		visible = {
-			check_variable = { FON_fufu = 2 }
-		}
-		allowed = {
+		trigger = {
 			check_variable = { FON_fufu = 2 }
 		}
 		set_country_flag = FON_vote_for_Furina
@@ -547,10 +589,10 @@ country_event = {#选择为谁拉票
 						has_country_flag = Semi-presidentialism
 						has_country_flag = presidentialism
 					}
-					activate_mission = FON_HoH_campaign_Liney
-					activate_mission = FON_PLCF_campaign_Charlotte
-					activate_mission = FON_SdR_campaign_Navia
 				}
+				activate_mission = FON_HoH_campaign_Liney
+				activate_mission = FON_PLCF_campaign_Charlotte
+				activate_mission = FON_SdR_campaign_Navia
 			}
 		}
 		custom_effect_tooltip = FON_vote_for_Furina_tt
@@ -691,6 +733,44 @@ country_event = {#欧庇克莱的话剧
 	}
 }
 
+
+country_event = { #计算多数党
+	id = FON.30
+	title = FON.30.t
+	desc = FON.30.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.30.a
+		hidden_effect = {
+			FON_calculate_winner_party_effect = yes
+		}
+		hidden_effect = {
+			remove_mission = FON_HoH_campaign_HoH
+			remove_mission = FON_SdR_campaign_SdR
+			remove_mission = FON_CLDT_campaign_CLDT
+			remove_mission = FON_ADP_campaign_ADP
+			remove_mission = FON_UDPIEC_campaign_UDPIEC
+			remove_mission = FON_PLCF_campaign_PLCF
+			remove_mission = FON_PDLCF_campaign_PDLCF
+		}
+		if = {
+			limit = {
+				FON_is_Semi_presidentialism_trigger = yes
+				FON_is_presidentialism_trigger = yes
+			}
+			hidden_effect = {
+				remove_mission = FON_HoH_campaign_Liney
+				remove_mission = FON_SdR_campaign_Navia
+				remove_mission = FON_PLCF_campaign_Charlotte
+				remove_mission = FON_PDLCF_campaign_Furina
+				remove_mission = FON_CLDT_campaign_Navia
+				remove_mission = FON_UDPIEC_campaign_Liney
+			}
+
+		}
+	}
+}
 
 
 
