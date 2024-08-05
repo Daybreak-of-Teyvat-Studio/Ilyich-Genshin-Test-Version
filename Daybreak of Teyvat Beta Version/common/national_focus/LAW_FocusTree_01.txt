@@ -1417,7 +1417,7 @@ focus_tree = {
 		icon = GFX_goal_56_goals_11
 		cost = 5.00
 		x = 31
-		y = 6
+		y = 7
 		completion_reward = {
 			custom_effect_tooltip = LAW_tt_Reform_Turorial07
 			army_experience = 25
@@ -2042,6 +2042,7 @@ focus_tree = {
 			LAW_Reform_Icy_Power2 = yes
 
 			add_ideas = LAW_Eula_Military_Reform_1
+			custom_effect_tooltip = LAW_tt_LAW_Eula_Military_Reform_1
 		}
 		available = {
 			LAW_Need_Icy_Power2 = yes
@@ -2325,7 +2326,7 @@ focus_tree = {
 			multiply_temp_variable = { LAW_Temp_Var = 0.01 }
 			subtract_from_temp_variable = { LAW_TV_Num_Bonus_ST = LAW_Temp_Var }
 
-			add_stability = var:LAW_Var_Times_ST
+			add_stability = var:LAW_TV_Num_Bonus_ST
 
 			set_temp_variable = { LAW_Change_of_Icy_Power = var:LAW_TV_Num_Bonus_Icy_Power }
 			custom_effect_tooltip = LAW_tt_More_Icy_Power
@@ -2334,7 +2335,7 @@ focus_tree = {
 			set_temp_variable = { LAW_TV_Resist = LAW_Change_of_Icy_Power }
 			multiply_temp_variable = { LAW_TV_Resist = -1 }
 			every_controlled_state = {
-				add_resistance = var:LAW_Var_Times_ST
+				add_resistance = var:LAW_TV_Resist
 			}
 
 			IF = {
@@ -2381,7 +2382,7 @@ focus_tree = {
 			multiply_temp_variable = { LAW_Temp_Var = 0.01 }
 			subtract_from_temp_variable = { LAW_TV_Num_Bonus_ST = LAW_Temp_Var }
 
-			add_war_support = var:LAW_Var_Times_ST
+			add_war_support = var:LAW_TV_Num_Bonus_ST
 
 			set_temp_variable = { LAW_Change_of_Icy_Power = var:LAW_TV_Num_Bonus_Icy_Power }
 			custom_effect_tooltip = LAW_tt_More_Icy_Power
@@ -2809,7 +2810,7 @@ focus_tree = {
 	focus = {
 		id = LAW_Eula_Poli_Reform_42
 		icon = GFX_Goal_Happy_Coo
-		cost = 5
+		cost = 7.2
 		x = 0
 		y = 1
 		relative_position_id = LAW_Eula_Poli_Reform_4
@@ -2852,7 +2853,7 @@ focus_tree = {
 	focus = {
 		id = LAW_Eula_Poli_Reform_43
 		icon = GFX_Goal_Diona_Friendship
-		cost = 5
+		cost = 10
 		x = 2
 		y = 1
 		relative_position_id = LAW_Eula_Poli_Reform_4
@@ -2973,7 +2974,7 @@ focus_tree = {
 	focus = {
 		id = LAW_Eula_Poli_Reform_52
 		icon = GFX_Goal_Happy_Coo
-		cost = 5
+		cost = 7.2
 		x = 0
 		y = 1
 		relative_position_id = LAW_Eula_Poli_Reform_5
@@ -3016,7 +3017,7 @@ focus_tree = {
 	focus = {
 		id = LAW_Eula_Poli_Reform_53
 		icon = GFX_Goal_Strengthen_Unity
-		cost = 5
+		cost = 10
 		x = 2
 		y = 1
 		relative_position_id = LAW_Eula_Poli_Reform_5
@@ -3038,13 +3039,13 @@ focus_tree = {
 			custom_effect_tooltip = LAW_tt_More_Noble_Angry
 			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
 
-			LAW_Reform_Icy_Power5 = yes
+			LAW_Reform_Icy_Power6 = yes
 
 			add_ideas = LAW_Icy_Judge_Court3
 			custom_effect_tooltip = LAW_tt_LAW_Icy_Judge_Court3
 		}
 		available = {
-			LAW_Need_Icy_Power5 = yes
+			LAW_Need_Icy_Power6 = yes
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -3732,8 +3733,22 @@ focus_tree = {
 		id = LAW_Eula_Road_to_the_End
 		icon = GFX_Goal_Victory_of_Facism
 		cost = 5.00
-		x = 17
-		y = 11
+		x = 0
+		y = 3
+		relative_position_id = LAW_Eula_Poli_Reform_52
+		prerequisite = {
+			focus = LAW_Eula_Poli_Reform_51
+			focus = LAW_Eula_Poli_Reform_52
+			focus = LAW_Eula_Poli_Reform_53
+		}
+		prerequisite = {
+			focus = LAW_Eula_Eco_Reform2_1
+			focus = LAW_Eula_Eco_Reform2_2
+			focus = LAW_Eula_Eco_Reform2_3
+			focus = LAW_Eula_Military_Change_11
+			focus = LAW_Eula_Military_Change_12
+			focus = LAW_Eula_Military_Change_13
+		}
 		completion_reward = {
 			
 		}
@@ -3756,10 +3771,11 @@ focus_tree = {
 	#选择一：安抚旧贵族 将旧贵族愤怒压制到零，进入坏结局
 	focus = {
 		id = LAW_Eula_Stable_Nobles
-		icon = GFX_Goal_Political_Coo
+		icon = GFX_Goal_Noble_Control
 		cost = 5.00
-		x = 16
-		y = 12
+		x = -3
+		y = 1
+		relative_position_id = LAW_Eula_Road_to_the_End
 		prerequisite = {
 			focus = LAW_Eula_Road_to_the_End
 		}
@@ -3767,7 +3783,58 @@ focus_tree = {
 			focus = LAW_Eula_End_Nobles
 		}
 		completion_reward = {
-			
+			add_manpower = -5000000
+			retire_character = LAW_Eula
+			every_character = {
+				retire = yes
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			set_cosmetic_tag = LAW_Nation_of_Nobles
+			add_popularity = {
+				ideology = fascism
+				popularity = -1
+			}
+			add_power_balance_value = {
+				id = LAW_Original_power_balance
+				value = -2
+			}
+			add_ideas = LAW_Shocking_Intelligence
+			add_ideas = LAW_People_Want
+			add_ideas = LAW_Pure_Government
+			add_ideas = LAW_Fast_Government
+			remove_ideas = {
+				LAW_Icy_Judge_Court1
+				LAW_Icy_Judge_Court2
+				LAW_Icy_Judge_Court3
+				LAW_Fundamental_Organization1
+				LAW_Knights_of_Ice1
+				LAW_Youth_League_Tide1
+				LAW_Labour_Union1
+				LAW_Political_impart1
+				LAW_Call_of_Tide1
+				LAW_Winter_System1
+				LAW_Congress_of_Corporation1
+				LAW_Fundamental_Organization2
+				LAW_Knights_of_Ice2
+				LAW_Youth_League_Tide2
+				LAW_Labour_Union2
+				LAW_Political_impart2
+				LAW_Call_of_Tide2
+				LAW_Winter_System2
+				LAW_Congress_of_Corporation2
+				LAW_Fundamental_Organization3
+				LAW_Knights_of_Ice3
+				LAW_Youth_League_Tide3
+				LAW_Labour_Union3
+				LAW_Political_impart3
+				LAW_Call_of_Tide3
+				LAW_Winter_System3
+				LAW_Congress_of_Corporation3
+				LAW_Support_Futurism3
+			}
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -3788,13 +3855,114 @@ focus_tree = {
 			base = 500
 		}
 	}
+	#入夜
+	focus = {
+		id = LAW_Eula_Nights_Coming
+		icon = GFX_Goal_Noble_Press
+		cost = 53.00
+		x = -4
+		y = 1
+		relative_position_id = LAW_Eula_Stable_Nobles
+		prerequisite = {
+			focus = LAW_Eula_Stable_Nobles
+		}
+		completion_reward = {
+			every_owned_state = {
+				add_manpower = -1000000
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -1
+			}
+			add_popularity = {
+				ideology = genshin
+				popularity = -1
+			}
+			add_stability = -1
+			add_war_support = -1
+			add_ideas = undisturbed_isolation
+			add_ideas = scraping_the_barrel
+			add_ideas = closed_economy
+			add_ideas = Illiterate_Society
+			add_ideas = Suffer_Hunger_and_Cold
+			SNE = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+			PRI = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_Eula_Nights_On
+		icon = GFX_Goal_Noble_Army
+		cost = 53.00
+		x = -2
+		y = 1
+		relative_position_id = LAW_Eula_Stable_Nobles
+		prerequisite = {
+			focus = LAW_Eula_Stable_Nobles
+		}
+		completion_reward = {
+			add_ideas = DOT_Government_Industry1
+			add_ideas = DOT_Government_Agri1
+			add_ideas = DOT_Government_Research1
+			add_ideas = DOT_Government_Control1
+			set_research_slots = 0
+			SNE = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+			PRI = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#选择二：消灭旧贵族 将旧贵族力量压制到零，进入好结局
 	focus = {
 		id = LAW_Eula_End_Nobles
 		icon = GFX_Goal_Icy_Attack
 		cost = 5.00
-		x = 18
-		y = 12
+		x = 3
+		y = 1
+		relative_position_id = LAW_Eula_Road_to_the_End
 		prerequisite = {
 			focus = LAW_Eula_Road_to_the_End
 		}
@@ -3802,10 +3970,113 @@ focus_tree = {
 			focus = LAW_Eula_Stable_Nobles
 		}
 		completion_reward = {
-			
+			custom_effect_tooltip = LAW_tt_How_to_End_Nobles
 		}
 		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
 			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#请求至冬国支持
+	focus = {
+		id = LAW_Eula_End_Reform_0
+		icon = GFX_Goal_Coo_With_SNE
+		cost = 5
+		x = -6
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 20 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_Fool_Power_High_50
+				check_variable = { LAW_Whole_Fool_Power > 49 }
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#经济控制
+	focus = {
+		id = LAW_Eula_End_Reform_1
+		icon = GFXG_Goal_get_money_with_weapon
+		cost = 5
+		x = -4
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 50 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			LAW_Reform_Icy_Power61 = yes
+
+			add_ideas = LAW_Economy_Controled
+
+			custom_effect_tooltip = LAW_tt_LAW_Economy_Controled
+		}
+		available = {
+			LAW_Reform_Icy_End_PowerCost1 = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#掌握教育
+	focus = {
+		id = LAW_Eula_End_Reform_2
+		icon = GFX_Goal_Icy_Art
+		cost = 5
+		x = -2
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 50 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			LAW_Reform_Icy_Power62 = yes
+
+			add_ideas = LAW_Education_of_Ice
+
+			custom_effect_tooltip = LAW_tt_LAW_Education_of_Ice
+		}
+		available = {
+			LAW_Reform_Icy_End_PowerCost2 = yes
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -3818,6 +4089,150 @@ focus_tree = {
 		}
 	}
 	#行政改革
+	focus = {
+		id = LAW_Eula_End_Reform_3
+		icon = GFX_Goal_Icy_Control
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 50 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			LAW_Reform_Icy_Power63 = yes
+
+			add_ideas = LAW_System_of_Ice
+
+			custom_effect_tooltip = LAW_tt_LAW_System_of_Ice
+		}
+		available = {
+			LAW_Reform_Icy_End_PowerCost3 = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#控制军队
+	focus = {
+		id = LAW_Eula_End_Reform_4
+		icon = GFX_Goal_Icy_New_Army
+		cost = 5
+		x = 2
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 50 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			LAW_Reform_Icy_Power64 = yes
+
+			add_ideas = LAW_Army_of_Tide
+
+			custom_effect_tooltip = LAW_tt_LAW_Army_of_Tide
+		}
+		available = {
+			LAW_Reform_Icy_End_PowerCost4 = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#治安管理
+	focus = {
+		id = LAW_Eula_End_Reform_5
+		icon = GFX_Goal_Icy_Secret_Police
+		cost = 5
+		x = 4
+		y = 1
+		relative_position_id = LAW_Eula_End_Nobles
+		prerequisite = {
+			focus = LAW_Eula_End_Nobles
+		}
+		completion_reward = {
+			
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 50 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			LAW_Reform_Icy_Power65 = yes
+
+			add_ideas = LAW_Secret_Police
+
+			custom_effect_tooltip = LAW_tt_LAW_Secret_Police
+		}
+		available = {
+			LAW_Reform_Icy_End_PowerCost5 = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+
+	#新蒙德的诞生日
+	
+	focus = {
+		id = LAW_Eula_Get_Victory
+		icon = GFX_Goal_Icy_Victory
+		cost = 5
+		x = 1
+		y = 2
+		relative_position_id = LAW_Eula_End_Reform_1
+		prerequisite = {
+			focus = LAW_Eula_End_Reform_1
+		}
+		prerequisite = {
+			focus = LAW_Eula_End_Reform_2
+		}
+		prerequisite = {
+			focus = LAW_Eula_End_Reform_3
+		}
+		prerequisite = {
+			focus = LAW_Eula_End_Reform_4
+		}
+		prerequisite = {
+			focus = LAW_Eula_End_Reform_5
+		}
+		completion_reward = {
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 }
