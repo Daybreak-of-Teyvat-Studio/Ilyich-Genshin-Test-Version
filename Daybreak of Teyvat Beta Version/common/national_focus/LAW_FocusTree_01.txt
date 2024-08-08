@@ -3838,7 +3838,7 @@ focus_tree = {
 				LAW_Call_of_Tide3
 				LAW_Winter_System3
 				LAW_Congress_of_Corporation3
-				LAW_Support_Futurism3
+				LAW_Support_Futurism
 			}
 		}
 		available = {
@@ -4237,6 +4237,185 @@ focus_tree = {
 			focus = LAW_Eula_End_Reform_5
 		}
 		completion_reward = {
+			LAW_Eula = {
+				add_country_leader_trait = LAW_Eula_Red
+			}
+			#全改革奖励
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Icy_Judge_Court1
+						has_idea = LAW_Icy_Judge_Court2
+						has_idea = LAW_Icy_Judge_Court3
+					}
+					OR = {
+						has_idea = LAW_Fundamental_Organization1
+						has_idea = LAW_Fundamental_Organization2
+						has_idea = LAW_Fundamental_Organization3
+					}
+					OR = {
+						has_idea = LAW_Knights_of_Ice1
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
+					}
+					OR = {
+						has_idea = LAW_Youth_League_Tide1
+						has_idea = LAW_Youth_League_Tide2
+						has_idea = LAW_Youth_League_Tide3
+					}
+					OR = {
+						has_idea = LAW_Labour_Union1
+						has_idea = LAW_Labour_Union2
+						has_idea = LAW_Labour_Union3
+					}
+					OR = {
+						has_idea = LAW_Political_impart1
+						has_idea = LAW_Political_impart2
+						has_idea = LAW_Political_impart3
+					}
+					OR = {
+						has_idea = LAW_Call_of_Tide1
+						has_idea = LAW_Call_of_Tide2
+						has_idea = LAW_Call_of_Tide3
+					}
+					OR = {
+						has_idea = LAW_Winter_System1
+						has_idea = LAW_Winter_System2
+						has_idea = LAW_Winter_System3
+					}
+					OR = {
+						has_idea = LAW_Congress_of_Corporation1
+						has_idea = LAW_Congress_of_Corporation2
+						has_idea = LAW_Congress_of_Corporation3
+					}
+					has_idea = LAW_Support_Futurism
+				}
+				custom_effect_tooltip = LAW_tt_Good_End_Bonus_Reform
+				LAW_Eula = {
+					add_country_leader_trait = LAW_Shining_Righteousness
+				}
+			}
+			IF = {
+				limit = {
+					check_variable = { LAW_Whole_Fool_Power < 21 }
+				}
+				LAW_Eula = {
+					add_country_leader_trait = LAW_Crown_of_Righteousness
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { LAW_Whole_Fool_Power < 51 }
+				}
+				LAW_Eula = {
+					add_country_leader_trait = LAW_Crown_of_Righteousness
+				}
+				add_ideas = SNE_Friend_of_SNE
+				add_opinion_modifier  = {
+					target = SNE
+					modifier = LAW_OM_Friend_of_SNE
+				}
+				SNE = {
+					add_opinion_modifier  = {
+						target = LAW
+						modifier = LAW_OM_Friend_of_SNE
+					}
+				}
+				diplomatic_relation = {
+					country = SNE
+					relation = non_aggression_pact
+					active = no
+				}
+				give_market_access = SNE
+				give_military_access = SNE
+				SNE = { give_market_access = LAW }
+				SNE = { give_military_access = LAW }
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = { LAW_Whole_Fool_Power < 101 }
+				}
+				LAW_Eula = {
+					add_country_leader_trait = LAW_Eula_Winter
+				}
+				add_ideas = SNE_Ally_of_SNE
+				add_opinion_modifier  = {
+					target = SNE
+					modifier = LAW_OM_Partner_of_SNE
+				}
+				SNE = {
+					add_opinion_modifier  = {
+						target = LAW
+						modifier = LAW_OM_Partner_of_SNE
+					}
+				}
+				give_guarantee = SNE
+				SNE = { add_to_faction = LAW }
+				SNE = { give_guarantee = LAW }
+			}
+			ELSE = {
+				add_ideas = SNE_State_of_SNE
+				LAW_Eula = {
+					add_country_leader_trait = LAW_Eula_Winter
+				}
+				SNE = {
+					puppet = LAW
+					end_wars = yes
+				}
+				add_opinion_modifier  = {
+					target = SNE
+					modifier = LAW_OM_Follower_of_SNE
+				}
+				SNE = {
+					add_opinion_modifier  = {
+						target = LAW
+						modifier = LAW_OM_Follower_of_SNE
+					}
+				}
+			}
+			custom_effect_tooltip = LAW_tt_Good_End_Bonus
+			hidden_effect = {
+				remove_ideas = {
+					LAW_Icy_Judge_Court1
+					LAW_Fundamental_Organization1
+					LAW_Knights_of_Ice1
+					LAW_Youth_League_Tide1
+					LAW_Labour_Union1
+					LAW_Political_impart1
+					LAW_Call_of_Tide1
+					LAW_Winter_System1
+					LAW_Congress_of_Corporation1
+					LAW_Icy_Judge_Court2
+					LAW_Fundamental_Organization2
+					LAW_Knights_of_Ice2
+					LAW_Youth_League_Tide2
+					LAW_Labour_Union2
+					LAW_Political_impart2
+					LAW_Call_of_Tide2
+					LAW_Winter_System2
+					LAW_Congress_of_Corporation2
+				}
+				add_ideas = {
+					LAW_Icy_Judge_Court3
+					LAW_Fundamental_Organization3
+					LAW_Knights_of_Ice3
+					LAW_Youth_League_Tide3
+					LAW_Labour_Union3
+					LAW_Political_impart3
+					LAW_Call_of_Tide3
+					LAW_Winter_System3
+					LAW_Congress_of_Corporation3
+					LAW_Support_Futurism
+				}
+				every_state = {
+					limit = { is_core_of = MOT }
+					add_core_of = LAW
+				}
+				set_cosmetic_tag = LAW_Republic_of_Mond
+				set_global_flag = MOT_REUNITED
+				set_global_flag = LAW_REUNION_Eula
+				
+			}
 		}
 		available = {
 		}
