@@ -6310,19 +6310,24 @@ LAW_Preparation_Before_War = {
 		}
 	}
 	LAW_Begin_Civil_WAR = {
-		days_remove = 30
-		days_re_enable = 0
+		selectable_mission = no
+		days_mission_timeout = 420
 		cost = 0
 		fire_only_once = yes
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = LAW_Resist_Enough
-				check_variable = { MOT.MOT_Resist_in_LAW > MOT.MOT_Control_in_LAW }
-			}
+			always = yes
 		}
 		war_with_on_remove = MOT
-		remove_effect = {
-			MOT = { end_puppet = LAW }
+		timeout_effect = {
+			MOT = {
+				end_puppet = LAW
+				end_puppet = DRA
+				end_puppet = SPI
+				end_puppet = RAG
+				end_puppet = ANR
+				end_puppet = GUN
+				end_puppet = FAV
+			}
 			set_global_flag = MOT_Civil_War_Begun
 			declare_war_on = {
 				target = MOT
@@ -6330,11 +6335,11 @@ LAW_Preparation_Before_War = {
 			}
 			country_event = {
 				id = Knights.48
-				days = 85
+				days = 65
 			}
 			country_event = {
 				id = Knights.49
-				days = 80
+				days = 60
 			}
 			activate_mission = MOT_Civil_War_1_LAW
 			set_cosmetic_tag = LAW_Noble_Army
@@ -6361,16 +6366,17 @@ LAW_Preparation_Before_War = {
 						days = 70
 					}
 				}
+				every_country = {
+					limit = {
+						Is_MOT = yes
+					}
+					IF = {
+						
+					}
+				}
 			}
-			set_country_flag = LAW_WarDB 
+			set_country_flag = LAW_WarDB
 			MOT = { set_country_flag = MOT_WarDB }
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				date > 1937.3.1
-				add = 1000
-			}
 		}
 	}
 }
@@ -6440,10 +6446,6 @@ MOT_War_Decisions_of_Us = {
 			hidden_modifier = {
 				army_speed_factor = -0.2
 				org_loss_when_moving = 1
-			}
-			targeted_modifier = {
-				tag = LAW
-				attack_bonus_against = 0.2
 			}
 		}
 	}

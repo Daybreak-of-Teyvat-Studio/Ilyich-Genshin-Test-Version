@@ -625,8 +625,20 @@ country_event = {
 	fire_only_once = no
 	option = {
 		name = Knights.14.a
-		
-		RAG = { white_peace = LAW }
+		IF = {
+			limit = {
+				RAG = { is_ai = yes }
+				difficulty > 3
+			}
+			hidden_effect = {
+				RAG = {
+					declare_war_on = {
+						target = SPI
+						type = annex_everything
+					}
+				}
+			}
+		}
 		MOT_Night_Up = yes
 		add_ideas = MOT_Debuff_Goods_Shortage
 		trigger = { original_tag = MOT }
@@ -713,6 +725,7 @@ country_event = {
 	option = {
 		name = Knights.14.e
 		add_war_support = 0.01
+		RAG = { white_peace = LAW }
 		trigger = { original_tag = RAG }
 	}
 }
@@ -855,6 +868,44 @@ country_event = {
 		ELSE_IF = {
 			custom_effect_tooltip = MOT_Lower_Damage
 		}
+		IF = {
+			limit = {
+				FAV = { is_ai = yes }
+				difficulty > 3
+			}
+			hidden_effect = {
+				FAV = {
+					IF = {
+						limit = {
+							OR = {
+								has_completed_focus = FAV_Honor_for_People
+								has_completed_focus = FAV_Light_of_Miracle
+							}
+						}
+						complete_national_focus = FAV_End_the_Old_Nobles
+						complete_national_focus = FAV_EcoB_Divide_the_Land
+						complete_national_focus = FAV_EcoB_Cooperation_with_Them
+						complete_national_focus = FAV_EcoB_Mobilize_Workers
+						complete_national_focus = FAV_EcoB_Expand_the_Government
+					}
+					ELSE_IF = {
+						limit = {
+							OR = {
+								has_completed_focus = FAV_Play_the_Show
+								has_completed_focus = FAV_Judge_Angel
+							}
+						}
+						complete_national_focus = FAV_Attack_the_Knights
+						complete_national_focus = FAV_MilR_End_Army_Corruption
+						complete_national_focus = FAV_MilR_Hard_Law
+						complete_national_focus = FAV_MilR_Zealous_Spirit
+						complete_national_focus = FAV_MilR_Blossom_like_Rose
+					}
+					ELSE = {
+					}
+				}
+			}
+		}
 	}
 	option = {
 		name = Knights.16.b
@@ -893,9 +944,6 @@ country_event = {
 	}
 	option = {
 		name = Knights.16.e
-		MOT = {
-			end_puppet = FAV
-		}
 		trigger = {
 			original_tag = FAV
 		}
@@ -3424,18 +3472,21 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			IF = {
-				limit = { difficulty > -1 }
+				limit = {
+					difficulty > -1
+					difficulty < 1
+				}
 				add_ideas = MOT_ST0
 				add_political_power = 50
 				add_command_power = 50
 				add_manpower = 50000
 			}
-			IF = {
-				limit = { difficulty > 0 }
-				swap_ideas = {
-					add_idea = MOT_ST1
-					remove_idea = MOT_ST0
+			ELSE_IF = {
+				limit = {
+					difficulty > 0
+					difficulty < 2
 				}
+				add_ideas = MOT_ST1
 				MOT_Noelle = {
 					add_skill_level = 1
 					add_max_trait = 1
@@ -3454,18 +3505,18 @@ country_event = {
 				add_command_power = 50
 				add_manpower = 50000
 			}
-			IF = {
-				limit = { difficulty > 1 }
-				swap_ideas = {
-					add_idea = MOT_ST2
-					remove_idea = MOT_ST1
+			ELSE_IF = {
+				limit = {
+					difficulty > 1
+					difficulty < 3
 				}
+				add_ideas = MOT_ST2
 				MOT_Noelle = {
-					add_skill_level = 1
-					add_max_trait = 1
-					add_attack = 1
-					add_defense = 1
-					add_planning = 1
+					add_skill_level = 2
+					add_max_trait = 2
+					add_attack = 2
+					add_defense = 2
+					add_planning = 2
 				}
 				MOT_Jean = {
 					add_skill_level = 1
@@ -3478,12 +3529,12 @@ country_event = {
 				add_command_power = 100
 				add_manpower = 100000
 			}
-			IF = {
-				limit = { difficulty > 2 }
-				swap_ideas = {
-					add_idea = MOT_ST3
-					remove_idea = MOT_ST2
+			ELSE_IF = {
+				limit = {
+					difficulty > 2
+					difficulty < 4
 				}
+				add_ideas = MOT_ST3
 				MOT_Noelle = {
 					add_skill_level = 2
 					add_max_trait = 2
@@ -3502,12 +3553,8 @@ country_event = {
 				add_command_power = 150
 				add_manpower = 150000
 			}
-			IF = {
-				limit = { difficulty > 3 }
-				swap_ideas = {
-					add_idea = MOT_ST4
-					remove_idea = MOT_ST3
-				}
+			ELSE = {
+				add_ideas = MOT_ST4
 				MOT_Noelle = {
 					add_skill_level = 4
 					add_max_trait = 4
@@ -3643,6 +3690,14 @@ country_event = {
 					uses = 6
 					ahead_reduction = 4
 				}
+				
+				every_owned_state = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
 			}
 			IF = {
 				limit = { difficulty > 2 }
@@ -3682,6 +3737,18 @@ country_event = {
 					uses = 4
 					ahead_reduction = 4
 				}
+				every_owned_state = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
 			}
 			IF = {
 				limit = { difficulty > 3 }
@@ -3718,6 +3785,18 @@ country_event = {
 					bonus = 1
 					uses = 4
 					ahead_reduction = 10
+				}
+				every_owned_state = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 		}
@@ -3844,6 +3923,13 @@ country_event = {
 					type = support_equipment
 					amount = 500
 				}
+				random_owned_state = {
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
 			}
 			IF = {
 				limit = { difficulty > 3 }
@@ -3869,6 +3955,13 @@ country_event = {
 				add_ideas = DOT_Government_Industry5
 				add_ideas = DOT_Government_Army5
 				add_ideas = DOT_Government_Agri5
+				random_owned_state = {
+					add_building_construction = {
+						type = arms_factory
+						level = 3
+						instant_build = yes
+					}
+				}
 			}
 		}
 	}
