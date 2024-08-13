@@ -1445,6 +1445,23 @@ LAW_DC_Organize_Fool = {
 	}
 }
 LAW_DC_Organize_Noble = {
+	#贵族夺权危机
+	LAW_Noble_Crisis = {
+		icon = generic_army_support
+		fire_only_once = yes
+		days_mission_timeout = 200
+		activation = { always = no }
+		available = {
+			check_variable = { LAW_Whole_Noble_Power < 1 }
+		}
+		timeout_effect = {
+			uncomplete_national_focus = LAW_Eula_End_Nobles
+			complete_national_focus = LAW_Eula_Stable_Nobles
+			every_owned_state = {
+				add_manpower = -1000000
+			}
+		}
+	}
 	#一个任务，每次倒计时结束都会触发一个贵族负面事件 LAW_ON_Noble_Savege
 	LAW_ON_Noble_Savege = {
 		icon = generic_ignite_civil_war
@@ -6226,9 +6243,6 @@ LAW_Preparation_Before_War = {
 				mark_focus_tree_layout_dirty = yes
 				country_event = Knights.20
 			}
-			LAW = {
-				mark_focus_tree_layout_dirty = yes
-			}
 			hidden_effect = {
 				white_peace = MOT
 				MOT = { remove_mission = MOT_Civil_War_1_MOT }
@@ -6274,7 +6288,7 @@ LAW_Preparation_Before_War = {
 				white_peace = ANR
 				start_peace_conference = {
 					tag = MOT
-					score_factor = 0.2
+					score_factor = 0.1
 					message = MOT_Won_3
 				}
 				MOT = { remove_mission = MOT_Civil_War_1_MOT }
@@ -6315,52 +6329,51 @@ LAW_Preparation_Before_War = {
 		cost = 0
 		fire_only_once = yes
 		available = {
-			always = yes
+			always = no
 		}
+		activation = { always = no }
 		war_with_on_remove = MOT
 		timeout_effect = {
-			MOT = {
-				end_puppet = LAW
-				end_puppet = DRA
-				end_puppet = SPI
-				end_puppet = RAG
-				end_puppet = ANR
-				end_puppet = GUN
-				end_puppet = FAV
-			}
-			set_global_flag = MOT_Civil_War_Begun
 			declare_war_on = {
 				target = MOT
 				type = annex_everything
 			}
-			country_event = {
-				id = Lawrence.34
-				days = 10
-			}
-			country_event = {
-				id = Lawrence.35
-				days = 55
-			}
-			country_event = {
-				id = Lawrence.36
-				days = 60
-			}
-			country_event = {
-				id = Lawrence.37
-				days = 65
-			}
-			country_event = {
-				id = Lawrence.38
-				days = 70
-			}
 			activate_mission = MOT_Civil_War_1_LAW
+			set_global_flag = MOT_Civil_War_Begun
 			set_cosmetic_tag = LAW_Noble_Army
 			hidden_effect = {
+				country_event = {
+					id = Lawrence.34
+					days = 10
+				}
+				country_event = {
+					id = Lawrence.35
+					days = 55
+				}
+				country_event = {
+					id = Lawrence.36
+					days = 60
+				}
+				country_event = {
+					id = Lawrence.37
+					days = 65
+				}
+				country_event = {
+					id = Lawrence.38
+					days = 70
+				}
 				RAG = {
 					#set_cosmetic_tag = RAG_RAGRAG
 				}
 				SPI = { set_cosmetic_tag = SPI_Town_of_Freedom }
 				MOT = {
+					end_puppet = LAW
+					end_puppet = DRA
+					end_puppet = SPI
+					end_puppet = RAG
+					end_puppet = ANR
+					end_puppet = GUN
+					end_puppet = FAV
 					set_country_flag = MOT_WarDB 
 					activate_mission = MOT_Civil_War_1_MOT
 					activate_mission = MOT_Monthly_Rush
@@ -6376,14 +6389,6 @@ LAW_Preparation_Before_War = {
 					country_event = {
 						id = Knights.47
 						days = 70
-					}
-				}
-				every_country = {
-					limit = {
-						Is_MOT = yes
-					}
-					IF = {
-						
 					}
 				}
 			}
@@ -6447,7 +6452,7 @@ MOT_War_Decisions_of_Us = {
 			hidden_effect = {
 				start_peace_conference = {
 					tag = LAW
-					score_factor = 0.2
+					score_factor = 0.1
 					message = MOT_Won_1
 				}
 				LAW = { remove_mission = MOT_Civil_War_1_LAW }
