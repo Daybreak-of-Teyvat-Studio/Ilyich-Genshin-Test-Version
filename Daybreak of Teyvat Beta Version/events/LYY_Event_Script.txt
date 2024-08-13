@@ -186,6 +186,9 @@ country_event = {
 			limit = { Is_LYY = no }
 			news_event = { id = LYY_News.0601 days = 10 }
 		}
+		CYG = { 
+			add_timed_idea = { idea = LYY_Morax_Legacy days = 360 }
+		}
 	}
 }
 news_event = {
@@ -758,6 +761,7 @@ country_event = {
 			add_equipment_to_stockpile = { type = infantry_equipment  amount = 4000  producer = SNE }
 			add_equipment_to_stockpile = { type = artillery_equipment  amount = 1000  producer = ABY } 
 			add_offsite_building = { type = arms_factory level = 2 } add_offsite_building = { type = industrial_complex level = 2 }
+			add_timed_idea = { idea = LYY_Morax_Legacy days = 360 }
 		}
 		every_country = {
 			limit = { Is_LYY = no }
@@ -1616,11 +1620,12 @@ country_event = {
 	title = DOT_Tech.3.t
 	desc = DOT_Tech.3.d
 	picture = GFX_LYY_Event_P04
-	fire_only_once = yes
+	fire_only_once = no
 	hidden = yes
 	trigger = {
-		OR = { tag = LYY tag = KQP  tag = CYG tag = GYP tag = SHP  TAG = BRF TAG = YLH }
-		date > 1941.1.1 
+		or = { tag = LYY tag = KQP  tag = CYG tag = GYP tag = SHP  TAG = BRF TAG = YLH }
+		date > 1941.1.1
+		not = { has_country_flag = LYY_18 }
 	}
 	option = {
 	    name = DOT_Tech.3.a
@@ -1635,6 +1640,7 @@ country_event = {
 		every_state = { limit = { is_core_of = BRF } add_core_of = ROOT }
 		every_state = { limit = { is_core_of = CYG } add_core_of = ROOT }
 		every_state = { limit = { is_core_of = YLH } add_core_of = ROOT }
+		set_country_flag = LYY_18
 	}
 }
 # 移除精神
