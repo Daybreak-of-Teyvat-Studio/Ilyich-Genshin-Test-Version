@@ -1449,7 +1449,7 @@ LAW_DC_Organize_Noble = {
 	LAW_Noble_Crisis = {
 		icon = generic_army_support
 		fire_only_once = yes
-		days_mission_timeout = 200
+		days_mission_timeout = 100
 		activation = { always = no }
 		available = {
 			check_variable = { LAW_Whole_Noble_Power < 1 }
@@ -1458,8 +1458,140 @@ LAW_DC_Organize_Noble = {
 			uncomplete_national_focus = LAW_Eula_End_Nobles
 			complete_national_focus = LAW_Eula_Stable_Nobles
 			every_owned_state = {
-				add_manpower = -1000000
+				add_manpower = -100000
 			}
+			set_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		complete_effect = {
+			set_country_flag = LAW_Lock_PreUnion_Crisis
+			set_country_flag = LAW_Ended_Nobles
+			country_event = Lawrence.59
+		}
+	}
+	#秘密警察 清洗一切旧势力残余
+	LAW_Wash_Old_Nobles = {
+		icon = generic_police_action
+		fire_only_once = no
+		days_remove = 60
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Secret_Police
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		complete_effect = {
+			add_stability = -0.05
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#控制军队 镇压亲贵族利益集团
+	LAW_Press_Old_Nobles = {
+		icon = generic_military
+		fire_only_once = no
+		days_remove = 60
+		custom_cost_text = decision_cost_CP_40
+		custom_cost_trigger = { command_power > 39 }
+		complete_effect = { add_command_power = -40 }
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Army_of_Tide
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#行政体系 拔除贵族系反动官僚
+	LAW_No_Old_Nobles = {
+		icon = generic_form_nation
+		fire_only_once = no
+		days_remove = 90
+		cost = 100
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_System_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 20 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#教育体制 掀起反贵族学生运动
+	LAW_Anti_Old_Nobles = {
+		icon = generic_form_nation
+		fire_only_once = no
+		days_remove = 60
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Education_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		complete_effect = {
+			add_war_support = -0.05
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#经济调控 摧毁旧贵族经济基础
+	LAW_Break_Old_Nobles = {
+		icon = generic_fundraising
+		fire_only_once = no
+		days_remove = 60
+		cost = 200
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Education_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 20 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
 		}
 	}
 	#一个任务，每次倒计时结束都会触发一个贵族负面事件 LAW_ON_Noble_Savege
@@ -1469,7 +1601,7 @@ LAW_DC_Organize_Noble = {
 		selectable_mission = no
 		days_mission_timeout = 60
 		activation = { always = no }
-		available = { always = no }
+		available = { has_country_flag = LAW_Ended_Nobles }
 		timeout_effect = {
 			custom_effect_tooltip = LAW_tt_Random_Event_Noble
 			activate_mission = LAW_ON_Noble_Savege
