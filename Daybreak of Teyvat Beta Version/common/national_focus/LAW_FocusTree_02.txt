@@ -88,7 +88,7 @@ focus_tree = {
 	}
 	#鼓舞希望
 	focus = {
-		id = LAW_United_Keep_Stable
+		id = LAW_United_Active_Hope
 		icon = GFX_Goal_get_money_with_weapon
 		cost = 2.2
 		x = 2
@@ -113,7 +113,7 @@ focus_tree = {
 			base = 500
 		}
 	}
-	#蒙德共和国第一次全国法团大会
+	#第一次全国法团大会
 	focus = {
 		id = LAW_United_First_National_Congree
 		icon = GFX_Goal_get_money_with_weapon
@@ -122,7 +122,13 @@ focus_tree = {
 		y = 1
 		relative_position_id = LAW_United_Keep_Stable
 		prerequisite = {
+			focus = LAW_United_Fix_Infrastructure
+		}
+		prerequisite = {
 			focus = LAW_United_Keep_Stable
+		}
+		prerequisite = {
+			focus = LAW_United_Active_Hope
 		}
 		completion_reward = {
 			add_popularity = {
@@ -131,6 +137,7 @@ focus_tree = {
 			}
 			DRA_Rebuild_Improved = yes
 			add_ideas = LAW_Break_the_Ice1
+			set_country_flag = LAW_Begin_to_Rebuild
 		}
 		available = {
 			always = yes
@@ -146,9 +153,619 @@ focus_tree = {
 		}
 	}
 
-	#军事线 抗争的哲学
-
 	#经济线 繁荣的指引
+	focus = {
+		id = LAW_United_Eco_Guide_of_Prosperrity
+		icon = GFX_MOT_EWAY3
+		cost = 7.20
+		x = 5
+		y = 5
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			
+		}
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#民工1
+	focus = {
+		id = LAW_United_Eco_01
+		icon = GFX_goal_generic_trade
+		cost = 7.20
+		x = -2
+		y = 1
+		relative_position_id = LAW_United_Eco_Guide_of_Prosperrity
+		prerequisite = {
+			focus = LAW_United_Eco_Guide_of_Prosperrity
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Trade
+			
+			47 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			49 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			63 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			143 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				47 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+				}
+				49 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+		}
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_United_Eco_02
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.20
+		x = 0
+		y = 1
+		relative_position_id = LAW_United_Eco_01
+		prerequisite = {
+			focus = LAW_United_Eco_01
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Trade
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+		}
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_United_Eco_03
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.20
+		x = 0
+		y = 1
+		relative_position_id = LAW_United_Eco_02
+		prerequisite = {
+			focus = LAW_United_Eco_02
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Trade
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			
+			IF = {
+				limit = {
+					MOT_TradeLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 1
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_building_level = {
+						type = infrastructure
+						level = 5
+					}
+				}
+			}
+		}
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	focus = {
+		id = LAW_United_Eco_04
+		icon = GFX_goal_generic_construct_civilian
+		cost = 7.20
+		x = 0
+		y = 1
+		relative_position_id = LAW_United_Eco_03
+		prerequisite = {
+			focus = LAW_United_Eco_03
+		}
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 5
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		available = {
+			MOT_Rebuild_Completed = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#军工1
+	focus = {
+		id = LAW_United_Eco_21
+		icon = GFX_goal_generic_small_arms
+		cost = 7.2
+		x = 2
+		y = 1
+		relative_position_id = LAW_United_Eco_Guide_of_Prosperrity
+		prerequisite = {
+			focus = LAW_United_Eco_Guide_of_Prosperrity
+		}
+		completion_reward = {
+			custom_effect_tooltip = MOT_Bonus_From_Low_Eco
+			30 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			32 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			31 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+				set_building_level = {
+					type = infrastructure
+					level = 5
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				
+				30 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+					}
+				}
+				31 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	#都要1
+	focus = {
+		id = LAW_United_Eco_11
+		icon = GFX_goal_generic_construction
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LAW_United_Eco_Guide_of_Prosperrity
+		prerequisite = {
+			focus = LAW_United_Eco_Guide_of_Prosperrity
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 15
+				state = 41
+			}
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 44
+			}
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 44
+			}
+			40 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+			41 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			44 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			45 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+					MOT_TradeLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				add_resource = {
+					type = steel
+					amount = 10
+					state = 41
+				}
+				add_resource = {
+					type = steel
+					amount = 10
+					state = 44
+				}
+				40 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+				41 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+				44 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+	focus = {
+		id = LAW_United_Eco_12
+		icon = GFX_goal_generic_construction
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LAW_United_Eco_11
+		prerequisite = {
+			focus = LAW_United_Eco_11
+		}
+		completion_reward = {
+			
+			add_resource = {
+				type = chromium
+				amount = 20
+				state = 7
+			}
+			add_resource = {
+				type = chromium
+				amount = 30
+				state = 4
+			}
+			4 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+			7 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+			IF = {
+				limit = {
+					MOT_EcoLow = yes
+					MOT_ConsLow = yes
+					MOT_TradeLow = yes
+				}
+				custom_effect_tooltip = MOT_ExtraBonus_From_RightLaw
+				add_timed_idea = { idea = gene_less_burden days = 90 }
+				add_resource = {
+					type = chromium
+					amount = 10
+					state = 7
+				}
+				add_resource = {
+					type = chromium
+					amount = 10
+					state = 4
+				}
+				4 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+				7 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+		dynamic = yes
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 50
+		}
+	}
+
+	#军事线 抗争的哲学
 
 	#政治线 自由的教导
 
