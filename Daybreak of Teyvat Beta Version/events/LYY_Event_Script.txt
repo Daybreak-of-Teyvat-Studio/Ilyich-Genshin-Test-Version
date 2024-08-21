@@ -1616,7 +1616,7 @@ country_event = {
 }
 # 璃月统一补丁
 country_event = {
-	id = LYY.18
+	id = LYY.19
 	title = DOT_Tech.3.t
 	desc = DOT_Tech.3.d
 	picture = GFX_LYY_Event_P04
@@ -1625,7 +1625,7 @@ country_event = {
 	trigger = {
 		or = { tag = LYY tag = KQP  tag = CYG tag = GYP tag = SHP  TAG = BRF TAG = YLH }
 		date > 1941.1.1
-		not = { has_country_flag = LYY_18 }
+		not = { has_country_flag = LYY_19 }
 	}
 	option = {
 	    name = DOT_Tech.3.a
@@ -1637,12 +1637,62 @@ country_event = {
 		create_wargoal = { type = annex_everything target = YLH }
 		create_wargoal = { type = annex_everything target = BRF }
 		every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = KQP } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = GYP } add_core_of = ROOT }
+		every_state = { limit = { is_core_of = SHP } add_core_of = ROOT }
 		every_state = { limit = { is_core_of = BRF } add_core_of = ROOT }
 		every_state = { limit = { is_core_of = CYG } add_core_of = ROOT }
 		every_state = { limit = { is_core_of = YLH } add_core_of = ROOT }
-		set_country_flag = LYY_18
+		set_country_flag = LYY_19
 	}
 }
+
+#############
+# 兄弟阋墙外御其侮 LYY_United_War = yes
+#############
+country_event = {
+	id = LYY.20
+	title = DOT_Tech.3.t
+	desc = DOT_Tech.3.d
+	picture = GFX_LYY_Event_P04
+	fire_only_once = no
+	hidden = yes
+	trigger = {
+		or = {
+			has_war_with = LYY
+			has_war_with = KQP
+			has_war_with = GYP
+			has_war_with = CYG
+			has_war_with = SHP
+			has_war_with = YLH
+			has_war_with = BRF
+		}
+		LYY = { has_completed_focus = LYY_Rite_of_Parting }
+		not = { 
+			has_country_flag = LYY_20
+			tag = LYY tag = KQP tag = SHP tag = GYP tag = YLH tag = CYG tag = BRF
+		}
+	}
+	option = {
+	    name = DOT_Tech.3.a
+		# LYY_United_War = yes
+		country_event = { id = LYY.21  days = 20 }
+		set_country_flag = LYY_20
+	}
+}
+country_event = {
+	id = LYY.21
+	title = LYY.21.t
+	desc = LYY.21.d
+	picture = GFX_LYY_Event_P02
+	fire_only_once = no
+	is_triggered_only = yes
+	option = {
+		name = LYY.21.a
+		LYY_United_War = yes
+	}
+}
+
 # 移除精神
 
 
