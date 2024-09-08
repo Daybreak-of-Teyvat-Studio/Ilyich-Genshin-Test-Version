@@ -568,7 +568,7 @@ focus_tree = {
 		id = DVA_bathtub_war
 		icon = GFX_focus_generic_navy_battleship2
 		cost = 1
-		x = 28
+		x = 27
 		y = 1
 		available = {
 			any_enemy_country = {
@@ -588,7 +588,7 @@ focus_tree = {
 		id = DVA_dockyard_of_dvalin
 		icon = GFX_focus_generic_refit_civilian_ships
 		cost = 1
-		x = 26
+		x = 24
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -642,10 +642,10 @@ focus_tree = {
 		id = DVA_restart_FON_trade_route
 		icon = GFX_DVA_restart_FON_trade_route
 		cost = 3
-		x = 25
-		y = 3
+		x = 26
+		y = 2
 		prerequisite = {
-			focus = DVA_dockyard_of_dvalin
+			focus = DVA_bathtub_war
 		}
 		available = {
 			SFS = {
@@ -667,10 +667,10 @@ focus_tree = {
 		id = DVA_restart_LYY_trade_route
 		icon = GFX_DVA_restart_LYY_trade_route
 		cost = 3
-		x = 27
-		y = 3
+		x = 28
+		y = 2
 		prerequisite = {
-			focus = DVA_dockyard_of_dvalin
+			focus = DVA_bathtub_war
 		}
 		available = {
 			SFS = {
@@ -707,32 +707,96 @@ focus_tree = {
 				uses = 1
 				category = naval_doctrine
 			}
+			country_event = dva.12
+		}
+	}
+	focus = {
+		id = DVA_Brave_Troops_from_the_Sky
+		icon = GFX_focus_generic_naval_discipline
+		cost = 1
+		x = 25
+		y = 3
+		prerequisite = {
+			focus = DVA_restart_FON_trade_route
+		}
+		prerequisite = {
+			focus = DVA_Navy_in_decades
+		}
+		prerequisite = {
+			focus = DVA_dockyard_of_dvalin
+		}
+		mutually_exclusive = {
+			focus = DVA_Huge_waves_plan
+		}
+		available = {
+			has_country_flag = DVA_cv_flag
+		}
+		completion_reward = {
+			#
 		}
 	}
 	focus = {
 		id = DVA_Huge_waves_plan
 		icon = GFX_focus_SWE_coastal_support
 		cost = 1
+		x = 27
+		y = 3
+		prerequisite = {
+			focus = DVA_Navy_in_decades
+		}
+		prerequisite = {
+			focus = DVA_dockyard_of_dvalin
+		}
+		prerequisite = {
+			focus = DVA_restart_LYY_trade_route
+		}
+		mutually_exclusive = {
+			focus = DVA_Brave_Troops_from_the_Sky
+		}
+		mutually_exclusive = {
+			focus = DVA_Big_surprise_in_water
+		}
+		available = {
+			has_country_flag = DVA_bb_flag
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Big_surprise_in_water
+		icon = GFX_focus_generic_mine_warfare
+		cost = 1
 		x = 29
 		y = 3
 		prerequisite = {
 			focus = DVA_Navy_in_decades
 		}
+		prerequisite = {
+			focus = DVA_dockyard_of_dvalin
+		}
 		mutually_exclusive = {
-			focus = DVA_practical_boatbuilding
+			focus = DVA_Huge_waves_plan
+		}
+		available = {
+			has_country_flag = DVA_ss_flag
 		}
 		completion_reward = {
-			country_event = dva.12
+			set_technology = {
+				tech_minelayer1 = 1
+			}
 		}
 	}
 	focus = {
 		id = DVA_Deep_Blue
 		icon = GFX_focus_SWE_Vasa_II
-		cost = 1
-		x = 29
+		cost = 3
+		x = 27
 		y = 4
 		prerequisite = {
+			focus = DVA_Brave_Troops_from_the_Sky
 			focus = DVA_Huge_waves_plan
+			focus = DVA_Big_surprise_in_water
 		}
 		available = {
 			always = no
@@ -750,48 +814,14 @@ focus_tree = {
 				}
 				add_idea = DVA_flattop_of_new_era
 			}
+			else_if = {
+				limit = {
+					has_country_flag = DVA_ss_flag
+				}
+				add_idea = DVA_flattop_of_new_era
+			}
 			else = {
 				custom_effect_tooltip = DOT_effects_have_not_announced_tt
-			}
-		}
-	}
-	focus = {
-		id = DVA_practical_boatbuilding
-		icon = GFX_focus_generic_naval_discipline
-		cost = 1
-		x = 31
-		y = 3
-		prerequisite = {
-			focus = DVA_Navy_in_decades
-		}
-		mutually_exclusive = {
-			focus = DVA_Huge_waves_plan
-		}
-		available = {
-			OR = {
-				has_completed_focus = DVA_offering_gifts_and_loyalty
-				has_completed_focus = DVA_Plan_of_reshuffling_knights_of_favonius
-				has_completed_focus = DVA_break_with_the_past
-			}
-		}
-		completion_reward = {
-			#set_technology = {
-			#	tech_Torpedo1 = 1
-			#}
-		}
-	}
-	focus = {
-		id = DVA_Big_surprise_in_water
-		icon = GFX_focus_generic_mine_warfare
-		cost = 1
-		x = 31
-		y = 4
-		prerequisite = {
-			focus = DVA_practical_boatbuilding
-		}
-		completion_reward = {
-			set_technology = {
-				tech_minelayer1 = 1
 			}
 		}
 	}

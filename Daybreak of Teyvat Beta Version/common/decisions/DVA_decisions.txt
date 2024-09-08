@@ -320,6 +320,7 @@ DVA_debug_category = {
 			add_ideas = DVA_Strategy_Moving_War
 			add_ideas = DVA_Strategy_Defensive_War
 			add_ideas = DVA_Strategy_Long_War
+			add_ideas = DVA_Tactic_Resist
 		}
 	}
 	DVA_test_decision11 = {
@@ -342,7 +343,9 @@ DVA_debug_category = {
 		cost = 0
 
 		complete_effect = {
-			add_ideas = DVA_Tactic_Resist
+			add_ideas = DVA_Super_Dreadnought_enthusiasm
+			add_ideas = DVA_flattop_of_new_era
+			add_ideas = DVA_wolf_pack_tactics
 		}
 	}
 	DVA_test_decision12 = {
@@ -802,10 +805,10 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		remove_effect = {
-			custom_effect_tooltip = DVA_forge_a_report_tt
+			custom_effect_tooltip = DVA_fabricate_accounting_tt
 			add_to_variable = {
 				var = DVA.DVA_trust
-				value = -1
+				value = 1
 			}
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
@@ -845,6 +848,11 @@ DVA_mass_of_dvalin_category = {
 		}
 
 		remove_effect = {
+			custom_effect_tooltip = DVA_purge_the_mole_tt
+			add_to_variable = {
+				var = DVA.DVA_trust
+				value = -1
+			}
 			add_to_variable = {
 				var = DVA.DVA_puppet_influence
 				value = -1
@@ -1825,8 +1833,10 @@ DVA_mass_of_dvalin_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 60
-			}
+				state = 74
+				state = 75
+				state = 78
+			} 
 		}
 
 		cost = 0
@@ -2606,11 +2616,12 @@ DVA_helios_project_category = {
 			has_country_flag = DVA_helios_project_first_step_flag
 		}
 
-		fire_only_once = no
+		fire_only_once = yes
 
-		days_mission_timeout = 30
+		days_re_enable = 1
+		days_remove = 6
 
-		timeout_effect = {
+		remove_effect = {
 			mora_cost_daily = 5
 			add_to_variable = {
 				var = DVA_helios_project_construction_step_progress
@@ -3449,25 +3460,37 @@ DVA_ship_construction_category = {
 	#第一个类型，对应三个船台
 	DVA_ship1_construction1 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
 		available = {
-			hidden_trigger = { always = no }
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 2 }
+					check_variable = { DVA_navy_construction_var2 = 2 }
+					check_variable = { DVA_navy_construction_var3 = 2 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
+
+		cancel_trigger = {
+			always = no
+		}
+
+		days_mission_timeout = 100
+
 		fire_only_once = yes
 		cost = 0
 
 		ai_will_do = {
 			base = 1000
-		}
-
-		visible = {
-			#
 		}
 
 		modifier = {
@@ -3629,16 +3652,24 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship1_construction2 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 3 }
+					check_variable = { DVA_navy_construction_var2 = 3 }
+					check_variable = { DVA_navy_construction_var3 = 3 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
+		
 		fire_only_once = yes
 		cost = 0
 
@@ -3646,8 +3677,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 3 }
+				check_variable = { DVA_navy_construction_var2 = 3 }
+				check_variable = { DVA_navy_construction_var3 = 3 }
+			}
 		}
 
 		modifier = {
@@ -3809,16 +3844,23 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship1_construction3 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 4 }
+					check_variable = { DVA_navy_construction_var2 = 4 }
+					check_variable = { DVA_navy_construction_var3 = 4 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -3826,8 +3868,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 4 }
+				check_variable = { DVA_navy_construction_var2 = 4 }
+				check_variable = { DVA_navy_construction_var3 = 4 }
+			}
 		}
 
 		modifier = {
@@ -3990,16 +4036,23 @@ DVA_ship_construction_category = {
 	#第二种类型-战巡
 	DVA_ship2_construction1 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 5 }
+					check_variable = { DVA_navy_construction_var2 = 5 }
+					check_variable = { DVA_navy_construction_var3 = 5 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4007,8 +4060,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 5 }
+				check_variable = { DVA_navy_construction_var2 = 5 }
+				check_variable = { DVA_navy_construction_var3 = 5 }
+			}
 		}
 
 		modifier = {
@@ -4170,16 +4227,23 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship2_construction2 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 6 }
+					check_variable = { DVA_navy_construction_var2 = 6 }
+					check_variable = { DVA_navy_construction_var3 = 6 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4187,8 +4251,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 6 }
+				check_variable = { DVA_navy_construction_var2 = 6 }
+				check_variable = { DVA_navy_construction_var3 = 6 }
+			}
 		}
 
 		modifier = {
@@ -4350,16 +4418,23 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship2_construction3 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 7 }
+					check_variable = { DVA_navy_construction_var2 = 7 }
+					check_variable = { DVA_navy_construction_var3 = 7 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4367,8 +4442,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 7 }
+				check_variable = { DVA_navy_construction_var2 = 7 }
+				check_variable = { DVA_navy_construction_var3 = 7 }
+			}
 		}
 
 		modifier = {
@@ -4532,16 +4611,23 @@ DVA_ship_construction_category = {
 	#第三种类型-航母
 	DVA_ship3_construction1 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 8 }
+					check_variable = { DVA_navy_construction_var2 = 8 }
+					check_variable = { DVA_navy_construction_var3 = 8 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4549,8 +4635,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 8 }
+				check_variable = { DVA_navy_construction_var2 = 8 }
+				check_variable = { DVA_navy_construction_var3 = 8 }
+			}
 		}
 
 		modifier = {
@@ -4700,16 +4790,23 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship3_construction2 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 9 }
+					check_variable = { DVA_navy_construction_var2 = 9 }
+					check_variable = { DVA_navy_construction_var3 = 9 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4717,9 +4814,13 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
-		}
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 9 }
+				check_variable = { DVA_navy_construction_var2 = 9 }
+				check_variable = { DVA_navy_construction_var3 = 9 }
+			}
+		}#
 
 		modifier = {
 			dockyard_donations = -20
@@ -4868,16 +4969,23 @@ DVA_ship_construction_category = {
 	}
 	DVA_ship3_construction3 = {
 
-		allowed = { always = no }
-
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 10 }
+					check_variable = { DVA_navy_construction_var2 = 10 }
+					check_variable = { DVA_navy_construction_var3 = 10 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -4885,8 +4993,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 10 }
+				check_variable = { DVA_navy_construction_var2 = 10 }
+				check_variable = { DVA_navy_construction_var3 = 10 }
+			}
 		}
 
 		modifier = {
@@ -5036,18 +5148,25 @@ DVA_ship_construction_category = {
 	}
 	
 	#第四种类型-重巡
-	DVA_ship3_construction1 = {
-
-		allowed = { always = no }
+	DVA_ship4_construction1 = {
 
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 11 }
+					check_variable = { DVA_navy_construction_var2 = 11 }
+					check_variable = { DVA_navy_construction_var3 = 11 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -5055,8 +5174,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 11 }
+				check_variable = { DVA_navy_construction_var2 = 11 }
+				check_variable = { DVA_navy_construction_var3 = 11 }
+			}
 		}
 
 		modifier = {
@@ -5215,18 +5338,25 @@ DVA_ship_construction_category = {
 			}
 		}
 	}
-	DVA_ship3_construction2 = {
-
-		allowed = { always = no }
+	DVA_ship4_construction2 = {
 
 		icon = GFX_decision_generic_naval_mine
 
-		available = {
-			hidden_trigger = { always = no }
+		available = { 
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 12 }
+					check_variable = { DVA_navy_construction_var2 = 12 }
+					check_variable = { DVA_navy_construction_var3 = 12 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -5234,8 +5364,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 12 }
+				check_variable = { DVA_navy_construction_var2 = 12 }
+				check_variable = { DVA_navy_construction_var3 = 12 }
+			}
 		}
 
 		modifier = {
@@ -5394,18 +5528,25 @@ DVA_ship_construction_category = {
 			}
 		}
 	}
-	DVA_ship3_construction3 = {
-
-		allowed = { always = no }
+	DVA_ship4_construction3 = {
 
 		icon = GFX_decision_generic_naval_mine
 
 		available = {
-			hidden_trigger = { always = no }
+			NOT = {
+				OR = {
+					check_variable = { DVA_navy_construction_var1 = 13 }
+					check_variable = { DVA_navy_construction_var2 = 13 }
+					check_variable = { DVA_navy_construction_var3 = 13 }
+				}
+			}
 		}
 
-		days_mission_timeout = 180
-		#
+		days_mission_timeout = 100
+
+		cancel_trigger = {
+			always = no
+		}
 		fire_only_once = yes
 		cost = 0
 
@@ -5413,8 +5554,12 @@ DVA_ship_construction_category = {
 			base = 1000
 		}
 
-		visible = {
-			#
+		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 13 }
+				check_variable = { DVA_navy_construction_var2 = 13 }
+				check_variable = { DVA_navy_construction_var3 = 13 }
+			}
 		}
 
 		modifier = {
