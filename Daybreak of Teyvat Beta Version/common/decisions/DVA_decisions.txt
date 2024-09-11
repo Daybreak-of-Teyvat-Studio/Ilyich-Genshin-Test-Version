@@ -1,4 +1,8 @@
 @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
+@DVA_SHIP_CONSTRUCTION_COST_TRIGGER1 = 180
+@DVA_SHIP_CONSTRUCTION_COST_TRIGGER2 = 120
+@DVA_SHIP_CONSTRUCTION_COST_TRIGGER3 = 180
+@DVA_SHIP_CONSTRUCTION_COST_TRIGGER4 = 90
 DVA_debug_category = {
 	DVA_load_focus1 = {
 		icon = GFX_decision_generic_protection
@@ -361,10 +365,6 @@ DVA_debug_category = {
 
 		ai_will_do = {
 			factor = 10
-		}
-
-		modifier = {
-			dockyard_donations = -20
 		}
 
 		fire_only_once = no
@@ -2620,9 +2620,11 @@ DVA_helios_project_category = {
 
 		days_re_enable = 1
 		days_remove = 6
+		modifier = {
+			mora_cost_daily = 3
+		}
 
 		remove_effect = {
-			mora_cost_daily = 5
 			add_to_variable = {
 				var = DVA_helios_project_construction_step_progress
 				value = 5
@@ -3470,9 +3472,18 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 2 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
 		activation = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
+
+		visible = {
 			OR = {
 				check_variable = { DVA_navy_construction_var1 = 2 }
 				check_variable = { DVA_navy_construction_var2 = 2 }
@@ -3484,7 +3495,8 @@ DVA_ship_construction_category = {
 			always = no
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
 
 		fire_only_once = yes
 		cost = 0
@@ -3496,6 +3508,8 @@ DVA_ship_construction_category = {
 		modifier = {
 			dockyard_donations = -20
 		}
+
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -3662,9 +3676,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 3 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
 
 		cancel_trigger = {
 			always = no
@@ -3685,9 +3701,19 @@ DVA_ship_construction_category = {
 			}
 		}
 
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
+
 		modifier = {
 			dockyard_donations = -20
 		}
+
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -3854,9 +3880,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 4 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1
 
 		cancel_trigger = {
 			always = no
@@ -3875,10 +3903,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 4 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4046,9 +4082,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 5 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
 
 		cancel_trigger = {
 			always = no
@@ -4067,10 +4105,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 5 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4237,9 +4283,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 6 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
 
 		cancel_trigger = {
 			always = no
@@ -4258,10 +4306,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 6 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4428,9 +4484,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 7 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2
 
 		cancel_trigger = {
 			always = no
@@ -4449,10 +4507,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 7 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4621,9 +4687,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 8 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
 
 		cancel_trigger = {
 			always = no
@@ -4642,10 +4710,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 8 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4800,9 +4876,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 9 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
 
 		cancel_trigger = {
 			always = no
@@ -4820,11 +4898,19 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var2 = 9 }
 				check_variable = { DVA_navy_construction_var3 = 9 }
 			}
-		}#
+		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -4979,9 +5065,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 10 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3
 
 		cancel_trigger = {
 			always = no
@@ -5000,10 +5088,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 10 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -5160,9 +5256,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 11 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
 
 		cancel_trigger = {
 			always = no
@@ -5181,10 +5279,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 11 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -5350,9 +5456,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 12 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
 
 		cancel_trigger = {
 			always = no
@@ -5371,10 +5479,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 12 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
@@ -5540,9 +5656,11 @@ DVA_ship_construction_category = {
 					check_variable = { DVA_navy_construction_var3 = 13 }
 				}
 			}
+			num_of_available_naval_factories < DVA.DVA_num_dockyard_var
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
+		days_remove = @DVA_SHIP_CONSTRUCTION_COST_TRIGGER4
 
 		cancel_trigger = {
 			always = no
@@ -5561,10 +5679,18 @@ DVA_ship_construction_category = {
 				check_variable = { DVA_navy_construction_var3 = 13 }
 			}
 		}
+		visible = {
+			OR = {
+				check_variable = { DVA_navy_construction_var1 = 2 }
+				check_variable = { DVA_navy_construction_var2 = 2 }
+				check_variable = { DVA_navy_construction_var3 = 2 }
+			}
+		}
 
 		modifier = {
 			dockyard_donations = -20
 		}
+		#
 
 		timeout_effect = {
 			DVA_shipyard_initialization = yes
