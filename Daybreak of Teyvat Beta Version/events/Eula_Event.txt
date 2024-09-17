@@ -1119,10 +1119,15 @@ country_event = {
 	id = Lawrence.23
 	title = Lawrence.23.t
 	desc = Lawrence.23.d
-	fire_only_once = no
-	is_triggered_only = yes
+	fire_only_once = yes
+	is_triggered_only = no
 	timeout_days = 3
-	
+	trigger = {
+		has_global_flag = {
+			flag = MOT_Civil_War_Begun
+			 days > 30
+		}
+	}
 	option = {
 		name = Lawrence.23.a
 	}
@@ -1192,7 +1197,7 @@ country_event = {
 	is_triggered_only = no
 	trigger = {
 		original_tag = LAW
-		date > 1936.2.1
+		has_war = yes
 	}
 	timeout_days = 3
 	
@@ -1277,6 +1282,12 @@ country_event = {
 		add_stability = -0.05
 		every_owned_state = {
 			add_dynamic_modifier = { modifier = LAW_SM_Area_Unstable1 }
+		}
+		remove_ideas = {
+			LAW_Shocking_Intelligence
+			LAW_People_Want
+			LAW_Pure_Government
+			LAW_Fast_Government
 		}
 		set_country_flag = LAW_Unlock_BOP
 		set_power_balance = {
@@ -1420,9 +1431,14 @@ country_event = {
 	
 	option = {
 		name = Lawrence.41.b
-		load_focus_tree = LAW_Eula_Get_Crown
+		load_focus_tree = LAW_Focus_01
 		set_country_flag = LAW_Unlock_Sta_DecCat
 		custom_effect_tooltip = LAW_tt_Unlock_Sta_Dec
+		custom_effect_tooltip = LAW_tt_Unlock_Main_Decisions
+		set_country_flag = LAW_Unlock_Ice_DecCat
+		set_country_flag = LAW_Unlock_Noble_DecCat
+		set_country_flag = LAW_Unlock_Fool_DecCat
+		activate_mission = LAW_Call_for_Stability
 	}
 	option = {
 		name = Lawrence.41.a

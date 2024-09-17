@@ -10,10 +10,12 @@ LAW_Stablize_States = {
 		timeout_effect = {
 			custom_effect_tooltip = LAW_tt_Unstable_Effect
 			set_temp_variable = { LAW_TV_1 = LAW_Num_of_Unstable_States }
-			divide_temp_variable = { LAW_TV_1 = 4 }
+			divide_temp_variable = { LAW_TV_1 = 400 }
+			multiply_temp_variable = { LAW_TV_1 = -1 }
 			add_stability = var:LAW_TV_1
 
 			set_temp_variable = { LAW_Change_of_Icy_Power = LAW_Num_of_Unstable_States }
+			multiply_temp_variable = { LAW_Change_of_Icy_Power = 5 }
 			add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
 			custom_effect_tooltip = LAW_tt_More_Icy_Power
 			activate_mission = LAW_Call_for_Stability
@@ -27,7 +29,7 @@ LAW_Stablize_States = {
 		on_map_mode = map_and_decisions_view
 		target_trigger = {
 			FROM = { has_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
-			ROOT = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } }
+			LAW = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } }
 		}
 		custom_cost_text = decision_cost_CP_20
 		custom_cost_trigger = { has_command_power > 19 }
@@ -418,14 +420,9 @@ LAW_DC_Seek_for_Help = {
 			random_list = {
 				50 = {
 					random_owned_state = {
-						limit = {
-							free_building_slots = {
-								type = industrial_complex
-								level > 0
-							}
-						}
+						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
-							building = industrial_complex
+							type = industrial_complex
 							level = 1
 						}
 					}
@@ -434,13 +431,13 @@ LAW_DC_Seek_for_Help = {
 					random_owned_state = {
 						limit = {
 							free_building_slots = {
-								type = infrastructure
+								building = infrastructure
 								level > 0
 							}
 						}
 						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
-							building = infrastructure
+							type = infrastructure
 							level = 1
 						}
 					}
@@ -495,6 +492,7 @@ LAW_DC_Seek_for_Help = {
 		}
 		remove_effect = {
 			custom_effect_tooltip = LAW_tt_More_Bonus_From_Investment
+			custom_effect_tooltip = LAW_tt_Get_Investment
 			add_popularity = {
 				ideology = democratic
 				popularity = -0.3
@@ -559,14 +557,9 @@ LAW_DC_Seek_for_Help = {
 				popularity = 0.03
 			}
 			random_owned_state = {
-				limit = {
-					free_building_slots = {
-						type = arms_factory
-						level > 0
-					}
-				}
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					building = arms_factory
+					type = arms_factory
 					level = 1
 				}
 			}
@@ -617,6 +610,7 @@ LAW_DC_Seek_for_Help = {
 		}
 		complete_effect = {
 			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
+			custom_effect_tooltip = LAW_tt_Get_Advance
 			set_country_flag = LAW_Has_Run_KNA
 		}
 		remove_effect = {
@@ -803,7 +797,7 @@ LAW_DC_Seek_for_Help = {
 		cost = 30
 		days_remove = 70
 		modifier = {
-			manpower_weekly = 1000
+			weekly_manpower = 1000
 		}
 		complete_effect = {
 		}
@@ -6443,6 +6437,7 @@ LAW_Preparation_Before_War = {
 		days_re_enable = 30
 		cost = 30
 		fire_only_once = no
+		visible = { always = no }
 		remove_effect = {
 			custom_effect_tooltip = LAW_High_Resist_Here
 			add_to_variable = { MOT.MOT_Resist_in_LAW = 10 }
