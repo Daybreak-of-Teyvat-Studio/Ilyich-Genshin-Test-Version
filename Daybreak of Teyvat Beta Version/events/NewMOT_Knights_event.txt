@@ -199,11 +199,13 @@ country_event = {
 		name = Knights.5.a
 		unlock_decision_category_tooltip = MOT_Strengthen_our_Control
 		set_country_flag = MOT_SControl
+		custom_effect_tooltip = MOT_tt_Turorial1
 	}
 	option = {
 		name = Knights.5.b
 		unlock_decision_category_tooltip = MOT_Strengthen_our_Control
 		set_country_flag = MOT_SControl
+		custom_effect_tooltip = MOT_tt_Turorial1
 	}
 }
 #见习玫瑰骑士
@@ -430,49 +432,8 @@ country_event = {
 		trigger = { original_tag = MOT }
 		MOT_Night_Up = yes
 		end_puppet = ANR
-		add_stability = -0.01
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
-
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-			add_stability = -0.02
-			add_war_support = 0.01
-			random_list = {
-				25 = {
-					add_timed_idea = { idea = gene_less_burden days = 40 }
-				}
-				25 = {
-					add_stability = -0.02
-				}
-				25 = {
-					add_manpower = -1000
-				}
-				25 = {
-					add_political_power = -20
-				}
-			}
-		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-				add_stability = -0.01
-				random_list = {
-					25 = {
-						add_timed_idea = { idea = gene_less_burden days = 10 }
-					}
-					25 = {
-						add_stability = -0.01
-					}
-					25 = {
-						add_manpower = -500
-					}
-					25 = {
-						add_political_power = -5
-					}
-				}
-			}
+		every_owned_state = {
+			add_manpower = -50000
 		}
 	}
 	option = {
@@ -525,50 +486,9 @@ country_event = {
 		MOT_Night_Up = yes
 		add_ideas = MOT_Debuff_Food_Shortage
 		trigger = { original_tag = MOT }
-		add_stability = -0.01
 		end_puppet = SPI
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-			add_stability = -0.02
-			add_war_support = 0.01
-			random_list = {
-				25 = {
-					add_timed_idea = { idea = gene_less_burden days = 40 }
-				}
-				25 = {
-					add_stability = -0.02
-				}
-				25 = {
-					add_manpower = -1000
-				}
-				25 = {
-					add_political_power = -20
-				}
-			}
-		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-				add_stability = -0.01
-				random_list = {
-					25 = {
-						add_timed_idea = { idea = gene_less_burden days = 10 }
-					}
-					25 = {
-						add_stability = -0.01
-					}
-					25 = {
-						add_manpower = -500
-					}
-					25 = {
-						add_political_power = -5
-					}
-				}
-			}
-		}
+		add_stability = -0.05
+		add_timed_idea = { idea = gene_low_burden days = 360 }
 	}
 	option = {
 		name = Knights.13.b
@@ -642,49 +562,12 @@ country_event = {
 		MOT_Night_Up = yes
 		add_ideas = MOT_Debuff_Goods_Shortage
 		trigger = { original_tag = MOT }
-		add_stability = -0.01
 		end_puppet = RAG
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-			add_stability = -0.02
-			add_war_support = 0.01
-			random_list = {
-				25 = {
-					add_timed_idea = { idea = gene_less_burden days = 40 }
-				}
-				25 = {
-					add_stability = -0.02
-				}
-				25 = {
-					add_manpower = -1000
-				}
-				25 = {
-					add_political_power = -20
-				}
-			}
-		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-				add_stability = -0.01
-				random_list = {
-					25 = {
-						add_timed_idea = { idea = gene_less_burden days = 10 }
-					}
-					25 = {
-						add_stability = -0.01
-					}
-					25 = {
-						add_manpower = -500
-					}
-					25 = {
-						add_political_power = -5
-					}
-				}
-			}
+		add_stability = -0.05
+		send_equipment = {
+			equipment = artillery_equipment
+			amount = 500
+			target = RAG
 		}
 	}
 	option = {
@@ -753,51 +636,9 @@ country_event = {
 		DRA = { white_peace = LAW }
 		MOT_Night_Up = yes
 		trigger = { original_tag = MOT }
-		add_stability = -0.01
 		add_ideas = MOT_Debuff_Tech_Shortage
 		end_puppet = DRA
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-			add_stability = -0.02
-			add_war_support = 0.01
-			random_list = {
-				25 = {
-					add_timed_idea = { idea = gene_less_burden days = 40 }
-				}
-				25 = {
-					add_stability = -0.02
-				}
-				25 = {
-					add_manpower = -1000
-				}
-				25 = {
-					add_political_power = -20
-				}
-			}
-		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-				add_stability = -0.01
-				random_list = {
-					25 = {
-						add_timed_idea = { idea = gene_less_burden days = 10 }
-					}
-					25 = {
-						add_stability = -0.01
-					}
-					25 = {
-						add_manpower = -500
-					}
-					25 = {
-						add_political_power = -5
-					}
-				}
-			}
-		}
+		add_political_power = -50
 	}
 	option = {
 		name = Knights.15.b
@@ -857,54 +698,9 @@ country_event = {
 		add_ideas = MOT_Debuff_Prop_Shortage
 		end_puppet = FAV
 		trigger = { original_tag = MOT }
-		add_stability = -0.03
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_FAV }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_FAV } }
-			add_stability = -0.05
-			add_war_support = 0.02
-			MOT_Night_Up = yes
-		}
-		ELSE_IF = {
-			custom_effect_tooltip = MOT_Lower_Damage
-		}
-		IF = {
-			limit = {
-				FAV = { is_ai = yes }
-				difficulty > 3
-			}
-			hidden_effect = {
-				FAV = {
-					IF = {
-						limit = {
-							OR = {
-								has_completed_focus = FAV_Honor_for_People
-								has_completed_focus = FAV_Light_of_Miracle
-							}
-						}
-						complete_national_focus = FAV_End_the_Old_Nobles
-						complete_national_focus = FAV_EcoB_Divide_the_Land
-						complete_national_focus = FAV_EcoB_Cooperation_with_Them
-						complete_national_focus = FAV_EcoB_Mobilize_Workers
-						complete_national_focus = FAV_EcoB_Expand_the_Government
-					}
-					ELSE_IF = {
-						limit = {
-							OR = {
-								has_completed_focus = FAV_Play_the_Show
-								has_completed_focus = FAV_Judge_Angel
-							}
-						}
-						complete_national_focus = FAV_Attack_the_Knights
-						complete_national_focus = FAV_MilR_End_Army_Corruption
-						complete_national_focus = FAV_MilR_Hard_Law
-						complete_national_focus = FAV_MilR_Zealous_Spirit
-						complete_national_focus = FAV_MilR_Blossom_like_Rose
-					}
-					ELSE = {
-					}
-				}
-			}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.1
 		}
 	}
 	option = {
@@ -970,27 +766,8 @@ country_event = {
 		name = Knights.17.a
 		GUN = { white_peace = LAW }
 		trigger = { original_tag = MOT }
-		add_stability = -0.03
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_GUN }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_GUN } }
-			
-			add_ideas = MOT_Debuff_Man_Shortage
-			add_stability = -0.05
-			add_war_support = 0.02
-			end_puppet = GUN
-			MOT_Night_Up = yes
-		}
-		ELSE_IF = {
-			custom_effect_tooltip = MOT_Lower_Damage
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_GUN } }
-				custom_effect_tooltip = MOT_Not_Lose_Control
-				add_stability = -0.01
-				GUN = { add_autonomy_score = -1000 }
-			}
-		}
+		add_ideas = MOT_Debuff_Man_Shortage
+		add_manpower = -100000
 	}
 	option = {
 		name = Knights.17.b
@@ -1054,48 +831,6 @@ country_event = {
 		MOT_Night_Up = yes
 		add_stability = -0.01
 		end_puppet = DVA
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_Others }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-			add_stability = -0.02
-			add_war_support = 0.01
-			random_list = {
-				25 = {
-					add_timed_idea = { idea = gene_less_burden days = 40 }
-				}
-				25 = {
-					add_stability = -0.02
-				}
-				25 = {
-					add_manpower = -1000
-				}
-				25 = {
-					add_political_power = -20
-				}
-			}
-		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_Others } }
-				add_stability = -0.01
-				random_list = {
-					25 = {
-						add_timed_idea = { idea = gene_less_burden days = 10 }
-					}
-					25 = {
-						add_stability = -0.01
-					}
-					25 = {
-						add_manpower = -500
-					}
-					25 = {
-						add_political_power = -5
-					}
-				}
-			}
-		}
 	}
 	option = {
 		name = Knights.18.b
@@ -1144,66 +879,35 @@ country_event = {
 	option = {
 		name = Knights.19.a
 		trigger = { original_tag = MOT }
-		add_stability = -0.03
+		add_stability = -0.05
 		set_country_flag = MOT_PP_Unlock
 		mark_focus_tree_layout_dirty = yes
-		set_temp_variable = { MOT_Tempo_Var1 = MOT_Control_in_MOT }
-		IF = {
-			limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_MOT } }
-			add_stability = -0.1
-			add_war_support = 0.05
-			1 = {
-				damage_building = {
-					type = industrial_complex
-					damage = 3
-				}
-				damage_building = {
-					type = infrastructure
-					damage = 3
-				}
-				damage_building = {
-					type = arms_factory
-					damage = 3
-				}
+		1 = {
+			damage_building = {
+				type = infrastructure
+				damage = 3
 			}
-			2 = {
-				damage_building = {
-					type = industrial_complex
-					damage = 2
-				}
-				damage_building = {
-					type = infrastructure
-					damage = 2
-				}
-				damage_building = {
-					type = arms_factory
-					damage = 2
-				}
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
 			}
 		}
-		ELSE_IF = {
-			divide_temp_variable = { MOT_Tempo_Var1 = 2 }
-			custom_effect_tooltip = MOT_Lower_Damage
-			IF = {
-				limit = { check_variable = { MOT_Tempo_Var1 < MOT_Resist_in_MOT } }
-				add_stability = -0.01
-				1 = {
-					damage_building = {
-						type = industrial_complex
-						damage = 1
-					}
-					damage_building = {
-						type = infrastructure
-						damage = 1
-					}
-					damage_building = {
-						type = arms_factory
-						damage = 1
-					}
-				}
+		2 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
 			}
-			ELSE_IF = {
-				custom_effect_tooltip = MOT_Lower_Damage
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 1
 			}
 		}
 	}
@@ -2036,6 +1740,10 @@ country_event = {
 				add = 100
 				strength_ratio = { tag = MOT  ratio < 0.3 }
 			}
+			modifier = {
+				add = 400
+				has_global_flag = MOT_GUN_Peace_Faster
+			}
 		}
 	}
 }
@@ -2865,6 +2573,7 @@ country_event = {
 	trigger = {
 		date > 1936.6.1
 		tag = MOT
+		FAV = { is_ai = yes }
 	}
 	is_triggered_only = no
 	fire_only_once = yes
@@ -2874,15 +2583,17 @@ country_event = {
 		name = Knights.78.a
 		add_stability = -0.03
 		add_political_power = 30
+		FAV = { country_event = Knights.193 }
 		add_to_variable = { MOT_Control_in_FAV = -20 }
-		custom_effect_tooltip = MOT_Influ_on_FAV_Down
+		#custom_effect_tooltip = MOT_Influ_on_FAV_Down
 	}
 	option = {
 		name = Knights.78.b
 		add_stability = -0.01
 		add_political_power = -30
+		FAV = { country_event = Knights.191 }
 		add_to_variable = { MOT_Control_in_FAV = 10 }
-		custom_effect_tooltip = MOT_Influ_on_FAV_Up
+		#custom_effect_tooltip = MOT_Influ_on_FAV_Up
 		
 	}
 
@@ -2895,6 +2606,7 @@ country_event = {
 	trigger = {
 		date > 1936.4.1
 		tag = MOT
+		DRA = { is_ai = yes }
 	}
 	is_triggered_only = no
 	fire_only_once = yes
@@ -2904,14 +2616,18 @@ country_event = {
 		name = Knights.79.a
 		add_stability = -0.01
 		add_political_power = 30
+		DRA = {
+			add_timed_idea = { idea = gene_less_burden days = 180 }
+		}
 		add_to_variable = { MOT_Control_in_Others = -20 }
-		custom_effect_tooltip = MOT_Influ_on_Others_Down
+		#custom_effect_tooltip = MOT_Influ_on_Others_Down
 	}
 	option = {
 		name = Knights.79.b
 		add_political_power = -30
+		DRA = { add_stability = -0.02 }
 		add_to_variable = { MOT_Control_in_Others = 10 }
-		custom_effect_tooltip = MOT_Influ_on_Others_Up
+		#custom_effect_tooltip = MOT_Influ_on_Others_Up
 	}
 
 }
@@ -3378,6 +3094,7 @@ country_event = {
 	trigger = {
 		date > 1937.1.1
 		tag = MOT
+		SPI = { is_ai = yes }
 	}
 	is_triggered_only = no
 	fire_only_once = yes
@@ -3386,14 +3103,19 @@ country_event = {
 	option = {
 		name = Knights.95.a
 		add_political_power = 30
+		SPI = { add_timed_idea = { idea = gene_less_burden days = 720 } }
 		add_to_variable = { MOT_Control_in_Others = -10 }
-		custom_effect_tooltip = MOT_Influ_on_Others_Down
+		#custom_effect_tooltip = MOT_Influ_on_Others_Down
 	}
 	option = {
 		name = Knights.95.b
 		add_political_power = -30
+		SPI = {
+			add_stability = -0.1
+			add_timed_idea = { idea = gene_low_burden days = 720 }
+		}
 		add_to_variable = { MOT_Control_in_Others = 10 }
-		custom_effect_tooltip = MOT_Influ_on_Others_Up
+		#custom_effect_tooltip = MOT_Influ_on_Others_Up
 	}
 }
 #96 古恩希尔德领人口贩卖案件
@@ -3404,6 +3126,7 @@ country_event = {
 	trigger = {
 		date > 1937.2.1
 		tag = MOT
+		GUN = { is_ai = yes }
 	}
 	is_triggered_only = no
 	fire_only_once = yes
@@ -3413,13 +3136,15 @@ country_event = {
 		name = Knights.96.a
 		add_political_power = 30
 		add_to_variable = { MOT_Control_in_GUN = -10 }
-		custom_effect_tooltip = MOT_Influ_on_GUN_Down
+		GUN = { add_autonomy_score = { socre = 100 } }
+		#custom_effect_tooltip = MOT_Influ_on_GUN_Down
 	}
 	option = {
 		name = Knights.96.b
 		add_political_power = -30
 		add_to_variable = { MOT_Control_in_GUN = 10 }
-		custom_effect_tooltip = MOT_Influ_on_GUN_Up
+		GUN = { add_stability = 0.05 }
+		#custom_effect_tooltip = MOT_Influ_on_GUN_Up
 	}
 }
 #97 挽歌
@@ -5982,6 +5707,7 @@ country_event = {
 	title = Knights.191.t
 	desc = Knights.191.d
 	is_triggered_only = yes
+	fire_only_once = no
 	
 	option = {
 		name = Knights.191.a
@@ -5997,6 +5723,7 @@ country_event = {
 	title = Knights.192.t
 	desc = Knights.192.d
 	is_triggered_only = yes
+	fire_only_once = no
 	
 	option = {
 		name = Knights.192.a
@@ -6012,6 +5739,7 @@ country_event = {
 	title = Knights.193.t
 	desc = Knights.193.d
 	is_triggered_only = yes
+	fire_only_once = no
 	
 	option = {
 		name = Knights.193.a
@@ -6030,6 +5758,7 @@ country_event = {
 	title = Knights.194.t
 	desc = Knights.194.d
 	is_triggered_only = yes
+	fire_only_once = no
 	
 	option = {
 		name = Knights.194.a

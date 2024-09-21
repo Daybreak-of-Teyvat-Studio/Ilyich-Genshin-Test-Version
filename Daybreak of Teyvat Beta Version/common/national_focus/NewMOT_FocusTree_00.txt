@@ -1921,6 +1921,7 @@ focus_tree = {
 		y = 3
 		completion_reward = {
 			add_war_support = 0.05
+			custom_effect_tooltip = MOT_tt_Tutorial0
 		}
 		available = {
 			NOT = {
@@ -2163,12 +2164,14 @@ focus_tree = {
 		y = 6
 		completion_reward = {
 			add_war_support = 0.05
-			custom_effect_tooltip = MOT_St_Control
-			add_to_variable = { MOT_Control_in_LAW = 20 }
-			custom_effect_tooltip = MOT_St_LowResist
-			add_to_variable = { MOT_Resist_in_LAW = -20 }
+			#custom_effect_tooltip = MOT_St_Control
+			#add_to_variable = { MOT_Control_in_LAW = 20 }
+			#custom_effect_tooltip = MOT_St_LowResist
+			#add_to_variable = { MOT_Resist_in_LAW = -20 }
 			LAW = {
 				add_political_power = -30
+				add_command_power = -50
+				add_war_support = -0.05
 				set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
 				custom_effect_tooltip = LAW_tt_Less_Noble_STST
 				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_Angry }
@@ -2208,12 +2211,12 @@ focus_tree = {
 		y = 6
 		completion_reward = {
 			add_stability = 0.05
-			custom_effect_tooltip = MOT_St_Control
-			add_to_variable = { MOT_Control_in_FAV = 20 }
-			custom_effect_tooltip = MOT_St_LowResist
-			add_to_variable = { MOT_Resist_in_FAV = -20 }
+			#custom_effect_tooltip = MOT_St_Control
+			#add_to_variable = { MOT_Control_in_FAV = 20 }
+			#custom_effect_tooltip = MOT_St_LowResist
+			#add_to_variable = { MOT_Resist_in_FAV = -20 }
 			FAV = {
-				add_power_balance_value = -0.1
+				country_event = Knights.193
 				set_temp_variable = { FAV_linshibianliang4 = 25 }
 				custom_effect_tooltip = FAV_tt_Raise_Fans
 				add_to_variable = { FAV_Number_of_Fans = FAV_linshibianliang4 }
@@ -2361,10 +2364,19 @@ focus_tree = {
 		y = 5
 		completion_reward = {
 			add_stability = 0.02
-			custom_effect_tooltip = MOT_St_Control
-			add_to_variable = { MOT_Control_in_FAV = 10 }
-			add_to_variable = { MOT_Control_in_MOT = 10 }
-			add_to_variable = { MOT_Control_in_GUN = 10 }
+			FAV = { country_event = Knights.193 }
+			LAW = {
+				add_war_support = -0.1
+				add_political_Power = -25
+			}
+			RAG = {
+				add_war_support = -0.1
+				add_political_Power = -25
+			}
+			#custom_effect_tooltip = MOT_St_Control
+			#add_to_variable = { MOT_Control_in_FAV = 10 }
+			#add_to_variable = { MOT_Control_in_MOT = 10 }
+			#add_to_variable = { MOT_Control_in_GUN = 10 }
 		}
 		available = {
 			NOT = {
@@ -2397,13 +2409,21 @@ focus_tree = {
 		x = 8
 		y = 5
 		completion_reward = {
-			add_stability = 0.02
-			custom_effect_tooltip = MOT_St_LowResist
-			add_to_variable = { MOT_Resist_in_FAV = -5 }
-			add_to_variable = { MOT_Resist_in_GUN= -5 }
-			add_to_variable = { MOT_Resist_in_MOT = -5 }
-			add_to_variable = { MOT_Resist_in_LAW = -5 }
-			add_to_variable = { MOT_Resist_in_Others = -5 }
+			add_stability = 0.05
+			every_other_country = {
+				limit = {
+					Is_MOT = yes
+					NOT = { original_tag = MOT }
+				}
+				add_war_support = -0.05
+			}
+			
+			#custom_effect_tooltip = MOT_St_LowResist
+			#add_to_variable = { MOT_Resist_in_FAV = -5 }
+			#add_to_variable = { MOT_Resist_in_GUN = -5 }
+			#add_to_variable = { MOT_Resist_in_MOT = -5 }
+			#add_to_variable = { MOT_Resist_in_LAW = -5 }
+			#add_to_variable = { MOT_Resist_in_Others = -5 }
 		}
 		available = {
 			NOT = {
@@ -2442,7 +2462,7 @@ focus_tree = {
 		x = 9
 		y = 6
 		completion_reward = {
-			add_stability = 0.05
+			add_stability = 0.1
 			add_political_power = 50
 			add_command_power = 50
 		}
@@ -2530,15 +2550,35 @@ focus_tree = {
 		x = 12
 		y = 5
 		completion_reward = {
-			add_political_power = 80
-			custom_effect_tooltip = MOT_Core_St_Control
-			custom_effect_tooltip = MOT_Less_St_Control
+			add_political_power = 100
+			ANR = {
+				add_autonomy_score = {
+					value = 100
+				}
+			}
+			DVA = {
+				add_autonomy_score = {
+					value = 100
+				}
+			}
+			DRA = {
+				add_autonomy_score = {
+					value = 100
+				}
+			}
+			GUN = {
+				add_autonomy_score = {
+					value = 100
+				}
+			}
+			#custom_effect_tooltip = MOT_Core_St_Control
+			#custom_effect_tooltip = MOT_Less_St_Control
 			
-			add_to_variable = { MOT_Control_in_FAV = 10 }
-			add_to_variable = { MOT_Control_in_MOT = 10 }
-			add_to_variable = { MOT_Control_in_GUN = 10 }
-			add_to_variable = { MOT_Control_in_LAW = -10 }
-			add_to_variable = { MOT_Control_in_Others = -10 }
+			#add_to_variable = { MOT_Control_in_FAV = 10 }
+			#add_to_variable = { MOT_Control_in_MOT = 10 }
+			#add_to_variable = { MOT_Control_in_GUN = 10 }
+			#add_to_variable = { MOT_Control_in_LAW = -10 }
+			#add_to_variable = { MOT_Control_in_Others = -10 }
 		}
 		available = {
 			NOT = {
@@ -2570,15 +2610,25 @@ focus_tree = {
 		x = 14
 		y = 5
 		completion_reward = {
-			add_political_power = 150
+			add_political_power = 200
 			add_command_Power = 50
-			custom_effect_tooltip = MOT_Center_St_Control
-			custom_effect_tooltip = MOT_Less_St_Control
-			add_to_variable = { MOT_Control_in_FAV = -10 }
-			add_to_variable = { MOT_Control_in_MOT = 50 }
-			add_to_variable = { MOT_Control_in_GUN = -10 }
-			add_to_variable = { MOT_Control_in_LAW = -10 }
-			add_to_variable = { MOT_Control_in_Others = -10 }
+			#custom_effect_tooltip = MOT_Center_St_Control
+			#custom_effect_tooltip = MOT_Less_St_Control
+			#add_to_variable = { MOT_Control_in_FAV = -10 }
+			#add_to_variable = { MOT_Control_in_MOT = 50 }
+			#add_to_variable = { MOT_Control_in_GUN = -10 }
+			#add_to_variable = { MOT_Control_in_LAW = -10 }
+			#add_to_variable = { MOT_Control_in_Others = -10 }
+			every_other_country = {
+				limit = {
+					Is_MOT = yes
+					NOT = { original_tag = MOT }
+				}
+				add_autonomy_score = {
+					value = 100
+				}
+				add_war_support = 0.05
+			}
 
 		}
 		available = {
