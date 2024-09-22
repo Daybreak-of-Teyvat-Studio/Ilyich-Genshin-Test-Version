@@ -1,0 +1,3559 @@
+##劳伦斯决议组
+LAW_Stablize_States = {
+	LAW_Call_for_Stability = {
+		icon = generic_propaganda
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 20
+		activation = { always = no }
+		available = { NOT = { any_owned_state = { has_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } } } }
+		timeout_effect = {
+			custom_effect_tooltip = LAW_tt_Unstable_Effect
+			set_temp_variable = { LAW_TV_1 = LAW_Num_of_Unstable_States }
+			divide_temp_variable = { LAW_TV_1 = 400 }
+			multiply_temp_variable = { LAW_TV_1 = -1 }
+			add_stability = var:LAW_TV_1
+
+			set_temp_variable = { LAW_Change_of_Icy_Power = LAW_Num_of_Unstable_States }
+			multiply_temp_variable = { LAW_Change_of_Icy_Power = 5 }
+			add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+			custom_effect_tooltip = LAW_tt_More_Icy_Power
+			activate_mission = LAW_Call_for_Stability
+		}
+	}
+	LAW_Stable_Action = {
+		icon = generic_police_action
+		fire_only_once = no
+		days_remove = 20
+		state_target = any_controlled_state
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = { has_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
+			LAW = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } }
+		}
+		custom_cost_text = decision_cost_CP_20
+		custom_cost_trigger = { has_command_power > 19 }
+		complete_effect = {
+			hidden_effect = { add_command_power = -20 }
+			
+			IF = {
+				limit = { LAW = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } } }
+				custom_effect_tooltip = LAW_tt_Occupy_Stablizing
+			}
+			ELSE = {
+				add_to_variable = { LAW_Var_Stablizing = 1 }
+			}
+		}
+		remove_effect = {
+			FROM = { remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
+			LAW  = {
+				add_stability = 0.01
+				custom_effect_tooltip = LAW_tt_Stabl_States
+				add_to_variable = { LAW_Num_of_Unstable_States = -1 }
+				add_to_variable = { LAW_Var_Stablizing = -1 }
+				IF = {
+					limit = {
+						has_idea = LAW_Knights_of_Ice2
+					}
+					custom_effect_tooltip = LAW_tt_Bonus_for_Knights2
+					add_command_power = 10
+				}
+				IF = {
+					limit = {
+						has_idea = LAW_Knights_of_Ice3
+					}
+					custom_effect_tooltip = LAW_tt_Bonus_for_Knights3
+					add_command_power = 10
+					set_temp_variable = { LAW_Change_of_Icy_Power = 5 }
+					add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+					custom_effect_tooltip = LAW_tt_More_Icy_Power
+				}
+			}
+		}
+	}
+}
+LAW_DC_Seek_for_Help = {
+	##基础
+	#显示/隐藏基本决议
+	LAW_Hide_Basic_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_1 }
+				clr_country_flag = LAW_Not_Show_Decisions_1
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_1
+			}
+		}
+	}
+	#破坏蒙德稳定
+	LAW_Destroy_MOT_Stability = {
+		icon = GFX_decision_generic_political_discourse
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+			MOT = {
+				add_stability = -0.02
+				add_war_support = -0.02
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#渗透骑士团
+	LAW_Permeate_In_Knights = {
+		icon = GFX_decision_recruit_operative
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 5
+		days_re_enable = 30
+		days_remove = 30
+		modifier = {
+			political_power_gain = 0.2
+		}
+		remove_effect = {
+			add_collaboration = {
+				target = MOT
+				value = 0.03
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#作出未来许诺
+	LAW_Promise_for_Future = {
+		icon = GFX_decision_generic_speech
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.8
+				has_war_support > 0.8
+			}
+		}
+	}
+	#鼓吹贵族时代
+	LAW_Propaganda_for_Nobles = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
+		}
+		cost = var:LAW_Cost_of_Decisions1
+		days_remove = 35
+		modifier = {
+			stability_factor = 0.2
+			war_support_factor = 0.2
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Cost_More
+			add_to_variable = { LAW_Cost_of_Decisions1 = 10 }
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				add = -1000
+				has_stability > 0.6
+				has_war_support > 0.6
+			}
+		}
+	}
+	##贵族
+	#显示/隐藏贵族决议
+	LAW_Hide_Noble_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_2 }
+				clr_country_flag = LAW_Not_Show_Decisions_2
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_2
+			}
+		}
+	}
+	#捏造头衔
+	LAW_Create_Crown = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		available = {
+			has_stability > 0.5
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+			stability_weekly = -0.005
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Make_a_Crown
+			IF = {
+				limit = {
+					has_variable = LAW_Num_of_Crowns
+				}
+				add_to_variable = { LAW_Num_of_Crowns = 1 }
+			}
+			ELSE_IF = {
+				set_variable = { LAW_Num_of_Crowns = 1 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#出售头衔
+	LAW_Sell_Crown = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_political_Power = 70
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#利诱贵族
+	LAW_By_Crown = {
+		icon = GFX_decision_generic_form_nation
+		fire_only_once = no
+		visible = {
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 5
+		days_remove = 35
+		modifier = {
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			random_list = {
+				50 = {
+					add_stability = 0.02
+					add_war_support = 0.02
+				}
+				25 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+				}
+				12 = {
+					add_stability = 0.03
+					add_war_support = 0.03
+					add_political_power = 10
+				}
+				6 = {
+					add_stability = 0.05
+					add_political_power = 20
+				}
+				6 = {
+					add_war_support = 0.05
+					add_political_power = 20
+				}
+				1 = {
+					add_stability = 0.05
+					add_war_support = 0.05
+					add_political_power = 50
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取伊蒙洛卡战术文献
+	LAW_Get_Emoloka_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Emo
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#获取古恩希尔德军事理论
+	LAW_Get_GUN_Books = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_GUN
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = LAW_tt_has_a_Crown
+				check_variable = { LAW_Num_of_Crowns > 0 }
+			}
+		}
+		cost = 30
+		days_remove = 35
+		modifier = {
+			land_doctrine_cost_factor = -0.05
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_lose_a_Crown
+			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
+		}
+		remove_effect = {
+			add_command_power = 20
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	##自由派
+	#显示/隐藏自由派决议
+	LAW_Hide_Free_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			is_ai = no
+			has_country_flag = LAW_Connect_with_Lib
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_3 }
+				clr_country_flag = LAW_Not_Show_Decisions_3
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_3
+			}
+		}
+	}
+	#接受商人投资
+	LAW_Accept_Free_Investment = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+			has_stability > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Investment
+			add_to_variable = { LAW_Num_of_Investment = 1 }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			random_list = {
+				50 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+				50 = {
+					random_owned_state = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								level > 0
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#吹嘘未来经济状况
+	LAW_Propaganda_for_Futural_Economy = {
+		icon = GFX_decision_generic_propaganda
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
+		}
+		cost = 5
+		days_remove = 30
+		modifier = {
+			war_support_weekly = 0.002
+			consumer_goods_factor = -0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#痛宰肥羊
+	LAW_Kill_Free_Investment = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_Lib
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_3 }
+		}
+		available = {
+			has_stability > 0.7
+		}
+		cost = 100
+		days_remove = 30
+		modifier = {
+			stability_weekly = -0.01
+		}
+		complete_effect = {
+			set_country_flag = LAW_Has_Killed_Sheep
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Investment
+			custom_effect_tooltip = LAW_tt_Get_Investment
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.3
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = var:LAW_Num_of_Investment
+				add_building_construction = {
+					building = industrial_complex
+					level = var:LAW_Num_of_Investment
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Investment }
+				multiply_variable = { LAW_linshibianliang1 = 5 }
+				add = var:LAW_linshibianliang1
+			}
+		}
+	}
+	##坎瑞亚遗民
+	#显示/隐藏坎瑞亚决议
+	LAW_Hide_KNA_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			is_ai = no
+			has_country_flag = LAW_Connect_with_KNA
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_4 }
+				clr_country_flag = LAW_Not_Show_Decisions_4
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_4
+			}
+		}
+	}
+	#引进坎瑞亚生产技术
+	LAW_Innovation_of_KNA_Production = {
+		icon = GFX_decision_generic_fundraising
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+		}
+		remove_effect = {
+			custom_effect_tooltip = LAW_tt_Get_Advance
+			add_to_variable = { LAW_Num_of_Advance = 1 }
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#生产网络构建协助
+	LAW_Connection_of_KNA_Production = {
+		icon = GFX_decision_generic_factory
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			NOT = { has_country_flag = LAW_Has_Run_KNA }
+			has_war_support > 0.5
+		}
+		cost = 30
+		days_remove = 60
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.5
+			industrial_capacity_factory = 0.2
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#踹开坎瑞亚人
+	LAW_Out_KNA = {
+		icon = GFX_decision_generic_operation
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Connect_with_KNA
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_4 }
+		}
+		available = {
+			has_war_support > 0.7
+		}
+		cost = 30
+		days_remove = 30
+		modifier = {
+			war_support_weekly = -0.01
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
+			custom_effect_tooltip = LAW_tt_Get_Advance
+			set_country_flag = LAW_Has_Run_KNA
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Advance }
+			multiply_temp_variable = { LAW_linshibianliang1 = 30 }
+			add_political_power = var:LAW_linshibianliang1
+			add_popularity = {
+				ideology = communism
+				popularity = -0.5
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 1000
+				date > 1936.12.1
+			}
+		}
+	}
+	##其他势力
+	LAW_Hide_Dip_Decisions = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+		}
+		complete_effect = {
+			IF = {
+				limit = { has_country_flag = LAW_Not_Show_Decisions_5 }
+				clr_country_flag = LAW_Not_Show_Decisions_5
+			}
+			ELSE_IF = {
+				set_country_flag = LAW_Not_Show_Decisions_5
+			}
+		}
+	}
+	#教会反对派空军训练
+	LAW_Train_From_FAV = {
+		icon = GFX_decision_generic_air
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			FAV = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 90
+		modifier = {
+			experience_gain_air_factor = 1
+			air_mission_xp_gain_factor = 1
+			air_training_xp_gain_factor	= 1
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			air_experience = 20
+		}
+	}
+	#招募龙脊雪山领学者
+	LAW_Recruit_From_DRA = {
+		icon = GFX_decision_generic_research
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DRA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 90
+		modifier = {
+			research_speed_factor = 0.2
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			army_experience = 10
+		}
+	}
+	#向风龙领走私军火
+	LAW_Cash_From_DVA = {
+		icon = GFX_decision_generic_prepare_civil_war
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			DVA = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 90
+		modifier = {
+			industrial_capacity_factory = -0.2
+			consumer_goods_factor = -0.3
+			stability_weekly = 0.003
+			war_support_weekly = 0.003
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#从奔狼领进口资源
+	LAW_Resources_From_ANR = {
+		icon = GFX_decision_oil
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			ANR = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 90
+		modifier = {
+			local_resources_factor = 0.5
+			production_lack_of_resource_penalty_factor = -0.5
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#同莱艮芬德领开展贸易
+	LAW_Trade_with_RAG = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			RAG = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 90
+		modifier = {
+			stability_factor = 0.25
+			war_support_factor = 0.25
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+	#诱骗北方领移民
+	LAW_Pop_From_GUN = {
+		icon = GFX_decision_generic_trade
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_4
+			NOT = { has_country_flag = LAW_Not_Show_Decisions_5 }
+		}
+		available = {
+			GUN = {
+				has_opinion = {
+					target = LAW
+					value > 10
+				}
+			}
+		}
+		cost = 30
+		days_remove = 70
+		modifier = {
+			weekly_manpower = 3000
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+	}
+}
+LAW_DC_Organize_Fool = {
+	LAW_Fool_Ask_for_Economy = {
+		icon = generic_fundraising
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Economy
+				}
+				remove_idea = SNE_Fool_Help_Economy
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Economy
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Tech = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Tech
+				}
+				remove_idea = SNE_Fool_Help_Tech
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Tech
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Military = {
+		icon = generic_ignite_civil_war
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Military
+				}
+				remove_idea = SNE_Fool_Help_Military
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Military
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Gov = {
+		icon = generic_political_support
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Gov
+				}
+				remove_idea = SNE_Fool_Help_Gov
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Gov
+			}
+		}
+	}
+	LAW_Fool_Ask_for_Police = {
+		icon = generic_police_action
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+		}
+		visible = { NOT = { has_country_flag = SNE_Break_Relationship } }
+		cost = 10
+		days_re_enable = 60
+		complete_effect = {
+			IF = {
+				limit = {
+					has_idea = SNE_Fool_Help_Police
+				}
+				remove_idea = SNE_Fool_Help_Police
+			}
+			ELSE = {
+				add_ideas = SNE_Fool_Help_Police
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Economy = {
+		icon = generic_fundraising
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Economy
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Economy
+		}
+		cost = 30
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			consumer_goods_expected_value = -0.05
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 75 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 60 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 45 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				add_timed_idea = { idea = gene_less_burden days = 30 }
+				random_owned_state = {
+					limit = {
+						free_building_slots = {
+							building = infrastructure
+							level > 0
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Tech = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Tech
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Tech
+		}
+		cost = 60
+		days_remove = 120
+		modifier = {
+			research_speed_factor = 0.1
+			fool_power_gain = 1
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 1
+							ahead_reduction = 0.3
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.75
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.5
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				random_list = {
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = computing_tech
+							category = construction_tech
+							category = excavation_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = infantry_weapons
+							category = artillery
+							category = support_tech
+						}
+					}
+					33 = {
+						add_tech_bonus = {
+							bonus = 0.3
+							uses = 1
+							category = armor
+							category = air_equipment
+							category = naval_equipment
+						}
+					}
+				}
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Military = {
+		icon = generic_speech
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Military
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Military
+		}
+		cost = 60
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			experience_gain_army_unit_factor = 0.25
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 15
+				naval_experience = 10
+				air_experience = 10
+				add_command_power = 15
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 15
+				naval_experience = 10
+				air_experience = 5
+				add_command_power = 10
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 10
+				naval_experience = 5
+				air_experience = 5
+				add_command_power = 10
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				army_experience = 10
+				naval_experience = 5
+				air_experience = 5
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Gov = {
+		icon = generic_political_support
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Gov
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Gov
+		}
+		cost = 30
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			political_power_gain = 0.4
+			ice_power_gain = 3
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 30
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 20
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 15
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				add_political_power = 10
+			}
+		}
+	}
+	LAW_Fool_Bonus_for_Police = {
+		icon = generic_police_action
+		fire_only_once = no
+		available = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Police
+		}
+		visible = {
+			NOT = { has_country_flag = SNE_Break_Relationship }
+			has_idea = SNE_Fool_Help_Police
+		}
+		cost = 30
+		days_remove = 60
+		days_re_enable = 60
+		modifier = {
+			stability_weekly = 0.005
+			war_support_weekly = 0.005
+			fool_power_gain = 2
+		}
+		complete_effect = {
+			custom_effect_tooltip = LAW_Fool_Stronger_Bonus_More
+			IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 99 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool3
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 49 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool2
+				set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 3 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 3 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
+			}
+			ELSE_IF = {
+				limit = { check_variable = { LAW_Whole_Fool_Power > 24 } }
+				custom_effect_tooltip = LAW_More_For_Stronger_Fool1
+				set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
+			}
+			ELSE =  {
+				set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+				custom_effect_tooltip = LAW_tt_More_Fool_Power
+				add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+				
+				set_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+				set_temp_variable = { LAW_Change_of_Noble_Angry = 1 }
+				custom_effect_tooltip = LAW_tt_More_Noble_Angry
+				add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+				
+			}
+		}
+	}
+}
+LAW_DC_Organize_Noble = {
+	#贵族夺权危机
+	LAW_Noble_Crisis = {
+		icon = generic_army_support
+		fire_only_once = yes
+		days_mission_timeout = 100
+		activation = { always = no }
+		available = {
+			check_variable = { LAW_Whole_Noble_Power < 1 }
+		}
+		timeout_effect = {
+			uncomplete_national_focus = LAW_Eula_End_Nobles
+			complete_national_focus = LAW_Eula_Stable_Nobles
+			every_owned_state = {
+				add_manpower = -100000
+			}
+			set_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		complete_effect = {
+			set_country_flag = LAW_Lock_PreUnion_Crisis
+			set_country_flag = LAW_Ended_Nobles
+			country_event = Lawrence.59
+		}
+	}
+	#秘密警察 清洗一切旧势力残余
+	LAW_Wash_Old_Nobles = {
+		icon = generic_police_action
+		fire_only_once = no
+		days_remove = 60
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Secret_Police
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		complete_effect = {
+			add_stability = -0.05
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#控制军队 镇压亲贵族利益集团
+	LAW_Press_Old_Nobles = {
+		icon = generic_military
+		fire_only_once = no
+		days_remove = 60
+		custom_cost_text = decision_cost_CP_40
+		custom_cost_trigger = { command_power > 39 }
+		complete_effect = { add_command_power = -40 }
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Army_of_Tide
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#行政体系 拔除贵族系反动官僚
+	LAW_No_Old_Nobles = {
+		icon = generic_form_nation
+		fire_only_once = no
+		days_remove = 90
+		cost = 100
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_System_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 20 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#教育体制 掀起反贵族学生运动
+	LAW_Anti_Old_Nobles = {
+		icon = generic_form_nation
+		fire_only_once = no
+		days_remove = 60
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Education_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		complete_effect = {
+			add_war_support = -0.05
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 10 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#经济调控 摧毁旧贵族经济基础
+	LAW_Break_Old_Nobles = {
+		icon = generic_fundraising
+		fire_only_once = no
+		days_remove = 60
+		cost = 200
+		allowed = [ original_tag = LAW ]
+		visible = {
+			has_country_flag = LAW_Unlock_PreUnion_Crisis
+			has_idea = LAW_Education_of_Ice
+			NOT = { has_country_flag = LAW_Lock_PreUnion_Crisis }
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 20 }
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_STST }
+		}
+		cancel_trigger = {
+			has_country_flag = LAW_Lock_PreUnion_Crisis
+		}
+		ai_will_do = {
+			base = 1000
+		}
+	}
+	#一个任务，每次倒计时结束都会触发一个贵族负面事件 LAW_ON_Noble_Savege
+	LAW_ON_Noble_Savege = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 60
+		activation = { always = no }
+		available = { has_country_flag = LAW_Ended_Nobles }
+		timeout_effect = {
+			custom_effect_tooltip = LAW_tt_Random_Event_Noble
+			activate_mission = LAW_ON_Noble_Savege
+			hidden_effect = {
+				LAW_Noble_Event_Emerge = yes
+			}
+		}
+	}
+	#消耗大量政治点降低 LAW_Whole_Noble_Angry LAW_ON_Cool_Noble_Down
+	LAW_ON_Cool_Noble_Down = {
+		cost = 60
+		days_remove = 30
+		days_re_enable = 30
+		
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
+	#消耗大量稳定性降低 LAW_Whole_Noble_Angry LAW_ON_Recruit_Noble
+	LAW_ON_Recruit_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			war_support_factor = -0.3
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
+	#临时debuff，降低 LAW_Whole_Noble_Angry LAW_ON_Relax_Noble
+	LAW_ON_Relax_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			stability_factor = -0.3
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 2 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		}
+	}
+	#临时占用民工延缓负面事件 LAW_ON_Noble_Money
+	LAW_ON_Noble_Money = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			civilian_factory_use = 5
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 20 }
+		}
+	}
+	#消耗摩拉延缓负面事件 LAW_ON_Noble_Mora
+	LAW_ON_Noble_Mora = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			mora_cost_daily = 3
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 20 }
+		}
+	}
+	#LAW_Congress_of_Corporation 经济民主解锁：降低 LAW_Noble_STST LAW_ON_Compete_Noble
+	LAW_ON_Compete_Noble = {
+		days_remove = 60
+		modifier = {
+			consumer_goods_factor = -0.02
+		}
+		visible = {
+			LAW_Has_Completed_Idea12 = yes
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation2 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 2 }
+			}
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		}
+	}
+	#LAW_Youth_League_Tide 青年组织解锁：降低 LAW_Noble_STST LAW_ON_People_Unpopular_Noble
+	LAW_ON_Youth_Noble = {
+		days_remove = 60
+		cost = 60
+		modifier = {
+			stability_factor = -0.1
+		}
+		visible = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		remove_effect = {
+			set_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation2 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				add_to_temp_variable = { LAW_Change_of_Noble_STST = 1 }
+			}
+			custom_effect_tooltip = LAW_tt_Less_Noble_STST
+			subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		}
+	}
+	#LAW_Political_impart 政治开明解锁：延缓负面事件到来 LAW_ON_Lower_Noble_Power
+	LAW_ON_PI_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			stablity_factor = -0.05
+		}
+		visible = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 30 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	#LAW_Winter_System 健全法制解锁：延缓负面事件到来 LAW_ON_Better_Noble_Law
+	LAW_ON_WS_Noble = {
+		days_remove = 30
+		days_re_enable = 30
+		modifier = {
+			political_power_cost = 0.25
+		}
+		visible = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		remove_effect = {
+			add_days_mission_timeout = { mission = LAW_ON_Noble_Savege days = 30 }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	#平衡左移换政治点
+	#政治点换平衡右移
+}
+#对骑士团作战决议
+MOND_Anti_Knights = {
+	#一步不退
+	MOND_AK_NSB = {
+		icon = generic_nationalism
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 200
+		cost = 80
+		modifier = {
+			army_core_attack_factor = 0.1
+			army_core_defence_factor = 0.1
+		}
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#保卫边境
+	MOND_AK_Protect_our_Border = {
+		icon = generic_prepare_civil_war
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 200
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = { command_Power > 49 }
+		modifier = {
+			army_org_regain = 0.2
+			dig_in_speed_factor = 0.25
+			army_defense_factor = 0.1
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#针对策略
+	MOND_AK_Aim_to_Beat_MOT = {
+		icon = generic_reorganize_irregulars
+		fire_only_once = no
+		allowed = { always = no }
+		days_remove = 45
+		days_re_enable = 200
+		custom_cost_text = decision_cost_CP_50
+		custom_cost_trigger = { command_Power > 49 }
+		modifier = {
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				surrender_progress > 0.3
+				add = 90
+			}
+			modifier = {
+				surrender_progress > 0.5
+				add = 90
+			}
+		}
+	}
+	#敌后破坏
+	MOND_AK_Let_Them_Back = {
+		icon = generic_operation
+		fire_only_once = no
+		days_remove = 20
+		days_re_enable = 40
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = { command_Power > 29 }
+		available = { num_of_civilian_factories_available_for_projects > 9 }
+		visible = { has_active_mission = MOT_Time_Has_to_Leave }
+		modifier = {
+			civilian_factory_use = 10
+		}
+		complete_effect = { hidden_effect = { add_command_Power = -50 } }
+		remove_effect = {
+			MOT = {
+				add_days_mission_timeout = { mission = MOT_Time_Has_to_Leave days = -20 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+}
+#战前谋划
+LAW_Preparation_Before_War = {
+	#能够降低琴团长健康度
+	#能够以较低的价格提高各地区渗透度、抵抗力并在内战开始时根据比率对骑士团造成debuff、导致骑士团控制区分裂、减少骑士团初始士气等级和作战资源
+	#必须在自身抵抗力高于控制力时才能开战（AI在开局九月后才会开战），随着时间的推进，劳伦斯抵抗力会越来越容易获得
+	#相关变量：
+	#愚人众力量 LAW_Power_of_Fools 初始50，会在使用增兵和破坏决议时提高
+	#贵族派力量 LAW_Power_of_Nobles 初始50，会在使用建设和渗透决议时提高
+	#增兵、建设决议使用越多，初始的作战资源越多
+	MOT_Civil_War_1_LAW = {
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 200
+		activation = { always = no }
+		
+		available = { MOT = { surrender_progress > 0.6 } }
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_Stop
+			set_global_flag = MOT_Civil_War_1_End
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			hidden_effect = {
+				white_peace = MOT
+				MOT = { remove_mission = MOT_Civil_War_1_MOT }
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = MOT_Civil_War_1_End_for_Debuff
+			transfer_state = 35
+			set_global_flag = MOT_Civil_War_1_End
+			every_country = {
+				limit = { Is_MOT = yes }
+				country_event = Knights.9
+			}
+			MOT = {
+				mark_focus_tree_layout_dirty = yes
+				country_event = Knights.20
+			}
+			LAW = {
+				mark_focus_tree_layout_dirty = yes
+			}
+			every_other_country = {
+				limit = {
+					NOT = { original_tag = FAV }
+					has_war_together_with = MOT
+				}
+				white_peace = LAW
+			}
+			hidden_effect = {
+				MOT = {
+					end_puppet = DRA
+					end_puppet = SPI
+					end_puppet = FAV
+					end_puppet = GUN
+					end_puppet = RAG
+					end_puppet = DVA
+					end_puppet = ANR
+				}
+				white_peace = DRA
+				white_peace = SPI
+				white_peace = GUN
+				white_peace = RAG
+				white_peace = DVA
+				white_peace = ANR
+				start_peace_conference = {
+					tag = MOT
+					score_factor = 0.1
+					message = MOT_Won_3
+				}
+				MOT = { remove_mission = MOT_Civil_War_1_MOT }
+			}
+		}
+		modifier = {
+			war_support_factor = 0.2
+			hidden_modifier = {
+				army_speed_factor = -0.2
+				org_loss_when_moving = 1
+			}
+			targeted_modifier = {
+				tag = MOT
+				attack_bonus_against = 0.2
+			}
+		}
+	}
+	LAW_HigherResist_of_LAW = {
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		fire_only_once = no
+		visible = { always = no }
+		remove_effect = {
+			custom_effect_tooltip = LAW_High_Resist_Here
+			add_to_variable = { MOT.MOT_Resist_in_LAW = 10 }
+			IF = {
+				limit = { has_global_flag = MOT_StControl_section2 }
+				add_to_variable = { MOT_Resist_in_LAW = 10 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	LAW_Begin_Civil_WAR = {
+		selectable_mission = no
+		days_mission_timeout = 420
+		cost = 0
+		fire_only_once = yes
+		available = {
+			always = no
+		}
+		activation = { always = no }
+		war_with_on_remove = MOT
+		timeout_effect = {
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+			activate_mission = MOT_Civil_War_1_LAW
+			set_global_flag = MOT_Civil_War_Begun
+			set_cosmetic_tag = LAW_Noble_Army
+			hidden_effect = {
+				country_event = {
+					id = Lawrence.34
+					days = 10
+				}
+				country_event = {
+					id = Lawrence.35
+					days = 55
+				}
+				country_event = {
+					id = Lawrence.36
+					days = 60
+				}
+				country_event = {
+					id = Lawrence.37
+					days = 65
+				}
+				country_event = {
+					id = Lawrence.38
+					days = 70
+				}
+				RAG = {
+					#set_cosmetic_tag = RAG_RAGRAG
+				}
+				SPI = { set_cosmetic_tag = SPI_Town_of_Freedom }
+				MOT = {
+					end_puppet = LAW
+					end_puppet = DRA
+					end_puppet = SPI
+					end_puppet = RAG
+					end_puppet = ANR
+					end_puppet = GUN
+					end_puppet = FAV
+					set_country_flag = MOT_WarDB 
+					activate_mission = MOT_Civil_War_1_MOT
+					activate_mission = MOT_Monthly_Rush
+					country_event = Knights.7
+					country_event = {
+						id = Knights.23
+						days = 70
+					}
+					country_event = {
+						id = Knights.24
+						days = 75
+					}
+					country_event = {
+						id = Knights.47
+						days = 70
+					}
+				}
+			}
+			set_country_flag = LAW_WarDB
+			MOT = { set_country_flag = MOT_WarDB }
+		}
+	}
+}
+#运筹帷幄
+LAW_Our_War_Decisions = {
+#能够消耗作战资源削弱骑士团（尤其是作战资源、士气等级和限制时间）及之后的敌人；劳伦斯领必须先击败骑士团才能继续扩张，这场战争会在一个固定的时间到来
+#可以看到骑士团的士气等级和作战资源
+#相关变量：
+#作战资源LAW_Resources_for_War 以政治点数、指挥点数、占用民工兑换，也可以通过窃取决议以一定比例偷窃骑士团的作战资源
+#蒙德城渗透度LAW_Power_in_City 等级越高，解锁削弱决议越多，可以通过决议获得，会在行动时消耗。如果有足够多的情报，可以使用更有效率的决议提高
+}
+LAW_DC_Organize_Ice = {
+	##作战决议
+	LAW_Dec_Attack_DRA = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = DRA
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_DRA
+			has_war = no
+			DRA = { exists = yes }
+			DRA = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = DRA
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = DRA
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_RAG = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = RAG
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_RAG
+			has_war = no
+			RAG = { exists = yes }
+			RAG = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = RAG
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = RAG
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_ANR = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = ANR
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_ANR
+			has_war = no
+			ANR = { exists = yes }
+			ANR = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = ANR
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = ANR
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_SPI = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = SPI
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_SPI
+			has_war = no
+			SPI = { exists = yes }
+			SPI = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = SPI
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = SPI
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_DVA = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = DVA
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_DVA
+			has_war = no
+			DVA = { exists = yes }
+			DVA = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = DVA
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = DVA
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_GUN = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = GUN
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_GUN
+			has_war = no
+			GUN = { exists = yes }
+			GUN = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = GUN
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = GUN
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_FAV = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			is_neighbor_of = FAV
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_FAV
+			has_war = no
+			FAV = { exists = yes }
+			FAV = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = FAV
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = FAV
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	LAW_Dec_Attack_MOT = {
+		days_remove = 30
+		fire_only_once = no
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			DRA = {
+				OR = {
+					exists = no
+					is_subject_of = LAW
+					is_puppet_of = LAW
+				}
+			}
+			RAG = {
+				OR = {
+					exists = no
+					is_subject_of = LAW
+					is_puppet_of = LAW
+				}
+			}
+			ANR = {
+				OR = {
+					exists = no
+					is_subject_of = LAW
+					is_puppet_of = LAW
+				}
+			}
+			DVA = {
+				OR = {
+					exists = no
+					is_subject_of = LAW
+					is_puppet_of = LAW
+				}
+			}
+		}
+		visible = {
+			has_completed_focus = LAW_Eula_Attack_MOT
+			has_war = no
+			MOT = { exists = yes }
+			MOT = {
+				NOT = { is_subject_of = LAW }
+				NOT = { is_puppet_of = LAW }
+			}
+		}
+		cost = 30
+		war_with_on_remove = MOT
+		modifier = {
+
+		}
+		complete_effect = {
+			set_country_flag = LAW_flag_Delaring
+		}
+		remove_effect = {
+			clr_country_flag = LAW_flag_Delaring
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 500
+				strength_ratio = {
+					tag = DRA
+					ratio > 0.8
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = LAW_flag_Delaring
+			}
+		}
+	}
+	##改革决议
+	#加大教育投资
+	LAW_More_Educational_Input = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea1 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea1 = yes
+		}
+		modifier = {
+			consumer_goods_factor = 0.2
+			research_speed_factor = 0.1
+		}
+		ai_will_do = { base = 100 }
+	}
+	#专注行政事务
+	LAW_Focus_on_Governance = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea2 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea2 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -1
+			political_power_cost = -1
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#专注军队事务
+	LAW_Sweep_Army_Corruption = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea3 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea3 = yes
+		}
+		modifier = {
+			command_power_gain_mult = 1
+			political_power_cost = 1
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				has_war = yes
+			}
+		}
+	}
+	#专注民用建设
+	LAW_Focus_on_Consumer = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea4 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea4 = yes
+		}
+		modifier = {
+			consumer_goods_factor = 0.05
+			political_power_cost = 0.1
+			production_speed_industrial_complex_factor = 0.15
+			production_speed_infrastructure_factor = 0.15
+		}
+		complete_effect = {
+			set_country_flag = LAW_Focusing_Industry
+		}
+		remove_effect = {
+			clr_country_flag = LAW_Focusing_Industry
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#专注军工生产
+	LAW_Focus_on_Arms = {
+		days_remove = 180
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea4 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea4 = yes
+			NOT = { has_country_flag = LAW_Focusing_Industry }
+		}
+		modifier = {
+			consumer_goods_factor = 0.05
+			political_power_cost = 0.1
+			production_speed_arms_factory_factor = 0.15
+			production_speed_dockyard_factor = 0.15
+		}
+		complete_effect = {
+			set_country_flag = LAW_Focusing_Industry
+		}
+		remove_effect = {
+			clr_country_flag = LAW_Focusing_Industry
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				add = -100
+				has_war = yes
+			}
+		}
+	}
+	#维护占领区治安
+	LAW_Oppress_Resistance = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		modifier = {
+			resistance_decay = 1
+			resistance_target = -0.1
+			command_power_gain_mult = -0.5
+		}
+		remove_effect = {
+		}
+	}
+	#处理反对派势力
+	LAW_Oppress_Oppose = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea5 = yes
+		}
+		modifier = {
+			communism_drift = -0.1
+			democratic_drift = -0.1
+			neutrality_drift = -0.1
+			genshin_drift = -0.1
+			command_power_gain_mult = -0.25
+			political_power_cost = -0.2
+		}
+		remove_effect = {
+		}
+	}
+	#组织青年团游行
+	LAW_Organize_Youth_Action = {
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea6 = yes
+		}
+		modifier = {
+			war_support_weekly = 0.004
+			fascism_drift = 0.01
+			mobilization_speed = 0.25
+			weekly_manpower = 100
+			ice_power_gain = 1
+		}
+		custom_cost_text = decision_cost_CP_30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		complete_effect = {
+			add_command_power = -30
+		}
+		remove_effect = {
+			add_war_support = 0.01
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Youth_League_Tide2
+						has_idea = LAW_Youth_League_Tide3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_command_power = 15
+			}
+			IF = {
+				limit = {
+					has_idea = LAW_Youth_League_Tide3
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+				add_stability = 0.02
+			}
+		}
+	}
+	#重申浪花宣言
+	LAW_Recall_of_Tide = {
+		cost = 30
+		days_remove = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea7 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea7 = yes
+		}
+		modifier = {
+			fascism_drift = 0.01
+			ice_power_gain = 2
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Call_of_Tide2
+						has_idea = LAW_Call_of_Tide3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 10
+			}
+			IF = {
+				limit = {
+					has_idea = LAW_Call_of_Tide3
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 4 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+	#提倡未来主义建筑
+	LAW_Support_Futurism = {
+		days_remove = 120
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea8 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea8 = yes
+		}
+		modifier = {
+			political_power_cost = 0.5
+			production_speed_infrastructure_factor = 0.1
+			consumer_goods_factor = -0.1
+		}
+	}
+	#提拔坚冰党员
+	LAW_Upgrade_Icy_Man = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		modifier = {
+			ice_power_gain = 3
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Political_impart2
+						has_idea = LAW_Political_impart3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 4 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+			IF = {
+				limit = { has_idea = LAW_Political_impart3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 30
+				set_temp_variable = { LAW_Change_of_Icy_Power = 5 }
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+			}
+		}
+	}
+	#展现亲民形象
+	LAW_Show_Popular_Out = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		modifier = {
+			stability_weekly = 0.005
+			fascism_drift = 0.01
+			ice_power_gain = 2
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Fundamental_Organization2
+						has_idea = LAW_Fundamental_Organization3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+				add_stability = 0.04
+			}
+			IF = {
+				limit = { has_idea = LAW_Fundamental_Organization3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 6 }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+			}
+		}
+	}
+	#发起群众运动
+	LAW_Popular_Action = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea10 = yes
+		}
+		modifier = {
+			stability_weekly = -0.005
+			war_support_weekly = 0.005
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Fundamental_Organization2
+						has_idea = LAW_Fundamental_Organization3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Fundamental_Organization3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+			}
+		}
+	}
+	#调配熟练工人
+	LAW_Educate_Workers = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea11 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea11 = yes
+		}
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.5
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Labour_Union2
+						has_idea = LAW_Labour_Union3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Labour_Union3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				random_list = {
+					50 = { add_political_power = 5 }
+					50 = {
+						random_owned_state = {
+							limit = {
+								free_building_slots = {
+									building = industrial_complex
+									level > 0
+								}
+							}
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#生产激励计划
+	LAW_Encourage_Workers = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea11 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea11 = yes
+		}
+		modifier = {
+			industrial_capacity_factory = 0.2
+			production_factory_efficiency_gain_factor = 0.1
+			consumer_goods_factor = 0.1
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Labour_Union2
+						has_idea = LAW_Labour_Union3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Labour_Union3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+		}
+	}
+	#调和阶层矛盾
+	LAW_Moderate_Class = {
+		days_remove = 180
+		days_re_enable = 180
+		cost = 60
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea12 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea12 = yes
+		}
+		modifier = {
+			stability_weekly = 0.002
+			war_support_weekly = 0.002
+			consumer_goods_factor = 0.1
+			political_power_cost = -0.3
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Congress_of_Corporation2
+						has_idea = LAW_Congress_of_Corporation3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+		}
+	}
+	#筹划共同行动
+	LAW_Act_Together = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea12 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea12 = yes
+		}
+		modifier = {
+			mobilization_laws_cost_factor = -0.25
+			economy_cost_factor = -0.25
+			trade_laws_cost_factor = -0.25
+			consumer_goods_factor = -0.1
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Congress_of_Corporation2
+						has_idea = LAW_Congress_of_Corporation3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Congress_of_Corporation3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+			}
+		}
+	}
+	#研发军事学说
+	LAW_Research_Doctrines = {
+		days_remove = 60
+		cost = 90
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea13 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea13 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -0.25
+		}
+		remove_effect = {
+			army_experience = 20
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				army_experience = 10
+			}
+			IF = {
+				limit = { has_idea = LAW_Knights_of_Ice3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				army_experience = 10
+			}
+		}
+	}
+	#军队演习计划
+	LAW_Train_Army = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea13 = yes
+			has_war = no
+		}
+		visible = {
+			LAW_Has_Completed_Idea13 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -0.25
+			experience_gain_army_unit_factor = 1
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+			}
+			IF = {
+				limit = { has_idea = LAW_Knights_of_Ice3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+			}
+		}
+	}
+	#扩张军队规模
+	LAW_Expand_Army = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea14 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea14 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -0.25
+			training_time_factor = -0.2
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Icy_Power = 3 }
+				custom_effect_tooltip = LAW_tt_More_Icy_Power
+				add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+			}
+			IF = {
+				limit = { has_idea = LAW_Knights_of_Ice3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_war_support = 0.02
+			}
+		}
+	}
+	#推广前沿战术
+	LAW_Better_Army = {
+		days_remove = 60
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea14 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea14 = yes
+		}
+		modifier = {
+			command_power_gain_mult = -0.25
+			land_doctrine_cost_factor = -0.1
+			navy_doctrine_cost_factor = -0.1
+			air_doctrine_cost_factor = -0.1
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Knights_of_Ice2
+						has_idea = LAW_Knights_of_Ice3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+				add_command_power = 15
+			}
+			IF = {
+				limit = { has_idea = LAW_Knights_of_Ice3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				add_political_power = 15
+				add_command_power = 15
+			}
+		}
+	}
+	#完善法律法规
+	LAW_Better_Law = {
+		days_remove = 180
+		cost = 30
+		allowed = {
+			original_tag = LAW
+		}
+		available = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		visible = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		modifier = {
+			stability_weekly = 0.002
+		}
+		remove_effect = {
+			IF = {
+				limit = {
+					OR = {
+						has_idea = LAW_Icy_Judge_Court2
+						has_idea = LAW_Icy_Judge_Court3
+					}
+				}
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+				custom_effect_tooltip = LAW_tt_Less_Noble_STST
+				subtract_from_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+			}
+			IF = {
+				limit = { has_idea = LAW_Icy_Judge_Court3 }
+				custom_effect_tooltip = LAW_tt_More_Bonus_for_Idea_Level
+				set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+				custom_effect_tooltip = LAW_tt_Less_Fool_Power
+				subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+			}
+		}
+	}
+	#民工投资决议1
+	LAW_Investment_Civil_1 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_C_1
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_C_1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_C_1
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#民工投资决议2
+	LAW_Investment_Civil_2 = {
+		cost = 60
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_C_2
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_C_2 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_C_2
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#民工投资决议3
+	LAW_Investment_Civil_3 = {
+		cost = 70
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_C_3
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_C_3 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_C_3
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#军工投资决议1
+	LAW_Investment_Arms_1 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_A_1
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_A_1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_A_1
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#军工投资决议2
+	LAW_Investment_Arms_2 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_A_2
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_A_2 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_A_2
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#军工投资决议3
+	LAW_Investment_Arms_3 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_A_3
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_A_3 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						level > 3
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_A_3
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#船坞投资决议1
+	LAW_Investment_Dock_1 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_D_1
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_D_1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						level > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_D_1
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#船坞投资决议2
+	LAW_Investment_Dock_2 = {
+		cost = 50
+		days_remove = 90
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_D_2
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_D_2 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						level > 2
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_D_2
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#基建投资决议1
+	LAW_Investment_Road_1 = {
+		cost = 40
+		days_remove = 60
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_R_1
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_R_1 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_R_1
+		}
+		ai_will_do = { base = 1000 }
+	}
+	#基建投资决议2
+	LAW_Investment_Road_2 = {
+		cost = 40
+		days_remove = 60
+		modifier = { civilian_factory_use = 5 }
+		available = { num_of_civilian_factories_available_for_projects > 4 }
+		fire_only_once = no
+		visible = {
+			has_country_flag = LAW_Unlock_Decisions_Invest_R_2
+			NOT = { has_country_flag = LAW_Lock_Decisions_Invest_R_2 }
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_country_flag = LAW_Lock_Decisions_Invest_R_2
+		}
+		ai_will_do = { base = 1000 }
+	}
+}

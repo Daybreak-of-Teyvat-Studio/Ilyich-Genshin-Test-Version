@@ -1,0 +1,516 @@
+
+	MOT_Hide_Control_Decisions = {
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+		}
+		available = { hidden_trigger = { is_ai = no } }
+		complete_effect = {
+			IF = {
+				limit = { NOT = { has_country_flag = MOT_Hide_Decisions1 } }
+				set_country_flag = MOT_Hide_Decisions1
+			}
+			ELSE_IF = {
+				clr_country_flag = MOT_Hide_Decisions1
+			}
+		}
+	}
+	MOT_Control_MOT = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		allowed = {
+			original_tag = MOT
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_MOT = 15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_MOT = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_MOT > MOT_Control_in_MOT }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_FAV = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 30
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_FAV = 10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_FAV = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_FAV > MOT_Control_in_FAV }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_GUN = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 10
+		cost = 40
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_GUN = 15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_GUN = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_GUN > MOT_Control_in_GUN }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_LAW = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 30
+		cost = 50
+		fire_only_once = no
+		
+		allowed = {
+			original_tag = MOT
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_LAW = 5 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Control_in_LAW = -5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_LAW < 50 }
+				add = 10
+			}
+		}
+	}
+	MOT_Mili_MOT = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 3 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_MOT = -15 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_MOT > MOT_Control_in_MOT }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_GUN = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 0
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 22 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_GUN = -15 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_GUN = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_GUN > MOT_Control_in_GUN }
+				add = 40
+			}
+		}
+	}
+	MOT_Mili_FAV = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 50000 state = 9 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_FAV = -10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_FAV = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_FAV > MOT_Control_in_FAV }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_LAW = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			army_manpower_in_state = { amount > 80000 state = 32 }
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = {
+				has_global_flag = MOT_Civil_War_Begun
+				has_global_flag = MOT_StControl_section2
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_LAW = -5 }
+		}
+		ai_will_do = {
+			base = 10
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_LAW < 50 }
+				add = 20
+			}
+		}
+	}
+	MOT_Mili_Others = {
+		icon = generic_police_action
+		days_remove = 30
+		days_re_enable = 30
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = decision_cost_CP_30
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			OR = {
+				army_manpower_in_state = { amount > 10000 state = 38 }
+				army_manpower_in_state = { amount > 10000 state = 50 }
+				army_manpower_in_state = { amount > 10000 state = 55 }
+				army_manpower_in_state = { amount > 10000 state = 60 }
+			}
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_LowResist
+			add_to_variable = { MOT_Resist_in_Others = -10 }
+			IF = {
+				limit = {
+					has_global_flag = MOT_StControl_section2
+				}
+				add_to_variable = { MOT_Resist_in_Others = 5 }
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_Others > MOT_Control_in_Others }
+				add = 20
+			}
+		}
+	}
+	MOT_Control_Other = {
+		icon = generic_political_support
+		days_remove = 30
+		days_re_enable = 30
+		cost = 30
+		targets_dynamic = yes
+		allowed = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOT_SControl
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = MOT_Hide_Decisions1 }
+			NOT = { has_global_flag = MOT_Civil_War_Begun }
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = DRA
+					original_tag = SPI
+					original_tag = DVA
+					original_tag = ANR
+				}
+				exists = yes
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = MOT_St_Control
+			add_to_variable = { MOT_Control_in_Others = 10 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				has_global_flag = MOT_StControl_section2
+				add = -10
+			}
+			modifier = {
+				check_variable = { MOT_Resist_in_Others > MOT_Control_in_Others }
+				add = 20
+			}
+		}
+	}
+	MOT_Law_Action = {
+		icon = generic_scorched_earth
+		days_re_enable = 0
+		fire_only_once = no
+		selectable_mission = no
+		days_mission_timeout = 30
+		modifier = { stability_weekly = -0.005 }
+		activation = {
+			always = no
+		}
+		available = {
+			has_global_flag = MOT_Civil_War_Begun
+			NOT = {
+				has_country_flag = MOT_Jean_Ill
+			}
+		}
+		timeout_effect = {
+			custom_effect_tooltip = MOT_Law_high_Resist
+			activate_mission = MOT_Law_Action
+			add_to_variable = { MOT_Resist_in_LAW = 10 }
+			random_list = {
+				20 = {
+					add_to_variable = { MOT_Resist_in_LAW = 5 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Resist_in_LAW = 5 }
+						custom_effect_tooltip = MOT_LAWAction_10
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Resist_in_FAV = 10 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Resist_in_FAV = 5 }
+						custom_effect_tooltip = MOT_LAWAction_11
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Resist_in_FAV = 5 }
+					IF = {
+						limit = {
+							has_global_flag = MOT_StControl_section2
+						}
+						add_to_variable = { MOT_Resist_in_FAV = 5 }
+						custom_effect_tooltip = MOT_LAWAction_12
+					}
+				}
+				20 = {
+					add_to_variable = { MOT_Resist_in_GUN = 5 }
+					custom_effect_tooltip = MOT_LAWAction_13
+				}
+				20 = {
+					add_to_variable = { MOT_Resist_in_Others = 10 }
+					custom_effect_tooltip = MOT_LAWAction_14
+				}
+			}
+		}
+	}
