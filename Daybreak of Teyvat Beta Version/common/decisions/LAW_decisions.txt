@@ -12,7 +12,7 @@ LAW_Stablize_States = {
 			set_temp_variable = { LAW_TV_1 = LAW_Num_of_Unstable_States }
 			divide_temp_variable = { LAW_TV_1 = 400 }
 			multiply_temp_variable = { LAW_TV_1 = -1 }
-			add_stability = var:LAW_TV_1
+			add_stability = LAW_TV_1
 
 			set_temp_variable = { LAW_Change_of_Icy_Power = LAW_Num_of_Unstable_States }
 			multiply_temp_variable = { LAW_Change_of_Icy_Power = 5 }
@@ -166,15 +166,13 @@ LAW_DC_Seek_for_Help = {
 		visible = {
 			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
 		}
-		cost = var:LAW_Cost_of_Decisions1
+		cost = 30
 		days_remove = 35
 		modifier = {
 			stability_factor = 0.2
 			war_support_factor = 0.2
 		}
 		remove_effect = {
-			custom_effect_tooltip = LAW_tt_Cost_More
-			add_to_variable = { LAW_Cost_of_Decisions1 = 10 }
 		}
 		ai_will_do = {
 			base = 500
@@ -188,7 +186,7 @@ LAW_DC_Seek_for_Help = {
 	##贵族
 	#显示/隐藏贵族决议
 	LAW_Hide_Noble_Decisions = {
-		icon = GFX_decision_generic_decision
+		icon = GFX_decision_generic_form_nation
 		fire_only_once = no
 		visible = {
 			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
@@ -205,7 +203,7 @@ LAW_DC_Seek_for_Help = {
 	}
 	#捏造头衔
 	LAW_Create_Crown = {
-		icon = GFX_decision_generic_propaganda
+		icon = GFX_decision_generic_form_nation
 		fire_only_once = no
 		visible = {
 			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
@@ -237,7 +235,7 @@ LAW_DC_Seek_for_Help = {
 	}
 	#出售头衔
 	LAW_Sell_Crown = {
-		icon = GFX_decision_generic_fundraising
+		icon = GFX_decision_generic_form_nation
 		fire_only_once = no
 		visible = {
 			NOT = { has_country_flag = LAW_Not_Show_Decisions_2 }
@@ -412,6 +410,7 @@ LAW_DC_Seek_for_Help = {
 		available = {
 			NOT = { has_country_flag = LAW_Has_Killed_Sheep }
 			has_stability > 0.5
+			has_war = no
 		}
 		cost = 30
 		days_remove = 30
@@ -422,32 +421,26 @@ LAW_DC_Seek_for_Help = {
 			add_to_variable = { LAW_Num_of_Investment = 1 }
 			add_popularity = {
 				ideology = democratic
-				popularity = 0.03
+				popularity = 0.02
 			}
-			random_list = {
-				50 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-						}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						level > 0
 					}
 				}
-				50 = {
-					random_owned_state = {
-						limit = {
-							free_building_slots = {
-								building = infrastructure
-								level > 0
-							}
-						}
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-						}
-					}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
 				}
 			}
 		}
@@ -496,21 +489,17 @@ LAW_DC_Seek_for_Help = {
 		}
 		complete_effect = {
 			set_country_flag = LAW_Has_Killed_Sheep
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.2
+			}
 		}
 		remove_effect = {
 			custom_effect_tooltip = LAW_tt_More_Bonus_From_Investment
 			custom_effect_tooltip = LAW_tt_Get_Investment
-			add_popularity = {
-				ideology = democratic
-				popularity = -0.3
-			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = var:LAW_Num_of_Investment
-				add_building_construction = {
-					building = industrial_complex
-					level = var:LAW_Num_of_Investment
-				}
-			}
+			set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Advance }
+			multiply_temp_variable = { LAW_linshibianliang1 = 30 }
+			add_political_power = var:LAW_linshibianliang1
 		}
 		ai_will_do = {
 			base = 1
@@ -558,11 +547,11 @@ LAW_DC_Seek_for_Help = {
 		}
 		remove_effect = {
 			custom_effect_tooltip = LAW_tt_Get_Advance
-			add_to_variable = { LAW_Num_of_Advance = 1 }
 			add_popularity = {
 				ideology = communism
-				popularity = 0.03
+				popularity = 0.02
 			}
+			add_to_variable = { LAW_Num_of_Advance = 1 }
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -616,18 +605,18 @@ LAW_DC_Seek_for_Help = {
 			war_support_weekly = -0.01
 		}
 		complete_effect = {
-			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
-			custom_effect_tooltip = LAW_tt_Get_Advance
+			add_popularity = {
+				ideology = communism
+				popularity = -0.2
+			}
 			set_country_flag = LAW_Has_Run_KNA
 		}
 		remove_effect = {
+			custom_effect_tooltip = LAW_tt_More_Bonus_From_Advance
+			custom_effect_tooltip = LAW_tt_Get_Advance
 			set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Advance }
 			multiply_temp_variable = { LAW_linshibianliang1 = 30 }
 			add_political_power = var:LAW_linshibianliang1
-			add_popularity = {
-				ideology = communism
-				popularity = -0.5
-			}
 		}
 		ai_will_do = {
 			base = 1
@@ -1857,7 +1846,7 @@ MOND_Anti_Knights = {
 		custom_cost_text = decision_cost_CP_30
 		custom_cost_trigger = { command_Power > 29 }
 		available = { num_of_civilian_factories_available_for_projects > 9 }
-		visible = { has_active_mission = MOT_Time_Has_to_Leave }
+		visible = { MOT = { has_active_mission = MOT_Time_Has_to_Leave } }
 		modifier = {
 			civilian_factory_use = 10
 		}
