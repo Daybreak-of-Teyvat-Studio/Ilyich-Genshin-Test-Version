@@ -8,6 +8,14 @@ focus_tree = {
 		}
 	}
 	continuous_focus_position = { x=40 y=1200}
+	inlay_window = {
+		id = ita_inner_circle_inlay_window
+		position = {x = 2600 y = 2000 }
+	}
+	initial_show_position = {
+		x = 0
+		y = 0
+	}
 	default = no
 	
 	focus = {
@@ -2614,6 +2622,891 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.31
+		}
+	}
+
+	#inner circle
+	focus = {
+		id = ITA_heroes
+		icon = GFX_focus_ITA_culto_del_duce
+		prerequisite = { focus =  ITA_culto_del_duce }
+		
+		x = -9
+		y = 2
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+			has_country_leader = {
+				character = ITA_benito_mussolini
+				ruling_only = yes
+			}
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.05
+			}
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = ITA_dino_grandi
+		icon = GFX_focus_ITA_dino_grandi
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -3
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_dino_grandi2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 2 }
+				}
+			add_to_variable = { ITA_iri_consumer_goods_factor = -0.05 }
+			add_to_variable = { ITA_iri_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { ITA_iri_production_speed_industrial_complex_factor = 0.05 }
+            custom_effect_tooltip = ITA_economic_reforms_ricostruzione_industriale_tt
+		}
+	}
+	focus = {
+		id = ITA_dino_grandi2
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		prerequisite = { focus =  ITA_dino_grandi }
+		
+		x = -3
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_dino_grandi3
+			add_to_variable = {  ITA_iri_conversion_cost_civ_to_mil_factor = -0.1 }
+			custom_effect_tooltip = ITA_improve_the_industries_ricostruzione_industriale_tt
+			add_to_variable = {  ITA_military_industry_dm_production_factory_start_efficiency_factor = 0.05 }
+			add_to_variable = {  ITA_military_industry_dm_line_change_production_efficiency_factor = 0.05 }
+			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
+			custom_effect_tooltip = ITA_improve_the_industries_military_industry_tt
+		}
+	}
+	focus = {
+		id = ITA_dino_grandi3
+		icon = GFX_focus_mex_privatisation
+		prerequisite = { focus =  ITA_dino_grandi2 }
+		
+		x = -3
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			custom_effect_tooltip = ITA_expanded_corporatism_ricostruzione_industriale_tt
+			add_to_variable = { ITA_iri_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { ITA_iri_production_speed_industrial_complex_factor = 0.05 }
+		}
+	}
+	focus = {
+		id = ITA_giacomo_acerbo
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -15
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_to_variable = { ITA_iri_consumer_goods_factor = -0.05 }
+			custom_effect_tooltip = ITA_novus_ordo_ricostruzione_industriale_tt
+			add_to_variable = { ITA_military_industry_dm_industrial_capacity_factory = 0.05 }
+			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
+			custom_effect_tooltip = ITA_novus_ordo_military_industry_tt
+			activate_shine_on_focus = ITA_giacomo_acerbo2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 3 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 3 }
+				}
+			
+		}
+	}
+	focus = {
+		id = ITA_giacomo_acerbo2
+		icon = GFX_focus_ITA_blackshirts
+		prerequisite = { focus =  ITA_giacomo_acerbo }
+		
+		x = -15
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_italo_balbo2
+			
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_giacomo_acerbo2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  ITA_giacomo_acerbo }
+		
+		x = -15
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_italo_balbo3
+			add_ideas = ITA_devaluated_lira
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_giacomo_acerbo3
+		icon = GFX_focus_generic_land_reclamation
+		prerequisite = { focus =  ITA_giacomo_acerbo2 }
+		
+		x = -15
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			
+			add_ideas = ITA_battaglia_per_la_terra
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_renato_ricci
+		icon = GFX_focus_ITA_generic_fascist_workers
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -13
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.05
+			}
+			add_war_support = 0.1
+			activate_shine_on_focus = ITA_renato_ricci2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 4 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 4 }
+				}
+			
+		}
+	}
+	focus = {
+		id = ITA_renato_ricci2
+		icon = GFX_focus_SOV_breadbasket_of_the_union
+		prerequisite = { focus =  ITA_renato_ricci }
+		
+		x = -13
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_renato_ricci3
+			add_ideas = ITA_battaglia_del_grano
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_renato_ricci3
+		icon = GFX_focus_ITA_workers_unions
+		prerequisite = { focus =  ITA_renato_ricci2 }
+		
+		x = -13
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			
+			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
+			add_to_variable = { ITA_military_industry_dm_industrial_capacity_factory = 0.05 }
+			add_to_variable = { ITA_military_industry_dm_industrial_capacity_dockyard = 0.05 }
+			custom_effect_tooltip = ITA_empower_the_unions_military_industry_dm_tt
+
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_giuseppe_bottai
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -11
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_research_slot=1
+			activate_shine_on_focus = ITA_giuseppe_bottai2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 5 }
+				}
+			
+		}
+	}
+	focus = {
+		id = ITA_giuseppe_bottai2
+		icon = GFX_focus_generic_italy_propaganda
+		prerequisite = { focus =  ITA_giuseppe_bottai }
+		
+		x = -11
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_giuseppe_bottai3
+			add_political_power = 100
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.05
+			}
+			add_war_support = 0.1
+			
+			
+		}
+	}
+		focus = {
+		id = ITA_giuseppe_bottai3
+		icon = GFX_focus_generic_population_growth
+		prerequisite = { focus =  ITA_giuseppe_bottai2 }
+		
+		x = -11
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_ideas = ITA_battaglia_per_la_nascite
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_mario_roatta
+		icon = GFX_focus_ITA_blackshirts
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -9
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.05
+			}
+			add_war_support = 0.1
+			
+			activate_shine_on_focus = ITA_mario_roatta2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 6 }
+				}
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_mario_roatta2
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus =  ITA_mario_roatta }
+		
+		x = -9
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_mario_roatta3
+			add_ideas = ITA_divino_duce_1
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_mario_roatta3
+		icon = GFX_focus_generic_little_entente
+		prerequisite = { focus =  ITA_mario_roatta2 }
+		
+		x = -9
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ITA_divino_duce_1
+				add_idea = ITA_divino_duce_2
+			}
+			
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_heroes2
+		icon = GFX_focus_ITA_capo_supremo
+		prerequisite = { focus =  ITA_mario_roatta3 }
+		prerequisite = { focus =  ITA_giacomo_acerbo3 }
+		prerequisite = { focus =  ITA_renato_ricci3 }
+		prerequisite = { focus =  ITA_giuseppe_bottai3 }
+		prerequisite = { focus =  ITA_italo_balbo3 }
+		prerequisite = { focus =  ITA_gian_galeazzo_ciano3 }
+		prerequisite = { focus =  ITA_dino_grandi3 }
+		x = -9
+		y = 6
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+			
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			
+			add_country_leader_trait = GER_loyal_inner_circle
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_gian_galeazzo_ciano
+		icon = GFX_focus_generic_diplomatic_treaty
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -5
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_ideas = ITA_italian_hegemony_master_1
+			activate_shine_on_focus = ITA_gian_galeazzo_ciano2
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 7 }
+				}
+			
+		}
+	}
+	focus = {
+		id = ITA_gian_galeazzo_ciano2
+		icon = GFX_focus_generic_spread_fascism
+		prerequisite = { focus =  ITA_gian_galeazzo_ciano }
+		
+		x = -5
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_gian_galeazzo_ciano3
+			swap_ideas = {
+				remove_idea = ITA_italian_hegemony_master_1
+				add_idea = ITA_italian_hegemony_master_2
+			}
+			
+		}
+	}
+	focus = {
+		id = ITA_gian_galeazzo_ciano3
+		icon = GFX_focus_ITA_italian_hegemony
+		prerequisite = { focus =  ITA_gian_galeazzo_ciano2 }
+		
+		x = -5
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ITA_italian_hegemony_master_2
+				add_idea = ITA_italian_hegemony_master_3
+			}
+			
+			
+		}
+	}
+	focus = {
+		id = ITA_italo_balbo
+		icon = GFX_focus_ITA_italo_balbo
+		prerequisite = { focus =  ITA_heroes }
+		
+		x = -7
+		y = 3
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_italo_balbo2
+			add_ideas = ITA_italo_balbo_traits
+			if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_1 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_1 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_2 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_2 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_3 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_3 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_4 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_4 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_5 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_5 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_6 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_6 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_ascended_advisor_7 = 0 }
+					}
+					set_variable = { ITA_ascended_advisor_7 = 1 }
+				}
+			
+		}
+	}
+	focus = {
+		id = ITA_italo_balbo2
+		icon = GFX_focus_SOV_flying_clubs
+		prerequisite = { focus =  ITA_italo_balbo }
+		
+		x = -7
+		y = 4
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			activate_shine_on_focus = ITA_italo_balbo3
+			add_timed_idea = { 
+				idea = ITA_prioritizing_the_military 
+				days = 365 
+			}
+			add_to_variable = { ITA_ra_air_accidents_factor = -0.1 }
+			add_to_variable = { ITA_ra_air_agility_factor = 0.05 }
+			add_to_variable = { ITA_ra_air_attack = 0.05 }
+			add_to_variable = { ITA_ra_air_superiority_bonus_in_combat = 0.05 }
+			custom_effect_tooltip = ITA_reinforce_aeronautica_ra_tt
+		}
+	}
+	focus = {
+		id = ITA_italo_balbo3
+		icon = GFX_focus_generic_armored_air_support
+		prerequisite = { focus =  ITA_italo_balbo2 }
+		
+		x = -7
+		y = 5
+		relative_position_id = ITA_towards_a_greater_italy
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_to_variable = { ITA_ra_ground_attack_factor = 0.05 }
+			add_to_variable = { ITA_ra_air_intercept_efficiency = 0.05 }
+			custom_effect_tooltip = ITA_compagnie_auto_avio_sahariane_ra_tt
+			add_to_variable = {  ITA_re_org_loss_when_moving = -0.05 }
+			add_to_variable = {  ITA_re_out_of_supply = -0.05 }
+			custom_effect_tooltip = ITA_compagnie_auto_avio_sahariane_re_tt
+			add_to_variable = {  ITA_ra_air_mission_efficiency = 0.05 }
+			add_to_variable = {  ITA_ra_air_cas_present_factor = 0.05 }
+			custom_effect_tooltip = ITA_combined_land_and_air_warfare_ra_tt
+			add_to_variable = {  ITA_re_army_army_org_factor = 0.05 }
+			add_to_variable = {  ITA_re_armor_attack = 0.05 }
+			custom_effect_tooltip = ITA_combined_land_and_air_warfare_re_tt
 		}
 	}
 }
