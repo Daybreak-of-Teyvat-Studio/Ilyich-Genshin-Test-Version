@@ -9,11 +9,11 @@ focus_tree = {
 	}
 	continuous_focus_position = { x=40 y=1200}
 	inlay_window = {
-		id = ita_inner_circle_inlay_window
-		position = {x = 2600 y = 2000 }
+		id = DVA_inner_circle_inlay_window
+		position = {x = 2200 y = 800 }
 	}
 	initial_show_position = {
-		x = 0
+		x = 100
 		y = 0
 	}
 	default = no
@@ -814,19 +814,19 @@ focus_tree = {
 				limit = {
 					has_country_flag = DVA_bb_flag
 				}
-				add_idea = DVA_Super_Dreadnought_enthusiasm
+				add_ideas = DVA_Super_Dreadnought_enthusiasm
 			}
 			else_if = {
 				limit = {
 					has_country_flag = DVA_cv_flag
 				}
-				add_idea = DVA_flattop_of_new_era
+				add_ideas = DVA_flattop_of_new_era
 			}
 			else_if = {
 				limit = {
 					has_country_flag = DVA_ss_flag
 				}
-				add_idea = DVA_flattop_of_new_era
+				add_ideas = DVA_flattop_of_new_era
 			}
 			else = {
 				custom_effect_tooltip = DOT_effects_have_not_announced_tt
@@ -972,7 +972,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_black_anarchy
+		id = DVA_The_Knave_take_it_over
 		icon = GFX_goal_unknown
 		cost = 1
 		prerequisite = {
@@ -1116,7 +1116,11 @@ focus_tree = {
 		x = 10
 		y = 9
 		available = {
-			has_country_flag = DVA_amber_win
+			OR = {
+				has_country_flag = DVA_amber_win
+				NOT = {	has_completed_focus = DVA_Eula_or_war }
+				NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+			}
 		}
 		select_effect = {
 			country_event = dva.ab.105
@@ -1140,7 +1144,11 @@ focus_tree = {
 		x = 14
 		y = 9
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_amber_win
+				NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
+				NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+			}
 		}
 		select_effect = {
 			LAW = {
@@ -1189,7 +1197,11 @@ focus_tree = {
 		x = 12
 		y = 9
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_amber_win
+				NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
+				NOT = { has_completed_focus = DVA_Eula_or_war }
+			}
 		}
 		select_effect = {
 			DRA = {
@@ -1296,13 +1308,8 @@ focus_tree = {
 			focus = DVA_offering_gifts_and_loyalty
 		}
 		prerequisite = {
-			focus = DVA_offering_gifts_and_loyalty
 			focus = DVA_the_meaning_of_Lupical
-		}
-		prerequisite = {
 			focus = DVA_Eula_or_war
-		}
-		prerequisite = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
 		x = 10
@@ -1484,7 +1491,7 @@ focus_tree = {
 		x = 13
 		y = 10
 		available = {
-			has_country_flag = DVA_amber_win
+			#
 		}
 		completion_reward = {
 			country_event = dva.ab.14
@@ -2492,7 +2499,7 @@ focus_tree = {
 			always = no
 		}
 		completion_reward = {
-			#
+			custom_effect_tooltip = DVA_unfinished_tt
 		}
 	}
 	focus = {
@@ -2627,19 +2634,16 @@ focus_tree = {
 
 	#inner circle
 	focus = {
-		id = ITA_heroes
-		icon = GFX_focus_ITA_culto_del_duce
-		prerequisite = { focus =  ITA_culto_del_duce }
+		id = DVA_heroes
+		icon = GFX_focus_DVA_culto_del_duce
+		prerequisite = { focus =  DVA_culto_del_duce }
 		
-		x = -9
-		y = 2
-		relative_position_id = ITA_towards_a_greater_italy
+		x = 16
+		y = 0
+		relative_position_id = DVA_Deep_Blue
 		cost = 10
 		available = {
-			has_country_leader = {
-				character = ITA_benito_mussolini
-				ruling_only = yes
-			}
+			always = no
 		}
 
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
@@ -2654,13 +2658,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ITA_dino_grandi
-		icon = GFX_focus_ITA_dino_grandi
-		prerequisite = { focus =  ITA_heroes }
+		id = DVA_dino_grandi
+		icon = GFX_focus_DVA_dino_grandi
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -3
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = 1
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -2668,63 +2672,93 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_dino_grandi2
+			activate_shine_on_focus = DVA_dino_grandi2
 			if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
+						check_variable = { DVA_ascended_advisor_1 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_1 = 2 }
+					set_variable = { DVA_ascended_advisor_1 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
+						check_variable = { DVA_ascended_advisor_2 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_2 = 2 }
+					set_variable = { DVA_ascended_advisor_2 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
+						check_variable = { DVA_ascended_advisor_3 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_3 = 2 }
+					set_variable = { DVA_ascended_advisor_3 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
+						check_variable = { DVA_ascended_advisor_4 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_4 = 2 }
+					set_variable = { DVA_ascended_advisor_4 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
+						check_variable = { DVA_ascended_advisor_5 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_5 = 2 }
+					set_variable = { DVA_ascended_advisor_5 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
+						check_variable = { DVA_ascended_advisor_6 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_6 = 2 }
+					set_variable = { DVA_ascended_advisor_6 = 2 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
+						check_variable = { DVA_ascended_advisor_7 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_7 = 2 }
+					set_variable = { DVA_ascended_advisor_7 = 2 }
 				}
-			add_to_variable = { ITA_iri_consumer_goods_factor = -0.05 }
-			add_to_variable = { ITA_iri_production_speed_arms_factory_factor = 0.05 }
-			add_to_variable = { ITA_iri_production_speed_industrial_complex_factor = 0.05 }
-            custom_effect_tooltip = ITA_economic_reforms_ricostruzione_industriale_tt
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_8 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_8 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_9 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_9 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_10 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_10 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_11 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_11 = 2 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_12 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_12 = 2 }
+				}
+			add_to_variable = { DVA_iri_consumer_goods_factor = -0.05 }
+			add_to_variable = { DVA_iri_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { DVA_iri_production_speed_industrial_complex_factor = 0.05 }
+            custom_effect_tooltip = DVA_economic_reforms_ricostruzione_industriale_tt
 		}
 	}
 	focus = {
-		id = ITA_dino_grandi2
+		id = DVA_dino_grandi2
 		icon = GFX_focus_usa_reestablish_the_gold_standard
-		prerequisite = { focus =  ITA_dino_grandi }
+		prerequisite = { focus =  DVA_dino_grandi }
 		
-		x = -3
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = 1
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -2733,23 +2767,23 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_dino_grandi3
-			add_to_variable = {  ITA_iri_conversion_cost_civ_to_mil_factor = -0.1 }
-			custom_effect_tooltip = ITA_improve_the_industries_ricostruzione_industriale_tt
-			add_to_variable = {  ITA_military_industry_dm_production_factory_start_efficiency_factor = 0.05 }
-			add_to_variable = {  ITA_military_industry_dm_line_change_production_efficiency_factor = 0.05 }
-			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
-			custom_effect_tooltip = ITA_improve_the_industries_military_industry_tt
+			activate_shine_on_focus = DVA_dino_grandi3
+			add_to_variable = {  DVA_iri_conversion_cost_civ_to_mil_factor = -0.1 }
+			custom_effect_tooltip = DVA_improve_the_industries_ricostruzione_industriale_tt
+			add_to_variable = {  DVA_military_industry_dm_production_factory_start_efficiency_factor = 0.05 }
+			add_to_variable = {  DVA_military_industry_dm_line_change_production_efficiency_factor = 0.05 }
+			add_to_variable = { DVA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
+			custom_effect_tooltip = DVA_improve_the_industries_military_industry_tt
 		}
 	}
 	focus = {
-		id = ITA_dino_grandi3
+		id = DVA_dino_grandi3
 		icon = GFX_focus_mex_privatisation
-		prerequisite = { focus =  ITA_dino_grandi2 }
+		prerequisite = { focus =  DVA_dino_grandi2 }
 		
-		x = -3
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = 1
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -2758,19 +2792,109 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			custom_effect_tooltip = ITA_expanded_corporatism_ricostruzione_industriale_tt
-			add_to_variable = { ITA_iri_production_speed_arms_factory_factor = 0.05 }
-			add_to_variable = { ITA_iri_production_speed_industrial_complex_factor = 0.05 }
+			custom_effect_tooltip = DVA_expanded_corporatism_ricostruzione_industriale_tt
+			add_to_variable = { DVA_iri_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { DVA_iri_production_speed_industrial_complex_factor = 0.05 }
 		}
 	}
 	focus = {
-		id = ITA_giacomo_acerbo
+		id = DVA_giacomo_acerbo01
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  ITA_heroes }
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -15
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = 3
+		y = 1
+		relative_position_id = DVA_heroes
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_giacomo_acerbo02
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = 5
+		y = 1
+		relative_position_id = DVA_heroes
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_giacomo_acerbo03
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = 7
+		y = 1
+		relative_position_id = DVA_heroes
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_giacomo_acerbo04
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = 9
+		y = 1
+		relative_position_id = DVA_heroes
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_giacomo_acerbo05
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = 11
+		y = 1
+		relative_position_id = DVA_heroes
+		cost = 10
+		available = {
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_giacomo_acerbo
+		icon = GFX_focus_generic_industry_2
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = -11
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -2826,39 +2950,16 @@ focus_tree = {
 					}
 					set_variable = { ITA_ascended_advisor_7 = 3 }
 				}
-			
 		}
 	}
 	focus = {
-		id = ITA_giacomo_acerbo2
-		icon = GFX_focus_ITA_blackshirts
-		prerequisite = { focus =  ITA_giacomo_acerbo }
-		
-		x = -15
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = ITA_italo_balbo2
-			
-			
-			
-		}
-	}
-	focus = {
-		id = ITA_giacomo_acerbo2
+		id = DVA_giacomo_acerbo2
 		icon = GFX_focus_ITA_devaluate_the_lire
-		prerequisite = { focus =  ITA_giacomo_acerbo }
+		prerequisite = { focus =  DVA_giacomo_acerbo }
 		
-		x = -15
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -11
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -2867,20 +2968,20 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_italo_balbo3
-			add_ideas = ITA_devaluated_lira
+			activate_shine_on_focus = DVA_italo_balbo3
+			add_ideas = DVA_devaluated_lira
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_giacomo_acerbo3
+		id = DVA_giacomo_acerbo3
 		icon = GFX_focus_generic_land_reclamation
-		prerequisite = { focus =  ITA_giacomo_acerbo2 }
+		prerequisite = { focus =  DVA_giacomo_acerbo2 }
 		
-		x = -15
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -11
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -2890,19 +2991,19 @@ focus_tree = {
 
 		completion_reward = {
 			
-			add_ideas = ITA_battaglia_per_la_terra
+			add_ideas = DVA_battaglia_per_la_terra
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_renato_ricci
-		icon = GFX_focus_ITA_generic_fascist_workers
-		prerequisite = { focus =  ITA_heroes }
+		id = DVA_renato_ricci
+		icon = GFX_focus_DVA_generic_fascist_workers
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -13
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -9
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -2916,60 +3017,89 @@ focus_tree = {
 				popularity = 0.05
 			}
 			add_war_support = 0.1
-			activate_shine_on_focus = ITA_renato_ricci2
+			activate_shine_on_focus = DVA_renato_ricci2
 			if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_1 = 4 }
+				limit = {
+					check_variable = { DVA_ascended_advisor_1 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_2 = 4 }
+				set_variable = { DVA_ascended_advisor_1 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_2 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_3 = 4 }
+				set_variable = { DVA_ascended_advisor_2 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_3 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_4 = 4 }
+				set_variable = { DVA_ascended_advisor_3 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_4 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_5 = 4 }
+				set_variable = { DVA_ascended_advisor_4 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_5 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_6 = 4 }
+				set_variable = { DVA_ascended_advisor_5 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_6 = 0 }
 				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_7 = 4 }
+				set_variable = { DVA_ascended_advisor_6 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_7 = 0 }
 				}
-			
+				set_variable = { DVA_ascended_advisor_7 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_8 = 0 }
+				}
+				set_variable = { DVA_ascended_advisor_8 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_9 = 0 }
+				}
+				set_variable = { DVA_ascended_advisor_9 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_10 = 0 }
+				}
+				set_variable = { DVA_ascended_advisor_10 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_11 = 0 }
+				}
+				set_variable = { DVA_ascended_advisor_11 = 4 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { DVA_ascended_advisor_12 = 0 }
+				}
+				set_variable = { DVA_ascended_advisor_12 = 4 }
+			}
 		}
 	}
 	focus = {
-		id = ITA_renato_ricci2
+		id = DVA_renato_ricci2
 		icon = GFX_focus_SOV_breadbasket_of_the_union
-		prerequisite = { focus =  ITA_renato_ricci }
+		prerequisite = { focus =  DVA_renato_ricci }
 		
-		x = -13
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -9
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -2978,20 +3108,20 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_renato_ricci3
-			add_ideas = ITA_battaglia_del_grano
+			activate_shine_on_focus = DVA_renato_ricci3
+			add_ideas = DVA_battaglia_del_grano
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_renato_ricci3
-		icon = GFX_focus_ITA_workers_unions
-		prerequisite = { focus =  ITA_renato_ricci2 }
+		id = DVA_renato_ricci3
+		icon = GFX_focus_DVA_workers_unions
+		prerequisite = { focus =  DVA_renato_ricci2 }
 		
-		x = -13
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -9
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3001,10 +3131,10 @@ focus_tree = {
 
 		completion_reward = {
 			
-			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
-			add_to_variable = { ITA_military_industry_dm_industrial_capacity_factory = 0.05 }
-			add_to_variable = { ITA_military_industry_dm_industrial_capacity_dockyard = 0.05 }
-			custom_effect_tooltip = ITA_empower_the_unions_military_industry_dm_tt
+			add_to_variable = { DVA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
+			add_to_variable = { DVA_military_industry_dm_industrial_capacity_factory = 0.05 }
+			add_to_variable = { DVA_military_industry_dm_industrial_capacity_dockyard = 0.05 }
+			custom_effect_tooltip = DVA_empower_the_unions_military_industry_dm_tt
 
 			random_core_state = {
 				limit = {
@@ -3027,13 +3157,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ITA_giuseppe_bottai
+		id = DVA_giuseppe_bottai
 		icon = GFX_goal_generic_scientific_exchange
-		prerequisite = { focus =  ITA_heroes }
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -11
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -7
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -3042,60 +3172,90 @@ focus_tree = {
 
 		completion_reward = {
 			add_research_slot=1
-			activate_shine_on_focus = ITA_giuseppe_bottai2
+			activate_shine_on_focus = DVA_giuseppe_bottai2
 			if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
+						check_variable = { DVA_ascended_advisor_1 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_1 = 5 }
+					set_variable = { DVA_ascended_advisor_1 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
+						check_variable = { DVA_ascended_advisor_2 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_2 = 5 }
+					set_variable = { DVA_ascended_advisor_2 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
+						check_variable = { DVA_ascended_advisor_3 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_3 = 5 }
+					set_variable = { DVA_ascended_advisor_3 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
+						check_variable = { DVA_ascended_advisor_4 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_4 = 5 }
+					set_variable = { DVA_ascended_advisor_4 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
+						check_variable = { DVA_ascended_advisor_5 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_5 = 5 }
+					set_variable = { DVA_ascended_advisor_5 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
+						check_variable = { DVA_ascended_advisor_6 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_6 = 5 }
+					set_variable = { DVA_ascended_advisor_6 = 5 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
+						check_variable = { DVA_ascended_advisor_7 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_7 = 5 }
+					set_variable = { DVA_ascended_advisor_7 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_8 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_8 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_9 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_9 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_10 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_10 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_11 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_11 = 5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_12 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_12 = 5 }
 				}
 			
 		}
 	}
 	focus = {
-		id = ITA_giuseppe_bottai2
+		id = DVA_giuseppe_bottai2
 		icon = GFX_focus_generic_italy_propaganda
-		prerequisite = { focus =  ITA_giuseppe_bottai }
+		prerequisite = { focus =  DVA_giuseppe_bottai }
 		
-		x = -11
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -7
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3104,7 +3264,7 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_giuseppe_bottai3
+			activate_shine_on_focus = DVA_giuseppe_bottai3
 			add_political_power = 100
 			add_popularity = {
 				ideology = fascism 
@@ -3116,13 +3276,13 @@ focus_tree = {
 		}
 	}
 		focus = {
-		id = ITA_giuseppe_bottai3
+		id = DVA_giuseppe_bottai3
 		icon = GFX_focus_generic_population_growth
-		prerequisite = { focus =  ITA_giuseppe_bottai2 }
+		prerequisite = { focus =  DVA_giuseppe_bottai2 }
 		
-		x = -11
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -7
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3131,19 +3291,19 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			add_ideas = ITA_battaglia_per_la_nascite
+			add_ideas = DVA_battaglia_per_la_nascite
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_mario_roatta
-		icon = GFX_focus_ITA_blackshirts
-		prerequisite = { focus =  ITA_heroes }
+		id = DVA_mario_roatta
+		icon = GFX_focus_DVA_blackshirts
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -9
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -5
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -3158,61 +3318,91 @@ focus_tree = {
 			}
 			add_war_support = 0.1
 			
-			activate_shine_on_focus = ITA_mario_roatta2
+			activate_shine_on_focus = DVA_mario_roatta2
 			if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
+						check_variable = { DVA_ascended_advisor_1 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_1 = 6 }
+					set_variable = { DVA_ascended_advisor_1 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
+						check_variable = { DVA_ascended_advisor_2 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_2 = 6 }
+					set_variable = { DVA_ascended_advisor_2 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
+						check_variable = { DVA_ascended_advisor_3 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_3 = 6 }
+					set_variable = { DVA_ascended_advisor_3 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
+						check_variable = { DVA_ascended_advisor_4 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_4 = 6 }
+					set_variable = { DVA_ascended_advisor_4 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
+						check_variable = { DVA_ascended_advisor_5 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_5 = 6 }
+					set_variable = { DVA_ascended_advisor_5 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
+						check_variable = { DVA_ascended_advisor_6 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_6 = 6 }
+					set_variable = { DVA_ascended_advisor_6 = 6 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
+						check_variable = { DVA_ascended_advisor_7 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_7 = 6 }
+					set_variable = { DVA_ascended_advisor_7 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_8 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_8 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_9 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_9 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_10 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_10 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_11 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_11 = 6 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_12 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_12 = 6 }
 				}
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_mario_roatta2
+		id = DVA_mario_roatta2
 		icon = GFX_goal_generic_military_sphere
-		prerequisite = { focus =  ITA_mario_roatta }
+		prerequisite = { focus =  DVA_mario_roatta }
 		
-		x = -9
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -5
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3221,20 +3411,20 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_mario_roatta3
-			add_ideas = ITA_divino_duce_1
+			activate_shine_on_focus = DVA_mario_roatta3
+			add_ideas = DVA_divino_duce_1
 			
 			
 		}
 	}
 	focus = {
-		id = ITA_mario_roatta3
+		id = DVA_mario_roatta3
 		icon = GFX_focus_generic_little_entente
-		prerequisite = { focus =  ITA_mario_roatta2 }
+		prerequisite = { focus =  DVA_mario_roatta2 }
 		
-		x = -9
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -5
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3244,8 +3434,8 @@ focus_tree = {
 
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = ITA_divino_duce_1
-				add_idea = ITA_divino_duce_2
+				remove_idea = DVA_divino_duce_1
+				add_idea = DVA_divino_duce_2
 			}
 			
 			
@@ -3253,18 +3443,18 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ITA_heroes2
-		icon = GFX_focus_ITA_capo_supremo
-		prerequisite = { focus =  ITA_mario_roatta3 }
-		prerequisite = { focus =  ITA_giacomo_acerbo3 }
-		prerequisite = { focus =  ITA_renato_ricci3 }
-		prerequisite = { focus =  ITA_giuseppe_bottai3 }
-		prerequisite = { focus =  ITA_italo_balbo3 }
-		prerequisite = { focus =  ITA_gian_galeazzo_ciano3 }
-		prerequisite = { focus =  ITA_dino_grandi3 }
-		x = -9
-		y = 6
-		relative_position_id = ITA_towards_a_greater_italy
+		id = DVA_heroes2
+		icon = GFX_focus_DVA_capo_supremo
+		prerequisite = { focus =  DVA_mario_roatta3 }
+		prerequisite = { focus =  DVA_giacomo_acerbo3 }
+		prerequisite = { focus =  DVA_renato_ricci3 }
+		prerequisite = { focus =  DVA_giuseppe_bottai3 }
+		prerequisite = { focus =  DVA_italo_balbo3 }
+		prerequisite = { focus =  DVA_gian_galeazzo_ciano3 }
+		prerequisite = { focus =  DVA_dino_grandi3 }
+		x = 0
+		y = 4
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 			
@@ -3280,13 +3470,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = ITA_gian_galeazzo_ciano
+		id = DVA_gian_galeazzo_ciano
 		icon = GFX_focus_generic_diplomatic_treaty
-		prerequisite = { focus =  ITA_heroes }
+		prerequisite = { focus =  DVA_heroes }
 		
-		x = -5
-		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -1
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -3294,61 +3484,91 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			add_ideas = ITA_italian_hegemony_master_1
-			activate_shine_on_focus = ITA_gian_galeazzo_ciano2
+			add_ideas = DVA_italian_hegemony_master_1
+			activate_shine_on_focus = DVA_gian_galeazzo_ciano2
 			if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
+						check_variable = { DVA_ascended_advisor_1 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_1 = 7 }
+					set_variable = { DVA_ascended_advisor_1 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
+						check_variable = { DVA_ascended_advisor_2 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_2 = 7 }
+					set_variable = { DVA_ascended_advisor_2 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
+						check_variable = { DVA_ascended_advisor_3 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_3 = 7 }
+					set_variable = { DVA_ascended_advisor_3 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
+						check_variable = { DVA_ascended_advisor_4 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_4 = 7 }
+					set_variable = { DVA_ascended_advisor_4 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
+						check_variable = { DVA_ascended_advisor_5 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_5 = 7 }
+					set_variable = { DVA_ascended_advisor_5 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
+						check_variable = { DVA_ascended_advisor_6 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_6 = 7 }
+					set_variable = { DVA_ascended_advisor_6 = 7 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
+						check_variable = { DVA_ascended_advisor_7 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_7 = 7 }
+					set_variable = { DVA_ascended_advisor_7 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_8 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_8 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_9 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_9 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_10 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_10 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_11 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_11 = 7 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_12 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_12 = 7 }
 				}
 			
 		}
 	}
 	focus = {
-		id = ITA_gian_galeazzo_ciano2
+		id = DVA_gian_galeazzo_ciano2
 		icon = GFX_focus_generic_spread_fascism
-		prerequisite = { focus =  ITA_gian_galeazzo_ciano }
+		prerequisite = { focus =  DVA_gian_galeazzo_ciano }
 		
-		x = -5
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -1
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3357,46 +3577,46 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_gian_galeazzo_ciano3
+			activate_shine_on_focus = DVA_gian_galeazzo_ciano3
 			swap_ideas = {
-				remove_idea = ITA_italian_hegemony_master_1
-				add_idea = ITA_italian_hegemony_master_2
+				remove_idea = DVA_italian_hegemony_master_1
+				add_idea = DVA_italian_hegemony_master_2
 			}
 			
 		}
 	}
 	focus = {
-		id = ITA_gian_galeazzo_ciano3
-		icon = GFX_focus_ITA_italian_hegemony
-		prerequisite = { focus =  ITA_gian_galeazzo_ciano2 }
+		id = DVA_gian_galeazzo_ciano3
+		icon = GFX_focus_DVA_italian_hegemony
+		prerequisite = { focus =  DVA_gian_galeazzo_ciano2 }
 		
-		x = -5
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = ITA_italian_hegemony_master_2
-				add_idea = ITA_italian_hegemony_master_3
-			}
-			
-			
-		}
-	}
-	focus = {
-		id = ITA_italo_balbo
-		icon = GFX_focus_ITA_italo_balbo
-		prerequisite = { focus =  ITA_heroes }
-		
-		x = -7
+		x = -1
 		y = 3
-		relative_position_id = ITA_towards_a_greater_italy
+		relative_position_id = DVA_heroes
+		cost = 20
+		available = {
+			always=no
+		}
+
+		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = DVA_italian_hegemony_master_2
+				add_idea = DVA_italian_hegemony_master_3
+			}
+			
+			
+		}
+	}
+	focus = {
+		id = DVA_italo_balbo
+		icon = GFX_focus_DVA_italo_balbo
+		prerequisite = { focus =  DVA_heroes }
+		
+		x = -3
+		y = 1
+		relative_position_id = DVA_heroes
 		cost = 10
 		available = {
 		}
@@ -3404,61 +3624,91 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_italo_balbo2
-			add_ideas = ITA_italo_balbo_traits
+			activate_shine_on_focus = DVA_italo_balbo2
+			add_ideas = DVA_italo_balbo_traits
 			if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
+						check_variable = { DVA_ascended_advisor_1 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_1 = 1 }
+					set_variable = { DVA_ascended_advisor_1 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
+						check_variable = { DVA_ascended_advisor_2 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_2 = 1 }
+					set_variable = { DVA_ascended_advisor_2 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
+						check_variable = { DVA_ascended_advisor_3 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_3 = 1 }
+					set_variable = { DVA_ascended_advisor_3 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
+						check_variable = { DVA_ascended_advisor_4 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_4 = 1 }
+					set_variable = { DVA_ascended_advisor_4 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
+						check_variable = { DVA_ascended_advisor_5 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_5 = 1 }
+					set_variable = { DVA_ascended_advisor_5 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
+						check_variable = { DVA_ascended_advisor_6 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_6 = 1 }
+					set_variable = { DVA_ascended_advisor_6 = 1 }
 				}
 				else_if = {
 					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
+						check_variable = { DVA_ascended_advisor_7 = 0 }
 					}
-					set_variable = { ITA_ascended_advisor_7 = 1 }
+					set_variable = { DVA_ascended_advisor_7 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_8 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_8 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_9 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_9 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_10 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_10 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_11 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_11 = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { DVA_ascended_advisor_12 = 0 }
+					}
+					set_variable = { DVA_ascended_advisor_12 = 1 }
 				}
 			
 		}
 	}
 	focus = {
-		id = ITA_italo_balbo2
+		id = DVA_italo_balbo2
 		icon = GFX_focus_SOV_flying_clubs
-		prerequisite = { focus =  ITA_italo_balbo }
+		prerequisite = { focus =  DVA_italo_balbo }
 		
-		x = -7
-		y = 4
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -3
+		y = 2
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3467,26 +3717,26 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			activate_shine_on_focus = ITA_italo_balbo3
+			activate_shine_on_focus = DVA_italo_balbo3
 			add_timed_idea = { 
-				idea = ITA_prioritizing_the_military 
+				idea = DVA_prioritizing_the_military 
 				days = 365 
 			}
-			add_to_variable = { ITA_ra_air_accidents_factor = -0.1 }
-			add_to_variable = { ITA_ra_air_agility_factor = 0.05 }
-			add_to_variable = { ITA_ra_air_attack = 0.05 }
-			add_to_variable = { ITA_ra_air_superiority_bonus_in_combat = 0.05 }
-			custom_effect_tooltip = ITA_reinforce_aeronautica_ra_tt
+			add_to_variable = { DVA_ra_air_accidents_factor = -0.1 }
+			add_to_variable = { DVA_ra_air_agility_factor = 0.05 }
+			add_to_variable = { DVA_ra_air_attack = 0.05 }
+			add_to_variable = { DVA_ra_air_superiority_bonus_in_combat = 0.05 }
+			custom_effect_tooltip = DVA_reinforce_aeronautica_ra_tt
 		}
 	}
 	focus = {
-		id = ITA_italo_balbo3
+		id = DVA_italo_balbo3
 		icon = GFX_focus_generic_armored_air_support
-		prerequisite = { focus =  ITA_italo_balbo2 }
+		prerequisite = { focus =  DVA_italo_balbo2 }
 		
-		x = -7
-		y = 5
-		relative_position_id = ITA_towards_a_greater_italy
+		x = -3
+		y = 3
+		relative_position_id = DVA_heroes
 		cost = 20
 		available = {
 			always=no
@@ -3495,18 +3745,18 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			add_to_variable = { ITA_ra_ground_attack_factor = 0.05 }
-			add_to_variable = { ITA_ra_air_intercept_efficiency = 0.05 }
-			custom_effect_tooltip = ITA_compagnie_auto_avio_sahariane_ra_tt
-			add_to_variable = {  ITA_re_org_loss_when_moving = -0.05 }
-			add_to_variable = {  ITA_re_out_of_supply = -0.05 }
-			custom_effect_tooltip = ITA_compagnie_auto_avio_sahariane_re_tt
-			add_to_variable = {  ITA_ra_air_mission_efficiency = 0.05 }
-			add_to_variable = {  ITA_ra_air_cas_present_factor = 0.05 }
-			custom_effect_tooltip = ITA_combined_land_and_air_warfare_ra_tt
-			add_to_variable = {  ITA_re_army_army_org_factor = 0.05 }
-			add_to_variable = {  ITA_re_armor_attack = 0.05 }
-			custom_effect_tooltip = ITA_combined_land_and_air_warfare_re_tt
+			add_to_variable = { DVA_ra_ground_attack_factor = 0.05 }
+			add_to_variable = { DVA_ra_air_intercept_efficiency = 0.05 }
+			custom_effect_tooltip = DVA_compagnie_auto_avio_sahariane_ra_tt
+			add_to_variable = {  DVA_re_org_loss_when_moving = -0.05 }
+			add_to_variable = {  DVA_re_out_of_supply = -0.05 }
+			custom_effect_tooltip = DVA_compagnie_auto_avio_sahariane_re_tt
+			add_to_variable = {  DVA_ra_air_mission_efficiency = 0.05 }
+			add_to_variable = {  DVA_ra_air_cas_present_factor = 0.05 }
+			custom_effect_tooltip = DVA_combined_land_and_air_warfare_ra_tt
+			add_to_variable = {  DVA_re_army_army_org_factor = 0.05 }
+			add_to_variable = {  DVA_re_armor_attack = 0.05 }
+			custom_effect_tooltip = DVA_combined_land_and_air_warfare_re_tt
 		}
 	}
 }
