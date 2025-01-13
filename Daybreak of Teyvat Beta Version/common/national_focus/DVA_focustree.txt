@@ -132,15 +132,15 @@ focus_tree = {
 				Agri_Up = yes
 			}
 			custom_effect_tooltip = DOT_Government_Agri_Up_tt
-			every_owned_state = {
+			every_core_state = {
 				limit = {
-					is_controlled_by = ROOT
 					free_building_slots = {
 						building = infrastructure
 						size > 0
-						include_locked = yes
 					}
+					is_controlled_by = ROOT
 				}
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -835,7 +835,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Deal_With_Mass_Of_Dvalin
-		icon = GFX_DVA_Deal_With_Mass_Of_Dvalin
+		icon = GFX_MOT_Worst_Day
 		cost = 5
 		prerequisite = {
 			focus = DVA_An_Ordinary_Day
@@ -1001,20 +1001,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.1
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = DVA_Raymond
-			add_corps_commander_role = {
-				character = DVA_Raymond
-				desc = "Raymond_DESC"
-				traits = { 
-					#
-				}
-				skill = 3
-				attack_skill = 1
-				defense_skill = 3
-				planning_skill = 2
-				logistics_skill = 2
-			}
 		}
 	}
 	focus = {
@@ -1031,6 +1017,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.3
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Raymond
 			hidden_effect = {
 				country_event = {
 					id = dva.ab.101
@@ -1061,9 +1049,6 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = DVA_tale_from_the_tower
-		}
-		mutually_exclusive = {
-			focus = DVA_Plan_of_reshuffling_knights_of_favonius
 		}
 		x = 8
 		y = 10
@@ -1305,15 +1290,18 @@ focus_tree = {
 			focus = DVA_break_with_the_past
 		}
 		mutually_exclusive = {
-			focus = DVA_offering_gifts_and_loyalty
+			focus = DVA_merge_with_the_knights_of_favonius
 		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
 			focus = DVA_Eula_or_war
 			focus = DVA_visitors_on_the_snowmountain
 		}
+		prerequisite = {
+			focus = DVA_liberate_Windrise
+		}
 		x = 10
-		y = 10
+		y = 11
 		available = {
 			OR = {
 				MOT = {
@@ -1373,33 +1361,6 @@ focus_tree = {
 				id = dva.ab.18
 				days = 7
 			}
-			hidden_effect = {
-				Control_Up = yes
-				MOTSize_Up = yes
-			}
-			custom_effect_tooltip = DOT_Government_Control_Up_tt
-			custom_effect_tooltip = DOT_Government_Size_Up_tt
-			unlock_decision_category_tooltip = DVA_conquer_rebels_category
-		}
-	}
-	focus = {
-		id = DVA_wind_returns
-		icon = GFX_DVA_wind_returns
-		cost = 3
-		prerequisite = {
-			focus = DVA_free_Dvalindom
-			focus = DVA_Mondstadt_Spring
-		}
-		x = 9
-		y = 13
-		available = {
-			OR = {
-				has_country_flag = DVA_middle_way
-				has_country_flag = DVA_amber_win
-			}
-		}
-		completion_reward = {
-			country_event = dva.ab.20
 			every_state = {
 				limit = {
 					NOT = {
@@ -1422,6 +1383,44 @@ focus_tree = {
 			}
 			3 = {
 				set_demilitarized_zone = yes
+			}
+			hidden_effect = {
+				Control_Up = yes
+				MOTSize_Up = yes
+			}
+			custom_effect_tooltip = DOT_Government_Control_Up_tt
+			custom_effect_tooltip = DOT_Government_Size_Up_tt
+			unlock_decision_category_tooltip = DVA_conquer_rebels_category
+		}
+	}
+	focus = {
+		id = DVA_Cooperate_with_Favonius_Church
+		icon = GFX_DVA_Cooperate_with_Favonius_Church
+		cost = 3
+		prerequisite = {
+			focus = DVA_free_Dvalindom
+			focus = DVA_Mondstadt_Spring
+		}
+		x = 9
+		y = 13
+		available = {
+			OR = {
+				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_amber_win
+			}
+		}
+		select_effect = {
+			FAV= {
+				country_event = dva.ab.20
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = FAV
+				}
+				add_core_of = DVA
+				remove_core_of = FAV
 			}
 			if = {
 				limit = {
@@ -1451,17 +1450,7 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
-				limit = {
-					has_country_flag = DVA_amber_win
-				}
-				set_cosmetic_tag = DVA_united_socialist
-				set_country_leader_portrait = {
-					ideology = communism
-					portrait = GFX_portrait_Amber
-				}
-			}
-			if = {
+			else_if = {
 				limit = {
 					NOT = {
 						has_country_flag = DVA_amber_win
@@ -1473,11 +1462,94 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_Neither_Archon_nor_noble
+		icon = GFX_DVA_Neither_Archon_nor_noble
+		cost = 3
+		prerequisite = {
+			focus = DVA_new_age_began_for_old_Mondstadt
+			focus = DVA_Mondstadt_Spring
+		}
+		x = 12
+		y = 13
+		available = {
+			#
+		}
+		completion_reward = {
+			create_wargoal = {
+				target = FAV
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = GUN
+				type = annex_everything
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_middle_way
+				}
+				set_cosmetic_tag = DVA_united
+				set_country_leader_portrait = {
+					ideology = neutrality
+					portrait = GFX_portrait_Amber
+				}
+				custom_effect_tooltip = DVA_noble_war_tt
+				set_country_flag = DVA_noble_war_flag
+				hidden_effect = {
+					FAV = {
+						create_faction = MOT_GUN_UNION
+						add_to_faction = GUN
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_country_flag = DVA_amber_win
+					}
+				}
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
+			}
+		}
+	}
+	focus = {
+		id = DVA_liberate_Windrise
+		icon = DVA_liberate_Windrise
+		cost = 10
+		prerequisite = {
+			focus = DVA_the_meaning_of_Lupical
+			focus = DVA_Eula_or_war
+			focus = DVA_visitors_on_the_snowmountain
+		}
+		x = 12
+		y = 10
+		available = {
+			NOT = {
+				4 = {
+					is_controlled_by = ROOT
+				}
+			}
+		}
+		bypass = {
+			4 = {
+				is_controlled_by = ROOT
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = MOT
+			}
+		}
+	}
+	focus = {
 		id = DVA_break_with_the_past
 		icon = goals_RAGwejoasjofawjt
 		cost = 8
 		mutually_exclusive = {
 			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+		}
+		mutually_exclusive = {
+			focus = DVA_merge_with_the_knights_of_favonius
 		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
@@ -1488,8 +1560,11 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
-		x = 13
-		y = 10
+		prerequisite = {
+			focus = DVA_liberate_Windrise
+		}
+		x = 14
+		y = 11
 		available = {
 			#
 		}
@@ -1500,8 +1575,11 @@ focus_tree = {
 				elections_allowed = no
 				last_election = "1936.1.1"
 				election_frequency = 48
-				long_name = DVA_communism_party_blanqui_long
-				name = DVA_communism_party_blanqui
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = DVA_blanquism_party_long
+				name = DVA_blanquism_party
 			}
 			hidden_effect = {
 				set_popularities = {
@@ -1522,7 +1600,7 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_break_with_the_past
 		}
-		x = 13
+		x = 14
 		y = 12
 		available = {
 			60 = {
@@ -1530,7 +1608,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			country_event = dva.ab.19
 			hidden_effect = {
 				Research_Up = yes
 				Control_Up = yes
@@ -1559,44 +1636,15 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DVA_liberate_Windrise
-		icon = DVA_liberate_Windrise
-		cost = 10
-		prerequisite = {
-			focus = DVA_new_age_began_for_old_Mondstadt
-		}
-		x = 13
-		y = 13
-		available = {
-			NOT = {
-				4 = {
-					is_controlled_by = ROOT
-				}
-			}
-		}
-		bypass = {
-			4 = {
-				is_controlled_by = ROOT
-			}
-		}
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = MOT
-			}
-		}
-	}
-	focus = {
 		id = DVA_establish_Mondakademie
 		icon = GFX_goal_56_goals_26
 		cost = 10
 		prerequisite = {
-			focus = DVA_wind_returns
-			focus = DVA_liberate_Windrise
+			focus = DVA_Cooperate_with_Favonius_Church
+			focus = DVA_Neither_Archon_nor_noble
 		}
-		prerequisite = {
-			focus = DVA_Mondstadt_Spring
-			focus = DVA_liberate_Windrise
+		mutually_exclusive = {
+			focus = DVA_establish_institute_of_Tower
 		}
 		x = 11
 		y = 14
@@ -1623,7 +1671,10 @@ focus_tree = {
 		icon = DVA_establish_institute_of_Tower
 		cost = 10
 		prerequisite = {
-			focus = DVA_liberate_Windrise
+			focus = DVA_Neither_Archon_nor_noble
+		}
+		mutually_exclusive = {
+			focus = DVA_establish_Mondakademie
 		}
 		x = 13
 		y = 14
@@ -2509,6 +2560,12 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_offering_gifts_and_loyalty
 		}
+		mutually_exclusive = {
+			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+		}
+		mutually_exclusive = {
+			focus = DVA_break_with_the_past
+		}
 		x = 8
 		y = 11
 		available = {
@@ -2570,7 +2627,7 @@ focus_tree = {
 				country_event = dva.ab.17
 				set_cosmetic_tag = DVA_loyalty
 			}
-			if = {
+			else_if = {
 				limit = {
 					NOT = {
 						has_country_flag = DVA_middle_way
@@ -2634,14 +2691,59 @@ focus_tree = {
 
 	#inner circle
 	focus = {
-		id = DVA_heroes
+		id = DVA_The_First_Convention
 		icon = GFX_focus_DVA_culto_del_duce
-		prerequisite = { focus =  DVA_culto_del_duce }
 		
 		x = 16
-		y = 0
+		y = -1
 		relative_position_id = DVA_Deep_Blue
 		cost = 10
+		available = {
+			always = no
+		}
+
+		completion_reward = {
+			add_political_power = 100
+			swap_country_leader_traits = {
+				remove = Peoples_archon_for_Commune
+				add = Peoples_chairman_for_Commune_Committee
+				ideology = blanquism
+			}
+			DVA_Amber = {
+				add_trait = {
+					slot = air_chief
+					trait = Peoples_Supreme_air_command
+				}
+			}
+			DVA_Razor = {
+				add_trait = {
+					slot = army_chief
+					trait = Peoples_chairman_for_Military_Commission
+				}
+				add_trait = {
+					slot = army_chief
+					trait = Peoples_Supreme_army_command
+				}
+			}
+			DVA_Razor = {
+				add_trait = {
+					slot = political_advisor
+					trait = Peoples_Supreme_army_command
+				}
+			}
+		}
+	}
+
+	#inner circle
+	focus = {
+		id = DVA_The_Second_Convention
+		icon = GFX_focus_DVA_culto_del_duce
+		prerequisite = { focus =  DVA_The_First_Convention }
+		
+		x = 0
+		y = 1
+		relative_position_id = DVA_The_First_Convention
+		cost = 15
 		available = {
 			always = no
 		}
@@ -2660,11 +2762,11 @@ focus_tree = {
 	focus = {
 		id = DVA_dino_grandi
 		icon = GFX_focus_DVA_dino_grandi
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 1
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2758,7 +2860,7 @@ focus_tree = {
 		
 		x = 1
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -2783,7 +2885,7 @@ focus_tree = {
 		
 		x = 1
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -2800,11 +2902,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo01
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 3
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2818,11 +2920,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo02
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 5
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2836,11 +2938,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo03
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 7
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2854,11 +2956,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo04
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 9
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2872,11 +2974,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo05
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 11
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2890,11 +2992,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giacomo_acerbo
 		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -11
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -2959,7 +3061,7 @@ focus_tree = {
 		
 		x = -11
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -2981,7 +3083,7 @@ focus_tree = {
 		
 		x = -11
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -2989,21 +3091,18 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
-		completion_reward = {
-			
-			add_ideas = DVA_battaglia_per_la_terra
-			
-			
+		completion_reward = {			
+			#		
 		}
 	}
 	focus = {
 		id = DVA_renato_ricci
 		icon = GFX_focus_DVA_generic_fascist_workers
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -9
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -3099,7 +3198,7 @@ focus_tree = {
 		
 		x = -9
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3121,7 +3220,7 @@ focus_tree = {
 		
 		x = -9
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3159,11 +3258,11 @@ focus_tree = {
 	focus = {
 		id = DVA_giuseppe_bottai
 		icon = GFX_goal_generic_scientific_exchange
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -7
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -3255,7 +3354,7 @@ focus_tree = {
 		
 		x = -7
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3282,7 +3381,7 @@ focus_tree = {
 		
 		x = -7
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3299,11 +3398,11 @@ focus_tree = {
 	focus = {
 		id = DVA_mario_roatta
 		icon = GFX_focus_DVA_blackshirts
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -5
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -3402,7 +3501,7 @@ focus_tree = {
 		
 		x = -5
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3424,7 +3523,7 @@ focus_tree = {
 		
 		x = -5
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3436,14 +3535,11 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = DVA_divino_duce_1
 				add_idea = DVA_divino_duce_2
-			}
-			
-			
-			
+			}		
 		}
 	}
 	focus = {
-		id = DVA_heroes2
+		id = DVA_The_Second_Convention2
 		icon = GFX_focus_DVA_capo_supremo
 		prerequisite = { focus =  DVA_mario_roatta3 }
 		prerequisite = { focus =  DVA_giacomo_acerbo3 }
@@ -3454,7 +3550,7 @@ focus_tree = {
 		prerequisite = { focus =  DVA_dino_grandi3 }
 		x = 0
 		y = 4
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 			
@@ -3472,11 +3568,11 @@ focus_tree = {
 	focus = {
 		id = DVA_gian_galeazzo_ciano
 		icon = GFX_focus_generic_diplomatic_treaty
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -1
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -3568,7 +3664,7 @@ focus_tree = {
 		
 		x = -1
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3582,7 +3678,6 @@ focus_tree = {
 				remove_idea = DVA_italian_hegemony_master_1
 				add_idea = DVA_italian_hegemony_master_2
 			}
-			
 		}
 	}
 	focus = {
@@ -3592,7 +3687,7 @@ focus_tree = {
 		
 		x = -1
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3605,18 +3700,16 @@ focus_tree = {
 				remove_idea = DVA_italian_hegemony_master_2
 				add_idea = DVA_italian_hegemony_master_3
 			}
-			
-			
 		}
 	}
 	focus = {
 		id = DVA_italo_balbo
 		icon = GFX_focus_DVA_italo_balbo
-		prerequisite = { focus =  DVA_heroes }
+		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -3
 		y = 1
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 10
 		available = {
 		}
@@ -3708,7 +3801,7 @@ focus_tree = {
 		
 		x = -3
 		y = 2
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
@@ -3722,10 +3815,6 @@ focus_tree = {
 				idea = DVA_prioritizing_the_military 
 				days = 365 
 			}
-			add_to_variable = { DVA_ra_air_accidents_factor = -0.1 }
-			add_to_variable = { DVA_ra_air_agility_factor = 0.05 }
-			add_to_variable = { DVA_ra_air_attack = 0.05 }
-			add_to_variable = { DVA_ra_air_superiority_bonus_in_combat = 0.05 }
 			custom_effect_tooltip = DVA_reinforce_aeronautica_ra_tt
 		}
 	}
@@ -3736,7 +3825,7 @@ focus_tree = {
 		
 		x = -3
 		y = 3
-		relative_position_id = DVA_heroes
+		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no

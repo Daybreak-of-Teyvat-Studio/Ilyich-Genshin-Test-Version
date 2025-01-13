@@ -391,8 +391,8 @@ country_event = {
 		add_political_power = 25
 		create_operative_leader = {
 			name = "DVA_Viktor"
-			GFX = GFX_portrait_Victor
-			traits = { operative_infiltrator operative_natural_orator }
+			GFX = GFX_portrait_Viktor
+			traits = { operative_double_agent operative_well_groomed }
 			bypass_recruitment = yes
 			available_to_spy_master = yes
 			nationalities = { SNE MOT }
@@ -517,7 +517,20 @@ country_event = {
 	option = {
 		name = dva.ab.3.a
 		activate_advisor = DVA_Raymond
-		activate_advisor = DVA_Vile
+		add_field_marshal_role = {
+			desc = "Raymond_desc"
+			traits = { 
+			    engineer_officer
+				old_guard
+				organisational_leader
+				naval_liason
+			}
+			skill = 3
+			attack_skill = 3
+			defense_skill = 5
+			planning_skill = 2
+			logistics_skill = 3
+		}
 		add_stability = 0.02
 	}
 }
@@ -611,6 +624,14 @@ country_event = {
 			defense_skill = 1
 			planning_skill = 2
 			logistics_skill = 1
+		}
+		create_operative_leader = {
+			name = "DVA_Anthony"
+			GFX = GFX_portrait_Viktor
+			traits = { operative_infiltrator operative_tough }
+			bypass_recruitment = yes
+			available_to_spy_master = yes
+			nationalities = { MOT }
 		}
 	}
 }
@@ -717,7 +738,7 @@ country_event = {
 		name = dva.ab.38.a
 		activate_advisor = DVA_Eula
 		set_country_flag = DVA_Eula_rescued
-		add_field_marshal_role = {
+		add_corps_commander_role = {
 			character = DVA_Eula
 			traits = {
 				Cryo_Vision
@@ -725,8 +746,8 @@ country_event = {
 			skill = 5
 			attack_skill = 5
 			defense_skill = 2
-			planning_skill = 4
-			logistics_skill = 3
+			planning_skill = 1
+			logistics_skill = 1
 		}
 	}
 }
@@ -987,7 +1008,7 @@ country_event = {
 	}
 }
 
-#故事圆满落幕...
+#民众抗议
 country_event = {
 	id = dva.ab.16
 	title = dva.ab.16.t
@@ -998,8 +1019,18 @@ country_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		has_country_flag = DVA_noble_war_flag
+		OR = {
+			has_war_with = FAV
+			has_war_with = GUN
+		}
+	}
+
 	option = {
 		name = dva.ab.16.a
+		set_stability = 0.5
+		set_war_support = 0.3
 	}
 }
 
@@ -1051,7 +1082,7 @@ country_event = {
 	}
 }
 
-#又是一年风归处
+#归去之风
 country_event = {
 	id = dva.ab.20
 	title = dva.ab.20.t
@@ -1062,8 +1093,43 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DVA = {
+			add_ideas = #
+			set_technology = {
+				# = 1
+			}
+		}
+	}
+
 	option = {
 		name = dva.ab.20.a
+		ai_chance = {
+			base = 50
+		}
+		DVA = {
+			annex_country = {
+				target = FAV
+			}
+		}
+		custom_effect_tooltip = DOT_lose_game
+	}
+	option = {
+		name = dva.ab.20.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+			}
+		}
+		DVA = {
+			set_autonomy = {
+				target = FAV
+				autonomy_state = autonomy_MOT_Auto_State
+				end_wars = yes
+				end_civil_wars = yes
+			}
+		}
 	}
 }
 
@@ -1689,31 +1755,24 @@ country_event = {
 	option = {
 		name = dva.ab.47.a
 		custom_effect_tooltip = DVA_future_choice2_tt
-		add_country_leader_role = {
-			character = DVA_Mona2
-			promote_leader = yes
-			country_leader = {
-				ideology = futurism
-				expire = "1965.1.1"
-				traits = { DVA_Star_Pioneer }
-			}
-		}
+		promote_character = DVA_Mona2
 		set_party_name = {
 			ideology = communism
-			long_name = DVA_communism_party_transcendence_long
-			name = DVA_communism_party_transcendence
+			long_name = DVA_transcendencism_party_long
+			name = DVA_transcendencism_party
 		}
 		country_event = dva.ab.48
 	}
 	option = {
 		name = dva.ab.47.b
 		custom_effect_tooltip = DVA_future_choice1_tt
-		set_country_leader_ideology = futurism
 		set_party_name = {
 			ideology = communism
-			long_name = DVA_communism_party_future_long
-			name = DVA_communism_party_future
+			long_name = DVA_futurism_party_long
+			name = DVA_futurism_party
 		}
+		set_country_leader_ideology = futurism
+		add_country_leader_trait = DVA_Star_Pioneer
 	}
 }
 
