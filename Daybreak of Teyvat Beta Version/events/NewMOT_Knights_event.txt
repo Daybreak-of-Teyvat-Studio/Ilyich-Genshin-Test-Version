@@ -1586,20 +1586,20 @@ country_event = {
 #骑士团要求西风教会归顺40
 country_event = {
 	id = Knights.40
-	title = Knights.31.t
+	title = Knights.40.t
 	desc = Knights.40.d
 	picture = GFX_event_MOT22
 	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
-		name = Knights.31.b
+		name = Knights.40.b
 		MOT = { country_event = Knights.42 }
 		ai_chance = {
 			base = 70
 		}
 	}
 	option = {
-		name = Knights.31.a
+		name = Knights.40.a
 		MOT = { change_tag_from = ROOT }
 		MOT = { country_event = Knights.41 }
 		ai_chance = {
@@ -1842,50 +1842,52 @@ country_event = {
 	title = Knights.49.t
 	desc = Knights.49.d
 	picture = GFX_event_MOT22
-	trigger = {
-		NOT = { has_global_flag = MOT_Civil_War_1_End }
-		has_war_with = MOT
-		OR = {
-			tag = LAW
-		}
-		OR = {
-			MOT = { surrender_progress > 0.15 }
-			LAW = { surrender_progress > 0.15 }
-		}
-	}
-	is_triggered_only = no
+	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
 		name = Knights.49.a
+		trigger = { original_tag = MOT }
 		add_stability = -0.2
 		add_timed_idea = { idea = MOT_Betrayal_of_Army DAYS = 120 }
 	}
 	option = {
 		name = Knights.49.b
-		add_war_support = -0.2
-		add_timed_idea = { idea = MOT_Betrayal_of_Army DAYS = 120 }
+		trigger = { original_tag = LAW }
+		add_war_support = 0.02
 	}
 }
+
+#trigger = {
+#	NOT = { has_global_flag = MOT_Civil_War_1_End }
+#	has_war_with = MOT
+#	tag = LAW
+#	OR = {
+#		MOT = { surrender_progress > 0.15 }
+#		LAW = { surrender_progress > 0.15 }
+#	}
+#}
 #50 浪沫旋舞
 country_event = {
 	id = Knights.50
 	title = Knights.50.t
 	desc = Knights.50.d
 	picture = GFX_event_MOT22
-	trigger = {
-		tag = LAW
-		has_war_with = MOT
-		not = { has_global_flag = MOT_Civil_War_1_End }
-		OR = {
-			surrender_progress > 0.1
-			MOT = { surrender_progress > 0.15 }
-		}
-	}
+	is_triggered_only = yes
 	fire_only_once = yes
 	option = {
 		name = Knights.50.a
 	}
 }
+
+#trigger = {
+#	tag = LAW
+#	has_war_with = MOT
+#	not = { has_global_flag = MOT_Civil_War_1_End }
+#	OR = {
+#		surrender_progress > 0.1
+#		MOT = { surrender_progress > 0.15 }
+#	}
+#}
 #51 风暴将至 
 country_event = {
 	id = Knights.51
