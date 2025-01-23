@@ -63,15 +63,17 @@ LAW_Stablize_States = {
 		custom_cost_text = decision_cost_CP_20
 		custom_cost_trigger = { command_power > 19 }
 		complete_effect = {
-			hidden_effect = { add_command_power = -20 }
+			LAW = {
+				hidden_effect = { add_command_power = -20 }
+				IF = {
+					limit = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } }
+					custom_effect_tooltip = LAW_tt_Occupy_Stablizing
+				}
+				ELSE = {
+					add_to_variable = { LAW_Var_Stablizing = 1 }
+				}
+			}
 			
-			IF = {
-				limit = { LAW = { check_variable = { LAW_Var_Stablizing < LAW_Var_Max_Stablizing } } }
-				custom_effect_tooltip = LAW_tt_Occupy_Stablizing
-			}
-			ELSE = {
-				add_to_variable = { LAW_Var_Stablizing = 1 }
-			}
 		}
 		remove_effect = {
 			FROM = { remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 } }
@@ -195,7 +197,7 @@ LAW_DC_Seek_for_Help = {
 		visible = {
 			NOT = { has_country_flag = LAW_Not_Show_Decisions_1 }
 		}
-		cost = 30
+		cost = 10
 		days_remove = 35
 		modifier = {
 			stability_factor = 0.2
@@ -239,12 +241,12 @@ LAW_DC_Seek_for_Help = {
 			has_country_flag = LAW_Flag_Show_Begin_Decisions_0_1
 		}
 		available = {
-			has_stability > 0.5
+			has_war_support > 0.5
 		}
 		cost = 5
 		days_remove = 35
 		modifier = {
-			stability_weekly = -0.005
+			war_support_weekly = -0.005
 		}
 		remove_effect = {
 			custom_effect_tooltip = LAW_tt_Make_a_Crown
@@ -276,8 +278,7 @@ LAW_DC_Seek_for_Help = {
 				check_variable = { LAW_Num_of_Crowns > 0 }
 			}
 		}
-		cost = 5
-		days_remove = 35
+		days_remove = 7
 		modifier = {
 		}
 		complete_effect = {
@@ -285,7 +286,7 @@ LAW_DC_Seek_for_Help = {
 			subtract_from_variable = { LAW_Num_of_Crowns = 1 }
 		}
 		remove_effect = {
-			add_political_Power = 70
+			add_political_power = 70
 		}
 		ai_will_do = {
 			base = 100
@@ -316,30 +317,10 @@ LAW_DC_Seek_for_Help = {
 		remove_effect = {
 			random_list = {
 				50 = {
-					add_stability = 0.02
-					add_war_support = 0.02
-				}
-				25 = {
-					add_stability = 0.03
-					add_war_support = 0.03
-				}
-				12 = {
-					add_stability = 0.03
-					add_war_support = 0.03
-					add_political_power = 10
-				}
-				6 = {
 					add_stability = 0.05
-					add_political_power = 20
 				}
-				6 = {
+				50 = {
 					add_war_support = 0.05
-					add_political_power = 20
-				}
-				1 = {
-					add_stability = 0.05
-					add_war_support = 0.05
-					add_political_power = 50
 				}
 			}
 		}
@@ -362,10 +343,10 @@ LAW_DC_Seek_for_Help = {
 				check_variable = { LAW_Num_of_Crowns > 0 }
 			}
 		}
-		cost = 30
 		days_remove = 35
+		days_re_enable = 180
 		modifier = {
-			land_doctrine_cost_factor = -0.05
+			land_doctrine_cost_factor = -0.15
 		}
 		complete_effect = {
 			custom_effect_tooltip = LAW_tt_lose_a_Crown
@@ -393,10 +374,10 @@ LAW_DC_Seek_for_Help = {
 				check_variable = { LAW_Num_of_Crowns > 0 }
 			}
 		}
-		cost = 30
 		days_remove = 35
+		days_re_enable = 180
 		modifier = {
-			land_doctrine_cost_factor = -0.05
+			land_doctrine_cost_factor = -0.15
 		}
 		complete_effect = {
 			custom_effect_tooltip = LAW_tt_lose_a_Crown
@@ -512,7 +493,7 @@ LAW_DC_Seek_for_Help = {
 			has_stability > 0.7
 		}
 		cost = 0
-		days_remove = 30
+		days_remove = 7
 		fire_only_once = yes
 		modifier = {
 			stability_weekly = -0.01
@@ -571,15 +552,21 @@ LAW_DC_Seek_for_Help = {
 			NOT = { has_country_flag = LAW_Has_Run_KNA }
 			has_war_support > 0.5
 		}
-		cost = 0
+		custom_cost_text = decision_cost_CP_10
+		custom_cost_trigger = { command_power > 9 }
 		days_remove = 30
 		modifier = {
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
 		}
 		remove_effect = {
 			custom_effect_tooltip = LAW_tt_Get_Advance
 			add_popularity = {
 				ideology = communism
-				popularity = 0.02
+				popularity = 0.01
 			}
 			add_to_variable = { LAW_Num_of_Advance = 1 }
 			random_owned_state = {
@@ -630,7 +617,7 @@ LAW_DC_Seek_for_Help = {
 			has_war_support > 0.7
 		}
 		fire_only_once = yes
-		cost = 30
+		cost = 0
 		days_remove = 30
 		modifier = {
 			war_support_weekly = -0.01
@@ -686,12 +673,12 @@ LAW_DC_Seek_for_Help = {
 			FAV = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
 		days_remove = 90
+		days_re_enable = 90
 		modifier = {
 			experience_gain_air_factor = 1
 			air_mission_xp_gain_factor = 1
@@ -715,11 +702,11 @@ LAW_DC_Seek_for_Help = {
 			DRA = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
+		days_re_enable = 90
 		days_remove = 90
 		modifier = {
 			research_speed_factor = 0.2
@@ -742,11 +729,11 @@ LAW_DC_Seek_for_Help = {
 			DVA = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
+		days_re_enable = 90
 		days_remove = 90
 		modifier = {
 			industrial_capacity_factory = -0.2
@@ -771,11 +758,11 @@ LAW_DC_Seek_for_Help = {
 			ANR = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
+		days_re_enable = 90
 		days_remove = 90
 		modifier = {
 			local_resources_factor = 0.5
@@ -798,11 +785,11 @@ LAW_DC_Seek_for_Help = {
 			RAG = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
+		days_re_enable = 90
 		days_remove = 90
 		modifier = {
 			stability_factor = 0.25
@@ -825,11 +812,11 @@ LAW_DC_Seek_for_Help = {
 			GUN = {
 				has_opinion = {
 					target = LAW
-					value > 10
+					value > 19
 				}
 			}
 		}
-		cost = 30
+		days_re_enable = 90
 		days_remove = 70
 		modifier = {
 			weekly_manpower = 3000
@@ -1624,7 +1611,7 @@ LAW_DC_Organize_Noble = {
 		fire_only_once = yes
 		selectable_mission = no
 		days_mission_timeout = 60
-		activation = { always = no }
+		activation = { has_global_flag = LAW_Death_of_Shubbert }
 		available = { has_country_flag = LAW_Ended_Nobles }
 		timeout_effect = {
 			custom_effect_tooltip = LAW_tt_Random_Event_Noble
