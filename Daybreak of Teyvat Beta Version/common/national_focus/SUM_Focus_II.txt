@@ -10,7 +10,7 @@ focus_tree={
 		}
 	}
 	default=no
-    continuous_focus_position = { x=100 y=20 }
+    continuous_focus_position = { x=100 y=2000 }
 
 	focus={
 		id=Hold_Sabzeruz_Festival
@@ -18,12 +18,10 @@ focus_tree={
 		x=14
 		y=0
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={			
 			add_popularity={
-				ideology=genshin
-				popularity=0.1
+			ideology=genshin
+			popularity=0.1
 			}
 			add_political_power=10
 			add_manpower=100
@@ -76,9 +74,7 @@ focus_tree={
 		y=6
 		prerequisite={focus=The_Dance_of_Flower_Godness}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -96,9 +92,7 @@ focus_tree={
 		y=6
 		prerequisite={focus=The_Dance_of_Flower_Godness}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			remove_ideas = SUM_The_Akademiya01
 			add_ideas = SUM_The_Akademiya02
 			add_political_power=10
@@ -161,9 +155,7 @@ focus_tree={
 		x=2
 		y=3
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -201,9 +193,7 @@ focus_tree={
 		y=4
 		prerequisite={focus=Money_and_Freedom}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -241,9 +231,7 @@ focus_tree={
 		y=4
 		prerequisite={focus=Money_and_Freedom}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -263,7 +251,7 @@ focus_tree={
 		mutually_exclusive={focus=Miss_Dendro_Archon }
 		cost=7.00
 		ai_will_do = {
-    		factor = 10
+    		base = 10
     	}
 
 		available = {
@@ -321,9 +309,7 @@ focus_tree={
 		y=3
 		prerequisite={focus=The_Sailors_of_Port_Omos_Rise_up}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_popularity={
 				ideology=genshin
 				popularity=0.1
@@ -379,7 +365,7 @@ focus_tree={
 		cost=7.00
 		
 		ai_will_do = {
-    		factor = 10
+    		base = 10
     	}
 
 		available = {
@@ -473,7 +459,7 @@ focus_tree={
 		mutually_exclusive={focus=Support_Lesser_Lord_Kusanali }
 		cost=7.00
 		ai_will_do = {
-    		factor = 1
+    		base = 1
     	}
 
 		available = {
@@ -580,9 +566,23 @@ focus_tree={
 		prerequisite={focus=The_System_of_the_Sage_Meeting}
 		prerequisite={focus=Establish_Dendro_Archon_Church}
 		cost=7.00
+		ai_will_do = {
+    		base = 1
+    	}
+		bypass = {
+
+		}
 		completion_reward={
 			
-		
+		    every_state = {
+				limit = {
+					AND = {
+                        NOT = { is_core_of = SUM }
+                        is_core_of = VAN
+                    }
+				}
+				add_core_of = SUM
+			}		
 			add_popularity={
 				ideology=neutrality
 				popularity=0.10
@@ -796,8 +796,6 @@ focus_tree={
 		prerequisite={focus=Support_Biophysicism}
 		cost=7.00
 		completion_reward={
-			
-		
 			add_ideas = Vulpes_Zerda
 			add_political_power=10
 			add_manpower=100
@@ -824,7 +822,24 @@ focus_tree={
 			SGD = { is_subject = no }
 			SGS = { is_subject = no }
 		}
+		bypass = {			
+		}
 		completion_reward={
+			
+			every_state = {
+				limit = {
+					AND = {
+						NOT = { is_core_of = SUM }
+						OR = {
+							is_core_of = SDH
+							is_core_of = SGD
+                            is_core_of = SGS
+						}
+					}
+				}
+				add_core_of = SUM
+			}
+
 			create_wargoal = {
                 type = take_core_state
                 target = VAN
@@ -881,20 +896,7 @@ focus_tree={
 		prerequisite={focus=The_Dream_of_Desert_Dwellers}
 		cost=7.00
 		completion_reward={
-			every_state = {
-				limit = {
-					AND = {
-						NOT = { is_core_of = SUM }
-						OR = {
-							is_core_of = SDH
-							is_core_of = SGD
-                            is_core_of = SGS
-						}
-					}
-				}
-				add_core_of = SUM
-			}
-		
+		    remove_ideas = SUM_King_Deshret_Believers_Revolt
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
