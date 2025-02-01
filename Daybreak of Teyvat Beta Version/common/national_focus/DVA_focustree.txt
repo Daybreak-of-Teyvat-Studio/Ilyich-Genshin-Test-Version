@@ -836,6 +836,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Deal_With_Mass_Of_Dvalin
 		icon = GFX_MOT_Worst_Day
+		#GFX_MOT_Worst_Day
 		cost = 5
 		prerequisite = {
 			focus = DVA_An_Ordinary_Day
@@ -1401,6 +1402,9 @@ focus_tree = {
 			focus = DVA_free_Dvalindom
 			focus = DVA_Mondstadt_Spring
 		}
+		mutually_exclusive = {
+			focus = DVA_Neither_Archon_nor_noble
+		}
 		x = 9
 		y = 13
 		available = {
@@ -1469,12 +1473,16 @@ focus_tree = {
 			focus = DVA_new_age_began_for_old_Mondstadt
 			focus = DVA_Mondstadt_Spring
 		}
+		mutually_exclusive = {
+			focus = DVA_Cooperate_with_Favonius_Church
+		}
 		x = 12
 		y = 13
 		available = {
 			#
 		}
 		completion_reward = {
+			country_event = dva.ab.14
 			create_wargoal = {
 				target = FAV
 				type = annex_everything
@@ -1548,9 +1556,6 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = DVA_Plan_of_reshuffling_knights_of_favonius
 		}
-		mutually_exclusive = {
-			focus = DVA_merge_with_the_knights_of_favonius
-		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
 		}
@@ -1568,8 +1573,11 @@ focus_tree = {
 		available = {
 			#
 		}
+		select_effect = {
+			activate_shine_on_focus = DVA_The_First_Convention
+			mark_focus_tree_layout_dirty = yes
+		}
 		completion_reward = {
-			country_event = dva.ab.14
 			set_politics = {
 				ruling_party = communism
 				elections_allowed = no
@@ -1591,6 +1599,11 @@ focus_tree = {
 				}
 			}
 			set_cosmetic_tag = DVA_commune
+			custom_effect_tooltip = DVA_break_with_the_past_tt
+			hidden_effect = {
+				deactivate_shine_on_focus = DVA_The_First_Convention
+				mark_focus_tree_layout_dirty = yes
+			}
 		}
 	}
 	focus = {
@@ -2563,9 +2576,6 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = DVA_Plan_of_reshuffling_knights_of_favonius
 		}
-		mutually_exclusive = {
-			focus = DVA_break_with_the_past
-		}
 		x = 8
 		y = 11
 		available = {
@@ -2692,171 +2702,962 @@ focus_tree = {
 	#inner circle
 	focus = {
 		id = DVA_The_First_Convention
-		icon = GFX_focus_DVA_culto_del_duce
+		icon = GFX_focus_AUS_union_of_danubian_socialist_republics
 		
-		x = 16
-		y = -1
+		x = 13
+		y = 2
 		relative_position_id = DVA_Deep_Blue
-		cost = 10
+		cost = 5
 		available = {
 			always = no
 		}
 
+		allow_branch = {
+			has_government = communism
+		}
+
 		completion_reward = {
-			add_political_power = 100
-			swap_country_leader_traits = {
-				remove = Peoples_archon_for_Commune
-				add = Peoples_chairman_for_Commune_Committee
-				ideology = blanquism
+			add_political_power = 150
+			custom_effect_tooltip = DVA_Convention_tt
+			set_country_flag = DVA_Convention_flag
+			all_character = {
+				remove_any_country_role_from_character = yes
 			}
-			DVA_Amber = {
-				add_trait = {
-					slot = air_chief
-					trait = Peoples_Supreme_air_command
-				}
+			add_ideas = DVA_Convention_Election
+			add_ideas = limited_conscription
+			add_ideas = limited_exports
+			add_ideas = partial_economic_mobilisation
+		}
+	}
+
+	
+	focus = {
+		id = DVA_Amber01
+		icon = GFX_focus_DVA_Amber01
+		prerequisite = { focus =  DVA_The_First_Convention }
+		
+		x = -4
+		y = 1
+		relative_position_id = DVA_The_First_Convention
+		cost = 1
+		available = {
+			#
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Amber02
 			}
-			DVA_Razor = {
-				add_trait = {
-					slot = army_chief
-					trait = Peoples_chairman_for_Military_Commission
-				}
-				add_trait = {
-					slot = army_chief
-					trait = Peoples_Supreme_army_command
-				}
+			add_trait = {
+				character = DVA_Amber
+				slot = air_chief
+				trait = Peoples_Supreme_air_command
 			}
-			DVA_Razor = {
-				add_trait = {
+			if = {
+				limit = {
+					DVA_Amber = {
+						not_already_hired_except_as = air_chief
+					}
+				}
+				activate_advisor = DVA_Amber
+			}
+			add_advisor_role = {
+				character = DVA_Amber1
+				activate = yes
+				advisor = {
 					slot = political_advisor
-					trait = Peoples_Supreme_army_command
+					cost = 0
+					idea_token = DVA_Amber
+					traits = {
+						Peoples_chairman_for_Commune_Committee
+					}
 				}
 			}
 		}
 	}
-
-	#inner circle
 	focus = {
-		id = DVA_The_Second_Convention
-		icon = GFX_focus_DVA_culto_del_duce
+		id = DVA_Amber02
+		icon = GFX_focus_FIN_expand_air_force_academy
+		prerequisite = { focus = DVA_Amber01 }
+		
+		x = -4
+		y = 2
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Amber03
+			}
+		}
+	}
+	focus = {
+		id = DVA_Amber03
+		icon = GFX_focus_AUS_danubian_socialist_communes
+		prerequisite = { focus = DVA_Amber02 }
+		
+		x = -4
+		y = 3
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Razor1
+		icon = GFX_focus_DVA_Razor1
+		prerequisite = { focus =  DVA_The_First_Convention }
+		
+		x = -2
+		y = 1
+		relative_position_id = DVA_The_First_Convention
+		cost = 1
+		available = {
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#2-Razor
+			add_trait = {
+				character = DVA_Razor
+				slot = army_chief
+				trait = Peoples_Supreme_army_command
+			}
+			if = {
+				limit = {
+					DVA_Razor = {
+						not_already_hired_except_as = army_chief
+					}
+				}
+				activate_advisor = DVA_Razor
+			}
+			add_advisor_role = {
+				character = DVA_Razor
+				activate = yes
+				advisor = {
+					slot = political_advisor
+					cost = 0
+					idea_token = DVA_Razor
+					traits = {
+						Peoples_chairman_for_Military_Commission
+					}
+				}
+			}
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Razor2
+			}
+		}
+	}
+	focus = {
+		id = DVA_Razor2
+		icon = GFX_focus_BEL_the_french_horse_and_the_red_rider
+		prerequisite = { focus = DVA_Razor1 }
+		
+		x = -2
+		y = 2
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Razor3
+			}
+		}
+	}
+	focus = {
+		id = DVA_Razor3
+		icon = GFX_focus_SMB_blue_water_fleet
+		prerequisite = { focus = DVA_Razor2 }
+		
+		x = -2
+		y = 3
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Albedo1
+		icon = GFX_focus_DVA_Albedo1
 		prerequisite = { focus =  DVA_The_First_Convention }
 		
 		x = 0
 		y = 1
 		relative_position_id = DVA_The_First_Convention
-		cost = 15
+		cost = 1
+		available = {
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Albedo2
+			}
+			#4-Albedo
+			add_trait = {
+				character = DVA_Albedo
+				slot = political_advisor
+				trait = Peoples_commissar_for_Science_and_Technology
+			}
+			if = {
+				limit = {
+					DVA_Albedo = {
+						not_already_hired_except_as = political_advisor
+					}
+				}
+				activate_advisor = DVA_Albedo
+			}
+		}
+	}
+	focus = {
+		id = DVA_Albedo2
+		icon = GFX_focus_BEL_engine_of_the_economy
+		prerequisite = { focus = DVA_Albedo1 }
+		
+		x = 0
+		y = 2
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Albedo3
+			}
+		}
+	}
+	focus = {
+		id = DVA_Albedo3
+		icon = GFX_focus_GER_amerikabomber
+		prerequisite = { focus = DVA_Albedo2 }
+		
+		x = 0
+		y = 3
+		relative_position_id = DVA_The_First_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Bennett1
+		icon = GFX_focus_DVA_Bennett1
+		prerequisite = { focus =  DVA_The_First_Convention }
+		
+		x = 2
+		y = 1
+		relative_position_id = DVA_The_First_Convention
+		cost = 1
+		available = {
+		}
+
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#5-Bennett
+			add_trait = {
+				character = DVA_Bennett
+				slot = political_advisor
+				trait = Peoples_commissar_for_Construction
+			}
+			if = {
+				limit = {
+					DVA_Bennett = {
+						not_already_hired_except_as = political_advisor
+					}
+				}
+				activate_advisor = DVA_Bennett
+			}
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Bennett2
+			}
+		}
+	}
+	focus = {
+		id = DVA_Bennett2
+		icon = GFX_focus_SWE_hygienic_housing
+		prerequisite = { focus =  DVA_Bennett1 }
+		
+		x = 2
+		y = 2
+		relative_position_id = DVA_The_First_Convention
+		cost = 10
 		available = {
 			always = no
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
-			add_political_power = 100
-			add_popularity = {
-				ideology = fascism 
-				popularity = 0.05
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Bennett3
 			}
-			add_war_support = 0.1
 		}
 	}
 	focus = {
-		id = DVA_dino_grandi
-		icon = GFX_focus_DVA_dino_grandi
+		id = DVA_Bennett3
+		icon = GFX_focus_generic_low_cost_housing
+		prerequisite = { focus =  DVA_Bennett2 }
+		
+		x = 2
+		y = 3
+		relative_position_id = DVA_The_First_Convention
+		cost = 10
+		available = {
+			always = no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Raymond1
+		icon = GFX_focus_DVA_Raymond2
+		prerequisite = { focus =  DVA_The_First_Convention }
+		
+		x = 4
+		y = 1
+		relative_position_id = DVA_The_First_Convention
+		cost = 1
+		available = {
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Raymond2
+			}
+			#3-Raymond
+			add_trait = {
+				character = DVA_Raymond
+				slot = political_advisor
+				trait = Peoples_vice_chairman_for_Military_Commission
+			}
+			add_trait = {
+				character = DVA_Raymond
+				slot = political_advisor
+				trait = Peoples_commissar_for_Arms
+			}
+			if = {
+				limit = {
+					DVA_Raymond = {
+						not_already_hired_except_as = political_advisor
+					}
+				}
+				activate_advisor = DVA_Raymond
+			}
+			add_advisor_role = {
+				character = DVA_Raymond
+				activate = yes
+				advisor = {
+					slot = navy_chief
+					cost = 0
+					idea_token = DVA_Raymond
+					traits = {
+						Peoples_Supreme_naval_command
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = DVA_Raymond2
+		icon = GFX_focus_BEL_antwerp_maritime_academy
+		prerequisite = { focus =  DVA_Raymond1 }
+		
+		x = 4
+		y = 2
+		relative_position_id = DVA_The_First_Convention
+		cost = 10
+		available = {
+			always = no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Raymond3
+		}
+	}
+	focus = {
+		id = DVA_Raymond3
+		icon = GFX_focus_BEL_early_helicopters
+		prerequisite = { focus =  DVA_Raymond2 }
+		
+		x = 4
+		y = 3
+		relative_position_id = DVA_The_First_Convention
+		cost = 10
+		available = {
+			always = no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_The_First_Convention_holded
+		icon = GFX_focus_AUS_womens_education_initiative
+		prerequisite = { focus =  DVA_Amber03 }
+		prerequisite = { focus =  DVA_Razor3 }
+		prerequisite = { focus =  DVA_Albedo3 }
+		prerequisite = { focus =  DVA_Bennett3 }
+		prerequisite = { focus =  DVA_Raymond3 }
+		
+		x = 0
+		y = 4
+		relative_position_id = DVA_The_First_Convention
+		cost = 1
+		available = {
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			remove_ideas = DVA_Convention_Election
+			#五人在核心圈子gui里各有一个缩放的小头像
+			if = {
+				limit = {
+					has_country_flag = DVA_helios_project_flag
+					DVA_Mona2 = {
+						not_already_hired_except_as = political_advisor
+					}
+				}
+				activate_advisor = DVA_Mona2
+			}
+		}
+	}
+	#inner circle
+	focus = {
+		id = DVA_The_Second_Convention
+		icon = GFX_focus_CHL_the_future_of_Chile
+		prerequisite = { focus =  DVA_The_First_Convention_holded }
+		
+		x = 0
+		y = 1
+		relative_position_id = DVA_The_First_Convention_holded
+		cost = 15
+		available = {
+			#
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		select_effect = {
+			custom_effect_tooltip = available_chief_of_army
+			add_trait = {
+				character = DVA_Vile
+				slot = political_advisor
+				trait = Peoples_commissar_for_Security
+			}
+			add_trait = {
+				character = DVA_Sucrose
+				slot = political_advisor
+				trait = Peoples_commissar_for_Education
+			}
+			add_trait = {
+				character = DVA_Collei
+				slot = political_advisor
+				trait = Peoples_commissar_for_Natural_Resources
+			}
+			add_advisor_role = {
+				character = DVA_Eula
+				activate = no
+				advisor = {
+					slot = political_advisor
+					cost = 0
+					idea_token = DVA_Eula
+					traits = {
+						Peoples_commissar_for_Foreign_affairs
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_helios_project_flag
+				}
+				add_trait = {
+					character = DVA_Mona2
+					slot = theorist
+					trait = Battlefield_observer
+				}
+			}
+			else = {
+				add_trait = {
+					character = DVA_Mona
+					slot = theorist
+					trait = Peoples_commissar_for_Health
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					focus_progress = {
+						focus = DVA_The_Second_Convention
+						progress > 0.05
+					}
+					has_country_flag = DVA_helios_project_flag
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = DVA_Leah
+				show_ideas_tooltip = DVA_Fischl
+				show_ideas_tooltip = DVA_Vile
+				show_ideas_tooltip = DVA_Sucrose
+				show_ideas_tooltip = DVA_Collei
+				show_ideas_tooltip = DVA_Eula
+				show_ideas_tooltip = DVA_Lisa
+				show_ideas_tooltip = DVA_Hopkins_the_Marvelous
+				show_ideas_tooltip = DVA_Tsarevich
+			}
+			else_if = {
+				limit = {
+					focus_progress = {
+						focus = DVA_The_Second_Convention
+						progress > 0.05
+					}
+					NOT = {
+						has_country_flag = DVA_helios_project_flag
+					}
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = DVA_Leah
+				show_ideas_tooltip = DVA_Fischl
+				show_ideas_tooltip = DVA_Vile
+				show_ideas_tooltip = DVA_Sucrose
+				show_ideas_tooltip = DVA_Collei
+				show_ideas_tooltip = DVA_Eula
+				show_ideas_tooltip = DVA_Mona
+				show_ideas_tooltip = DVA_Lisa
+				show_ideas_tooltip = DVA_Hopkins_the_Marvelous
+				show_ideas_tooltip = DVA_Tsarevich
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
+			}
+		}
+	}
+	focus = {
+		id = DVA_Collei1
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_The_Second_Convention }
+		
+		x = -9
+		y = 1
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
+			#has_completed_focus = DVA_in_the_name_of_Cuilein_Anbar
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Collei2
+		}
+	}
+	focus = {
+		id = DVA_Collei2
+		icon = GFX_MOT_Light_Future
+		prerequisite = { focus =  DVA_Collei1 }
+		
+		x = -9
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Collei3
+		}
+	}
+	focus = {
+		id = DVA_Collei3
+		icon = GFX_focus_generic_land_reclamation
+		prerequisite = { focus =  DVA_Collei2 }
+		
+		x = -9
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Eula1
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_The_Second_Convention }
+		
+		x = -7
+		y = 1
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Eula2
+		}
+	}
+	focus = {
+		id = DVA_Eula2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Eula1 }
+		
+		x = -7
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Eula3
+		}
+	}
+	focus = {
+		id = DVA_Eula3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Eula2 }
+		
+		x = -7
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Fischl1
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_The_Second_Convention }
+		
+		x = -5
+		y = 1
+		relative_position_id = DVA_The_Second_Convention
+		cost = 1
+		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Fischl2
+		}
+	}
+	focus = {
+		id = DVA_Fischl2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Fischl1 }
+		
+		x = -5
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Fischl3
+		}
+	}
+	focus = {
+		id = DVA_Fischl3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Fischl2 }
+		
+		x = -5
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Leah1
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_The_Second_Convention }
+		
+		x = -3
+		y = 1
+		relative_position_id = DVA_The_Second_Convention
+		cost = 1
+		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Leah2
+		}
+	}
+	focus = {
+		id = DVA_Leah2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Leah1 }
+		
+		x = -3
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Leah3
+		}
+	}
+	focus = {
+		id = DVA_Leah3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Leah2 }
+		
+		x = -3
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Lisa1
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_The_Second_Convention }
+		
+		x = -1
+		y = 1
+		relative_position_id = DVA_The_Second_Convention
+		cost = 1
+		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Lisa2
+		}
+	}
+	focus = {
+		id = DVA_Lisa2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Lisa1 }
+		
+		x = -1
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Lisa3
+		}
+	}
+	focus = {
+		id = DVA_Lisa3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Lisa2 }
+		
+		x = -1
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_Mona1
+		icon = GFX_focus_ITA_devaluate_the_lire
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 1
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 10
+		cost = 1
 		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
 		completion_reward = {
-			activate_shine_on_focus = DVA_dino_grandi2
-			if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_1 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_2 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_3 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_4 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_5 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_6 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_7 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_8 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_8 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_9 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_9 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_10 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_10 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_11 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_11 = 2 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_12 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_12 = 2 }
-				}
-			add_to_variable = { DVA_iri_consumer_goods_factor = -0.05 }
-			add_to_variable = { DVA_iri_production_speed_arms_factory_factor = 0.05 }
-			add_to_variable = { DVA_iri_production_speed_industrial_complex_factor = 0.05 }
-            custom_effect_tooltip = DVA_economic_reforms_ricostruzione_industriale_tt
+			activate_shine_on_focus = DVA_Mona02
 		}
 	}
 	focus = {
-		id = DVA_dino_grandi2
-		icon = GFX_focus_usa_reestablish_the_gold_standard
-		prerequisite = { focus =  DVA_dino_grandi }
+		id = DVA_Mona02
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Mona1 }
 		
 		x = 1
 		y = 2
@@ -2865,23 +3666,19 @@ focus_tree = {
 		available = {
 			always=no
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_dino_grandi3
-			add_to_variable = {  DVA_iri_conversion_cost_civ_to_mil_factor = -0.1 }
-			custom_effect_tooltip = DVA_improve_the_industries_ricostruzione_industriale_tt
-			add_to_variable = {  DVA_military_industry_dm_production_factory_start_efficiency_factor = 0.05 }
-			add_to_variable = {  DVA_military_industry_dm_line_change_production_efficiency_factor = 0.05 }
-			add_to_variable = { DVA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
-			custom_effect_tooltip = DVA_improve_the_industries_military_industry_tt
+			activate_shine_on_focus = DVA_Mona3
 		}
 	}
 	focus = {
-		id = DVA_dino_grandi3
-		icon = GFX_focus_mex_privatisation
-		prerequisite = { focus =  DVA_dino_grandi2 }
+		id = DVA_Mona3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Mona02 }
 		
 		x = 1
 		y = 3
@@ -2890,962 +3687,265 @@ focus_tree = {
 		available = {
 			always=no
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
-			custom_effect_tooltip = DVA_expanded_corporatism_ricostruzione_industriale_tt
-			add_to_variable = { DVA_iri_production_speed_arms_factory_factor = 0.05 }
-			add_to_variable = { DVA_iri_production_speed_industrial_complex_factor = 0.05 }
+			#
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo01
-		icon = GFX_focus_generic_industry_2
+		id = DVA_Sucrose1
+		icon = GFX_focus_ITA_devaluate_the_lire
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 3
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 10
+		cost = 1
 		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			activate_shine_on_focus = DVA_Sucrose2
+		}
+	}
+	focus = {
+		id = DVA_Sucrose2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Sucrose1 }
+		
+		x = 3
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Sucrose3
+		}
+	}
+	focus = {
+		id = DVA_Sucrose3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Sucrose2 }
+		
+		x = 3
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
 			#
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo02
-		icon = GFX_focus_generic_industry_2
+		id = DVA_Vile1
+		icon = GFX_focus_ITA_devaluate_the_lire
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 5
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 10
+		cost = 1
 		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			activate_shine_on_focus = DVA_Vile2
+		}
+	}
+	focus = {
+		id = DVA_Vile2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Vile1 }
+		
+		x = 5
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Vile3
+		}
+	}
+	focus = {
+		id = DVA_Vile3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Vile2 }
+		
+		x = 5
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
 			#
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo03
-		icon = GFX_focus_generic_industry_2
+		id = DVA_Tsarevich1
+		icon = GFX_focus_ITA_devaluate_the_lire
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 7
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 10
+		cost = 1
 		available = {
+			Is_Alternate = yes
+		}
+		
+		allow_branch = {
+			has_government = communism
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			activate_shine_on_focus = DVA_Tsarevich2
+		}
+	}
+	focus = {
+		id = DVA_Tsarevich2
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Tsarevich1 }
+		
+		x = 7
+		y = 2
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			activate_shine_on_focus = DVA_Tsarevich3
+		}
+	}
+	focus = {
+		id = DVA_Tsarevich3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Tsarevich2 }
+		
+		x = 7
+		y = 3
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			always=no
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
 			#
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo04
-		icon = GFX_focus_generic_industry_2
+		id = DVA_Hopkins1
+		icon = GFX_focus_ITA_devaluate_the_lire
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 9
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 10
+		cost = 1
 		available = {
+			Is_Alternate = yes
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			#
-		}
-	}
-	focus = {
-		id = DVA_giacomo_acerbo05
-		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_The_Second_Convention }
 		
-		x = 11
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
+		allow_branch = {
+			has_government = communism
 		}
 
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
 		completion_reward = {
-			#
+			activate_shine_on_focus = DVA_Hopkins2
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo
-		icon = GFX_focus_generic_industry_2
-		prerequisite = { focus =  DVA_The_Second_Convention }
-		
-		x = -11
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_to_variable = { ITA_iri_consumer_goods_factor = -0.05 }
-			custom_effect_tooltip = ITA_novus_ordo_ricostruzione_industriale_tt
-			add_to_variable = { ITA_military_industry_dm_industrial_capacity_factory = 0.05 }
-			add_to_variable = { ITA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
-			custom_effect_tooltip = ITA_novus_ordo_military_industry_tt
-			activate_shine_on_focus = ITA_giacomo_acerbo2
-			if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_1 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_2 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_3 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_4 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_5 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_6 = 3 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { ITA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { ITA_ascended_advisor_7 = 3 }
-				}
-		}
-	}
-	focus = {
-		id = DVA_giacomo_acerbo2
+		id = DVA_Hopkins2
 		icon = GFX_focus_ITA_devaluate_the_lire
-		prerequisite = { focus =  DVA_giacomo_acerbo }
+		prerequisite = { focus =  DVA_Hopkins1 }
 		
-		x = -11
+		x = 9
 		y = 2
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
+		
+		allow_branch = {
+			has_government = communism
+		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_italo_balbo3
-			add_ideas = DVA_devaluated_lira
-			
-			
+			activate_shine_on_focus = DVA_Hopkins3
 		}
 	}
 	focus = {
-		id = DVA_giacomo_acerbo3
-		icon = GFX_focus_generic_land_reclamation
-		prerequisite = { focus =  DVA_giacomo_acerbo2 }
+		id = DVA_Hopkins3
+		icon = GFX_focus_ITA_devaluate_the_lire
+		prerequisite = { focus =  DVA_Hopkins2 }
 		
-		x = -11
+		x = 9
 		y = 3
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
 			always=no
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {			
-			#		
-		}
-	}
-	focus = {
-		id = DVA_renato_ricci
-		icon = GFX_focus_DVA_generic_fascist_workers
-		prerequisite = { focus =  DVA_The_Second_Convention }
 		
-		x = -9
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
+		allow_branch = {
+			has_government = communism
 		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			add_political_power = 100
-			add_popularity = {
-				ideology = fascism 
-				popularity = 0.05
-			}
-			add_war_support = 0.1
-			activate_shine_on_focus = DVA_renato_ricci2
-			if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_1 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_1 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_2 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_2 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_3 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_3 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_4 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_4 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_5 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_5 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_6 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_6 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_7 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_7 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_8 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_8 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_9 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_9 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_10 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_10 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_11 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_11 = 4 }
-			}
-			else_if = {
-				limit = {
-					check_variable = { DVA_ascended_advisor_12 = 0 }
-				}
-				set_variable = { DVA_ascended_advisor_12 = 4 }
-			}
-		}
-	}
-	focus = {
-		id = DVA_renato_ricci2
-		icon = GFX_focus_SOV_breadbasket_of_the_union
-		prerequisite = { focus =  DVA_renato_ricci }
-		
-		x = -9
-		y = 2
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_renato_ricci3
-			add_ideas = DVA_battaglia_del_grano
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_renato_ricci3
-		icon = GFX_focus_DVA_workers_unions
-		prerequisite = { focus =  DVA_renato_ricci2 }
-		
-		x = -9
-		y = 3
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			
-			add_to_variable = { DVA_military_industry_dm_production_factory_efficiency_gain_factor = 0.05 }
-			add_to_variable = { DVA_military_industry_dm_industrial_capacity_factory = 0.05 }
-			add_to_variable = { DVA_military_industry_dm_industrial_capacity_dockyard = 0.05 }
-			custom_effect_tooltip = DVA_empower_the_unions_military_industry_dm_tt
-
-			random_core_state = {
-				limit = {
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_giuseppe_bottai
-		icon = GFX_goal_generic_scientific_exchange
-		prerequisite = { focus =  DVA_The_Second_Convention }
-		
-		x = -7
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_research_slot=1
-			activate_shine_on_focus = DVA_giuseppe_bottai2
-			if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_1 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_2 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_3 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_4 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_5 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_6 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_7 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_8 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_8 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_9 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_9 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_10 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_10 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_11 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_11 = 5 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_12 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_12 = 5 }
-				}
-			
-		}
-	}
-	focus = {
-		id = DVA_giuseppe_bottai2
-		icon = GFX_focus_generic_italy_propaganda
-		prerequisite = { focus =  DVA_giuseppe_bottai }
-		
-		x = -7
-		y = 2
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_giuseppe_bottai3
-			add_political_power = 100
-			add_popularity = {
-				ideology = fascism 
-				popularity = 0.05
-			}
-			add_war_support = 0.1
-			
-			
-		}
-	}
-		focus = {
-		id = DVA_giuseppe_bottai3
-		icon = GFX_focus_generic_population_growth
-		prerequisite = { focus =  DVA_giuseppe_bottai2 }
-		
-		x = -7
-		y = 3
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_ideas = DVA_battaglia_per_la_nascite
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_mario_roatta
-		icon = GFX_focus_DVA_blackshirts
-		prerequisite = { focus =  DVA_The_Second_Convention }
-		
-		x = -5
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_political_power = 100
-			add_popularity = {
-				ideology = fascism 
-				popularity = 0.05
-			}
-			add_war_support = 0.1
-			
-			activate_shine_on_focus = DVA_mario_roatta2
-			if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_1 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_2 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_3 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_4 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_5 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_6 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_7 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_8 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_8 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_9 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_9 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_10 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_10 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_11 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_11 = 6 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_12 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_12 = 6 }
-				}
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_mario_roatta2
-		icon = GFX_goal_generic_military_sphere
-		prerequisite = { focus =  DVA_mario_roatta }
-		
-		x = -5
-		y = 2
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_mario_roatta3
-			add_ideas = DVA_divino_duce_1
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_mario_roatta3
-		icon = GFX_focus_generic_little_entente
-		prerequisite = { focus =  DVA_mario_roatta2 }
-		
-		x = -5
-		y = 3
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = DVA_divino_duce_1
-				add_idea = DVA_divino_duce_2
-			}		
-		}
-	}
-	focus = {
-		id = DVA_The_Second_Convention2
-		icon = GFX_focus_DVA_capo_supremo
-		prerequisite = { focus =  DVA_mario_roatta3 }
-		prerequisite = { focus =  DVA_giacomo_acerbo3 }
-		prerequisite = { focus =  DVA_renato_ricci3 }
-		prerequisite = { focus =  DVA_giuseppe_bottai3 }
-		prerequisite = { focus =  DVA_italo_balbo3 }
-		prerequisite = { focus =  DVA_gian_galeazzo_ciano3 }
-		prerequisite = { focus =  DVA_dino_grandi3 }
-		x = 0
-		y = 4
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-			
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			
-			add_country_leader_trait = GER_loyal_inner_circle
-			
-			
-		}
-	}
-	focus = {
-		id = DVA_gian_galeazzo_ciano
-		icon = GFX_focus_generic_diplomatic_treaty
-		prerequisite = { focus =  DVA_The_Second_Convention }
-		
-		x = -1
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_ideas = DVA_italian_hegemony_master_1
-			activate_shine_on_focus = DVA_gian_galeazzo_ciano2
-			if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_1 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_2 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_3 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_4 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_5 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_6 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_7 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_8 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_8 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_9 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_9 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_10 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_10 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_11 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_11 = 7 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_12 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_12 = 7 }
-				}
-			
-		}
-	}
-	focus = {
-		id = DVA_gian_galeazzo_ciano2
-		icon = GFX_focus_generic_spread_fascism
-		prerequisite = { focus =  DVA_gian_galeazzo_ciano }
-		
-		x = -1
-		y = 2
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_gian_galeazzo_ciano3
-			swap_ideas = {
-				remove_idea = DVA_italian_hegemony_master_1
-				add_idea = DVA_italian_hegemony_master_2
-			}
-		}
-	}
-	focus = {
-		id = DVA_gian_galeazzo_ciano3
-		icon = GFX_focus_DVA_italian_hegemony
-		prerequisite = { focus =  DVA_gian_galeazzo_ciano2 }
-		
-		x = -1
-		y = 3
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = DVA_italian_hegemony_master_2
-				add_idea = DVA_italian_hegemony_master_3
-			}
-		}
-	}
-	focus = {
-		id = DVA_italo_balbo
-		icon = GFX_focus_DVA_italo_balbo
-		prerequisite = { focus =  DVA_The_Second_Convention }
-		
-		x = -3
-		y = 1
-		relative_position_id = DVA_The_Second_Convention
-		cost = 10
-		available = {
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_italo_balbo2
-			add_ideas = DVA_italo_balbo_traits
-			if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_1 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_1 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_2 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_2 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_3 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_3 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_4 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_4 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_5 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_5 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_6 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_6 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_7 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_7 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_8 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_8 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_9 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_9 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_10 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_10 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_11 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_11 = 1 }
-				}
-				else_if = {
-					limit = {
-						check_variable = { DVA_ascended_advisor_12 = 0 }
-					}
-					set_variable = { DVA_ascended_advisor_12 = 1 }
-				}
-			
-		}
-	}
-	focus = {
-		id = DVA_italo_balbo2
-		icon = GFX_focus_SOV_flying_clubs
-		prerequisite = { focus =  DVA_italo_balbo }
-		
-		x = -3
-		y = 2
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			activate_shine_on_focus = DVA_italo_balbo3
-			add_timed_idea = { 
-				idea = DVA_prioritizing_the_military 
-				days = 365 
-			}
-			custom_effect_tooltip = DVA_reinforce_aeronautica_ra_tt
-		}
-	}
-	focus = {
-		id = DVA_italo_balbo3
-		icon = GFX_focus_generic_armored_air_support
-		prerequisite = { focus =  DVA_italo_balbo2 }
-		
-		x = -3
-		y = 3
-		relative_position_id = DVA_The_Second_Convention
-		cost = 20
-		available = {
-			always=no
-		}
-
-		search_filters = {FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_to_variable = { DVA_ra_ground_attack_factor = 0.05 }
-			add_to_variable = { DVA_ra_air_intercept_efficiency = 0.05 }
-			custom_effect_tooltip = DVA_compagnie_auto_avio_sahariane_ra_tt
-			add_to_variable = {  DVA_re_org_loss_when_moving = -0.05 }
-			add_to_variable = {  DVA_re_out_of_supply = -0.05 }
-			custom_effect_tooltip = DVA_compagnie_auto_avio_sahariane_re_tt
-			add_to_variable = {  DVA_ra_air_mission_efficiency = 0.05 }
-			add_to_variable = {  DVA_ra_air_cas_present_factor = 0.05 }
-			custom_effect_tooltip = DVA_combined_land_and_air_warfare_ra_tt
-			add_to_variable = {  DVA_re_army_army_org_factor = 0.05 }
-			add_to_variable = {  DVA_re_armor_attack = 0.05 }
-			custom_effect_tooltip = DVA_combined_land_and_air_warfare_re_tt
+			#
 		}
 	}
 }
