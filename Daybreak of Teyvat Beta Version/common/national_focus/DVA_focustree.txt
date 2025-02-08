@@ -1002,6 +1002,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.1
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Raymond
 		}
 	}
 	focus = {
@@ -1018,8 +1020,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.3
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = DVA_Raymond
 			hidden_effect = {
 				country_event = {
 					id = dva.ab.101
@@ -1412,6 +1412,14 @@ focus_tree = {
 				has_country_flag = DVA_middle_way
 				has_country_flag = DVA_amber_win
 			}
+			2 = {
+				controller = {
+					OR = {
+						original_tag = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+			}
 		}
 		select_effect = {
 			FAV= {
@@ -1721,23 +1729,8 @@ focus_tree = {
 		y = 15
 		available = {
 			has_country_flag = DVA_economy_reform_finished_flag
+			has_completed_focus = DVA_The_First_Convention_holded
 			1 = {
-				controller = {
-					OR = {
-						original_tag = ROOT
-						is_puppet_of = ROOT
-					}
-				}
-			}
-			2 = {
-				controller = {
-					OR = {
-						original_tag = ROOT
-						is_puppet_of = ROOT
-					}
-				}
-			}
-			3 = {
 				controller = {
 					OR = {
 						original_tag = ROOT
@@ -1766,16 +1759,10 @@ focus_tree = {
 		x = 10
 		y = 16
 		available = {
-			DVA_Hopkins_the_Marvelous = {
-				is_political_advisor = yes
-			}
+			has_completed_focus = DVA_Hopkins3
 		}
 		bypass = {
-			NOT = {
-				DVA_Hopkins_the_Marvelous = {
-					is_political_advisor = yes
-				}
-			}
+			#
 		}
 		completion_reward = {
 			country_event = dva.ab.44
@@ -1791,16 +1778,10 @@ focus_tree = {
 		x = 12
 		y = 16
 		available = {
-			DVA_Tsarevich = {
-				is_political_advisor = yes
-			}
+			has_completed_focus = DVA_Tsarevich3
 		}
 		bypass = {
-			NOT = {
-				DVA_Tsarevich = {
-					is_political_advisor = yes
-				}
-			}
+			#
 		}
 		completion_reward = {
 			country_event = dva.ab.45
@@ -1816,7 +1797,7 @@ focus_tree = {
 		x = 14
 		y = 16
 		available = {
-			#
+			has_completed_focus = DVA_Lisa3
 		}
 		completion_reward = {
 			remove_ideas = DVA_corruption
@@ -2568,7 +2549,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_merge_with_the_knights_of_favonius
-		icon = goals_RAGmsajdjag
+		icon = GFX_focus_generic_subjugation
 		cost = 4
 		prerequisite = {
 			focus = DVA_offering_gifts_and_loyalty
@@ -2727,6 +2708,92 @@ focus_tree = {
 			add_ideas = limited_conscription
 			add_ideas = limited_exports
 			add_ideas = partial_economic_mobilisation
+			hidden_effect = {
+				add_advisor_role = {
+					character = DVA_Amber1
+					activate = no
+					advisor = {
+						slot = political_advisor
+						cost = 0
+						idea_token = DVA_Amber1
+						traits = {
+							Peoples_chairman_for_Commune_Committee
+						}
+					}
+				}
+				add_trait = {
+					character = DVA_Amber
+					slot = air_chief
+					trait = Peoples_Supreme_air_command
+				}
+				add_advisor_role = {
+					character = DVA_Razor
+					activate = no
+					advisor = {
+						slot = political_advisor
+						cost = 0
+						idea_token = DVA_Razor
+						traits = {
+							Peoples_chairman_for_Military_Commission
+						}
+					}
+				}
+				add_trait = {
+					character = DVA_Razor
+					slot = army_chief
+					trait = Peoples_Supreme_army_command
+				}
+				add_trait = {
+					character = DVA_Albedo
+					slot = political_advisor
+					trait = Peoples_commissar_for_Science_and_Technology
+				}
+				add_trait = {
+					character = DVA_Bennett
+					slot = political_advisor
+					trait = Peoples_commissar_for_Construction
+				}
+				remove_trait = {
+					character = DVA_Raymond
+					slot = political_advisor
+					trait = experienced_old_knight
+				}
+				add_trait = {
+					character = DVA_Raymond
+					slot = political_advisor
+					trait = Peoples_vice_chairman_for_Military_Commission
+				}
+				add_trait = {
+					character = DVA_Raymond
+					slot = political_advisor
+					trait = Peoples_commissar_for_Arms
+				}
+				add_advisor_role = {
+					character = DVA_Raymond
+					activate = no
+					advisor = {
+						slot = navy_chief
+						cost = 0
+						idea_token = DVA_Raymond_navy
+						traits = {
+							Peoples_Supreme_naval_command
+						}
+					}
+				}
+				add_advisor_role = {
+					character = DVA_Bennett
+					activate = no
+					advisor = {
+						slot = high_command
+						cost = 0
+						idea_token = DVA_Bennett
+						traits = {
+							Peoples_Director_of_support
+						}
+						ledger = army
+					}
+				}
+			}
 		}
 	}
 
@@ -2747,36 +2814,40 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
-
+		select_effect = {
+			#
+		}
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Amber02
-			}
-			add_trait = {
-				character = DVA_Amber
-				slot = air_chief
-				trait = Peoples_Supreme_air_command
-			}
-			if = {
-				limit = {
-					DVA_Amber = {
-						not_already_hired_except_as = air_chief
+				activate_advisor = DVA_Amber1
+				if = {
+					limit = {
+						DVA_Amber = {
+							not_already_hired_except_as = air_chief
+						}
 					}
+					activate_advisor = DVA_Amber_air
 				}
-				activate_advisor = DVA_Amber
-			}
-			add_advisor_role = {
-				character = DVA_Amber1
-				activate = yes
-				advisor = {
-					slot = political_advisor
-					cost = 0
-					idea_token = DVA_Amber
-					traits = {
-						Peoples_chairman_for_Commune_Committee
-					}
+				set_country_flag = DVA_Amber02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Amber.01
+					days = 140
 				}
+				#
 			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character2_tt
+				CHARACTER = DVA_Amber1
+				TRAIT = Peoples_chairman_for_Commune_Committee
+			}
+			show_ideas_tooltip = Peoples_chairman_for_Commune_Committee
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character3_tt
+				CHARACTER = DVA_Amber1
+				TRAIT = Peoples_Supreme_air_command
+			}
+			show_ideas_tooltip = Peoples_Supreme_air_command
 		}
 	}
 	focus = {
@@ -2789,7 +2860,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = GER_form_organization_todt_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Amber1
+						FLAG_DAYS = [?DVA_Amber02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -2799,6 +2885,11 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Amber03
+				set_country_flag = DVA_Amber03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Amber.02
+					days = 140
+				}
 			}
 		}
 	}
@@ -2838,37 +2929,39 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
-
+		select_effect = {
+			#
+		}
 		completion_reward = {
-			#2-Razor
-			add_trait = {
-				character = DVA_Razor
-				slot = army_chief
-				trait = Peoples_Supreme_army_command
-			}
-			if = {
-				limit = {
-					DVA_Razor = {
-						not_already_hired_except_as = army_chief
-					}
-				}
-				activate_advisor = DVA_Razor
-			}
-			add_advisor_role = {
-				character = DVA_Razor
-				activate = yes
-				advisor = {
-					slot = political_advisor
-					cost = 0
-					idea_token = DVA_Razor
-					traits = {
-						Peoples_chairman_for_Military_Commission
-					}
-				}
-			}
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Razor2
+				if = {
+					limit = {
+						DVA_Razor = {
+							not_already_hired_except_as = army_chief
+						}
+					}
+					activate_advisor = DVA_Razor_army
+				}
+				set_country_flag = DVA_Razor02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Razor.01
+					days = 140
+				}
+				#
 			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character2_tt
+				CHARACTER = DVA_Razor
+				TRAIT = Peoples_chairman_for_Military_Commission
+			}
+			show_ideas_tooltip = Peoples_chairman_for_Military_Commission
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character3_tt
+				CHARACTER = DVA_Razor
+				TRAIT = Peoples_Supreme_army_command
+			}
+			show_ideas_tooltip = Peoples_Supreme_army_command
 		}
 	}
 	focus = {
@@ -2891,6 +2984,11 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Razor3
+				set_country_flag = DVA_Razor03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Razor.02
+					days = 140
+				}
 			}
 		}
 	}
@@ -2930,25 +3028,34 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
+		select_effect = {
+			#
+		}
 
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Albedo2
-			}
-			#4-Albedo
-			add_trait = {
-				character = DVA_Albedo
-				slot = political_advisor
-				trait = Peoples_commissar_for_Science_and_Technology
-			}
-			if = {
-				limit = {
-					DVA_Albedo = {
-						not_already_hired_except_as = political_advisor
+				if = {
+					limit = {
+						DVA_Albedo = {
+							not_already_hired_except_as = political_advisor
+						}
 					}
+					activate_advisor = DVA_Albedo
 				}
-				activate_advisor = DVA_Albedo
+				set_country_flag = DVA_Albedo02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Albedo.01
+					days = 140
+				}
+				#
 			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character2_tt
+				CHARACTER = DVA_Albedo
+				TRAIT = Peoples_commissar_for_Science_and_Technology
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Science_and_Technology
 		}
 	}
 	focus = {
@@ -2971,6 +3078,11 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Albedo3
+				set_country_flag = DVA_Albedo03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Albedo.02
+					days = 140
+				}
 			}
 		}
 	}
@@ -3010,25 +3122,40 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
+		select_effect = {
+			#
+		}
 
 		completion_reward = {
-			#5-Bennett
-			add_trait = {
-				character = DVA_Bennett
-				slot = political_advisor
-				trait = Peoples_commissar_for_Construction
-			}
-			if = {
-				limit = {
-					DVA_Bennett = {
-						not_already_hired_except_as = political_advisor
-					}
-				}
-				activate_advisor = DVA_Bennett
-			}
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Bennett2
+				if = {
+					limit = {
+						DVA_Bennett = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Bennett
+				}
+				set_country_flag = DVA_Bennett02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Bennett.01
+					days = 140
+				}
+				#
 			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character2_tt
+				CHARACTER = DVA_Bennett
+				TRAIT = Peoples_commissar_for_Construction
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Construction
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character3_tt
+				CHARACTER = DVA_Bennett
+				TRAIT = Peoples_Director_of_support
+			}			
+			show_ideas_tooltip = Peoples_Director_of_support
 		}
 	}
 	focus = {
@@ -3051,6 +3178,11 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Bennett3
+				set_country_flag = DVA_Bennett03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Bennett.02
+					days = 140
+				}
 			}
 		}
 	}
@@ -3090,42 +3222,48 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
+		select_effect = {
+			#
+		}
 
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Raymond2
-			}
-			#3-Raymond
-			add_trait = {
-				character = DVA_Raymond
-				slot = political_advisor
-				trait = Peoples_vice_chairman_for_Military_Commission
-			}
-			add_trait = {
-				character = DVA_Raymond
-				slot = political_advisor
-				trait = Peoples_commissar_for_Arms
-			}
-			if = {
-				limit = {
-					DVA_Raymond = {
-						not_already_hired_except_as = political_advisor
+				if = {
+					limit = {
+						DVA_Raymond = {
+							not_already_hired_except_as = political_advisor
+						}
 					}
+					activate_advisor = DVA_Raymond
 				}
-				activate_advisor = DVA_Raymond
-			}
-			add_advisor_role = {
-				character = DVA_Raymond
-				activate = yes
-				advisor = {
-					slot = navy_chief
-					cost = 0
-					idea_token = DVA_Raymond
-					traits = {
-						Peoples_Supreme_naval_command
+				if = {
+					limit = {
+						DVA_Raymond = {
+							not_already_hired_except_as = navy_chief
+						}
 					}
+					activate_advisor = DVA_Raymond_navy
 				}
+				set_country_flag = DVA_Raymond02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Raymond.01
+					days = 140
+				}
+				#
 			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character2_tt
+				CHARACTER = DVA_Raymond
+				TRAIT = Peoples_commissar_for_Arms
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Arms
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character3_tt
+				CHARACTER = DVA_Raymond
+				TRAIT = Peoples_Supreme_naval_command
+			}			
+			show_ideas_tooltip = Peoples_Supreme_naval_command
 		}
 	}
 	focus = {
@@ -3146,7 +3284,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Raymond3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Raymond3
+				set_country_flag = DVA_Raymond03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Raymond.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
@@ -3192,7 +3337,22 @@ focus_tree = {
 
 		completion_reward = {
 			remove_ideas = DVA_Convention_Election
-			#五人在核心圈子gui里各有一个缩放的小头像
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = DVA_helios_project_flag
+						DVA_Mona2 = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					add_trait = {
+						character = DVA_Mona2
+						slot = political_advisor
+						trait = Alternate_Commissar_for_Central_Executive_Committee
+					}
+					activate_advisor = DVA_Mona2
+				}
+			}
 			if = {
 				limit = {
 					has_country_flag = DVA_helios_project_flag
@@ -3200,7 +3360,26 @@ focus_tree = {
 						not_already_hired_except_as = political_advisor
 					}
 				}
-				activate_advisor = DVA_Mona2
+				custom_effect_tooltip = {
+					localization_key = DVA_ascension_of_Mona_tt
+					CHARACTER = DVA_Mona2
+					TRAIT = Alternate_Commissar_for_Central_Executive_Committee
+				}
+				show_ideas_tooltip = Alternate_Commissar_for_Central_Executive_Committee
+			}
+			if = {
+				limit = {
+					has_completed_focus = DVA_Raymond1
+				}
+				custom_effect_tooltip = {
+					localization_key = DVA_ascension_of_character3_tt
+					CHARACTER = DVA_Raymond
+					TRAIT = Peoples_vice_chairman_for_Military_Commission
+				}
+				show_ideas_tooltip = Peoples_vice_chairman_for_Military_Commission
+			}
+			else = {
+				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
 	}
@@ -3215,7 +3394,7 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention_holded
 		cost = 15
 		available = {
-			#
+			has_completed_focus = DVA_sunlight_shines_on_Mondstadt
 		}
 		
 		allow_branch = {
@@ -3223,21 +3402,85 @@ focus_tree = {
 		}
 
 		select_effect = {
-			custom_effect_tooltip = available_chief_of_army
 			add_trait = {
-				character = DVA_Vile
+				character = DVA_Hopkins_the_Marvelous
 				slot = political_advisor
-				trait = Peoples_commissar_for_Security
+				trait = Peoples_commissar_for_Food
+			}
+			add_trait = {
+				character = DVA_Collei
+				slot = political_advisor
+				trait = Peoples_commissar_for_Natural_Resources
+			}
+			add_trait = {
+				character = DVA_Fischl
+				slot = political_advisor
+				trait = Peoples_commissar_for_Propaganda
+			}
+			add_trait = {
+				character = DVA_Leah
+				slot = political_advisor
+				trait = Peoples_commissar_for_Audit
+			}
+			add_trait = {
+				character = DVA_Lisa
+				slot = political_advisor
+				trait = Peoples_commissar_for_Inspection
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_helios_project_flag
+				}
+				remove_trait = {
+					character = DVA_Mona2
+					slot = political_advisor
+					trait = Alternate_Commissar_for_Central_Executive_Committee
+				}
+				add_trait = {
+					character = DVA_Mona2
+					slot = political_advisor
+					trait = Peoples_commissar_for_Development
+				}
+				add_advisor_role = {
+					character = DVA_Mona2
+					activate = no
+					advisor = {
+						slot = theorist
+						cost = 0
+						idea_token = DVA_Mona2_tot
+						traits = {
+							Battlefield_observer
+						}
+						ledger = army
+					}
+				}
+			}
+			else = {
+				add_trait = {
+					character = DVA_Mona
+					slot = political_advisor
+					trait = Peoples_commissar_for_Health
+				}
 			}
 			add_trait = {
 				character = DVA_Sucrose
 				slot = political_advisor
 				trait = Peoples_commissar_for_Education
 			}
-			add_trait = {
-				character = DVA_Collei
+			remove_trait = {
+				character = DVA_Vile
 				slot = political_advisor
-				trait = Peoples_commissar_for_Natural_Resources
+				trait = astute_intelligence
+			}
+			add_trait = {
+				character = DVA_Vile
+				slot = political_advisor
+				trait = Peoples_commissar_for_Security
+			}
+			add_trait = {
+				character = DVA_Tsarevich
+				slot = political_advisor
+				trait = Peoples_commissar_for_Trade
 			}
 			add_advisor_role = {
 				character = DVA_Eula
@@ -3249,23 +3492,6 @@ focus_tree = {
 					traits = {
 						Peoples_commissar_for_Foreign_affairs
 					}
-				}
-			}
-			if = {
-				limit = {
-					has_country_flag = DVA_helios_project_flag
-				}
-				add_trait = {
-					character = DVA_Mona2
-					slot = theorist
-					trait = Battlefield_observer
-				}
-			}
-			else = {
-				add_trait = {
-					character = DVA_Mona
-					slot = theorist
-					trait = Peoples_commissar_for_Health
 				}
 			}
 		}
@@ -3319,7 +3545,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Collei1
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Collei1
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -9
@@ -3336,7 +3562,30 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Collei2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Collei2
+				DVA_set_advisor_var8 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Collei = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Collei
+				}
+				set_country_flag = DVA_Collei02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Collei.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Collei
+				TRAIT = Peoples_commissar_for_Natural_Resources
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Natural_Resources
 		}
 	}
 	focus = {
@@ -3357,7 +3606,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Collei3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Collei3
+				set_country_flag = DVA_Collei03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Collei.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
@@ -3383,7 +3639,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Eula1
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Eula1
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -7
@@ -3399,12 +3655,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Eula2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Eula2
+				DVA_set_advisor_var9 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Eula = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Eula
+				}
+				set_country_flag = DVA_Eula02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Eula.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Eula
+				TRAIT = Peoples_commissar_for_Foreign_affairs
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Foreign_affairs
 		}
 	}
 	focus = {
 		id = DVA_Eula2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_royal_wedding
 		prerequisite = { focus =  DVA_Eula1 }
 		
 		x = -7
@@ -3420,12 +3699,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Eula3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Eula3
+				set_country_flag = DVA_Eula03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Eula.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Eula3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_NOR_broken_gun_policies
 		prerequisite = { focus =  DVA_Eula2 }
 		
 		x = -7
@@ -3446,7 +3732,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Fischl1
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Fischl1
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = -5
@@ -3462,12 +3748,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Fischl2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Fischl2
+				DVA_set_advisor_var4 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Fischl = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Fischl
+				}
+				set_country_flag = DVA_Fischl02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Fischl.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Fischl
+				TRAIT = Peoples_commissar_for_Propaganda
+			}	
+			show_ideas_tooltip = Peoples_commissar_for_Propaganda
 		}
 	}
 	focus = {
 		id = DVA_Fischl2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Fischl2
 		prerequisite = { focus =  DVA_Fischl1 }
 		
 		x = -5
@@ -3483,12 +3792,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Fischl3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Fischl3
+				set_country_flag = DVA_Fischl03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Fischl.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Fischl3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Fischl3
 		prerequisite = { focus =  DVA_Fischl2 }
 		
 		x = -5
@@ -3525,7 +3841,30 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Leah2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Leah2
+				DVA_set_advisor_var2 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Leah = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Leah
+				}
+				set_country_flag = DVA_Leah02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Leah.01
+					days = 140
+				}	
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Leah
+				TRAIT = Peoples_commissar_for_Audit
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Audit
 		}
 	}
 	focus = {
@@ -3546,12 +3885,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Leah3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Leah3
+				set_country_flag = DVA_Leah03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Leah.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Leah3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_welfare
 		prerequisite = { focus =  DVA_Leah2 }
 		
 		x = -3
@@ -3588,12 +3934,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Lisa2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Lisa2
+				DVA_set_advisor_var13 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Lisa = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Lisa
+				}
+				set_country_flag = DVA_Lisa02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Lisa.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Lisa
+				TRAIT = Peoples_commissar_for_Inspection
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Inspection
 		}
 	}
 	focus = {
 		id = DVA_Lisa2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_AUS_lawmaking_leniency
 		prerequisite = { focus =  DVA_Lisa1 }
 		
 		x = -1
@@ -3609,12 +3978,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Lisa3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Lisa3
+				set_country_flag = DVA_Lisa03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Lisa.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Lisa3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_court
 		prerequisite = { focus =  DVA_Lisa2 }
 		
 		x = -1
@@ -3651,12 +4027,67 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Mona02
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Mona02
+				DVA_set_advisor_var10 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						has_country_flag = DVA_helios_project_flag
+						DVA_Mona2 = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Mona2
+				}
+				else = {
+					activate_advisor = DVA_Mona
+				}
+				if = {
+					limit = {
+						has_country_flag = DVA_helios_project_flag
+						DVA_Mona2 = {
+							not_already_hired_except_as = theorist
+						}
+					}
+					activate_advisor = DVA_Mona2_tot
+				}
+				set_country_flag = DVA_Mona02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Mona.01
+					days = 140
+				}	
+			}
+			if = {
+				limit = {
+					has_country_flag = DVA_helios_project_flag
+				}
+				custom_effect_tooltip = {
+					localization_key = DVA_ascension_of_character_tt
+					CHARACTER = DVA_Mona2
+					TRAIT = Peoples_commissar_for_Development
+				}
+				show_ideas_tooltip = Peoples_commissar_for_Development
+				custom_effect_tooltip = {
+					localization_key = DVA_ascension_of_character3_tt
+					CHARACTER = DVA_Mona2
+					TRAIT = Battlefield_observer
+				}
+				show_ideas_tooltip = Battlefield_observer
+			}
+			else = {
+				custom_effect_tooltip = {
+					localization_key = DVA_ascension_of_character_tt
+					CHARACTER = DVA_Mona
+					TRAIT = Peoples_commissar_for_Health
+				}
+				show_ideas_tooltip = Peoples_commissar_for_Health
+			}
 		}
 	}
 	focus = {
 		id = DVA_Mona02
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_bad_medical
 		prerequisite = { focus =  DVA_Mona1 }
 		
 		x = 1
@@ -3672,12 +4103,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Mona3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Mona3
+				set_country_flag = DVA_Mona03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Mona.02
+					days = 140
+				}	
+			}
 		}
 	}
 	focus = {
 		id = DVA_Mona3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_CHL_union_of_hispanic_republics
 		prerequisite = { focus =  DVA_Mona02 }
 		
 		x = 1
@@ -3714,12 +4152,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Sucrose2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Sucrose2
+				DVA_set_advisor_var6 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Sucrose = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Sucrose
+				}
+				set_country_flag = DVA_Sucrose02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Sucrose.01
+					days = 140
+				}	
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Sucrose
+				TRAIT = Peoples_commissar_for_Education
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Education
 		}
 	}
 	focus = {
 		id = DVA_Sucrose2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_NOR_moscows_education_centers
 		prerequisite = { focus =  DVA_Sucrose1 }
 		
 		x = 3
@@ -3735,12 +4196,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Sucrose3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Sucrose3
+				set_country_flag = DVA_Sucrose03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Sucrose.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Sucrose3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_ICE_embrace_the_workers_revolution
 		prerequisite = { focus =  DVA_Sucrose2 }
 		
 		x = 3
@@ -3777,12 +4245,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Vile2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Vile2
+				DVA_set_advisor_var5 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Vile = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Vile
+				}
+				set_country_flag = DVA_Vile02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Vile.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Vile
+				TRAIT = Peoples_commissar_for_Security
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Security
 		}
 	}
 	focus = {
 		id = DVA_Vile2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_secret_service_agency
 		prerequisite = { focus =  DVA_Vile1 }
 		
 		x = 5
@@ -3798,12 +4289,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Vile3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Vile3
+				set_country_flag = DVA_Vile03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Vile.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Vile3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_por_the_pink_map
 		prerequisite = { focus =  DVA_Vile2 }
 		
 		x = 5
@@ -3840,12 +4338,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Tsarevich2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Tsarevich2
+				DVA_set_advisor_var11 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Tsarevich = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Tsarevich
+				}
+				set_country_flag = DVA_Tsarevich02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Tsarevich.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Tsarevich
+				TRAIT = Peoples_commissar_for_Trade
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Trade
 		}
 	}
 	focus = {
 		id = DVA_Tsarevich2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_ARG_crackdown_on_corruption
 		prerequisite = { focus =  DVA_Tsarevich1 }
 		
 		x = 7
@@ -3861,12 +4382,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Tsarevich3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Tsarevich3
+			}
 		}
 	}
 	focus = {
 		id = DVA_Tsarevich3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_CONGO_bakwanga_mine
 		prerequisite = { focus =  DVA_Tsarevich2 }
 		
 		x = 7
@@ -3887,7 +4410,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Hopkins1
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_DVA_Hopkins1
 		prerequisite = { focus =  DVA_The_Second_Convention }
 		
 		x = 9
@@ -3903,12 +4426,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Hopkins2
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Hopkins2
+				DVA_set_advisor_var12 = yes
+				DVA_add_advisor_effects = yes
+				if = {
+					limit = {
+						DVA_Hopkins_the_Marvelous = {
+							not_already_hired_except_as = political_advisor
+						}
+					}
+					activate_advisor = DVA_Hopkins_the_Marvelous
+				}
+				set_country_flag = DVA_Hopkins_the_Marvelous02_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Hopkins_the_Marvelous.01
+					days = 140
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = DVA_ascension_of_character_tt
+				CHARACTER = DVA_Hopkins_the_Marvelous
+				TRAIT = Peoples_commissar_for_Food
+			}
+			show_ideas_tooltip = Peoples_commissar_for_Food
 		}
 	}
 	focus = {
 		id = DVA_Hopkins2
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_agricultural_subsidies
 		prerequisite = { focus =  DVA_Hopkins1 }
 		
 		x = 9
@@ -3924,12 +4470,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			activate_shine_on_focus = DVA_Hopkins3
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Hopkins3
+				set_country_flag = DVA_Hopkins_the_Marvelous03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Hopkins_the_Marvelous.02
+					days = 140
+				}
+			}
 		}
 	}
 	focus = {
 		id = DVA_Hopkins3
-		icon = GFX_focus_ITA_devaluate_the_lire
+		icon = GFX_focus_generic_price_controls
 		prerequisite = { focus =  DVA_Hopkins2 }
 		
 		x = 9
