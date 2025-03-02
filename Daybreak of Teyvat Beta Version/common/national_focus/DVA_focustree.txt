@@ -576,7 +576,7 @@ focus_tree = {
 		id = DVA_bathtub_war
 		icon = GFX_focus_generic_navy_battleship2
 		cost = 1
-		x = 27
+		x = 28
 		y = 1
 		available = {
 			any_enemy_country = {
@@ -596,7 +596,7 @@ focus_tree = {
 		id = DVA_dockyard_of_dvalin
 		icon = GFX_focus_generic_refit_civilian_ships
 		cost = 1
-		x = 24
+		x = 25
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -650,7 +650,7 @@ focus_tree = {
 		id = DVA_restart_FON_trade_route
 		icon = GFX_DVA_restart_FON_trade_route
 		cost = 3
-		x = 26
+		x = 27
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -675,7 +675,7 @@ focus_tree = {
 		id = DVA_restart_LYY_trade_route
 		icon = GFX_DVA_restart_LYY_trade_route
 		cost = 3
-		x = 28
+		x = 29
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
@@ -700,13 +700,13 @@ focus_tree = {
 		id = DVA_Navy_in_decades
 		icon = GFX_focus_generic_africa_naval
 		cost = 1
-		x = 30
+		x = 31
 		y = 2
 		prerequisite = {
 			focus = DVA_bathtub_war
 		}
 		available = {
-			has_completed_focus = DVA_tales_of_utopias
+			has_completed_focus = DVA_Raymond1
 		}
 		completion_reward = {
 			navy_experience = 50
@@ -722,7 +722,7 @@ focus_tree = {
 		id = DVA_Brave_Troops_from_the_Sky
 		icon = GFX_focus_generic_naval_discipline
 		cost = 1
-		x = 25
+		x = 26
 		y = 3
 		prerequisite = {
 			focus = DVA_restart_FON_trade_route
@@ -740,14 +740,33 @@ focus_tree = {
 			has_country_flag = DVA_cv_flag
 		}
 		completion_reward = {
-			#
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_tech = fleet_in_being		
+							has_tech = trade_interdiction
+							has_tech = base_strike
+						}
+					}
+				}
+				set_technology = {
+					fleet_in_being = 1
+				}
+			}
+			set_technology = {
+				capital_ship_raiders = 1
+			}
+			set_technology = {
+				floating_fortress_bs = 1
+			}
 		}
 	}
 	focus = {
 		id = DVA_Huge_waves_plan
 		icon = GFX_focus_SWE_coastal_support
 		cost = 1
-		x = 27
+		x = 28
 		y = 3
 		prerequisite = {
 			focus = DVA_Navy_in_decades
@@ -768,14 +787,33 @@ focus_tree = {
 			has_country_flag = DVA_bb_flag
 		}
 		completion_reward = {
-			#
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_tech = fleet_in_being		
+							has_tech = trade_interdiction
+							has_tech = base_strike
+						}
+					}
+				}
+				set_technology = {
+					base_strike = 1
+				}
+			}
+			set_technology = {
+				floating_airfield = 1
+			}
+			set_technology = {
+				carrier_operations = 1
+			}
 		}
 	}
 	focus = {
 		id = DVA_Big_surprise_in_water
 		icon = GFX_focus_generic_mine_warfare
 		cost = 1
-		x = 29
+		x = 30
 		y = 3
 		prerequisite = {
 			focus = DVA_Navy_in_decades
@@ -790,8 +828,25 @@ focus_tree = {
 			has_country_flag = DVA_ss_flag
 		}
 		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_tech = fleet_in_being		
+							has_tech = trade_interdiction
+							has_tech = base_strike
+						}
+					}
+				}
+				set_technology = {
+					trade_interdiction = 1
+				}
+			}
 			set_technology = {
-				tech_minelayer1 = 1
+				submarine_operations = 1
+			}
+			set_technology = {
+				submarine_operations_bs = 1
 			}
 		}
 	}
@@ -799,7 +854,7 @@ focus_tree = {
 		id = DVA_Deep_Blue
 		icon = GFX_focus_SWE_Vasa_II
 		cost = 3
-		x = 27
+		x = 28
 		y = 4
 		prerequisite = {
 			focus = DVA_Brave_Troops_from_the_Sky
@@ -826,7 +881,7 @@ focus_tree = {
 				limit = {
 					has_country_flag = DVA_ss_flag
 				}
-				add_ideas = DVA_flattop_of_new_era
+				add_ideas = DVA_wolf_pack_tactics
 			}
 			else = {
 				custom_effect_tooltip = DOT_effects_have_not_announced_tt
@@ -1117,6 +1172,9 @@ focus_tree = {
 					is_core_of = ANR
 				}
 				add_core_of = DVA
+			}
+			set_technology = {
+				special_forces_mountaineers = 1
 			}
 		}
 	}
@@ -1637,14 +1695,6 @@ focus_tree = {
 			custom_effect_tooltip = DOT_Government_Research_Up_tt
 			custom_effect_tooltip = DOT_Government_Control_Up_tt
 			custom_effect_tooltip = DOT_Government_Size_Up_tt
-			set_province_name = {
-				id = 1314
-				name = NEW_MONDSTADT
-			}
-			add_victory_points = {
-				province = 1314
-				value = 25
-			}
 			every_owned_state = {
 				limit = {
 					is_core_of = DVA
@@ -1653,6 +1703,17 @@ focus_tree = {
 			}
 			60 = {
 				set_state_name = "Newmondst"
+			}
+			76 = {
+				set_state_name = "Newmondst"
+			}
+			add_victory_points = {
+				province = 1314
+				value = 25
+			}
+			set_province_name = {
+				id = 1314
+				name = NEW_MONDSTADT
 			}
 		}
 	}
@@ -2862,7 +2923,7 @@ focus_tree = {
 		available = {
 			if = {
 				limit = {
-					has_country_flag = GER_form_organization_todt_in_progress_flag
+					has_country_flag = DVA_Amber02_in_progress_flag
 				}
 				custom_override_tooltip = {
 					tooltip = {
@@ -2891,6 +2952,15 @@ focus_tree = {
 					days = 140
 				}
 			}
+			if = {
+				limit = {
+					has_country_flag = DVA_air_special_flag
+				}
+				add_ideas = DVA_air_rises2
+			}
+			else = {
+				add_ideas = DVA_air_rises1
+			}
 		}
 	}
 	focus = {
@@ -2903,7 +2973,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Amber03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Amber1
+						FLAG_DAYS = [?DVA_Amber03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -2911,7 +2996,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#
+			#还没想好.jpg
 		}
 	}
 	focus = {
@@ -2962,6 +3047,21 @@ focus_tree = {
 				TRAIT = Peoples_Supreme_army_command
 			}
 			show_ideas_tooltip = Peoples_Supreme_army_command
+			set_variable = {
+				var = army_reform_process
+				value = 1
+			}
+			set_variable = {
+				var = navy_reform_process
+				value = 1
+			}
+			set_variable = {
+				var = air_reform_process
+				value = 1
+			}
+			hidden_effect = {
+				country_lock_all_division_template = yes
+			}
 		}
 	}
 	focus = {
@@ -2974,7 +3074,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Razor02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Razor
+						FLAG_DAYS = [?DVA_Razor02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -2982,14 +3097,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			hidden_effect = {
-				activate_shine_on_focus = DVA_Razor3
-				set_country_flag = DVA_Razor03_in_progress_flag
-				country_event = {
-					id = DVA_inner_circle_Razor.02
-					days = 140
-				}
-			}
+			#add_ideas = DVA_elite_army
 		}
 	}
 	focus = {
@@ -3002,7 +3110,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Razor03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Razor
+						FLAG_DAYS = [?DVA_Razor03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -3010,7 +3133,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#
+			set_technology = {
+				branch_interoperation = 1
+			}
+			set_technology = {
+				c3i_theory = 1
+			}
+			set_technology = {
+				air_land_battle = 1
+			}
 		}
 	}
 	focus = {
@@ -3068,7 +3199,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Albedo02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Albedo
+						FLAG_DAYS = [?DVA_Albedo02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -3096,7 +3242,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Albedo03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Albedo
+						FLAG_DAYS = [?DVA_Albedo03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -3168,7 +3329,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 10
 		available = {
-			always = no
+			if = {
+				limit = {
+					has_country_flag = DVA_Bennett02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Bennett
+						FLAG_DAYS = [?DVA_Bennett02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 
 		allow_branch = {
@@ -3188,7 +3364,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_Bennett3
-		icon = GFX_focus_generic_low_cost_housing
+		icon = GFX_focus_SOV_the_road_of_life
 		prerequisite = { focus =  DVA_Bennett2 }
 		
 		x = 2
@@ -3196,7 +3372,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 10
 		available = {
-			always = no
+			if = {
+				limit = {
+					has_country_flag = DVA_Bennett03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Bennett
+						FLAG_DAYS = [?DVA_Bennett03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3204,7 +3395,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#
+			custom_effect_tooltip = DVA_supply_tt
 		}
 	}
 	focus = {
@@ -3276,7 +3467,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 10
 		available = {
-			always = no
+			if = {
+				limit = {
+					has_country_flag = DVA_Raymond02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Raymond
+						FLAG_DAYS = [?DVA_Raymond02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3304,7 +3510,22 @@ focus_tree = {
 		relative_position_id = DVA_The_First_Convention
 		cost = 10
 		available = {
-			always = no
+			if = {
+				limit = {
+					has_country_flag = DVA_Raymond03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Raymond
+						FLAG_DAYS = [?DVA_Raymond03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3598,7 +3819,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Collei02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Collei
+						FLAG_DAYS = [?DVA_Collei02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3626,7 +3862,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Collei03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Collei
+						FLAG_DAYS = [?DVA_Collei03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3691,7 +3942,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Eula02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Eula
+						FLAG_DAYS = [?DVA_Eula02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3719,7 +3985,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Eula03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Eula
+						FLAG_DAYS = [?DVA_Eula03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3784,7 +4065,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Fischl02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Fischl
+						FLAG_DAYS = [?DVA_Fischl02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3812,7 +4108,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Fischl03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Fischl
+						FLAG_DAYS = [?DVA_Fischl03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3877,7 +4188,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Leah02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Leah
+						FLAG_DAYS = [?DVA_Leah02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3905,7 +4231,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Leah03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Leah
+						FLAG_DAYS = [?DVA_Leah03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3970,7 +4311,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Lisa02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Lisa
+						FLAG_DAYS = [?DVA_Lisa02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -3998,7 +4354,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Lisa03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Lisa
+						FLAG_DAYS = [?DVA_Lisa03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4095,7 +4466,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Mona01_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Mona2
+						FLAG_DAYS = [?DVA_Mona01_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4123,7 +4509,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Mona02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Mona2
+						FLAG_DAYS = [?DVA_Mona02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4188,7 +4589,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Sucrose02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Sucrose
+						FLAG_DAYS = [?DVA_Sucrose02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4216,7 +4632,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Sucrose03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Sucrose
+						FLAG_DAYS = [?DVA_Sucrose03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4281,7 +4712,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Vile02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Vile
+						FLAG_DAYS = [?DVA_Vile02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4309,7 +4755,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Vile03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Vile
+						FLAG_DAYS = [?DVA_Vile03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4374,7 +4835,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Tsarevich02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Tsarevich
+						FLAG_DAYS = [?DVA_Tsarevich02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4397,7 +4873,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Tsarevich03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Tsarevich
+						FLAG_DAYS = [?DVA_Tsarevich03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4462,7 +4953,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Hopkins02_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Hopkins_the_Marvelous
+						FLAG_DAYS = [?DVA_Hopkins02_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
@@ -4490,7 +4996,22 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 20
 		available = {
-			always=no
+			if = {
+				limit = {
+					has_country_flag = DVA_Hopkins03_in_progress_flag
+				}
+				custom_override_tooltip = {
+					tooltip = {
+						localization_key = DVA_inner_circle_focus_in_progress_tt
+						CHARACTER = DVA_Hopkins_the_Marvelous
+						FLAG_DAYS = [?DVA_Hopkins03_in_progress_flag:days]
+					}
+					always = no 
+				}
+			}
+			else = {
+				always = no
+			}
 		}
 		
 		allow_branch = {
