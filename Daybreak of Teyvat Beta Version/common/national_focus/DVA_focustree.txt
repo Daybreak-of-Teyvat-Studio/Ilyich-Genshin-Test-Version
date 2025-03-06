@@ -178,11 +178,11 @@ focus_tree = {
 					}
 					add_resource = {
 						type = steel
-						amount = 8
+						amount = 2
 					}
 					add_resource = {
 						type = tungsten
-						amount = 8
+						amount = 4
 					}
 				}
 			}
@@ -193,11 +193,11 @@ focus_tree = {
 					}
 					add_resource = {
 						type = steel
-						amount = 6
+						amount = 1
 					}
 					add_resource = {
 						type = tungsten
-						amount = 6
+						amount = 2
 					}
 				}
 			}
@@ -353,17 +353,32 @@ focus_tree = {
 				limit = {
 					has_country_flag = DVA_industry_plan_settled_normally_flag
 				}
-				every_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-					}
+				61 = {
 					add_resource = {
 						type = oil
-						amount = 1
+						amount = 10
+					}
+				}
+				79 = {
+					add_resource = {
+						type = oil
+						amount = 10
+					}
+				}
+				83 = {
+					add_resource = {
+						type = oil
+						amount = 10
+					}
+				}
+				84 = {
+					add_resource = {
+						type = oil
+						amount = 10
 					}
 				}
 			}
-			74 = {
+			76 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = synthetic_refinery
@@ -1059,6 +1074,18 @@ focus_tree = {
 			country_event = dva.ab.1
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = DVA_Raymond
+			add_corps_commander_role = {
+				character = DVA_Raymond
+				desc = "Raymond_DESC"
+				traits = { 
+					#
+				}
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
 		}
 	}
 	focus = {
@@ -1468,7 +1495,7 @@ focus_tree = {
 		available = {
 			OR = {
 				has_country_flag = DVA_middle_way
-				has_country_flag = DVA_amber_win
+				has_country_flag = DVA_knights_win
 			}
 			2 = {
 				controller = {
@@ -1494,7 +1521,10 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_country_flag = DVA_middle_way
+					OR = {
+						has_country_flag = DVA_middle_way
+						has_country_flag = DVA_knights_win
+					}
 				}
 				set_cosmetic_tag = DVA_united
 				set_country_leader_portrait = {
@@ -1520,13 +1550,7 @@ focus_tree = {
 					}
 				}
 			}
-			else_if = {
-				limit = {
-					NOT = {
-						has_country_flag = DVA_amber_win
-						has_country_flag = DVA_middle_way
-					}
-				}
+			else = {
 				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
 		}
@@ -1545,7 +1569,10 @@ focus_tree = {
 		x = 12
 		y = 13
 		available = {
-			#
+			OR = {
+				has_country_flag = DVA_middle_way
+				has_country_flag = DVA_amber_win
+			}
 		}
 		completion_reward = {
 			country_event = dva.ab.14
@@ -1557,6 +1584,14 @@ focus_tree = {
 				target = GUN
 				type = annex_everything
 			}
+			custom_effect_tooltip = DVA_noble_war_tt
+			set_country_flag = DVA_noble_war_flag
+			hidden_effect = {
+				FAV = {
+					create_faction = MOT_GUN_UNION
+					add_to_faction = GUN
+				}
+			}
 			if = {
 				limit = {
 					has_country_flag = DVA_middle_way
@@ -1565,14 +1600,6 @@ focus_tree = {
 				set_country_leader_portrait = {
 					ideology = neutrality
 					portrait = GFX_portrait_Amber
-				}
-				custom_effect_tooltip = DVA_noble_war_tt
-				set_country_flag = DVA_noble_war_flag
-				hidden_effect = {
-					FAV = {
-						create_faction = MOT_GUN_UNION
-						add_to_faction = GUN
-					}
 				}
 			}
 			else_if = {
@@ -1666,6 +1693,7 @@ focus_tree = {
 			}
 			set_cosmetic_tag = DVA_commune
 			custom_effect_tooltip = DVA_break_with_the_past_tt
+			news_event = dva.news.3
 			hidden_effect = {
 				deactivate_shine_on_focus = DVA_The_First_Convention
 				mark_focus_tree_layout_dirty = yes
@@ -2782,6 +2810,11 @@ focus_tree = {
 						}
 					}
 				}
+				remove_trait = {
+					character = DVA_Amber
+					slot = air_chief
+					trait = air_chief_ground_support_3
+				}
 				add_trait = {
 					character = DVA_Amber
 					slot = air_chief
@@ -2799,6 +2832,11 @@ focus_tree = {
 						}
 					}
 				}
+				remove_trait = {
+					character = DVA_Razor
+					slot = army_chief
+					trait = MOT_Thunder_Claw
+				}
 				add_trait = {
 					character = DVA_Razor
 					slot = army_chief
@@ -2808,6 +2846,11 @@ focus_tree = {
 					character = DVA_Albedo
 					slot = political_advisor
 					trait = Peoples_commissar_for_Science_and_Technology
+				}
+				remove_trait = {
+					character = DVA_Bennett
+					slot = political_advisor
+					trait = energetic_unlucky_guy
 				}
 				add_trait = {
 					character = DVA_Bennett
@@ -2909,7 +2952,6 @@ focus_tree = {
 				TRAIT = Peoples_Supreme_air_command
 			}
 			show_ideas_tooltip = Peoples_Supreme_air_command
-			country_event = dva.13
 		}
 	}
 	focus = {
@@ -2961,6 +3003,16 @@ focus_tree = {
 			}
 			else = {
 				add_ideas = DVA_air_rises1
+			}
+			remove_trait = {
+				character = DVA_Amber
+				slot = air_chief
+				trait = Peoples_Supreme_air_command
+			}
+			add_trait = {
+				character = DVA_Amber
+				slot = air_chief
+				trait = Peoples_Supreme_air_command1
 			}
 		}
 	}
@@ -3098,7 +3150,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#add_ideas = DVA_elite_army
+			remove_trait = {
+				character = DVA_Razor
+				slot = army_chief
+				trait = Peoples_Supreme_army_command
+			}
+			add_trait = {
+				character = DVA_Razor
+				slot = army_chief
+				trait = Peoples_Supreme_army_command1
+			}
 		}
 	}
 	focus = {
@@ -3499,6 +3560,16 @@ focus_tree = {
 					days = 140
 				}
 			}
+			remove_trait = {
+				character = DVA_Raymond
+				slot = navy_chief
+				trait = Peoples_Supreme_naval_command
+			}
+			add_trait = {
+				character = DVA_Raymond
+				slot = navy_chief
+				trait = Peoples_Supreme_naval_command1
+			}
 		}
 	}
 	focus = {
@@ -3617,6 +3688,7 @@ focus_tree = {
 		cost = 15
 		available = {
 			has_completed_focus = DVA_sunlight_shines_on_Mondstadt
+			MOT_Reunite_Trigger_Get = yes
 		}
 		
 		allow_branch = {
@@ -3624,6 +3696,7 @@ focus_tree = {
 		}
 
 		select_effect = {
+			news_event = dva.news.5
 			add_trait = {
 				character = DVA_Hopkins_the_Marvelous
 				slot = political_advisor
