@@ -565,20 +565,6 @@ country_event = {
 	option = {
 		name = dva.ab.3.a
 		activate_advisor = DVA_Raymond
-		add_field_marshal_role = {
-			desc = "Raymond_desc"
-			traits = { 
-			    engineer_officer
-				old_guard
-				organisational_leader
-				naval_liason
-			}
-			skill = 3
-			attack_skill = 3
-			defense_skill = 5
-			planning_skill = 2
-			logistics_skill = 3
-		}
 		add_stability = 0.02
 	}
 }
@@ -675,7 +661,7 @@ country_event = {
 		}
 		create_operative_leader = {
 			name = "DVA_Anthony"
-			GFX = GFX_portrait_Viktor
+			GFX = GFX_portrait_Anthony
 			traits = {
 				operative_infiltrator
 				operative_tough
@@ -758,7 +744,7 @@ country_event = {
 	option = {
 		name = dva.ab.8.a
 		ai_chance = {
-            base = 8
+            base = 80
         }
 		retire_ideology_leader = neutrality
 		DVA = {
@@ -769,8 +755,16 @@ country_event = {
 	option = {
 		name = dva.ab.8.b
 		ai_chance = {
-            base = 2
+            base = 20
+			modifier = {
+				factor = 0
+				is_ai = yes
+			}
         }
+		declare_war_on = {
+			type = annex_everything
+			target = DVA
+		}
 	}
 }
 
@@ -826,7 +820,6 @@ country_event = {
 		}
 		ai_chance = {
             base = 80
-        }
 		DVA = {
 			set_country_flag = DVA_Albedo_visited
 		}
@@ -844,6 +837,11 @@ country_event = {
 		}
 		ai_chance = {
             base = 80
+			modifier = {
+				factor = 0
+				is_ai = yes
+			}
+        }
         }
 		DVA = {
 			set_country_flag = DVA_Sucrose_visited
@@ -854,6 +852,10 @@ country_event = {
 		name = dva.ab.9.c
 		ai_chance = {
             base = 20
+			modifier = {
+				factor = 0
+				is_ai = yes
+			}
         }
 	}
 }
@@ -946,6 +948,41 @@ country_event = {
 		name = dva.ab.11.a
 		activate_advisor = DVA_Klee
 		set_country_flag = DVA_approval_of_Alice_flag
+		mark_focus_tree_layout_dirty = yes
+		add_corps_commander_role = {
+			character = DVA_Phonia
+			traits = { 
+			    skilled_staffer
+				trickster
+				harsh_leader
+				cavalry_officer
+			}
+			allowed  = {
+				original_tag = DVA
+				has_completed_focus = DVA_bring_up_Spark_Knight
+			}
+			skill = 1
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 3
+		}
+		add_corps_commander_role = {
+			character = DVA_Ematol
+			traits = { 
+			    trait_engineer
+				cavalry_officer
+			}
+			allowed  = {
+				original_tag = DVA
+				has_completed_focus = DVA_bring_up_Spark_Knight
+			}
+			skill = 1
+			attack_skill = 4
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 2
+		}
 	}
 	option = {
 		name = dva.ab.11.b
@@ -981,7 +1018,7 @@ country_event = {
 		name = dva.ab.103.a
 		custom_effect_tooltip = DVA_rescue_Klee_tt
 		set_country_flag = DVA_rescue_Klee_flag
-		activate_mission = DVA_Great_Adventure_of_Klee
+		#activate_mission = DVA_Great_Adventure_of_Klee
 	}
 }
 
@@ -1553,6 +1590,10 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		create_faction = DVA_ANR_FACTION
+	}
+
 	option = {
 		name = dva.ab.36.a
 		trigger = {
@@ -1561,7 +1602,6 @@ country_event = {
 			}
 		}
 		activate_advisor = DVA_Vile
-		create_faction = DVA_ANR_FACTION
 		ANR = {
 			add_to_faction = DVA
 		}
@@ -1581,6 +1621,9 @@ country_event = {
 		set_variable = {
 			var = DVA_helios_project_preparation_step_progress
 			value = 0
+		}
+		ANR = {
+			add_to_faction = DVA
 		}
 	}
 }
@@ -1919,7 +1962,7 @@ country_event = {
 			character = DVA_Bernhard
 			desc = "Bernhard_DESC"
 			traits = { 
-				#
+				cavalry_officer
 			}
 			skill = 1
 			attack_skill = 2
@@ -1931,7 +1974,7 @@ country_event = {
 			character = DVA_Fynn
 			desc = "Fynn_DESC"
 			traits = { 
-				#
+				cavalry_officer
 			}
 			skill = 1
 			attack_skill = 1
@@ -1943,7 +1986,7 @@ country_event = {
 			character = DVA_Joyce
 			desc = "Joyce_DESC"
 			traits = { 
-				#
+				cavalry_officer
 			}
 			skill = 1
 			attack_skill = 1
@@ -1955,7 +1998,7 @@ country_event = {
 			character = DVA_Adler
 			desc = "Adler_DESC"
 			traits = { 
-				#
+				cavalry_officer
 			}
 			skill = 1
 			attack_skill = 1

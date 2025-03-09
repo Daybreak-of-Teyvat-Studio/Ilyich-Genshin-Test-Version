@@ -1028,7 +1028,8 @@ focus_tree = {
 				character = DVA_Vile
 				desc = "Vile_DESC"
 				traits = { 
-					#
+					trait_cautious
+					thorough_planner
 				}
 				skill = 2
 				attack_skill = 2
@@ -1072,19 +1073,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.1
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = DVA_Raymond
-			add_corps_commander_role = {
-				character = DVA_Raymond
-				desc = "Raymond_DESC"
-				traits = { 
-					#
-				}
-				skill = 2
-				attack_skill = 1
-				defense_skill = 2
-				planning_skill = 3
-				logistics_skill = 3
+			MOT = {
+				end_puppet = DVA
 			}
 		}
 	}
@@ -1102,10 +1092,28 @@ focus_tree = {
 		}
 		completion_reward = {
 			country_event = dva.ab.3
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DVA_Raymond
+			add_corps_commander_role = {
+				character = DVA_Raymond
+				desc = "Raymond_DESC"
+				traits = { 
+					career_officer
+					inflexible_strategist
+					old_guard
+					cavalry_officer
+					naval_liason
+				}
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
 			hidden_effect = {
 				country_event = {
 					id = dva.ab.101
-					days = 120
+					days = 60
 				}
 			}
 		}
@@ -1189,8 +1197,10 @@ focus_tree = {
 		available = {
 			OR = {
 				has_country_flag = DVA_amber_win
-				NOT = {	has_completed_focus = DVA_Eula_or_war }
-				NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+				AND = {
+					NOT = {	has_completed_focus = DVA_Eula_or_war }
+					NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+				}
 			}
 		}
 		select_effect = {
@@ -1206,6 +1216,20 @@ focus_tree = {
 			set_technology = {
 				special_forces_mountaineers = 1
 			}
+			add_field_marshal_role = {
+				character = DVA_Razor
+				desc = "Razor_desc"
+				traits = { 
+					Electro_Vision
+					inspirational_leader
+					adaptable
+				}
+				skill = 3
+				attack_skill = 6
+				defense_skill = 3
+				planning_skill = 1
+				logistics_skill = 1
+			}
 		}
 	}
 	focus = {
@@ -1217,11 +1241,14 @@ focus_tree = {
 		}
 		x = 14
 		y = 9
+		will_lead_to_war_with = LAW
 		available = {
 			OR = {
 				has_country_flag = DVA_amber_win
-				NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
-				NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+				AND = {
+					NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
+					NOT = { has_completed_focus = DVA_visitors_on_the_snowmountain }
+				}
 			}
 		}
 		select_effect = {
@@ -1273,8 +1300,10 @@ focus_tree = {
 		available = {
 			OR = {
 				has_country_flag = DVA_amber_win
-				NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
-				NOT = { has_completed_focus = DVA_Eula_or_war }
+				AND = {
+					NOT = {	has_completed_focus = DVA_the_meaning_of_Lupical }
+					NOT = { has_completed_focus = DVA_Eula_or_war 
+				}
 			}
 		}
 		select_effect = {
@@ -1317,7 +1346,6 @@ focus_tree = {
 						infantry_officer
 						trait_engineer
 						winter_specialist
-						DVA_BORNING
 					}
 					skill = 5
 					attack_skill = 3
@@ -1636,6 +1664,22 @@ focus_tree = {
 				is_controlled_by = ROOT
 			}
 		}
+		select_effect = {
+			if = {
+				limit = {
+					RAG = {
+						exists = yes
+						NOT = {
+							has_war_with = MOT
+						}
+					}
+					MOT = {
+						create_faction = MOT_RAG_UNION
+						add_to_faction = RAG
+					}
+				}
+			}	
+		}
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
@@ -1702,21 +1746,6 @@ focus_tree = {
 					id = dva.ab.51
 					days = 7
 				}
-			}
-			add_field_marshal_role = {
-				character = DVA_Razor
-				desc = "Razor_desc"
-				traits = { 
-					Electro_Vision
-					AN_Thunder_and_Attack
-					inspirational_leader
-					adaptable
-				}
-				skill = 3
-				attack_skill = 6
-				defense_skill = 3
-				planning_skill = 1
-				logistics_skill = 1
 			}
 		}
 	}
@@ -1859,6 +1888,7 @@ focus_tree = {
 			}
 			custom_effect_tooltip = DOT_Government_Control_Up_tt
 			custom_effect_tooltip = DOT_Government_Size_Up_tt
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -1870,6 +1900,9 @@ focus_tree = {
 		}
 		x = 10
 		y = 16
+		allow_branch = {
+			#has_completed_focus = DVA_sunlight_shines_on_Mondstadt
+		}
 		available = {
 			has_completed_focus = DVA_Hopkins3
 		}
@@ -1886,6 +1919,9 @@ focus_tree = {
 		cost = 1
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_sunlight_shines_on_Mondstadt
 		}
 		x = 12
 		y = 16
@@ -1906,13 +1942,24 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
 		}
+		allow_branch = {
+			#has_completed_focus = DVA_sunlight_shines_on_Mondstadt
+		}
 		x = 14
 		y = 16
 		available = {
-			has_completed_focus = DVA_Lisa3
+			has_completed_focus = DVA_Lisa2
 		}
 		completion_reward = {
-			remove_ideas = DVA_corruption
+			if = {
+				limit = {
+					has_idea = DVA_corruption
+				}
+				remove_ideas = DVA_corruption
+			}
+			else = {
+				add_stability = 0.05
+			}
 		}
 	}
 	focus = {
@@ -1928,10 +1975,13 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_fight_against_corruption
 		}
+		allow_branch = {
+			#has_completed_focus = DVA_sunlight_shines_on_Mondstadt
+		}
 		x = 12
 		y = 17
 		available = {
-			#
+			has_completed_focus = DVA_Lisa3
 		}
 		completion_reward = {
 			add_political_power = 100
@@ -1941,6 +1991,7 @@ focus_tree = {
 			}
 			custom_effect_tooltip = DOT_Government_Control_Up_tt
 			#country_event = dva.ab.
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -1950,6 +2001,9 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_remove_personality_cult
 		}
+		allow_branch = {
+			#has_completed_focus = DVA_remove_personality_cult
+		}
 		x = 12
 		y = 18
 		available = {
@@ -1957,6 +2011,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = DVA_Utopia_of_Freedom_and_Equality
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -1965,6 +2020,9 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = DVA_tales_of_utopias
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_tales_of_utopias
 		}
 		x = 12
 		y = 19
@@ -1985,6 +2043,10 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_vanish_into_thin_air_like_bubble
 			focus = DVA_Humanity_will_endure_forever
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_vanish_into_thin_air_like_bubble
+			#has_completed_focus = DVA_Humanity_will_endure_forever
 		}
 		x = 16
 		y = 20
@@ -2345,6 +2407,10 @@ focus_tree = {
 		select_effect = {
 			unlock_decision_category_tooltip = DVA_Turn_Sun_Operation
 			set_country_flag = DVA_Klee_adventure_flag
+			country_event = {
+				id = dva.ab.103
+				days = 3
+			}
 		}
 		completion_reward = {
 			activate_mission_tooltip = DVA_Great_Adventure_of_Klee
@@ -2363,7 +2429,7 @@ focus_tree = {
 			#
 		}
 		allow_branch = {
-			##has_country_flag = DVA_approval_of_Alice_flag
+			#has_country_flag = DVA_approval_of_Alice_flag
 		}
 		completion_reward = {
 			country_event = dva.ab.21
@@ -2757,6 +2823,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = dva.ab.34
 			#触发事件“力挽狂澜/绝地反击”获得击败天理的秘密武器
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -2820,13 +2887,14 @@ focus_tree = {
 			add_ideas = limited_conscription
 			add_ideas = limited_exports
 			add_ideas = partial_economic_mobilisation
+			mark_focus_tree_layout_dirty = yes
 			hidden_effect = {
 				add_advisor_role = {
 					character = DVA_Amber1
 					activate = no
 					advisor = {
 						slot = political_advisor
-						cost = 0
+						cost = 150
 						idea_token = DVA_Amber1
 						traits = {
 							Peoples_chairman_for_Commune_Committee
@@ -2848,7 +2916,7 @@ focus_tree = {
 					activate = no
 					advisor = {
 						slot = political_advisor
-						cost = 0
+						cost = 150
 						idea_token = DVA_Razor
 						traits = {
 							Peoples_chairman_for_Military_Commission
@@ -2900,7 +2968,7 @@ focus_tree = {
 					activate = no
 					advisor = {
 						slot = navy_chief
-						cost = 0
+						cost = 150
 						idea_token = DVA_Raymond_navy
 						traits = {
 							Peoples_Supreme_naval_command
@@ -2912,7 +2980,7 @@ focus_tree = {
 					activate = no
 					advisor = {
 						slot = high_command
-						cost = 0
+						cost = 150
 						idea_token = DVA_Bennett
 						traits = {
 							Peoples_Director_of_support
@@ -3415,7 +3483,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = DVA_The_First_Convention
-		cost = 10
+		cost = 20
 		available = {
 			if = {
 				limit = {
@@ -3458,7 +3526,7 @@ focus_tree = {
 		x = 2
 		y = 3
 		relative_position_id = DVA_The_First_Convention
-		cost = 10
+		cost = 20
 		available = {
 			if = {
 				limit = {
@@ -3553,7 +3621,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = DVA_The_First_Convention
-		cost = 10
+		cost = 20
 		available = {
 			if = {
 				limit = {
@@ -3607,7 +3675,7 @@ focus_tree = {
 		x = 4
 		y = 3
 		relative_position_id = DVA_The_First_Convention
-		cost = 10
+		cost = 20
 		available = {
 			if = {
 				limit = {
@@ -3657,6 +3725,10 @@ focus_tree = {
 
 		completion_reward = {
 			remove_ideas = DVA_Convention_Election
+			annex_country = {
+				target = ANR
+				transfer_troops = yes
+			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -3768,7 +3840,7 @@ focus_tree = {
 					activate = no
 					advisor = {
 						slot = theorist
-						cost = 0
+						cost = 150
 						idea_token = DVA_Mona2_tot
 						traits = {
 							Battlefield_observer
@@ -3809,7 +3881,7 @@ focus_tree = {
 				activate = no
 				advisor = {
 					slot = political_advisor
-					cost = 0
+					cost = 150
 					idea_token = DVA_Eula
 					traits = {
 						Peoples_commissar_for_Foreign_affairs
@@ -3913,7 +3985,7 @@ focus_tree = {
 				activate = no
 				advisor = {
 					slot = high_command
-					cost = 0
+					cost = 150
 					idea_token = DVA_Collei
 					traits = {
 						army_infantry_2
@@ -4049,7 +4121,7 @@ focus_tree = {
 				activate = no
 				advisor = {
 					slot = high_command
-					cost = 0
+					cost = 150
 					idea_token = DVA_Eula
 					traits = {
 						superior_firepower_expert
