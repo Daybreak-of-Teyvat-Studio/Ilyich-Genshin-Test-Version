@@ -610,7 +610,7 @@ focus_tree = {
 	focus = {
 		id = DVA_dockyard_of_dvalin
 		icon = GFX_focus_generic_refit_civilian_ships
-		cost = 1
+		cost = 2
 		x = 25
 		y = 2
 		prerequisite = {
@@ -714,7 +714,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Navy_in_decades
 		icon = GFX_focus_generic_africa_naval
-		cost = 1
+		cost = 5
 		x = 31
 		y = 2
 		prerequisite = {
@@ -736,7 +736,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Brave_Troops_from_the_Sky
 		icon = GFX_focus_generic_naval_discipline
-		cost = 1
+		cost = 10
 		x = 26
 		y = 3
 		prerequisite = {
@@ -780,7 +780,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Huge_waves_plan
 		icon = GFX_focus_SWE_coastal_support
-		cost = 1
+		cost = 10
 		x = 28
 		y = 3
 		prerequisite = {
@@ -827,7 +827,7 @@ focus_tree = {
 	focus = {
 		id = DVA_Big_surprise_in_water
 		icon = GFX_focus_generic_mine_warfare
-		cost = 1
+		cost = 10
 		x = 30
 		y = 3
 		prerequisite = {
@@ -1133,6 +1133,9 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_tale_from_the_tower
 		}
+		mutually_exclusive = {
+			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+		}
 		x = 8
 		y = 10
 		available = {
@@ -1331,7 +1334,6 @@ focus_tree = {
 						trait_cautious
 						thorough_planner
 						adaptable
-						DVA_wind_creater
 					}
 					skill = 4
 					attack_skill = 3
@@ -1376,18 +1378,15 @@ focus_tree = {
 			focus = DVA_break_with_the_past
 		}
 		mutually_exclusive = {
-			focus = DVA_merge_with_the_knights_of_favonius
+			focus = DVA_offering_gifts_and_loyalty
 		}
 		prerequisite = {
 			focus = DVA_the_meaning_of_Lupical
 			focus = DVA_Eula_or_war
 			focus = DVA_visitors_on_the_snowmountain
 		}
-		prerequisite = {
-			focus = DVA_liberate_Windrise
-		}
 		x = 10
-		y = 11
+		y = 10
 		available = {
 			OR = {
 				MOT = {
@@ -1431,6 +1430,9 @@ focus_tree = {
 		cost = 4
 		prerequisite = {
 			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+		}
+		prerequisite = {
+			focus = DVA_liberate_Windrise
 		}
 		x = 10
 		y = 12
@@ -1617,12 +1619,11 @@ focus_tree = {
 		icon = DVA_liberate_Windrise
 		cost = 10
 		prerequisite = {
-			focus = DVA_the_meaning_of_Lupical
-			focus = DVA_Eula_or_war
-			focus = DVA_visitors_on_the_snowmountain
+			focus = DVA_Plan_of_reshuffling_knights_of_favonius
+			focus = DVA_break_with_the_past
 		}
 		x = 12
-		y = 10
+		y = 11
 		available = {
 			NOT = {
 				4 = {
@@ -1658,11 +1659,8 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_visitors_on_the_snowmountain
 		}
-		prerequisite = {
-			focus = DVA_liberate_Windrise
-		}
 		x = 14
-		y = 11
+		y = 10
 		available = {
 			#
 		}
@@ -1692,11 +1690,33 @@ focus_tree = {
 				}
 			}
 			set_cosmetic_tag = DVA_commune
+			news_event = {
+				id = dva.news.3
+				hours = 3
+			}
 			custom_effect_tooltip = DVA_break_with_the_past_tt
-			news_event = dva.news.3
 			hidden_effect = {
 				deactivate_shine_on_focus = DVA_The_First_Convention
 				mark_focus_tree_layout_dirty = yes
+				country_event = {
+					id = dva.ab.51
+					days = 7
+				}
+			}
+			add_field_marshal_role = {
+				character = DVA_Razor
+				desc = "Razor_desc"
+				traits = { 
+					Electro_Vision
+					AN_Thunder_and_Attack
+					inspirational_leader
+					adaptable
+				}
+				skill = 3
+				attack_skill = 6
+				defense_skill = 3
+				planning_skill = 1
+				logistics_skill = 1
 			}
 		}
 	}
@@ -1706,6 +1726,9 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = DVA_break_with_the_past
+		}
+		prerequisite = {
+			focus = DVA_liberate_Windrise
 		}
 		x = 14
 		y = 12
@@ -2339,6 +2362,9 @@ focus_tree = {
 		available = {
 			#
 		}
+		allow_branch = {
+			##has_country_flag = DVA_approval_of_Alice_flag
+		}
 		completion_reward = {
 			country_event = dva.ab.21
 		}
@@ -2643,9 +2669,6 @@ focus_tree = {
 		prerequisite = {
 			focus = DVA_offering_gifts_and_loyalty
 		}
-		mutually_exclusive = {
-			focus = DVA_Plan_of_reshuffling_knights_of_favonius
-		}
 		x = 8
 		y = 11
 		available = {
@@ -2790,7 +2813,7 @@ focus_tree = {
 			add_political_power = 150
 			custom_effect_tooltip = DVA_Convention_tt
 			set_country_flag = DVA_Convention_flag
-			all_character = {
+			any_character = {
 				remove_any_country_role_from_character = yes
 			}
 			add_ideas = DVA_Convention_Election
@@ -2994,6 +3017,11 @@ focus_tree = {
 					id = DVA_inner_circle_Amber.02
 					days = 140
 				}
+				remove_trait = {
+					character = DVA_Amber
+					slot = air_chief
+					trait = Peoples_Supreme_air_command
+				}
 			}
 			if = {
 				limit = {
@@ -3004,15 +3032,10 @@ focus_tree = {
 			else = {
 				add_ideas = DVA_air_rises1
 			}
-			remove_trait = {
-				character = DVA_Amber
-				slot = air_chief
-				trait = Peoples_Supreme_air_command
-			}
 			add_trait = {
 				character = DVA_Amber
 				slot = air_chief
-				trait = Peoples_Supreme_air_command1
+				trait = Peoples_Supreme_air_command2
 			}
 		}
 	}
@@ -3150,16 +3173,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			remove_trait = {
-				character = DVA_Razor
-				slot = army_chief
-				trait = Peoples_Supreme_army_command
+			hidden_effect = {
+				remove_trait = {
+					character = DVA_Razor
+					slot = army_chief
+					trait = Peoples_Supreme_army_command
+				}
 			}
 			add_trait = {
 				character = DVA_Razor
 				slot = army_chief
-				trait = Peoples_Supreme_army_command1
+				trait = Peoples_Supreme_army_command2
 			}
+			custom_effect_tooltip = DVA_army_tac_tt
 		}
 	}
 	focus = {
@@ -3559,17 +3585,18 @@ focus_tree = {
 					id = DVA_inner_circle_Raymond.02
 					days = 140
 				}
-			}
-			remove_trait = {
-				character = DVA_Raymond
-				slot = navy_chief
-				trait = Peoples_Supreme_naval_command
+				remove_trait = {
+					character = DVA_Raymond
+					slot = navy_chief
+					trait = Peoples_Supreme_naval_command
+				}
 			}
 			add_trait = {
 				character = DVA_Raymond
 				slot = navy_chief
-				trait = Peoples_Supreme_naval_command1
+				trait = Peoples_Supreme_naval_command2
 			}
+			custom_effect_tooltip = DVA_ship_construction_tt
 		}
 	}
 	focus = {
@@ -3846,7 +3873,7 @@ focus_tree = {
 		x = -9
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 20
+		cost = 1
 		available = {
 			Is_Alternate = yes
 		}
@@ -3881,6 +3908,19 @@ focus_tree = {
 				TRAIT = Peoples_commissar_for_Natural_Resources
 			}
 			show_ideas_tooltip = Peoples_commissar_for_Natural_Resources
+			add_advisor_role = {
+				character = DVA_Collei
+				activate = no
+				advisor = {
+					slot = high_command
+					cost = 0
+					idea_token = DVA_Collei
+					traits = {
+						army_infantry_2
+					}
+					ledger = army
+				}
+			}
 		}
 	}
 	focus = {
@@ -3970,7 +4010,7 @@ focus_tree = {
 		x = -7
 		y = 1
 		relative_position_id = DVA_The_Second_Convention
-		cost = 20
+		cost = 1
 		available = {
 			Is_Alternate = yes
 		}
@@ -4004,6 +4044,20 @@ focus_tree = {
 				TRAIT = Peoples_commissar_for_Foreign_affairs
 			}
 			show_ideas_tooltip = Peoples_commissar_for_Foreign_affairs
+			add_advisor_role = {
+				character = DVA_Eula
+				activate = no
+				advisor = {
+					slot = high_command
+					cost = 0
+					idea_token = DVA_Eula
+					traits = {
+						superior_firepower_expert
+						army_artillery_1
+					}
+					ledger = army
+				}
+			}
 		}
 	}
 	focus = {
