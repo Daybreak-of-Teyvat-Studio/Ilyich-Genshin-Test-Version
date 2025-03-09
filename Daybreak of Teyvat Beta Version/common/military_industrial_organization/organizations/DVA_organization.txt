@@ -1,0 +1,166 @@
+# 公社重工 风龙领陆军MIO
+DVA_MIO_Army = {
+    
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+    allowed = { original_tag = DVA }
+    #加成范围为（除装甲车外）全陆军装备
+    equipment_type = {
+        infantry_equipment
+        artillery_equipment
+		support_equipment
+        mio_cat_eq_all_light_tank
+        mio_cat_eq_all_medium_tank
+        mio_cat_eq_all_heavy_tank
+		motorized_equipment
+		mechanized_equipment
+		motorized_rocket_equipment
+    }
+    research_categories = {
+        infantry_weapons
+		mio_cat_all_artillery_equipment
+        support_tech
+        mio_cat_tech_light_armor_and_modules
+        mio_cat_tech_medium_armor_and_modules
+        mio_cat_tech_heavy_armor_and_modules
+		motorized_equipment
+		mot_rockets
+    }
+    #初始特质，加可靠性和科研
+    initial_trait = {
+		name = DVA_MIO_Army_Trait_0
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.1
+		}
+        equipment_bonus = {
+            reliability = 0.05
+        }
+    }
+    ##特质树上面的文字，先随便放点东西
+    #英勇-对应步兵装备
+    tree_header_text = {
+        text = DVA_MIO_Army_Text1
+        x = 1
+    }
+    #团结-对应支援装备
+    tree_header_text = {
+        text = DVA_MIO_Army_Text2
+        x = 3
+    }
+    #真理-对应火炮
+    tree_header_text = {
+        text = DVA_MIO_Army_Text3
+        x = 5
+    }
+    #公正-对应坦克
+    tree_header_text = {
+        text = DVA_MIO_Army_Text4
+        x = 7
+    }
+    #勤勉-对应产能加成
+    tree_header_text = {
+        text = DVA_MIO_Army_Text5
+        x = 9
+    }
+    ##以下为特质树：
+    #特质名称是临时拟定的
+    #步兵
+    trait = {
+        token = DVA_MIO_Army_Trait_101
+        name = DVA_MIO_Army_Trait_101
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=1 y=0 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_102
+        name = DVA_MIO_Army_Trait_102
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=1 y=1 }
+        all_parents = { DVA_MIO_Army_Trait_101 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            defense = 0.03
+            soft_attack = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_103
+        name = DVA_MIO_Army_Trait_103
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=1 y=2 }
+        all_parents = { DVA_MIO_Army_Trait_102 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            hard_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_104
+        name = DVA_MIO_Army_Trait_104
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=1 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_103 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            breakthrough = 0.03
+        }
+    }
+    #支援
+    trait = {
+        token = DVA_MIO_Army_Trait_201
+        name = DVA_MIO_Army_Trait_201
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x=3 y=0 }
+        limit_to_equipment_type = {
+            support_equipment
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    #火炮
+    trait = {
+        token = DVA_MIO_Army_Trait_301
+        name = DVA_MIO_Army_Trait_301
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=3 y=0 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+        }
+    }
+    #装甲
+    trait = {
+        token = DVA_MIO_Army_Trait_401
+        name = DVA_MIO_Army_Trait_401
+        icon = GFX_generic_mio_trait_icon_hardness
+        position = { x=4 y=0 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+        }
+        equipment_bonus = {
+            armor_value = 0.05
+        }
+    }
+    #产能
+    trait = {
+        token = DVA_MIO_Army_Trait_501
+        name = DVA_MIO_Army_Trait_501
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=5 y=0 }
+        production_bonus = {
+            production_efficiency_cap_factor = 0.03
+        }
+    }
+}
