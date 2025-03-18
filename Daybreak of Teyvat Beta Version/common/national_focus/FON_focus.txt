@@ -48,7 +48,7 @@ default = no
             country_event = {id=FON.1} #事件：少女神秘消失，开始调查
             mark_focus_tree_layout_dirty = yes
         }
-        custom_effect_tooltip = FON_stage_change_tt
+        
     }
 
     ai_will_do = {
@@ -96,7 +96,6 @@ default = no
             activate_mission = FON_watercrisis_mission
             mark_focus_tree_layout_dirty = yes
         } 
-        custom_effect_tooltip = FON_stage_change_tt
     }
 
     ai_will_do = {
@@ -530,7 +529,7 @@ focus = {
     bypass = {
 
     }
-    cancel_if_invalid = yes
+    cancel_if_invalid = no
     continue_if_invalid = no
     available_if_capitulated = no
     allow_branch = {
@@ -549,10 +548,12 @@ focus = {
         focus = FON_judge_puren
     }
 
+    select_effect = {
+        country_event = {id= FON.8} #事件：罪人舞步旋
+    }
+
     completion_reward = {
         add_political_power = 50 
-        country_event = {id= FON.8} #事件：罪人舞步旋
-        custom_effect_tooltip = FON_stage_change_tt
     }
 
     ai_will_do = {
@@ -929,7 +930,9 @@ focus = {
     allow_branch = {
         FON_Navia_government_trigger = yes
     }
-
+    x=18
+    y=0
+    
 }
 
 
@@ -945,6 +948,8 @@ focus = {
     allow_branch = {
         FON_Liney_government_trigger = yes
     }
+    x=18
+    y=0
 
 }
 
@@ -960,7 +965,9 @@ focus = {
     allow_branch = {
         FON_Charlotte_government_trigger = yes
     }
-
+    x=18
+    y=0
+    
 }
 
 
@@ -974,10 +981,30 @@ focus = {
     allow_branch = {
         FON_Furina_government_trigger = yes
     }
+    x=18
+    y=0
 
 }
 
+########################################
+#####      进步派联合通用国策树    -######
+########################################
 
+########################################
+#####     自由派联合通用国策树     -######
+########################################
+
+########################################
+#####      左右共治通用国策树     -######
+########################################
+
+#################################################
+#####  芙宁娜主导政府（准立宪君主制）国策树 -######
+#################################################
+
+######################################################
+#####     芙宁娜参与政府（立宪君主制）国策树     -######
+######################################################
 
 ########################################
 #####      民主政府通用国策树      -######
@@ -1013,24 +1040,632 @@ focus = {
     }
 }
 
+#整肃官僚机构
+focus = {
+    id = FON_anti_bureaucratism
+    icon = GFX_FON_anti_bureaucratism
 
-########################################
-#####      进步派联合通用国策树    -######
-########################################
+    relative_position_id = FON_constitution_writing
 
-########################################
-#####     自由派联合通用国策树     -######
-########################################
+    x=1.5
+    y=1.5
 
-########################################
-#####      左右共治通用国策树      -######
-########################################
+    cancel = {
+        custom_trigger_tooltip = {
+            tooltip = FON_changed_politic_situation_tt
+            FON_no_democracy_government_trigger = yes
+        }
+    }
 
-########################################
-#####     芙宁娜主导政府国策树     -######
-########################################
+    allow_branch = {
+        FON_is_in_constitutional_democratic_government_trigger = yes
+    }
+    
+    prerequisite = {
+        focus = FON_constitution_writing
+    }
 
-########################################
-#####     芙宁娜参与政府国策树     -######
-########################################
+    prerequisite = {
+        focus = FON_Navia_government
+        focus = FON_Liney_government
+        focus = FON_Charlotte_government
+        focus = FON_Furina_government
+    }
+    
+    cost = 5
+
+    select_effect = {
+        country_event = { id = FON.40 } #触发政府改革事件链
+    }
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_government_with_low_efficiency
+            add_idea = FON_government_with_reform
+        }
+    }
+}
+
+#国防部
+focus = {
+    id = FON_Ministry_of_Defense
+    #icon = 
+
+    relative_position_id = FON_anti_bureaucratism
+
+    x = 10.5
+    y = 1
+
+    prerequisite = {
+        focus = FON_anti_bureaucratism
+    }
+
+}
+
+#经济发展部
+focus = {
+    id = FON_Ministry_of_Economy
+    #icon = 
+
+    relative_position_id = FON_anti_bureaucratism
+
+    x = -3
+    y = 1
+
+    prerequisite = {
+        focus = FON_anti_bureaucratism
+    }
+}
+
+#外交部
+focus = {
+    id = FON_Ministry_of_Diplomat
+    #icon =
+
+    relative_position_id = FON_anti_bureaucratism
+
+    x = -18
+    y = 1
+
+    prerequisite = {
+        focus = FON_anti_bureaucratism
+    }
+}
+
+#国民教育与科技发展部
+focus = {
+    id = FON_Ministry_of_Education_and_Science
+    #icon =
+
+    relative_position_id = FON_anti_bureaucratism
+
+    x = -12
+    y = 1
+
+    prerequisite = {
+        focus = FON_anti_bureaucratism
+    }
+}
+
+#唤醒战争机器
+focus = {
+    id = FON_waking_the_war_machine
+    #icon = 
+
+    relative_position_id = FON_Ministry_of_Defense
+
+    x = -8
+    y = 1
+
+    prerequisite = {
+        focus = FON_Ministry_of_Defense
+    }
+
+    prerequisite = {
+        focus = FON_Ministry_of_Economy
+    }
+}
+
+#枫丹世界政策
+focus = {
+    id = FON_global_policy_of_FON
+    #icon = 
+
+    relative_position_id = FON_Ministry_of_Diplomat
+
+    x = -8
+    y = 1
+
+    prerequisite = {
+        focus = FON_Ministry_of_Diplomat
+    }
+}
+
+#枫丹国际合作（动态国策）
+focus = {
+    id = FON_international_organization
+    #icon = 
+
+    relative_position_id = FON_Ministry_of_Diplomat
+
+    x = 0
+    y = 1
+
+    prerequisite = {
+        focus = FON_Ministry_of_Diplomat
+    }
+}
+
+################################################
+#####     军事建设（国防部）通用国策树     -######
+################################################
+
+
+
+#军事问题大辩论
+focus = {
+    id = FON_debate_on_military
+    icon = GFX_FON_debate_on_military
+
+    relative_position_id = FON_Ministry_of_Defense
+    x = 0
+    y = 1
+    
+    prerequisite = {
+        focus = FON_Ministry_of_Defense
+    }
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    cost = 1
+
+    completion_reward = {
+        country_event = { id = FON.39 } #军事改革方向 
+        army_experience = 30
+        navy_experience = 30
+        air_experience = 30
+    }
+}
+
+#莱欧斯利计划
+focus = {
+    id = FON_plan_Wriothesley
+    icon = GFX_FON_plan_Wriothesley
+
+    relative_position_id = FON_debate_on_military
+
+    x = -2
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_debate_on_military
+    }
+
+    mutually_exclusive = {
+        focus= FON_plan_Clorinde
+    }
+
+    cost = 0
+
+    completion_reward = {
+        add_doctrine_cost_reduction = {
+            name = FON_military_reform
+            cost_reduction = 0.5
+            uses = 2
+            category = land_doctrine
+        }
+        custom_effect_tooltip = FON_focus_unlocked_event
+    }
+}
+
+#克洛琳德计划
+focus = {
+    id = FON_plan_Clorinde
+    icon = GFX_FON_plan_Clorinde
+
+    relative_position_id = FON_debate_on_military
+
+    x = 2
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_debate_on_military
+    }
+
+    mutually_exclusive = {
+        focus= FON_plan_Wriothesley
+    }
+
+    cost = 0
+
+    completion_reward = {
+        add_doctrine_cost_reduction = {
+            name = FON_military_reform
+            cost_reduction = 0.5
+            uses = 2
+            category = land_doctrine
+        }
+        custom_effect_tooltip = FON_focus_unlocked_event
+    }
+}
+
+#步兵集训
+focus = {
+    id = FON_infantry_training
+    icon = GFX_FON_infantry_training
+
+    relative_position_id = FON_plan_Wriothesley
+
+    x = 0
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_plan_Wriothesley
+    }
+
+    cost = 4
+
+    completion_reward = {
+        add_ideas = FON_Wriothesley_military_1
+    }
+}
+
+#总参谋部调整
+focus = {
+    id = FON_superior_conductor
+    icon = GFX_FON_superior_conductor
+
+    relative_position_id = FON_infantry_training
+
+    x = 0
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_infantry_training
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Wriothesley_military_1
+            add_idea = FON_Wriothesley_military_2
+        }
+        add_timed_idea = {
+            idea = FON_chaos_due_to_superior_reform
+            days = 180
+        } 
+    }
+}
+
+#高筑墙，广积粮
+focus = {
+    id = FON_defense_to_winning
+    icon = GFX_FON_defense_to_winning
+
+    relative_position_id = FON_superior_conductor
+
+    x = -1
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_superior_conductor
+    }
+
+    mutually_exclusive = {
+        focus = FON_attacking_is_all
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Wriothesley_military_2
+            add_idea = FON_Wriothesley_military_3
+        }
+    }
+}
+
+#冲锋陷阵
+focus = {
+    id = FON_attacking_is_all
+    icon = GFX_FON_attacking_is_all
+
+    relative_position_id = FON_superior_conductor
+
+    x = 1
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_superior_conductor
+    }
+
+    mutually_exclusive = {
+        focus = FON_defense_to_winning
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Wriothesley_military_2
+            add_idea = FON_Wriothesley_military_4
+        }
+    }
+}
+
+#装甲理论集训
+focus = {
+    id = FON_armor_theory_training
+    icon = GFX_FON_armor_theory_training
+
+    relative_position_id = FON_plan_Clorinde
+
+    x = 0
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_plan_Clorinde
+    }
+
+    cost = 4
+
+    completion_reward = {
+        add_idea = FON_Clorinde_military_1
+    }
+}
+
+#灵活指挥
+focus = {
+    id = FON_conduct_by_warriors
+    icon = GFX_FON_conduct_by_warriors
+
+    relative_position_id = FON_armor_theory_training
+
+    x = 0
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_armor_theory_training
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Clorinde_military_1
+            add_idea = FON_Clorinde_military_2
+        }
+        add_timed_idea = {
+            idea = FON_chaos_due_to_superior_reform
+            days = 180
+        } 
+    }
+}
+
+#一马当先
+focus = {
+    id = FON_running_armor
+    icon = GFX_FON_running_armor
+
+    relative_position_id = FON_conduct_by_warriors
+
+    x = -1
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_conduct_by_warriors
+    }
+
+    mutually_exclusive = {
+        focus = FON_gather_up_together
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Clorinde_military_2
+            add_idea = FON_Clorinde_military_3
+        }
+    }
+}
+
+#协同作战
+focus = {
+    id = FON_gather_up_together
+    icon = GFX_FON_gather_up_together
+
+    relative_position_id = FON_conduct_by_warriors
+
+    x = 1
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_conduct_by_warriors
+    }
+
+    mutually_exclusive = {
+        focus = FON_running_armor
+    }
+
+    cost = 4
+
+    completion_reward = {
+        swap_ideas = {
+            remove_idea = FON_Clorinde_military_2
+            add_idea = FON_Clorinde_military_4
+        }
+    }
+}
+
+#水之国度统御四海
+focus = {
+    id = FON_controlling_oceans
+    icon = GFX_FON_controlling_oceans
+
+    relative_position_id = FON_Ministry_of_Defense
+
+    x = 14
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_Ministry_of_Defense
+    }
+
+    cost = 0
+
+    completion_reward = {
+        custom_effect_tooltip = FON_focus_unlocked_event
+    }
+}
+
+#希望有羽毛和翅膀
+focus = {
+    id = FON_air_king
+    icon = GFX_FON_air_king
+
+    relative_position_id = FON_Ministry_of_Defense
+
+    x = 8
+    y = 1
+
+    allow_branch = {
+        OR = {
+            FON_is_in_constitutional_democratic_government_trigger = yes
+            AND = {
+                FON_no_democracy_government_trigger = yes
+                FON_back_to_stability_trigger = yes
+            }
+        }
+    }
+
+    prerequisite = {
+        focus = FON_Ministry_of_Defense
+    }
+
+    cost = 0
+
+    completion_reward = {
+        custom_effect_tooltip = FON_focus_unlocked_event
+    }
+}
 }
