@@ -15,20 +15,22 @@ characters = {
 		country_leader = {
 			desc = "INA_Raiden_desc"
 			ideology = eternity
-			traits = {}
+			traits = {unpopular_monarch}
 			expire = "9999.12.30"
 			id=-1
 		}
 	   field_marshal = {
-			traits = {   }
+			traits = {  armor_officer INA_character}
 			# id = 1
-			skill = 6
-			attack_skill = 9
-			defense_skill = 8
-			planning_skill = 2
-			logistics_skill = 2
-			visible = { has_completed_focus = INA_war_end 
-			original_tag = INA}
+			skill = 4
+			attack_skill = 7
+			defense_skill = 6
+			planning_skill = 3
+			logistics_skill = 3
+			visible = { 
+				has_completed_focus = INA_beyondmyself 
+			original_tag = INA
+		   }
 		}
 	  advisor = {
 			slot = political_advisor
@@ -36,7 +38,7 @@ characters = {
 			name = INA_Raiden
 			cost = 300
 			available = {
-				has_completed_focus = INA_war_end
+				has_completed_focus = INA_beyondmyself
 				}
 			
 			modifier = {
@@ -48,8 +50,85 @@ characters = {
 			}
 			
 		}
-}
-    
+	advisor={
+			slot = army_chief
+			idea_token = INA_Raiden
+			available = {
+				has_completed_focus = INA_beyondmyself
+			}
+			traits = {
+				army_chief_offensive_3
+			}
+			cost = 200
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+  }
+#将军
+ INA_MEI = {
+	name = INA_MEI
+	portraits={
+		 civilian={
+			 large="gfx/leaders/LY/Raiden.dds"
+			 small="gfx/interface/cabinet/INA_Raiden.dds"
+		 }
+		 army = {
+			 large="gfx/leaders/LY/Raiden.dds"
+			 small="gfx/interface/cabinet/INA_Raiden.dds"
+		 }
+	 }
+	 country_leader = {
+		 desc = "INA_MEI_desc"
+		 ideology = fascism_ideology
+		 traits = { prime_minister_atsiz}
+		 expire = "9999.12.30"
+		 id=-1
+	 }
+	field_marshal = {
+		 traits = {  armor_officer INA_character}
+		 # id = 1
+		 skill = 5
+		 attack_skill = 10
+		 defense_skill = 9
+		 planning_skill = 1
+		 logistics_skill = 1
+		 visible = { has_completed_focus = INA_elementcontrol 
+		 original_tag = INA}
+	 }
+   advisor = {
+		 slot = political_advisor
+		 idea_token = INA_MEI
+		 name = INA_MEI
+		 cost = 300
+		 available = {
+			 has_completed_focus = INA_elementcontrol
+			 }
+		 
+		 modifier = {
+		 	non_core_manpower = 0.02
+			army_attack_factor = 0.15
+		 }
+		 ai_will_do = {
+			 factor = 1
+		 }
+		 
+	 }
+ advisor={
+		 slot = army_chief
+		 idea_token = INA_MEI
+		 available = {
+			 has_completed_focus = INA_elementcontrol
+		 }
+		 traits = {
+			 army_chief_offensive_3
+		 }
+		 cost = 200
+		 ai_will_do = {
+			 factor = 1.000
+		 }
+	 }
+}   
 #樱
  INA_yae = {
 	   name = INA_yae
@@ -66,15 +145,15 @@ characters = {
 		country_leader = {
 					desc = INA_yae_desc
 					ideology = conservatism
-					traits = {INA_juanshu}
+					traits = {agricultural_nationalist democratic_crusader}
 					id=-1
 				}
 	   field_marshal = {
-			traits = {   }
+			traits = {  adaptable  inflexible_strategist INA_character}
 			# id = 1
-			skill = 6
-			attack_skill = 2
-			defense_skill = 3
+			skill = 5
+			attack_skill = 3
+			defense_skill = 5
 			planning_skill = 6
 			logistics_skill = 4
 			visible = {		has_completed_focus = INA_war_end
@@ -91,7 +170,7 @@ characters = {
 			name = INA_yae
 			cost = 300
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.25
 				max_dig_in = 8
 			}
 			available = {
@@ -103,6 +182,42 @@ characters = {
 			}
 			ai_will_do = {
 				factor = 1
+			}
+		}
+		advisor={
+			slot = navy_chief
+			idea_token = INA_yae
+			available = {
+				has_completed_focus = INA_war_end
+				NOT = {
+					has_completed_focus = INA_extragovernment
+					has_completed_focus = INA_militarygovernment
+				}
+			}
+			traits = {
+				navy_chief_maneuver_3
+			}
+			cost = 200
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+	 advisor={
+			slot = army_chief
+			idea_token = INA_yae
+			available = {
+				has_completed_focus = INA_war_end
+				NOT = {
+					has_completed_focus = INA_extragovernment
+					has_completed_focus = INA_militarygovernment
+				}
+			}
+			traits = {
+				army_chief_old_guard
+			}
+			cost = 75
+			ai_will_do = {
+				factor = 1.000
 			}
 		}
 }
@@ -119,14 +234,14 @@ characters = {
 				small="gfx/interface/cabinet/INA_Sara.dds"
 			}
 		} 
-	country_leader = {
+	  country_leader = {
 			desc = INA_Sara_desc
 			ideology = despotism
-			traits = {}
+			traits = { }
 			id=-1
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = {    harsh_leader INA_character}
 			# id = 1
 			skill = 4
 			attack_skill = 4
@@ -136,13 +251,11 @@ characters = {
 			visible = {
 				original_tag = INA
 					NOT = {
-					has_completed_focus = INA_yaegovernment
-					
+					has_completed_focus = INA_yaegovernment	
 				}
 			}
 		}
 	  advisor = {
-	  
 			slot = political_advisor
 			idea_token = INA_Sara
 			name = INA_Sara
@@ -161,8 +274,45 @@ characters = {
 				factor = 1
 			}
 		}
+		advisor={
+			slot = air_chief
+			idea_token = INA_Sara
+			name = INA_Sara
+			allowed = {
+				original_tag = INA
+			}
+			available = {	
+				NOT = {
+					has_completed_focus = INA_yaegovernment
+				}
+			}
+			traits = {
+				air_chief_ground_support_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+	 advisor={
+			slot = army_chief
+			idea_token = INA_Sara
+			cost = 75
+			available = {
+			NOT = {
+					has_completed_focus = INA_yaegovernment
+				}
+			}
+			traits = {
+				army_chief_maneuver_3
+			}
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
         }
-        #丽塔
+
+#丽塔
     INA_Ayaka = {
 	   name = INA_Ayaka
 	   portraits={
@@ -176,7 +326,7 @@ characters = {
 			}
 		} 
 	   corps_commander = {
-			traits = {   }
+			traits = { infantry_officer media_personality INA_character }
 			visible = {
 					has_completed_focus = INA_reuseayaka
 			}
@@ -188,7 +338,6 @@ characters = {
 			logistics_skill = 2
 		}
 	  advisor = {
-	  
 			slot = political_advisor
 			idea_token = INA_Ayaka
 			name = INA_Ayaka
@@ -198,15 +347,30 @@ characters = {
 				has_completed_focus = INA_reuseayaka
 			}
 			modifier = {
-				compliance_growth = 0.3
-				resistance_growth = -0.3
+				compliance_growth = 0.35
+				resistance_growth = -0.35
 			}
 			ai_will_do = {
 				factor = 1
 			}
 		}
+		
+	advisor={	
+			slot = army_chief
+			idea_token = INA_Ayaka
+			allowed = {
+				original_tag = INA
+			}
+			traits = {
+				army_chief_defensive_1
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
         }
-        #奥托
+#奥托
 	INA_Ayato = {
 	   name = INA_Ayato
 	   portraits={
@@ -220,7 +384,7 @@ characters = {
 			}
 		} 
 	   corps_commander = {
-			traits = {   }
+			traits = { politically_connected   INA_character}
 			# id = 1
 			skill = 3
 			attack_skill = 2
@@ -250,8 +414,25 @@ characters = {
 				factor = 1
 			}
 		}
+	 advisor={	
+			slot = army_chief
+			idea_token = INA_Ayato
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+				has_completed_focus = INA_reuseshefengxi
+			}
+			traits = {
+				army_chief_planning_2
+			}
+			cost = 75
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
         }
-        #帕朵
+#帕朵
 		INA_Yoimiya = {
 	   name = INA_Yoimiya
 	   portraits={
@@ -265,7 +446,7 @@ characters = {
 			}
 		} 
 	   corps_commander = {
-			traits = {   }
+			traits = {   bearer_of_artillery INA_character}
 			# id = 1
 			visible = {
 				has_completed_focus = INA_yoimiyashop
@@ -293,22 +474,42 @@ characters = {
 				factor = 1
 			}
 		}
+	advisor={	
+			slot = high_command
+			idea_token = INA_Yoimiya
+			name = INA_Yoimiya
+			ledger = army
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+				has_completed_focus = INA_yoimiyashop
+			}
+			traits = {
+				army_artillery_3
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+		
         }
-           #琦良良
+#琦良良
 		INA_momoka = {
 	   name = INA_momoka
 	   portraits={
 			civilian={
 				large="gfx/leaders/LY/Momoka.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/qiliangliang.dds"
 			}
 			army = {
 				large="gfx/leaders/LY/Momoka.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/qiliangliang.dds"
 			}
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  cavalry_officer INA_character}
 			visible = {
 				has_completed_focus = INA_transport
 			}
@@ -329,16 +530,37 @@ characters = {
 				has_completed_focus = INA_transport
 			}
 			modifier = {
-				production_speed_industrial_complex_factor = 0.2
 				production_factory_efficiency_gain_factor = 0.25
+				production_speed_rail_way_factor = 0.25
+				production_speed_arms_factory_factor = -0.15
+				production_speed_buildings_factor = 0.25
 			}
 			ai_will_do = {
 				factor = 1
 			}
 		}
+	advisor={	
+			slot = high_command
+		    idea_token = INA_momoka
+			name = INA_momoka
+			ledger = army
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+				has_completed_focus = INA_transport
+			}
+			traits = {
+				army_CombinedArms_1
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
         }
-    #早柚
-		INA_Saya = {
+#早柚
+	 INA_Saya = {
 	   name = INA_Saya
 	   portraits={
 			civilian={
@@ -351,7 +573,7 @@ characters = {
 			}
 		} 
 	   corps_commander = {
-			traits = {   }
+			traits = { INA_character  }
 			visible = {
 				has_completed_focus = INA_reusesaya
 			}
@@ -378,22 +600,42 @@ characters = {
 				factor = 1
 			}
 		}
+	advisor={	
+			slot = high_command
+		idea_token = INA_Saya
+			name = INA_Saya
+			ledger = army
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+		   has_completed_focus = INA_reusesaya
+			}
+			traits = {
+				army_commando_1
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
         }
-    #平藏
+        
+#平藏
         INA_Heizou = {
            name = INA_Heizou
 	   portraits={
 			civilian={
 				large="gfx/leaders/LY/Heizou.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/luyeyuanpingzang.dds"
 			}
 			army = {
 				large="gfx/leaders/LY/Heizou.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/luyeyuanpingzang.dds"
 			}
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  INA_character }
 			visible = {
 				has_completed_focus = INA_reuseheizou
 			}
@@ -413,15 +655,33 @@ characters = {
 				has_completed_focus = INA_reuseheizou
 			}
 			modifier = {
-				own_operative_detection_chance = -2
 				operative_slot = 1
 			}
 			ai_will_do = {
 				factor = 1
 			}
 		}
+	  advisor={	
+			slot = high_command
+			idea_token = INA_Heizou
+			name = INA_Heizou
+			ledger = army
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+		   has_completed_focus = INA_reusesaya
+			}
+			traits = {
+				army_commando_1
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
 		}
-	#心海（幕府）
+		}
+#心海（幕府）
         INA_Kokomi = {
            name = INA_Kokomi
 	   portraits={
@@ -435,19 +695,25 @@ characters = {
 			}
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  trait_cautious INA_character }
 			# id = 1
 			skill = 3
 			attack_skill =2
 			defense_skill = 2
 			planning_skill = 4
 			logistics_skill =3
+			visible = {		has_completed_focus = INA_thekokomi
+			original_tag = INA
+			}
 		}
 	  advisor = {
 			slot = political_advisor
 			idea_token = INA_Kokomi
 			name = INA_Kokomi
 			cost = 300
+			available = {
+		   has_completed_focus = INA_thekokomi
+			}
 			modifier = {
 				experience_loss_factor = -0.20
 				max_planning = 0.2
@@ -456,8 +722,26 @@ characters = {
 				factor = 1
 			}
 		}
+	 advisor={
+			slot = navy_chief
+			idea_token = INA_Kokomi
+			name = INA_Kokomi
+			allowed = {
+				original_tag = INA
+			}
+			available = {
+		   has_completed_focus = INA_thekokomi
+			}
+			traits = {
+				navy_chief_maneuver_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
 		}
-	#心海（珊瑚宫）
+		}
+#心海（珊瑚宫）
         SAN_Kokomi = {
            name = SAN_Kokomi
 	   portraits={
@@ -470,20 +754,28 @@ characters = {
 				small="gfx/interface/cabinet/INA_kokomi.dds"
 			}
 		}
+		country_leader = {
+			desc = "SAN_Kokomi_desc"
+			ideology = conservatism
+			traits = {inexperienced_monarch}
+			expire = "9999.12.30"
+			id=-1
+		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  trait_cautious  INA_character }
 			# id = 1
 			skill = 3
 			attack_skill =2
 			defense_skill = 2
 			planning_skill = 4
 			logistics_skill =3
+		
 		}
 	  advisor = {
 			slot = political_advisor
 			idea_token = SAN_Kokomi
 			name = SAN_Kokomi
-			cost = 300
+			cost = 100
 			modifier = {
 				experience_loss_factor = -0.20
 				max_planning = 0.2
@@ -492,8 +784,20 @@ characters = {
 				factor = 1
 			}
 		}
+	 advisor={
+			slot = navy_chief
+			idea_token = INA_Kokomi
+			name = INA_Kokomi
+			traits = {
+				navy_chief_maneuver_2
+			}
+			cost = 25
+			ai_will_do = {
+				factor = 1.000
+			}
 		}
-	#五郎（幕府）
+		}
+#五郎（幕府）
         INA_Gorou = {
            name = INA_Gorou
 	   portraits={
@@ -506,14 +810,24 @@ characters = {
 				small="gfx/interface/cabinet/INA_gorou.dds"
 			}
 		}
+		country_leader = {
+			desc = "INA_Gorou_desc"
+			ideology = leninism
+			traits = {inexperienced_monarch}
+			expire = "9999.12.30"
+			id=-1
+		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  infantry_officer  INA_character}
 			# id = 1
 			skill = 3
 			attack_skill =2
 			defense_skill = 4
 			planning_skill = 2
 			logistics_skill =3
+			visible = {		has_completed_focus = INA_thegorou
+			original_tag = INA
+			}
 		}
 	  advisor = {
 			slot = political_advisor
@@ -524,12 +838,15 @@ characters = {
 				training_time_factor = -0.25
 				army_infantry_defence_factor = 0.1
 			}
+			available = {
+		   has_completed_focus = INA_thegorou
+			}
 			ai_will_do = {
 				factor = 1
 			}
 		}
 		}
-		#五郎（珊瑚宫）
+#五郎（珊瑚宫）
        SAN_Gorou = {
            name = SAN_Gorou
 	   portraits={
@@ -543,7 +860,7 @@ characters = {
 			}
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = { INA_character  }
 			# id = 1
 			skill = 3
 			attack_skill =2
@@ -565,23 +882,24 @@ characters = {
 			}
 		}
 		}
-	#小叶子
+#小叶子
 		INA_Kazuha= {
            name = INA_Kazuha
-	   portraits={
+	      portraits={
 			civilian={
 				large="gfx/leaders/LY/Kazuha.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/INA_kazuha.dds"
 			}
 			army = {
 				large="gfx/leaders/LY/Kazuha.dds"
-				small="gfx/interface/cabinet/Undecided.dds"
+				small="gfx/interface/cabinet/INA_kazuha.dds"
 			}
 		}
 	   corps_commander = {
-			traits = {   }
+			traits = {  INA_character }
 			visible = {
 				original_tag = SAN
+				has_completed_focus = SAN_callforhelp
 			}
 			# id = 1
 			skill = 3
@@ -592,16 +910,318 @@ characters = {
 		}
 	  advisor = {
 			slot = political_advisor
-			idea_token = INA_Gorou
-			name = INA_Gorou
+			idea_token = INA_Kazuha
+			name = INA_Kazuha
 			cost = 250
+			available = {
+				has_completed_focus = SAN_callforhelp
+				 }
 			modifier = {
-				land_reinforce_rate = 0.03
-				army_speed_factor = 0.1
+				production_speed_arms_factory_factor = 0.15
+				production_speed_air_base_factor = 0.35
+				air_doctrine_cost_factor = -0.15
 			}
+			research_bonus = { air_equipment = 0.15 }
 			ai_will_do = {
 				factor = 1
 			}
 		}
+		advisor={
+			slot = air_chief
+			idea_token = INA_Kazuha
+			allowed = {
+				original_tag = SAN
+			}
+			traits = {
+				air_chief_ground_support_2
+			}
+			available = {
+				has_completed_focus = SAN_callforhelp
+				 }
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
 		}
+		}
+#拖把
+		INA_Thoma = {
+			name = INA_Thoma
+		   portraits={
+			 civilian={
+				 large="gfx/leaders/LY/Thoma.dds"
+				 small="gfx/interface/cabinet/tuoma.png"
+			 }
+			 army = {
+				 large="gfx/leaders/LY/Thoma.dds"
+				 small="gfx/interface/cabinet/tuoma.png"
+			 }
+		 }
+		corps_commander = {
+			 traits = {  INA_character }
+			 visible = { 
+				has_completed_focus = INA_meiayaka 
+			original_tag = INA
+		   }
+			 # id = 1
+			 skill = 1
+			 attack_skill = 1
+			 defense_skill = 1
+			 planning_skill = 1
+			 logistics_skill = 3
+		 }
+	   advisor = {
+			 slot = political_advisor
+			 idea_token = INA_Thoma
+			 name = INA_Thoma
+			 cost = 150
+			 modifier = {
+				no_supply_grace = 24
+				out_of_supply_factor = -0.2
+			 }
+			 available = {
+				has_completed_focus = INA_meiayaka
+				 }
+				
+			 ai_will_do = {
+				 factor = 1
+			 }
+		 }
+		 }
+ #一斗
+       INA_Itto = {
+		   name = INA_Itto
+		   portraits={
+			 civilian={
+				 large="gfx/leaders/LY/Itto.dds"
+				 small="gfx/interface/cabinet/INA_itto.dds"
+			 }
+			 army = {
+				 large="gfx/leaders/LY/Itto.dds"
+				 small="gfx/interface/cabinet/INA_itto.dds"
+			 }
+		 }
+		corps_commander = {
+			 traits = { INA_character  }
+			 visible = {
+				 original_tag = INA
+				 has_completed_focus = INA_recall_veterans 
+			 }
+			 # id = 1
+			 skill = 1
+			 attack_skill = 1
+			 defense_skill = 1
+			 planning_skill = 1
+			 logistics_skill = 1
+		 }
+	   advisor = {
+			 slot = political_advisor
+			 idea_token = INA_Itto
+			 name = INA_Itto
+			 cost = 25
+			 modifier = {
+				weekly_manpower = 50
+			 }
+			 available = {
+				has_completed_focus = INA_recall_veterans
+				
+				 }
+			 research_bonus = { 	infantry_weapons = 0.05 }
+			 ai_will_do = {
+				 factor = 1
+			 }
+		 }
+	 }
+#久岐忍
+		INA_Shinobu = {
+			name = INA_Shinobu
+		   portraits={
+			 civilian={
+				 large="gfx/leaders/LY/Shinobu.dds"
+				 small="gfx/interface/cabinet/Shinobu.dds"
+			 }
+			 army = {
+				 large="gfx/leaders/LY/Shinobu.dds"
+				 small="gfx/interface/cabinet/Shinobu.dds"
+			 }
+		 }
+		corps_commander = {
+			 traits = {INA_character   }
+			 visible = {
+				 original_tag = INA
+				 has_completed_focus = INA_recall_veterans
+			 }
+			 # id = 1
+			 skill = 1
+			 attack_skill = 1
+			 defense_skill = 1
+			 planning_skill = 1
+			 logistics_skill = 1
+		 }
+	   advisor = {
+			 slot = political_advisor
+			 idea_token = INA_Shinobu
+			 name = INA_Shinobu
+			 cost = 75
+			 modifier = {
+				stability_factor = 0.15
+		        war_support_factor = 0.1
+			 }
+			 available = {
+				has_completed_focus = INA_recall_veterans
+				 }
+			 ai_will_do = {
+				 factor = 1
+			 }
+		 }
+		 }		 
+##千织
+		 INA_Chiori = {
+			name = INA_Chiori
+		   portraits={
+			 civilian={
+				 large="gfx/leaders/PRI/Chiori.dds"
+				 small="gfx/interface/cabinet/qianzhi.dds"
+			 }
+			 army = {
+				 large="gfx/leaders/PRI/Chiori.dds"
+				 small="gfx/interface/cabinet/qianzhi.dds"
+			 }
+		 }
+		corps_commander = {
+			 traits = {INA_character   }
+			 visible = {
+				 original_tag = INA
+				 has_completed_focus = INA_clothing
+			 }
+			 # id = 1
+			 skill = 1
+			 attack_skill = 1
+			 defense_skill = 1
+			 planning_skill = 1
+			 logistics_skill = 1
+		 }
+	   advisor = {
+			 slot = political_advisor
+			 idea_token = INA_Chiori
+			 name = INA_Chiori
+			 cost = 150
+			 modifier = {
+		
+			 }
+			 available = {
+				has_completed_focus = INA_clothing
+				 }
+			 traits = {  }
+			 research_bonus = { 	support_tech = 0.15 }
+			 ai_will_do = {
+				 factor = 1
+			 }
+		 }
+		 }	  
+
+		 
+  #####                                                              
+ #     #   ####   #  ######  #    #  #####  #   ####   #####   ####  
+ #        #    #  #  #       ##   #    #    #  #         #    #      
+  #####   #       #  #####   # #  #    #    #   ####     #     ####  
+       #  #       #  #       #  # #    #    #       #    #         # 
+ #     #  #    #  #  #       #   ##    #    #  #    #    #    #    # 
+  #####    ####   #  ######  #    #    #    #   ####     #     ####  
+  FRA_frederic_joliot_curie = {
+	name = FRA_frederic_joliot_curie
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_frederic_joliot_curie
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_nuclear_power_expert }
+		skills = {
+			specialization_nuclear = 2
+		}
+	}
+}
+
+FRA_francois_hussenot = {
+	name = FRA_francois_hussenot
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_francois_hussenot
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_aircraft_specialist }
+		skills = {
+			specialization_air = 2
+		}
+	}
+}
+
+FRA_louis_renault = {
+	name = FRA_louis_renault
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_louis_renault
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_armored_specialist }
+		skills = {
+			specialization_land = 2
+		}
+	}
+}
+
+FRA_emile_rimailho = {
+	name = FRA_emile_rimailho
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_emile_rimailho
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_artillery_specialist scientist_trait_fast_learner }
+		skills = {
+			specialization_land = 2
+		}
+	}
+}
+
+FRA_eugene_schneider_ii = {
+	name = FRA_eugene_schneider_ii
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_eugene_schneider_ii
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_artillery_specialist scientist_trait_resourceful }
+		skills = {
+			specialization_land = 2
+		}
+	}
+}
+
+FRA_henri_edmond_fouche = {
+	name = FRA_henri_edmond_fouche
+	portraits = {
+		army = {
+			large = GFX_portrait_FRA_henri_edmond_fouche
+		}
+	}
+
+	scientist = {
+		traits = { scientist_trait_surface_ship_specialist }
+		skills = {
+			specialization_naval = 2
+		}
+	}
+}
+
 }
