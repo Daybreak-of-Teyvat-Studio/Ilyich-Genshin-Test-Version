@@ -1,0 +1,1287 @@
+﻿focus_tree = {
+	id = NAT_Focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = NAT
+		}
+	}
+	default = no
+	#圣火巡礼下的隐患
+	focus = {
+		id = NAT_thedescion
+		icon = GFX_focus_generic_self_management
+		cost = 2
+		x = 25
+		y = 0
+		available = {
+		
+		}
+		completion_reward = {
+			add_political_power = 50
+			#触发纳塔事件1
+		}
+		ai_will_do = {
+			base = 10
+		}
+	}
+    #不速之客的提案
+	focus = {
+		id = NAT_thefight
+		icon = GFX_goal_generic_army_doctrines
+		cost = 4.00
+		prerequisite = {
+			focus = NAT_thedescion
+		}
+		x = 0
+		y = 1
+		relative_position_id = NAT_thedescion
+		completion_reward = {
+			army_experience = 5
+			#触发纳塔事件2：决斗。
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+	 #两败俱伤
+		focus = {
+			id = NAT_theanother
+			icon = GFX_focus_generic_anti_fascist_diplomacy
+			cost = 1
+			prerequisite = {
+				focus = NAT_thefight
+			}
+			x = -9
+			y = 1
+		mutually_exclusive = {
+			focus = NAT_thegod
+			focus = NAT_thedefeat
+		}
+			relative_position_id = NAT_thefight
+			completion_reward = {
+				army_experience = 5
+				#触发纳塔事件3：两败俱伤。
+			}
+			ai_will_do = {
+				base = 1
+			}
+		}
+    #联合协议
+		focus = {
+			id = NAT_theunit
+			icon = GFX_goal_generic_national_unity
+			cost = 5.00
+			prerequisite = {
+				focus = NAT_theanother
+			}
+			mutually_exclusive = {
+				focus = NAT_waitforgod
+			}
+			x = 2
+			y = 1
+			relative_position_id = NAT_theanother
+			completion_reward = {
+				###add_ideas = CLO_zhaojiqitashijie_idea
+				#奖励精神：团结协议：
+			}
+			ai_will_do = {
+				base = 1
+			}
+		}
+	#神明静养
+			focus = {
+				id = NAT_focusonrecover
+				icon = GFX_focus_hol_the_foundations_of_defense
+				cost = 5.00
+				prerequisite = {
+					focus = NAT_theunit
+				}
+				x = 0
+				y = 1
+				relative_position_id = NAT_theunit
+				completion_reward = {
+					###add_ideas = CLO_zhaojiqitashijie_idea
+					#奖励精神：代行神旨：
+				}
+				ai_will_do = {
+					base = 1
+				}
+			}
+	#代行神旨
+			focus = {
+				id = NAT_waitforgod
+				icon = GFX_focus_generic_home_defense
+				cost = 5.00
+				prerequisite = {
+					focus = NAT_theanother
+				}
+				mutually_exclusive = {
+					focus = NAT_theunit
+				}
+				x = -2
+				y = 1
+				relative_position_id = NAT_theanother
+				completion_reward = {
+					###add_ideas = CLO_zhaojiqitashijie_idea
+					#奖励精神：代行神旨：
+				}
+				ai_will_do = {
+					base = 1
+				}
+			}
+	#复苏神力
+			focus = {
+				id = NAT_godrecover
+				icon = GFX_goal_generic_neutrality_focus
+				cost = 5.00
+				prerequisite = {
+					focus = NAT_waitforgod
+				}
+				x = 0
+				y = 1
+				relative_position_id = NAT_waitforgod
+				completion_reward = {
+					###add_ideas = CLO_zhaojiqitashijie_idea
+					#奖励精神：代行神旨：
+				}
+				ai_will_do = {
+					base = 1
+				}
+			}
+	#重归神座
+			focus = {
+				id = NAT_godreturn
+				icon = GFX_focus_ger_return_of_the_kaiser
+				cost = 10.00
+				prerequisite = {
+					focus = NAT_godrecover
+					focus = NAT_focusonrecover
+				}
+				x = 2
+				y = 1
+				relative_position_id = NAT_godrecover
+				completion_reward = {
+					###add_ideas = CLO_zhaojiqitashijie_idea
+					#奖励精神：代行神旨：
+				}
+				ai_will_do = {
+					base = 1
+				}
+			}
+		#战争演算
+		focus = {
+			id = NAT_warplana
+			icon = GFX_goal_generic_territory_or_war
+			cost = 10.00
+				prerequisite = {
+						focus = NAT_godreturn
+					}
+			prerequisite = {
+						focus = NAT_godrecover
+			}
+					x = -2
+					y = 1
+					relative_position_id = NAT_godreturn
+					completion_reward = {
+						###add_ideas = CLO_zhaojiqitashijie_idea
+						#奖励精神：代行神旨：
+					}
+					ai_will_do = {
+						base = 1
+					}
+				}
+		#联合战争
+		focus = {
+			id = NAT_warplanb
+			icon = GFX_goal_generic_military_deal
+			cost = 10.00
+				prerequisite = {
+						focus = NAT_godreturn
+					}
+			prerequisite = {
+						focus = NAT_godrecover
+			}
+					x = 2
+					y = 1
+					relative_position_id = NAT_godreturn
+					completion_reward = {
+						###add_ideas = CLO_zhaojiqitashijie_idea
+						#奖励精神：代行神旨：
+					}
+					ai_will_do = {
+						base = 1
+					}
+				}
+		#先发制人
+		focus = {
+			id = NAT_wargaola
+			icon = GFX_focus_BUL_condemn_macedonian_organizations
+			cost = 5.00
+				prerequisite = {
+						focus = NAT_warplana
+						focus = NAT_warplanb
+			}
+					x = 0
+					y = 1
+					relative_position_id = NAT_warplana
+					completion_reward = {
+						###add_ideas = CLO_zhaojiqitashijie_idea
+						#奖励精神：先发制人：对深渊之国+15%攻击，+12小时补给携带
+					}
+					ai_will_do = {
+						base = 1
+					}
+				}
+		#以逸待劳
+		focus = {
+			id = NAT_wargaolb
+			icon = GFX_focus_POL_sanation_right
+			cost = 5.00
+				prerequisite = {
+						focus = NAT_warplana
+						focus = NAT_warplanb
+			}
+					x = 0
+					y = 1
+					relative_position_id = NAT_warplanb
+					completion_reward = {
+						###add_ideas = CLO_zhaojiqitashijie_idea
+						#奖励：以逸待劳：+15/20%核心攻防，并在关键位置奖励堡垒。
+					}
+					ai_will_do = {
+						base = 1
+					}
+				}
+			#重燃圣火
+		focus = {
+			id = NAT_warwin
+			icon = GFX_focus_GRE_reviving_the_double_headed_eagle
+			cost = 5.00
+				prerequisite = {
+						focus = NAT_wargaola
+						focus = NAT_wargaolb
+			}
+					x = 2
+					y = 1
+					relative_position_id = NAT_wargaola
+					completion_reward = {
+						###add_ideas = CLO_zhaojiqitashijie_idea
+						#奖励：纳塔失地的全部核心。玛卡微全属性+1
+					}
+					ai_will_do = {
+						base = 1
+					}
+				}
+    #凯旋大捷
+	focus = {
+				id = NAT_thegod
+				icon = GFX_goal_continuous_suppression
+				cost = 1
+				prerequisite = {
+					focus = NAT_thefight
+				
+				}
+				x = 0
+				y = 1
+				mutually_exclusive = {
+					focus = NAT_theanother
+					focus = NAT_thedefeat
+				}
+				relative_position_id = NAT_thefight
+				completion_reward = {
+					army_experience = 5
+					#触发纳塔事件3：神明的胜利。
+				}
+				ai_will_do = {
+					base = 1
+				}
+			}
+	#意外的落败
+	focus = {
+		id = NAT_thedefeat
+		icon = GFX_goal_support_fascism
+		cost = 1
+		prerequisite = {
+			focus = NAT_thefight
+		}
+		x = 9
+		y = 1
+		mutually_exclusive = {
+			focus = NAT_theanother
+			focus = NAT_thegod
+		}
+		relative_position_id = NAT_thefight
+		completion_reward = {
+			army_experience = 5
+			#触发纳塔事件3：神明的落败。
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+	####工业线
+	#纳塔工业化
+	focus = {
+		id = NAT_renewbuiding
+		icon = GFX_goal_generic_air_production
+		cost = 10.00
+		x = 45
+		y = 0
+		available = {
+		
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = INA_complexindustrial_focus
+				days = 180
+				}
+		}
+		ai_will_do = {
+			base = 5
+		}
+	}
+   #首都优先
+	focus = {
+		id = NAT_ownfrist
+		icon = GFX_focus_ARG_strengthening_the_concordancia
+		cost = 10
+		prerequisite = {
+			focus = NAT_renewbuiding
+		}
+		mutually_exclusive = {
+			focus = NAT_otherfrist
+		}
+		x = -2
+		y = 1
+		relative_position_id = NAT_renewbuiding
+		completion_reward = {
+			##add_ideas = CLO_leirenxiandaihua_idea
+			#添加精神自给自足
+		}
+		ai_will_do = {
+			base = 1
+	
+		}
+	}
+	
+	 #工业部
+		  focus={
+			id = NAT_industrialsector
+			icon=GFX_goal_generic_air_production
+			x=0
+			y=1
+			cost=5
+			relative_position_id = NAT_ownfrist
+			prerequisite={focus=NAT_ownfrist}
+			available={}
+			search_filters = {FOCUS_FILTER_INDUSTRY }
+			completion_reward={
+				add_ideas = CHI_long_term_economic_planning
+			}	
+			ai_will_do={
+				factor=1
+			}
+	
+		}
+		#首都核心圈建设
+			 focus={
+				id = NAT_electronicssector
+				icon=GFX_focus_ARG_the_second_argentine_republic
+				x=1
+				y=1
+				cost=10
+				relative_position_id = NAT_industrialsector
+				prerequisite={focus=NAT_industrialsector}
+				available={}
+				search_filters = {FOCUS_FILTER_INDUSTRY }
+				completion_reward={
+					every_owned_state = {
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+				}	
+				ai_will_do={	factor=1
+				}
+		
+			}
+		 #玛卡薇工厂
+		 focus={
+			id = NAT_civil_factory
+			icon=GFX_goal_generic_construct_civ_factory
+			x=-1
+			y=1
+			cost=5
+			relative_position_id = NAT_industrialsector
+			prerequisite={focus=NAT_industrialsector}
+			available={}
+			search_filters = {FOCUS_FILTER_INDUSTRY }
+			completion_reward={
+				random_owned_controlled_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}	
+			ai_will_do={
+				factor=1
+			}
+	
+		}	
+       #社会工作改革
+		focus = {
+			id = NAT_public_works
+			icon = GFX_focus_generic_public_works
+			prerequisite = { focus = NAT_civil_factory}
+			prerequisite = {focus = NAT_electronicssector }
+			x = 1
+			y = 1
+			relative_position_id = NAT_civil_factory
+	
+			cost = 10
+	
+			ai_will_do = {
+				factor = 1
+			}
+	
+			available = {
+	
+			}
+	
+			bypass = {
+	
+			}
+	
+			cancel_if_invalid = yes
+			continue_if_invalid = no
+			available_if_capitulated = no
+	
+			search_filters = { FOCUS_FILTER_INDUSTRY }
+			completion_reward = {
+				add_ideas = CHI_public_works
+			}
+		}	
+		#投资军事#
+	focus = {
+		id = NAT_investmilitary
+		icon = GFX_goal_generic_small_arms
+		cost = 10
+		x =-3
+		y =1
+		prerequisite = {
+		  focus = NAT_ownfrist
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		relative_position_id = NAT_ownfrist
+		available ={  has_war = no
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = CHI_local_arms_development
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = CHI_heavy_weapons_development
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+		}
+
+		ai_will_do = {
+		  factor = 10
+		}
+		}
+		#纳塔枪炮公司#
+	focus = {
+		id = NAT_gunandpower
+		icon = GFX_focus_generic_reorient_production
+		cost = 10
+		x =0
+		y =1
+		prerequisite = {
+		  focus = NAT_investmilitary
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		relative_position_id = NAT_investmilitary
+		available ={  has_war = no
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+		#为枪，炮制造商各加3000资金
+		}
+
+		ai_will_do = {
+		  factor = 10
+		}
+		}
+	#部族优先
+	focus = {
+		id = NAT_otherfrist
+		icon = GFX_focus_ARG_crackdown_on_corruption
+		cost = 10
+		prerequisite = {
+			focus = NAT_renewbuiding
+		}
+		mutually_exclusive = {
+			focus = NAT_ownfrist
+		}
+		x = 2
+		y = 1
+		relative_position_id = NAT_renewbuiding
+		completion_reward = {
+		##添加精神合作经济
+		}
+		ai_will_do = {
+			base = 1
+	
+		}
+	}	
+	#货币改革	
+	focus = {
+		id = NAT_devalue_the_franc
+		icon = GFX_focus_fra_devalue_the_franc
+		x = 3
+		y = 1
+		
+		prerequisite = {	focus = NAT_otherfrist}
+		relative_position_id = NAT_otherfrist
+		mutually_exclusive = { }
+		cost = 10
+			ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_timed_idea = {
+				idea = FRA_devalue_the_franc
+				days = 365
+			}
+			#添加精神，整顿经济，-25%消费品，+15%建设速度，持续365天
+		}
+	}
+	#联合资源开发
+	focus = {
+		id = NAT_global_integration
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		
+		prerequisite = {focus = NAT_devalue_the_franc }
+		mutually_exclusive = { }
+		relative_position_id = NAT_devalue_the_franc
+		cost = 5
+	
+		ai_will_do = {
+			factor = 1
+		}
+	
+		available = {
+				
+		}
+			
+		bypass = {
+		}
+	
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+	
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = { FRA_global_investments }
+		}
+	}	
+	 #外交投资部
+	focus={
+	  id = NAT_diplomainvest
+	  icon=GFX_focus_generic_treaty
+	  x=0
+	  y=1
+	  cost=5
+	  relative_position_id = NAT_otherfrist
+	  prerequisite={focus=NAT_otherfrist}
+	  available={}
+	  search_filters = {FOCUS_FILTER_INDUSTRY }
+	  completion_reward={
+		  ##add_ideas = CHI_long_term_economic_planning
+		  ##外交同盟：六部族对核心关系+75.
+		  #启用决议组：紧密联系。75pp获得对应国家的精神加成。
+	  }	
+	  ai_will_do={
+		  factor=1
+	  }
+  }
+  	 #投资核心三部族
+	focus={
+		id = NAT_investcore
+		icon = GFX_focus_ARG_rapid_urbanization
+		x=-1
+		y=1
+		cost=5
+		relative_position_id = NAT_diplomainvest
+		prerequisite={focus=NAT_diplomainvest}
+		available={}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		completion_reward={
+			##add_ideas = CHI_long_term_economic_planning
+			##为悬木人添加2军工，流泉添加2船坞，回声添加2民工
+			#并同时添加2建筑位
+		}	
+		ai_will_do={
+			factor=1
+		}
+	}
+	 #投资前线三部族
+		  focus={
+			id = NAT_investinfornter
+			icon = GFX_focus_ARG_bastion_of_peace
+			x=1
+			y=1
+			cost=5
+			relative_position_id = NAT_diplomainvest
+			prerequisite={focus=NAT_diplomainvest}
+			available={}
+			search_filters = {FOCUS_FILTER_INDUSTRY }
+			completion_reward={
+				##add_ideas = CHI_long_term_economic_planning
+				##为迷烟主添加2机场2防空炮，与深渊接壤添加2级要塞，添加2炼油厂2储油罐。
+				#并同时添加2建筑位
+			}	
+			ai_will_do={
+				factor=1
+			}
+		}
+	#快速动员
+	focus={
+		id = NAT_rapid_mobilization
+		icon=GFX_goal_generic_more_territorial_claims
+		x=1
+		y=1
+		cost=10
+		relative_position_id = NAT_investcore
+		prerequisite={focus=NAT_investcore}
+		prerequisite={focus=NAT_investinfornter}
+		available={}
+		search_filters = {FOCUS_FILTER_INDUSTRY }
+		completion_reward={
+			##add_ideas = CHI_long_term_economic_planning
+			##为自己添加快速动员与核心防卫。
+			##为前线三部族添加核心防卫。
+			##为核心三部族添加快速动员。
+		}	
+		ai_will_do={
+			factor=1
+		}
+	}
+	#科研拓展
+		focus={
+			id = NAT_public_education_reform
+			icon=GFX_focus_ARG_universidad_de_buenos_aires
+			x=2
+			y=1
+			cost=10
+			relative_position_id = NAT_public_works
+			prerequisite={focus=NAT_public_works
+			 focus=NAT_rapid_mobilization}
+			available={}
+			search_filters = {FOCUS_FILTER_INDUSTRY }
+			completion_reward={
+				add_research_slot = 1
+			}	
+			ai_will_do={
+				factor=1
+			}
+		}
+	#大空间计划
+		focus={
+			id = NAT_grosraumwirtschaft
+			icon = GFX_goal_generic_construction
+			x=0
+			y=1
+			cost=10
+			relative_position_id = NAT_public_works
+			prerequisite={ focus=NAT_public_works }
+			available={}
+			search_filters = {FOCUS_FILTER_INDUSTRY }
+			completion_reward={
+				add_ideas = GER_grosraumwirtschaft
+			}	
+			ai_will_do={
+				factor=1
+			}
+		}
+		#互助计划
+			focus={
+				id = NAT_the_common_economic
+				icon=GFX_goal_anschluss
+				x=0
+				y=1
+				cost=10
+				relative_position_id = NAT_rapid_mobilization
+				prerequisite={ focus=NAT_public_works }
+				available={}
+				search_filters = {FOCUS_FILTER_INDUSTRY }
+				completion_reward={
+					add_ideas = SOV_common_economic_space_sov_default
+					custom_effect_tooltip = SOV_found_the_comecon_subjects_tt
+					every_other_country = {
+						limit = {
+							is_subject_of = ROOT
+						}
+						add_ideas = SOV_common_economic_space_puppet_default
+					}
+				}	
+				ai_will_do={
+					factor=1
+				}
+			}
+			##纳塔军队改革
+			focus = {
+				id = NAT_armed_forces
+				icon = GFX_focus_GRE_hellenic_armed_forces
+				x = 45
+				y = 10
+				cost = 10
+				ai_will_do = {
+					base = 1
+				}
+		
+				completion_reward = {
+					army_experience = 30
+					navy_experience = 30
+					air_experience = 30
+				}
+			}
+			#陆军改革
+			focus = {
+				id = NAT_the_hellenic_army
+				icon = GFX_goal_generic_allies_build_infantry
+				prerequisite = { focus = NAT_armed_forces }
+				x = 0
+				y = 1
+				relative_position_id = NAT_armed_forces
+				cost = 5
+				ai_will_do = {
+					base = 1
+				}
+		
+				completion_reward = {
+					army_experience = 15
+					add_doctrine_cost_reduction = {
+						name = GRE_the_hellenic_army
+						cost_reduction = 0.5
+						uses = 2
+						category = land_doctrine
+					}
+					add_tech_bonus = {
+						name = GRE_the_hellenic_army
+						bonus = 1.0
+						uses = 1
+						category = engineers_tech
+					}
+				}
+			}	
+			#黑石军
+			focus = {
+				id = NAT_the_backbone_of_our_army
+				icon = GFX_focus_generic_military_mission
+				prerequisite = { focus = NAT_the_hellenic_army }
+				x = -2
+				y = 1
+				relative_position_id = NAT_the_hellenic_army
+				cost = 10
+				ai_will_do = {
+					base = 1
+				}
+		
+				search_filters = { FOCUS_FILTER_MANPOWER }
+				completion_reward = {
+					add_doctrine_cost_reduction = {
+						name = GRE_the_backbone_of_our_army
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
+					}
+					add_tech_bonus = {
+						name = GRE_the_backbone_of_our_army
+						bonus = 1.0
+						uses = 1
+						category = infantry_weapons
+					}
+				}
+			}
+	  #现代战法
+	   focus = {
+		id = NAT_embracing_modern_warfare
+		icon = GFX_focus_generic_tank_production
+		prerequisite = { focus = NAT_the_backbone_of_our_army }
+		mutually_exclusive = { focus = NAT_new_weapons_old_tricks }
+		x = 0
+		y = 1
+		relative_position_id = NAT_the_backbone_of_our_army
+		cost = 10
+		ai_will_do = {
+			base = 0
+			modifier = { 
+				add = 1
+				is_historical_focus_on = no
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GRE_embracing_modern_warfare
+				bonus = 1
+				uses = 1
+				category = cat_light_armor
+			}
+			add_tech_bonus = {
+				name = GRE_embracing_modern_warfare
+				bonus = 1.0
+				uses = 1
+				category = motorized_equipment
+			}
+			
+		}
+	}	
+	#装甲冲锋
+	focus = {
+		id = NAT_hellenic_armoured_corp
+		icon = GFX_focus_generic_combined_arms
+		prerequisite = { focus = NAT_embracing_modern_warfare }
+		x = 0
+		y = 1
+		relative_position_id = NAT_embracing_modern_warfare
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GRE_hellenic_armoured_corp
+				bonus = 1.0
+				ahead_reduction = 1
+				uses = 1
+				category = cat_light_armor
+				category = cat_medium_armor
+			}
+		}
+	}		
+			#火力支援
+			focus = {
+				id = NAT_a_legacy_of_war
+				icon = GFX_goal_generic_occupy_states_ongoing_war
+				prerequisite = { focus = NAT_the_hellenic_army }
+				x = 2
+				y = 1
+				relative_position_id = NAT_the_hellenic_army
+				cost = 10
+				ai_will_do = {
+					base = 1
+				}
+		
+				completion_reward = {
+					add_doctrine_cost_reduction = {
+						name = GRE_a_legacy_of_war
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
+					}
+				}
+			}
+			##古典战法
+			focus = {
+				id = NAT_new_weapons_old_tricks
+				icon = GFX_goal_generic_army_artillery2
+				prerequisite = { focus = NAT_a_legacy_of_war }
+				mutually_exclusive = { focus = NAT_embracing_modern_warfare }
+				x = 0
+				y = 1
+				relative_position_id = NAT_a_legacy_of_war
+				cost = 10
+				ai_will_do = {
+					base = 1
+				}
+		
+				completion_reward = {
+					army_experience = 10
+					add_tech_bonus = {
+						name = GRE_new_weapons_old_tricks
+						bonus = 1.0
+						uses = 1
+						technology = tech_recon
+						technology = tech_recon2
+						technology = tech_recon3
+					}
+					add_tech_bonus = {
+						name = GRE_new_weapons_old_tricks
+						bonus = 0.5
+						uses = 2
+						category = artillery
+					}
+				}
+			}	
+        #火炮补给。
+			focus = {
+				id = NAT_greek_mechanisation
+				icon = GFX_goal_generic_build_tank
+				prerequisite = { focus = NAT_new_weapons_old_tricks }
+				x = 0
+				y = 1
+				relative_position_id = NAT_new_weapons_old_tricks
+				cost = 10
+				ai_will_do = {
+					base = 1
+				}
+		
+				completion_reward = {
+					add_tech_bonus = {
+						name = GRE_greek_mechanisation
+						bonus = 1.0
+						uses = 1
+						category = cat_mechanized_equipment
+					}
+				}
+			}	
+			#山地部队
+	focus = {
+		id = NAT_a_land_of_mountains
+		icon = GFX_focus_GRE_a_land_of_mountains
+		prerequisite = { focus = NAT_hellenic_armoured_corp focus = NAT_greek_mechanisation }
+		x = 2
+		y = 1
+		relative_position_id = NAT_hellenic_armoured_corp
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = special_bonus
+				bonus = 0.5
+				uses = 2
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
+			}
+			custom_effect_tooltip = GRE_mountain_training_effect
+			hidden_effect = { set_technology = { mountain_warfare = 1 } }
+		}
+	}	
+	###装甲巨龙
+	focus = {
+		id = NAT_modern_cataphracts
+		icon = GFX_focus_generic_army_tanks2
+		prerequisite = { focus = NAT_a_land_of_mountains }
+		x = 0
+		y = 1
+		relative_position_id = NAT_a_land_of_mountains
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				name = GRE_modern_cataphracts
+				technology = mechanised_infantry
+			}
+			add_tech_bonus = {
+				name = GRE_modern_cataphracts
+				bonus = 0.5
+				ahead_reduction = 2
+				uses = 1
+				category = cat_heavy_armor
+			}
+	##添加特殊装甲车科技，+20hp,-50%价格，+50组织度。
+		}
+	}
+	#纳塔空军
+	focus = {
+		id = NAT_the_hellenic_air_force
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = NAT_armed_forces }
+		x = -7
+		y = 1
+		relative_position_id = NAT_armed_forces
+		cost = 5
+		ai_will_do = {
+			base = 1
+		}
+
+		available = {
+		}
+
+		completion_reward = {
+			air_experience = 50
+			random_owned_controlled_state = {
+				if = {
+					limit = { 
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = air_base
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_controlled_state = {	
+					if = {
+						limit = { 
+							is_controlled_by = ROOT
+						}
+						add_building_construction = {
+							type = air_base
+							level = 3
+							instant_build = yes
+						}
+					}
+				}
+			random_owned_controlled_state = {	
+				if = {
+					limit = { 
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = air_base
+						level = 4
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	#燃素翼方案
+	focus = {
+		id = NAT_destroying_our_foes
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = NAT_the_hellenic_air_force }
+		mutually_exclusive = { focus = NAT_protecting_our_skies }
+		x = -2
+		y = 1
+		relative_position_id = NAT_the_hellenic_air_force
+		cost = 10
+		ai_will_do = {
+			base = 0
+			modifier = { 
+				add = 1
+				is_historical_focus_on = no
+			}
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GRE_destroying_our_foes
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = GRE_destroying_our_foes
+				cost_reduction = 0.25
+				uses = 1
+				category = strategic_destruction_tree
+			}
+			add_tech_bonus = {
+				name = GRE_destroying_our_foes
+				bonus = 1.0
+				uses = 1
+				category = cat_strategic_bomber
+				category = tactical_bomber
+			}
+		}
+	}
+    #协同方案
+	focus = {
+		id = NAT_protecting_our_skies
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = NAT_the_hellenic_air_force }
+		mutually_exclusive = { focus = NAT_destroying_our_foes }
+		x = 2
+		y = 1
+		relative_position_id = NAT_the_hellenic_air_force
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GRE_protecting_our_skies
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = GRE_protecting_our_skies
+				cost_reduction = 0.25
+				uses = 1
+				category = battlefield_support_tree
+			}
+			add_tech_bonus = {
+				name = GRE_protecting_our_skies
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}	
+	#毁灭轰炸
+	focus = {
+		id = NAT_escorts_for_our_bombers
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = NAT_destroying_our_foes }
+		x = 0
+		y = 1
+		relative_position_id = NAT_destroying_our_foes
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GRE_escorts_for_our_bombers
+				cost_reduction = 0.25
+				uses = 1
+				category = air_doctrine
+			}
+			add_tech_bonus = {
+				name = GRE_escorts_for_our_bombers
+				bonus = 1.0
+				uses = 1
+				category = cat_heavy_fighter
+			}
+		}
+	}		
+    #翱翔天空
+	focus = {
+		id = NAT_defending_our_seas
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = { focus = NAT_protecting_our_skies }
+		x = 0
+		y = 1
+		relative_position_id = NAT_protecting_our_skies
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GRE_defending_our_seas
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			add_tech_bonus = {
+				name = GRE_defending_our_seas
+				bonus = 1.0
+				uses = 1
+				category = naval_bomber
+			}
+		}
+	}
+   #建立空军学院
+	focus = {
+		id = NAT_fund_the_hellenic_air_force_academy
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = NAT_defending_our_seas 
+		focus = NAT_escorts_for_our_bombers }
+		x = 2
+		y = 1
+		relative_position_id = NAT_escorts_for_our_bombers
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			air_experience = 10
+			add_ideas = GRE_hellenic_air_force_academy
+		}
+	}	
+}
