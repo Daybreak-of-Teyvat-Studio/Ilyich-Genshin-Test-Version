@@ -417,7 +417,11 @@ default = no
             add_to_variable = { FON_support_SdR = 1}
             FON_election_update_percentage_effect = yes
         }
+        custom_effect_tooltip = FON_add_preparation_0.05_tt
         custom_effect_tooltip = FON_add_SdR_votes_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+        }
     }
 
     ai_will_do = {
@@ -461,7 +465,11 @@ default = no
             add_to_variable = { FON_support_HoH = 1 }
             FON_election_update_percentage_effect = yes
         }
+        custom_effect_tooltip = FON_add_preparation_0.05_tt
         custom_effect_tooltip = FON_add_HoH_votes_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+        }
     } 
 
     ai_will_do = {
@@ -502,6 +510,10 @@ default = no
 
     completion_reward = {
         add_political_power = 50
+        custom_effect_tooltip = FON_add_preparation_0.1_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+        }
     }
 
     ai_will_do = {
@@ -549,7 +561,7 @@ focus = {
     }
 
     select_effect = {
-        country_event = {id= FON.8} #事件：罪人舞步旋
+        country_event = { id= FON.8 days = 7} #事件：罪人舞步旋
     }
 
     completion_reward = {
@@ -695,6 +707,7 @@ focus = {
     }
     completion_reward = {
         country_event = { id = FON.20 } #选择为谁拉票
+        custom_effect_tooltip = unfinished_tt
     }
 }
 
@@ -1025,6 +1038,7 @@ focus = {
             FON_Charlotte_government_trigger = yes
             FON_Liney_government_trigger = yes
         }
+        FON_is_in_constitutional_democratic_government_trigger = yes
     }
 
     cost = 10
@@ -1047,19 +1061,8 @@ focus = {
 
     relative_position_id = FON_constitution_writing
 
-    x=1.5
+    x=0.5
     y=1.5
-
-    cancel = {
-        custom_trigger_tooltip = {
-            tooltip = FON_changed_politic_situation_tt
-            FON_no_democracy_government_trigger = yes
-        }
-    }
-
-    allow_branch = {
-        FON_is_in_constitutional_democratic_government_trigger = yes
-    }
     
     prerequisite = {
         focus = FON_constitution_writing
@@ -1079,10 +1082,12 @@ focus = {
     }
 
     completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_government_with_low_efficiency
-            add_idea = FON_government_with_reform
-        }
+        add_political_power = 50
+        add_stability = 0.05
+        complete_national_focus = FON_Ministry_of_Diplomat
+        complete_national_focus = FON_Ministry_of_Education_and_Science
+        complete_national_focus = FON_Ministry_of_Economy
+        complete_national_focus = FON_Ministry_of_Defense
     }
 }
 
@@ -1096,13 +1101,23 @@ focus = {
     x = 10.5
     y = 1
 
+    #allow_branch = {
+    #    OR = {
+    #        FON_is_in_constitutional_democratic_government_trigger = yes
+    #        AND = {
+    #            FON_no_democracy_government_trigger = yes
+    #            FON_back_to_stability_trigger = yes
+    #        }
+    #    }
+    #}
+
     prerequisite = {
         focus = FON_anti_bureaucratism
     }
 
 }
 
-#经济发展部
+#财政与经济发展部
 focus = {
     id = FON_Ministry_of_Economy
     #icon = 
@@ -1116,6 +1131,119 @@ focus = {
         focus = FON_anti_bureaucratism
     }
 }
+
+#经济萧条处理法案
+focus = {
+    id = FON_addressing_the_depression
+    #icon =
+
+    relative_position_id = FON_Ministry_of_Economy
+
+    x = -2
+    y = 1
+
+    cost = 1
+
+
+    prerequisite = {
+        focus = FON_Ministry_of_Economy
+    }
+
+    select_effect = {
+        country_event = { id = FON.eco.depression.1 } #危机处理法案：货币政策
+    }
+
+    completion_reward = {
+        add_political_power = 100
+    }
+}
+
+#强化中央银行
+focus = {
+    id = FON_enhancing_the_central_bank
+    #icon =
+
+    relative_position_id = FON_addressing_the_depression
+
+    x = -2
+    y = 1
+
+    cost = 2
+
+
+    prerequisite = {
+        focus = FON_addressing_the_depression
+    }
+
+    completion_reward = {
+        activate_targeted_decision = { decision = FON_Issuing_legal_currency target = ROOT }
+    }
+}
+
+
+#财政政策：失业保险
+
+
+
+#财政政策：以工代赈
+
+
+#产业政策：工业产业国有化
+focus = {
+    id = FON_nationalizing_the_industry
+    #icon =
+
+    relative_position_id = FON_addressing_the_depression
+
+    x = 0
+    y = 1
+
+    cost = 2
+
+
+    prerequisite = {
+        focus = FON_addressing_the_depression
+    }
+
+    completion_reward = {
+        activate_targeted_decision = { decision = FON_textile_industry target = ROOT }
+        activate_targeted_decision = { decision = FON_rural_electrification_project target = ROOT}
+        activate_targeted_decision = { decision = FON_fonta_production_and_assembly_industry_chain target = ROOT}
+        activate_targeted_decision = { decision = FON_infrastructure_maintenance_project target = ROOT }
+        activate_targeted_decision = { decision = FON_underwater_mining_development target = ROOT}
+        activate_targeted_decision = { decision = FON_}
+    }
+}
+
+
+#产业政策：指导式产业协作
+focus = {
+    id = FON_industry_guiding
+    #icon =
+
+    relative_position_id = FON_addressing_the_depression
+
+    x = 2
+    y = 1
+
+    cost = 2
+
+
+    prerequisite = {
+        focus = FON_addressing_the_depression
+    }
+
+    mutually_exclusive = {
+        focus = FON_nationalizing_the_industry
+    }
+
+    completion_reward = {
+        activate_targeted_decision = { decision = FON_Issuing_legal_currency target = ROOT }
+    }
+}
+
+
+#需求刺激政策：税收减免/最低工资法案
 
 #外交部
 focus = {
@@ -1142,6 +1270,17 @@ focus = {
     x = -12
     y = 1
 
+    cancel = {
+        custom_trigger_tooltip = {
+            tooltip = FON_changed_politic_situation_tt
+            FON_no_democracy_government_trigger = yes
+        }
+    }
+
+    allow_branch = {
+        FON_is_in_constitutional_democratic_government_trigger = yes
+    }
+
     prerequisite = {
         focus = FON_anti_bureaucratism
     }
@@ -1156,6 +1295,17 @@ focus = {
 
     x = -8
     y = 1
+
+    cancel = {
+        custom_trigger_tooltip = {
+            tooltip = FON_changed_politic_situation_tt
+            FON_no_democracy_government_trigger = yes
+        }
+    }
+
+    allow_branch = {
+        FON_is_in_constitutional_democratic_government_trigger = yes
+    }
 
     prerequisite = {
         focus = FON_Ministry_of_Defense
@@ -1186,6 +1336,8 @@ focus = {
     id = FON_international_organization
     #icon = 
 
+    dynamic = yes
+
     relative_position_id = FON_Ministry_of_Diplomat
 
     x = 0
@@ -1215,16 +1367,6 @@ focus = {
         focus = FON_Ministry_of_Defense
     }
 
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
     cost = 1
 
     completion_reward = {
@@ -1244,16 +1386,6 @@ focus = {
 
     x = -2
     y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
 
     prerequisite = {
         focus = FON_debate_on_military
@@ -1326,17 +1458,6 @@ focus = {
 
     x = 0
     y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
     prerequisite = {
         focus = FON_plan_Wriothesley
     }
@@ -1358,15 +1479,7 @@ focus = {
     x = 0
     y = 1
 
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
+
 
     prerequisite = {
         focus = FON_infantry_training

@@ -1,13 +1,15 @@
 #胚胎海危机决议组
 FON_Primordial_Sea_decision_categories = {
 
+	desc = FON_Primordial_Sea_decision_categories_desc
+
 	#	set_variable = { FON_Percent_of_Preparation=0 }
 	#	set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
 
 	#胎海水危机
 	FON_watercrisis_mission = {
 		activation = {
-			always = no
+			has_completed_focus = FON_search
 		}
 
 		allowed = {
@@ -15,7 +17,8 @@ FON_Primordial_Sea_decision_categories = {
 		}
 		
 		available = {
-			hidden_trigger = {always = no}
+			FON_final_date_trigger = yes
+			check_variable = { FON_Percent_of_Preparation > 0.8 }
 		}
 
 		days_mission_timeout = 220
@@ -25,33 +28,10 @@ FON_Primordial_Sea_decision_categories = {
 		timeout_effect = {
 			country_event = {days = 7 id = FON.11} #灭世事件（All gone）
 		}
-	}
-
-	#结束危机
-	FON_ending_the_crisis = {
-		ai_will_do = {
-			base = 300
-		}
-
-		allowed = {
-
-		}
-
-		visible = {
-
-		}
-
-		available = {
-			has_completed_focus = FON_final_date
-			check_variable = { FON_Percent_of_Preparation > 0.8 }
-		}
 
 		complete_effect = {
-			remove_mission = FON_watercrisis_mission
 			country_event = {days = 7 id = FON.12} #大洪水（正常线路）
 		}
-
-		fire_only_once = yes
 	}
 
 	#加固封印
@@ -74,7 +54,7 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
         allowed = {
-			original_tag = FON
+			tag = FON
 		}
 
 		available = {
@@ -96,7 +76,7 @@ FON_Primordial_Sea_decision_categories = {
 				mission = FON_watercrisis_mission
 				days = 30
 			}
-			add_to_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 20 }
+			FON_increase_Neuvillette_repulse_Primordial_Sea_cost_effect = yes
 		}
 		
 	}
@@ -426,7 +406,54 @@ FON_Primordial_Sea_decision_categories = {
 	}
 }
 
-#大选决议组
+#经济危机决议组
+FON_eco_crisis_decision_categories = {
+	
+	#危机恶化
+	crisis = {
+		FON_eco_crisis_escalation = {
+			icon = generic_inflation
+	
+			activation = {
+				always = no
+			}
+			available = {
+				hidden_trigger = { always = no }
+			}
+			cancel_trigger = {
+				has_idea = FON_eco_crisis_5
+			}
+	
+			selectable_mission = no
+			is_good = no
+			days_mission_timeout = 10
+	
+			timeout_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision timeout FON_eco_crisis_escalation"
+				add_stability = -0.05
+				GER_increase_black_monday = yes
+				hidden_effect = {
+					if = {
+						limit = {
+							NOT = {
+								has_idea = FON_eco_crisis_5
+							}
+						}
+						activate_mission = FON_eco_crisis_escalation
+					}
+					else_if = {
+						limit = {
+							has_idea = FON_eco_crisis_5
+						}
+						country_event = FON.eco.depression.worst
+					}
+				}
+			}
+		}
+	}
+}
+
+###大选决议组
 
 #set_variable = { FON_support_SdR = 4 } #刺玟会支持度
 #set_variable = { FON_support_HoH = 3} #壁炉之家支持度
@@ -680,7 +707,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Navia
 				}
@@ -702,7 +729,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_SdR_votes"
@@ -721,7 +748,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Liney
 				}
@@ -743,7 +770,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_HoH_votes"
@@ -762,7 +789,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Charlotte
 				}
@@ -784,7 +811,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PLCF_votes"
@@ -803,7 +830,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Furina
 				}
@@ -825,7 +852,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PDLCF_votes"
@@ -844,7 +871,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Navia
 				}
@@ -866,7 +893,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_CLDT_votes"
@@ -885,7 +912,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Liney
 				}
@@ -907,7 +934,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_UDPIEC_votes"
@@ -926,7 +953,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 				}
 
@@ -945,7 +972,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_ADP_votes"
@@ -1391,7 +1418,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					FON_Navia_candidate_trigger = yes
 				}
@@ -1411,7 +1438,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_SdR_votes"
@@ -1430,7 +1457,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					FON_Liney_candidate_trigger = yes
 				}
@@ -1450,7 +1477,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_HoH_votes"
@@ -1469,7 +1496,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Charlotte
 				}
@@ -1491,7 +1518,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PLCF_votes"
@@ -1510,7 +1537,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Furina
 				}
@@ -1532,7 +1559,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PDLCF_votes"
@@ -1551,7 +1578,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					FON_Navia_candidate_trigger = yes
 					has_completed_focus = FON_contact_CLDT
@@ -1574,7 +1601,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_CLDT_votes"
@@ -1594,7 +1621,7 @@ FON_election_decision_categories_parliamentarism = {
 					AND = {
 						has_country_flag = {
 							flag = FON_campaigned_last_days
-							days < 3
+							days < 5
 						}
 						FON_Liney_candidate_trigger = yes
 						has_completed_focus = FON_contact_UDPIEC
@@ -1621,7 +1648,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_UDPIEC_votes"
@@ -1640,7 +1667,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 				}
 
@@ -1659,7 +1686,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_ADP_votes"
@@ -2018,7 +2045,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Navia
 				}
@@ -2044,7 +2071,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Navia_votes"
@@ -2063,7 +2090,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Liney
 				}
@@ -2089,7 +2116,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Liney_votes"
@@ -2108,7 +2135,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Charlotte
 				}
@@ -2134,7 +2161,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Charlotte_votes"
@@ -2153,7 +2180,7 @@ FON_election_decision_categories_parliamentarism = {
 				AND = {
 					has_country_flag = {
 						flag = FON_campaigned_last_days
-						days < 3
+						days < 5
 					}
 					has_country_flag = FON_vote_for_Furina
 				}
@@ -2179,7 +2206,7 @@ FON_election_decision_categories_parliamentarism = {
 
 		cost = 10
 
-		days_remove = 3
+		days_remove = 5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Furina_votes"
@@ -2341,4 +2368,54 @@ FON_election_decision_categories_parliamentarism = {
 			}
 		}
 	}
+}
+
+#国民公会
+FON_National_council_decision_categories = {
+	
+	#宣告完成政府行政改革
+	FON_gov_reform = {
+		#icon = 
+		visible = {
+			has_completed_focus = FON_anti_bureaucratism
+		}
+		available = {
+			OR = {
+				NOT = {
+					has_idea = FON_government_with_low_efficiency
+				}
+				NOT = {
+					has_idea = FON_government_with_reform_severe
+				}
+				NOT = {
+					has_idea = FON_government_with_reform_mild
+				}
+			}
+		} 
+
+		complete_effect = {
+			country_event = { id = FON.gov_reform.8 }
+		}
+	}
+}
+
+#枫丹经济政策
+FON_Economy_Policy_decision_categories = {
+	
+	#发行法币
+	FON_Issuing_legal_currency = {
+		available = {
+
+		}
+		fire_only_once = yes
+
+		days_remove = 90
+
+		remove_effect = {
+			country_event = { id = FON.eco.depression.monetary } #完成法币发行工作
+			FON_eco_crisis_relieving_effect = yes
+		}
+	}
+
+	#
 }

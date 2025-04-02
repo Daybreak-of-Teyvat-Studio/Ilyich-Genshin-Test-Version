@@ -1,5 +1,10 @@
 add_namespace = FON
 
+
+#############################
+###     胎海水危机事件     ###
+#############################
+
 country_event = {#少女消失事件，第一个国策的事件
 	id = FON.1
 	title = FON.1.t
@@ -10,6 +15,7 @@ country_event = {#少女消失事件，第一个国策的事件
 
 
 	option = {
+		log = "[GetLogRoot]: country flag set FON_stage_search_begins_flag"
 		name = FON.1.a
 		ai_chance = {
 			base = 10
@@ -32,6 +38,7 @@ country_event = {#调查结果
 	is_triggered_only = yes
 
 	option = {
+		log
 		name = FON.2.a
 		ai_chance = {
 			base = 10
@@ -41,16 +48,9 @@ country_event = {#调查结果
 		}
 		add_stability = -0.05
 		hidden_effect = {
-			remove_ideas = {
-				FON_high_time_of_economy
-				FON_conflict_1
-			}
-			add_ideas = {
-				FON_capital_escaping
-				FON_conflict_5
-			}
+			remove_ideas = FON_high_time_of_economy
+			add_ideas = FON_eco_crisis_3
 		}
-
 	    set_country_flag = FON_stage_deal_begins_flag
 		mark_focus_tree_layout_dirty = yes
 	}
@@ -65,14 +65,8 @@ country_event = {#调查结果
 		}
 		add_stability = -0.05
 		hidden_effect = {
-			remove_ideas = {
-				FON_high_time_of_economy
-				FON_conflict_1
-			}
-			add_ideas = {
-				FON_capital_escaping
-				FON_conflict_5
-			}
+			remove_ideas = FON_high_time_of_economy
+			add_ideas = FON_eco_crisis_3
 		}
 		set_country_flag = FON_stage_deal_begins_flag
 		mark_focus_tree_layout_dirty = yes
@@ -154,7 +148,7 @@ country_event = {#船中密会
 	}
 }
 
-country_event = {#沫芒来客·娜维娅
+country_event = {#沫茫来客·娜维娅
 	id = FON.6
 	title = FON.6.t
 	desc = FON.6.desc
@@ -174,7 +168,7 @@ country_event = {#沫芒来客·娜维娅
 	}
 }
 
-country_event = {#沫芒来客·仆人
+country_event = {#沫茫来客·仆人
 	id = FON.7
 	title = FON.7.t
 	desc = FON.7.desc
@@ -204,7 +198,7 @@ country_event = {#罪人舞步旋1
 
 			}
 		}
-		country_event = FON.9
+		country_event = { id = FON.9 days = 7}
 	}
 }
 
@@ -222,7 +216,7 @@ country_event = {#罪人舞步旋2
 
 			}
 		}
-		country_event = FON.10
+		country_event = { id = FON.10 days = 7}
 	}
 }
 
@@ -290,12 +284,17 @@ country_event = {#大洪水
 		clr_country_flag = FON_stage_search_begins_flag
 		clr_country_flag = FON_stage_deal_begins_flag
 		set_country_flag = FON_stage_election_begins_flag
+		complete_national_focus = FON_final_date
 		mark_focus_tree_layout_dirty = yes 
 	}
 
 
 }
 
+
+#####################################
+###       大选时期国策树           ###
+#######################################
 
 country_event = {#芙宁娜的去留
 	id = FON.13
@@ -422,12 +421,14 @@ country_event = {#临时选举法：政府形式？
 		set_country_flag = Semi-presidentialism
 		country_event = { id=FON.13 } #芙宁娜的去留
 		custom_effect_tooltip = Semi-presidentialism_tt
+		custom_effect_tooltip = unfinished_tt
 	}
 	option = {#总统制
 		name = FON.18.presidentialism
 		set_country_flag = presidentialism
 		country_event = { id=FON.13 } #芙宁娜的去留
 		custom_effect_tooltip = presidentialism_tt
+		custom_effect_tooltip = unfinished_tt
 	}
 	option = {#议会制
 		name = FON.18.parliamentarism
@@ -768,15 +769,21 @@ country_event = { #计算多数党
 	}
 }
 
+
+######################################
+########       制宪大会事件      ######
+#######################################
+
 country_event = { #枫丹制宪大会——开幕式
 	id = FON.31
 	title = FON.31.t
-	desc = FON.31.desc  is_triggered_only = yes
+	desc = FON.31.desc
+	is_triggered_only = yes
 	#pic
 	option = {
 		name = FON.31.a
 		custom_effect_tooltip = FON.31.a_tt
-		country_event = { id=FON.32 days = 2 }
+		country_event = { id=FON.32 days = 3 }
 	}
 }
 
@@ -784,109 +791,80 @@ country_event = { #枫丹制宪大会——开幕式
 country_event = { #枫丹制宪大会——国家性质
 	id = FON.32
 	title = FON.32.t
-	desc = FON.32.desc  is_triggered_only = yes
+	desc = FON.32.desc
+	is_triggered_only = yes
 	#pic
 	option = { #社会主义论述
-	    trigger = {
-			FON_Navia_government_trigger = yes
-		}
-		name = FON.32.socialism
-		country_event = { id = FON.33 days = 2 }
-	}
-	option = { #进步自由主义论述
-		trigger = {
-			FON_Charlotte_government_trigger = yes
-		}
-		name = FON.32.progressive_liberalism
-		country_event = { id = FON.33 days = 2 }
-	}
-	option = { #保守主义论述
-		trigger = {
-			FON_Liney_government_trigger = yes
-		}
-		name = FON.32.conservatism
-		country_event = { id = FON.33 days = 2 }
+		name = FON.32.a
+		country_event = { id = FON.33 days = 5}
 	}
 }
 
 country_event = { #枫丹制宪大会——议会名称
 	id = FON.33
 	title = FON.33.t
-	desc = FON.33.desc  is_triggered_only = yes
+	desc = FON.33.desc
+	is_triggered_only = yes
 	#pic
-	option = { #枫丹人民议会
-		trigger = {
-			FON_Navia_government_trigger = yes
-		}
-		name = FON.33.socialism
-		country_event = { id = FON.34 days = 2 }
+	option = { 
+		name = FON.33.a
+		country_event = { id = FON.34 days = 5 }
 	}
-	option = { #枫丹公民议会
-	trigger = {
-		FON_Charlotte_government_trigger = yes
-	}
-	name = FON.33.progressive_liberalism
-	country_event = { id = FON.34 days = 2 }
-	}
-	option = { #枫丹国民议会
-	trigger = {
-		FON_Liney_government_trigger = yes
-	}
-	name = FON.33.conservatism
-	country_event = { id = FON.34 days = 2 }
-    }
 }
 
 country_event = { #枫丹制宪大会——央地关系
     id = FON.34
 	title = FON.34.t
-	desc = FON.34.desc  is_triggered_only = yes
+	desc = FON.34.desc
+	is_triggered_only = yes
 	#pic
 	option = { #单一制
 		name = FON.34.a
 		hidden_effect = {
 			set_variable = { FON_cen_local_re = 1 }
 		}
-		country_event = { id = FON.35 days = 2 }
+		country_event = { id = FON.35 days = 5 }
 	}
 	option = {
 		name = FON.34.b
 		hidden_effect = { #联邦制
 			set_variable = { FON_cen_local_re = 2 }
 		}
-		country_event = { id = FON.35 days = 2 }
+		country_event = { id = FON.35 days = 5 }
 	}
 }
 
 country_event = { #枫丹制宪大会——公民身份确认
 	id = FON.35
 	title = FON.35.t
-	desc = FON.35.desc  is_triggered_only = yes
+	desc = FON.35.desc
+	is_triggered_only = yes
 	#pic
 	option = { #枫丹人公民权
 		name = FON.35.a
 		hidden_effect = {
 			set_variable = { FON_citizens = 1 }
 		}
-		country_event = { id = FON.36 days = 2 }
+		country_event = { id = FON.36 days = 5 }
 	}
 	option = { #枫丹人+美露莘公民权
 		name = FON.35.b
 		hidden_effect = {
 			set_variable = { FON_citizens = 2 }
 		}
-		country_event = { id = FON.36 days = 2 }
+		country_event = { id = FON.36 days = 5 }
 	}
 }
 
 country_event = { #枫丹制宪大会——公民权利
 	id = FON.36
 	title = FON.36.t
-	desc = FON.36.desc  is_triggered_only = yes
+	desc = FON.36.desc
+	is_triggered_only = yes
 	#pic
 	option = {
 		name = FON.36.a
-		country_event = { id = FON.37 days = 2 }
+		country_event = { id = FON.37 days = 5 }
 		add_popularity = { ideology = democratic popularity = 0.05 }
 		add_popularity = { ideology = communism popularity = 0.05 }
 		add_popularity = { ideology = genshin popularity = 0.05 }
@@ -899,27 +877,29 @@ country_event = { #枫丹制宪大会——公民权利
 country_event = { #枫丹制宪大会——国旗
     id = FON.37
 	title = FON.37.t
-	desc = FON.37.desc  is_triggered_only = yes
+	desc = FON.37.desc
+	is_triggered_only = yes
 	#pic
 	option = {
 		name = FON.37.a
-		country_event = { id = FON.38 days = 2}
+		country_event = { id = FON.38 days = 5}
 	}
 	option = {
 		name = FON.37.b
-		country_event = { id = FON.38 days = 2}
+		country_event = { id = FON.38 days = 5}
 	}
 	option = {
 		name = FON.37.c
-		country_event = { id = FON.38 days = 2}
+		country_event = { id = FON.38 days = 5}
 	}
 }
 
 country_event = { #枫丹制宪大会——闭幕式
 	id = FON.38
 	title = FON.38.t
-	desc = FON.38.desc  is_triggered_only = yes
-	#pic 
+	desc = FON.38.desc
+	is_triggered_only = yes
+	#pic
 	option = {
 		name = FON.38.a
 		complete_national_focus = FON_constitution_writing
@@ -929,6 +909,7 @@ country_event = { #枫丹制宪大会——闭幕式
 				FON_cen_local_re = 1
 			}
 			add_ideas = FON_constitution_11
+			set_country_flag = FON_constitution_written
 		}
 		else_if = {
 			limit = {
@@ -936,6 +917,7 @@ country_event = { #枫丹制宪大会——闭幕式
 				FON_cen_local_re = 2
 			}
 			add_ideas = FON_constitution_12
+			set_country_flag = FON_constitution_written
 		}
 		else_if = {
 			limit = {
@@ -943,6 +925,7 @@ country_event = { #枫丹制宪大会——闭幕式
 				FON_cen_local_re = 1
 			}
 			add_ideas = FON_constitution_21
+			set_country_flag = FON_constitution_written
 		}
 		else_if = {
 			limit = {
@@ -950,12 +933,40 @@ country_event = { #枫丹制宪大会——闭幕式
 				FON_cen_local_re = 2
 			}
 			add_ideas = FON_constitution_22
+			set_country_flag = FON_constitution_written
 		}
 	}
 }
 
-#大选结算
+##############################################
+############        军事改革事件       ########
+##############################################
 
+
+country_event = { #军事改革方向
+	id = FON.39
+	title = FON.39.t
+	desc = FON.39.desc
+	is_triggered_only = yes
+	#pic
+	option = { #莱欧斯利计划
+		name = FON.39.Wri
+	    complete_national_focus = FON_plan_Wriothesley
+		complete_national_focus = FON_controlling_oceans
+		complete_national_focus = FON_air_king
+	}
+	option = { #克洛琳德计划
+		name = FON.39.Clori
+	    complete_national_focus = FON_plan_Clorinde
+		complete_national_focus = FON_controlling_oceans
+		complete_national_focus = FON_air_king
+	}
+}
+
+
+############################################
+###             大选结算                 ###
+############################################
 country_event = { #社众党胜利
 	id = FON.election.1
 	title = FON.election.1.t
@@ -1879,7 +1890,7 @@ country_event = { #夏洛蒂胜利
 }
 
 country_event = { #芙宁娜胜利
-	id = FON.election.9
+	id = FON.election_9
 	title = FON.election.9.t
 	desc = FON.election.9.desc
 	#pic
@@ -1931,4 +1942,194 @@ country_event = { #芙宁娜胜利
 			complete_national_focus = FON_Furina_government
 		}
 	}
+}
+
+##########################################
+########      政府改革事件          #######
+##########################################
+
+country_event = { #政府改革事件链-经济部
+	id = FON.gov_reform.1
+	title = FON.gov_reform.1.t
+	desc = FON.gov_reform.1.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.1.a
+		country_event = { id = FON.gov_reform.2 days = 5}
+	}
+}
+
+country_event = { #政府改革事件链-司法部
+	id = FON.gov_reform.2
+	title = FON.gov_reform.2.t
+	desc = FON.gov_reform.2.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.2.a
+		country_event = { id = FON.gov_reform.3 days = 5}
+	}
+}
+
+country_event = { #政府改革事件链-科学教育部
+	id = FON.gov_reform.3
+	title = FON.gov_reform.3.t
+	desc = FON.gov_reform.3.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.3.a
+		country_event = { id = FON.gov_reform.4 days = 5}
+	}
+}
+
+country_event = { #政府改革事件链-外交部
+	id = FON.gov_reform.4
+	title = FON.gov_reform.4.t
+	desc = FON.gov_reform.4.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.4.a
+		country_event = { id = FON.gov_reform.5 days = 5}
+	}
+}
+
+country_event = { #政府改革事件链-国防部
+	id = FON.gov_reform.5
+	title = FON.gov_reform.5.t
+	desc = FON.gov_reform.5.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.5.a
+		country_event = { id = FON.gov_reform.6 days = 5}
+	}
+}
+
+country_event = { #政府改革事件链-清理行政系统
+	id = FON.gov_reform.6
+	title = FON.gov_reform.6.t
+	desc = FON.gov_reform.6.desc
+	#pic
+	is_triggered_only = yes
+	option = { #强力清理
+		name = FON.gov_reform.6.a
+		country_event = { id = FON.gov_reform.7 days = 4}
+		swap_ideas = {
+            remove_idea = FON_government_with_low_efficiency
+            add_timed_idea = {
+				idea = FON_government_with_reform_severe
+				days = 90
+			}
+        }
+	}
+	option = { #温和清理
+		name = FON.gov_reform.6.b
+		country_event = { id = FON.gov_reform.7 days = 4}
+		swap_ideas = {
+            remove_idea = FON_government_with_low_efficiency
+            add_timed_idea = {
+				idea = FON_government_with_reform_mild
+				days = 180
+			}
+        }
+	}
+}
+
+country_event = { #政府改革事件链-暂告一段落
+	id = FON.gov_reform.7
+	title = FON.gov_reform.7.t
+	desc = FON.gov_reform.7.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.7.a
+		
+	}
+}
+
+country_event = { #政府改革事件链-圆满结束
+	id = FON.gov_reform.8
+	title = FON.gov_reform.8.t
+	desc = FON.gov_reform.8.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.gov_reform.8.a
+		add_ideas = FON_government_with_high_efficiency
+		add_political_power = 25
+		
+	}
+}
+
+##########################################
+##########      大萧条处理事件    #########
+#########################################
+
+country_event = { #危机处理法案：货币政策
+	id = FON.eco.depression.1
+	title = FON.eco.depression.1.t
+	desc = FON.eco.depression.1.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.eco.depression.1.a
+		country_event = { id = FON.eco.depression.2 }
+	}
+}
+
+country_event = { #危机处理法案：财政政策
+	id = FON.eco.depression.2
+	title = FON.eco.depression.2.t
+	desc = FON.eco.depression.2.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.eco.depression.2.a
+		country_event = { id = FON.eco.depression.3 }
+	}
+}
+
+country_event = { #危机处理法案：产业政策
+	id = FON.eco.depression.3
+	title = FON.eco.depression.3.t
+	desc = FON.eco.depression.3.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.eco.depression.3.a
+		country_event = { id = FON.eco.depression.4 }
+	}
+}
+
+country_event = { #危机处理法案：需求扩张政策
+	id = FON.eco.depression.4
+	title = FON.eco.depression.4.t
+	desc = FON.eco.depression.4.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		name = FON.eco.depression.4.a #减税
+	}
+	option = {
+		name = FON.eco.depresson.4.b #最低工资
+	}
+}
+
+country_event = { #法币发行工作顺利完成
+	id = FON.eco.depression.monetary
+	title = FON.eco.depression.monetary.t
+	desc = FON.eco.depression.monetary.desc
+	#pic
+	is_triggered_only = yes
+	option = {
+		FON_eco_crisis_relieving_effect = yes
+		name = FON.eco.depression.monetary.a
+	}
+}
+
+country_event = { #枫丹摆脱经济危机
+	id = FON.eco.depression.out
 }
