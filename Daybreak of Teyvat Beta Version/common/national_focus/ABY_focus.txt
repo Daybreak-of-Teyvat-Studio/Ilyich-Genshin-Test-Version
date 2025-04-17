@@ -1,0 +1,2367 @@
+﻿focus_tree = {
+	id =ABy_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = ABY
+		}
+	}
+	default = no
+	   
+	 #败而不绥
+	focus = {
+		id = ABY_banishher
+		icon = GFX_focus_TUR_the_montreux_convention
+		x = 12
+		y = 0
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+            ##触发事件卫队全灭。
+			add_stability = 0.05
+			add_war_support = -0.2
+			add_political_power = 50
+		}
+	}
+        #重新集结部队
+		focus = {
+		id = ABY_rebuildamry
+		icon = GFX_focus_generic_industrialists
+	    prerequisite = { focus = ABY_banishher}
+		relative_position_id = ABY_banishher
+		x = 0
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 8000  producer = ABY }
+			add_manpower = 135000
+			add_political_power = 50
+		}
+	}
+	    #制定教法
+		focus = {
+		id = ABY_thelaws
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		 prerequisite = { focus = ABY_rebuildamry}
+		relative_position_id = ABY_rebuildamry
+		x = 0
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+            ##削弱debuff，混乱管理
+			add_political_power = 50
+		}
+	}    
+	#恢复力量
+	focus = {
+	id = ABY_therecover
+	icon = GFX_focus_renounce_the_treaty_of_trianon
+	prerequisite = { focus = ABY_thelaws}
+	relative_position_id = ABY_thelaws
+	x = -9
+	y = 1
+	cost = 5
+
+	ai_will_do = {
+		factor = 0
+	}
+
+	available = {
+
+	}
+
+	bypass = {
+
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		##削弱debuff，混乱管理
+		ABY_lumine = {
+           add_unit_leader_trait = Anemo_Vision
+		   add_unit_leader_trait = Hydro_Vision
+		   add_unit_leader_trait = Cryo_Vision
+		   add_unit_leader_trait = Pyro_Vision
+		   add_unit_leader_trait = Dendro_Vision
+		   add_unit_leader_trait = Electro_Vision
+		   add_unit_leader_trait = Geo_Vision
+	     }
+	}
+}
+    focus = {
+	id = huntwind
+	icon = GFX_goal_generic_wolf_pack
+	cost = 2.00
+	prerequisite = {
+		focus = ABY_therecover
+	}
+	relative_position_id = ABY_therecover
+	x = -2
+	y = 1
+	available = {
+		threat > 0.90
+		date > 1939.1.1
+		OR = {
+			NOT = { has_global_flag = PRI_War_Slow }
+			date > 1940.1.1
+		}
+	}
+	completion_reward = {
+		add_manpower = 500000
+		add_war_support = 0.05
+		add_stability = 0.05
+		army_experience = 25
+		air_experience = 25
+		navy_experience = 25
+		create_wargoal = { type = puppet_wargoal_focus target = MOT }
+		create_wargoal = { type = puppet_wargoal_focus target = GUN }
+		create_wargoal = { type = puppet_wargoal_focus target = DRA }
+		create_wargoal = { type = puppet_wargoal_focus target = RAG }
+		create_wargoal = { type = puppet_wargoal_focus target = LAW }
+		create_wargoal = { type = puppet_wargoal_focus target = FAV }
+		create_wargoal = { type = puppet_wargoal_focus target = DVA }
+		create_wargoal = { type = puppet_wargoal_focus target = SPI }
+		create_wargoal = { type = puppet_wargoal_focus target = ANR }
+		# every_state = { limit = { is_core_of = MOT } add_core_of = ROOT }
+	}
+}
+    focus = {
+		id = annexly
+		icon = GFX_goal_generic_soviet_construction
+		cost = 2.00
+		prerequisite = {
+			focus = ABY_therecover
+		}
+		relative_position_id = ABY_therecover
+		x = 0
+		y = 1
+		available = {
+			threat > 0.90
+			date > 1939.7.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			create_wargoal = { type = puppet_wargoal_focus target = LYY }
+			create_wargoal = { type = puppet_wargoal_focus target = KQP }
+			create_wargoal = { type = puppet_wargoal_focus target = SHP }
+			create_wargoal = { type = puppet_wargoal_focus target = GYP }
+			create_wargoal = { type = puppet_wargoal_focus target = BRF }
+			# every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = KQP } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = GYP } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = SHP } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = lightstrom
+		icon = GFX_goal_support_fascism
+		cost = 2.00
+		prerequisite = {
+			focus = ABY_therecover
+		}
+		relative_position_id = ABY_therecover
+		x = 2
+		y = 1
+		available = {
+			threat > 0.90
+			date > 1940.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1940.1.1
+			}
+		}
+		completion_reward = {
+			add_stability = 0.05
+			create_wargoal = { type = puppet_wargoal_focus target = INA }
+			create_wargoal = { type = puppet_wargoal_focus target = SAN }
+			create_wargoal = { type = puppet_wargoal_focus target = ASA }
+			create_wargoal = { type = puppet_wargoal_focus target = TSU }
+			# every_state = { limit = { is_core_of = INA } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = aby_VS_FON
+		icon = GFX_goal_generic_navy_battleship
+		cost = 20.00
+		prerequisite = {
+			focus = ABY_therecover
+		}
+		relative_position_id = ABY_therecover
+		x = 4
+		y = 1
+		available = {
+			threat > 0.80
+			date > 1941.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				threat > 0.9
+			}
+		}
+		completion_reward = {
+		
+			create_wargoal = { type = puppet_wargoal_focus target = FON }
+			create_wargoal = { type = puppet_wargoal_focus target = NAT }
+			# every_state = { limit = { is_core_of = FON } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = aby_VS_SNE
+		icon = GFX_goal_generic_army_artillery2
+		cost = 2.00
+		prerequisite = {
+			focus = ABY_therecover
+		}
+		relative_position_id = ABY_therecover
+		x = -4
+		y = 1
+		available = {
+			threat > 0.70
+			date > 1940.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				threat > 0.9
+			}
+		}
+		completion_reward = {
+
+			declare_war_on = { target = SNE type = annex_everything }
+			# every_state = { limit = { is_core_of = SNE } add_core_of = ROOT }
+		}
+	}
+
+	focus = {
+		id = ABY_land_reform
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = ABY_thelaws }
+		x = 7
+		y = 1
+		relative_position_id = ABY_thelaws
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 3
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			#允许决议：土地规划，花费5工厂60天与10pp，在随机一个地块+1建筑位
+			#降低一层低民众支持率。
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 1 
+			}
+			
+		}
+	}
+	#科研强化
+	focus = {
+		id = ABY_education_reform
+		icon = GFX_focus_research
+		prerequisite = { focus = ABY_long_term_economic_planning }
+		x = -1
+		y = 1
+		relative_position_id = ABY_long_term_economic_planning
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ABY_supremacy_of_technology
+		icon = GFX_focus_ARG_develop_the_electricity_sector
+		prerequisite = { focus = ABY_education_reform }
+		x = 0
+		y = 1
+		relative_position_id = ABY_education_reform
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+	
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_ideas = JAP_supremacy_of_technology
+		}
+	}
+	#长期工业规划
+		focus = {
+		id = ABY_long_term_economic_planning
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = ABY_land_reform }
+		x = -1
+		y = 1
+		relative_position_id = ABY_land_reform
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 4
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				name = SIK_unified_industrial_planning
+				bonus = 0.35
+				uses = 4
+				category = industry
+			}
+			add_ideas = CHI_long_term_economic_planning
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#工业规划
+	focus = {
+		id = ABY_civil_works
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = ABY_land_reform }
+		x = 1
+		y = 1
+		relative_position_id = ABY_land_reform
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 20
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ROM_civil_works
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+		}
+	}
+	focus = {
+		id = ABY_public_works
+		icon = GFX_focus_generic_public_works
+		prerequisite = {  focus = ABY_civil_works   focus = ABY_long_term_economic_planning }
+		x = 1
+		y = 1
+		relative_position_id = ABY_long_term_economic_planning
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = CHI_public_works
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+	
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				
+			}
+		}
+	}
+	#劳动力改革
+	focus = {
+		id = ABY_labor_reform
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = ABY_public_works }
+		x = 0
+		y = 1
+		relative_position_id = ABY_public_works
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_ideas = CHI_labor_reform
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	#资源整合
+	 focus = {
+		id = ABY_global_integration
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		
+		prerequisite = {focus = ABY_labor_reform }
+		mutually_exclusive = { }
+		relative_position_id = ABY_labor_reform
+		cost = 5
+	
+		ai_will_do = {
+			factor = 1
+		}
+	
+		available = {
+				
+		}
+			
+		bypass = {
+		}
+	
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+	
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = { FRA_global_investments }
+		}
+	}
+	  focus = {
+      id = ABY_military_factory
+	  #军用工厂
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 8
+      x = 1
+      y = 1
+	  prerequisite = {
+         focus = ABY_civil_works
+      }
+	 search_filters = { FOCUS_FILTER_INDUSTRY }
+      relative_position_id = ABY_civil_works
+      available ={
+      }
+      completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+					random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+		}  
+      }
+
+	focus = {
+		id = ABY_steel_works
+		icon = GFX_focus_generic_steel
+		prerequisite = {  focus = ABY_military_factory }
+		x = 0
+		y = 1
+		relative_position_id = ABY_military_factory
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		complete_tooltip = {
+			random_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 24
+				}
+			}
+		}
+
+		completion_reward = {
+			#允许决议：勘探资源。
+			random_owned_controlled_state = {
+
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 24
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = ABY_expand_ploiesti_oil_production
+		icon = GFX_goal_generic_oil_refinery
+		prerequisite = { focus = ABY_steel_works }
+		x = 0
+		y = 1
+		relative_position_id = ABY_steel_works
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			NOT = { country_exists = HIL }	
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = SIK_unified_industrial_planning
+				bonus = 0.5
+				uses = 4
+				category = synth_resources
+			}
+			random_owned_controlled_state = {
+				add_resource = {
+					type = oil
+					amount = 24
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = synthetic_refinery
+						size > 0
+						include_locked = yes
+					}
+				}
+				prioritize = { 65 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+			modify_building_resources = {
+        	   building = synthetic_refinery
+        	   resource = rubber
+        	   amount = 2
+        	}
+		}
+	}
+		
+	focus =  {
+		id = ABY_the_tag_economic_miracle
+		icon = GFX_focus_spa_the_spanish_miracle
+		x = 1
+		y = 1
+	    prerequisite = { focus = ABY_expand_ploiesti_oil_production }
+		prerequisite = { focus = ABY_global_integration }
+		relative_position_id = ABY_global_integration
+		available_if_capitulated = no
+		available = {
+			num_of_factories > 50
+
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_timed_idea = {
+				idea = idea_GUAY_the_tag_economic_miracle
+				days = 720
+			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+
+		}
+	}
+	   #夺取金苹果群岛
+		focus = {
+		id = ABY_offensiveislands
+		icon = GFX_focus_generic_provoke_border_clashes
+		prerequisite = { focus = ABY_thelaws}
+		relative_position_id = ABY_thelaws
+		x = 0
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+          is_subject = no
+		  HIL = {
+			NOR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_with = ROOT
+			}
+		}
+		}
+
+		bypass = {
+		 OR = {
+			NOT = { country_exists = HIL }	
+			has_war_with = HIL
+			has_wargoal_against = HIL
+		}
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+         		if = {
+				limit = {
+					HIL = { can_ROOT_get_wargoal_on_THIS = yes }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = HIL
+				}
+			}
+		}
+	}
+	
+	focus = {
+		#掌控丘丘人
+		id = ABY_liberation_01
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		prerequisite = { focus = ABY_offensiveislands}
+		relative_position_id = ABY_offensiveislands
+		x = 0
+		y = 1
+
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+	
+		available = {
+			OR = {
+				HIL = { exists = no }
+			}
+			# NOT = { has_idea = SIK_land_value_tax }
+		}
+
+		bypass = {
+		}
+
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = HIL
+				}
+				add_core_of = ROOT
+			}
+
+	    #   add_timed_idea = {
+		#		idea = SIK_land_value_tax
+		#		days = 180
+		#	}
+		}
+	}
+	focus = {
+		id = ABY_the_hellenic_navy 
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = ABY_liberation_01 }
+		x = 0
+		y = 1
+		relative_position_id = ABY_liberation_01
+		cost = 5
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			navy_experience = 15
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}	
+			}	
+		}
+	}
+	focus = {
+		id =ABY_a_traditon_navy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus =ABY_the_hellenic_navy }
+		mutually_exclusive = { focus =ABY_a_modern_navy }
+		x = -2
+		y = 1
+		relative_position_id =ABY_the_hellenic_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+			modifier = { 
+				add = 10
+				is_historical_focus_on = yes
+			}
+		}
+
+		completion_reward = {
+			
+			add_doctrine_cost_reduction = {
+				name = FRA_naval_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+	
+		}
+	}	
+
+	focus = {
+		id =ABY_a_fleet_fit_for_the_aegean
+		icon = GFX_focus_generic_aegean_sea_focus
+		prerequisite = { focus =ABY_a_traditon_navy }
+		x = 0
+		y = 1
+		relative_position_id =ABY_a_traditon_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GRE_a_fleet_fit_for_the_aegean
+				bonus = 1.0
+				uses = 1
+				category = bb_tech
+				category = bc_tech
+			}
+			add_ideas = ROM_coastal_defense_ships
+
+		}
+	}	
+
+	focus = {
+		id =ABY_disrupting_the_great_powers
+		icon = GFX_goal_generic_navy_anti_submarine
+		prerequisite = { focus =ABY_a_modern_navy }
+		x = 0
+		y = 1
+		relative_position_id =ABY_a_modern_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GRE_disrupting_the_great_powers
+				bonus = 0.75
+				uses = 1
+				category = ss_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = GRE_disrupting_the_great_powers
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id =ABY_the_cannon
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus =ABY_a_fleet_fit_for_the_aegean }
+		x = -1
+		y = 1
+		relative_position_id =ABY_a_fleet_fit_for_the_aegean
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			if = {
+ 				limit = { has_dlc = "Man the Guns" }
+ 				add_tech_bonus = {
+ 					name = GRE_the_cannon
+					bonus = 1.00
+					uses = 1
+					category = bb_tech
+				}
+				add_tech_bonus = {
+					name = GRE_the_cannon
+					bonus = 0.5
+					uses = 3
+					category = naval_equipment
+				}
+ 			}	
+			else = {
+				navy_experience = 15
+			}
+		}
+	}					
+
+	focus = {
+		id =ABY_the_torpedo
+		icon = GFX_goal_generic_occupy_start_war
+		prerequisite = { focus =ABY_disrupting_the_great_powers }
+		x = 1
+		y = 1
+		relative_position_id =ABY_disrupting_the_great_powers
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			if = {
+ 				limit = { has_dlc = "Man the Guns" }
+				add_tech_bonus = {
+					name = GRE_the_torpedo
+					bonus = 0.5
+					uses = 2
+					category = ss_tech
+				}
+				add_tech_bonus = {
+					name = GRE_the_torpedo
+					bonus = 1.00
+					uses = 1
+					category = naval_equipment
+				}
+ 			}	
+			else = {
+				navy_experience = 15
+			}
+		}
+	}
+
+	focus = {
+		id =ABY_a_long_and_proud_tradition
+		icon = GFX_focus_GRE_a_long_and_proud_tradition
+		prerequisite = { focus =ABY_disrupting_the_great_powers focus =ABY_a_fleet_fit_for_the_aegean }
+		x = 0
+		y = 3
+		relative_position_id =ABY_the_hellenic_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_stability = 0.05
+			navy_experience = 20
+			add_ideas = GRE_ancient_talents
+		}
+	}		
+
+	focus = {
+		id =ABY_a_modern_navy
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus =ABY_the_hellenic_navy }
+		mutually_exclusive = { focus =ABY_a_traditon_navy }
+		x = 2
+		y = 1
+		relative_position_id =ABY_the_hellenic_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+			IF = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_ideas = cruiser_submarine_specialization_mtg
+			}
+			ELSE = {
+				add_ideas = cruiser_submarine_specialization
+			}
+
+			add_tech_bonus = {
+				name = GRE_a_modern_navy
+				bonus = 0.75
+				uses = 1
+				category = dd_tech
+			}
+			add_tech_bonus = {
+				name = GRE_a_modern_navy
+				bonus = 0.75
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}	
+
+		#进攻蒙德
+		focus = {
+		id = ABY_offensivelaw
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = ABY_thelaws}
+		relative_position_id = ABY_thelaws
+		x = -3
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+		LAW = {
+				NOR = {
+					exists = no
+					is_subject_of = ROOT
+					has_war_with = ROOT
+				}
+			}
+		}
+
+		bypass = {
+		 OR = {
+			NOT = { country_exists = TIB }	
+			has_war_with = LAW
+			has_wargoal_against = LAW
+		}
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+    			if = {
+				limit = {
+					LAW = { can_ROOT_get_wargoal_on_THIS = yes }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = LAW
+				}
+			}
+		}
+	}
+		focus = {
+		#统御达达乌帕谷
+		id = ABY_liberation_02
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		prerequisite = { focus = ABY_offensivelaw}
+		relative_position_id = ABY_offensivelaw
+		x = 0
+		y = 1
+
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+	
+		available = {
+			OR = {
+				LAW = { exists = no }
+			}
+			# NOT = { has_idea = SIK_land_value_tax }
+		}
+
+		bypass = {
+		}
+
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = LAW
+				}
+				add_core_of = ROOT
+			}
+
+	    #   add_timed_idea = {
+		#		idea = SIK_land_value_tax
+		#		days = 180
+		#	}
+		}
+		
+	}
+	#山地化训练
+		focus = {
+		id = ABY_uplift_the_mountain_brigades
+		icon = GFX_focus_GRE_a_land_of_mountains
+		x = 0
+		y = 1
+
+		cost = 10
+
+		prerequisite = { focus = ABY_liberation_02 }
+
+		relative_position_id = ABY_liberation_02
+
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = {  }
+		completion_reward = {
+			add_tech_bonus = {
+				name = special_bonus
+				bonus = 0.5
+				uses = 2
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
+			}
+			custom_effect_tooltip = GRE_mountain_training_effect
+			hidden_effect = { set_technology = { mountain_warfare = 1 } }
+		}
+	}
+		 #重整军备
+	focus = {
+		id = ABY_start_rearmament
+		icon = GFX_focus_generic_combined_arms
+		x = 25
+		y = 0
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_command_power = 25
+			army_experience = 25
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
+			
+				IF = {
+					limit = { 
+						718 = {
+							is_fully_controlled_by = ROOT
+							air_facility < 1
+							land_facility < 1
+							naval_facility < 1
+							nuclear_facility < 1
+						}
+					}
+
+					718 = {
+						add_building_construction = {
+							type = land_facility
+							level = 1
+							instant_build = yes
+							province = 6773 # South London
+						}
+					}
+				}
+			
+		}
+	}
+		
+	focus = {
+		id = ABY_norges_rikstanksfabrikk
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = ABY_start_rearmament }
+
+		x = -2
+		y = 1
+		relative_position_id = ABY_start_rearmament
+	
+		cost = 10
+		available = {
+			NOR_broken_gun_trigger = yes 
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					 free_building_slots = {
+					 	building = arms_factory
+					 	size > 1
+					 	include_locked = yes 
+					 }
+				}
+				add_extra_state_shared_building_slots = 2 
+				add_building_construction = {
+					type = arms_factory 
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = NOR_norges_rikstanksfabrikk
+				bonus = 0.75
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	##陆军理论
+	focus = {
+		id = ABY_doctrine_bonus
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = ABY_norges_rikstanksfabrikk }
+		x = -1
+		y = 1
+		relative_position_id = ABY_norges_rikstanksfabrikk
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	##快速动员
+	focus = {
+		id =  ABY_total_mobilization
+		icon = GFX_focus_generic_currency_reforms
+		prerequisite = { focus = ABY_doctrine_bonus  }
+		x = 0
+		y = 1
+		relative_position_id = ABY_doctrine_bonus
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		complete_tooltip = {
+		}
+
+		completion_reward = {
+			add_ideas = CHI_rapid_mobilization	
+			add_ideas = CHI_rural_militias
+			if = {
+				limit = {	
+					has_war_support < 0.5
+				}
+				add_war_support = 0.1
+			}
+			else_if = {
+				limit = {
+					has_idea = war_economy
+				}
+				add_political_power = 150
+			}
+			else = {
+				add_ideas = war_economy
+			}
+	
+		}
+	}
+	#专业坦克工厂
+	focus = {
+		id = ABY_tank_plant
+		icon = GFX_focus_generic_tank_assault
+		prerequisite = { focus = ABY_norges_rikstanksfabrikk }
+
+		x = 1
+		y = 1
+		relative_position_id = ABY_norges_rikstanksfabrikk
+	
+		cost = 10
+		available = {
+		
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					 free_building_slots = {
+					 	building = arms_factory
+					 	size > 1
+					 	include_locked = yes 
+					 }
+				}
+				add_extra_state_shared_building_slots = 2 
+				add_building_construction = {
+					type = arms_factory 
+					level = 2
+					instant_build = yes
+				}
+			}
+	
+		}
+	}
+   #列车炮
+	focus = {
+		id = ABY_road_plant
+		icon = GFX_focus_GER_kriegslokomotive
+		prerequisite = { focus = ABY_tank_plant }
+
+		x = 0
+		y = 1
+		relative_position_id = ABY_tank_plant
+	
+		cost = 10
+		available = {
+		
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					 free_building_slots = {
+					 	building = arms_factory
+					 	size > 1
+					 	include_locked = yes 
+					 }
+				}
+				add_extra_state_shared_building_slots = 2 
+				add_building_construction = {
+					type = arms_factory 
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = GER_kriegslokomotiven
+				bonus = 0.5
+				uses = 2
+				category = train_tech
+			}
+
+
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 50
+			}
+	
+		}
+	}
+
+	#现代化坦克
+	focus = {
+		id = ABY_rapid_mobilization
+		icon = GFX_focus_generic_heavy_tank
+		prerequisite = { focus = ABY_road_plant  }
+		prerequisite = { focus = ABY_total_mobilization  }
+		x = 0
+		y = 3
+		relative_position_id = ABY_norges_rikstanksfabrikk
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		complete_tooltip = {
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_innovative_warfare
+				bonus = 3
+				ahead_reduction = 2
+				uses = 1
+				category = armor
+			}
+	
+		}
+	}
+	focus = {
+		#全民动员
+		id =  ABY_personal_leadership
+		icon = GFX_focus_SWE_let_fly_all_guns
+		prerequisite = { focus = ABY_start_rearmament }
+		x = 2
+		y = 1
+		relative_position_id = ABY_start_rearmament
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { FRA_firepower }
+			mio:ABY_yoimiya_artillery_organization = {
+					add_mio_funds = 2500
+				}	
+		add_tech_bonus = {
+			name = CHI_heavy_weapons
+			bonus = 1.0
+			uses = 1
+			category = artillery
+		}
+		add_equipment_to_stockpile = { type = artillery_equipment  amount = 1800  producer = ABY }
+
+		}
+	}
+	#摩托化
+	focus = {
+		id = ABY_motorized_focus
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = ABY_personal_leadership  }
+		x = -1
+		y = 1
+		relative_position_id = ABY_personal_leadership
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			mio:ABY_ford_motor_company_organization = {
+					add_mio_funds = 2500
+				}
+			army_experience = 5
+			add_ideas = FRA_motorized_focus
+		}
+	}
+	#专业后勤
+	focus = {
+		id = ABY_logistics_focus
+		icon = GFX_focus_generic_reinforcing_the_supply_network
+		prerequisite = { focus = ABY_motorized_focus  }
+		x = 0
+		y = 1
+		relative_position_id = ABY_motorized_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+		every_army_leader = {
+			add_logistics = 1
+		}
+
+		add_tech_bonus = {
+			name = CHI_modern_logistics
+			bonus = 1.0
+			uses = 1
+			technology = tech_logistics_company
+			technology = tech_logistics_company2
+			technology = tech_logistics_company3
+			technology = tech_logistics_company4
+		}
+		add_equipment_to_stockpile = { type = support_equipment  amount = 800  producer = ABY }
+		}
+	}
+	focus = {
+		#发展轻武器
+		id =  ABY_small_arms_expertise
+		icon = GFX_focus_generic_little_entente
+		prerequisite = { focus = ABY_personal_leadership }
+		x = 1
+		y = 1
+		relative_position_id = ABY_personal_leadership
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+		    add_ideas = FRA_infantry_focus
+			mio:ABY_fire_arsenal_organization = {
+					add_mio_funds = 2500
+				}
+			add_tech_bonus = {
+			name = CHI_small_arms_expertise
+			bonus = 1.0
+			uses = 1
+			category = infantry_weapons
+		}
+		}
+	}
+    focus = {
+	id =  ABY_modern_logistics
+	icon = GFX_focus_GER_gebirgsjager
+	prerequisite = { focus = ABY_small_arms_expertise  }
+	x = 0
+	y = 1
+	relative_position_id = ABY_small_arms_expertise
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+
+	}
+
+	available = {
+
+	}
+
+	bypass = {
+
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		every_army_leader = {
+			add_defense = 1
+		}
+		add_tech_bonus = {
+			bonus = 1.0
+			uses = 1
+			technology = tech_field_hospital
+			technology = tech_field_hospital2
+			technology = tech_field_hospital3
+			technology = tech_field_hospital4
+		
+		}
+		set_technology = {
+			INA_infantryhp_tech = 1
+		}
+
+	}}
+
+	focus = {
+		id =  ABY_war_college
+		icon = GFX_focus_ARG_universidad_de_buenos_aires
+		prerequisite = { focus = ABY_modern_logistics }
+		prerequisite = { focus = ABY_logistics_focus }
+		x = 1
+		y = 1
+		relative_position_id = ABY_logistics_focus
+        search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			num_of_factories > 74
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		
+		completion_reward = {			
+			add_research_slot = 1
+			add_ideas = CZE_war_college_idea
+		}
+	}
+	focus =  {
+		id = ABY_thewar_miracle
+		icon = GFX_focus_generic_mass_production
+		x = -2
+		y = 2
+	    prerequisite = { focus = ABY_war_college }
+		prerequisite = { focus = ABY_rapid_mobilization }
+		relative_position_id = ABY_war_college
+		available_if_capitulated = no
+		available = {
+			num_of_factories > 50
+
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_timed_idea = {
+				idea = ABY_war_industry
+				days = 365
+			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+
+		}
+	}
+		focus = {
+		id = ABY_air_focus
+		icon = GFX_goal_generic_build_airforce
+		x = 6
+		y = 0
+		relative_position_id = ABY_start_rearmament
+		
+		cost = 5
+		available_if_capitulated = yes
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = air_focus_bypass_tt
+				NOT = {
+					any_owned_state = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			air_experience = 25
+			every_state = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+		completion_reward = {
+			air_experience = 25
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+	
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+		
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				
+			}
+		}
+	}
+		focus = {
+		id = ABY_bomber_command_focus
+		prerequisite = { focus = ABY_air_focus }
+		icon = GFX_focus_generic_air_research_boost
+		x = -1
+		y = 1
+		relative_position_id = ABY_air_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 2
+					category = cat_strategic_bomber
+					category = tactical_bomber
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 1
+					category = cat_strategic_bomber
+					category = tactical_bomber
+				}
+				add_doctrine_cost_reduction = {
+					name = bomber_command_focus #land_doc_bonus
+					cost_reduction = 0.5
+					uses = 1
+					category = air_doctrine
+				}
+			}
+		}
+	}
+	focus = {
+		id = ABY_radar_focus
+		prerequisite = { focus = ABY_bomber_command_focus }
+		icon = GFX_goal_generic_radar
+		x = 0
+		y = 1
+		relative_position_id = ABY_bomber_command_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			air_experience = 25
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
+			}
+			add_tech_bonus = {
+				name = radar_focus
+				bonus = 1
+				uses = 1 # was 3
+				category = radar_tech
+			}
+		}
+	}
+	focus = {
+		id = ABY_repurpose_lighthouses
+		
+		icon = GFX_focus_generic_air_defense
+		
+		prerequisite = { focus = ABY_radar_focus }
+
+		x = 0
+		y = 1
+		relative_position_id = ABY_radar_focus
+		cost = 10
+		available = {
+	
+			any_state = {
+				is_owned_and_controlled_by = ROOT
+				free_building_slots = {
+					building = anti_air_building
+					size > 0
+				}
+			}
+		}
+
+		search_filters = {}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech = radio_detection
+					}
+				}
+				effect_tooltip = {
+					every_owned_state = {
+						limit = {
+							is_controlled_by = ROOT 
+							is_core_of = ROOT 
+							is_coastal = yes 
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 2 
+							instant_build = yes 
+						}
+					}		
+				}
+			}
+			else = {
+				every_owned_state = {
+					limit = {
+						is_controlled_by = ROOT  
+						is_core_of = ROOT 
+						free_building_slots = {
+							building = anti_air_building
+							size > 0
+						}
+						is_coastal = yes 
+					}
+					add_building_construction = {
+						type = anti_air_building
+						level = 2 
+						instant_build = yes 
+					}
+				}
+			}
+		}
+	}
+		focus = {
+		id = ABY_air_dominance
+		icon = GFX_goal_generic_air_fighter2
+		x = 1
+		y = 1
+		
+		prerequisite = { focus = ABY_air_focus }
+		relative_position_id = ABY_air_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { FRA_air_dominance }
+			mio:ABY_camco_medium_organization = {
+					add_mio_funds = 2500
+				}	
+				add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = 200 producer = USA variant_name = "P-36A"}
+		}
+	}
+	focus = {
+		id = ABY_cas_focus
+		icon = GFX_focus_generic_cas_aircraft
+	 	prerequisite = { 
+	 		focus = ABY_air_dominance
+	 	}
+		x = 0
+		y = 1
+		relative_position_id = ABY_air_dominance
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_cas_focus
+				bonus = 1.0
+				uses = 2
+				category = cas_bomber
+			}
+			mio:ABY_camco_bomber_organization = {
+					add_mio_funds = 2500
+				}	
+			
+		}
+	}
+	focus = {
+		id = ABY_flying_artillery
+		icon = GFX_focus_GER_amerikabomber
+		x = 0
+		y = 1
+		
+		prerequisite = { focus = ABY_cas_focus }
+		mutually_exclusive = { }
+		relative_position_id = ABY_cas_focus
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = { FRA_flying_artillery }
+		}
+	}
+		focus = {
+		id = ABY_rocketry_innovations
+		icon = GFX_focus_rocketry
+		prerequisite = { focus = ABY_flying_artillery }
+		prerequisite = {  focus = ABY_war_college }
+	    prerequisite = {focus = ABY_repurpose_lighthouses  }
+		x = -1
+		y = 3
+		relative_position_id = ABY_flying_artillery
+		cost = 5
+		available = {
+		}
+
+		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_aerodynamic_research_institute
+				bonus = 0.5
+				uses = 1
+				category = rocketry
+			}
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_timed_idea = {
+				idea = GER_rocketry_idea
+				days = 730
+			}
+	
+		}
+	}
+		focus = {
+		id =  ABY_uranverein
+		icon = GFX_focus_wonderweapons
+		prerequisite = { focus = ABY_rocketry_innovations }
+		x = 0
+		y = 1
+		relative_position_id = ABY_rocketry_innovations
+        search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		
+		completion_reward = {			
+			add_tech_bonus = {
+					name = GER_uranverein
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+		}
+	}
+}
