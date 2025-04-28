@@ -543,7 +543,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DVA_economic_miracle_of_Dvalingebiet
-		icon = GFX_focus_SWE_urbanization
+		icon = GFX_focus_AFG_a_modern_economy
 		cost = 10
 		x = 14
 		y = 5
@@ -1685,6 +1685,7 @@ focus_tree = {
 				type = annex_everything
 				target = MOT
 			}
+			news_event = dva.news.1
 		}
 	}
 	focus = {
@@ -1702,6 +1703,12 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = DVA_visitors_on_the_snowmountain
+		}
+		prerequisite = {
+			focus = DVA_in_the_name_of_Cuilein_Anbar
+		}
+		prerequisite = {
+			focus = DVA_bring_up_Spark_Knight
 		}
 		x = 14
 		y = 10
@@ -1740,7 +1747,7 @@ focus_tree = {
 			}
 			custom_effect_tooltip = DVA_break_with_the_past_tt
 			hidden_effect = {
-				deactivate_shine_on_focus = DVA_The_First_Convention
+				complete_national_focus  = DVA_The_First_Convention
 				mark_focus_tree_layout_dirty = yes
 				country_event = {
 					id = dva.ab.51
@@ -1856,6 +1863,14 @@ focus_tree = {
 			}
 			custom_effect_tooltip = DOT_Government_Research_Up_tt
 			add_research_slot = 1
+			60 = {
+				add_building_construction = {
+					type = landmark_institute_of_tower
+					level = 1
+					instant_build = yes
+					province = 1314
+				}
+			}
 		}
 	}
 	focus = {
@@ -1990,7 +2005,7 @@ focus_tree = {
 				Control_Up = yes
 			}
 			custom_effect_tooltip = DOT_Government_Control_Up_tt
-			#country_event = dva.ab.
+			country_event = dva.ab.53
 			mark_focus_tree_layout_dirty = yes
 		}
 	}
@@ -2468,7 +2483,7 @@ focus_tree = {
 				DVA_helios_project_construction_step_progress > 99
 			}
 			NOT = {
-				has_country_flag = DVA_helios_project_first_step_flag
+				has_country_flag = DVA_helios_project_second_step_flag
 			}
 		}
 		completion_reward = {
@@ -2873,7 +2888,13 @@ focus_tree = {
 		}
 
 		allow_branch = {
-			has_government = communism
+			OR = {
+				focus_progress = {
+					focus = DVA_break_with_the_past
+					progress > 0
+				}
+				has_government = communism
+			}
 		}
 
 		completion_reward = {
@@ -3140,7 +3161,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#还没想好.jpg
+			if = {
+				limit = {
+					has_country_flag = DVA_helios_project_flag
+				}
+				country_event = dva.ab.52
+			}
+			else = {
+				add_research_slot = 1
+			}
 		}
 	}
 	focus = {
@@ -3514,6 +3543,77 @@ focus_tree = {
 				country_event = {
 					id = DVA_inner_circle_Bennett.02
 					days = 140
+				}
+			}
+			#叹息之门线
+			build_railway = {
+				level = 1
+				path = {
+					4313 4338 4357
+				}
+			}
+			#魔晶矿洞线
+			build_railway = {
+				level = 1
+				path = {
+					4138 4165 4195 4220 1348 4234 123
+				}
+			}
+			#风息之径线
+			build_railway = {
+				level = 1
+				path = {
+					4101 4128 4120 1799 4147 4159 2397 1314
+				}
+			}
+			#环城西线
+			build_railway = {
+				level = 1
+				path = {
+					4147 4178 123
+				}
+			}
+			#新城中线
+			build_railway = {
+				level = 1
+				path = {
+					459 1243 1314 4236
+				}
+			}
+			#蒙森港线
+			build_railway = {
+				level = 1
+				path = {
+					459 4171 674 2893
+				}
+			}
+			#崇高之门线
+			build_railway = {
+				level = 1
+				path = {
+					674 2690 4097 1214 1382 4096
+				}
+			}
+			#崇高之门线
+			build_railway = {
+				level = 1
+				path = {
+					674 2690 4097 1214 1382 4096
+				}
+			}
+			#西风山巅线
+			build_railway = {
+				level = 1
+				path = {
+					4066 1540 4043 2653 4030 4054
+				}
+			}
+			#明冠之门线
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				path = {
+					4196 4203 2637 4143 1863
 				}
 			}
 		}
@@ -3935,6 +4035,10 @@ focus_tree = {
 			else = {
 				custom_effect_tooltip = DOT_effects_have_not_announced_tt
 			}
+			hidden_effect = {
+				complete_national_focus = DVA_Mona1
+				complete_national_focus = DVA_Sucrose1
+			}
 		}
 	}
 	focus = {
@@ -3947,7 +4051,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#
 		}
 		
 		allow_branch = {
@@ -3958,7 +4062,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Collei2
-				DVA_set_advisor_var8 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var8 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4071,7 +4180,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#
+			4 = {
+				add_building_construction = {
+					type = landmark_Lei_Line_research_center
+					level = 1
+					instant_build = yes
+					province = 4540
+				}
+			}
 		}
 	}
 	focus = {
@@ -4084,7 +4200,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4094,7 +4210,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Eula2
-				DVA_set_advisor_var9 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var9 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4221,7 +4342,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4231,7 +4352,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Fischl2
-				DVA_set_advisor_var4 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var4 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4344,7 +4470,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4354,7 +4480,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Leah2
-				DVA_set_advisor_var2 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var2 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4467,7 +4598,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4477,7 +4608,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Lisa2
-				DVA_set_advisor_var13 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var13 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4590,7 +4726,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4600,7 +4736,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Mona02
-				DVA_set_advisor_var10 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var10 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4745,7 +4886,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4755,7 +4896,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Sucrose2
-				DVA_set_advisor_var6 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var6 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4868,7 +5014,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -4878,7 +5024,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Vile2
-				DVA_set_advisor_var5 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var5 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -4991,7 +5142,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -5001,7 +5152,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Tsarevich2
-				DVA_set_advisor_var11 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var11 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -5109,7 +5265,7 @@ focus_tree = {
 		relative_position_id = DVA_The_Second_Convention
 		cost = 1
 		available = {
-			Is_Alternate = yes
+			#Is_Alternate = yes
 		}
 		
 		allow_branch = {
@@ -5119,7 +5275,12 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = {
 				activate_shine_on_focus = DVA_Hopkins2
-				DVA_set_advisor_var12 = yes
+				if = {
+					limit = {
+						Is_Alternate = yes
+					}
+					DVA_set_advisor_var12 = yes
+				}
 				DVA_add_advisor_effects = yes
 				if = {
 					limit = {
@@ -5220,6 +5381,192 @@ focus_tree = {
 
 		completion_reward = {
 			#
+		}
+	}
+	focus = {
+		id = DVA_The_End_of_Second_Convention
+		icon = GFX_focus_GER_the_peoples_victory
+		prerequisite = { focus =  DVA_Eula3 }
+		prerequisite = { focus =  DVA_Collei3 }
+		prerequisite = { focus =  DVA_Fischl3 }
+		prerequisite = { focus =  DVA_Leah3 }
+		prerequisite = { focus =  DVA_Sucrose3 }
+		prerequisite = { focus =  DVA_Lisa3 }
+		prerequisite = { focus =  DVA_Vile3 }
+		prerequisite = { focus =  DVA_Tsarevich3 }
+		prerequisite = { focus =  DVA_Hopkins3 }
+		prerequisite = { focus =  DVA_Mona3 }
+		
+		x = 0
+		y = 4
+		relative_position_id = DVA_The_Second_Convention
+		cost = 20
+		available = {
+			#
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_The_Third_Convention
+		icon = GFX_focus_AFG_integrate_tajik_and_uzbek_republics
+		prerequisite = { focus =  DVA_The_End_of_Second_Convention }
+		
+		x = 0
+		y = 1
+		relative_position_id = DVA_The_End_of_Second_Convention
+		cost = 20
+		available = {
+			#
+		}
+
+		bypass = {
+			#has_country_flag = 紧急状态
+		}
+		
+		allow_branch = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_The_Third_Convention_urgent
+		icon = GFX_focus_CHL_union_of_hispanic_republics
+		prerequisite = { focus =  DVA_The_Third_Convention }
+		
+		x = 0
+		y = 2
+		relative_position_id = DVA_The_End_of_Second_Convention
+		cost = 20
+		available = {
+			#
+		}
+		
+		allow_branch = {
+			has_government = communism
+			#has_country_flag = 紧急状态
+		}
+
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_country_cooperation
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 36
+		y = 1
+		available = {
+			has_completed_focus = DVA_Eula2
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_LYY
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 33
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_LYY_Cooperation
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_SAN
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 35
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_SAN_Cooperation
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_SUM
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 37
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_SUM_Cooperation
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_FON
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 39
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_FON_Cooperation
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_NAT
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 41
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_NAT_Cooperation
+		}
+	}
+	focus = {
+		id = DVA_cooperate_with_SNE
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 43
+		y = 2
+		prerequisite = {
+			focus = DVA_country_cooperation
+		}
+		available = {
+			has_completed_focus = DVA_country_cooperation
+		}
+		completion_reward = {
+			set_country_flag = DVA_SNE_Cooperation
 		}
 	}
 }
