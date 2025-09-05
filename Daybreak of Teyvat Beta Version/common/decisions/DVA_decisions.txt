@@ -7637,6 +7637,654 @@ DVA_work_of_committee_category = {
 			opinion_gain_monthly = 0.5
 		}
 	}
+	#重新阐释骑士精神
+	DVA_redefining_spirit_of_knights = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Fischl2
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 30
+
+		remove_effect = {
+			remove_dynamic_modifier = { modifier = DVA_Knights_spirits_modifier }
+			add_ideas = DVA_Knights_spirits
+		}
+	}
+	#经济改革
+	DVA_tax_reform = {
+
+		icon = generic_civil_support
+
+		available = {
+			#
+		}
+
+		days_mission_timeout = 360
+
+		fire_only_once = no
+
+		activation = {
+			always = no
+		}
+
+		cancel_trigger = {
+			always = no
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					has_country_flag = DVA_level_tax_system
+				}
+				#
+			}
+			else = {
+				add_stability = -0.2
+				activate_mission = DVA_tax_reform
+			}
+		}
+	}
+	#征收累进税
+	DVA_levying_progressive_taxes = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah2
+			NOT = {
+				has_country_flag = DVA_has_progressive_taxes
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 90
+
+		remove_effect = {
+			random_list = {
+				40 = {
+					set_country_flag = DVA_has_progressive_taxes
+				}
+				60 = {
+					#
+					modifier = {
+						factor = 0.5
+						has_country_flag = DVA_has_tax_knights
+					}
+				}
+			}
+		}
+	}
+	#征收财产分割税
+	DVA_levying_property_division_taxes = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah2
+			has_country_flag = DVA_has_progressive_taxes
+			NOT = {
+				has_country_flag = DVA_has_property_division_taxes
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 90
+
+		remove_effect = {
+			random_list = {
+				40 = {
+					set_country_flag = DVA_has_property_division_taxes
+				}
+				60 = {
+					#
+					modifier = {
+						factor = 0.5
+						has_country_flag = DVA_has_tax_knights
+					}
+				}
+			}
+		}
+	}
+	#推行复式记账法
+	DVA_promote_double_entry_bookkeeping_method = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah2
+			has_country_flag = DVA_has_progressive_taxes
+			has_country_flag = DVA_has_property_division_taxes
+			NOT = {
+				has_country_flag = DVA_double_entry_bookkeeping_method
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 60
+
+		remove_effect = {
+			random_list = {
+				50 = {
+					set_country_flag = DVA_double_entry_bookkeeping_method
+				}
+				50 = {
+					#
+					modifier = {
+						factor = 0.5
+						has_country_flag = DVA_has_tax_knights
+					}
+				}
+			}
+		}
+	}
+	#建立央地二级税收体制
+	DVA_establish_level_tax_system_between_central_and_local_government = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah2
+			has_country_flag = DVA_double_entry_bookkeeping_method
+			has_country_flag = DVA_has_tax_knights
+			NOT = {
+				has_country_flag = DVA_level_tax_system
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 140
+
+		remove_effect = {
+			set_country_flag = DVA_level_tax_system
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Leah3
+				set_country_flag = DVA_Leah03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Leah.02
+					days = 140
+				}
+			}
+		}
+	}
+	#组建护税小队
+	DVA_establish_tax_company = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah2
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 30
+
+		remove_effect = {
+			add_manpower = -10000
+			add_to_variable = { var = dx value = -500 }
+			set_country_flag = DVA_has_tax_knights
+			division_template = {
+				name = "护税小队"
+				
+				regiments = {
+					cavalry = { x = 0 y = 0 }
+					cavalry = { x = 0 y = 1 }
+					cavalry = { x = 0 y = 2 }
+					cavalry = { x = 0 y = 3 }
+					
+					MOT_cavalry = { x = 1 y = 0 }
+				}
+				support = {
+					military_police = { x = 0 y = 0 }
+				}
+				is_locked = yes
+				priority = 1
+				division_names_group = DVA_CAV_01
+				allow_new_equipment=yes
+				allow_foreign_equipment=yes
+			}
+		}
+	}
+	#贸易对赌
+	DVA_trade_bet = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Leah3
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 7
+
+		remove_effect = {
+			activate_mission = DVA_trade_bet1
+		}
+	}
+	#贸易对赌
+	DVA_trade_bet1 = {
+
+		icon = generic_civil_support
+
+		available = {
+			#
+		}
+
+		days_mission_timeout = 360
+
+		fire_only_once = no
+
+		activation = {
+			always = no
+		}
+
+		cancel_trigger = {
+			check_variable = {
+				dx > 10000
+			}
+		}
+
+		timeout_effect = {
+			add_stability = -0.3
+			add_to_variable = { var = dx value = -2000 }
+			activate_mission = DVA_trade_bet1
+		}
+	}
+	#开发鹰翔港湾
+	DVA_developing_Falcon_Harbour = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_active_mission = DVA_trade_bet1
+			NOT = {
+				has_country_flag = DVA_has_progressive_taxes
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 90
+
+		remove_effect = {
+			2880 = {
+				add_building_construction = {
+					type = naval_base
+					level = 6
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_coastal = yes
+					}
+				}
+			}
+			4535 = {
+				add_building_construction = {
+					type = naval_base
+					level = 4
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_coastal = yes
+					}
+				}
+			}
+			4621 = {
+				add_building_construction = {
+					type = naval_base
+					level = 4
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_coastal = yes
+					}
+				}
+			}
+		}
+	}
+	#向xx国家倾销炼金药剂
+	DVA_dumping_alchemical_potions_into_countries = {
+		icon = GFX_decision_generic_protection
+
+		allowed = {
+			original_tag = DVA
+		}
+
+		visible = {
+			has_active_mission = DVA_trade_bet1
+			NOT = {
+				has_country_flag = DVA_has_progressive_taxes
+			}
+		}
+
+		target_root_trigger = {
+			is_major = yes
+		}
+		targets = { LYY INA SUM FON NAT SNE }
+   		targets_dynamic = yes
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 100
+
+		days_remove = 90
+
+		remove_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = DVA_trade_of_portion
+						}
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = DVA_trade_of_portion
+				}
+			}
+			random_list = {
+				20 = {
+					add_to_variable = { var = DVA_portion_var value = 30 }
+				}
+				30 = {
+					add_to_variable = { var = DVA_portion_var value = 10 }
+				}
+				50 = {
+					add_to_variable = { var = DVA_portion_var value = 20 }
+				}
+			}
+		}
+	}
+	#明察暗访
+	DVA_make_open_and_secret_investigations = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Lisa2
+			check_variable = {
+				DVA_investigations_var < 6
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = no
+
+		cost = 0
+
+		days_remove = 30
+		days_re_enable = 60
+
+		complete_effect = {
+			add_to_variable = {
+				DVA_investigations_var = 1
+			}
+		}
+
+		remove_effect = {
+			add_stability = -0.05
+			communism_drift = 0.05
+			if = {
+				limit = {
+					check_variable = {
+						DVA_investigations_var = 6
+					}
+				}
+				unlock_decision_tooltip = DVA_action_code_Thunder_strikes
+			}
+			if = {
+				limit = {
+					check_variable = {
+						DVA_investigations_var = 4
+					}
+				}
+				unlock_decision_tooltip = DVA_representative_qualification
+			}
+			if = {
+				limit = {
+					check_variable = {
+						DVA_investigations_var = 2
+					}
+				}
+				unlock_decision_tooltip = DVA_assessment_and_evaluation_plan_for_committee
+			}
+			else = {
+				custom_effect_tooltip = DVA_investigations_tt
+			}
+		}
+	}
+	#《委员考核评定方案》
+	DVA_assessment_and_evaluation_plan_for_committee = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			check_variable = {
+				DVA_investigations_var 1 3
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 7
+
+		remove_effect = {
+			add_stability = -0.06
+			communism_drift = 0.06
+		}
+	}
+	#代表资格审查
+	DVA_representative_qualification = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			check_variable = {
+				DVA_investigations_var > 3
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 7
+
+		remove_effect = {
+			add_stability = -0.08
+			communism_drift = 0.08
+		}
+	}
+	#行动代号：雷霆万钧
+	DVA_action_code_Thunder_strikes = {
+
+		icon = generic_civil_support
+
+		available = {
+			#
+		}
+
+		days_mission_timeout = 60
+
+		fire_only_once = yes
+
+		selectable_mission = yes
+
+		activation = {
+			always = no
+		}
+
+		cancel_trigger = {
+			has_completed_focus = DVA_arrest_profiteers
+			has_completed_focus = DVA_detain_traitors
+		}
+
+		complete_effect = {
+			set_country_flag = DVA_Thunder_flag
+		}
+
+		timeout_effect = {
+			add_stability = -0.12
+			communism_drift = -0.25
+			add_to_variable = { var = dx value = -2500 }
+		}
+	}
+	#组建监察小队
+	DVA_establish_supervision_company = {
+		icon = GFX_decision_generic_protection
+
+		available = {
+			has_government = communism
+		}
+
+		visible = {
+			has_completed_focus = DVA_Lisa3
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		days_remove = 7
+
+		remove_effect = {
+			add_manpower = -10000
+			add_to_variable = { var = dx value = -500 }
+			division_template = {
+				name = "监察小队"
+				
+				regiments = {
+					MOT_cavalry = { x = 0 y = 0 }
+					MOT_cavalry = { x = 0 y = 1 }
+					MOT_cavalry = { x = 0 y = 2 }
+					MOT_cavalry = { x = 0 y = 3 }
+					
+					cavalry = { x = 1 y = 0 }
+				}
+				support = {
+					military_police = { x = 0 y = 0 }
+				}
+				is_locked = yes
+				priority = 1
+				division_names_group = DVA_CAV_01
+				allow_new_equipment=yes
+				allow_foreign_equipment=yes
+			}
+			#事件：制度化与常态化
+		}
+	}
 }
 DVA_annex_category = {
 	DVA_annex_DRA = {

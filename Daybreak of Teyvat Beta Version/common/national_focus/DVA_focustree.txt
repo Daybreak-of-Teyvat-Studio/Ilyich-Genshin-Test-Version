@@ -1944,7 +1944,7 @@ focus_tree = {
 	focus = {
 		id = DVA_arrest_profiteers
 		icon = DVA_arrest_profiteers
-		cost = 1
+		cost = 4
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
 		}
@@ -1955,6 +1955,7 @@ focus_tree = {
 		}
 		available = {
 			has_completed_focus = DVA_Hopkins3
+			has_country_flag = DVA_Thunder_flag
 		}
 		bypass = {
 			#
@@ -1966,7 +1967,7 @@ focus_tree = {
 	focus = {
 		id = DVA_detain_traitors
 		icon = DVA_detain_traitors
-		cost = 1
+		cost = 4
 		prerequisite = {
 			focus = DVA_sunlight_shines_on_Mondstadt
 		}
@@ -1977,6 +1978,7 @@ focus_tree = {
 		y = 16
 		available = {
 			has_completed_focus = DVA_Tsarevich3
+			has_country_flag = DVA_Thunder_flag
 		}
 		bypass = {
 			#
@@ -1998,9 +2000,20 @@ focus_tree = {
 		x = 14
 		y = 16
 		available = {
-			has_completed_focus = DVA_Lisa2
+			OR = {
+				has_completed_focus = DVA_arrest_profiteers
+				has_completed_focus = DVA_fight_against_corruption
+			}
 		}
 		completion_reward = {
+			hidden_effect = {
+				activate_shine_on_focus = DVA_Lisa3
+				set_country_flag = DVA_Lisa03_in_progress_flag
+				country_event = {
+					id = DVA_inner_circle_Lisa.02
+					days = 140
+				}
+			}
 			if = {
 				limit = {
 					has_idea = DVA_corruption
@@ -2386,7 +2399,7 @@ focus_tree = {
 				Army_Up = yes
 			}
 			custom_effect_tooltip = DOT_Government_Army_Up_tt
-			add_dynamic_modifier = { modifier = DVA_Knights_of_Volturnus_modifier }
+			add_dynamic_modifier = { modifier = DVA_Knights_spirits_modifier }
 		}
 	}
 	
@@ -4457,6 +4470,7 @@ focus_tree = {
 
 		completion_reward = {
 			unlock_decision_tooltip = DVA_establish_lighthouse
+			unlock_decision_tooltip = DVA_redefining_spirit_of_knights
 		}
 	}
 	focus = {
@@ -4541,15 +4555,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			hidden_effect = {
-				activate_shine_on_focus = DVA_Leah3
-				set_country_flag = DVA_Leah03_in_progress_flag
-				country_event = {
-					id = DVA_inner_circle_Leah.02
-					days = 140
-				}
-				unlock_decision_tooltip = DVA_minecraft
-			}
+			unlock_decision_tooltip = DVA_minecraft
+			activate_mission = DVA_tax_reform
 		}
 	}
 	focus = {
@@ -4576,7 +4583,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				always = no
+				has_country_flag = DVA_level_tax_system
 			}
 		}
 		
@@ -4585,7 +4592,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#
+			unlock_decision_tooltip = DVA_trade_bet
 		}
 	}
 	focus = {
@@ -4670,14 +4677,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			hidden_effect = {
-				activate_shine_on_focus = DVA_Lisa3
-				set_country_flag = DVA_Lisa03_in_progress_flag
-				country_event = {
-					id = DVA_inner_circle_Lisa.02
-					days = 140
-				}
-			}
+			unlock_decision_tooltip = DVA_make_open_and_secret_investigations
 		}
 	}
 	focus = {
@@ -5612,6 +5612,25 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = DVA_turn_stone_into_gold
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 35
+		y = 3
+		prerequisite = {
+			focus = DVA_cooperate_with_LYY
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_cooperate_with_LYY
+		}
+		available = {
+			has_country_flag = DVA_amber_win
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
 		id = DVA_cooperate_with_INA
 		icon = GFX_focus_generic_africa_naval
 		cost = 5
@@ -5670,6 +5689,53 @@ focus_tree = {
 					give_guarantee = DVA
 				}
 			}
+			country_event = dva.ab.107
+		}
+	}
+	focus = {
+		id = DVA_travel_across_the_oceans
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 38
+		y = 3
+		prerequisite = {
+			focus = DVA_cooperate_with_SUM
+		}
+		mutually_exclusive = {
+			focus = DVA_wind_blows_froms_desert
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_cooperate_with_SUM
+			#has_country_flag = DVA_amber_win
+		}
+		available = {
+			has_country_flag = DVA_amber_win
+		}
+		completion_reward = {
+			#
+		}
+	}
+	focus = {
+		id = DVA_wind_blows_froms_desert
+		icon = GFX_focus_generic_africa_naval
+		cost = 5
+		x = 40
+		y = 3
+		prerequisite = {
+			focus = DVA_cooperate_with_SUM
+		}
+		mutually_exclusive = {
+			focus = DVA_travel_across_the_oceans
+		}
+		allow_branch = {
+			#has_completed_focus = DVA_cooperate_with_SUM
+			#has_country_flag = DVA_amber_win
+		}
+		available = {
+			has_country_flag = DVA_amber_win
+		}
+		completion_reward = {
+			#迪希雅的安康-布朗基-蒲鲁东主义-互助社会主义
 		}
 	}
 	focus = {
