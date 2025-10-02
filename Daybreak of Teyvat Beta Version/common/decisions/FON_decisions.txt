@@ -1,13 +1,18 @@
 #胚胎海危机决议组
 FON_Primordial_Sea_decision_categories = {
 
-	desc = FON_Primordial_Sea_decision_categories_desc
-
-	#	set_variable = { FON_Percent_of_Preparation=0 }
-	#	set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
-
+		category_effect = {
+			visible = {
+				always = no
+			}
+		set_variable = { FON_Percent_of_Preparation = 0 }
+		set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
+		}
+	
 	#胎海水危机
 	FON_watercrisis_mission = {
+
+		#icon = 
 		activation = {
 			has_completed_focus = FON_search
 		}
@@ -20,18 +25,39 @@ FON_Primordial_Sea_decision_categories = {
 			FON_final_date_trigger = yes
 			check_variable = { FON_Percent_of_Preparation > 0.8 }
 		}
+		visible = {
+			has_completed_focus = FON_search
+		}
 
 		days_mission_timeout = 220
 
 		is_good = no
 
 		timeout_effect = {
+			if = {
+			limit = {check_variable = { FON_percent_of_Peparation < 0.5 }}
 			country_event = {days = 7 id = FON.11} #灭世事件（All gone）
-		}
+			}
 
+			else_if = {
+                limit = { check_variable = { 
+					FON_Percent_of_Preparation > 0.5
+				    } 
+				}
+                limit = { check_variable = { 
+					FON_Percent_of_Preparation < 0.8 
+				    } 
+			    }
+                country_event = { days = 7 id = FON.40 }  # 内战事件
+            }
+		else = {
+            country_event = { days = 7 id = FON.12 }  #大洪水（正常线路）
+            }
+        }
 		complete_effect = {
-			country_event = {days = 7 id = FON.12} #大洪水（正常线路）
+			country_event = {days = 7 id = FON.12 } #大洪水（正常线路）
 		}
+		priority = 10000
 	}
 
 	#加固封印
@@ -99,19 +125,17 @@ FON_Primordial_Sea_decision_categories = {
 		available = {
 			
 		}
-		custom_cost_trigger = {
-			command_power > 5
-		}
-		custom_cost_text = CP_5
+		
+		
 		cost = 20
-
+ 
 		remove_effect = {
-			add_command_power = -5
-			add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
@@ -119,7 +143,7 @@ FON_Primordial_Sea_decision_categories = {
 			consumer_goods_factor = -0.1
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 
 	}
@@ -142,17 +166,17 @@ FON_Primordial_Sea_decision_categories = {
 		available = {
 			
 		}
-		custom_cost_trigger = {
-			command_power > 10
-		}
-		custom_cost_text = CP_10
+		
+		
+		cost = 20
+
 		remove_effect = {
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
@@ -160,7 +184,7 @@ FON_Primordial_Sea_decision_categories = {
 			consumer_goods_factor = -0.05
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 	}
 
@@ -183,20 +207,20 @@ FON_Primordial_Sea_decision_categories = {
 				
 			}
 
-			cost = 15
+			cost = 20
 
 			remove_effect = {
 				add_command_power = -10
-				add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+				add_to_variable = { FON_Percent_of_Preparation = 10 }
 				add_equipment_to_stockpile ={ type=motorized_0 amount=50 producer=SNE }
 				clamp_variable = {
 					var = FON_Percent_of_Preparation
 					min = 0
-					max = 1
+					max = 100
 				}
 			}
 	
-			days_remove = 7
+			days_remove = 10
 			days_re_enable = 30
 	}
 
@@ -218,20 +242,16 @@ FON_Primordial_Sea_decision_categories = {
 		available = {
 			
 		}
-		custom_cost_trigger = {
-			command_power > 5
-		}
-		custom_cost_text = CP_5
 
 		cost = 20
 
 		remove_effect = {
-			add_command_power = -5
-			add_to_variable = { FON_Percent_of_Preparation = 0.05 }
+			add_command_power = -10
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
@@ -239,7 +259,7 @@ FON_Primordial_Sea_decision_categories = {
 			consumer_goods_factor = 0.1
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 	}
 
@@ -261,17 +281,16 @@ FON_Primordial_Sea_decision_categories = {
 		available = {
 			
 		}
-		custom_cost_trigger = {
-			command_power > 10
-		}
-		custom_cost_text = CP_10
+
+		cost = 20
+		
 		remove_effect = {
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
@@ -279,7 +298,7 @@ FON_Primordial_Sea_decision_categories = {
 			consumer_goods_factor = 0.05
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 	}
 
@@ -302,14 +321,14 @@ FON_Primordial_Sea_decision_categories = {
 	
 			}
 
-			cost = 15
+			cost = 20
 
 			remove_effect = {
-				add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+				add_to_variable = { FON_Percent_of_Preparation = 10 }
 				clamp_variable = {
 					var = FON_Percent_of_Preparation
 					min = 0
-					max = 1
+					max = 100
 				}
 			}
 
@@ -317,7 +336,7 @@ FON_Primordial_Sea_decision_categories = {
 				industrial_capacity_factory = 0.05
 			}
 	
-			days_remove = 7
+			days_remove = 10
 			days_re_enable = 30
 	}
 
@@ -339,23 +358,23 @@ FON_Primordial_Sea_decision_categories = {
 
 		}
 
-		cost = 5
+		cost = 15
 
 		remove_effect = {
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
 		modifier = {
-			industrial_capacity_factory = 0.05
+			industrial_capacity_factory = 0.1
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 	}
 
@@ -373,10 +392,6 @@ FON_Primordial_Sea_decision_categories = {
 		available = {
 			
 		}
-		custom_cost_trigger = {
-			command_power > 10
-		}
-		custom_cost_text = CP_10
 
 		visible = {
 			has_completed_focus = FON_people_right
@@ -385,2037 +400,23 @@ FON_Primordial_Sea_decision_categories = {
 
 		}
 
-		cost = 5
+		cost = 15
 
 		remove_effect = {
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 0.1 }
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
-				max = 1
+				max = 100
 			}
 		}
 
 		modifier = {
-			industrial_capacity_factory = 0.05
+			industrial_capacity_factory = 0.1
 		}
 
-		days_remove = 7
+		days_remove = 10
 		days_re_enable = 30
 	}
-}
-
-#经济危机决议组
-FON_eco_crisis_decision_categories = {
-	
-	#危机恶化
-	crisis = {
-		FON_eco_crisis_escalation = {
-			icon = generic_inflation
-	
-			activation = {
-				always = no
-			}
-			available = {
-				hidden_trigger = { always = no }
-			}
-			cancel_trigger = {
-				has_idea = FON_eco_crisis_5
-			}
-	
-			selectable_mission = no
-			is_good = no
-			days_mission_timeout = 10
-	
-			timeout_effect = {
-				log = "[GetDateText]: [Root.GetName]: Decision timeout FON_eco_crisis_escalation"
-				add_stability = -0.05
-				GER_increase_black_monday = yes
-				hidden_effect = {
-					if = {
-						limit = {
-							NOT = {
-								has_idea = FON_eco_crisis_5
-							}
-						}
-						activate_mission = FON_eco_crisis_escalation
-					}
-					else_if = {
-						limit = {
-							has_idea = FON_eco_crisis_5
-						}
-						country_event = FON.eco.depression.worst
-					}
-				}
-			}
-		}
-	}
-}
-
-###大选决议组
-
-#set_variable = { FON_support_SdR = 4 } #刺玟会支持度
-#set_variable = { FON_support_HoH = 3} #壁炉之家支持度
-#set_variable = { FON_support_PLCF = 2 } #立宪自由党支持度
-#set_variable = { FON_support_CLDT = 3 } #工联支持度
-#set_variable = { FON_support_ADP = 2 } #乡民协会支持度
-#set_variable = { FON_support_UDPIEC = 4 } #工商业主同盟支持度
-#set_variable = { FON_support_PDLCF = 0 } #立宪帝国党支持度
-
-
-#议会制版
-FON_election_decision_categories_parliamentarism = {
-	desc = {}
-	##激活大选
-	FON_election_mission = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = yes
-		selectable_mission = no
-		days_mission_timeout = 60
-
-		timeout_effect = {
-			country_event = { id = FON.30 }
-			custom_effect_tooltip = FON_election_result_tt
-		}
-	}
-
-
-	##己方行动###
-
-	#增加己方支持度
-	FON_add_SdR_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Navia
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_SdR_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_HoH_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Liney
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_HoH_votes"
-			FON_HoH_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_PLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Charlotte
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_PLCF_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_PDLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Furina
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_PDLCF_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_CLDT_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Navia
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_CLDT_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_UDPIEC_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Liney
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_UDPIEC_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	#削弱敌人支持度
-	FON_remove_SdR_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Navia
-				}
-
-			}
-			check_variable = {
-				FON_support_SdR > 0
-				tooltip = FON_not_enough_SdR_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Navia }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_SdR_votes"
-			FON_SdR_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_HoH_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Liney
-				}
-
-			}
-			check_variable = {
-				FON_support_HoH > 0
-				tooltip = FON_not_enough_HoH_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Liney }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_HoH_votes"
-			FON_HoH_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_PLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Charlotte
-				}
-
-			}
-			check_variable = {
-				FON_support_PLCF > 0
-				tooltip = FON_not_enough_PLCF_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Charlotte }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PLCF_votes"
-			FON_PLCF_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_PDLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Furina
-				}
-
-			}
-			check_variable = {
-				FON_support_PDLCF > 0
-				tooltip = FON_not_enough_PDLCF_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Furina }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PDLCF_votes"
-			FON_PDLCF_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_CLDT_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Navia
-				}
-
-			}
-			check_variable = {
-				FON_support_CLDT > 0
-				tooltip = FON_not_enough_CLDT_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Navia }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_CLDT_votes"
-			FON_CLDT_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_UDPIEC_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Liney
-				}
-
-			}
-			check_variable = {
-				FON_support_UDPIEC > 0
-				tooltip = FON_not_enough_UDPIEC_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Liney }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_UDPIEC_votes"
-			FON_UDPIEC_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_ADP_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-				}
-
-			}
-			check_variable = {
-				FON_support_ADP > 0
-				tooltip = FON_not_enough_ADP_tt
-			}
-		}
-		visible = {
-
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_ADP_votes"
-			FON_ADP_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	##敌方行动### 这里由于是ai行为，故按照势力分类；出于简化考虑，只做提升自己支持度的
-
-	#刺玟会
-	FON_SdR_campaign_SdR = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_SdR_campaign_SdR"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_SdR_campaign_SdR"
-			FON_SdR_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_SdR_campaign_SdR
-			}
-		}
-	}
-
-	#壁炉之家
-	FON_HoH_campaign_HoH = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_HoH_campaign_HoH"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_HoH_campaign_HoH"
-			FON_HoH_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_HoH_campaign_HoH
-			}
-		}
-	}
-
-	#立宪自由党
-	FON_PLCF_campaign_PLCF = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PLCF_campaign_PLCF"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PLCF_campaign_PLCF"
-			FON_PLCF_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PLCF_campaign_PLCF
-			}
-		}
-	}
-
-	#工联
-	FON_CLDT_campaign_CLDT = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_CLDT_campaign_CLDT"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_CLDT_campaign_CLDT"
-			FON_CLDT_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_CLDT_campaign_CLDT
-			}
-		}
-	}
-
-	#乡民协会
-	FON_ADP_campaign_ADP = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_ADP_campaign_ADP"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_ADP_campaign_ADP"
-			FON_ADP_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_ADP_campaign_ADP
-			}
-		}
-	}
-
-	#工商业主同盟
-	FON_UDPIEC_campaign_UDPIEC = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_UDPIEC_campaign_UDPIEC"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_UDPIEC_campaign_UDPIEC"
-			FON_UDPIEC_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_UDPIEC_campaign_UDPIEC
-			}
-		}
-	}
-
-	#立宪帝国党
-	FON_PDLCF_campaign_PDLCF = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PDLCF_campaign_PDLCF"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PDLCF_campaign_PDLCF"
-			FON_PDLCF_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PDLCF_campaign_PDLCF
-			}
-		}
-	}
-}
-
-#（半）总统制版
-FON_election_decision_categories_parliamentarism = {
-		if = {
-			limit = {
-				FON_is_parliamentarism_trigger = yes
-			}
-			desc = FON_election_decision_categories_parliamentarism
-		}
-	##激活大选
-	FON_election_mission = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = yes
-		selectable_mission = no
-		days_mission_timeout = 60
-
-		timeout_effect = {
-			country_event = { id = FON.30 }
-			custom_effect_tooltip = FON_election_result_tt
-		}
-	}
-
-
-	###政党行动###
-
-	##己方行动###
-
-	#增加己方支持度
-	FON_add_SdR_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			FON_Navia_candidate_trigger = yes
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-			FON_Navia_candidate_trigger = yes
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_SdR_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_HoH_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			FON_Liney_candidate_trigger = yes
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-			FON_Liney_candidate_trigger = yes
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_HoH_votes"
-			FON_HoH_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_PLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Charlotte
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_PLCF_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_PDLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Furina
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_PDLCF_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_CLDT_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			FON_Navia_candidate_trigger = yes
-			has_completed_focus = FON_contact_CLDT
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-			has_completed_focus = FON_contact_CLDT
-			FON_Navia_candidate_trigger = yes
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_CLDT_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_UDPIEC_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Liney
-			has_completed_focus = FON_contact_UDPIEC
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-			has_completed_focus = FON_contact_UDPIEC
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_UDPIEC_votes"
-			FON_SdR_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	#削弱敌人支持度
-	FON_remove_SdR_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					FON_Navia_candidate_trigger = yes
-				}
-
-			}
-			check_variable = {
-				FON_support_SdR > 0
-				tooltip = FON_not_enough_SdR_tt
-			}
-		}
-		visible = {
-			FON_Navia_candidate_trigger = no
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_SdR_votes"
-			FON_SdR_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_HoH_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					FON_Liney_candidate_trigger = yes
-				}
-
-			}
-			check_variable = {
-				FON_support_HoH > 0
-				tooltip = FON_not_enough_HoH_tt
-			}
-		}
-		visible = {
-			FON_Liney_candidate_trigger = no
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_HoH_votes"
-			FON_HoH_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_PLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Charlotte
-				}
-
-			}
-			check_variable = {
-				FON_support_PLCF > 0
-				tooltip = FON_not_enough_PLCF_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Charlotte }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PLCF_votes"
-			FON_PLCF_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_PDLCF_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Furina
-				}
-
-			}
-			check_variable = {
-				FON_support_PDLCF > 0
-				tooltip = FON_not_enough_PDLCF_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Furina }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_PDLCF_votes"
-			FON_PDLCF_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_CLDT_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					FON_Navia_candidate_trigger = yes
-					has_completed_focus = FON_contact_CLDT
-				}
-			}
-			check_variable = {
-				FON_support_CLDT > 0
-				tooltip = FON_not_enough_CLDT_tt
-			}
-		}
-		visible = {
-			NOT = {
-				FON_Navia_candidate_trigger = yes
-				has_completed_focus = FON_contact_CLDT
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_CLDT_votes"
-			FON_CLDT_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_UDPIEC_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				OR = {
-					AND = {
-						has_country_flag = {
-							flag = FON_campaigned_last_days
-							days < 5
-						}
-						FON_Liney_candidate_trigger = yes
-						has_completed_focus = FON_contact_UDPIEC
-					}
-				}
-
-			}
-			check_variable = {
-				FON_support_UDPIEC > 0
-				tooltip = FON_not_enough_UDPIEC_tt
-			}
-		}
-		visible = {
-			if = {
-				NOT = {
-					FON_Liney_candidate_trigger = yes
-					has_completed_focus = FON_contact_UDPIEC
-				}
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_UDPIEC_votes"
-			FON_UDPIEC_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_ADP_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-				}
-
-			}
-			check_variable = {
-				FON_support_ADP > 0
-				tooltip = FON_not_enough_ADP_tt
-			}
-		}
-		visible = {
-
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_ADP_votes"
-			FON_ADP_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	##敌方行动### 这里由于是ai行为，故按照势力分类；出于简化考虑，只做提升自己支持度的
-
-	#刺玟会
-	FON_SdR_campaign_SdR = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_SdR_campaign_SdR"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_SdR_campaign_SdR"
-			FON_SdR_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_SdR_campaign_SdR
-			}
-		}
-	}
-
-	#壁炉之家
-	FON_HoH_campaign_HoH = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_HoH_campaign_HoH"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_HoH_campaign_HoH"
-			FON_HoH_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_HoH_campaign_HoH
-			}
-		}
-	}
-
-	#立宪自由党
-	FON_PLCF_campaign_PLCF = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PLCF_campaign_PLCF"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PLCF_campaign_PLCF"
-			FON_PLCF_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PLCF_campaign_PLCF
-			}
-		}
-	}
-
-	#工联
-	FON_CLDT_campaign_CLDT = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_CLDT_campaign_CLDT"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_CLDT_campaign_CLDT"
-			FON_CLDT_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_CLDT_campaign_CLDT
-			}
-		}
-	}
-
-	#乡民协会
-	FON_ADP_campaign_ADP = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_ADP_campaign_ADP"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_ADP_campaign_ADP"
-			FON_ADP_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_ADP_campaign_ADP
-			}
-		}
-	}
-
-	#工商业主同盟
-	FON_UDPIEC_campaign_UDPIEC = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_UDPIEC_campaign_UDPIEC"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_UDPIEC_campaign_UDPIEC"
-			FON_UDPIEC_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_UDPIEC_campaign_UDPIEC
-			}
-		}
-	}
-
-	#立宪帝国党
-	FON_PDLCF_campaign_PDLCF = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PDLCF_campaign_PDLCF"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PDLCF_campaign_PDLCF"
-			FON_PDLCF_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PDLCF_campaign_PDLCF
-			}
-		}
-	}
-
-
-	###领袖行动###
-
-	##己方行动###
-
-	#增加己方支持度
-	FON_add_Navia_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Navia
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_Navia_votes"
-			FON_Navia_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_Liney_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Liney
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_Liney_votes"
-			FON_Liney_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_Charlotte_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Charlotte
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-			NOT = { has_country_flag = FON_vote_for_Furina }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_Charlotte_votes"
-			FON_Charlotte_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_add_Furina_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = { }
-		available = {
-			NOT = {
-				has_country_flag = {
-					flag = FON_campaigned_last_days
-					days < 5
-				}
-			}
-			has_country_flag = FON_vote_for_Furina
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-
-		visible = {
-			NOT = { has_country_flag = FON_vote_for_Liney }
-			NOT = { has_country_flag = FON_vote_for_Charlotte }
-			NOT = { has_country_flag = FON_vote_for_Navia }
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 5
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_add_Furina_votes"
-			FON_Furina_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	#削弱敌人支持度
-	FON_remove_Navia_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Navia
-				}
-
-			}
-			check_variable = {
-				FON_support_Navia > 0
-				tooltip = FON_not_enough_Navia_tt
-			}
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Navia }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Navia_votes"
-			FON_Navia_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_Liney_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Liney
-				}
-
-			}
-			check_variable = {
-				FON_support_Liney > 0
-				tooltip = FON_not_enough_Liney_tt
-			}
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Liney }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Liney_votes"
-			FON_Liney_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_Charlotte_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Charlotte
-				}
-
-			}
-			check_variable = {
-				FON_support_Charlotte > 0
-				tooltip = FON_not_enough_Charlotte_tt
-			}
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Charlotte }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Charlotte_votes"
-			FON_Charlotte_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-	FON_remove_Furina_votes = {
-		icon = GFX_decision_generic_political_rally
-		allowed = {  }
-		available = {
-			NOT = {
-				AND = {
-					has_country_flag = {
-						flag = FON_campaigned_last_days
-						days < 5
-					}
-					has_country_flag = FON_vote_for_Furina
-				}
-
-			}
-			check_variable = {
-				FON_support_Furina > 0
-				tooltip = FON_not_enough_Furina_tt
-			}
-			OR = {
-				has_country_flag = Semi-presidentialism
-				has_country_flag = presidentialism
-			}
-		}
-		visible = {
-			if = {
-				NOT = { has_country_flag = FON_vote_for_Furina }
-			}
-		}
-		ai_will_do = { base = 0 }
-
-		fire_only_once = no
-
-		cost = 10
-
-		days_remove = 5
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_remove_Furina_votes"
-			FON_Furina_remove_pop_effect = yes
-			clr_country_flag = FON_campaigned_last_days
-			set_country_flag = FON_campaigned_last_days
-			FON_election_update_percentage_effect = yes
-		}
-	}
-
-		##敌方行动### 这里由于是ai行为，故按照势力分类；出于简化考虑，只做提升自己支持度的
-
-	#刺玟会
-	FON_SdR_campaign_Navia = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_SdR_campaign_Navia"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_SdR_campaign_Navia"
-			FON_Navia_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_SdR_campaign_Navia
-			}
-		}
-	}
-
-	#壁炉之家
-	FON_HoH_campaign_Liney = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_HoH_campaign_Liney"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_HoH_campaign_Liney"
-			FON_Liney_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_HoH_campaign_Liney
-			}
-		}
-	}
-
-	#立宪自由党
-	FON_PLCF_campaign_Charlotte = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PLCF_campaign_Charlotte"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PLCF_campaign_Charlotte"
-			FON_Charlotte_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PLCF_campaign_Charlotte
-			}
-		}
-	}
-
-	#工联
-	FON_CLDT_campaign_Navia = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_CLDT_campaign_Navia"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_CLDT_campaign_Navia"
-			FON_Navia_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_CLDT_campaign_Navia
-			}
-		}
-	}
-
-	#工商业主同盟
-	FON_UDPIEC_campaign_Liney = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_UDPIEC_campaign_Liney"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_UDPIEC_campaign_Liney"
-			FON_Liney_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_UDPIEC_campaign_Liney
-			}
-		}
-	}
-
-	#立宪帝国党
-	FON_PDLCF_campaign_Furina = {
-		icon = GFX_decision_generic_political_rally
-		available = {
-			always = no
-		}
-		allowed = { always = no }
-		is_good = no
-		selectable_mission = no
-		days_mission_timeout = 6
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision complete FON_PDLCF_campaign_Furina"
-		}
-
-		timeout_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision timeout FON_PDLCF_campaign_Furina"
-			FON_Furina_pop_effect = yes
-			FON_election_update_percentage_effect = yes
-			hidden_effect = {
-				activate_mission = FON_PDLCF_campaign_Furina
-			}
-		}
-	}
-}
-
-#国民公会
-FON_National_council_decision_categories = {
-	
-	#宣告完成政府行政改革
-	FON_gov_reform = {
-		#icon = 
-		visible = {
-			has_completed_focus = FON_anti_bureaucratism
-		}
-		available = {
-			OR = {
-				NOT = {
-					has_idea = FON_government_with_low_efficiency
-				}
-				NOT = {
-					has_idea = FON_government_with_reform_severe
-				}
-				NOT = {
-					has_idea = FON_government_with_reform_mild
-				}
-			}
-		} 
-
-		complete_effect = {
-			country_event = { id = FON.gov_reform.8 }
-		}
-	}
-}
-
-#枫丹经济政策
-FON_Economy_Policy_decision_categories = {
-	
-	#发行法币
-	FON_Issuing_legal_currency = {
-		available = {
-
-		}
-		fire_only_once = yes
-
-		days_remove = 90
-
-		remove_effect = {
-			country_event = { id = FON.eco.depression.monetary } #完成法币发行工作
-			FON_eco_crisis_relieving_effect = yes
-		}
-	}
-
-	#
 }
