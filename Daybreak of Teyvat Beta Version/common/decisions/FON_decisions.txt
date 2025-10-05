@@ -23,7 +23,7 @@ FON_Primordial_Sea_decision_categories = {
 		
 		available = {
 			FON_final_date_trigger = yes
-			check_variable = { FON_Percent_of_Preparation > 0.8 }
+			check_variable = { FON_Percent_of_Preparation > 80 }
 		}
 		visible = {
 			has_completed_focus = FON_search
@@ -35,29 +35,29 @@ FON_Primordial_Sea_decision_categories = {
 
 		timeout_effect = {
 			if = {
-			limit = {check_variable = { FON_percent_of_Peparation < 0.5 }}
-			country_event = {days = 7 id = FON.11} #灭世事件（All gone）
+			    limit = {check_variable = { FON_Percent_of_Preparation < 30 }}
+			    country_event = {days = 0 id = FON_water.1} #灭世事件（All gone）
 			}
 
 			else_if = {
-                limit = { check_variable = { 
-					FON_Percent_of_Preparation > 0.5
-				    } 
-				}
-                limit = { check_variable = { 
-					FON_Percent_of_Preparation < 0.8 
-				    } 
-			    }
-                country_event = { days = 7 id = FON.40 }  # 内战事件
+                limit = {
+                check_variable = { FON_Percent_of_Preparation > 30 }
+                check_variable = { FON_Percent_of_Preparation < 80 }
+            }
+                country_event = { days = 0 id = FON.40 }  # 内战事件
             }
 		else = {
-            country_event = { days = 7 id = FON.12 }  #大洪水（正常线路）
+            country_event = { days = 0 id = FON.12 }  #大洪水（正常线路）
             }
         }
 		complete_effect = {
-			country_event = {days = 7 id = FON.12 } #大洪水（正常线路）
+			country_event = {days = 0 id = FON.12 } #大洪水（正常线路）
 		}
+
 		priority = 10000
+
+		fire_only_once = yes
+
 	}
 
 	#加固封印
@@ -130,8 +130,9 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 20
  
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.05_tt
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			add_to_variable = { FON_Percent_of_Preparation = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -171,8 +172,9 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 20
 
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.05_tt
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			add_to_variable = { FON_Percent_of_Preparation = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -210,8 +212,9 @@ FON_Primordial_Sea_decision_categories = {
 			cost = 20
 
 			remove_effect = {
+			    custom_effect_tooltip = FON_add_preparation_0.05_tt
 				add_command_power = -10
-				add_to_variable = { FON_Percent_of_Preparation = 10 }
+				add_to_variable = { FON_Percent_of_Preparation = 5 }
 				add_equipment_to_stockpile ={ type=motorized_0 amount=50 producer=SNE }
 				clamp_variable = {
 					var = FON_Percent_of_Preparation
@@ -246,8 +249,9 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 20
 
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.05_tt
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			add_to_variable = { FON_Percent_of_Preparation = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -285,8 +289,9 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 20
 		
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.05_tt
 			add_command_power = -10
-			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			add_to_variable = { FON_Percent_of_Preparation = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -324,7 +329,8 @@ FON_Primordial_Sea_decision_categories = {
 			cost = 20
 
 			remove_effect = {
-				add_to_variable = { FON_Percent_of_Preparation = 10 }
+			    custom_effect_tooltip = FON_add_preparation_0.05_tt
+				add_to_variable = { FON_Percent_of_Preparation = 5 }
 				clamp_variable = {
 					var = FON_Percent_of_Preparation
 					min = 0
@@ -361,6 +367,7 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 15
 
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.1_tt
 			add_command_power = -10
 			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
@@ -403,6 +410,7 @@ FON_Primordial_Sea_decision_categories = {
 		cost = 15
 
 		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.1_tt
 			add_command_power = -10
 			add_to_variable = { FON_Percent_of_Preparation = 10 }
 			clamp_variable = {
