@@ -1,10 +1,10 @@
 focus_tree = {
 	id = PRI_Focus
 	country = {
-		factor = 0	
+		factor = 0
 		modifier = {
 			add = 10
-			tag = PRI_02
+			tag = PRI_No
 		}
 	}
 	default = no
@@ -886,7 +886,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-	#万象所滞 加强时的民族精神
+	#圣书 加强时的民族精神
 		id = PRI_all_stop
 		icon = unknown
 		cost = 7.00
@@ -934,7 +934,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-	#空界纺梭 → 间谍执行任务的效率
+	#空间行者 → 间谍执行任务的效率
 		id = PRI_Realm_Walker
 		icon = unknown
 		cost = 7.00
@@ -1021,7 +1021,7 @@ focus_tree = {
 		prerequisite = { 
 			focus = PRI_geart_again
 		}
-		mutually_exclusive = { }
+		mutually_exclusive = { focus = PRI_Tranquility }
 		relative_position_id = PRI_geart_again
 		x = 0
 		y = 1
@@ -1047,7 +1047,7 @@ focus_tree = {
 	}
 	#至冬
 	focus = {
-		id = PRI_VS_SNE
+		id = DOT_PRI_VS_SNE
 		icon = GFX_goal_generic_army_artillery2
 		cost = 10.00
 		prerequisite = {
@@ -1078,14 +1078,14 @@ focus_tree = {
 	}
 	#纳塔
 	focus = {
-		id = PRI_VS_NAT
+		id = DOT_PRI_VS_NAT
 		icon = GFX_goal_generic_army_tanks
 		cost = 10.00
 		prerequisite = {
-			focus = PRI_VS_SNE
+			focus = DOT_PRI_VS_SNE
 		}
-		relative_position_id = PRI_VS_SNE
-		x = 0
+		relative_position_id = DOT_PRI_VS_SNE
+		x = -2
 		y = 1
 		available = {
 			threat > 0.80
@@ -1109,13 +1109,13 @@ focus_tree = {
 	}
 	#枫丹
 	focus = {
-		id = PRI_VS_FON
+		id = DOT_PRI_VS_FON
 		icon = GFX_goal_generic_navy_battleship
 		cost = 10.00
 		prerequisite = {
-			focus = PRI_VS_NAT
+			focus = DOT_PRI_VS_NAT
 		}
-		relative_position_id = PRI_VS_NAT
+		relative_position_id = DOT_PRI_VS_NAT
 		x = 0
 		y = 1
 		available = {
@@ -1138,52 +1138,16 @@ focus_tree = {
 			# every_state = { limit = { is_core_of = FON } add_core_of = ROOT }
 		}
 	}
-	#须弥
+		#蒙德
 	focus = {
-		id = PRI_VS_SUM
-		icon = GFX_goal_generic_national_unity
-		cost = 10.00
-		prerequisite = {
-			focus = PRI_VS_MOT
-		}
-		relative_position_id = PRI_VS_MOT
-		x = 0
-		y = 1
-		available = { 
-			threat > 0.90
-			date > 1942.1.1
-			OR = {
-				NOT = { has_global_flag = PRI_War_Slow }
-				date > 1944.1.1
-			}
-		}
-		completion_reward = {
-			add_political_power = 160
-			add_war_support = 0.05
-			add_stability = 0.05
-			army_experience = 25
-			air_experience = 25
-			navy_experience = 25
-			add_ideas = PRI_Vision_Dendro
-			create_wargoal = { type = puppet_wargoal_focus target = SUM }
-			create_wargoal = { type = puppet_wargoal_focus target = VAN }
-			create_wargoal = { type = puppet_wargoal_focus target = SGD }
-			create_wargoal = { type = puppet_wargoal_focus target = SDH }
-			create_wargoal = { type = puppet_wargoal_focus target = SGS }
-			# every_state = { limit = { is_core_of = SUM } add_core_of = ROOT }
-			set_technology = { nuclear_reactor = 1 }
-		}
-	}
-	#蒙德
-	focus = {
-		id = PRI_VS_MOT
+		id = DOT_PRI_VS_MOT
 		icon = GFX_goal_generic_wolf_pack
 		cost = 10.00
 		prerequisite = {
-			focus = PRI_VS_SNE
+			focus = DOT_PRI_VS_SNE
 		}
-		relative_position_id = PRI_VS_SNE
-		x = 2
+		relative_position_id = DOT_PRI_VS_SNE
+		x = 0
 		y = 1
 		available = {
 			threat > 0.90
@@ -1214,16 +1178,53 @@ focus_tree = {
 			# every_state = { limit = { is_core_of = MOT } add_core_of = ROOT }
 		}
 	}
+	#须弥
+	focus = {
+		id = DOT_PRI_VS_SUM
+		icon = GFX_goal_generic_national_unity
+		cost = 10.00
+		prerequisite = {
+			focus = DOT_PRI_VS_MOT
+		}
+		relative_position_id = DOT_PRI_VS_MOT
+		x = 0
+		y = 1
+		available = { 
+			threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1944.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Dendro
+			create_wargoal = { type = puppet_wargoal_focus target = SUM }
+			create_wargoal = { type = puppet_wargoal_focus target = VAN }
+			create_wargoal = { type = puppet_wargoal_focus target = SGD }
+			create_wargoal = { type = puppet_wargoal_focus target = SDH }
+			create_wargoal = { type = puppet_wargoal_focus target = SGS }
+			# every_state = { limit = { is_core_of = SUM } add_core_of = ROOT }
+			set_technology = { nuclear_reactor = 1 }
+		}
+	}
+
 	#璃月
 	focus = {
-		id = PRI_VS_LYY
+		id = DOT_PRI_VS_LYY
 		icon = GFX_goal_generic_soviet_construction
 		cost = 10.00
 		prerequisite = {
-			focus = PRI_VS_SNE
+			focus = DOT_PRI_VS_SNE
 		}
-		relative_position_id = PRI_VS_SNE
-		x = 4
+		relative_position_id = DOT_PRI_VS_SNE
+		x = 2
 		y = 1
 		available = {
 			threat > 0.90
@@ -1255,13 +1256,13 @@ focus_tree = {
 	}
 	#稻妻
 	focus = {
-		id = PRI_VS_INA
+		id = DOT_PRI_VS_INA
 		icon = GFX_goal_support_fascism
 		cost = 10.00
 		prerequisite = {
-			focus = PRI_VS_LYY
+			focus = DOT_PRI_VS_LYY
 		}
-		relative_position_id = PRI_VS_LYY
+		relative_position_id = DOT_PRI_VS_LYY
 		x = 0
 		y = 1
 		available = {
@@ -1295,11 +1296,45 @@ focus_tree = {
 		prerequisite = { 
 			focus = PRI_geart_again
 		}
-		mutually_exclusive = { }
+		mutually_exclusive = { focus = PRI_eliminate }
 		relative_position_id = PRI_geart_again
-		x = 12
+		x = 8
 		y = 1
 		completion_reward = {
 		}
 	}
+	#继续执政体系
+	focus = {
+		id = PRI_back
+		icon = unknown
+		cost = 7.00
+		prerequisite = { 
+			focus = PRI_Tranquility
+		}
+		mutually_exclusive = { }
+		relative_position_id = PRI_Tranquility
+		x = 0
+		y = 1
+		completion_reward = {
+		}
+	}
+	#谢幕
+	focus = {
+        id = PRI_END
+        icon = GFX_goal_generic_secret
+        x = 16
+        y = 22
+        cost = 1
+        available = {
+				OR = {
+            	date > 1945.1.1
+            	has_completed_focus = PRI_back 
+				has_completed_focus = PRI_eliminate
+       			}
+        }
+
+        completion_reward = {
+            #country_event = { id = liyue_events.1 }
+        }
+    }
 }
