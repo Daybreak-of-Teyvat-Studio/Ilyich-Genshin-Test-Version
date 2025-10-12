@@ -183,10 +183,8 @@ default = no
     completion_reward = {
         add_political_power = 50
         hidden_effect = {
-            add_to_variable = { FON_support_HoH = 1 }
             FON_election_update_percentage_effect = yes
         }
-        custom_effect_tooltip = FON_add_HoH_votes_tt
     }
 
     ai_will_do = {
@@ -277,10 +275,6 @@ default = no
 
     completion_reward = {
         add_political_power = 50
-        hidden_effect = {
-            add_to_variable = { FON_support_SdR = 1 }
-        }
-        custom_effect_tooltip = FON_add_SdR_votes_tt
     }
 
     ai_will_do = {
@@ -339,7 +333,7 @@ default = no
 #时不我待
  focus = {
     id = FON_Time_and_tide_wait_for_no_man
-    #icon = 
+    icon = FON_Time_and_tide_wait_for_no_man
 
     relative_position_id = FON_people_right
     x = -1
@@ -462,7 +456,6 @@ default = no
             FON_election_update_percentage_effect = yes
         }
         custom_effect_tooltip = FON_add_preparation_0.05_tt
-        custom_effect_tooltip = FON_add_SdR_votes_tt
         hidden_effect = {
             add_to_variable = { FON_Percent_of_Preparation = 5 }
         }
@@ -510,7 +503,6 @@ default = no
             FON_election_update_percentage_effect = yes
         }
         custom_effect_tooltip = FON_add_preparation_0.05_tt
-        custom_effect_tooltip = FON_add_HoH_votes_tt
         hidden_effect = {
             add_to_variable = { FON_Percent_of_Preparation = 5 }
         }
@@ -621,18 +613,18 @@ focus = {
  }
 
 ########################################
-#####         大选国策树          -######
+#####         那维莱特国策树       ######
 ########################################
 
-#劫后余生
+#秩序化身
 focus = {
-    id = FON_life_after_death
-    icon = GFX_FON_life_after_death
+    id = FON_Order_incarnation
+    icon = FON_Order_incarnation
 
-    x=1
+    x=3
     y=0
 
-    cost = 1
+    cost = 5
     available = {
 
     }
@@ -647,8 +639,7 @@ focus = {
     }
 
     completion_reward = {
-        add_political_power = 20
-        add_stability = 0.15
+        
     }
 
     ai_will_do = {
@@ -659,88 +650,80 @@ focus = {
     }
 }
 
-#筹划大选
+#定义水神位置
 focus = {
-    id = FON_preparation_for_election
-    icon = GFX_FON_preparation_for_election
+    id = FON_Define_the_position_of_the_ff
+    icon = FON_Define_the_position_of_the_ff
 
-    relative_position_id = FON_life_after_death
-    x=0
-    y=1
-
-    cost = 2
-    available = {}
-    bypass = {}
-    prerequisite = {
-        focus = FON_life_after_death
-    }
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-    }
-
-    completion_reward = {
-        add_political_power = 100
-        country_event = {id=FON.18} #临时选举法：政府形式？
-        country_event = {id=FON.14 days = 3} #枫丹民主化问题的始末
-        hidden_effect = {
-            add_idea = FON_call_for_voting
-        }
-    }
-}
-
-#激流勇退
-focus = {
-    id = FON_furina_leave
-    icon = GFX_FON_furina_leave
-
-    relative_position_id = FON_preparation_for_election
+    relative_position_id = FON_Order_incarnation
     x=-1
     y=1
 
-    cost=0
-    prerequisite = {
-        focus = FON_preparation_for_election
-    }
-    mutually_exclusive = {
-        focus = FON_furina_stay
-    }
-    available = {
-        always = no
-    }
+    cost = 5
+    available = {}
     bypass = {}
+    prerequisite = {
+        focus = FON_Order_incarnation
+    }
     cancel_if_invalid = yes
     continue_if_invalid = no
     available_if_capitulated = no
     allow_branch = {
         FON_is_stage_election_trigger = yes
     }
+
     completion_reward = {
-        country_event = { id = FON.20 } #选择为谁拉票
+       
     }
-    
 }
 
-#迎难而上
+#调节内部矛盾
 focus = {
-    id = FON_furina_stay
-    icon = GFX_FON_furina_stay
+    id = FON_adjust_internal_contradictions
+    icon = FON_adjust_internal_contradictions
 
-    relative_position_id = FON_preparation_for_election
+    relative_position_id = FON_Order_incarnation
     x=1
     y=1
 
-    cost=0
+    cost=5
     prerequisite = {
-        focus = FON_preparation_for_election
+        focus = FON_Order_incarnation
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+        
+    }
+    
+}
+
+#强化社会公正
+focus = {
+    id = FON_Strengthen_social_justice
+    icon = GFX_FON_Strengthen_social_justice
+
+    relative_position_id = FON_adjust_internal_contradictions
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_adjust_internal_contradictions
     }
     mutually_exclusive = {
         focus = FON_furina_leave
     }
     available = {
-        always = no
+        
     }
     bypass = {}
     cancel_if_invalid = yes
@@ -750,1079 +733,565 @@ focus = {
         FON_is_stage_election_trigger = yes
     }
     completion_reward = {
-        country_event = { id = FON.20 } #选择为谁拉票
-        custom_effect_tooltip = unfinished_tt
+
+        }
     }
-}
 
-
-#娜维娅国策：联系工人自由联合会
+#像魔神一样爱人
 focus = {
-    id = FON_contact_CLDT
-    icon = GFX_FON_contact_CLDT
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 2
-
-    cost = 3
-    prerequisite = {
-        focus = FON_furina_leave
-        focus = FON_furina_stay
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Navia_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.21 } #和工人自由联合会的会晤
-    }
-}
-
-#娜维娅国策：再入灰河
-focus = {
-    id = FON_enter_grayriver
-    icon = GFX_FON_enter_grayriver
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 3
-
-    cost = 4
-    prerequisite = {
-        focus = FON_contact_CLDT
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Navia_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.22 } #灰河一日
-    }
-}
-
-#林尼国策：觥筹交错
-focus = {
-    id = FON_contact_UDPIEC
-    icon = GFX_FON_contact_UDPIEC
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 2
-
-    cost = 3
-    prerequisite = {
-        focus = FON_furina_leave
-        focus = FON_furina_stay
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Liney_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.23 } #和工商业主同盟的会晤
-    }
-}
-
-#林尼国策：巡回演出
-focus = {
-    id = FON_display_for_voting
-    icon = GFX_FON_display_for_voting
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 3
-
-    cost = 4
-    prerequisite = {
-        focus = FON_contact_UDPIEC
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Liney_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.24 } #巡回演出
-    }
-}
-
-#夏洛蒂国策：旧日人情
-focus = {
-    id = FON_contact_UDJ
-    icon = GFX_FON_contact_UDJ
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 2
-
-    cost = 3
-    prerequisite = {
-        focus = FON_furina_leave
-        focus = FON_furina_stay
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Charlotte_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.25 } #再探蒸汽鸟报社
-    }
-}
-
-#夏洛蒂国策：集会演说
-focus = {
-    id = FON_speech
-    icon = GFX_FON_speech
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 3
-
-    cost = 3
-    prerequisite = {
-        focus = FON_contact_UDJ
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Charlotte_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.26 } #露景泉演说
-    }
-}
-
-#芙宁娜国策：再会那维莱特
-focus = {
-    id = FON_meeting_with_Neuvillette
-    icon = GFX_FON_meeting_with_Neuvillette
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 2
-
-    cost = 3
-    prerequisite = {
-        focus = FON_furina_leave
-        focus = FON_furina_stay
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Furina_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.27 } #再会那维莱特
-    }
-}
-
-#芙宁娜国策：欧庇克莱的话剧
-focus = {
-    id = FON_straight_play
-    icon = GFX_FON_straight_play
-
-    relative_position_id = FON_preparation_for_election
-    x = 0
-    y = 3
-
-    cost = 3
-    prerequisite = {
-        focus = FON_meeting_with_Neuvillette
-    }
-    bypass = {}
-    cancel_if_invalid = yes
-    continue_if_invalid = no
-    available_if_capitulated = no
-    allow_branch = {
-        FON_is_stage_election_trigger = yes
-        FON_Furina_candidate_trigger = yes
-    }
-    completion_reward = {
-        add_political_power = 30
-        country_event = { id = FON.28 } #欧庇克莱的话剧
-    }
-}
-
-########################################
-#####       娜维娅政府国策树      -######
-########################################
-
-#娜维娅政府
-focus = {
-    id = FON_Navia_government
-    icon = GFX_FON_Navia_government
-    allow_branch = {
-        FON_Navia_government_trigger = yes
-    }
-    x=18
-    y=0
+    id = FON_Love_like_a_demon_god
+    icon = GFX_FON_Love_like_a_demon_god
     
-}
+    relative_position_id = FON_Strengthen_social_justice
+    x=0
+    y=1
 
-
-
-########################################
-#####         林尼政府国策树      -######
-########################################
-
-#林尼政府
-focus = {
-    id = FON_Liney_government
-    icon = GFX_FON_Liney_government
-    allow_branch = {
-        FON_Liney_government_trigger = yes
+    cost=5
+    prerequisite = {
+        focus = FON_Strengthen_social_justice
     }
-    x=18
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#改革审判规则
+focus = {
+    id = FON_reform_trial_rules
+    icon = GFX_FON_reform_trial_rules
+    
+    relative_position_id = FON_Define_the_position_of_the_ff
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Define_the_position_of_the_ff
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#新歌剧院模式
+focus = {
+    id = FON_New_Opera_House_Mode
+    icon = GFX_FON_New_Opera_House_Mode
+    
+    relative_position_id = FON_reform_trial_rules
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_reform_trial_rules
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#凡高大者
+focus = {
+    id = FON_Those_who_are_high_and_mighty
+    icon = GFX_FON_Those_who_are_high_and_mighty
+    
+    relative_position_id = FON_New_Opera_House_Mode
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_New_Opera_House_Mode
+    }
+    prerequisite = {
+        focus = FON_Love_like_a_demon_god
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+########################################
+#####         内战国策树       #########
+########################################
+
+#那维莱特的失踪
+focus = {
+    id = FON_The_disappearance_of_Navellet
+    icon = GFX_FON_The_disappearance_of_Navellet
+    
+    x=4
     y=0
 
-}
-
-
-########################################
-#####       夏洛蒂政府国策树      -######
-########################################
-
-#夏洛蒂政府
-focus = {
-    id = FON_Charlotte_government
-    icon = GFX_FON_Charlotte_government
-    allow_branch = {
-        FON_Charlotte_government_trigger = yes
+    cost=5
+    prerequisite = {
+        
     }
-    x=18
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#旧贵族重掌大权
+focus = {
+    id = FON_The_old_aristocracy_regained_power
+    icon = GFX_FON_The_old_aristocracy_regained_power
+    
+    relative_position_id = FON_The_disappearance_of_Navellet
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_disappearance_of_Navellet
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#台前幕后
+focus = {
+    id = FON_on_stage_and_behind_the_scenes
+    icon = GFX_FON_on_stage_and_behind_the_scenes
+    
+    relative_position_id = FON_The_old_aristocracy_regained_power
+    x=-1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_old_aristocracy_regained_power
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#愚人之家
+focus = {
+    id = FON_House_of_Fools
+    icon = GFX_FON_House_of_Fools
+    
+    relative_position_id = FON_The_old_aristocracy_regained_power
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_old_aristocracy_regained_power
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#破碎枷锁
+focus = {
+    id = FON_Break_the_Chains
+    icon = GFX_FON_Break_the_Chains
+    
+    relative_position_id = FON_House_of_Fools
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_House_of_Fools
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#风暴玫瑰
+focus = {
+    id = FON_Storm_Rose
+    icon = GFX_FON_Storm_Rose
+    
+    relative_position_id = FON_on_stage_and_behind_the_scenes
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_on_stage_and_behind_the_scenes
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#全面失控
+focus = {
+    id = FON_Total_loss_of_control
+    icon = GFX_FON_Total_loss_of_control
+    
+    relative_position_id = FON_Storm_Rose
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Break_the_Chains
+    }
+
+    prerequisite = {
+        focus = FON_Storm_Rose
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+#高海欲火
+focus = {
+    id = FON_Passion_on_the_high_seas
+    icon = GFX_FON_Passion_on_the_high_seas
+    
+    relative_position_id = FON_Total_loss_of_control
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Total_loss_of_control
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_civil_war_flag }
+    completion_reward = {
+
+        }
+    }
+
+########################################
+#####     水仙十字结社国策树     #########
+########################################
+
+#结社成员密会
+focus = {
+    id = FON_Members_association_hold_secret_meetings
+    icon = GFX_FON_Members_association_hold_secret_meetings
+
+    x=4
     y=0
-    
-}
 
-
-########################################
-#####       芙宁娜政府国策树      -######
-########################################
-#芙宁娜政府
-focus = {
-    id = FON_Furina_government
-    icon = GFX_FON_Furina_government
-    allow_branch = {
-        FON_Furina_government_trigger = yes
-    }
-    x=18
-    y=0
-
-}
-
-########################################
-#####      进步派联合通用国策树    -######
-########################################
-
-########################################
-#####     自由派联合通用国策树     -######
-########################################
-
-########################################
-#####      左右共治通用国策树     -######
-########################################
-
-#################################################
-#####  芙宁娜主导政府（准立宪君主制）国策树 -######
-#################################################
-
-######################################################
-#####     芙宁娜参与政府（立宪君主制）国策树     -######
-######################################################
-
-########################################
-#####      民主政府通用国策树      -######
-########################################
-
-#修订宪法
-focus = {
-    id = FON_constitution_writing
-    icon = GFX_FON_constitution_writing
-
-    x = 15
-    y = 0
-
-    allow_branch = {
-        OR = {
-            FON_Navia_government_trigger = yes
-            FON_Furina_government_trigger = yes
-            FON_Charlotte_government_trigger = yes
-            FON_Liney_government_trigger = yes
-        }
-        FON_is_in_constitutional_democratic_government_trigger = yes
-    }
-
-    cost = 10
-    cancelable = no
-
-    select_effect = {
-        country_event = { id = FON.31 days = 5}
-    }
-
-    completion_reward = {
-        add_political_power = 100
-        add_stability = 0.1
-    }
-}
-
-#整肃官僚机构
-focus = {
-    id = FON_anti_bureaucratism
-    icon = GFX_FON_anti_bureaucratism
-
-    relative_position_id = FON_constitution_writing
-
-    x=0.5
-    y=1.5
-    
+    cost=5
     prerequisite = {
-        focus = FON_constitution_writing
-    }
-
-    prerequisite = {
-        focus = FON_Navia_government
-        focus = FON_Liney_government
-        focus = FON_Charlotte_government
-        focus = FON_Furina_government
+       
     }
     
-    cost = 5
-
-    select_effect = {
-        country_event = { id = FON.gov_reform.1 } #触发政府改革事件链
+    available = {
+        
     }
-
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        add_political_power = 50
-        add_stability = 0.05
-        complete_national_focus = FON_Ministry_of_Diplomat
-        complete_national_focus = FON_Ministry_of_Education_and_Science
-        complete_national_focus = FON_Ministry_of_Economy
-        complete_national_focus = FON_Ministry_of_Defense
-    }
-}
 
-#国防部
-focus = {
-    id = FON_Ministry_of_Defense
-    #icon = 
-
-    relative_position_id = FON_anti_bureaucratism
-
-    x = 10.5
-    y = 1
-
-    #allow_branch = {
-    #    OR = {
-    #        FON_is_in_constitutional_democratic_government_trigger = yes
-    #        AND = {
-    #            FON_no_democracy_government_trigger = yes
-    #            FON_back_to_stability_trigger = yes
-    #        }
-    #    }
-    #}
-
-    prerequisite = {
-        focus = FON_anti_bureaucratism
-    }
-
-}
-
-#财政与经济发展部
-focus = {
-    id = FON_Ministry_of_Economy
-    #icon = 
-
-    relative_position_id = FON_anti_bureaucratism
-
-    x = -3
-    y = 1
-
-    prerequisite = {
-        focus = FON_anti_bureaucratism
-    }
-}
-
-#经济萧条处理法案
-focus = {
-    id = FON_addressing_the_depression
-    #icon =
-
-    relative_position_id = FON_Ministry_of_Economy
-
-    x = -2
-    y = 1
-
-    cost = 1
-
-
-    prerequisite = {
-        focus = FON_Ministry_of_Economy
-    }
-
-    select_effect = {
-        country_event = { id = FON.eco.depression.1 } #危机处理法案：货币政策
-    }
-
-    completion_reward = {
-        add_political_power = 100
-    }
-}
-
-#强化中央银行
-focus = {
-    id = FON_enhancing_the_central_bank
-    #icon =
-
-    relative_position_id = FON_addressing_the_depression
-
-    x = -2
-    y = 1
-
-    cost = 2
-
-
-    prerequisite = {
-        focus = FON_addressing_the_depression
-    }
-
-    completion_reward = {
-        activate_targeted_decision = { decision = FON_Issuing_legal_currency target = ROOT }
-    }
-}
-
-
-#财政政策：失业保险
-
-
-
-#财政政策：以工代赈
-
-
-#产业政策：工业产业国有化
-focus = {
-    id = FON_nationalizing_the_industry
-    #icon =
-
-    relative_position_id = FON_addressing_the_depression
-
-    x = 0
-    y = 1
-
-    cost = 2
-
-
-    prerequisite = {
-        focus = FON_addressing_the_depression
-    }
-
-    completion_reward = {
-        activate_targeted_decision = { decision = FON_textile_industry target = ROOT }
-        activate_targeted_decision = { decision = FON_rural_electrification_project target = ROOT}
-        activate_targeted_decision = { decision = FON_fonta_production_and_assembly_industry_chain target = ROOT}
-        activate_targeted_decision = { decision = FON_infrastructure_maintenance_project target = ROOT }
-        activate_targeted_decision = { decision = FON_underwater_mining_development target = ROOT}
-        activate_targeted_decision = { decision = FON_}
-    }
-}
-
-
-#产业政策：指导式产业协作
-focus = {
-    id = FON_industry_guiding
-    #icon =
-
-    relative_position_id = FON_addressing_the_depression
-
-    x = 2
-    y = 1
-
-    cost = 2
-
-
-    prerequisite = {
-        focus = FON_addressing_the_depression
-    }
-
-    mutually_exclusive = {
-        focus = FON_nationalizing_the_industry
-    }
-
-    completion_reward = {
-        activate_targeted_decision = { decision = FON_Issuing_legal_currency target = ROOT }
-    }
-}
-
-
-#需求刺激政策：税收减免/最低工资法案
-
-#外交部
-focus = {
-    id = FON_Ministry_of_Diplomat
-    #icon =
-
-    relative_position_id = FON_anti_bureaucratism
-
-    x = -18
-    y = 1
-
-    prerequisite = {
-        focus = FON_anti_bureaucratism
-    }
-}
-
-#国民教育与科技发展部
-focus = {
-    id = FON_Ministry_of_Education_and_Science
-    #icon =
-
-    relative_position_id = FON_anti_bureaucratism
-
-    x = -12
-    y = 1
-
-    cancel = {
-        custom_trigger_tooltip = {
-            tooltip = FON_changed_politic_situation_tt
-            FON_no_democracy_government_trigger = yes
         }
     }
 
-    allow_branch = {
-        FON_is_in_constitutional_democratic_government_trigger = yes
-    }
-
-    prerequisite = {
-        focus = FON_anti_bureaucratism
-    }
-}
-
-#唤醒战争机器
+#雅各布掌握局面
 focus = {
-    id = FON_waking_the_war_machine
-    #icon = 
+    id = FON_Jacob_took_control_of_the_situation
+    icon = GFX_FON_Jacob_took_control_of_the_situation
 
-    relative_position_id = FON_Ministry_of_Defense
+    relative_position_id = FON_Members_association_hold_secret_meetings
+    x=1
+    y=1
 
-    x = -8
-    y = 1
-
-    cancel = {
-        custom_trigger_tooltip = {
-            tooltip = FON_changed_politic_situation_tt
-            FON_no_democracy_government_trigger = yes
-        }
-    }
-
-    allow_branch = {
-        FON_is_in_constitutional_democratic_government_trigger = yes
-    }
-
+    cost=5
     prerequisite = {
-        focus = FON_Ministry_of_Defense
+        focus = FON_Members_association_hold_secret_meetings
     }
-
-    prerequisite = {
-        focus = FON_Ministry_of_Economy
-    }
-}
-
-#枫丹世界政策
-focus = {
-    id = FON_global_policy_of_FON
-    #icon = 
-
-    relative_position_id = FON_Ministry_of_Diplomat
-
-    x = -8
-    y = 1
-
-    prerequisite = {
-        focus = FON_Ministry_of_Diplomat
-    }
-}
-
-#枫丹国际合作（动态国策）
-focus = {
-    id = FON_international_organization
-    #icon = 
-
-    dynamic = yes
-
-    relative_position_id = FON_Ministry_of_Diplomat
-
-    x = 0
-    y = 1
-
-    prerequisite = {
-        focus = FON_Ministry_of_Diplomat
-    }
-}
-
-################################################
-#####     军事建设（国防部）通用国策树     -######
-################################################
-
-
-
-#军事问题大辩论
-focus = {
-    id = FON_debate_on_military
-    icon = GFX_FON_debate_on_military
-
-    relative_position_id = FON_Ministry_of_Defense
-    x = 0
-    y = 1
     
-    prerequisite = {
-        focus = FON_Ministry_of_Defense
+    available = {
+        
     }
-
-    cost = 1
-
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        country_event = { id = FON.39 } #军事改革方向 
-        army_experience = 30
-        navy_experience = 30
-        air_experience = 30
-    }
-}
 
-#莱欧斯利计划
+        }
+    }
+
+#溶解者的意志
 focus = {
-    id = FON_plan_Wriothesley
-    icon = GFX_FON_plan_Wriothesley
+    id = FON_The_Will_of_the_Dissolver
+    icon = GFX_FON_The_Will_of_the_Dissolver
+    
+    relative_position_id = FON_Members_association_hold_secret_meetings
+    x=-1
+    y=1
 
-    relative_position_id = FON_debate_on_military
-
-    x = -2
-    y = 1
-
+    cost=5
     prerequisite = {
-        focus = FON_debate_on_military
+        focus = FON_Members_association_hold_secret_meetings
     }
-
-    mutually_exclusive = {
-        focus= FON_plan_Clorinde
+    
+    available = {
+        
     }
-
-    cost = 0
-
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        add_doctrine_cost_reduction = {
-            name = FON_military_reform
-            cost_reduction = 0.5
-            uses = 2
-            category = land_doctrine
-        }
-        custom_effect_tooltip = FON_focus_unlocked_event
-    }
-}
 
-#克洛琳德计划
+        }
+    }
+
+#阿兰·吉约丹遗产
 focus = {
-    id = FON_plan_Clorinde
-    icon = GFX_FON_plan_Clorinde
+    id = FON_al_heritage
+    icon = GFX_FON_al_heritage
 
-    relative_position_id = FON_debate_on_military
+    relative_position_id = FON_The_Will_of_the_Dissolver
+    x=0
+    y=1
 
-    x = 2
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
+    cost=5
     prerequisite = {
-        focus = FON_debate_on_military
+        focus = FON_The_Will_of_the_Dissolver
     }
-
-    mutually_exclusive = {
-        focus= FON_plan_Wriothesley
+    
+    available = {
+        
     }
-
-    cost = 0
-
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        add_doctrine_cost_reduction = {
-            name = FON_military_reform
-            cost_reduction = 0.5
-            uses = 2
-            category = land_doctrine
-        }
-        custom_effect_tooltip = FON_focus_unlocked_event
-    }
-}
 
-#步兵集训
+        }
+    }
+
+#天外之力
 focus = {
-    id = FON_infantry_training
-    icon = GFX_FON_infantry_training
+    id = FON_Power_from_beyond_the_heavens
+    icon = GFX_FON_Power_from_beyond_the_heavens
 
-    relative_position_id = FON_plan_Wriothesley
+    relative_position_id = FON_Jacob_took_control_of_the_situation
+    x=0
+    y=1
 
-    x = 0
-    y = 1
+    cost=5
     prerequisite = {
-        focus = FON_plan_Wriothesley
+        focus = FON_Jacob_took_control_of_the_situation
     }
-
-    cost = 4
-
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        add_ideas = FON_Wriothesley_military_1
-    }
-}
 
-#总参谋部调整
+        }
+    }
+
+#新人类理论
 focus = {
-    id = FON_superior_conductor
-    icon = GFX_FON_superior_conductor
+    id = FON_New_Human_Theory
+    icon = GFX_FON_New_Human_Theory
 
-    relative_position_id = FON_infantry_training
+    relative_position_id = FON_Power_from_beyond_the_heavens
+    x=0
+    y=1
 
-    x = 0
-    y = 1
-
-
-
+    cost=5
     prerequisite = {
-        focus = FON_infantry_training
+        focus = FON_Power_from_beyond_the_heavens
     }
-
-    cost = 4
-
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Wriothesley_military_1
-            add_idea = FON_Wriothesley_military_2
-        }
-        add_timed_idea = {
-            idea = FON_chaos_due_to_superior_reform
-            days = 180
-        } 
-    }
-}
 
-#高筑墙，广积粮
+        }
+    }
+
+#水仙十字往事
 focus = {
-    id = FON_defense_to_winning
-    icon = GFX_FON_defense_to_winning
+    id = FON_The_Past_of_Narcissus_Cross
+    icon = GFX_FON_The_Past_of_Narcissus_Cross
+    
+    relative_position_id = FON_al_heritage
+    x=0
+    y=1
 
-    relative_position_id = FON_superior_conductor
-
-    x = -1
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
+    cost=5
     prerequisite = {
-        focus = FON_superior_conductor
+        focus = FON_al_heritage
     }
-
-    mutually_exclusive = {
-        focus = FON_attacking_is_all
+    
+    available = {
+        
     }
-
-    cost = 4
-
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Wriothesley_military_2
-            add_idea = FON_Wriothesley_military_3
+
         }
     }
-}
 
-#冲锋陷阵
+#结社接管枫丹
 focus = {
-    id = FON_attacking_is_all
-    icon = GFX_FON_attacking_is_all
+    id = FON_Association_takes_over_Fengdan
+    icon = GFX_FON_Association_takes_over_Fengdan
+    
+    relative_position_id = FON_The_Past_of_Narcissus_Cross
+    x=1
+    y=1
 
-    relative_position_id = FON_superior_conductor
-
-    x = 1
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
+    cost=5
     prerequisite = {
-        focus = FON_superior_conductor
+        focus = FON_New_Human_Theory
     }
-
-    mutually_exclusive = {
-        focus = FON_defense_to_winning
-    }
-
-    cost = 4
-
-    completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Wriothesley_military_2
-            add_idea = FON_Wriothesley_military_4
-        }
-    }
-}
-
-#装甲理论集训
-focus = {
-    id = FON_armor_theory_training
-    icon = GFX_FON_armor_theory_training
-
-    relative_position_id = FON_plan_Clorinde
-
-    x = 0
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
     prerequisite = {
-        focus = FON_plan_Clorinde
+        focus = FON_The_Past_of_Narcissus_Cross
     }
-
-    cost = 4
-
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
     completion_reward = {
-        add_idea = FON_Clorinde_military_1
-    }
-}
 
-#灵活指挥
-focus = {
-    id = FON_conduct_by_warriors
-    icon = GFX_FON_conduct_by_warriors
-
-    relative_position_id = FON_armor_theory_training
-
-    x = 0
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
         }
     }
-
-    prerequisite = {
-        focus = FON_armor_theory_training
-    }
-
-    cost = 4
-
-    completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Clorinde_military_1
-            add_idea = FON_Clorinde_military_2
-        }
-        add_timed_idea = {
-            idea = FON_chaos_due_to_superior_reform
-            days = 180
-        } 
-    }
-}
-
-#一马当先
-focus = {
-    id = FON_running_armor
-    icon = GFX_FON_running_armor
-
-    relative_position_id = FON_conduct_by_warriors
-
-    x = -1
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
-    prerequisite = {
-        focus = FON_conduct_by_warriors
-    }
-
-    mutually_exclusive = {
-        focus = FON_gather_up_together
-    }
-
-    cost = 4
-
-    completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Clorinde_military_2
-            add_idea = FON_Clorinde_military_3
-        }
-    }
-}
-
-#协同作战
-focus = {
-    id = FON_gather_up_together
-    icon = GFX_FON_gather_up_together
-
-    relative_position_id = FON_conduct_by_warriors
-
-    x = 1
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
-    prerequisite = {
-        focus = FON_conduct_by_warriors
-    }
-
-    mutually_exclusive = {
-        focus = FON_running_armor
-    }
-
-    cost = 4
-
-    completion_reward = {
-        swap_ideas = {
-            remove_idea = FON_Clorinde_military_2
-            add_idea = FON_Clorinde_military_4
-        }
-    }
-}
-
-#水之国度统御四海
-focus = {
-    id = FON_controlling_oceans
-    icon = GFX_FON_controlling_oceans
-
-    relative_position_id = FON_Ministry_of_Defense
-
-    x = 14
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
-    prerequisite = {
-        focus = FON_Ministry_of_Defense
-    }
-
-    cost = 0
-
-    completion_reward = {
-        custom_effect_tooltip = FON_focus_unlocked_event
-    }
-}
-
-#希望有羽毛和翅膀
-focus = {
-    id = FON_air_king
-    icon = GFX_FON_air_king
-
-    relative_position_id = FON_Ministry_of_Defense
-
-    x = 8
-    y = 1
-
-    allow_branch = {
-        OR = {
-            FON_is_in_constitutional_democratic_government_trigger = yes
-            AND = {
-                FON_no_democracy_government_trigger = yes
-                FON_back_to_stability_trigger = yes
-            }
-        }
-    }
-
-    prerequisite = {
-        focus = FON_Ministry_of_Defense
-    }
-
-    cost = 0
-
-    completion_reward = {
-        custom_effect_tooltip = FON_focus_unlocked_event
-    }
-}
 }
