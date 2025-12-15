@@ -1,0 +1,75 @@
+add_namespace = LYY_Keqing
+
+# 初始事件：登楼调律
+country_event = {
+	id = LYY_Keqing.1
+	title = LYY_Keqing.1.t
+	desc = LYY_Keqing.1.d
+	picture = GFX_report_event_keqing_speech # 需定义
+
+	is_triggered_only = yes
+
+	option = {
+		name = LYY_Keqing.1.a
+		set_country_flag = LYY_keqing_path_started
+	}
+}
+
+# 甘雨心相引 - 判定事件
+country_event = {
+	id = LYY_Keqing.10
+	title = LYY_Keqing.10.t
+	desc = LYY_Keqing.10.d
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = LYY_enable_wooing_ganyu
+	}
+
+	immediate = {
+		# 这里需要复杂的变量逻辑，简化为直接判定
+		if = {
+			limit = { check_variable = { LYY_Ganyu_Favor > 80 } }
+			set_country_flag = LYY_ganyu_success
+		}
+		else = {
+			set_country_flag = LYY_ganyu_failed
+		}
+	}
+
+	option = {
+		name = "Success"
+		trigger = { has_country_flag = LYY_ganyu_success }
+		set_country_flag = LYY_ganyu_allied
+		white_peace = GYP
+		add_political_power = 120
+		add_stability = 0.05
+	}
+
+	option = {
+		name = "Failure"
+		trigger = { has_country_flag = LYY_ganyu_failed }
+		add_stability = -0.1
+		add_war_support = -0.1
+	}
+}
+
+# 凝光新政危机 (简单框架)
+# 这部分通常放在 on_actions 的 on_daily_tick 中检测
+# 这里仅提供事件结构
+country_event = {
+	id = LYY_Ningguang_Crisis.1
+	title = "Economic Crisis Deepens"
+	desc = "The crisis value is rising..."
+	
+	trigger = {
+		tag = LYY # 假设凝光是原TAG
+		has_country_flag = LYY_ningguang_new_deal_active
+	}
+	
+	option = {
+		name = "We must act!"
+		add_variable = { LYY_crisis_value = 0.5 }
+	}
+}
