@@ -223,8 +223,6 @@ focus_tree={
 		prerequisite={focus=Life_Short_While_Knowledge_Endless}
 		cost=7.00
 		completion_reward={
-			
-		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -233,6 +231,7 @@ focus_tree={
 			navy_experience=5
 			add_stability=0.01
 			add_war_support=0.01
+			remove_ideas = SUM_Depend_on_Akasha_Terminal
 		}
 	}
 	focus={
@@ -595,16 +594,6 @@ focus_tree={
 
 		}
 		completion_reward={
-			
-		    every_state = {
-				limit = {
-					AND = {
-                        NOT = { is_core_of = SUM }
-                        is_core_of = VAN
-                    }
-				}
-				add_core_of = SUM
-			}		
 			add_popularity={
 				ideology=neutrality
 				popularity=0.10
@@ -757,9 +746,7 @@ focus_tree={
 		y=7
 		prerequisite={focus=Life_Short_While_Knowledge_Endless}
 		cost=7.00
-		completion_reward={
-			
-		
+		completion_reward={		
 			add_political_power=10
 			add_manpower=100
 			add_fuel=10
@@ -768,6 +755,13 @@ focus_tree={
 			navy_experience=5
 			add_stability=0.01
 			add_war_support=0.01
+			if = {
+			limit = { has_idea = SUM_Akasha_Terminal01 }
+			swap_ideas = {
+			remove_idea = SUM_Akasha_Terminal01
+			add_idea = SUM_Akasha_Terminal02
+		}
+		}
 		}
 	}
 	focus={
@@ -775,19 +769,35 @@ focus_tree={
 		icon=goal_SUM02
 		x=5
 		y=8
-		prerequisite={focus=Life_Short_While_Knowledge_Endless}
+		prerequisite={
+			focus=Weaken_Akasha_System
+		}
+		prerequisite={
+			focus=Develop_Akasha_System
+		}
 		cost=7.00
 		completion_reward={
 			remove_ideas = SUM_Marana
-			remove_ideas = SUM_Eleazar		    
-			add_political_power=10
-			add_manpower=100
-			add_fuel=10
-			army_experience=5
-			air_experience=5
-			navy_experience=5
-			add_stability=0.01
-			add_war_support=0.01
+			remove_ideas = SUM_Eleazar
+			add_research_slot = 1
+			if = {
+			  limit = {
+					347 = { 
+						OR = {
+							is_fully_controlled_by = ROOT
+							controller = { 
+								tag = SUM
+							}
+						}
+					}
+				}
+			}
+			347 = { 
+					add_resource = {
+						type = coal
+						amount = 999
+					}
+				}   
 		}
 	}
 	focus={
@@ -856,6 +866,7 @@ focus_tree={
 							is_core_of = SDH
 							is_core_of = SGD
                             is_core_of = SGS
+							is_core_of = VAN
 						}
 					}
 				}
