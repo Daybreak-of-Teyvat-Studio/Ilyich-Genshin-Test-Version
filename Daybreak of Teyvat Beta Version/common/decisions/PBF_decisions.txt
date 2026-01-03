@@ -1,0 +1,260 @@
+#内务决议
+PBF_housekeeping_categories = {
+
+	category_effect = {
+		visible = {
+			always = no
+		}
+	#反对派的压力
+	set_variable = { PBF_Pressure_from_the_opposition = 30 }
+	#我们的支持度
+	set_variable = { PBF_Our_approval_rating = 30 }
+	}
+
+	#镇压反对派
+	PBF_Suppressing_the_opposition = {
+
+		activation = {
+			has_country_flag = PBF_housekeeping_flag
+	  }
+
+	  allowed = {
+		  tag = PBF
+	  }
+	  
+	  available = {
+		  
+	  }
+	  visible = {
+		  has_country_flag = PBF_housekeeping_flag
+	  }
+
+	  cost = 25
+
+	  remove_effect = {
+		custom_effect_tooltip = PBF_Suppressing_the_opposition_tt
+		add_to_variable = {
+			PBF_Our_approval_rating = -10
+		}
+		add_to_variable = {
+			PBF_Pressure_from_the_opposition = -10
+		}
+		clamp_variable = {
+			var = PBF_Pressure_from_the_opposition
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = PBF_Our_approval_rating
+			min = 0
+			max = 100
+		}
+	    }
+
+		priority = 5
+	}
+
+	#提高我们的支持度
+	PBF_Increase_support = {
+		
+		activation = {
+			has_country_flag = PBF_housekeeping_flag
+	  }
+
+	  allowed = {
+		  tag = PBF
+	  }
+	  
+	  available = {
+		  has_completed_focus = FOM_Disorderly_liberation
+	  }
+	  visible = {
+		  has_country_flag = PBF_housekeeping_flag
+	  }
+
+	  days_mission_timeout = 30
+
+	  timeout_effect = {
+		custom_effect_tooltip = PBF_Increase_support_tt
+		if = {
+			limit = {check_variable = { PBF_Our_approval_rating < 60 }}
+			add_to_variable = { PBF_Our_approval_rating = 25 }
+		}
+		else_if = {
+			limit = {check_variable = { PBF_Our_approval_rating > 60 }}
+			add_to_variable = { PBF_Our_approval_rating = 30 }
+		}
+		clamp_variable = {
+			var = PBF_Our_approval_rating
+			min = 0
+			max = 100
+		}
+	  }
+
+	  priority = 4
+
+	}
+
+	#扰局造势
+	PBF_opposition_pressure_thirty = {
+
+		activation = {
+			  has_country_flag = PBF_housekeeping_flag
+		}
+
+		allowed = {
+			tag = PBF
+		}
+		
+		available = {
+			has_completed_focus = FOM_Disorderly_liberation
+		}
+		visible = {
+		    has_country_flag = PBF_housekeeping_flag
+		}
+
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			custom_effect_tooltip = PBF_opposition_pressure_thirty_tt
+			if = {
+				limit = {check_variable = { PBF_Pressure_from_the_opposition = 100 }}
+				add_to_variable = { PBF_Our_approval_rating = -5 }
+				}
+			add_to_variable = { PBF_Pressure_from_the_opposition = 15 }
+			clamp_variable = {
+				var = PBF_Pressure_from_the_opposition
+				min = 0
+				max = 100
+			}
+		}
+
+		complete_effect = {
+			
+		}
+
+		priority = 3
+	}
+
+	#联合发难
+	PBF_opposition_pressure_sixty = {
+
+		activation = {
+			  has_country_flag = PBF_housekeeping_flag
+		}
+
+		allowed = {
+			tag = PBF
+		}
+		
+		available = {
+			has_completed_focus = FOM_Disorderly_liberation
+		}
+		visible = {
+		    has_country_flag = PBF_housekeeping_flag
+		}
+
+		days_mission_timeout = 60
+
+		timeout_effect = {
+			custom_effect_tooltip = PBF_opposition_pressure_sixty_tt
+			if = {
+				limit = {check_variable = { PBF_Pressure_from_the_opposition = 100 }}
+				add_to_variable = { PBF_Our_approval_rating = -5 }
+				}
+			add_to_variable = { PBF_Pressure_from_the_opposition = 25 }
+			clamp_variable = {
+				var = PBF_Pressure_from_the_opposition
+				min = 0
+				max = 100
+			}
+		}
+
+		complete_effect = {
+			
+		}
+	
+		priority = 2
+	}
+
+	#阴谋颠覆
+	PBF_opposition_pressure_one_hundred_twenty = {
+
+		activation = {
+			  has_country_flag = PBF_housekeeping_flag
+		}
+
+		allowed = {
+			tag = PBF
+		}
+		
+		available = {
+			has_completed_focus = FOM_Disorderly_liberation
+		}
+		visible = {
+		    has_country_flag = PBF_housekeeping_flag
+		}
+
+		days_mission_timeout = 120
+
+		timeout_effect = {
+			custom_effect_tooltip = PBF_opposition_pressure_one_hundred_twenty_tt
+			if = {
+				limit = {check_variable = { PBF_Pressure_from_the_opposition = 100 }}
+				add_to_variable = { PBF_Our_approval_rating = -5 }
+				}
+			add_to_variable = { PBF_Pressure_from_the_opposition = 35 }
+			clamp_variable = {
+				var = PBF_Pressure_from_the_opposition
+				min = 0
+				max = 100
+			}
+		}
+
+		complete_effect = {
+			
+		}
+
+		priority = 1
+	}
+
+	#帮会背景调查
+	PBF_Background_investigation_of_gangs = {
+
+		activation = {
+			has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+		}
+
+		allowed = {
+			tag = PBF
+		}
+		
+		available = {
+			has_completed_focus = PBF_Background_investigation_of_gangs
+		}
+		visible = {
+		    has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+		}
+
+		days_mission_timeout = 65
+
+		timeout_effect = {
+			add_political_power = -100
+		}
+
+		complete_effect = {
+			if = {
+				limit = {
+					days_sonce_decision_taken < 35
+				}
+				add_manpower = 1000
+			}
+			else_if = {
+				limit = { days_since_decision_taken < 65 }
+			}
+		}
+
+		priority = 1000  
+	}
+
+}
