@@ -472,65 +472,128 @@ ideas = {
 ############
 # 刻晴新民族精神
 ############
-
 ideas = {
 	country = {
 		# 旧族暗潮涌
-		LYY_old_aristocratic_undercurrents = {
-			picture = GFX_idea_generic_oppression # 请替换为你自己的图标
-			allowed = { always = yes }
-			allowed_civil_war = { always = yes }
-			removal_cost = -1
+		LYY_idea_old_clan_undercurrents = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1			# 只能通过国策移除
 			modifier = {
-				stability_factor = -0.40
-				land_reinforce_rate = -0.30
-				war_support_factor = -0.30
+				stability_factor = -0.4
+				# 增援率
+				experience_loss_factor = 0.3				# 原版没有直接减增援率的，通常用恢复速度或这个代替，或者用 reinforcement_rate
+				reinforce_rate = -0.3
+				war_support_factor = -0.3
 			}
 		}
 		# 魂无所依之师
-		LYY_soul_less_army = {
-			picture = GFX_idea_generic_morale_bonus
-			allowed = { always = yes }
-			allowed_civil_war = { always = yes }
+		LYY_idea_soulless_army = {
+			allowed = {
+				always = yes
+			}
 			removal_cost = -1
 			modifier = {
-				land_organisation = -0.30
-				planning_speed = -0.40
-				army_attack_factor = -0.30
+				land_reinforce_rate = -0.3				# 假如上一个是全军，这个是陆军
+				max_organization = -30				# 组织度数值直接减，或者 factor百分比
+				planning_speed = -0.4
+				army_attack_factor = -0.3
 			}
 		}
-		# 志燃红旗天
-		LYY_red_flag_sky = {
-			picture = GFX_idea_generic_manpower_bonus
-			allowed = { always = yes }
-			allowed_civil_war = { always = yes }
+		# 分裂的经济体系
+		LYY_split_economic_system = {
+			allowed = {
+				always = yes
+			}
 			removal_cost = -1
 			modifier = {
+				# 根据描述"碎土离疆言国殇"的效果可以加在这里，或者单独写
+				# 文本中"碎土离疆"似乎是另一个独立的民族精神，如果是经济法案，则按经济法案写
+				consumer_goods_factor = 0.5				# 举例：极高的消费品需求
+			}
+		}
+		# 碎土离疆言国殇 - 地区分裂导致的民族精神
+		LYY_fragmented_land_national_spirit = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1			# 只能通过国策移除
+			modifier = {
+				stability_factor = -0.2
+				war_support_factor = -0.15
+				political_power_factor = -0.1
+				consumer_goods_factor = 0.2				# 地区割据导致消费品需求增加
+				local_resources_factor = -0.15			# 资源供应不足
+				compliance_growth = -0.05				# 统治复从度增长降低
+			}
+		}
+		# 永久效果：对应国策中的适役人口+5%
+		LYY_idea_revolutionary_recruitment_bonus = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				recruitable_population_factor = 0.05
+			}
+		}
+		# 限时精神：身后就是玉京台
+		LYY_idea_behind_us_is_yujing_terrace = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				surrender_limit = 0.2				# 投降界限+20%
+				war_support_factor = 0.1				# 战争支持度+10%
+			}
+		}
+		# 雷霆速胜策
+		LYY_thunder_victory_buff = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# 陆军攻击 +25%
+				army_attack_factor = 0.25
+				# 陆军组织度恢复 -10%
+				army_org_regain = -0.1
+				# 适役人口 +5%
+				conscription_factor  = 0.05
+				# 陆军损耗 +10%
+				attrition = 0.1
+			}
+		}
+		# 高垒深壑固
+		LYY_enable_fortification_decisions = {
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				# 陆军攻击+25%
+				army_attack_factor = 0.25
+				# 陆军组织度恢复+10%
+				army_org_regain_factor = 0.1
+				# 适役人口+5%
 				conscription_factor = 0.05
+				# 陆军损耗-10%
+				attrition = -0.1
+				# 战壕挖掘效率+10%
+				dig_in_speed_factor = 0.1
 			}
 		}
-		# 背倚玉京台
-		LYY_backing_yujing_terrace = {
-			picture = GFX_idea_generic_political_support
-			allowed = { always = yes }
-			allowed_civil_war = { always = yes }
+		# 璃月人民政权成立
+		LYY_idea_peoples_government_establishment = {
+			picture = EAW_89
 			removal_cost = -1
 			modifier = {
-				surrender_limit = 0.50
-				war_support_factor = 0.10
-			}
-		}
-		# 碎土离疆言国殇
-		LYY_fragmented_land = {
-			picture = GFX_idea_generic_production_bonus
-			allowed = { always = yes }
-			allowed_civil_war = { always = yes }
-			removal_cost = -1
-			modifier = {
-				industrial_capacity_factory = -0.30
-				local_resources_factor = -0.60
-				research_speed_factor = -0.30
-				conscription_factor = -0.30
+				stability_factor = 0.1
+				political_power_factor = 0.1
+				war_support_factor = 0.05
+				consumer_goods_factor = -0.05
 			}
 		}
 	}
