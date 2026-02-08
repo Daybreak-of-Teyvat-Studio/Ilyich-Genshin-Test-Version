@@ -2193,3 +2193,512 @@ LYY_Wash_decision_categories_II = {
 	}
 
 }
+
+#####################
+# 甘雨统一后决议
+#####################
+
+# 断绝修仙路决议
+LYY_Ganyu_Sever_Immortal_Path = {
+	LYY_decision_sever_immortal_path = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_can_sever_immortal_path
+			has_completed_focus = LYY_FC_Ganyu_Ancient_Education
+		}
+		
+		visible = {
+			has_country_flag = LYY_can_sever_immortal_path
+			NOT = { has_country_flag = LYY_severed_immortal_path_decision_used }
+		}
+		
+		fire_only_once = yes
+		
+		cost = 50
+		days_remove = 30
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		complete_effect = {
+			add_stability = -0.20
+			add_war_support = -0.20
+			
+			# 设置党争为甘雨派100%
+			set_variable = { var = LYY_ganyu_support value = 100 }
+			set_variable = { var = LYY_keqing_support value = 0 }
+			set_variable = { var = LYY_ningguang_support value = 0 }
+			set_variable = { var = LYY_shenhe_support value = 0 }
+			
+			# 120日内璃月稳定度每日-0.1%
+			add_timed_idea = {
+				idea = LYY_idea_immortal_path_severed
+				days = 120
+			}
+			
+		# 触发新闻
+		news_event = {
+			id = LYY_News.100
+			days = 1
+		}			set_country_flag = LYY_severed_immortal_path_decision_used
+		}
+	}
+}
+
+# 璃月劳动法决议组
+LYY_Ganyu_Labor_Law = {
+	
+	# 压榨他们!
+	LYY_decision_exploit_workers = {
+		icon = generic_industry
+		
+		available = {
+			has_country_flag = LYY_labor_law_unlocked
+			check_variable = { var = LYY_people_satisfaction value = 10 compare = greater_than_or_equals }
+		}
+		
+		visible = {
+			has_country_flag = LYY_labor_law_unlocked
+		}
+		
+		fire_only_once = no
+		days_re_enable = 30
+		
+		cost = 25
+		days_remove = 30
+		
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.25
+			production_speed_buildings_factor = 0.25
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = LYY_people_satisfaction_decrease_tooltip
+		}
+		
+		remove_effect = {
+			# 人民满意度每日-0.5%,持续30天 = -15%
+			add_to_variable = { var = LYY_people_satisfaction value = -15 }
+			
+			# 检查是否触发刻晴派复国
+			if = {
+				limit = {
+					check_variable = { var = LYY_people_satisfaction value = 10 compare = less_than }
+				}
+				country_event = { id = LYY_Ganyu.60 }
+			}
+		}
+	}
+	
+	# 我与人民同在
+	LYY_decision_support_workers = {
+		icon = generic_civil_support
+		
+		available = {
+			has_country_flag = LYY_labor_law_unlocked
+			check_variable = { var = LYY_people_satisfaction value = 90 compare = less_than }
+		}
+		
+		visible = {
+			has_country_flag = LYY_labor_law_unlocked
+		}
+		
+		fire_only_once = no
+		days_re_enable = 30
+		
+		cost = 50
+		days_remove = 30
+		
+		modifier = {
+			production_factory_efficiency_gain_factor = -0.25
+			production_speed_buildings_factor = -0.25
+			stability_factor = 0.05
+		}
+		
+		ai_will_do = {
+			factor = 7
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = LYY_people_satisfaction_increase_tooltip
+		}
+		
+		remove_effect = {
+			# 人民满意度每日+0.5%,持续30天 = +15%
+			add_to_variable = { var = LYY_people_satisfaction value = 15 }
+			
+			# 检查是否消除断绝修仙路debuff
+			if = {
+				limit = {
+					check_variable = { var = LYY_people_satisfaction value = 90 compare = greater_than_or_equals }
+					has_idea = LYY_idea_immortal_path_severed
+				}
+				remove_ideas = LYY_idea_immortal_path_severed
+			}
+		}
+	}
+}
+
+# 提瓦特统战计划决议组
+LYY_Ganyu_Teyvat_Conquest = {
+	
+	# 征服蒙德
+	LYY_decision_conquer_mondstadt = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+			has_army_manpower = { size > 300000 }
+			NOT = { has_country_flag = LYY_conquered_mondstadt }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 100
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = MOT
+			}
+			set_country_flag = LYY_conquered_mondstadt
+		}
+	}
+	
+	# 征服须弥
+	LYY_decision_conquer_sumeru = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_mondstadt
+			has_army_manpower = { size > 500000 }
+			MOT = { is_subject_of = ROOT }
+			NOT = { has_country_flag = LYY_conquered_sumeru }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 150
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = SNE
+			}
+			set_country_flag = LYY_conquered_sumeru
+		}
+	}
+	
+	# 征服稻妻
+	LYY_decision_conquer_inazuma = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_sumeru
+			has_army_manpower = { size > 600000 }
+			SNE = { is_subject_of = ROOT }
+			NOT = { has_country_flag = LYY_conquered_inazuma }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 200
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = INA
+			}
+			set_country_flag = LYY_conquered_inazuma
+		}
+	}
+	
+	# 征服枫丹
+	LYY_decision_conquer_fontaine = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_inazuma
+			has_army_manpower = { size > 700000 }
+			INA = { is_subject_of = ROOT }
+			NOT = { has_country_flag = LYY_conquered_fontaine }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 250
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = FON
+			}
+			set_country_flag = LYY_conquered_fontaine
+		}
+	}
+	
+	# 征服纳塔
+	LYY_decision_conquer_natlan = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_fontaine
+			has_army_manpower = { size > 800000 }
+			FON = { is_subject_of = ROOT }
+			NOT = { has_country_flag = LYY_conquered_natlan }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 300
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = NAT
+			}
+			set_country_flag = LYY_conquered_natlan
+		}
+	}
+	
+	# 征服至冬
+	LYY_decision_conquer_snezhnaya = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_natlan
+			has_army_manpower = { size > 850000 }
+			NAT = { is_subject_of = ROOT }
+			NOT = { has_country_flag = LYY_conquered_snezhnaya }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 350
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = ZDG
+			}
+			set_country_flag = LYY_conquered_snezhnaya
+		}
+	}
+	
+	# 宣战天理
+	LYY_decision_declare_war_celestia = {
+		icon = generic_prepare_civil_war
+		
+		available = {
+			has_country_flag = LYY_conquered_snezhnaya
+			has_army_manpower = { size > 1000000 }
+			ZDG = { is_subject_of = ROOT }
+		}
+		
+		visible = {
+			has_country_flag = LYY_teyvat_conquest_unlocked
+		}
+		
+		fire_only_once = yes
+		
+		cost = 500
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		complete_effect = {
+			# 触发最终战争事件
+			country_event = { id = LYY_Ganyu.100 }
+		}
+	}
+}
+
+# 人仙之争决议组
+LYY_Ganyu_Mortal_Adepti_Struggle = {
+	
+	# 支持刻晴
+	LYY_decision_support_keqing = {
+		icon = generic_civil_support
+		
+		available = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		visible = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		fire_only_once = no
+		days_re_enable = 60
+		
+		cost = 50
+		days_remove = 30
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = LYY_qiming_support_increase_tooltip
+		}
+		
+		remove_effect = {
+			add_to_variable = { var = LYY_keqing_support value = 1.5 }
+			add_to_variable = { var = LYY_adepti_faction value = -2.5 }
+			add_to_variable = { var = LYY_mortal_faction value = 2.5 }
+		}
+	}
+	
+	# 支持凝光
+	LYY_decision_support_ningguang = {
+		icon = generic_civil_support
+		
+		available = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		visible = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		fire_only_once = no
+		days_re_enable = 60
+		
+		cost = 50
+		days_remove = 30
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = LYY_ningguang_support_increase_tooltip
+		}
+		
+		remove_effect = {
+			add_to_variable = { var = LYY_ningguang_support value = 1.5 }
+			add_to_variable = { var = LYY_adepti_faction value = -2.5 }
+			add_to_variable = { var = LYY_mortal_faction value = 2.5 }
+		}
+	}
+	
+	# 支持申鹤
+	LYY_decision_support_shenhe = {
+		icon = generic_civil_support
+		
+		available = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		visible = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		fire_only_once = no
+		days_re_enable = 60
+		
+		cost = 50
+		days_remove = 30
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = LYY_shenhe_support_increase_tooltip
+		}
+		
+		remove_effect = {
+			add_to_variable = { var = LYY_shenhe_support value = 1.5 }
+			add_to_variable = { var = LYY_adepti_faction value = 2.5 }
+			add_to_variable = { var = LYY_mortal_faction value = -2.5 }
+		}
+	}
+	
+	# 终结权力斗争
+	LYY_decision_end_power_struggle = {
+		icon = generic_civil_support
+		
+		available = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+			check_variable = { var = LYY_ganyu_support value = 30 compare = greater_than_or_equals }
+			check_variable = { var = LYY_ganyu_support value = 50 compare = less_than_or_equals }
+		}
+		
+		visible = {
+			has_country_flag = LYY_mortal_adepti_struggle_active
+		}
+		
+		fire_only_once = yes
+		
+		cost = 200
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		complete_effect = {
+			clr_country_flag = LYY_mortal_adepti_struggle_active
+			remove_ideas = LYY_idea_mortal_adepti_struggle
+			add_stability = 0.15
+			add_political_power = 150
+			
+			country_event = { id = LYY_Ganyu.61 }
+		}
+	}
+}

@@ -1,4 +1,4 @@
-#第二代璃月国策
+﻿#第二代璃月国策
 focus_tree = {
 	id = LYY_Focus_II
 	country = {
@@ -3707,7 +3707,7 @@ focus_tree = {
 				id = LYY_Keqing.1
 			}
 		}
-	} 
+	}
 	# 璃月染赤霞
 	focus = {
 		id = LYY_FC_Keqing_Liyue_Red
@@ -3924,7 +3924,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = LYY_FC_Keqing_Thunder_Victory
 		icon = GFX_goal_generic_offensive
@@ -3939,7 +3938,9 @@ focus_tree = {
 			focus = LYY_FC_Keqing_High_Walls
 		}
 		completion_reward = {
-			set_rule = { can_use_special_forces = yes }
+			set_rule = {
+				can_use_special_forces = yes
+			}
 			army_experience = 20
 			add_ideas = LYY_thunder_victory_buff
 		}
@@ -3959,7 +3960,9 @@ focus_tree = {
 			focus = LYY_FC_Keqing_Thunder_Victory
 		}
 		completion_reward = {
-			set_rule = { can_use_special_forces = yes }
+			set_rule = {
+				can_use_special_forces = yes
+			}
 			army_experience = 20
 			add_ideas = LYY_enable_fortification_decisions
 		}
@@ -3997,12 +4000,24 @@ focus_tree = {
 		available = {
 			# 控制地区不低于璃月总面积的80%
 			num_of_controlled_states > 20
-			117 = { is_controlled_by = ROOT }		# 璃月主要地区
-			121 = { is_controlled_by = ROOT }
-			124 = { is_controlled_by = ROOT }
-			126 = { is_controlled_by = ROOT }
-			127 = { is_controlled_by = ROOT }
-			128 = { is_controlled_by = ROOT }
+			117 = {
+				is_controlled_by = ROOT
+			}			# 璃月主要地区
+			121 = {
+				is_controlled_by = ROOT
+			}
+			124 = {
+				is_controlled_by = ROOT
+			}
+			126 = {
+				is_controlled_by = ROOT
+			}
+			127 = {
+				is_controlled_by = ROOT
+			}
+			128 = {
+				is_controlled_by = ROOT
+			}
 		}
 		completion_reward = {
 			# 移除民族精神"碎土离疆言国殇"
@@ -4187,12 +4202,15 @@ focus_tree = {
 		y = 9
 		relative_position_id = LYY_FC_Keqing_Start
 		prerequisite = {
-			# 终局要求：完成和平/清洗线，并且完成权柄独尊无可争 或 东陆辉光盛 其中之一
-			OR = {
-				focus = LYY_FC_Keqing_Authority_Unique
-				focus = LYY_FC_Donglu_Huiguang
-			}
-			focus = LYY_FC_Keqing_All_Forces_Peace			# 或者清洗线
+				AND = {
+					focus = LYY_FC_Keqing_Authority_Unique
+					focus = LYY_FC_Keqing_All_Forces_Peace
+				}
+				# 组合二：东陆辉光盛 + 和平/清洗线
+				AND = {
+					focus = LYY_FC_Donglu_Huiguang
+					focus = LYY_FC_Keqing_All_Forces_Peace
+				}
 		}
 		available = {
 			NOT = {
@@ -4209,7 +4227,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	# 甘雨内战国策线
 	focus = {
 		id = LYY_FC_Ganyu
@@ -4217,8 +4234,29 @@ focus_tree = {
 		cost = 7
 		x = 128
 		y = 2
-		# relative_position_id = LYY_Meeting_Liyue_Qixing
-		# prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
+		available = {
+			date > 1945.1.1
+			has_completed_focus = LYY_Rite_of_Parting
+			has_government = communism
+		}
+		completion_reward = {
+			add_political_power = 50
+			country_event = {
+				id = LYY_Keqing.1
+			}
+		}
+	}
+	# 月海幻梦 - 起始点
+	focus = {
+		# 添加互斥声明
+		mutually_exclusive = {
+			focus = LYY_FC_Keqing_Start
+		}
+		id = LYY_FC_Ganyu_Start
+		icon = GFX_goal_LYY_GanYu03
+		cost = 1.5
+		x = 100
+		y = 2
 		available = {
 			date > 1945.1.1
 			has_completed_focus = LYY_Rite_of_Parting
@@ -4231,2290 +4269,2644 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
 			add_political_power = 50
 			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+				id = LYY_Ganyu.1
 			}
 		}
 	}
+	# 璃月沉碧波
 	focus = {
-		id = LYY_FC_Ganyu_01
-		icon = goal_LYY_GanYu03
+		id = LYY_FC_Ganyu_Vision
+		icon = GFX_FON_waterdeal_shine
 		cost = 7
 		x = 0
 		y = 1
-		relative_position_id = LYY_FC_Ganyu
+		relative_position_id = LYY_FC_Ganyu_Start
 		prerequisite = {
-			focus = LYY_FC_Ganyu
+			focus = LYY_FC_Ganyu_Start
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
+			add_political_power = 100
+			add_stability = 0.05
+			add_ideas = LYY_Ganyu_Ideal
 		}
 	}
+	# 契约传千年 (政治/经济线起点)
 	focus = {
-		id = LYY_FC_Ganyu_02
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 2
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_03
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_04
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -2
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_05
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 2
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_06
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -1
-		y = 4
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_07
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 1
-		y = 4
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_08
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_09
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 2
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_01
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_10
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_11
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 4
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_12
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_13
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -9
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_14
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -5
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_15
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_16
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -9
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_17
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -5
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_18
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_19
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -8
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_20
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -6
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_21
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -8
-		y = 9
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_22
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -6
-		y = 9
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_23
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -7
-		y = 10
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_09
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_24
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 7
-		y = 2
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_01
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_25
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_26
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 3
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_27
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 4
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_28
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 4
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_29
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_30
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 5
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_31
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_32
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_33
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_34
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_35
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 6
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_36
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 8
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_37
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 7
-		y = 9
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_24
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_38
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -2
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_39
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 2
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_40
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -2
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_41
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_42
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 2
-		y = 7
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_43
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = -1
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_44
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 1
-		y = 8
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_45
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 9
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_46
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 10
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_47
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 11
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_48
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 12
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ganyu_49
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 0
-		y = 6
-		relative_position_id = LYY_FC_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Ganyu_03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	#  凝光内战国策线
-	focus = {
-		id = LYY_FC_Ningguang
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 100
-		y = 2
-		# relative_position_id = LYY_Meeting_Liyue_Qixing
-		# prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
-		available = {
-			date > 1945.1.1
-			has_completed_focus = LYY_Rite_of_Parting
-			has_government = democratic
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_01
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_02
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 2
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_03
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -5
-		y = 3
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_04
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -2
-		y = 3
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_05
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 3
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_06
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 2
-		y = 3
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_07
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 5
-		y = 3
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_08
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -6
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_09
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -4
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_10
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -2
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_11
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_12
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 2
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_13
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 5
-		y = 4
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_14
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -5
-		y = 5
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_15
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -2
-		y = 5
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_16
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 5
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_17
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 2
-		y = 5
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_18
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 5
-		y = 5
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_19
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 6
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_20
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 7
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_21
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 8
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_22
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -11
-		y = 9
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_23
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -5
-		y = 9
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_24
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 0
-		y = 9
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_25
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 5
-		y = 9
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_26
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 10
-		y = 9
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_27
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -14
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_28
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -12
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_29
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_Contract
+		icon = GFX_goal_KX_goals_367
 		cost = 7
 		x = -10
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Vision
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Vision
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+			add_political_power = 100
+			add_war_support = 0.05
+			add_timed_idea = {
+				idea = LYY_Contract_Legacy
+				days = 180
 			}
 		}
 	}
+	# 守旧联诸贵
 	focus = {
-		id = LYY_FC_Ningguang_30
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -8
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_31
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -6
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_32
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -4
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_33
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = -2
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_34
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_Noble_Alliance
+		icon = GFX_goal_KX_goals_185
 		cost = 7
 		x = 0
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Contract
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Contract
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
+			add_political_power = 150
+			add_stability = 0.08
+			add_ideas = LYY_Noble_Support
 			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+				id = LYY_Ganyu.2
 			}
 		}
 	}
+	# 月海调和章 (军事线起点)
 	focus = {
-		id = LYY_FC_Ningguang_35
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 2
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_36
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 4
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_37
-		icon = goal_LYY_NingGuang03
-		cost = 7
-		x = 6
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
-		prerequisite = {
-			focus = LYY_FC_Ningguang_21
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Ningguang_38
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_Military
+		icon = GFX_goal_KX_goals_12
 		cost = 7
 		x = 8
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Vision
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Vision
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 		search_filters = {
-			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_MANPOWER
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+			army_experience = 50
+			add_war_support = 0.08
+			add_timed_idea = {
+				idea = LYY_Yuehai_Military_Reform
+				days = 180
 			}
 		}
 	}
+	# 忠勇铸千岩
 	focus = {
-		id = LYY_FC_Ningguang_39
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_Loyal_Army
+		icon = GFX_goal_KX_goals_224
 		cost = 7
-		x = 10
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Military
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Military
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+			army_experience = 75
+			add_ideas = LYY_Loyal_Millelith
+			add_manpower = 20000
+		}
+	}
+	# 仙友赐佑护
+	focus = {
+		id = LYY_FC_Ganyu_Adepti_Blessing
+		icon = GFX_goal_KX_goals_254
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Vision
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Vision
+		}
+		ai_will_do = {
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
+			add_political_power = 100
+			add_stability = 0.1
 			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+				id = LYY_Ganyu.3
 			}
 		}
 	}
+	# 民心归正统
 	focus = {
-		id = LYY_FC_Ningguang_40
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_People_Support
+		icon = GFX_goal_KX_goals_396
 		cost = 7
-		x = 12
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Adepti_Blessing
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Adepti_Blessing
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
-			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+			add_political_power = 150
+			add_stability = 0.12
+			add_war_support = 0.1
+			add_ideas = LYY_People_Trust_Ganyu
+		}
+	}
+	# === 互斥军事路线 ===
+	# 稳进谋长远 (持久战略)
+	focus = {
+		id = LYY_FC_Ganyu_Steady_Strategy
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Swift_Victory
+		}
+		icon = GFX_goal_KX_goals_137
+		cost = 7
+		x = -1
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Military
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Loyal_Army
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+			add_ideas = LYY_Steady_War_Doctrine
+			army_experience = 50
+			add_war_support = 0.05
+			add_stability = 0.05
+		}
+	}
+	# 冰矢破敌阵 (速胜战略)
+	focus = {
+		id = LYY_FC_Ganyu_Swift_Victory
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Steady_Strategy
+		}
+		icon = GFX_Goal_Icy_Attack
+		cost = 7
+		x = 1
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Military
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Loyal_Army
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+			add_ideas = LYY_Swift_War_Doctrine
+			army_experience = 75
+			add_war_support = 0.1
+			add_manpower = 15000
+		}
+	}
+	# 层垒守要冲
+	focus = {
+		id = LYY_FC_Ganyu_Defense_Line
+		icon = GFX_Goal_MOT_Defend
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Steady_Strategy
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Steady_Strategy
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = LYY_Defense_Fortification
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = 10001
+					instant_build = yes
+				}
 			}
 		}
 	}
+	# 霜锋出奇兵
 	focus = {
-		id = LYY_FC_Ningguang_41
-		icon = goal_LYY_NingGuang03
+		id = LYY_FC_Ganyu_Elite_Strike
+		icon = GFX_goal_KX_goals_315
 		cost = 7
-		x = 14
-		y = 10
-		relative_position_id = LYY_FC_Ningguang
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Swift_Victory
 		prerequisite = {
-			focus = LYY_FC_Ningguang_21
+			focus = LYY_FC_Ganyu_Swift_Victory
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+		completion_reward = {
+			add_ideas = LYY_Elite_Forces
+			army_experience = 100
+			add_tech_bonus = {
+				name = LYY_Elite_Strike_Bonus
+				bonus = 1
+				uses = 2
+				category = cat_mobile_warfare
+			}
+		}
+	}
+	# 璃月契约邦 (持久战终点 - 璃月传统盛世)
+	focus = {
+		id = LYY_FC_Ganyu_Contract_Victory
+		icon = GFX_goal_DOT_Arcana_19
+		cost = 7
+		x = 0
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Steady_Strategy
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Defense_Line
+		}
+		ai_will_do = {
+			factor = 10
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 50
+			add_political_power = 300
+			add_stability = 0.2
+			add_war_support = 0.15
+			set_country_flag = LYY_Ganyu_Steady_Victory
 			country_event = {
-				id = LYY_Event_random.8
-				days = 5
+				id = LYY_Ganyu.10
+			}
+		}
+	}
+	# 月海定乾坤 (速胜战终点)
+	focus = {
+		id = LYY_FC_Ganyu_Yuehai_Victory
+		icon = GFX_goal_56_goals_32
+		cost = 7
+		x = 0
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Swift_Victory
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Elite_Strike
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 300
+			add_war_support = 0.2
+			army_experience = 150
+			set_country_flag = LYY_Ganyu_Swift_Victory
+			country_event = {
+				id = LYY_Ganyu.11
+			}
+		}
+	}
+	# === 甘雨与刻晴互动线 (外交/统战) ===
+	# 旧势求和解
+	focus = {
+		id = LYY_FC_Ganyu_Seek_Peace
+		icon = GFX_FON_people_right
+		cost = 7
+		x = -1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_People_Support
+		prerequisite = {
+			focus = LYY_FC_Ganyu_People_Support
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.08
+			country_event = {
+				id = LYY_Ganyu.4
+			}
+		}
+	}
+	# 尝试拉拢刻晴
+	focus = {
+		id = LYY_FC_Ganyu_Approach_Keqing
+		icon = GFX_goal_KX_goals_411
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Seek_Peace
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Seek_Peace
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 150
+			country_event = {
+				id = LYY_Ganyu.5
+				days = 7
+			}
+		}
+	}
+	# 晴雨互谅解
+	focus = {
+		id = LYY_FC_Ganyu_Understanding
+		icon = GFX_MOT_For_Far_Future
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Approach_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Approach_Keqing
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.1
+			country_event = {
+				id = LYY_Ganyu.6
+			}
+		}
+	}
+	# 晴雨共璃月 (成功线 - 与刻晴和平统一)
+	focus = {
+		id = LYY_FC_Ganyu_Keqing_Alliance
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Purge_Keqing
+		}
+		icon = GFX_goal_56_goals_35
+		cost = 7
+		x = -1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Understanding
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Understanding
+		}
+		available = {
+			has_country_flag = LYY_Keqing_Accept_Peace
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.15
+			add_war_support = 0.12
+			country_event = {
+				id = LYY_Ganyu.7
+			}
+		}
+	}
+	# 清除刻晴势力 (失败线)
+	focus = {
+		id = LYY_FC_Ganyu_Purge_Keqing
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Keqing_Alliance
+		}
+		icon = GFX_goal_KX_goals_71
+		cost = 7
+		x = 1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Understanding
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Understanding
+		}
+		available = {
+			has_country_flag = LYY_Keqing_Reject_Peace
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_war_support = 0.15
+			add_stability = -0.05
+			country_event = {
+				id = LYY_Ganyu.8
+			}
+		}
+	}
+	# 众派共商国事 (和平统一后续)
+	focus = {
+		id = LYY_FC_Ganyu_Coalition_Government
+		icon = GFX_goal_KX_goals_304
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Keqing_Alliance
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Keqing_Alliance
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 250
+			add_stability = 0.15
+			add_ideas = LYY_Coalition_Government
+			swap_ideas = {
+				remove_idea = LYY_Ganyu_Ideal
+				add_idea = LYY_Ganyu_Keqing_Alliance_Idea
+			}
+		}
+	}
+	# 肃清余孽患 (清洗后续)
+	focus = {
+		id = LYY_FC_Ganyu_Purge_Complete
+		icon = GFX_goal_LAW_the_Foold_02
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Purge_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Purge_Keqing
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_war_support = 0.1
+			add_stability = 0.05
+			add_ideas = LYY_Revolutionary_Purge
+		}
+	}
+	# 终局:璃月契约一统国 (和平统一终局)
+	focus = {
+		id = LYY_FC_Ganyu_United_Liyue
+		icon = GFX_goal_SOV_finish_the_five_year_plan
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Coalition_Government
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Coalition_Government
+		}
+		available = {
+			NOT = {
+				has_war = yes
+			}
+			OR = {
+				has_completed_focus = LYY_FC_Ganyu_Contract_Victory
+				has_completed_focus = LYY_FC_Ganyu_Yuehai_Victory
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 500
+			add_stability = 0.25
+			add_war_support = 0.2
+			set_cosmetic_tag = LYY_Ganyu_United
+			country_event = {
+				id = LYY_Ganyu.12
+			}
+			add_ideas = LYY_Contract_Unity
+		}
+	}
+	# 终局：璃月月海盛世国 (清洗后终局)
+	focus = {
+		id = LYY_FC_Ganyu_Yuehai_Dominance
+		icon = GFX_goal_DOT_Arcana_04
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Purge_Complete
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Purge_Complete
+		}
+		available = {
+			NOT = {
+				has_war = yes
+			}
+			OR = {
+				has_completed_focus = LYY_FC_Ganyu_Contract_Victory
+				has_completed_focus = LYY_FC_Ganyu_Yuehai_Victory
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 400
+			add_stability = 0.2
+			add_war_support = 0.25
+			set_cosmetic_tag = LYY_Ganyu_Dominance
+			country_event = {
+				id = LYY_Ganyu.13
+			}
+			add_ideas = LYY_Yuehai_Supremacy
+		}
+	}
+	# === 甘雨经济/产业线 ===
+	# 商道兴百业
+	focus = {
+		id = LYY_FC_Ganyu_Commerce
+		icon = GFX_goal_KX_goals_384
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Noble_Alliance
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Noble_Alliance
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_political_power = 100
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	# 稳税养民生
+	focus = {
+		id = LYY_FC_Ganyu_Tax_Reform
+		icon = GFX_goal_KX_goals_385
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Commerce
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Commerce
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_stability = 0.1
+			add_ideas = LYY_Tax_Reform
+		}
+	}
+	# 矿脉通货路
+	focus = {
+		id = LYY_FC_Ganyu_Mining
+		icon = GFX_goal_KX_goals_279
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Tax_Reform
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Tax_Reform
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 704
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	# 璃月黄金时代
+	focus = {
+		id = LYY_FC_Ganyu_Golden_Age
+		icon = GFX_Goal_demo_economy
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Mining
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Mining
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.15
+			add_ideas = LYY_Golden_Age
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 3
+			}
+		}
+	}
+	# === 甘雨外交线 ===
+	# 联邦众盟友
+	focus = {
+		id = LYY_FC_Ganyu_Foreign_Alliance
+		icon = GFX_goal_KX_goals_13
+		cost = 7
+		x = 1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_People_Support
+		prerequisite = {
+			focus = LYY_FC_Ganyu_People_Support
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			country_event = {
+				id = LYY_Ganyu.20
+			}
+		}
+	}
+	# 开璃邀四海
+	focus = {
+		id = LYY_FC_Ganyu_Open_Diplomacy
+		icon = GFX_goal_KX_goals_357
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Foreign_Alliance
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Foreign_Alliance
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_ideas = LYY_Open_Diplomacy
+			add_opinion_modifier = {
+				target = MOT
+				modifier = LYY_Friendly_Relations
+			}
+			add_opinion_modifier = {
+				target = FON
+				modifier = LYY_Friendly_Relations
+			}
+		}
+	}
+	# 提瓦特和平盟
+	focus = {
+		id = LYY_FC_Ganyu_Teyvat_Peace
+		icon = GFX_goal_56_goals_17
+		cost = 7
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Open_Diplomacy
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Open_Diplomacy
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.1
+			create_faction = Teyvat_Peace_Alliance
+			add_to_faction = ROOT
+			country_event = {
+				id = LYY_Ganyu.21
+			}
+		}
+	}
+	# ========================================
+	# 甘雨统一后国策树 - 托古改制路线
+	# ========================================
+	# 托古改制（核心国策）
+	focus = {
+		id = LYY_FC_Ganyu_Restore_Ancient_System
+		icon = GFX_goal_DOT_Arcana_19
+		cost = 10
+		relative_position_id = LYY_FC_Ganyu_United_Liyue
+		x = 0
+		y = 1
+		available = {
+			has_completed_focus = LYY_FC_Ganyu_United_Liyue
+			has_country_flag = LYY_ganyu_disaster_signs_resolved
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_United_Liyue
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 设置稳定度和政治点数
+			set_stability = 0.8
+			add_political_power = 200
+			# 重置党争支持率
+			set_variable = {
+				var = LYY_shenhe_support
+				value = 20
+			}
+			set_variable = {
+				var = LYY_ganyu_support
+				value = 40
+			}
+			set_variable = {
+				var = LYY_ningguang_support
+				value = 30
+			}
+			set_variable = {
+				var = LYY_keqing_support
+				value = 30
+			}
+			# 触发托古改制事件
+			country_event = {
+				id = LYY_Ganyu.15
+			}
+		}
+	}
+	# 古法育民
+	focus = {
+		id = LYY_FC_Ganyu_Ancient_Education
+		icon = GFX_goal_KX_goals_185
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Restore_Ancient_System
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Restore_Ancient_System
+		}
+		available = {
+			NOT = {
+				has_idea = LYY_idea_disaster_signs_active
+			}
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 设置稳定度和战争支持度
+			set_stability = 0.9
+			set_war_support = 0.9
+			# 添加复古式教育debuff
+			add_ideas = LYY_idea_ancient_education
+			# 解锁"断绝修仙路"决议
+			set_country_flag = LYY_can_sever_immortal_path
+			activate_targeted_decision = {
+				target = THIS
+				decision = LYY_decision_sever_immortal_path
+			}
+			# 触发古法育民事件
+			country_event = {
+				id = LYY_Ganyu.16
+			}
+		}
+	}
+	# 群众的呼声
+	focus = {
+		id = LYY_FC_Ganyu_Voice_of_People
+		icon = GFX_goal_KX_goals_396
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ancient_Education
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ancient_Education
+		}
+		available = {
+			has_country_flag = LYY_severed_immortal_path_decision_used
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 政治点数和适役人口奖励
+			add_political_power = 200
+			add_stability = 0.1
+			add_manpower = 50000
+			# 触发群众呼声事件和新闻
+			country_event = {
+				id = LYY_Ganyu.17
+			}
+			news_event = {
+				id = LYY_News.101
+				days = 3
+			}
+		}
+	}
+	# 凝光的手段
+	focus = {
+		id = LYY_FC_Ganyu_Ningguang_Methods
+		icon = GFX_goal_KX_goals_304
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ancient_Education
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ancient_Education
+		}
+		available = {
+			# 凝光未被流放或处决
+			NOT = {
+				has_country_flag = LYY_ningguang_exiled
+			}
+			NOT = {
+				has_country_flag = LYY_ningguang_executed
+			}
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 政治点数奖励
+			add_political_power = 120
+			# 解锁凝光作为部长
+			recruit_character = LYY_NingGuang
+			# 触发凝光的手段事件
+			country_event = {
+				id = LYY_Ganyu.18
+			}
+		}
+	}
+	# 掌控璃月经济
+	focus = {
+		id = LYY_FC_Ganyu_Control_Economy
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ningguang_Methods
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ningguang_Methods
+		}
+		available = {
+			# 凝光和非尔戈黛特未被杀
+			NOT = {
+				has_country_flag = LYY_ningguang_killed
+			}
+			NOT = {
+				has_country_flag = LYY_navia_killed
+			}
+		}
+		ai_will_do = {
+			factor = 95
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 政治点数和摩拉奖励
+			add_political_power = 200
+			add_offsite_building = {
+				type = arms_factory
+				level = 3
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
+			}
+			# 添加科技组精神（群玉阁、新月轩、望舒客栈）
+			add_ideas = LYY_idea_jade_chamber
+			add_ideas = LYY_idea_xinyuexuan
+			add_ideas = LYY_idea_wangshu_inn
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.19
+			}
+		}
+	}
+	# 劳动改革
+	focus = {
+		id = LYY_FC_Ganyu_Labor_Reform
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Voice_of_People
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Voice_of_People
+		}
+		available = {
+			num_of_civilian_factories > 20
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 解锁"璃月劳动法"决议组
+			set_country_flag = LYY_labor_law_unlocked
+			# 初始化人民满意度
+			set_variable = {
+				var = LYY_people_satisfaction
+				value = 50
+			}
+			# 触发劳动改革事件
+			country_event = {
+				id = LYY_Ganyu.20
+			}
+		}
+	}
+	# 保障民生
+	focus = {
+		id = LYY_FC_Ganyu_Ensure_Livelihood
+		icon = GFX_goal_generic_construction2
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Voice_of_People
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Voice_of_People
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Control_Economy
+		}
+		available = {
+			# 需要完成"商途施压，策掌六国"（如果有的话）或"托古改制"
+			has_completed_focus = LYY_FC_Ganyu_Restore_Ancient_System
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 消耗摩拉建设
+			custom_effect_tooltip = LYY_spend_300k_mora_tooltip
+			# 全境建设
+			every_owned_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.21
+			}
+		}
+	}
+	# 结党仙家
+	focus = {
+		id = LYY_FC_Ganyu_Adepti_Faction
+		icon = GFX_goal_KX_goals_185
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Labor_Reform
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Labor_Reform
+		}
+		available = {
+			# 刻晴派若复国则跳过，或人民满意度>70%
+			OR = {
+				has_country_flag = LYY_keqing_faction_restored
+				check_variable = {
+					var = LYY_people_satisfaction
+					value = 70
+					compare = greater_than_or_equals
+				}
+				NOT = {
+					has_idea = LYY_idea_labor_law_active
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 消除人民满意度机制（如果存在）
+			if = {
+				limit = {
+					has_idea = LYY_idea_labor_law_active
+				}
+				remove_ideas = LYY_idea_labor_law_active
+			}
+			# 解锁仙人部长
+			recruit_character = LYY_Moon_Carver
+			recruit_character = LYY_Mountain_Shaper
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.22
+			}
+		}
+	}
+	# 邀请闲云
+	focus = {
+		id = LYY_FC_Ganyu_Invite_Cloud_Retainer
+		icon = GFX_goal_KX_goals_411
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Adepti_Faction
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Adepti_Faction
+		}
+		available = {
+			# 削月助阳真君在政府任职
+			has_character = LYY_Moon_Carver
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 解锁留云借风真君（闲云）
+			recruit_character = LYY_Cloud_Retainer
+			# 触发邀请闲云事件
+			country_event = {
+				id = LYY_Ganyu.23
+			}
+		}
+	}
+	# 凡人的处置
+	focus = {
+		id = LYY_FC_Ganyu_Mortal_Disposal
+		icon = GFX_goal_KX_goals_71
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Restore_Ancient_System
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Restore_Ancient_System
+		}
+		available = {
+			# 已完成禁锢思想
+			has_country_flag = LYY_ganyu_disaster_signs_resolved
+		}
+		ai_will_do = {
+			factor = 75
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 触发凡人处置事件和新闻
+			country_event = {
+				id = LYY_Ganyu.24
+			}
+			news_event = {
+				id = LYY_News.104
+				days = 2
+			}
+		}
+	}
+	# 铸造仙家法器
+	focus = {
+		id = LYY_FC_Ganyu_Forge_Adepti_Artifacts
+		icon = GFX_goal_generic_army_artillery2
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Invite_Cloud_Retainer
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Invite_Cloud_Retainer
+		}
+		available = {
+			# 闲云已加入
+			has_character = LYY_Cloud_Retainer
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			# 360日后生效的军事加成
+			add_timed_idea = {
+				idea = LYY_idea_adepti_artifacts_forging
+				days = 360
+			}
+			# 最终效果（通过事件在360日后添加）
+			country_event = {
+				id = LYY_Ganyu.25
+				days = 360
+			}
+		}
+	}
+	# 商途施压，策掌六国
+	focus = {
+		id = LYY_FC_Ganyu_Trade_Pressure
+		icon = GFX_goal_generic_trade
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Control_Economy
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Control_Economy
+		}
+		available = {
+			# 行秋、北斗、凝光未被杀
+			NOT = {
+				has_country_flag = LYY_xingqiu_killed
+			}
+			NOT = {
+				has_country_flag = LYY_beidou_killed
+			}
+			NOT = {
+				has_country_flag = LYY_ningguang_killed
+			}
+		}
+		ai_will_do = {
+			factor = 70
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 给六国增加消耗和debuff
+			every_other_country = {
+				limit = {
+					OR = {
+						tag = MOT
+						tag = FON
+						tag = INA
+						tag = SNE
+						tag = NAT
+						tag = ZDG
+					}
+				}
+				add_timed_idea = {
+					idea = LYY_trade_embargo_victim
+					days = 120
+				}
+			}
+			# 甘雨派获得政治点数加成
+			add_political_power = 100
+			add_timed_idea = {
+				idea = LYY_idea_trade_domination
+				days = 120
+			}
+			# 触发新闻
+			news_event = {
+				id = LYY_News.103
+				days = 1
+			}
+		}
+	}
+	# 祸结衅深（触发人仙之争）
+	focus = {
+		id = LYY_FC_Ganyu_Deep_Enmity
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ensure_Livelihood
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ensure_Livelihood
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Trade_Pressure
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Restore_Ancient_System
+		}
+		available = {
+			has_completed_focus = LYY_FC_Ganyu_Restore_Ancient_System
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 触发人仙之争事件
+			country_event = {
+				id = LYY_Ganyu.26
+			}
+			# 开启人仙之争决议组
+			set_country_flag = LYY_mortal_adepti_struggle_active
+		}
+	}
+	# 歌尘浪市（应对刻晴二次起义）
+	focus = {
+		id = LYY_FC_Ganyu_Gechenlangshi
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Deep_Enmity
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Deep_Enmity
+		}
+		available = {
+			# 刻晴派已完成"誓守革命火"决议，璃月联邦和"七星革命阵线"处于战争状态
+			OR = {
+				has_war_with = LYY_KEQ
+				has_country_flag = LYY_keqing_revolution_active
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 解锁萍姥姥
+			recruit_character = LYY_Madame_Ping
+			# 触发萍姥姥出山事件
+			country_event = {
+				id = LYY_Ganyu.27
+			}
+		}
+	}
+	# 玄璃盛世（二次内战结束，人仙和解）
+	focus = {
+		id = LYY_FC_Ganyu_Xuanli_Prosperity
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Gechenlangshi
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Gechenlangshi
+		}
+		available = {
+			# 璃月联邦-刻晴战争已经结束，player不是刻晴
+			NOT = {
+				has_war_with = LYY_KEQ
+			}
+			NOT = {
+				tag = LYY_KEQ
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 工厂建造速度+10%，工厂产出效率+10%
+			add_ideas = LYY_idea_xuanli_prosperity
+			# 移除碎土离疆言国殇（如果还存在）
+			if = {
+				limit = {
+					has_idea = LYY_idea_ganyu_fragmented_land
+				}
+				remove_ideas = LYY_idea_ganyu_fragmented_land
+			}
+			# 触发一出好戏事件
+			country_event = {
+				id = LYY_Ganyu.28
+			}
+		}
+	}
+	# 横扫提瓦特（征服路线）
+	focus = {
+		id = LYY_FC_Ganyu_Conquer_Teyvat
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Xuanli_Prosperity
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Xuanli_Prosperity
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Peaceful_Development
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 设置政府分配
+			set_variable = {
+				var = LYY_ganyu_faction_power
+				value = 25
+			}
+			set_variable = {
+				var = LYY_keqing_faction_power
+				value = 25
+			}
+			set_variable = {
+				var = LYY_ningguang_faction_power
+				value = 25
+			}
+			set_variable = {
+				var = LYY_shenhe_faction_power
+				value = 25
+			}
+			# 解锁提瓦特统战计划决议
+			set_country_flag = LYY_teyvat_conquest_unlocked
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.29
+			}
+		}
+	}
+	# 和平发展（和平路线，与横扫提瓦特互斥）
+	focus = {
+		id = LYY_FC_Ganyu_Peaceful_Development
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Xuanli_Prosperity
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Xuanli_Prosperity
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Conquer_Teyvat
+		}
+		ai_will_do = {
+			factor = 70
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.15
+			add_ideas = LYY_idea_peaceful_liyue
+		}
+	}
+	# ========================================
+	# 甘雨伺机而动路线（与"向忤逆之徒宣战"互斥）
+	# ========================================
+	# 伺机而动
+	focus = {
+		id = LYY_FC_Ganyu_Wait_Opportunity
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 7
+		relative_position_id = LYY_FC_Ganyu_Vision
+		x = -6
+		y = 1
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Noble_Alliance
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Vision
+		}
+		available = {
+			# 现阶段未与任何势力开战
+			NOT = {
+				has_war = yes
+			}
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 获得8个编制为"七步二炮"的部队
+			load_oob = LYY_Ganyu_Wait_Army
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.30
+			}
+		}
+	}
+	# 筑工业之基
+	focus = {
+		id = LYY_FC_Ganyu_Build_Industry
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Wait_Opportunity
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Wait_Opportunity
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			# 随机5个地块获得8个军用工厂
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory < 5
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory < 5
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory < 5
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory < 5
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					arms_factory < 5
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			# 库存装备+500k
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 50000
+				producer = ROOT
+			}
+		}
+	}
+	# 备战四境
+	focus = {
+		id = LYY_FC_Ganyu_Prepare_War
+		icon = GFX_goal_generic_army_doctrines
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Build_Industry
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Build_Industry
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 璃月内战所有派系对甘雨派的评价-25
+			every_other_country = {
+				limit = {
+					OR = {
+						tag = LYY_KEQ
+						tag = LYY_NGL
+						tag = LYY_SHH
+						tag = LYY_JMG
+					}
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_prepare_war_threat
+				}
+			}
+			# 其他派系可以对甘雨派宣战
+			set_country_flag = LYY_ganyu_can_be_attacked
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.31
+			}
+		}
+	}
+	# 联合凝光派
+	focus = {
+		id = LYY_FC_Ganyu_Ally_Ningguang
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Prepare_War
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Prepare_War
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Ally_Shenhe
+			focus = LYY_FC_Ganyu_Ally_Gaming
+		}
+		available = {
+			country_exists = LYY_NGL
+			NOT = {
+				has_war_with = LYY_NGL
+			}
+		}
+		ai_will_do = {
+			factor = 33
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和凝光派强制停战，双方结盟
+			if = {
+				limit = {
+					has_war_with = LYY_NGL
+				}
+				white_peace = LYY_NGL
+			}
+			create_faction = LYY_Ningguang_Alliance
+			add_to_faction = LYY_NGL
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.32
+			}
+		}
+	}
+	# 联合申鹤派
+	focus = {
+		id = LYY_FC_Ganyu_Ally_Shenhe
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Prepare_War
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Prepare_War
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Ally_Ningguang
+			focus = LYY_FC_Ganyu_Ally_Gaming
+		}
+		available = {
+			country_exists = LYY_SHH
+			NOT = {
+				has_war_with = LYY_SHH
+			}
+		}
+		ai_will_do = {
+			factor = 33
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和申鹤派强制停战，双方结盟
+			if = {
+				limit = {
+					has_war_with = LYY_SHH
+				}
+				white_peace = LYY_SHH
+			}
+			create_faction = LYY_Adepti_Alliance
+			add_to_faction = LYY_SHH
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.33
+			}
+		}
+	}
+	# 联合嘉明派
+	focus = {
+		id = LYY_FC_Ganyu_Ally_Gaming
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Prepare_War
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Prepare_War
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Ally_Ningguang
+			focus = LYY_FC_Ganyu_Ally_Shenhe
+		}
+		available = {
+			country_exists = LYY_JMG
+			NOT = {
+				has_war_with = LYY_JMG
+			}
+		}
+		ai_will_do = {
+			factor = 33
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和嘉明派强制停战，双方结盟
+			if = {
+				limit = {
+					has_war_with = LYY_JMG
+				}
+				white_peace = LYY_JMG
+			}
+			create_faction = LYY_Northern_Alliance
+			add_to_faction = LYY_JMG
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.34
+			}
+		}
+	}
+	# 夹击凝光（与申鹤联盟后）
+	focus = {
+		id = LYY_FC_Ganyu_Attack_Ningguang_Shenhe
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ally_Shenhe
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ally_Shenhe
+		}
+		available = {
+			country_exists = LYY_NGL
+			is_in_faction_with = LYY_SHH
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派对凝光派宣战
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.35
+			}
+		}
+	}
+	# 夹击刻晴（与凝光联盟后）
+	focus = {
+		id = LYY_FC_Ganyu_Attack_Keqing_Ningguang
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ally_Ningguang
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ally_Ningguang
+		}
+		available = {
+			country_exists = LYY_KEQ
+			is_in_faction_with = LYY_NGL
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派对刻晴派宣战
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.36
+			}
+		}
+	}
+	# 夹击申鹤（与嘉明联盟后）
+	focus = {
+		id = LYY_FC_Ganyu_Attack_Shenhe_Gaming
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Ally_Gaming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Ally_Gaming
+		}
+		available = {
+			country_exists = LYY_SHH
+			is_in_faction_with = LYY_JMG
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派对申鹤派宣战
+			declare_war_on = {
+				target = LYY_SHH
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.37
+			}
+		}
+	}
+	# 刑马作誓（联合后对其他所有势力宣战）
+	focus = {
+		id = LYY_FC_Ganyu_Blood_Oath
+		icon = GFX_goal_generic_alliance
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = LYY_FC_Ganyu_Ally_Shenhe
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Attack_Ningguang_Shenhe
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Attack_Keqing_Ningguang
+		}
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Attack_Shenhe_Gaming
+		}
+		available = {
+			# 完成任意一个夹击
+			OR = {
+				has_completed_focus = LYY_FC_Ganyu_Attack_Ningguang_Shenhe
+				has_completed_focus = LYY_FC_Ganyu_Attack_Keqing_Ningguang
+				has_completed_focus = LYY_FC_Ganyu_Attack_Shenhe_Gaming
+			}
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派和当前结盟的势力结为军事同盟
+			# 甘雨派对其他所有势力宣战
+			every_other_country = {
+				limit = {
+					OR = {
+						tag = LYY_KEQ
+						tag = LYY_NGL
+						tag = LYY_SHH
+						tag = LYY_JMG
+					}
+					NOT = {
+						is_in_faction_with = ROOT
+					}
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.38
+			}
+		}
+	}
+	# 屈居人下（失败路线）
+	focus = {
+		id = LYY_FC_Ganyu_Submit
+		icon = GFX_goal_generic_territory_or_war
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Blood_Oath
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Blood_Oath
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Seize_Power
+		}
+		available = {
+			# 璃月内战已经结束
+			NOT = {
+				OR = {
+					has_war_with = LYY_KEQ
+					has_war_with = LYY_NGL
+					has_war_with = LYY_SHH
+					has_war_with = LYY_JMG
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派割让部分领土给盟友
+			custom_effect_tooltip = LYY_ganyu_cede_territory_tooltip
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.39
+			}
+		}
+	}
+	# 续辅秘书之职
+	focus = {
+		id = LYY_FC_Ganyu_Return_Secretary
+		icon = GFX_goal_generic_propaganda
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Submit
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Submit
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派的政治被改变
+			add_stability = -0.2
+			add_political_power = -200
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.40
+			}
+		}
+	}
+	# 弃地献权（被吞并，游戏结束）
+	focus = {
+		id = LYY_FC_Ganyu_Surrender_Power
+		icon = GFX_goal_generic_占领
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Return_Secretary
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Return_Secretary
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派被盟友吞并，玩家切换到盟友国家
+			every_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					NOT = {
+						tag = ROOT
+					}
+				}
+				annex_country = {
+					target = ROOT
+					transfer_troops = yes
+				}
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.41
+			}
+		}
+	}
+	# 夺取权柄（成功路线，与屈居人下互斥）
+	focus = {
+		id = LYY_FC_Ganyu_Seize_Power
+		icon = GFX_goal_generic_demand_territory
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Blood_Oath
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Blood_Oath
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Submit
+		}
+		available = {
+			# 璃月内战已经结束
+			NOT = {
+				OR = {
+					has_war_with = LYY_KEQ
+					has_war_with = LYY_NGL
+					has_war_with = LYY_SHH
+					has_war_with = LYY_JMG
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派获得盟友的征服战争目标
+			every_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					NOT = {
+						tag = ROOT
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						type = annex_everything
+						target = PREV
+					}
+				}
+			}
+			# 触发突发政变事件
+			country_event = {
+				id = LYY_Ganyu.42
+			}
+			news_event = {
+				id = LYY_News.102
+				days = 1
+			}
+		}
+	}
+	# 兼并友邦
+	focus = {
+		id = LYY_FC_Ganyu_Annex_Allies
+		icon = GFX_goal_generic_major_alliance
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Seize_Power
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Seize_Power
+		}
+		available = {
+			# 甘雨派已经统一璃月
+			LYY = {
+				owns_state = 121
+				owns_state = 131
+				owns_state = 141
+				owns_state = 171
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 可以开启问鼎璃月的国策
+			set_country_flag = LYY_ganyu_unified_liyue
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.43
+			}
+		}
+	}
+	# ========================================
+	# 甘雨与刻晴合作路线
+	# ========================================
+	# 海纳百川（响应刻晴的"心甘晴愿"）
+	focus = {
+		id = LYY_FC_Ganyu_Accept_Keqing
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5
+		x = 112
+		y = 2
+		available = {
+			# 刻晴派已经使用"心甘晴愿"国策
+			LYY_KEQ = {
+				has_completed_focus = LYY_FC_Keqing_Ganyu_Alliance
+			}
+		}
+		bypass = {
+			# 刻晴派不存在或该国策已被使用
+			NOT = {
+				country_exists = LYY_KEQ
+			}
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨和刻晴将会强制停战
+			if = {
+				limit = {
+					has_war_with = LYY_KEQ
+				}
+				white_peace = LYY_KEQ
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.44
+			}
+		}
+	}
+	# 接纳刻晴
+	focus = {
+		id = LYY_FC_Ganyu_Alliance_Keqing
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Accept_Keqing
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和刻晴派结为军事同盟
+			create_faction = LYY_Ganyu_Keqing_Alliance
+			add_to_faction = LYY_KEQ
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.45
+			}
+		}
+	}
+	# 夹击凝光（与刻晴合作版）
+	focus = {
+		id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Alliance_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Alliance_Keqing
+		}
+		available = {
+			country_exists = LYY_NGL
+			is_in_faction_with = LYY_KEQ
+		}
+		ai_will_do = {
+			factor = 95
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派和刻晴派对凝光派宣战，进攻修正+5%
+			add_timed_idea = {
+				idea = LYY_idea_joint_offensive
+				days = 120
+			}
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.46
+			}
+		}
+	}
+	# 默契配合（说服申鹤）
+	focus = {
+		id = LYY_FC_Ganyu_Coordinate_Shenhe
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		}
+		available = {
+			country_exists = LYY_SHH
+			NOT = {
+				has_war_with = LYY_SHH
+			}
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和申鹤派媾和，申鹤80%概率同意
+			random_list = {
+				80 = {
+					# 同意
+					if = {
+						limit = {
+							has_war_with = LYY_SHH
+						}
+						white_peace = LYY_SHH
+					}
+					add_to_faction = LYY_SHH
+					set_country_flag = LYY_shenhe_agreed_peace
+					country_event = {
+						id = LYY_Ganyu.47
+					}
+				}
+				20 = {
+					# 拒绝
+					set_country_flag = LYY_shenhe_rejected_peace
+					country_event = {
+						id = LYY_Ganyu.48
+					}
+				}
+			}
+		}
+	}
+	# 夺取战果
+	focus = {
+		id = LYY_FC_Ganyu_Seize_Spoils
+		icon = GFX_goal_generic_territory_or_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Coordinate_Shenhe
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Coordinate_Shenhe
+		}
+		available = {
+			has_country_flag = LYY_shenhe_agreed_peace
+		}
+		ai_will_do = {
+			factor = 75
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派获得申鹤派和刻晴派的部分土地主权宣称
+			custom_effect_tooltip = LYY_ganyu_seize_territory_tooltip
+			# 刻晴对甘雨的评价-25
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_territory_dispute
+				}
+			}
+			# 触发事件（刻晴派、申鹤派触发焦土政策事件）
+			country_event = {
+				id = LYY_Ganyu.49
+			}
+		}
+	}
+	# 突入北境（合作版）
+	focus = {
+		id = LYY_FC_Ganyu_Northern_Campaign_Coop
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Seize_Spoils
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Seize_Spoils
+		}
+		available = {
+			country_exists = LYY_JMG
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派和申鹤派各自获得5个步兵师
+			load_oob = LYY_Ganyu_Northern_Army
+			LYY_SHH = {
+				load_oob = LYY_Shenhe_Northern_Army
+			}
+			# 甘雨派对嘉明派宣战
+			declare_war_on = {
+				target = LYY_JMG
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.50
+			}
+		}
+	}
+	# 划分界限
+	focus = {
+		id = LYY_FC_Ganyu_Divide_Territory
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Northern_Campaign_Coop
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Northern_Campaign_Coop
+		}
+		available = {
+			# 战争濒临结束
+			NOT = {
+				has_war_with = LYY_JMG
+			}
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派获得先前获得主权领土的土地
+			custom_effect_tooltip = LYY_ganyu_claim_territory_tooltip
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.51
+			}
+		}
+	}
+	# 镇压叛乱（刻晴二次起义）
+	focus = {
+		id = LYY_FC_Ganyu_Suppress_Rebellion
+		icon = GFX_goal_generic_major_war
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Divide_Territory
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Divide_Territory
+		}
+		available = {
+			# 刻晴派已开启国策"誓守革命火"
+			LYY_KEQ = {
+				has_country_flag = LYY_keqing_revolution_fire
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 璃月联邦对刻晴派宣战
+			set_cosmetic_tag = LYY_Federation
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.52
+			}
+		}
+	}
+	# 策除启明派（与"接纳刻晴"互斥的清洗路线）
+	focus = {
+		id = LYY_FC_Ganyu_Eliminate_Qiming
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Accept_Keqing
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Alliance_Keqing
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴对甘雨的评价+25%
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_friendly_relations
+				}
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.53
+			}
+		}
+	}
+	# 设下鸿门宴
+	focus = {
+		id = LYY_FC_Ganyu_Hongmen_Banquet
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Eliminate_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Eliminate_Qiming
+		}
+		ai_will_do = {
+			factor = 70
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 适役人口-5%，移除随机2个部队
+			add_manpower = -50000
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.54
+			}
+		}
+	}
+	# 关押刻晴
+	focus = {
+		id = LYY_FC_Ganyu_Imprison_Keqing
+		icon = GFX_goal_generic_政治犯
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Hongmen_Banquet
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Hongmen_Banquet
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴派国家元首更换为云堇
+			LYY_KEQ = {
+				retire_character = LYY_KeQing
+				promote_character = LYY_YunJin
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.55
+			}
+		}
+	}
+	# 利用刻晴和启明派谈判
+	focus = {
+		id = LYY_FC_Ganyu_Negotiate_Qiming
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Imprison_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Imprison_Keqing
+		}
+		ai_will_do = {
+			factor = 60
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.56
+			}
+		}
+	}
+	# 强并启明派
+	focus = {
+		id = LYY_FC_Ganyu_Annex_Qiming
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Negotiate_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Negotiate_Qiming
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 获得对启明派征服的战争目标
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_KEQ
+			}
+			# 触发刻晴派国策：绝不屈服
+			LYY_KEQ = {
+				set_country_flag = LYY_keqing_never_surrender
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.57
+			}
+		}
+	}
+	# 整合启明派
+	focus = {
+		id = LYY_FC_Ganyu_Integrate_Qiming
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Annex_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Annex_Qiming
+		}
+		available = {
+			# 刻晴派已被击败
+			NOT = {
+				country_exists = LYY_KEQ
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴、云堇、香菱、胡桃、辛焱加入队伍
+			recruit_character = LYY_KeQing
+			recruit_character = LYY_YunJin
+			recruit_character = LYY_XiangLing
+			recruit_character = LYY_HuTao
+			recruit_character = LYY_XinYan
+			# 获得刻晴派地块的主权
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.58
 			}
 		}
 	}

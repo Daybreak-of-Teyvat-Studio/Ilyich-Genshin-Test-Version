@@ -1,0 +1,2669 @@
+add_namespace = LYY_Ganyu
+# 初始事件：月海幻梦
+country_event = {
+	id = LYY_Ganyu.1
+	title = LYY_Ganyu.1.t
+	desc = LYY_Ganyu.1.d
+	picture = GFX_report_event_ganyu_speech
+	is_triggered_only = yes
+	option = {
+		name = LYY_Ganyu.1.a		# 选项文本："托古改制，以仙家之治，救黎民于水火！"
+		# --- 1. 确立领导人与执政党 ---
+		# 确保甘雨作为角色存在
+		recruit_character = LYY_GanYu
+		# 设定党派支持率：月海亭派（中立主义）100%
+		set_political_party = {
+			ideology = neutrality
+			popularity = 100
+		}
+		# 甘雨上位
+		promote_character = LYY_GanYu
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		# 赋予甘雨专属领袖特质：观遍尘世之仙
+		# 效果：适役人口+5%，陆军经验获取+0.05%，生产效率+10%，设施建造速度+5%
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_witness_of_mortal_world
+		}
+		# --- 2. 变更国家名号与外观 ---
+		# 变更为：月海亭八省联合
+		set_cosmetic_tag = LYY_MOONCHASE_ALLIANCE
+		# --- 3. 设定国家基础数据 ---
+		# 文本要求：基础稳定度80%，战争支持度50%
+		set_stability = 0.8
+		set_war_support = 0.5
+		# 文本要求：科研槽 4
+		set_research_slots = 4
+		# --- 4. 添加民族精神 (Buffs/Debuffs) ---
+		# 精神：但愿海波平 (稳定度+10%，军队训练速度-10%)
+		add_ideas = LYY_idea_ganyu_peaceful_waves
+		# 精神：秘职之弊，繁星可鉴 (工厂生产效率-30%，建造速度-20%，战争支持度-30%)
+		add_ideas = LYY_idea_ganyu_secretarial_corruption
+		# 精神：碎土离疆言国殇 (工厂产出-30%，资源开采效率-60%，工业研究速度-30%，适兵人口-30%)
+		add_ideas = LYY_idea_ganyu_fragmented_land
+		# --- 5. 设定经济与贸易制度 ---
+		# 文本要求：分裂的经济体系（锁定），封闭经济
+		add_ideas = LYY_split_economic_system		# 自定义经济法案，锁定
+		add_ideas = closed_economy		# 贸易法案：封闭经济 (原版id)
+		# --- 6. 特殊机制：战争中立期 ---
+		# 注：甘雨派成立初期没有向任何势力宣战，也不能被任何势力宣战
+		# 需等到国策解锁才可解锁战争，此部分可通过自定义modifier或scripted_effect实现
+		add_timed_idea = {
+			idea = LYY_idea_ganyu_neutrality_period
+			days = 70		# 对应"向忤逆之徒，宣吾战意！"国策的30日+部分缓冲时间
+		}
+	}
+}
+
+# 向忤逆之徒，宣吾战意！
+country_event = {
+	id = LYY_Ganyu.2
+	title = LYY_Ganyu.2.t
+	desc = LYY_Ganyu.2.d
+	picture = GFX_report_event_ganyu_declaration
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.2.a		# "只有我们才是璃月的正统！"
+		
+		# 移除战争中立期精神
+		remove_ideas = LYY_idea_ganyu_neutrality_period
+		
+		# 获得对各派系的战争目标
+		# 对刻晴派
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_KEQ
+			}
+		}
+		
+		# 对凝光派
+		if = {
+			limit = { country_exists = LYY_NGL }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_NGL
+			}
+		}
+		
+		# 对申鹤派
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_SHH
+			}
+		}
+		
+		# 对嘉明派
+		if = {
+			limit = { country_exists = LYY_JMG }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_JMG
+			}
+		}
+		
+		# 设置国家标志，表示已宣战意
+		set_country_flag = LYY_ganyu_war_declaration_made
+		
+		# 添加修正：正义的一方
+		add_timed_idea = {
+			idea = LYY_idea_righteous_cause
+			days = 180
+		}
+	}
+}
+
+# 歼灭启明派
+country_event = {
+	id = LYY_Ganyu.3
+	title = LYY_Ganyu.3.t
+	desc = LYY_Ganyu.3.d
+	picture = GFX_report_event_ganyu_keqing_conflict
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.3.a		# "刻晴，请你理解，这是为了璃月。"
+		
+		# 对刻晴派宣战
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# 设置标志：不会触发启明主义渗透debuff
+		set_country_flag = LYY_ganyu_no_qiming_infiltration
+		
+		# 添加临时修正：敲打好友
+		add_timed_idea = {
+			idea = LYY_idea_disciplining_friend
+			days = 70
+		}
+		
+		# 陆军进攻修正
+		add_timed_idea = {
+			idea = LYY_idea_offensive_against_keqing
+			days = 70
+		}
+	}
+}
+
+# 登顶群玉阁
+country_event = {
+	id = LYY_Ganyu.4
+	title = LYY_Ganyu.4.t
+	desc = LYY_Ganyu.4.d
+	picture = GFX_report_event_jade_chamber
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.4.a		# "以仙家之治，证明我们的优越！"
+		
+		# 对凝光派宣战
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+		}
+		
+		# 添加临时修正：证明仙家统治
+		add_timed_idea = {
+			idea = LYY_idea_prove_adepti_rule
+			days = 70
+		}
+		
+		# 士气提升
+		army_experience = 20
+	}
+}
+
+# 突入北境
+country_event = {
+	id = LYY_Ganyu.5
+	title = LYY_Ganyu.5.t
+	desc = LYY_Ganyu.5.d
+	picture = GFX_report_event_northern_expedition
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.5.a		# "北境不能坐大，立即行动！"
+		
+		# 获得申鹤派军事通行权
+		if = {
+			limit = { country_exists = LYY_SHH }
+			give_military_access = LYY_SHH
+			LYY_SHH = {
+				give_military_access = ROOT
+			}
+		}
+		
+		# 对嘉明派宣战
+		if = {
+			limit = { country_exists = LYY_JMG }
+			declare_war_on = {
+				target = LYY_JMG
+				type = annex_everything
+			}
+		}
+		
+		# 添加临时修正：远征北境
+		add_timed_idea = {
+			idea = LYY_idea_northern_campaign
+			days = 70
+		}
+	}
+}
+
+# 说服申鹤
+country_event = {
+	id = LYY_Ganyu.6
+	title = LYY_Ganyu.6.t
+	desc = LYY_Ganyu.6.d
+	picture = GFX_report_event_ganyu_shenhe_meeting
+	is_triggered_only = yes
+	
+	# 选项A：申鹤同意（80%概率）
+	option = {
+		name = LYY_Ganyu.6.a		# "申鹤接受了我的提议。"
+		trigger = {
+			NOT = { has_country_flag = LYY_shenhe_refuses }
+		}
+		
+		# 与申鹤派结盟
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_faction = LYY_adepti_alliance
+			add_to_faction = LYY_SHH
+			
+			# 改善关系
+			LYY_SHH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_adepti_bond
+				}
+			}
+		}
+		
+		# 设置成功标志
+		set_country_flag = LYY_shenhe_alliance_success
+		
+		# 添加精神：仙家联盟
+		add_ideas = LYY_idea_adepti_alliance
+	}
+	
+	# 选项B：申鹤拒绝（20%概率）
+	option = {
+		name = LYY_Ganyu.6.b		# "申鹤拒绝了，那就只能兵戎相见！"
+		trigger = {
+			has_country_flag = LYY_shenhe_refuses
+		}
+		
+		# 申鹤派向甘雨派宣战
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		
+		# 跳过"独掌话柄"国策
+		set_country_flag = LYY_skip_sole_authority
+		
+		# 添加临时修正：仙家内斗
+		add_timed_idea = {
+			idea = LYY_idea_adepti_infighting
+			days = 70
+		}
+	}
+}
+
+# 独掌话柄
+country_event = {
+	id = LYY_Ganyu.7
+	title = LYY_Ganyu.7.t
+	desc = LYY_Ganyu.7.d
+	picture = GFX_report_event_ganyu_shenhe_battle
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.7.a		# "申鹤，我不想和你战斗，但你不要逼我！"
+		
+		# 获得对申鹤派的战争目标
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_SHH
+			}
+		}
+		
+		# 添加临时修正：师姐妹对决
+		add_timed_idea = {
+			idea = LYY_idea_sisters_duel
+			days = 70
+		}
+		
+		# 陆军经验提升
+		army_experience = 30
+	}
+}
+
+# 问鼎璃月
+country_event = {
+	id = LYY_Ganyu.8
+	title = LYY_Ganyu.8.t
+	desc = LYY_Ganyu.8.d
+	picture = GFX_report_event_liyue_unification
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.8.a		# "璃月终于统一了！"
+		
+		# 移除碎土离疆言国殇debuff
+		remove_ideas = LYY_idea_ganyu_fragmented_land
+		
+		# 更改国家名称为"璃月"
+		set_cosmetic_tag = LYY_UNIFIED
+		
+		# 添加精神：璃月统一
+		add_ideas = LYY_idea_liyue_unified
+		
+		# 提升稳定度和战争支持度
+		add_stability = 0.15
+		add_war_support = 0.10
+		
+		# 政治点数奖励
+		add_political_power = 200
+		
+		# 触发后续事件选择
+		country_event = {
+			id = LYY_Ganyu.9
+			days = 5
+		}
+	}
+}
+
+# 问鼎璃月后续选择：清缴残军或扼杀反对派
+country_event = {
+	id = LYY_Ganyu.9
+	title = LYY_Ganyu.9.t
+	desc = LYY_Ganyu.9.d
+	picture = GFX_report_event_liyue_consolidation
+	is_triggered_only = yes
+	
+	# 选项A：清缴残军
+	option = {
+		name = LYY_Ganyu.9.a		# "清缴残余势力，巩固统治。"
+		
+		add_timed_idea = {
+			idea = LYY_idea_purge_remnants
+			days = 60
+		}
+		
+		# 效果：适宜人口-0.5%，稳定度+10%
+		add_manpower = -5000
+		add_stability = 0.10
+	}
+	
+	# 选项B：扼杀反对派
+	option = {
+		name = LYY_Ganyu.9.b		# "逮捕反对派，杜绝后患。"
+		
+		add_timed_idea = {
+			idea = LYY_idea_suppress_opposition
+			days = 60
+		}
+		
+		# 触发新闻事件
+		news_event = {
+			id = LYY_News.1
+			days = 1
+		}
+	}
+}
+
+# 禁锢思想
+country_event = {
+	id = LYY_Ganyu.10
+	title = LYY_Ganyu.10.t
+	desc = LYY_Ganyu.10.d
+	picture = GFX_report_event_thought_control
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.10.a		# "必须遏制她们的思想传播！"
+		
+		# 设置初始支持率变量
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 20
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_gaming_support
+			value = 5
+		}
+		
+		# 开启"灾难的端倪"事件组决议
+		add_ideas = LYY_idea_disaster_signs_active
+		
+		# 触发璃月权力斗争事件
+		country_event = {
+			id = LYY_Ganyu.11
+			days = 3
+		}
+	}
+}
+
+# 璃月的权力斗争开启
+country_event = {
+	id = LYY_Ganyu.11
+	title = LYY_Ganyu.11.t
+	desc = LYY_Ganyu.11.d
+	picture = GFX_report_event_liyue_power_struggle
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.11.a		# "人仙共治，需要平衡。"
+		
+		# 设置初始权力斗争变量
+		set_variable = {
+			var = LYY_adepti_faction
+			value = 50
+		}
+		set_variable = {
+			var = LYY_mortal_faction
+			value = 50
+		}
+		
+		# 添加精神：权力斗争
+		add_ideas = LYY_idea_power_struggle_active
+		
+		# 开启决议类别
+		set_country_flag = LYY_power_struggle_begins
+	}
+}
+
+# 灾难的端倪：禁锢人们的思想（可重复事件）
+country_event = {
+	id = LYY_Ganyu.12
+	title = LYY_Ganyu.12.t
+	desc = LYY_Ganyu.12.d
+	picture = GFX_report_event_thought_suppression
+	
+	trigger = {
+		has_idea = LYY_idea_disaster_signs_active
+		NOT = { has_country_flag = LYY_thought_control_cooldown }
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		name = LYY_Ganyu.12.a		# "禁锢思想，维护统治！"
+		
+		# 甘雨派支持率+5%
+		add_to_variable = {
+			var = LYY_ganyu_support
+			value = 5
+		}
+		
+		# 设置冷却标志
+		set_country_flag = LYY_thought_control_cooldown
+		
+		# 30日后移除冷却
+		country_event = {
+			id = LYY_Ganyu.13
+			days = 30
+		}
+		
+		# 检查是否达成胜利条件
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_ganyu_support
+					value = 100
+				}
+			}
+			country_event = {
+				id = LYY_Ganyu.14
+				days = 15
+			}
+		}
+	}
+}
+
+# 移除思想控制冷却
+country_event = {
+	id = LYY_Ganyu.13
+	title = LYY_Ganyu.13.t
+	desc = LYY_Ganyu.13.d
+	picture = GFX_report_event_liyue_politics
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.13.a
+		clr_country_flag = LYY_thought_control_cooldown
+	}
+}
+
+# 灾难的端倪事件组结束
+country_event = {
+	id = LYY_Ganyu.14
+	title = LYY_Ganyu.14.t
+	desc = LYY_Ganyu.14.d
+	picture = GFX_report_event_ganyu_victory
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.14.a		# "我们成功巩固了统治！"
+		
+		# 移除灾难端倪精神
+		remove_ideas = LYY_idea_disaster_signs_active
+		
+		# 添加奖励
+		add_stability = 0.15
+		add_political_power = 150
+		
+		# 清除变量
+		clear_variable = LYY_shenhe_support
+		clear_variable = LYY_ganyu_support
+		clear_variable = LYY_ningguang_support
+		clear_variable = LYY_keqing_support
+		clear_variable = LYY_gaming_support
+	}
+}
+
+# 托古改制
+country_event = {
+	id = LYY_Ganyu.15
+	title = LYY_Ganyu.15.t
+	desc = LYY_Ganyu.15.d
+	picture = GFX_report_event_ganyu_shenhe_argument
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.15.a		# "我继承的是帝君的意志！"
+		
+		# 设置稳定度和政治点数
+		set_stability = 0.80
+		add_political_power = 200
+		
+		# 重置党争支持率
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 20
+		}
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 40
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 30
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 30
+		}
+		
+		# 添加精神：托古改制
+		add_ideas = LYY_idea_restore_ancient_system
+		
+		# 甘雨获得个人修正
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_reformer
+		}
+	}
+}
+
+# 古法育民
+country_event = {
+	id = LYY_Ganyu.16
+	title = LYY_Ganyu.16.t
+	desc = LYY_Ganyu.16.d
+	picture = GFX_report_event_ancient_education
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.16.a		# "为了璃月的长治久安，这是必要的牺牲。"
+		
+		# 设置稳定度和战争支持度
+		set_stability = 0.90
+		set_war_support = 0.90
+		
+		# 添加debuff：复古式教育
+		add_ideas = LYY_idea_ancient_education
+		
+		# 解锁决议：断绝修仙路
+		set_country_flag = LYY_enable_sever_immortal_path
+	}
+}
+
+# 断绝修仙路决议执行后触发事件
+country_event = {
+	id = LYY_Ganyu.17
+	title = LYY_Ganyu.17.t
+	desc = LYY_Ganyu.17.d
+	picture = GFX_report_event_severing_immortal_path
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.17.a		# "仙凡有别，这是必然的。"
+		
+		# 降低稳定度和战争支持度
+		add_stability = -0.20
+		add_war_support = -0.20
+		
+		# 甘雨派占据政府100%
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 100
+		}
+		
+		# 添加精神：断绝修仙路
+		add_ideas = LYY_idea_severed_immortal_path
+		
+		# 120日内璃月稳定度每日-0.1%
+		add_timed_idea = {
+			idea = LYY_idea_social_unrest_post_severance
+			days = 120
+		}
+		
+		# 触发新闻事件
+		news_event = {
+			id = LYY_News.2
+			days = 1
+		}
+	}
+}
+
+# 群众的呼声
+country_event = {
+	id = LYY_Ganyu.18
+	title = LYY_Ganyu.18.t
+	desc = LYY_Ganyu.18.d
+	picture = GFX_report_event_ganyu_keqing_night_talk
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.18.a		# "我会尊重人民的请求。"
+		
+		# 添加奖励
+		add_political_power = 200
+		add_stability = 0.10
+		add_manpower = 10000
+		
+		# 甘雨获得新特质：坚定领导者
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_firm_leader
+		}
+		
+		# 触发新闻事件
+		news_event = {
+			id = LYY_News.3
+			days = 1
+		}
+	}
+}
+
+# 劳动改革
+country_event = {
+	id = LYY_Ganyu.19
+	title = LYY_Ganyu.19.t
+	desc = LYY_Ganyu.19.d
+	picture = GFX_report_event_labor_reform
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.19.a		# "继承帝君时期的政策。"
+		
+		# 设置人民满意度变量
+		set_variable = {
+			var = LYY_people_satisfaction
+			value = 50
+		}
+		
+		# 解锁璃月劳动法决议组
+		set_country_flag = LYY_enable_labor_law_decisions
+		
+		# 添加精神：劳动改革
+		add_ideas = LYY_idea_labor_reform_active
+	}
+}
+
+# 璃月劳动法：压榨他们（决议触发）
+country_event = {
+	id = LYY_Ganyu.20
+	title = LYY_Ganyu.20.t
+	desc = LYY_Ganyu.20.d
+	picture = GFX_report_event_exploitation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.20.a		# "生产效率优先！"
+		
+		# 添加临时修正：压榨劳工
+		add_timed_idea = {
+			idea = LYY_idea_exploit_workers
+			days = 30
+		}
+		
+		# 人民满意度每日-0.5%（通过脚本持续效果实现）
+		set_country_flag = LYY_exploiting_workers
+		
+		# 30日后检查满意度
+		country_event = {
+			id = LYY_Ganyu.22
+			days = 30
+		}
+	}
+}
+
+# 璃月劳动法：我与人民同在（决议触发）
+country_event = {
+	id = LYY_Ganyu.21
+	title = LYY_Ganyu.21.t
+	desc = LYY_Ganyu.21.d
+	picture = GFX_report_event_people_welfare
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.21.a		# "人民的福祉最重要！"
+		
+		# 添加临时修正：优待劳工
+		add_timed_idea = {
+			idea = LYY_idea_care_for_workers
+			days = 30
+		}
+		
+		# 人民满意度每日+0.5%（通过脚本持续效果实现）
+		set_country_flag = LYY_caring_for_workers
+		
+		# 30日后检查满意度
+		country_event = {
+			id = LYY_Ganyu.23
+			days = 30
+		}
+	}
+}
+
+# 检查人民满意度（压榨路线）
+country_event = {
+	id = LYY_Ganyu.22
+	title = LYY_Ganyu.22.t
+	desc = LYY_Ganyu.22.d
+	picture = GFX_report_event_worker_unrest
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.22.a
+		
+		# 清除标志
+		clr_country_flag = LYY_exploiting_workers
+		
+		# 检查满意度是否低于10%
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_people_satisfaction
+					value = 10
+					compare = less_than
+				}
+			}
+			# 刻晴派复国
+			country_event = {
+				id = LYY_Ganyu.24
+				days = 1
+			}
+		}
+	}
+}
+
+# 检查人民满意度（优待路线）
+country_event = {
+	id = LYY_Ganyu.23
+	title = LYY_Ganyu.23.t
+	desc = LYY_Ganyu.23.d
+	picture = GFX_report_event_worker_happiness
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.23.a
+		
+		# 清除标志
+		clr_country_flag = LYY_caring_for_workers
+		
+		# 检查满意度是否大于90%
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_people_satisfaction
+					value = 90
+					compare = greater_than
+				}
+			}
+			# 消除断绝修仙路debuff
+			remove_ideas = LYY_idea_severed_immortal_path
+			
+			# 添加奖励
+			add_stability = 0.10
+			add_war_support = 0.10
+		}
+	}
+}
+
+# 刻晴派复国事件
+country_event = {
+	id = LYY_Ganyu.24
+	title = LYY_Ganyu.24.t
+	desc = LYY_Ganyu.24.d
+	picture = GFX_report_event_keqing_uprising
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.24.a		# "人民选择了刻晴……"
+		
+		# 刻晴派复国（需要通过脚本实现国家重建）
+		# 这里假设使用释放傀儡或类似机制
+		
+		# 添加严重惩罚
+		add_stability = -0.30
+		add_war_support = -0.30
+		add_political_power = -200
+	}
+}
+
+# 保障民生
+country_event = {
+	id = LYY_Ganyu.25
+	title = LYY_Ganyu.25.t
+	desc = LYY_Ganyu.25.d
+	picture = GFX_report_event_infrastructure_development
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.25.a		# "以工代赈，建设璃月！"
+		
+		# 消耗摩拉
+		add_offsite_building = {
+			type = arms_factory
+			level = 2
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		
+		# 随机5个地块获得基础设施
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				NOT = { has_state_flag = LYY_民生_improved }
+			}
+			set_state_flag = LYY_民生_improved
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		
+		# 添加修正
+		add_ideas = LYY_idea_people_livelihood_guarantee
+	}
+}
+
+# 结党仙家
+country_event = {
+	id = LYY_Ganyu.26
+	title = LYY_Ganyu.26.t
+	desc = LYY_Ganyu.26.d
+	picture = GFX_report_event_adepti_gathering
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.26.a		# "邀请仙人出山！"
+		
+		# 消除人民满意度机制（如果存在）
+		if = {
+			limit = { has_country_flag = LYY_enable_labor_law_decisions }
+			clr_country_flag = LYY_enable_labor_law_decisions
+			remove_ideas = LYY_idea_labor_reform_active
+		}
+		
+		# 解锁部长：削月助阳真君
+		recruit_character = LYY_Moon_Carver
+		
+		# 解锁部长：理山叠水真君
+		recruit_character = LYY_Mountain_Shaper
+		
+		# 添加精神：仙人辅政
+		add_ideas = LYY_idea_adepti_governance
+	}
+}
+
+# 邀请闲云
+country_event = {
+	id = LYY_Ganyu.27
+	title = LYY_Ganyu.27.t
+	desc = LYY_Ganyu.27.d
+	picture = GFX_report_event_cloud_retainer
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.27.a		# "师父终于愿意出山了！"
+		
+		# 解锁部长：留云借风真君
+		recruit_character = LYY_Cloud_Retainer
+		
+		# 添加修正：闲云的智慧
+		add_ideas = LYY_idea_cloud_retainer_wisdom
+		
+		# 稳定度提升
+		add_stability = 0.10
+	}
+}
+
+# 凡人的处置
+country_event = {
+	id = LYY_Ganyu.28
+	title = LYY_Ganyu.28.t
+	desc = LYY_Ganyu.28.d
+	picture = GFX_report_event_ganyu_shenhe_dispute
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.28.a		# "申鹤，我不能放弃她们！"
+		
+		# 触发新闻和后续事件
+		news_event = {
+			id = LYY_News.4
+			days = 1
+		}
+		
+		# 3日后触发清算群玉阁事件
+		country_event = {
+			id = LYY_Ganyu.29
+			days = 3
+		}
+	}
+}
+
+# 清算群玉阁事件
+country_event = {
+	id = LYY_Ganyu.29
+	title = LYY_Ganyu.29.t
+	desc = LYY_Ganyu.29.d
+	picture = GFX_report_event_seven_stars_fate
+	is_triggered_only = yes
+	
+	# 选项A：邀请她们加入我们
+	option = {
+		name = LYY_Ganyu.29.a		# "璃月需要你们的智慧。"
+		
+		# 招募人物
+		recruit_character = LYY_KeQing
+		recruit_character = LYY_XingQiu
+		recruit_character = LYY_YeLan
+		recruit_character = LYY_BeiDou
+		recruit_character = LYY_Felgodette
+		
+		# 稳定度降低
+		add_stability = -0.10
+		
+		# 设置标志：未流放七星
+		set_country_flag = LYY_seven_stars_retained
+	}
+	
+	# 选项B：流放他们！
+	option = {
+		name = LYY_Ganyu.29.b		# "她们是璃月衰败的罪人！"
+		
+		# 添加奖励
+		add_stability = 0.10
+		add_political_power = 200
+		# 假设摩拉是自定义资源
+		
+		# 设置标志：流放七星
+		set_country_flag = LYY_seven_stars_exiled
+		
+		# 跳过后续国策
+		set_country_flag = LYY_skip_economy_control
+		set_country_flag = LYY_skip_commercial_pressure
+		set_country_flag = LYY_skip_six_nations_strategy
+		set_country_flag = LYY_skip_mortal_adepti_conflict
+		set_country_flag = LYY_skip_invite_more_adepti
+		
+		# 权力斗争直接结束
+		if = {
+			limit = { has_idea = LYY_idea_power_struggle_active }
+			remove_ideas = LYY_idea_power_struggle_active
+		}
+	}
+}
+
+# 邀请寒风铁器
+country_event = {
+	id = LYY_Ganyu.30
+	title = LYY_Ganyu.30.t
+	desc = LYY_Ganyu.30.d
+	picture = GFX_report_event_weapon_forging
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.30.a		# "章师傅的手艺果然精湛！"
+		
+		# 解锁科技组：寒风铁器
+		add_tech_bonus = {
+			bonus = 0.10
+			uses = 3
+			category = infantry_weapons
+		}
+		
+		# 添加精神：寒风铁器
+		add_ideas = LYY_idea_hanfeng_ironworks
+	}
+}
+
+# 铸造仙家法器
+country_event = {
+	id = LYY_Ganyu.31
+	title = LYY_Ganyu.31.t
+	desc = LYY_Ganyu.31.d
+	picture = GFX_report_event_adepti_artifacts
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.31.a		# "仙家法器将让我们的军队所向披靡！"
+		
+		# 360日后获得buff
+		add_timed_idea = {
+			idea = LYY_idea_adepti_artifacts_training
+			days = 360
+		}
+		
+		# 360日后触发完成事件
+		country_event = {
+			id = LYY_Ganyu.32
+			days = 360
+		}
+	}
+}
+
+# 仙家法器训练完成
+country_event = {
+	id = LYY_Ganyu.32
+	title = LYY_Ganyu.32.t
+	desc = LYY_Ganyu.32.d
+	picture = GFX_report_event_adepti_army
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.32.a		# "我们的军队已经脱胎换骨！"
+		
+		# 移除训练期精神
+		remove_ideas = LYY_idea_adepti_artifacts_training
+		
+		# 添加永久buff：仙家法器
+		add_ideas = LYY_idea_adepti_artifacts
+	}
+}
+
+# 凝光的手段
+country_event = {
+	id = LYY_Ganyu.33
+	title = LYY_Ganyu.33.t
+	desc = LYY_Ganyu.33.d
+	picture = GFX_report_event_ningguang_business
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.33.a		# "璃月需要凝光的经济才能。"
+		
+		# 添加政治点数
+		add_political_power = 120
+		
+		# 解锁部长：凝光
+		recruit_character = LYY_NingGuang
+		
+		# 添加精神：凝光的经济手腕
+		add_ideas = LYY_idea_ningguang_economics
+	}
+}
+
+# 掌控璃月经济
+country_event = {
+	id = LYY_Ganyu.34
+	title = LYY_Ganyu.34.t
+	desc = LYY_Ganyu.34.d
+	picture = GFX_report_event_liyue_economy_control
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.34.a		# "经济命脉必须掌握在国家手中！"
+		
+		# 添加政治点数和摩拉
+		add_political_power = 200
+		
+		# 解锁经济设施科技组
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 2
+			category = industry
+		}
+		
+		# 添加精神：群玉阁、新月轩、望舒客栈
+		add_ideas = LYY_idea_jade_chamber_control
+		add_ideas = LYY_idea_liuli_pavilion_control
+		add_ideas = LYY_idea_wangshu_inn_control
+	}
+}
+
+# 商途施压，策掌六国
+country_event = {
+	id = LYY_Ganyu.35
+	title = LYY_Ganyu.35.t
+	desc = LYY_Ganyu.35.d
+	picture = GFX_report_event_trade_pressure
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.35.a		# "璃月控制提瓦特的经济命脉！"
+		
+		# 对六国施加压力（假设使用TAG）
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = MOT  # 蒙德
+					tag = DVA  # 稻妻
+					tag = FON  # 枫丹
+					tag = NAT  # 纳塔
+					tag = SNE  # 须弥
+					tag = FAT  # 至冬
+				}
+			}
+			add_stability = -0.10
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_trade_pressure
+			}
+		}
+		
+		# 甘雨派获得政治点数加成
+		add_ideas = LYY_idea_six_nations_pressure
+		
+		# 触发新闻
+		news_event = {
+			id = LYY_News.5
+			days = 1
+		}
+	}
+}
+
+# 祸结衅深
+country_event = {
+	id = LYY_Ganyu.36
+	title = LYY_Ganyu.36.t
+	desc = LYY_Ganyu.36.d
+	picture = GFX_report_event_shenhe_outburst
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.36.a		# "申鹤，我理解你的担忧……"
+		
+		# 触发人仙之争事件
+		country_event = {
+			id = LYY_Ganyu.37
+			days = 3
+		}
+		
+		# 添加精神：派系冲突
+		add_ideas = LYY_idea_faction_conflict
+	}
+}
+
+# 人仙之争（决议事件）
+country_event = {
+	id = LYY_Ganyu.37
+	title = LYY_Ganyu.37.t
+	desc = LYY_Ganyu.37.d
+	picture = GFX_report_event_mortal_adepti_conflict
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.37.a		# "开启人仙之争决议机制。"
+		
+		# 开启决议组
+		set_country_flag = LYY_mortal_adepti_conflict_active
+		
+		# 设置初始平衡
+		set_variable = {
+			var = LYY_ganyu_control
+			value = 40
+		}
+	}
+}
+
+# 人仙之争决议：支持刻晴
+country_event = {
+	id = LYY_Ganyu.38
+	title = LYY_Ganyu.38.t
+	desc = LYY_Ganyu.38.d
+	picture = GFX_report_event_support_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.38.a		# "支持刻晴的提案。"
+		
+		# 增加刻晴派支持率
+		add_timed_idea = {
+			idea = LYY_idea_support_keqing_faction
+			days = 30
+		}
+		
+		# 人仙派系变量调整
+		add_to_variable = {
+			var = LYY_mortal_faction
+			value = 3
+		}
+	}
+}
+
+# 人仙之争决议：支持凝光
+country_event = {
+	id = LYY_Ganyu.39
+	title = LYY_Ganyu.39.t
+	desc = LYY_Ganyu.39.d
+	picture = GFX_report_event_support_ningguang
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.39.a		# "支持凝光的提案。"
+		
+		# 增加凝光派支持率
+		add_timed_idea = {
+			idea = LYY_idea_support_ningguang_faction
+			days = 30
+		}
+		
+		# 人仙派系变量调整
+		add_to_variable = {
+			var = LYY_mortal_faction
+			value = 3
+		}
+	}
+}
+
+# 人仙之争决议：支持申鹤
+country_event = {
+	id = LYY_Ganyu.40
+	title = LYY_Ganyu.40.t
+	desc = LYY_Ganyu.40.d
+	picture = GFX_report_event_support_shenhe
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.40.a		# "支持申鹤的提案。"
+		
+		# 增加申鹤派支持率
+		add_timed_idea = {
+			idea = LYY_idea_support_shenhe_faction
+			days = 30
+		}
+		
+		# 人仙派系变量调整
+		add_to_variable = {
+			var = LYY_adepti_faction
+			value = 3
+		}
+	}
+}
+
+# 歌尘浪市
+country_event = {
+	id = LYY_Ganyu.41
+	title = LYY_Ganyu.41.t
+	desc = LYY_Ganyu.41.d
+	picture = GFX_report_event_madame_ping
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.41.a		# "请萍姥姥出山指点迷津！"
+		
+		# 解锁部长/将领：萍姥姥
+		recruit_character = LYY_MadamePing
+		
+		# 触发萍姥姥出山事件
+		country_event = {
+			id = LYY_Ganyu.42
+			days = 5
+		}
+	}
+}
+
+# 萍姥姥出山
+country_event = {
+	id = LYY_Ganyu.42
+	title = LYY_Ganyu.42.t
+	desc = LYY_Ganyu.42.d
+	picture = GFX_report_event_madame_ping_advice
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.42.a		# "我们将暗中支持刻晴！"
+		
+		# 设置暗中支持刻晴标志
+		set_country_flag = LYY_secretly_support_keqing
+		
+		# 添加精神：萍姥姥的智慧
+		add_ideas = LYY_idea_madame_ping_wisdom
+		
+		# 稳定度提升
+		add_stability = 0.15
+	}
+}
+
+# 玄璃盛世
+country_event = {
+	id = LYY_Ganyu.43
+	title = LYY_Ganyu.43.t
+	desc = LYY_Ganyu.43.d
+	picture = GFX_report_event_liyue_prosperity
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.43.a		# "人仙共治的璃月终于实现了！"
+		
+		# 移除碎土离疆言国殇（如果还存在）
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_fragmented_land }
+			remove_ideas = LYY_idea_ganyu_fragmented_land
+		}
+		
+		# 添加永久buff：玄璃盛世
+		add_ideas = LYY_idea_xuanli_prosperity
+		
+		# 提升国力
+		add_stability = 0.15
+		add_war_support = 0.15
+		
+		# 触发一出好戏事件
+		country_event = {
+			id = LYY_Ganyu.44
+			days = 3
+		}
+	}
+}
+
+# 一出好戏
+country_event = {
+	id = LYY_Ganyu.44
+	title = LYY_Ganyu.44.t
+	desc = LYY_Ganyu.44.d
+	picture = GFX_report_event_ganyu_masterplan
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.44.a		# "不愧是甘雨，真是老谋深算！"
+		
+		# 甘雨获得特质：谋略大师
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_master_strategist
+		}
+		
+		# 所有派系达成平衡
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		
+		# 添加精神：四方平衡
+		add_ideas = LYY_idea_four_factions_balanced
+		
+		# 政治点数大幅奖励
+		add_political_power = 300
+	}
+}
+
+# 横扫提瓦特（可选路线）
+country_event = {
+	id = LYY_Ganyu.45
+	title = LYY_Ganyu.45.t
+	desc = LYY_Ganyu.45.d
+	picture = GFX_report_event_teyvat_conquest
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.45.a		# "璃月将统一提瓦特！"
+		
+		# 政府分配设置
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		
+		# 解锁决议：提瓦特统战计划
+		set_country_flag = LYY_enable_teyvat_unification
+		
+		# 添加精神：璃月的野心
+		add_ideas = LYY_idea_liyue_ambition
+		
+		# 大幅军事加成
+		army_experience = 50
+	}
+}
+
+# 伺机而动
+country_event = {
+	id = LYY_Ganyu.46
+	title = LYY_Ganyu.46.t
+	desc = LYY_Ganyu.46.d
+	picture = GFX_report_event_ganyu_waiting
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.46.a		# "听从甘雨阁下的决策。"
+		
+		# 获得8个编制部队
+		load_oob = "LYY_ganyu_qianyan_army"
+		
+		# 添加修正：养精蓄锐
+		add_ideas = LYY_idea_biding_time
+		
+		# 陆军经验
+		army_experience = 30
+	}
+}
+
+# 筑工业之基
+country_event = {
+	id = LYY_Ganyu.47
+	title = LYY_Ganyu.47.t
+	desc = LYY_Ganyu.47.d
+	picture = GFX_report_event_industrial_preparation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.47.a		# "储备装备，蓄势待发！"
+		
+		# 随机5个地块获得军用工厂
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+				NOT = { has_state_flag = LYY_工业_built }
+			}
+			set_state_flag = LYY_工业_built
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		# 库存装备+500k
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 50000
+		}
+	}
+}
+
+# 备战四境
+country_event = {
+	id = LYY_Ganyu.48
+	title = LYY_Ganyu.48.t
+	desc = LYY_Ganyu.48.d
+	picture = GFX_report_event_war_preparation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.48.a		# "战争即将到来！"
+		
+		# 所有派系对甘雨派评价降低
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_war_preparation_hostility
+			}
+		}
+		
+		# 移除中立期限制
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_neutrality_period }
+			remove_ideas = LYY_idea_ganyu_neutrality_period
+		}
+		
+		# 添加精神：备战状态
+		add_ideas = LYY_idea_war_readiness
+	}
+}
+
+# 联合凝光派
+country_event = {
+	id = LYY_Ganyu.49
+	title = LYY_Ganyu.49.t
+	desc = LYY_Ganyu.49.d
+	picture = GFX_report_event_ganyu_ningguang_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.49.a		# "凝光，让我们再次联手！"
+		
+		# 与凝光派结盟
+		if = {
+			limit = { country_exists = LYY_NGL }
+			# 停战
+			white_peace = LYY_NGL
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_NGL } }
+				add_to_faction = LYY_NGL
+			}
+			
+			# 改善关系
+			LYY_NGL = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_old_colleagues_bond
+				}
+			}
+		}
+		
+		# 添加修正：凝光联盟
+		add_ideas = LYY_idea_ningguang_alliance
+	}
+}
+
+# 联合申鹤派
+country_event = {
+	id = LYY_Ganyu.50
+	title = LYY_Ganyu.50.t
+	desc = LYY_Ganyu.50.d
+	picture = GFX_report_event_ganyu_shenhe_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.50.a		# "申鹤，我们是师姐妹！"
+		
+		# 与申鹤派结盟
+		if = {
+			limit = { country_exists = LYY_SHH }
+			# 停战
+			white_peace = LYY_SHH
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
+			}
+			
+			# 改善关系
+			LYY_SHH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_adepti_sisters_bond
+				}
+			}
+		}
+		
+		# 添加修正：申鹤联盟
+		add_ideas = LYY_idea_shenhe_alliance
+	}
+}
+
+# 联合嘉明派
+country_event = {
+	id = LYY_Ganyu.51
+	title = LYY_Ganyu.51.t
+	desc = LYY_Ganyu.51.d
+	picture = GFX_report_event_ganyu_gaming_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.51.a		# "利用嘉明的资源和位置！"
+		
+		# 与嘉明派结盟
+		if = {
+			limit = { country_exists = LYY_JMG }
+			# 停战
+			white_peace = LYY_JMG
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_JMG } }
+				add_to_faction = LYY_JMG
+			}
+			
+			# 改善关系
+			LYY_JMG = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_strategic_partnership
+				}
+			}
+		}
+		
+		# 添加修正：嘉明联盟
+		add_ideas = LYY_idea_gaming_alliance
+	}
+}
+
+# 夹击凝光（与申鹤联盟时）
+country_event = {
+	id = LYY_Ganyu.52
+	title = LYY_Ganyu.52.t
+	desc = LYY_Ganyu.52.d
+	picture = GFX_report_event_pincer_ningguang
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.52.a		# "凝光阁下，请投降。"
+		
+		# 对凝光派宣战
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_ningguang
+			days = 90
+		}
+	}
+}
+
+# 夹击刻晴（与凝光联盟时）
+country_event = {
+	id = LYY_Ganyu.53
+	title = LYY_Ganyu.53.t
+	desc = LYY_Ganyu.53.d
+	picture = GFX_report_event_pincer_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.53.a		# "刻晴小姐，放下武器吧。"
+		
+		# 对刻晴派宣战
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_keqing
+			days = 90
+		}
+	}
+}
+
+# 夹击申鹤（与嘉明联盟时）
+country_event = {
+	id = LYY_Ganyu.54
+	title = LYY_Ganyu.54.t
+	desc = LYY_Ganyu.54.d
+	picture = GFX_report_event_pincer_shenhe
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.54.a		# "申鹤，对不起……"
+		
+		# 对申鹤派宣战
+		if = {
+			limit = { country_exists = LYY_SHH }
+			declare_war_on = {
+				target = LYY_SHH
+				type = annex_everything
+			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_shenhe
+			days = 90
+		}
+	}
+}
+
+# 刑马作誓
+country_event = {
+	id = LYY_Ganyu.55
+	title = LYY_Ganyu.55.t
+	desc = LYY_Ganyu.55.d
+	picture = GFX_report_event_blood_oath
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.55.a		# "与盟友共同扫清璃月！"
+		
+		# 对所有其他派系宣战
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+				NOT = { is_in_faction_with = ROOT }
+			}
+			ROOT = {
+				declare_war_on = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		
+		# 添加精神：血盟誓约
+		add_ideas = LYY_idea_blood_oath_alliance
+		
+		# 军事加成
+		army_experience = 40
+	}
+}
+
+# 屈居人下
+country_event = {
+	id = LYY_Ganyu.56
+	title = LYY_Ganyu.56.t
+	desc = LYY_Ganyu.56.d
+	picture = GFX_report_event_ganyu_exhausted
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.56.a		# "我累了……"
+		
+		# 割让部分领土给盟友
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				transfer_state_to = PREV
+			}
+		}
+		
+		# 甘雨失去特质，获得疲惫特质
+		if = {
+			limit = { has_country_leader = { character = LYY_GanYu } }
+			remove_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_master_strategist
+			}
+			add_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_exhausted
+			}
+		}
+		
+		# 添加debuff
+		add_ideas = LYY_idea_subordinate_position
+		
+		# 触发后续选择
+		country_event = {
+			id = LYY_Ganyu.57
+			days = 15
+		}
+	}
+}
+
+# 续辅秘书之职
+country_event = {
+	id = LYY_Ganyu.57
+	title = LYY_Ganyu.57.t
+	desc = LYY_Ganyu.57.d
+	picture = GFX_report_event_ganyu_secretary
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.57.a		# "好吧，我答应你……"
+		
+		# 政治体制改变为傀儡
+		set_autonomy = {
+			target = ROOT
+			autonomous_state = autonomy_puppet
+			freedom_level = 0.3
+		}
+		
+		# 甘雨降职为秘书（改变角色角色）
+		retire_character = LYY_GanYu
+		
+		# 触发最终事件
+		country_event = {
+			id = LYY_Ganyu.58
+			days = 30
+		}
+	}
+}
+
+# 弃地献权
+country_event = {
+	id = LYY_Ganyu.58
+	title = LYY_Ganyu.58.t
+	desc = LYY_Ganyu.58.d
+	picture = GFX_report_event_ganyu_surrender
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.58.a		# "璃月交给你们了……"
+		
+		# 被盟友吞并
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+			
+			# 玩家切换到盟友国家
+			if = {
+				limit = { ROOT = { is_ai = no } }
+				change_tag_from = ROOT
+			}
+		}
+	}
+}
+
+# 夺取权柄
+country_event = {
+	id = LYY_Ganyu.59
+	title = LYY_Ganyu.59.t
+	desc = LYY_Ganyu.59.d
+	picture = GFX_report_event_ganyu_coup
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.59.a		# "今晚，我将夺取一切！"
+		
+		# 获得对盟友的战争目标
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = PREV
+				}
+			}
+		}
+		
+		# 添加精神：政变准备
+		add_ideas = LYY_idea_coup_preparation
+		
+		# 触发政变新闻事件
+		news_event = {
+			id = LYY_News.6
+			days = 1
+		}
+	}
+}
+
+# 兼并友邦
+country_event = {
+	id = LYY_Ganyu.60
+	title = LYY_Ganyu.60.t
+	desc = LYY_Ganyu.60.d
+	picture = GFX_report_event_liyue_final_unification
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.60.a		# "璃月终归一统！"
+		
+		# 解锁问鼎璃月国策
+		set_country_flag = LYY_enable_final_unification
+		
+		# 甘雨获得终极特质
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_master_of_liyue
+		}
+		
+		# 添加精神：真正的统一
+		add_ideas = LYY_idea_true_unification
+		
+		# 大幅奖励
+		add_political_power = 500
+		add_stability = 0.20
+		add_war_support = 0.20
+	}
+}
+
+# 海纳百川
+country_event = {
+	id = LYY_Ganyu.61
+	title = LYY_Ganyu.61.t
+	desc = LYY_Ganyu.61.d
+	picture = GFX_report_event_keqing_alliance_offer
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.61.a		# "接纳刻晴的结盟申请。"
+		
+		# 强制停战
+		if = {
+			limit = { 
+				country_exists = LYY_KEQ
+				has_war_with = LYY_KEQ
+			}
+			white_peace = LYY_KEQ
+		}
+		
+		# 触发接纳刻晴事件
+		country_event = {
+			id = LYY_Ganyu.62
+			days = 5
+		}
+	}
+	
+	option = {
+		name = LYY_Ganyu.61.b		# "拒绝刻晴的申请。"
+		
+		# 刻晴对甘雨评价降低
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_alliance_rejected
+				}
+			}
+		}
+	}
+}
+
+# 接纳刻晴
+country_event = {
+	id = LYY_Ganyu.62
+	title = LYY_Ganyu.62.t
+	desc = LYY_Ganyu.62.d
+	picture = GFX_report_event_ganyu_keqing_handshake
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.62.a		# "刻晴，欢迎加入！"
+		
+		# 与刻晴派结为军事同盟
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_KEQ } }
+				add_to_faction = LYY_KEQ
+			}
+			
+			# 改善关系
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_ideological_alliance
+				}
+			}
+		}
+		
+		# 添加精神：刻晴联盟
+		add_ideas = LYY_idea_keqing_alliance
+	}
+}
+
+# 夹击凝光（刻晴联盟版）
+country_event = {
+	id = LYY_Ganyu.63
+	title = LYY_Ganyu.63.t
+	desc = LYY_Ganyu.63.d
+	picture = GFX_report_event_attack_ningguang_together
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.63.a		# "凝光是我们共同的敌人！"
+		
+		# 对凝光派宣战
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+			
+			# 刻晴也对凝光宣战
+			if = {
+				limit = { country_exists = LYY_KEQ }
+				LYY_KEQ = {
+					declare_war_on = {
+						target = LYY_NGL
+						type = annex_everything
+					}
+				}
+			}
+		}
+		
+		# 添加对凝光的进攻修正
+		add_timed_idea = {
+			idea = LYY_idea_joint_offensive_ningguang
+			days = 90
+		}
+	}
+}
+
+# 默契配合
+country_event = {
+	id = LYY_Ganyu.64
+	title = LYY_Ganyu.64.t
+	desc = LYY_Ganyu.64.d
+	picture = GFX_report_event_shenhe_peace_offer
+	is_triggered_only = yes
+	
+	# 选项A：申鹤同意（80%）
+	option = {
+		name = LYY_Ganyu.64.a		# "申鹤同意媾和！"
+		trigger = {
+			NOT = { has_country_flag = LYY_shenhe_refuses_peace }
+		}
+		
+		# 与申鹤派媾和
+		if = {
+			limit = { 
+				country_exists = LYY_SHH
+				has_war_with = LYY_SHH
+			}
+			white_peace = LYY_SHH
+			
+			# 加入联盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
+			}
+		}
+		
+		# 添加精神：三方联盟
+		add_ideas = LYY_idea_three_way_alliance
+	}
+	
+	# 选项B：申鹤拒绝（20%）
+	option = {
+		name = LYY_Ganyu.64.b		# "申鹤拒绝了……"
+		trigger = {
+			has_country_flag = LYY_shenhe_refuses_peace
+		}
+		
+		# 继续战争
+		add_war_support = 0.05
+	}
+}
+
+# 夺取战果
+country_event = {
+	id = LYY_Ganyu.65
+	title = LYY_Ganyu.65.t
+	desc = LYY_Ganyu.65.d
+	picture = GFX_report_event_territory_demand
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.65.a		# "这些土地属于仙家！"
+		
+		# 获得盟友部分土地的主权宣称
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_SHH
+				}
+				is_in_faction_with = ROOT
+			}
+			every_owned_state = {
+				limit = { 
+					is_core_of = PREV
+					NOT = { is_core_of = ROOT }
+				}
+				random_list = {
+					30 = {
+						add_claim_by = ROOT
+					}
+					70 = { }
+				}
+			}
+		}
+		
+		# 刻晴对甘雨评价降低
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_territorial_greed
+				}
+			}
+		}
+		
+		
+		# 触发盟友事件：甘雨强占土地
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				country_event = {
+					id = LYY_Keqing.100
+					days = 1
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				country_event = {
+					id = LYY_Shenhe.100
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# 突入北境（刻晴联盟版）
+country_event = {
+	id = LYY_Ganyu.66
+	title = LYY_Ganyu.66.t
+	desc = LYY_Ganyu.66.d
+	picture = GFX_report_event_northern_campaign_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.66.a		# "申鹤负责这次军事行动。"
+		
+		# 甘雨派和申鹤派各获得5个步兵师
+		load_oob = "LYY_ganyu_northern_army"
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				load_oob = "LYY_shenhe_northern_army"
+			}
+		}
+		
+		# 对嘉明派宣战
+		if = {
+			limit = { country_exists = LYY_JMG }
+			declare_war_on = {
+				target = LYY_JMG
+				type = annex_everything
+			}
+		}
+		
+		# 添加修正：北境远征
+		add_timed_idea = {
+			idea = LYY_idea_northern_expedition_alliance
+			days = 70
+		}
+	}
+}
+
+# 划分界限
+country_event = {
+	id = LYY_Ganyu.67
+	title = LYY_Ganyu.67.t
+	desc = LYY_Ganyu.67.d
+	picture = GFX_report_event_territory_division
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.67.a		# "是时候履行承诺了。"
+		
+		# 获得先前宣称的领土
+		every_owned_state = {
+			limit = { 
+				is_claimed_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_core_of = ROOT
+		}
+		
+		# 刻晴虽不甘但同意
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_forced_concession
+				}
+			}
+		}
+		
+		# 添加精神：领土扩张
+		add_ideas = LYY_idea_territory_expansion
+	}
+}
+
+# 镇压叛乱（刻晴二次起义）
+country_event = {
+	id = LYY_Ganyu.68
+	title = LYY_Ganyu.68.t
+	desc = LYY_Ganyu.68.d
+	picture = GFX_report_event_keqing_second_uprising
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.68.a		# "一切都在按计划进行……"
+		
+		# 璃月联邦（甘雨政府）对刻晴派宣战
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# 设置秘密计划标志
+		set_country_flag = LYY_secret_plan_active
+		
+		# 添加精神：计划中的战争
+		add_ideas = LYY_idea_planned_conflict
+	}
+}
+
+# 策除启明派
+country_event = {
+	id = LYY_Ganyu.69
+	title = LYY_Ganyu.69.t
+	desc = LYY_Ganyu.69.d
+	picture = GFX_report_event_eliminate_keqing_plan
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.69.a		# "智取刻晴，整合启明派！"
+		
+		# 刻晴对甘雨评价+25%
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_strategic_cooperation
+				}
+			}
+		}
+		
+		# 添加精神：智取计划
+		add_ideas = LYY_idea_outsmart_keqing_plan
+	}
+}
+
+# 设下鸿门宴
+country_event = {
+	id = LYY_Ganyu.70
+	title = LYY_Ganyu.70.t
+	desc = LYY_Ganyu.70.d
+	picture = GFX_report_event_hongmen_banquet
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.70.a		# "准备好一切，以防不测。"
+		
+		# 适役人口-5%
+		add_manpower = -5000
+		
+		# 添加修正：鸿门宴布局
+		add_ideas = LYY_idea_hongmen_setup
+		
+		# 触发后续事件
+		country_event = {
+			id = LYY_Ganyu.71
+			days = 10
+		}
+	}
+}
+
+# 关押刻晴
+country_event = {
+	id = LYY_Ganyu.71
+	title = LYY_Ganyu.71.t
+	desc = LYY_Ganyu.71.d
+	picture = GFX_report_event_keqing_detained
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.71.a		# "刻晴，请理解我。"
+		
+		# 刻晴派国家元首更换为云堇
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				retire_character = LYY_KeQing
+				promote_character = LYY_YunJin
+			}
+		}
+		
+		# 设置刻晴被关押标志
+		set_country_flag = LYY_keqing_detained
+		
+		# 触发后续谈判事件
+		country_event = {
+			id = LYY_Ganyu.72
+			days = 5
+		}
+	}
+}
+
+# 利用刻晴和启明派谈判
+country_event = {
+	id = LYY_Ganyu.72
+	title = LYY_Ganyu.72.t
+	desc = LYY_Ganyu.72.d
+	picture = GFX_report_event_negotiate_with_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.72.a		# "给云堇送去密信。"
+		
+		# 仅用于推动剧情
+		# 刻晴绝食抗议（内部标志）
+		set_country_flag = LYY_keqing_hunger_strike
+		
+		# 触发强并启明派事件
+		country_event = {
+			id = LYY_Ganyu.73
+			days = 10
+		}
+	}
+}
+
+# 强并启明派
+country_event = {
+	id = LYY_Ganyu.73
+	title = LYY_Ganyu.73.t
+	desc = LYY_Ganyu.73.d
+	picture = GFX_report_event_annex_keqing_faction
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.73.a		# "一个月内必须取胜！"
+		
+		# 获得对启明派征服战争目标
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_KEQ
+			}
+		}
+		
+		# 触发刻晴派国策：绝不屈服
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				country_event = {
+					id = LYY_Keqing.200
+					days = 1
+				}
+			}
+		}
+		
+		# 添加进攻修正
+		add_timed_idea = {
+			idea = LYY_idea_decisive_assault
+			days = 30
+		}
+	}
+}
+
+# 整合启明派
+country_event = {
+	id = LYY_Ganyu.74
+	title = LYY_Ganyu.74.t
+	desc = LYY_Ganyu.74.d
+	picture = GFX_report_event_integrate_keqing_faction
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.74.a		# "你们明白了我的苦心……"
+		
+		# 招募人物
+		recruit_character = LYY_KeQing
+		recruit_character = LYY_YunJin
+		recruit_character = LYY_XiangLing
+		recruit_character = LYY_HuTao
+		recruit_character = LYY_XinYan
+		
+		# 获得刻晴派地块的主权
+		every_state = {
+			limit = { is_core_of = LYY_KEQ }
+			add_core_of = ROOT
+		}
+		
+		# 吞并刻晴派
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			annex_country = {
+				target = LYY_KEQ
+				transfer_troops = yes
+			}
+		}
+		
+		# 添加精神：启明派整合
+		add_ideas = LYY_idea_keqing_faction_integrated
+		
+		# 大幅奖励
+		add_political_power = 250
+		add_stability = 0.15
+	}
+}
+
+# 镇压叛乱（刻晴军使用仙家法器）
+country_event = {
+	id = LYY_Ganyu.75
+	title = LYY_Ganyu.75.t
+	desc = LYY_Ganyu.75.d
+	picture = GFX_report_event_keqing_using_artifacts
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.75.a		# "一切都在按计划进行……"
+		
+		# 陆军攻击和防御加成
+		add_timed_idea = {
+			idea = LYY_idea_artifact_warfare
+			days = 30
+		}
+		
+		# 甘雨准备应对意外
+		add_political_power = 100
+	}
+}
+
+# 刻晴派复国事件（人民满意度过低触发）
+country_event = {
+	id = LYY_Ganyu.60
+	title = LYY_Ganyu.60.t
+	desc = LYY_Ganyu.60.d
+	picture = GFX_report_event_keqing_restore
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.60.a		# "人民的呼声无法忽视……"
+		
+		# 移除甘雨政权的精神
+		remove_ideas = LYY_idea_ganyu_peaceful_waves
+		remove_ideas = LYY_idea_restore_ancient_system
+		remove_ideas = LYY_idea_ancient_education
+		
+		# 触发内战/政权更替
+		add_stability = -0.30
+		add_war_support = -0.20
+		
+		# 生成刻晴派叛军
+		create_wargoal = {
+			type = annex_everything
+			target = LYY
+		}
+		
+		# 设置flag
+		set_country_flag = LYY_keqing_restoration_triggered
+		
+		# 触发新闻
+		news_event = {
+			id = LYY_News.106
+			days = 1
+		}
+	}
+}
+
+# 权力斗争结束事件
+country_event = {
+	id = LYY_Ganyu.61
+	title = LYY_Ganyu.61.t
+	desc = LYY_Ganyu.61.d
+	picture = GFX_report_event_power_struggle_end
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.61.a		# "璃月终于迎来了和平……"
+		
+		# 移除人仙之争精神
+		remove_ideas = LYY_idea_mortal_adepti_struggle
+		
+		# 大幅奖励
+		add_stability = 0.15
+		add_war_support = 0.10
+		add_political_power = 150
+		
+		# 解锁新顾问
+		if = {
+			limit = {
+				check_variable = { var = LYY_adepti_faction value = 50 compare = greater_than }
+			}
+			# 仙人派占优，解锁削月助阳和理山叠水
+			add_ideas = LYY_advisor_moon_carver
+			add_ideas = LYY_advisor_mountain_shaper
+		}
+		else = {
+			# 人类派占优，解锁刻晴和凝光顾问
+			add_ideas = LYY_advisor_keqing
+			add_ideas = LYY_advisor_ningguang
+		}
+		
+		# 触发新闻
+		news_event = {
+			id = LYY_News.107
+			days = 1
+		}
+	}
+}
+
+# 宣战天理最终事件
+country_event = {
+	id = LYY_Ganyu.100
+	title = LYY_Ganyu.100.t
+	desc = LYY_Ganyu.100.d
+	picture = GFX_report_event_celestia_war
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.100.a		# "提瓦特的命运，掌握在我们手中！"
+		
+		# 添加最终战争精神
+		add_ideas = LYY_idea_war_against_celestia
+		
+		# 大幅提升战争能力
+		add_war_support = 0.50
+		add_stability = 0.20
+		
+		# 解锁所有仙人角色
+		recruit_character = LYY_MoonCarver
+		recruit_character = LYY_MountainShaper
+		recruit_character = LYY_CloudRetainer
+		recruit_character = LYY_MadamePing
+		
+		# 每个仙人成为将军，拥有特殊加成
+		LYY_MoonCarver = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MountainShaper = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_CloudRetainer = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MadamePing = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		
+		# 生成大量军队
+		load_oob = LYY_Celestia_War_Army
+		
+	# 触发超级事件新闻
+	news_event = {
+		id = LYY_News.108
+		days = 1
+	}		# 向天理宣战（需要在游戏中定义天理国家代码CEL）
+		if = {
+			limit = {
+				country_exists = CEL
+			}
+			declare_war_on = {
+				target = CEL
+				type = annex_everything
+			}
+		}
+	}
+}
