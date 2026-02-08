@@ -1,0 +1,547 @@
+add_namespace = LYY_Keqing
+# 初始事件：登楼调律
+country_event = {
+	id = LYY_Keqing.1
+	title = LYY_Keqing.1.t
+	desc = LYY_Keqing.1.d
+	picture = GFX_report_event_keqing_speech
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.1.a		# 选项文本："为民而战！"
+		# --- 1. 确立领导人与执政党 ---
+		# 确保刻晴作为角色存在
+		recruit_character = LYY_KeQing
+		# 设定党派支持率：璃月劳动党（启明主义/共产主义）100%
+		set_political_party = {
+			ideology = communism
+			popularity = 100
+		}
+		# 刻晴上位
+		promote_character = LYY_KeQing
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		# 赋予刻晴专属领袖特质：照耀璃月的红星
+		# 效果：稳定度+10%，陆军攻击+10%，部长任命花费+10% (需在common/country_leader_traits中定义此id)
+		add_country_leader_trait = {
+			character = LYY_KeQing
+			trait = LYY_trait_shining_red_star
+		}
+		# --- 2. 变更国家名号与外观 ---
+		# 变更为：七星革命阵线
+		set_cosmetic_tag = LYY_SEVEN_STARS_FRONT
+		# --- 3. 设定国家基础数据 ---
+		# 文本要求：基础稳定度40%，战争支持度80%
+		# 注意：set_指令是直接设定当前值
+		set_stability = 0.4
+		set_war_support = 0.8
+		# 文本要求：科研槽 3
+		set_research_slots = 3
+		# --- 4. 添加民族精神 (Debuffs) ---
+		# 精神：旧族暗潮涌 (稳定度-40%，增援率-30%，战争支持度-30%)
+		add_ideas = LYY_idea_old_clan_undercurrents
+		# 精神：魂无所依之师 (陆军组织度-30%，计划速度-40%，陆军攻击-30%)
+		add_ideas = LYY_idea_soulless_army
+		# --- 5. 设定经济与贸易制度 ---
+		# 文本要求：分裂的经济体系（锁定），自给自足（锁定）
+		add_ideas = LYY_split_economic_system		# 自定义经济法案，锁定待写
+		add_ideas = closed_economy		# 贸易法案：自给自足 (原版id)，锁定待写
+	}
+}
+
+# 烽火连天起 - 敌人各地爆发起义，编制为5民兵，每个势力随机5个地块
+country_event = {
+    id = LYY_Keqing.5
+    title = LYY_Keqing.5.t
+    desc = LYY_Keqing.5.d
+    picture = "GFX_report_event_partisan_activity"
+    is_triggered_only = yes
+    fire_only_once = yes
+    hidden = no
+    option = {
+        name = "LYY_Keqing.5.a"
+        # 检查并创建民兵师编制 (编制为5个步兵营)
+        if = {
+            limit = {
+                NOT = { has_division_template = "LYY_Keqing_Militia_Template" }
+            }
+            create_division_template = {
+                name = "LYY_Keqing_Militia_Template"
+                regiments = {
+                    infantry = { x = 0 y = 0 }
+                    infantry = { x = 0 y = 1 }
+                    infantry = { x = 0 y = 2 }
+                    infantry = { x = 0 y = 3 }
+                    infantry = { x = 0 y = 4 }
+                }
+            }
+        }
+        # 敌人各地爆发起义：为每个交战或仇恨的国家，随机5个地块爆发民兵起义
+        every_country = {
+            limit = {
+                OR = {
+                    is_at_war_with = ROOT
+                    has_opinion = { who = ROOT value < -50 }
+                }
+                NOT = { 
+                    has_government_in_exile = yes
+                    tag = ROOT
+                }
+            }
+            
+            # 每个势力随机选择5个地块触发起义
+            random_owned_states = {
+                limit = {
+                    is_controlled_by = ROOT
+                    NOT = { is_core = ROOT }
+                }
+                count = 5
+                
+                # 在该地块生成5个民兵师
+                create_unit = {
+                    # PREV 指代 every_country 中的国家（即该地块的原主/敌国），这符合“起义”的逻辑
+                    # 如果您希望生成的单位属于 ROOT（占领方），请改为 owner = ROOT
+                    owner = PREV
+                    template = "LYY_Keqing_Militia_Template"
+                    amount = 5
+                    location = THIS # 在当前选中的地块生成
+                }
+                
+                # 增加抵抗力量修饰符（90天有效期）
+                add_state_modifier = {
+                    name = resistance_target
+                    days = 90
+                }
+            }
+            # 标记该国家已爆发起义
+            set_country_flag = uprising_triggered
+        }
+        
+        # 标记本事件已发生
+        set_country_flag = uprising_happened
+        
+        # 增加战争支持度
+        add_war_support = 0.05
+        ai_chance = {
+            factor = 1.0
+        }
+    }
+}
+
+# 甘雨心相引 - 判定事件
+country_event = {
+	id = LYY_Keqing.10
+	title = LYY_Keqing.10.t
+	desc = LYY_Keqing.10.d
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_enable_wooing_ganyu
+	}
+	immediate = {
+		# 这里需要复杂的变量逻辑，简化为直接判定
+		if = {
+			limit = {
+				check_variable = {
+					LYY_Ganyu_Favor > 80
+				}
+			}
+			set_country_flag = LYY_ganyu_success
+		}
+		else = {
+			set_country_flag = LYY_ganyu_failed
+		}
+	}
+	option = {
+		name = "Success"
+		trigger = {
+			has_country_flag = LYY_ganyu_success
+		}
+		set_country_flag = LYY_ganyu_allied
+		white_peace = GYP
+		add_political_power = 120
+		add_stability = 0.05
+	}
+	option = {
+		name = "Failure"
+		trigger = {
+			has_country_flag = LYY_ganyu_failed
+		}
+		add_stability = -0.1
+		add_war_support = -0.1
+	}
+}
+
+# 凝光新政危机 (简单框架)
+# 这部分通常放在 on_actions 的 on_daily_tick 中检测
+# 这里仅提供事件结构
+country_event = {
+	id = LYY_Ningguang_Crisis.1
+	title = "Economic Crisis Deepens"
+	desc = "The crisis value is rising..."
+	trigger = {
+		tag = LYY		# 假设凝光是原TAG
+		has_country_flag = LYY_ningguang_new_deal_active
+	}
+	option = {
+		name = "We must act!"
+		add_variable = {
+			LYY_crisis_value = 0.5
+		}
+	}
+}
+
+# ===== 刻晴-甘雨合作部分 =====
+# 拉拢甘雨事件
+country_event = {
+	id = LYY_Keqing.11
+	title = LYY_Keqing.11.t
+	desc = LYY_Keqing.11.d
+	picture = GFX_report_event_generic_negotiation
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_enable_wooing_ganyu
+	}
+	immediate = {
+		# 初始化甘雨倾向值（范围0-100，50为中立）
+		if = {
+			limit = {
+				NOT = { has_variable = LYY_ganyu_toward_immortals }
+			}
+			set_variable = {
+				LYY_ganyu_toward_immortals = 50
+			}
+			set_variable = {
+				LYY_ganyu_toward_keqing = 50
+			}
+		}
+	}
+	option = {
+		name = LYY_Keqing.11.a
+		# 进行地下宣传：每日提升对刻晴的倾向
+		set_variable = {
+			LYY_ganyu_propaganda_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_propaganda_tooltip
+	}
+	option = {
+		name = LYY_Keqing.11.b
+		# 破坏对方设施：对敌方造成工业打击
+		set_variable = {
+			LYY_ganyu_sabotage_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_sabotage_tooltip
+	}
+	option = {
+		name = LYY_Keqing.11.c
+		# 瓦解军心：通过渗透削弱敌方军队
+		set_variable = {
+			LYY_ganyu_infiltration_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_infiltration_tooltip
+	}
+}
+
+# 甘雨心相引成功事件
+country_event = {
+	id = LYY_Keqing.12
+	title = LYY_Keqing.12.t
+	desc = LYY_Keqing.12.d
+	picture = GFX_report_event_generic_alliance
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_wooing_ganyu_active
+	}
+	immediate = {
+		# 判定成功概率（基于甘雨倾向）
+		if = {
+			limit = {
+				check_variable = {
+					LYY_ganyu_toward_keqing > 80
+				}
+			}
+			set_country_flag = LYY_ganyu_connected_success
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					LYY_ganyu_toward_keqing > 50
+				}
+			}
+			# 40%概率成功
+			random_list = {
+				40 = {
+					set_country_flag = LYY_ganyu_connected_success
+				}
+				60 = {
+					set_country_flag = LYY_ganyu_connected_failed
+				}
+			}
+		}
+		else = {
+			set_country_flag = LYY_ganyu_connected_failed
+		}
+	}
+	option = {
+		name = LYY_Keqing.12.a
+		trigger = {
+			has_country_flag = LYY_ganyu_connected_success
+		}
+		# 停战成功，甘雨加入同盟
+		set_country_flag = LYY_ganyu_allied
+		white_peace = GYP
+		GYP = {
+			white_peace = ROOT
+		}
+		add_political_power = 120
+		add_stability = 0.05
+		custom_effect_tooltip = LYY_ganyu_alliance_formed
+	}
+	option = {
+		name = LYY_Keqing.12.b
+		trigger = {
+			has_country_flag = LYY_ganyu_connected_failed
+		}
+		# 背叛，甘雨拒绝合作
+		add_stability = -0.1
+		add_war_support = -0.1
+		custom_effect_tooltip = LYY_ganyu_alliance_failed
+	}
+}
+
+# 晴雨共盟誓事件
+country_event = {
+	id = LYY_Keqing.13
+	title = LYY_Keqing.13.t
+	desc = LYY_Keqing.13.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_ganyu_allied
+	}
+	option = {
+		name = LYY_Keqing.13.a
+		# 组建军事同盟
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction = no
+				}
+			}
+			create_faction = LYY_Sunny_Rain_Alliance
+			GYP = {
+				add_to_faction = ROOT
+			}
+		}
+		add_political_power = 100
+		add_stability = 0.05
+	}
+	option = {
+		name = LYY_Keqing.13.b
+		# 结成强力同盟，效果更佳
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction = no
+				}
+			}
+			create_faction = LYY_Sunny_Rain_Alliance
+			GYP = {
+				add_to_faction = ROOT
+			}
+		}
+		GYP = {
+			create_alliance = ROOT
+		}
+		add_political_power = 150
+		add_stability = 0.08
+		add_timed_idea = {
+			idea = LYY_keqing_ganyu_strong_alliance
+			days = 360
+		}
+	}
+}
+
+# 携手共一统事件
+country_event = {
+	id = LYY_Keqing.14
+	title = LYY_Keqing.14.t
+	desc = LYY_Keqing.14.d
+	picture = GFX_report_event_generic_army
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_ganyu_allied
+		any_state = {
+			is_core_of = LYY
+			is_controlled_by = LYY
+		}
+	}
+	option = {
+		name = LYY_Keqing.14.a
+		# 刻晴甘雨联盟控制50%以上璃月领土后触发
+		add_manpower = 10000
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_timed_idea = {
+			idea = LYY_hand_in_hand_buff
+			days = 360
+		}
+		custom_effect_tooltip = LYY_keqing_ganyu_unified_bonus
+	}
+}
+
+# 诸势共谋安事件（和平合并路线）
+country_event = {
+	id = LYY_Keqing.20
+	title = LYY_Keqing.20.t
+	desc = LYY_Keqing.20.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.20.a
+		# 和平合并路线
+		hidden_effect = {
+			every_state = {
+				limit = {
+					is_core_of = GYP
+				}
+				set_state_controller = ROOT
+			}
+		}
+		GYP = {
+			every_unit_leader = {
+				set_unit_leader_flag = leader_has_switched_sides
+			}
+		}
+		add_political_power = 150
+		add_stability = 0.15
+		custom_effect_tooltip = LYY_keqing_ganyu_peaceful_merger
+	}
+	option = {
+		name = LYY_Keqing.20.b
+		# 扩大联盟，吸纳更多势力
+		add_political_power = 200
+		add_stability = 0.1
+		custom_effect_tooltip = LYY_keqing_alliance_expansion
+	}
+}
+
+# 策除凝光影事件（清洗路线）
+country_event = {
+	id = LYY_Keqing.21
+	title = LYY_Keqing.21.t
+	desc = LYY_Keqing.21.d
+	picture = GFX_report_event_generic_purge
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.21.a
+		# 让被击败的势力领导人加入
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = LYY_ningguang_defeated
+				}
+				recruit_character = LYY_NingGuang
+				recruit_character = LYY_ShenHe
+			}
+		}
+		add_political_power = 100
+		add_stability = -0.1
+		custom_effect_tooltip = LYY_keqing_absorb_defeated_leaders
+	}
+	option = {
+		name = LYY_Keqing.21.b
+		# 当众处决，巩固权力
+		add_political_power = 150
+		add_stability = 0.2
+		add_war_support = 0.1
+		custom_effect_tooltip = LYY_keqing_execute_enemies
+	}
+}
+
+# 东陆辉光盛事件（统一事件）
+country_event = {
+	id = LYY_Keqing.22
+	title = LYY_Keqing.22.t
+	desc = LYY_Keqing.22.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.22.a
+		# 刻晴继续领导
+		set_cosmetic_tag = LYY_LIYUE_FEDERATION
+		set_party_name = {
+			ideology = communism
+			name = LYY_communist_party
+			long_name = LYY_communist_party_long
+		}
+		add_political_power = 200
+		add_stability = 0.2
+		custom_effect_tooltip = LYY_keqing_leads_federation
+		# 向全世界宣布刻晴的胜利
+		every_other_country = {
+			news_event = { id = LYY_News.Keqing_Victory days = 3 }
+		}
+	}
+	option = {
+		name = LYY_Keqing.22.b
+		# 甘雨和刻晴共同领导联邦
+		set_cosmetic_tag = LYY_LIYUE_FEDERATION
+		# 党派分布：刻晴党50%，甘雨党50%
+		hidden_effect = {
+			set_party_name = {
+				ideology = communism
+				name = LYY_coalition_government
+				long_name = LYY_coalition_government_long
+			}
+		}
+		add_political_power = 250
+		add_stability = 0.25
+		custom_effect_tooltip = LYY_keqing_ganyu_joint_leadership
+		# 向全世界宣布刻晴与甘雨的联合胜利
+		every_other_country = {
+			news_event = { id = LYY_News.Keqing_Victory days = 3 }
+		}
+	}
+}
+
+# 誓守革命火事件（可选内战路线）
+country_event = {
+	id = LYY_Keqing.23
+	title = LYY_Keqing.23.t
+	desc = LYY_Keqing.23.d
+	picture = GFX_report_event_generic_civil_war
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.23.a
+		# 拒绝与甘雨共享权力，发动内战
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction_with = ROOT
+				}
+			}
+			GYP = {
+				remove_from_faction = ROOT
+			}
+		}
+		declare_war_on = {
+			target = GYP
+			type = civil_war
+			generator = civil_war
+		}
+		add_political_power = 100
+		add_stability = -0.2
+		custom_effect_tooltip = LYY_keqing_ganyu_renewed_war
+	}
+	option = {
+		name = LYY_Keqing.23.b
+		# 维持同盟，巩固团结
+		add_political_power = 200
+		add_stability = 0.1
+		custom_effect_tooltip = LYY_keqing_ganyu_maintain_alliance
+	}
+}
