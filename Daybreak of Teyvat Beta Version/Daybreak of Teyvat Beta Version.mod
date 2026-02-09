@@ -1,6 +1,6 @@
 version="4.0"
 supported_version="1.*"
-name="Daybreak of Teyvat | Beta Version"
+name="提瓦特黎明 | Beta Version"
 tags={
 	"Alternative History"
 	"Events"
