@@ -75,37 +75,37 @@ country_event = {
 		# 获得对各派系的战争目标
 		# 对刻晴派
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			create_wargoal = {
 				type = annex_everything
-				target = KEQ
+				target = LYY_KEQ
 			}
 		}
 		
 		# 对凝光派
 		if = {
-			limit = { country_exists = NGL }
+			limit = { country_exists = LYY_NGL }
 			create_wargoal = {
 				type = annex_everything
-				target = NGL
+				target = LYY_NGL
 			}
 		}
 		
 		# 对申鹤派
 		if = {
-			limit = { country_exists = SHH }
+			limit = { country_exists = LYY_SHH }
 			create_wargoal = {
 				type = annex_everything
-				target = SHH
+				target = LYY_SHH
 			}
 		}
 		
 		# 对嘉明派
 		if = {
-			limit = { country_exists = JMG }
+			limit = { country_exists = LYY_JMG }
 			create_wargoal = {
 				type = annex_everything
-				target = JMG
+				target = LYY_JMG
 			}
 		}
 		
@@ -133,9 +133,9 @@ country_event = {
 		
 		# 对刻晴派宣战
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			declare_war_on = {
-				target = KEQ
+				target = LYY_KEQ
 				type = annex_everything
 			}
 		}
@@ -170,9 +170,9 @@ country_event = {
 		
 		# 对凝光派宣战
 		if = {
-			limit = { country_exists = NGL }
+			limit = { country_exists = LYY_NGL }
 			declare_war_on = {
-				target = NGL
+				target = LYY_NGL
 				type = annex_everything
 			}
 		}
@@ -201,18 +201,18 @@ country_event = {
 		
 		# 获得申鹤派军事通行权
 		if = {
-			limit = { country_exists = SHH }
-			give_military_access = SHH
-			SHH = {
+			limit = { country_exists = LYY_SHH }
+			give_military_access = LYY_SHH
+			LYY_SHH = {
 				give_military_access = ROOT
 			}
 		}
 		
 		# 对嘉明派宣战
 		if = {
-			limit = { country_exists = JMG }
+			limit = { country_exists = LYY_JMG }
 			declare_war_on = {
-				target = JMG
+				target = LYY_JMG
 				type = annex_everything
 			}
 		}
@@ -242,12 +242,12 @@ country_event = {
 		
 		# 与申鹤派结盟
 		if = {
-			limit = { country_exists = SHH }
+			limit = { country_exists = LYY_SHH }
 			create_faction = LYY_adepti_alliance
-			add_to_faction = SHH
+			add_to_faction = LYY_SHH
 			
 			# 改善关系
-			SHH = {
+			LYY_SHH = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_adepti_bond
@@ -269,8 +269,19 @@ country_event = {
 			has_country_flag = LYY_shenhe_refuses
 		}
 		
-		# 标记拒绝结果，供后续国策使用
-		set_country_flag = LYY_shenhe_refuses
+		# 申鹤派向甘雨派宣战
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		
+		# 跳过"独掌话柄"国策
+		set_country_flag = LYY_skip_sole_authority
 		
 		# 添加临时修正：仙家内斗
 		add_timed_idea = {
@@ -293,10 +304,10 @@ country_event = {
 		
 		# 获得对申鹤派的战争目标
 		if = {
-			limit = { country_exists = SHH }
+			limit = { country_exists = LYY_SHH }
 			create_wargoal = {
 				type = annex_everything
-				target = SHH
+				target = LYY_SHH
 			}
 		}
 		
@@ -536,9 +547,6 @@ country_event = {
 		
 		# 移除灾难端倪精神
 		remove_ideas = LYY_idea_disaster_signs_active
-		
-		# 标记灾难端倪已处理完成
-		set_country_flag = LYY_ganyu_disaster_signs_resolved
 		
 		# 添加奖励
 		add_stability = 0.15
@@ -1483,8 +1491,15 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.46.a		# "听从甘雨阁下的决策。"
-		add_political_power = 100
-		add_stability = 0.05
+		
+		# 获得8个编制部队
+		load_oob = "LYY_ganyu_qianyan_army"
+		
+		# 添加修正：养精蓄锐
+		add_ideas = LYY_idea_biding_time
+		
+		# 陆军经验
+		army_experience = 30
 	}
 }
 
@@ -1498,23 +1513,46 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.47.a		# "储备装备，蓄势待发！"
-		add_political_power = 100
+		
+		# 随机5个地块获得军用工厂
 		random_owned_controlled_state = {
 			limit = { 
 				is_core_of = ROOT
-				industrial_complex < 6
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
 			}
-			add_extra_state_shared_building_slots = 1
+			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
-				type = industrial_complex
-				level = 1
+				type = arms_factory
+				level = 2
 				instant_build = yes
 			}
 		}
-		add_tech_bonus = {
-			bonus = 0.5
-			uses = 1
-			category = industry
+		
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+				NOT = { has_state_flag = LYY_工业_built }
+			}
+			set_state_flag = LYY_工业_built
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		# 库存装备+500k
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 50000
 		}
 	}
 }
@@ -1529,9 +1567,31 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.48.a		# "战争即将到来！"
-		add_political_power = 100
-		add_stability = 0.05
-		add_manpower = 20000
+		
+		# 所有派系对甘雨派评价降低
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_war_preparation_hostility
+			}
+		}
+		
+		# 移除中立期限制
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_neutrality_period }
+			remove_ideas = LYY_idea_ganyu_neutrality_period
+		}
+		
+		# 添加精神：备战状态
+		add_ideas = LYY_idea_war_readiness
 	}
 }
 
@@ -1545,19 +1605,30 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.49.a		# "凝光，让我们再次联手！"
-		add_political_power = 120
-		add_stability = 0.05
-		random_owned_controlled_state = {
-			limit = {
-				is_core_of = ROOT
-				infrastructure < 5
+		
+		# 与凝光派结盟
+		if = {
+			limit = { country_exists = LYY_NGL }
+			# 停战
+			white_peace = LYY_NGL
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_NGL } }
+				add_to_faction = LYY_NGL
 			}
-			add_building_construction = {
-				type = infrastructure
-				level = 1
-				instant_build = yes
+			
+			# 改善关系
+			LYY_NGL = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_old_colleagues_bond
+				}
 			}
 		}
+		
+		# 添加修正：凝光联盟
+		add_ideas = LYY_idea_ningguang_alliance
 	}
 }
 
@@ -1571,24 +1642,30 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.50.a		# "申鹤，我们是师姐妹！"
-		add_political_power = 150
-		random_owned_controlled_state = {
-			limit = {
-				is_core_of = ROOT
-				industrial_complex < 6
+		
+		# 与申鹤派结盟
+		if = {
+			limit = { country_exists = LYY_SHH }
+			# 停战
+			white_peace = LYY_SHH
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
 			}
-			add_extra_state_shared_building_slots = 2
-			add_building_construction = {
-				type = industrial_complex
-				level = 2
-				instant_build = yes
+			
+			# 改善关系
+			LYY_SHH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_adepti_sisters_bond
+				}
 			}
 		}
-		add_tech_bonus = {
-			bonus = 0.5
-			uses = 1
-			category = industry
-		}
+		
+		# 添加修正：申鹤联盟
+		add_ideas = LYY_idea_shenhe_alliance
 	}
 }
 
@@ -1602,23 +1679,30 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.51.a		# "利用嘉明的资源和位置！"
-		add_political_power = 120
-		random_owned_controlled_state = {
-			limit = {
-				is_core_of = ROOT
-				synthetic_refinery < 2
+		
+		# 与嘉明派结盟
+		if = {
+			limit = { country_exists = LYY_JMG }
+			# 停战
+			white_peace = LYY_JMG
+			
+			# 结盟
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_JMG } }
+				add_to_faction = LYY_JMG
 			}
-			add_building_construction = {
-				type = synthetic_refinery
-				level = 1
-				instant_build = yes
+			
+			# 改善关系
+			LYY_JMG = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_strategic_partnership
+				}
 			}
 		}
-		add_tech_bonus = {
-			bonus = 0.5
-			uses = 1
-			category = electronics
-		}
+		
+		# 添加修正：嘉明联盟
+		add_ideas = LYY_idea_gaming_alliance
 	}
 }
 
@@ -1632,17 +1716,20 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.52.a		# "凝光阁下，请投降。"
-		add_political_power = 100
-		random_owned_controlled_state = {
-			limit = {
-				is_core_of = ROOT
-				infrastructure < 6
+		
+		# 对凝光派宣战
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
 			}
-			add_building_construction = {
-				type = infrastructure
-				level = 2
-				instant_build = yes
-			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_ningguang
+			days = 90
 		}
 	}
 }
@@ -1657,11 +1744,20 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.53.a		# "刻晴小姐，放下武器吧。"
-		add_political_power = 120
-		add_tech_bonus = {
-			bonus = 0.5
-			uses = 1
-			category = electronics
+		
+		# 对刻晴派宣战
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_keqing
+			days = 90
 		}
 	}
 }
@@ -1676,8 +1772,21 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.54.a		# "申鹤，对不起……"
-		add_political_power = 80
-		add_stability = 0.05
+		
+		# 对申鹤派宣战
+		if = {
+			limit = { country_exists = LYY_SHH }
+			declare_war_on = {
+				target = LYY_SHH
+				type = annex_everything
+			}
+		}
+		
+		# 添加战争修正
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_shenhe
+			days = 90
+		}
 	}
 }
 
@@ -1691,9 +1800,31 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.55.a		# "与盟友共同扫清璃月！"
-		add_political_power = 150
-		add_stability = 0.1
-		add_war_support = 0.05
+		
+		# 对所有其他派系宣战
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+				NOT = { is_in_faction_with = ROOT }
+			}
+			ROOT = {
+				declare_war_on = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		
+		# 添加精神：血盟誓约
+		add_ideas = LYY_idea_blood_oath_alliance
+		
+		# 军事加成
+		army_experience = 40
 	}
 }
 
@@ -1707,9 +1838,37 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.56.a		# "我累了……"
-		add_political_power = 100
-		add_stability = 0.05
-		add_war_support = 0.02
+		
+		# 割让部分领土给盟友
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				transfer_state_to = PREV
+			}
+		}
+		
+		# 甘雨失去特质，获得疲惫特质
+		if = {
+			limit = { has_country_leader = { character = LYY_GanYu } }
+			remove_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_master_strategist
+			}
+			add_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_exhausted
+			}
+		}
+		
+		# 添加debuff
+		add_ideas = LYY_idea_subordinate_position
+		
+		# 触发后续选择
+		country_event = {
+			id = LYY_Ganyu.57
+			days = 15
+		}
 	}
 }
 
@@ -1723,12 +1882,21 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.57.a		# "好吧，我答应你……"
-		add_political_power = 120
-		add_stability = 0.05
-		add_tech_bonus = {
-			bonus = 0.5
-			uses = 1
-			category = construction
+		
+		# 政治体制改变为傀儡
+		set_autonomy = {
+			target = ROOT
+			autonomous_state = autonomy_puppet
+			freedom_level = 0.3
+		}
+		
+		# 甘雨降职为秘书（改变角色角色）
+		retire_character = LYY_GanYu
+		
+		# 触发最终事件
+		country_event = {
+			id = LYY_Ganyu.58
+			days = 30
 		}
 	}
 }
@@ -1743,9 +1911,21 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.58.a		# "璃月交给你们了……"
-		add_political_power = 120
-		add_stability = 0.03
-		add_research_slot = 1
+		
+		# 被盟友吞并
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+			
+			# 玩家切换到盟友国家
+			if = {
+				limit = { ROOT = { is_ai = no } }
+				change_tag_from = ROOT
+			}
+		}
 	}
 }
 
@@ -1759,9 +1939,26 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.59.a		# "今晚，我将夺取一切！"
-		add_political_power = 150
-		add_stability = 0.1
-		add_manpower = 30000
+		
+		# 获得对盟友的战争目标
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = PREV
+				}
+			}
+		}
+		
+		# 添加精神：政变准备
+		add_ideas = LYY_idea_coup_preparation
+		
+		# 触发政变新闻事件
+		news_event = {
+			id = LYY_News.6
+			days = 1
+		}
 	}
 }
 
@@ -1775,9 +1972,23 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.60.a		# "璃月终归一统！"
-		add_political_power = 200
-		add_stability = 0.05
-		add_war_support = 0.05
+		
+		# 解锁问鼎璃月国策
+		set_country_flag = LYY_enable_final_unification
+		
+		# 甘雨获得终极特质
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_master_of_liyue
+		}
+		
+		# 添加精神：真正的统一
+		add_ideas = LYY_idea_true_unification
+		
+		# 大幅奖励
+		add_political_power = 500
+		add_stability = 0.20
+		add_war_support = 0.20
 	}
 }
 
@@ -1791,16 +2002,14 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.61.a		# "接纳刻晴的结盟申请。"
-		set_country_flag = KEQing_Accept_Peace
-		clr_country_flag = KEQing_Reject_Peace
 		
 		# 强制停战
 		if = {
 			limit = { 
-				country_exists = KEQ
-				has_war_with = KEQ
+				country_exists = LYY_KEQ
+				has_war_with = LYY_KEQ
 			}
-			white_peace = KEQ
+			white_peace = LYY_KEQ
 		}
 		
 		# 触发接纳刻晴事件
@@ -1812,13 +2021,11 @@ country_event = {
 	
 	option = {
 		name = LYY_Ganyu.61.b		# "拒绝刻晴的申请。"
-		set_country_flag = KEQing_Reject_Peace
-		clr_country_flag = KEQing_Accept_Peace
 		
 		# 刻晴对甘雨评价降低
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_alliance_rejected
@@ -1841,14 +2048,14 @@ country_event = {
 		
 		# 与刻晴派结为军事同盟
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			if = {
-				limit = { NOT = { is_in_faction_with = KEQ } }
-				add_to_faction = KEQ
+				limit = { NOT = { is_in_faction_with = LYY_KEQ } }
+				add_to_faction = LYY_KEQ
 			}
 			
 			# 改善关系
-			KEQ = {
+			LYY_KEQ = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_ideological_alliance
@@ -1858,45 +2065,6 @@ country_event = {
 		
 		# 添加精神：刻晴联盟
 		add_ideas = LYY_idea_keqing_alliance
-	}
-}
-
-# 晴雨互谅解
-country_event = {
-	id = LYY_Ganyu.90
-	title = LYY_Ganyu.90.t
-	desc = LYY_Ganyu.90.d
-	picture = GFX_report_event_negotiate_with_keqing
-	is_triggered_only = yes
-	
-	option = {
-		name = LYY_Ganyu.90.a
-	}
-}
-
-# 旧势求和解
-country_event = {
-	id = LYY_Ganyu.91
-	title = LYY_Ganyu.91.t
-	desc = LYY_Ganyu.91.d
-	picture = GFX_report_event_negotiate_with_keqing
-	is_triggered_only = yes
-
-	option = {
-		name = LYY_Ganyu.91.a
-	}
-}
-
-# 尝试拉拢刻晴
-country_event = {
-	id = LYY_Ganyu.92
-	title = LYY_Ganyu.92.t
-	desc = LYY_Ganyu.92.d
-	picture = GFX_report_event_ganyu_keqing_handshake
-	is_triggered_only = yes
-
-	option = {
-		name = LYY_Ganyu.92.a
 	}
 }
 
@@ -1913,18 +2081,18 @@ country_event = {
 		
 		# 对凝光派宣战
 		if = {
-			limit = { country_exists = NGL }
+			limit = { country_exists = LYY_NGL }
 			declare_war_on = {
-				target = NGL
+				target = LYY_NGL
 				type = annex_everything
 			}
 			
 			# 刻晴也对凝光宣战
 			if = {
-				limit = { country_exists = KEQ }
-				KEQ = {
+				limit = { country_exists = LYY_KEQ }
+				LYY_KEQ = {
 					declare_war_on = {
-						target = NGL
+						target = LYY_NGL
 						type = annex_everything
 					}
 				}
@@ -1957,15 +2125,15 @@ country_event = {
 		# 与申鹤派媾和
 		if = {
 			limit = { 
-				country_exists = SHH
-				has_war_with = SHH
+				country_exists = LYY_SHH
+				has_war_with = LYY_SHH
 			}
-			white_peace = SHH
+			white_peace = LYY_SHH
 			
 			# 加入联盟
 			if = {
-				limit = { NOT = { is_in_faction_with = SHH } }
-				add_to_faction = SHH
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
 			}
 		}
 		
@@ -2000,8 +2168,8 @@ country_event = {
 		every_other_country = {
 			limit = {
 				OR = {
-					tag = KEQ
-					tag = SHH
+					tag = LYY_KEQ
+					tag = LYY_SHH
 				}
 				is_in_faction_with = ROOT
 			}
@@ -2021,8 +2189,8 @@ country_event = {
 		
 		# 刻晴对甘雨评价降低
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_territorial_greed
@@ -2033,8 +2201,8 @@ country_event = {
 		
 		# 触发盟友事件：甘雨强占土地
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				country_event = {
 					id = LYY_Keqing.100
 					days = 1
@@ -2042,8 +2210,8 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { country_exists = SHH }
-			SHH = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
 				country_event = {
 					id = LYY_Shenhe.100
 					days = 1
@@ -2067,17 +2235,17 @@ country_event = {
 		# 甘雨派和申鹤派各获得5个步兵师
 		load_oob = "LYY_ganyu_northern_army"
 		if = {
-			limit = { country_exists = SHH }
-			SHH = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
 				load_oob = "LYY_shenhe_northern_army"
 			}
 		}
 		
 		# 对嘉明派宣战
 		if = {
-			limit = { country_exists = JMG }
+			limit = { country_exists = LYY_JMG }
 			declare_war_on = {
-				target = JMG
+				target = LYY_JMG
 				type = annex_everything
 			}
 		}
@@ -2112,8 +2280,8 @@ country_event = {
 		
 		# 刻晴虽不甘但同意
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_forced_concession
@@ -2139,9 +2307,9 @@ country_event = {
 		
 		# 璃月联邦（甘雨政府）对刻晴派宣战
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			declare_war_on = {
-				target = KEQ
+				target = LYY_KEQ
 				type = annex_everything
 			}
 		}
@@ -2167,8 +2335,8 @@ country_event = {
 		
 		# 刻晴对甘雨评价+25%
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = LYY_strategic_cooperation
@@ -2219,8 +2387,8 @@ country_event = {
 		
 		# 刻晴派国家元首更换为云堇
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				retire_character = LYY_KeQing
 				promote_character = LYY_YunJin
 			}
@@ -2273,17 +2441,17 @@ country_event = {
 		
 		# 获得对启明派征服战争目标
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			create_wargoal = {
 				type = annex_everything
-				target = KEQ
+				target = LYY_KEQ
 			}
 		}
 		
 		# 触发刻晴派国策：绝不屈服
 		if = {
-			limit = { country_exists = KEQ }
-			KEQ = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
 				country_event = {
 					id = LYY_Keqing.200
 					days = 1
@@ -2319,15 +2487,15 @@ country_event = {
 		
 		# 获得刻晴派地块的主权
 		every_state = {
-			limit = { is_core_of = KEQ }
+			limit = { is_core_of = LYY_KEQ }
 			add_core_of = ROOT
 		}
 		
 		# 吞并刻晴派
 		if = {
-			limit = { country_exists = KEQ }
+			limit = { country_exists = LYY_KEQ }
 			annex_country = {
-				target = KEQ
+				target = LYY_KEQ
 				transfer_troops = yes
 			}
 		}
