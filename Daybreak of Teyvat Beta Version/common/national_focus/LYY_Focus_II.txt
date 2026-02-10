@@ -1,4 +1,4 @@
-﻿#第二代璃月国策
+#第二代璃月国策
 focus_tree = {
 	id = LYY_Focus_II
 	country = {
@@ -21,7 +21,7 @@ focus_tree = {
 		x = 4
 		y = 4
 	}
-	#国策开始
+#初期国策
 	#岩与契约
 	focus = {
 		id = LYY_Rock_and_Covenant
@@ -3688,7 +3688,7 @@ focus_tree = {
 			}
 		}
 	}
-	# 刻晴内战国策线
+# 刻晴内战国策线
 	# 登楼调律 - 起始点
 	focus = {
 		id = LYY_FC_Keqing_Start
@@ -3772,10 +3772,10 @@ focus_tree = {
 						has_government = communism
 					}
 				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = LYY_expelled_aristocrats
-				}
+				# add_opinion_modifier = { # 无法生效
+				#	target = ROOT
+				#	modifier = LYY_expelled_aristocrats
+				# }
 			}
 		}
 	}
@@ -3823,11 +3823,11 @@ focus_tree = {
 			focus = LYY_FC_Keqing_Rock_Nation_Red_Flag
 		}
 		available = {
-			army_experience > 199
+			# army_experience > 199 # 无法生效
 		}
 		completion_reward = {
 			remove_ideas = LYY_idea_soulless_army
-			add_army_experience = -200
+			army_experience = -200
 		}
 	}
 	# 国际友援心
@@ -3867,7 +3867,7 @@ focus_tree = {
 			focus = LYY_FC_Keqing_Army_Soul
 		}
 		available = {
-			stability > 0.4
+			# stability > 0.4 # 无法生效
 		}
 		completion_reward = {
 			add_political_power = 50
@@ -3875,9 +3875,9 @@ focus_tree = {
 				idea = LYY_idea_behind_us_is_yujing_terrace
 				days = 720
 			}
-			add_political_advisor_role = {
-				character = LYY_YanFei
-			}
+
+			promote_character = LYY_YanFei
+
 		}
 	}
 	# === 互斥军事路线 ===
@@ -3910,7 +3910,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = GUN_Effects_are_Hidden
 			add_political_power = 100
-			set_country_name = LYY_Democratic_Republic
+			set_cosmetic_tag = LYY_Democratic_Republic
 			set_capital = {
 				state = 156
 			}
@@ -3926,7 +3926,8 @@ focus_tree = {
 	}
 	focus = {
 		id = LYY_FC_Keqing_Thunder_Victory
-		icon = GFX_goal_generic_offensive
+		# icon = GFX_goal_generic_offensive
+		icon = goal_LYY_KeQing03
 		cost = 10
 		x = -2
 		y = 1
@@ -3938,9 +3939,9 @@ focus_tree = {
 			focus = LYY_FC_Keqing_High_Walls
 		}
 		completion_reward = {
-			set_rule = {
-				can_use_special_forces = yes
-			}
+			#set_rule = { #无效代码
+			#	can_use_special_forces = yes
+			#}
 			army_experience = 20
 			add_ideas = LYY_thunder_victory_buff
 		}
@@ -3960,9 +3961,9 @@ focus_tree = {
 			focus = LYY_FC_Keqing_Thunder_Victory
 		}
 		completion_reward = {
-			set_rule = {
-				can_use_special_forces = yes
-			}
+			#set_rule = { #无效代码
+			#	can_use_special_forces = yes
+			#}
 			army_experience = 20
 			add_ideas = LYY_enable_fortification_decisions
 		}
@@ -4202,21 +4203,19 @@ focus_tree = {
 		y = 9
 		relative_position_id = LYY_FC_Keqing_Start
 		prerequisite = {
-				AND = {
+				or = {
 					focus = LYY_FC_Keqing_Authority_Unique
 					focus = LYY_FC_Keqing_All_Forces_Peace
-				}
-				# 组合二：东陆辉光盛 + 和平/清洗线
-				AND = {
+
+
+
 					focus = LYY_FC_Donglu_Huiguang
 					focus = LYY_FC_Keqing_All_Forces_Peace
 				}
 		}
-		available = {
-			NOT = {
-				has_war = yes
-			}
-			is_subject = no
+		available = { #无效代码
+			#not has_war = yes
+			#is_subject = no
 		}
 		completion_reward = {
 			set_cosmetic_tag = LYY_PEOPLES_REPUBLIC
@@ -4227,36 +4226,697 @@ focus_tree = {
 			}
 		}
 	}
-	# 甘雨内战国策线
+
+#  凝光内战国策线
 	focus = {
-		id = LYY_FC_Ganyu
-		icon = goal_LYY_GanYu03
-		cost = 7
-		x = 128
+		id = LYY_FC_Ningguang
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 100
 		y = 2
-		available = {
+		# relative_position_id = LYY_Meeting_Liyue_Qixing
+		# prerequisite = { focus = LYY_Meeting_Liyue_Qixing }
+		available = { 
 			date > 1945.1.1
 			has_completed_focus = LYY_Rite_of_Parting
-			has_government = communism
+			has_government = democratic
 		}
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
 			add_political_power = 50
-			country_event = {
-				id = LYY_Keqing.1
-			}
+			country_event = { id = LYY_Event_random.8 days = 5 }
 		}
 	}
+	focus = {
+		id = LYY_FC_Ningguang_01
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_02
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 2
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_03
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -5
+		y = 3
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_04
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -2
+		y = 3
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_05
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 3
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_06
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 2
+		y = 3
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_07
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 5
+		y = 3
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_08
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -6
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_09
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -4
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_10
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -2
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_11
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_12
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 2
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_13
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 5
+		y = 4
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_14
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -5
+		y = 5
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_15
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -2
+		y = 5
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_16
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 5
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_17
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 2
+		y = 5
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_18
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 5
+		y = 5
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_19
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 6
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_20
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 7
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_21
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 8
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_02 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_22
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -11
+		y = 9
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_23
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -5
+		y = 9
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_24
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 9
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_25
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 5
+		y = 9
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_26
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 10
+		y = 9
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_27
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -14
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_28
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -12
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_29
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -10
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_30
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -8
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_31
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -6
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_32
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -4
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_33
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = -2
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_34
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 0
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_35
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 2
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_36
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 4
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_37
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 6
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_38
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 8
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_39
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 10
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_40
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 12
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+	focus = {
+		id = LYY_FC_Ningguang_41
+		icon = goal_LYY_NingGuang03
+		cost = 7.00
+		x = 14
+		y = 10
+		relative_position_id = LYY_FC_Ningguang
+		prerequisite = { focus = LYY_FC_Ningguang_21 }
+		ai_will_do = { factor = 1 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 50
+			country_event = { id = LYY_Event_random.8 days = 5 }
+		}
+	}
+
+
+# 甘雨内战国策线
+
 	# 月海幻梦 - 起始点
 	focus = {
-		# 添加互斥声明
-		mutually_exclusive = {
-			focus = LYY_FC_Keqing_Start
-		}
 		id = LYY_FC_Ganyu_Start
 		icon = GFX_goal_LYY_GanYu03
 		cost = 1.5
-		x = 100
+		x = 128
 		y = 2
+		# 因为有意识形态的限制，其实没有必要加互斥
 		available = {
 			date > 1945.1.1
 			has_completed_focus = LYY_Rite_of_Parting
@@ -5057,10 +5717,10 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 150
 			add_ideas = LYY_Open_Diplomacy
-			add_opinion_modifier = {
-				target = MOT
-				modifier = LYY_Friendly_Relations
-			}
+			#add_opinion_modifier = { # 无法生效
+			#	target = MOT
+			#	modifier = LYY_Friendly_Relations
+			#}
 			add_opinion_modifier = {
 				target = FON
 				modifier = LYY_Friendly_Relations
@@ -5249,7 +5909,7 @@ focus_tree = {
 			# 政治点数奖励
 			add_political_power = 120
 			# 解锁凝光作为部长
-			recruit_character = LYY_NingGuang
+			promote_character = LYY_NingGuang
 			# 触发凝光的手段事件
 			country_event = {
 				id = LYY_Ganyu.33
@@ -5431,8 +6091,8 @@ focus_tree = {
 				remove_ideas = LYY_idea_labor_law_active
 			}
 			# 解锁仙人部长
-			recruit_character = LYY_Moon_Carver
-			recruit_character = LYY_Mountain_Shaper
+			promote_character = LYY_Moon_Carver
+			promote_character = LYY_Mountain_Shaper
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.26
@@ -5462,7 +6122,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			# 解锁留云借风真君（闲云）
-			recruit_character = LYY_Cloud_Retainer
+			promote_character = LYY_Cloud_Retainer
 			# 触发邀请闲云事件
 			country_event = {
 				id = LYY_Ganyu.27
@@ -6290,7 +6950,7 @@ focus_tree = {
 	# 弃地献权（被吞并，游戏结束）
 	focus = {
 		id = LYY_FC_Ganyu_Surrender_Power
-		icon = GFX_goal_generic_占领
+		icon = GFX_goal_generic_occupy
 		cost = 10
 		x = 0
 		y = 1
@@ -6424,8 +7084,8 @@ focus_tree = {
 		id = LYY_FC_Ganyu_Accept_Keqing
 		icon = GFX_goal_generic_allies_build_infantry
 		cost = 5
-		x = 112
-		y = 2
+		x = 100
+		y = 18
 		available = {
 			# 刻晴派已经使用"心甘晴愿"国策
 			LYY_KEQ = {
@@ -6776,7 +7436,7 @@ focus_tree = {
 	# 关押刻晴
 	focus = {
 		id = LYY_FC_Ganyu_Imprison_Keqing
-		icon = GFX_goal_generic_政治犯
+		icon = GFX_goal_generic_political_criminal
 		cost = 10
 		x = 0
 		y = 1
@@ -6884,11 +7544,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			# 刻晴、云堇、香菱、胡桃、辛焱加入队伍
-			recruit_character = LYY_KeQing
-			recruit_character = LYY_YunJin
-			recruit_character = LYY_XiangLing
-			recruit_character = LYY_HuTao
-			recruit_character = LYY_XinYan
+			promote_character = LYY_KeQing
+			promote_character = LYY_YunJin
+			promote_character = LYY_XiangLing
+			promote_character = LYY_HuTao
+			promote_character = LYY_XinYan
 			# 获得刻晴派地块的主权
 			# 触发事件
 			country_event = {
@@ -6896,4 +7556,5 @@ focus_tree = {
 			}
 		}
 	}
+#国策结束
 }
