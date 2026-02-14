@@ -5909,9 +5909,9 @@ focus_tree = {
 		}
 		available = {
 			# 现阶段未与任何势力开战
-			NOT = {
-				has_war = yes
-			}
+			#NOT = {
+			#	has_war = yes
+			#}
 		}
 		ai_will_do = {
 			factor = 20
@@ -6541,493 +6541,7 @@ focus_tree = {
 		}
 	}
 	# ========================================
-	# 甘雨与刻晴合作路线
-	# ========================================
-	# 海纳百川（响应刻晴的"心甘晴愿"）
-	focus = {
-		id = LYY_FC_Ganyu_Accept_Keqing
-		icon = GFX_goal_DOT_Arcana_03
-		cost = 5
-		x = 9
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Liyue_Red
-		prerequisite = {
-			focus = LYY_FC_Keqing_Liyue_Red
-		}
-		available = {
-			# 刻晴派已经使用"心甘晴愿"国策
-			KQP = {
-				has_completed_focus = LYY_FC_Keqing_Ganyu_Alliance
-			}
-			tag = KQP
-		}
-		bypass = {
-			# 刻晴派不存在或该国策已被使用
-			# NOT = {
-			#	country_exists = KQP
-			# }
-			date > 1945.1.1
-		}
-		ai_will_do = {
-			factor = 80
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 甘雨和刻晴将会强制停战
-			#if = {
-			#	limit = {
-			#		has_war_with = KQP
-			#	}
-			#	white_peace = KQP
-			#}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.44
-			}
-		}
-	}
-	# 接纳刻晴
-	focus = {
-		id = LYY_FC_Ganyu_Alliance_Keqing
-		icon = GFX_goal_DOT_Arcana_04
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Accept_Keqing
-		}
-		ai_will_do = {
-			factor = 90
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 甘雨派和刻晴派结为军事同盟
-			create_faction = LYY_Ganyu_Keqing_Alliance
-			add_to_faction = KQP
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.45
-			}
-		}
-	}
-	# 夹击凝光（与刻晴合作版）
-	focus = {
-		id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
-		icon = GFX_goal_DOT_Arcana_05
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Alliance_Keqing
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Alliance_Keqing
-		}
-		available = {
-			#country_exists = LYY
-			#is_in_faction_with = KQP
-		}
-		ai_will_do = {
-			factor = 95
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
-		}
-		completion_reward = {
-			# 甘雨派和刻晴派对凝光派宣战，进攻修正+5%
-			add_timed_idea = {
-				idea = LYY_idea_joint_offensive
-				days = 120
-			}
-			declare_war_on = {
-				target = LYY
-				type = annex_everything
-			}
-			# 触发夹击凝光事件
-			country_event = {
-				id = LYY_Ganyu.79
-			}
-		}
-	}
-	# 默契配合（说服申鹤）
-	focus = {
-		id = LYY_FC_Ganyu_Coordinate_Shenhe
-		icon = GFX_goal_DOT_Arcana_06
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Attack_Ningguang_Keqing
-		}
-		available = {
-			country_exists = SHP
-			NOT = {
-				has_war_with = SHP
-			}
-		}
-		ai_will_do = {
-			factor = 85
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 甘雨派和申鹤派媾和，申鹤80%概率同意
-			random_list = {
-				80 = {
-					# 同意
-					if = {
-						limit = {
-							has_war_with = SHP
-						}
-						white_peace = SHP
-					}
-					add_to_faction = SHP
-					set_country_flag = LYY_shenhe_agreed_peace
-					country_event = {
-						id = LYY_Ganyu.47
-					}
-				}
-				20 = {
-					# 拒绝
-					set_country_flag = LYY_shenhe_rejected_peace
-					country_event = {
-						id = LYY_Ganyu.48
-					}
-				}
-			}
-		}
-	}
-	# 夺取战果
-	focus = {
-		id = LYY_FC_Ganyu_Seize_Spoils
-		icon = GFX_goal_DOT_Arcana_07
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Coordinate_Shenhe
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Coordinate_Shenhe
-		}
-		available = {
-			has_country_flag = LYY_shenhe_agreed_peace
-		}
-		ai_will_do = {
-			factor = 75
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 甘雨派获得申鹤派和刻晴派的部分土地主权宣称
-			custom_effect_tooltip = LYY_ganyu_seize_territory_tooltip
-			# 刻晴对甘雨的评价-25
-			#KQP = {
-				#add_opinion_modifier = {
-				#	target = ROOT
-				#	modifier = LYY_territory_dispute
-				#}
-			#}
-			# 触发事件（刻晴派、申鹤派触发焦土政策事件）
-			country_event = {
-				id = LYY_Ganyu.49
-			}
-		}
-	}
-	# 突入北境（合作版）
-	focus = {
-		id = LYY_FC_Ganyu_Northern_Campaign_Coop
-		icon = GFX_goal_DOT_Arcana_08
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Seize_Spoils
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Seize_Spoils
-		}
-		available = {
-			country_exists = CYG
-		}
-		ai_will_do = {
-			factor = 90
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
-		}
-		completion_reward = {
-			# 甘雨派和申鹤派各自获得5个步兵师
-			load_oob = LYY_Ganyu_Northern_Army
-			SHP = {
-				load_oob = LYY_Shenhe_Northern_Army
-			}
-			# 甘雨派对嘉明派宣战
-			declare_war_on = {
-				target = CYG
-				type = annex_everything
-			}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.50
-			}
-		}
-	}
-	# 划分界限
-	focus = {
-		id = LYY_FC_Ganyu_Divide_Territory
-		icon = GFX_goal_DOT_Arcana_09
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Northern_Campaign_Coop
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Northern_Campaign_Coop
-		}
-		available = {
-			# 战争濒临结束
-			NOT = {
-				has_war_with = CYG
-			}
-		}
-		ai_will_do = {
-			factor = 80
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 甘雨派获得先前获得主权领土的土地
-			custom_effect_tooltip = LYY_ganyu_claim_territory_tooltip
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.51
-			}
-		}
-	}
-	# 镇压叛乱（刻晴二次起义）
-	focus = {
-		id = LYY_FC_Ganyu_Suppress_Rebellion
-		icon = GFX_goal_DOT_Arcana_10
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Divide_Territory
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Divide_Territory
-		}
-		available = {
-			# 刻晴派已开启国策"誓守革命火"
-			KQP = {
-				has_country_flag = LYY_keqing_revolution_fire
-			}
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
-		}
-		completion_reward = {
-			# 璃月联邦对刻晴派宣战
-			set_cosmetic_tag = LYY_Federation
-			declare_war_on = {
-				target = KQP
-				type = annex_everything
-			}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.52
-			}
-		}
-	}
-	# 策除启明派（与"接纳刻晴"互斥的清洗路线）
-	focus = {
-		id = LYY_FC_Ganyu_Eliminate_Qiming
-		icon = GFX_goal_DOT_Arcana_11
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Accept_Keqing
-		}
-		mutually_exclusive = {
-			focus = LYY_FC_Ganyu_Alliance_Keqing
-		}
-		ai_will_do = {
-			factor = 10
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 刻晴对甘雨的评价+25%
-			KQP = {
-				#add_opinion_modifier = {
-				#	target = ROOT
-				#	modifier = LYY_friendly_relations
-				#}
-			}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.53
-			}
-		}
-	}
-	# 设下鸿门宴
-	focus = {
-		id = LYY_FC_Ganyu_Hongmen_Banquet
-		icon = GFX_goal_DOT_Arcana_12
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Eliminate_Qiming
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Eliminate_Qiming
-		}
-		ai_will_do = {
-			factor = 70
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 适役人口-5%，移除随机2个部队
-			add_manpower = -50000
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.54
-			}
-		}
-	}
-	# 关押刻晴
-	focus = {
-		id = LYY_FC_Ganyu_Imprison_Keqing
-		icon = goal_LYY_KeQing03
-		#icon = GFX_goal_DOT_Arcana_13
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Hongmen_Banquet
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Hongmen_Banquet
-		}
-		ai_will_do = {
-			factor = 80
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 刻晴派国家元首更换为云堇
-			KQP = {
-				retire_character = LYY_KeQing
-				promote_character = LYY_YunJin
-			}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.55
-			}
-		}
-	}
-	# 利用刻晴和启明派谈判
-	focus = {
-		id = LYY_FC_Ganyu_Negotiate_Qiming
-		icon = GFX_goal_DOT_Arcana_14
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Imprison_Keqing
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Imprison_Keqing
-		}
-		ai_will_do = {
-			factor = 60
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.56
-			}
-		}
-	}
-	# 强并启明派
-	focus = {
-		id = LYY_FC_Ganyu_Annex_Qiming
-		icon = GFX_goal_DOT_Arcana_15
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Negotiate_Qiming
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Negotiate_Qiming
-		}
-		ai_will_do = {
-			factor = 85
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
-		}
-		completion_reward = {
-			# 获得对启明派征服的战争目标
-			create_wargoal = {
-				type = annex_everything
-				target = KQP
-			}
-			# 触发刻晴派国策：绝不屈服
-			KQP = {
-				set_country_flag = LYY_keqing_never_surrender
-			}
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.57
-			}
-		}
-	}
-	# 整合启明派
-	focus = {
-		id = LYY_FC_Ganyu_Integrate_Qiming
-		icon = GFX_goal_DOT_Arcana_16
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Ganyu_Annex_Qiming
-		prerequisite = {
-			focus = LYY_FC_Ganyu_Annex_Qiming
-		}
-		available = {
-			# 刻晴派已被击败
-			NOT = {
-				country_exists = KQP
-			}
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			# 刻晴、云堇、香菱、胡桃、辛焱加入队伍
-			promote_character = LYY_KeQing
-			promote_character = LYY_YunJin
-			promote_character = LYY_XiangLing
-			promote_character = LYY_HuTao
-			promote_character = LYY_XinYan
-			# 获得刻晴派地块的主权
-			# 触发事件
-			country_event = {
-				id = LYY_Ganyu.58
-			}
-		}
-	}
-	
+
 # 刻晴内战国策线
 	# 登楼调律 - 起始点
 	focus = {
@@ -7541,6 +7055,494 @@ focus_tree = {
 			}
 		}
 	}
+
+	# 甘雨与刻晴合作路线
+	# ========================================
+	# 海纳百川（响应刻晴的"心甘晴愿"）
+	focus = {
+		id = LYY_FC_Ganyu_Accept_Keqing
+		icon = GFX_goal_DOT_Arcana_03
+		cost = 5
+		x = 9
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Liyue_Red
+		prerequisite = {
+			focus = LYY_FC_Keqing_Liyue_Red
+		}
+		available = {
+			# 刻晴派已经使用"心甘晴愿"国策
+			KQP = {
+				has_completed_focus = LYY_FC_Keqing_Ganyu_Alliance
+			}
+			tag = KQP
+		}
+		bypass = {
+			# 刻晴派不存在或该国策已被使用
+			# NOT = {
+			#	country_exists = KQP
+			# }
+			date > 1945.1.1
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨和刻晴将会强制停战
+			#if = {
+			#	limit = {
+			#		has_war_with = KQP
+			#	}
+			#	white_peace = KQP
+			#}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.44
+			}
+		}
+	}
+	# 接纳刻晴
+	focus = {
+		id = LYY_FC_Ganyu_Alliance_Keqing
+		icon = GFX_goal_DOT_Arcana_04
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Accept_Keqing
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和刻晴派结为军事同盟
+			create_faction = LYY_Ganyu_Keqing_Alliance
+			add_to_faction = KQP
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.45
+			}
+		}
+	}
+	# 夹击凝光（与刻晴合作版）
+	focus = {
+		id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		icon = GFX_goal_DOT_Arcana_05
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Alliance_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Alliance_Keqing
+		}
+		available = {
+			#country_exists = LYY
+			#is_in_faction_with = KQP
+		}
+		ai_will_do = {
+			factor = 95
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派和刻晴派对凝光派宣战，进攻修正+5%
+			add_timed_idea = {
+				idea = LYY_idea_joint_offensive
+				days = 120
+			}
+			declare_war_on = {
+				target = LYY
+				type = annex_everything
+			}
+			# 触发夹击凝光事件
+			country_event = {
+				id = LYY_Ganyu.79
+			}
+		}
+	}
+	# 默契配合（说服申鹤）
+	focus = {
+		id = LYY_FC_Ganyu_Coordinate_Shenhe
+		icon = GFX_goal_DOT_Arcana_06
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Attack_Ningguang_Keqing
+		}
+		available = {
+			country_exists = SHP
+			NOT = {
+				has_war_with = SHP
+			}
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派和申鹤派媾和，申鹤80%概率同意
+			random_list = {
+				80 = {
+					# 同意
+					if = {
+						limit = {
+							has_war_with = SHP
+						}
+						white_peace = SHP
+					}
+					add_to_faction = SHP
+					set_country_flag = LYY_shenhe_agreed_peace
+					country_event = {
+						id = LYY_Ganyu.47
+					}
+				}
+				20 = {
+					# 拒绝
+					set_country_flag = LYY_shenhe_rejected_peace
+					country_event = {
+						id = LYY_Ganyu.48
+					}
+				}
+			}
+		}
+	}
+	# 夺取战果
+	focus = {
+		id = LYY_FC_Ganyu_Seize_Spoils
+		icon = GFX_goal_DOT_Arcana_07
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Coordinate_Shenhe
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Coordinate_Shenhe
+		}
+		available = {
+			has_country_flag = LYY_shenhe_agreed_peace
+		}
+		ai_will_do = {
+			factor = 75
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派获得申鹤派和刻晴派的部分土地主权宣称
+			custom_effect_tooltip = LYY_ganyu_seize_territory_tooltip
+			# 刻晴对甘雨的评价-25
+			#KQP = {
+				#add_opinion_modifier = {
+				#	target = ROOT
+				#	modifier = LYY_territory_dispute
+				#}
+			#}
+			# 触发事件（刻晴派、申鹤派触发焦土政策事件）
+			country_event = {
+				id = LYY_Ganyu.49
+			}
+		}
+	}
+	# 突入北境（合作版）
+	focus = {
+		id = LYY_FC_Ganyu_Northern_Campaign_Coop
+		icon = GFX_goal_DOT_Arcana_08
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Seize_Spoils
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Seize_Spoils
+		}
+		available = {
+			country_exists = CYG
+		}
+		ai_will_do = {
+			factor = 90
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 甘雨派和申鹤派各自获得5个步兵师
+			load_oob = LYY_Ganyu_Northern_Army
+			SHP = {
+				load_oob = LYY_Shenhe_Northern_Army
+			}
+			# 甘雨派对嘉明派宣战
+			declare_war_on = {
+				target = CYG
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.50
+			}
+		}
+	}
+	# 划分界限
+	focus = {
+		id = LYY_FC_Ganyu_Divide_Territory
+		icon = GFX_goal_DOT_Arcana_09
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Northern_Campaign_Coop
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Northern_Campaign_Coop
+		}
+		available = {
+			# 战争濒临结束
+			NOT = {
+				has_war_with = CYG
+			}
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 甘雨派获得先前获得主权领土的土地
+			custom_effect_tooltip = LYY_ganyu_claim_territory_tooltip
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.51
+			}
+		}
+	}
+	# 镇压叛乱（刻晴二次起义）
+	focus = {
+		id = LYY_FC_Ganyu_Suppress_Rebellion
+		icon = GFX_goal_DOT_Arcana_10
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Divide_Territory
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Divide_Territory
+		}
+		available = {
+			# 刻晴派已开启国策"誓守革命火"
+			KQP = {
+				has_country_flag = LYY_keqing_revolution_fire
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 璃月联邦对刻晴派宣战
+			set_cosmetic_tag = LYY_Federation
+			declare_war_on = {
+				target = KQP
+				type = annex_everything
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.52
+			}
+		}
+	}
+	# 策除启明派（与"接纳刻晴"互斥的清洗路线）
+	focus = {
+		id = LYY_FC_Ganyu_Eliminate_Qiming
+		icon = GFX_goal_DOT_Arcana_11
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Accept_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Accept_Keqing
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Ganyu_Alliance_Keqing
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴对甘雨的评价+25%
+			#KQP = {
+				#add_opinion_modifier = {
+				#	target = ROOT
+				#	modifier = LYY_friendly_relations
+				#}
+			#}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.53
+			}
+		}
+	}
+	# 设下鸿门宴
+	focus = {
+		id = LYY_FC_Ganyu_Hongmen_Banquet
+		icon = GFX_goal_DOT_Arcana_12
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Eliminate_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Eliminate_Qiming
+		}
+		ai_will_do = {
+			factor = 70
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 适役人口-5%，移除随机2个部队
+			add_manpower = -50000
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.54
+			}
+		}
+	}
+	# 关押刻晴
+	focus = {
+		id = LYY_FC_Ganyu_Imprison_Keqing
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_DOT_Arcana_13
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Hongmen_Banquet
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Hongmen_Banquet
+		}
+		ai_will_do = {
+			factor = 80
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴派国家元首更换为云堇
+			KQP = {
+				retire_character = LYY_KeQing
+				promote_character = LYY_YunJin
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.55
+			}
+		}
+	}
+	# 利用刻晴和启明派谈判
+	focus = {
+		id = LYY_FC_Ganyu_Negotiate_Qiming
+		icon = GFX_goal_DOT_Arcana_14
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Imprison_Keqing
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Imprison_Keqing
+		}
+		ai_will_do = {
+			factor = 60
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.56
+			}
+		}
+	}
+	# 强并启明派
+	focus = {
+		id = LYY_FC_Ganyu_Annex_Qiming
+		icon = GFX_goal_DOT_Arcana_15
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Negotiate_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Negotiate_Qiming
+		}
+		ai_will_do = {
+			factor = 85
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+		completion_reward = {
+			# 获得对启明派征服的战争目标
+			create_wargoal = {
+				type = annex_everything
+				target = KQP
+			}
+			# 触发刻晴派国策：绝不屈服
+			KQP = {
+				set_country_flag = LYY_keqing_never_surrender
+			}
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.57
+			}
+		}
+	}
+	# 整合启明派
+	focus = {
+		id = LYY_FC_Ganyu_Integrate_Qiming
+		icon = GFX_goal_DOT_Arcana_16
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Ganyu_Annex_Qiming
+		prerequisite = {
+			focus = LYY_FC_Ganyu_Annex_Qiming
+		}
+		available = {
+			# 刻晴派已被击败
+			NOT = {
+				country_exists = KQP
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			# 刻晴、云堇、香菱、胡桃、辛焱加入队伍
+			promote_character = LYY_KeQing
+			promote_character = LYY_YunJin
+			promote_character = LYY_XiangLing
+			promote_character = LYY_HuTao
+			promote_character = LYY_XinYan
+			# 获得刻晴派地块的主权
+			# 触发事件
+			country_event = {
+				id = LYY_Ganyu.58
+			}
+		}
+	}
+
 	# 终局：璃月民治一统国
 	focus = {
 		id = LYY_FC_Keqing_Unified_Country
@@ -7559,13 +7561,14 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_cosmetic_tag = LYY_PEOPLES_REPUBLIC
-			add_political_power = 200
-			add_stability = 0.2
+			#add_political_power = 200
+			#add_stability = 0.2
 			news_event = {
-				id = LYY_News.Keqing_Victory
+				id = LYY_News.Keqing_Victory days = 2
 			}
 		}
 	}
+
 
 #国策结束
 }
