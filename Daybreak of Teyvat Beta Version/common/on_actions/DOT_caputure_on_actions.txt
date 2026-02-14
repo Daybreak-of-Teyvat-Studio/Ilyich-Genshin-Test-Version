@@ -1,21 +1,25 @@
 on_actions = {
 	on_capitulation = {
 		effect = {
-			if = {
-				limit = {
-					if = {
-						limit = {
-							has_global_flag = AI_NO_Caputure
-						}
-						FROM = { is_ai = no }
-					}
-					ROOT = {
-						NOT = { has_country_flag = Get_Caputure }
-					}		
+			limit = {
+				ROOT = {
+					NOT = { has_country_flag = Get_Caputure }
 				}
-				FROM = {
-					country_event = DOT_Caputure_Event.2
-				}				
+			}
+			FROM = {
+				country_event = DOT_Caputure_Event.2
+			}
+		}
+	}
+	on_annex = {
+		effect = {
+			FROM = {
+				every_unit_leader = {
+					set_nationality = ROOT
+				}
+				every_scientist = {
+					set_nationality = ROOT
+				}
 			}
 		}
 	}

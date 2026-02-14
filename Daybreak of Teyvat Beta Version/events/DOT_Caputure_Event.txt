@@ -1,38 +1,4 @@
 ﻿add_namespace = DOT_Caputure_Event
-country_event = {
-	id = DOT_Caputure_Event.1
-	title = DOT_Caputure_Event.1.t
-	desc = DOT_Caputure_Event.1.d
-	picture = GFX_Civil_War_of_Liyue
-	trigger = {
-		is_ai = yes
-	}
-	fire_only_once = yes
-	option = {
-		name = "AI do NOT captured AI不俘虏将领"
-		ai_chance = {
-			factor = 5
-		}
-		if = {
-			limit = {
-				NOT = { has_global_flag = AI_NO_Caputure }
-			}
-			set_global_flag = AI_NO_Caputure
-		}
-	}
-	option = {
-		name = "AI can captured 允许AI俘虏将领"
-		ai_chance = {
-			factor = 1
-		}
-		if = {
-			limit = {
-				has_global_flag = AI_NO_Caputure
-			}
-			clr_global_flag = AI_NO_Caputure
-		}
-	}
-}
 
 country_event = {
 	id = DOT_Caputure_Event.2
@@ -47,10 +13,13 @@ country_event = {
 			factor = 1
 		}
 		FROM = {			
-			every_unit_leader = {				
+			every_unit_leader = {
 				set_nationality = ROOT
-			}			
-			set_country_flag = Get_Caputure				
+			}
+			every_scientist = {
+				set_nationality = ROOT
+			}
+			set_country_flag = Get_Caputure			
 		}
 		trigger = { NOT = { original_tag = DVA } }
 	}
@@ -59,6 +28,10 @@ country_event = {
 		custom_effect_tooltip = DOT_Caputure_Event.2.b.b
 		ai_chance = {
 			factor = 1
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -100
 		}
 		army_experience = 50
 	}

@@ -21,7 +21,8 @@ focus_tree = {
 		x = 4
 		y = 4
 	}
-#初期国策
+
+#前期国策
 	#岩与契约
 	focus = {
 		id = LYY_Rock_and_Covenant
@@ -754,6 +755,8 @@ focus_tree = {
 			}
 		}
 	}
+
+#中期国策
 	#LYY_Rite_of_Parting:0"辞行久远之躯" 
 	#送仙典仪，引发七星内战
 	focus = {
@@ -3688,546 +3691,8 @@ focus_tree = {
 			}
 		}
 	}
-# 刻晴内战国策线
-	# 登楼调律 - 起始点
-	focus = {
-		id = LYY_FC_Keqing_Start
-		icon = goal_LYY_KeQing03		# 请确保GFX已定义
-		cost = 1.5
-		x = 72
-		y = 2
-		available = {
-			date > 1945.1.1
-			has_completed_focus = LYY_Rite_of_Parting
-			has_government = communism
-		}
-		completion_reward = {
-			add_political_power = 50
-			country_event = {
-				id = LYY_Keqing.1
-			}
-		}
-	}
-	# 璃月染赤霞
-	focus = {
-		id = LYY_FC_Keqing_Liyue_Red
-		icon = GFX_goal_generic_political_pressure
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Start
-		prerequisite = {
-			focus = LYY_FC_Keqing_Start
-		}
-		completion_reward = {
-			add_political_power = 120
-			add_stability = 0.1
-		}
-	}
-	# 千岩法立世 (政治/经济线起点)
-	focus = {
-		id = LYY_FC_Keqing_Millelith_Law
-		icon = GFX_goal_generic_trade
-		cost = 10
-		x = -3
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Liyue_Red
-		prerequisite = {
-			focus = LYY_FC_Keqing_Liyue_Red
-		}
-		completion_reward = {
-			add_political_power = 120
-			# 解锁贸易和经济法案修改 (通过变量或flag控制)
-			set_country_flag = LYY_unlock_economy_laws
-		}
-	}
-	# 驱贵启新章
-	focus = {
-		id = LYY_FC_Keqing_Expel_Aristocrats
-		icon = GFX_goal_generic_purge
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Millelith_Law
-		prerequisite = {
-			focus = LYY_FC_Keqing_Millelith_Law
-		}
-		completion_reward = {
-			remove_ideas = LYY_idea_old_clan_undercurrents
-			add_tech_bonus = {
-				name = "Feiyun_Commerce_Guild"
-				bonus = 0.5
-				uses = 2
-				category = electronics
-			}
-			# 降低其他国家评价
-			every_country = {
-				limit = {
-					OR = {
-						tag = INA						# 稻妻
-						tag = NAT						# 纳塔
-						tag = MND						# 蒙德
-					}
-					NOT = {
-						has_government = communism
-					}
-				}
-				# add_opinion_modifier = { # 无法生效
-				#	target = ROOT
-				#	modifier = LYY_expelled_aristocrats
-				# }
-			}
-		}
-	}
-	# 岩国赤旗扬 (军事线起点)
-	focus = {
-		id = LYY_FC_Keqing_Rock_Nation_Red_Flag
-		icon = GFX_goal_generic_military_deal
-		cost = 5
-		x = 2
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Liyue_Red
-		prerequisite = {
-			focus = LYY_FC_Keqing_Liyue_Red
-		}
-		available = {
-			# 拥有领土不少于30% (这里用拥有州数量近似代替，假设璃月总共20个州)
-			num_of_controlled_states > 5
-			surrender_progress < 0.1
-		}
-		completion_reward = {
-			# 获得国际纵队
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 500
-			}
-			add_equipment_to_stockpile = {
-				type = artillery_equipment
-				amount = 50
-			}
-			# 这里应该使用 create_unit 命令生成师团，简化为给装备和人力
-			add_manpower = 5000
-			# 开启地下组织决议
-			set_country_flag = LYY_enable_underground_decisions
-		}
-	}
-	# 军心铸魂行
-	focus = {
-		id = LYY_FC_Keqing_Army_Soul
-		icon = GFX_goal_generic_morale_bonus
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Rock_Nation_Red_Flag
-		prerequisite = {
-			focus = LYY_FC_Keqing_Rock_Nation_Red_Flag
-		}
-		available = {
-			# army_experience > 199 # 无法生效
-		}
-		completion_reward = {
-			remove_ideas = LYY_idea_soulless_army
-			army_experience = -200
-		}
-	}
-	# 国际友援心
-	focus = {
-		id = LYY_FC_Keqing_International_Aid
-		icon = GFX_goal_generic_more_territories
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Rock_Nation_Red_Flag
-		prerequisite = {
-			focus = LYY_FC_Keqing_Rock_Nation_Red_Flag
-		}
-		completion_reward = {
-			# 模拟获得补给和市场准入
-			add_offsite_building = {
-				type = industrial_complex
-				level = 2
-			}
-			add_resource = {
-				type = steel
-				amount = 10
-				state = 156				# 璃月港
-			}
-		}
-	}
-	# 民愿织理想
-	focus = {
-		id = LYY_FC_Keqing_Peoples_Wish
-		icon = GFX_goal_generic_propaganda
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_International_Aid
-		prerequisite = {
-			focus = LYY_FC_Keqing_International_Aid
-			focus = LYY_FC_Keqing_Army_Soul
-		}
-		available = {
-			# stability > 0.4 # 无法生效
-		}
-		completion_reward = {
-			add_political_power = 50
-			add_timed_idea = {
-				idea = LYY_idea_behind_us_is_yujing_terrace
-				days = 720
-			}
 
-			promote_character = LYY_YanFei
-
-		}
-	}
-	# === 互斥军事路线 ===
-	# 雷霆速胜策
-	# 璃月民治一统国 - 璃月民望筑盛世
-	focus = {
-		id = LYY_Democratic_Unification
-		icon = GFX_goal_generic_political_pressure
-		cost = 10
-		x = 0
-		y = 3
-		relative_position_id = LYY_Rite_of_Parting
-		prerequisite = {
-			focus = LYY_Rite_of_Parting
-		}
-		available = {
-			owns_state = 156
-			controls_state = 156
-			owns_state = 121
-			controls_state = 121
-			owns_state = 144
-			controls_state = 144
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			add_political_power = 100
-			set_cosmetic_tag = LYY_Democratic_Republic
-			set_capital = {
-				state = 156
-			}
-			news_event = {
-				id = LYY_News.Democratic_Establishment
-				days = 2
-			}
-			add_timed_idea = {
-				idea = LYY_idea_peoples_government_establishment
-				days = 70
-			}
-		}
-	}
-	focus = {
-		id = LYY_FC_Keqing_Thunder_Victory
-		# icon = GFX_goal_generic_offensive
-		icon = goal_LYY_KeQing03
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Peoples_Wish
-		prerequisite = {
-			focus = LYY_FC_Keqing_Peoples_Wish
-		}
-		mutually_exclusive = {
-			focus = LYY_FC_Keqing_High_Walls
-		}
-		completion_reward = {
-			#set_rule = { #无效代码
-			#	can_use_special_forces = yes
-			#}
-			army_experience = 20
-			add_ideas = LYY_thunder_victory_buff
-		}
-	}
-	# 高垒深壑固
-	focus = {
-		id = LYY_FC_Keqing_High_Walls
-		icon = GFX_goal_generic_defense
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Peoples_Wish
-		prerequisite = {
-			focus = LYY_FC_Keqing_Peoples_Wish
-		}
-		mutually_exclusive = {
-			focus = LYY_FC_Keqing_Thunder_Victory
-		}
-		completion_reward = {
-			#set_rule = { #无效代码
-			#	can_use_special_forces = yes
-			#}
-			army_experience = 20
-			add_ideas = LYY_enable_fortification_decisions
-		}
-	}
-	# 烽火连天起
-	focus = {
-		id = LYY_FC_Keqing_Beacon_Fires
-		icon = GFX_goal_generic_demand_territory
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = LYY_FC_Keqing_Peoples_Wish
-		prerequisite = {
-			focus = LYY_FC_Keqing_Thunder_Victory
-			focus = LYY_FC_Keqing_High_Walls
-		}
-		completion_reward = {
-			# 触发敌人起义事件
-			country_event = {
-				id = LYY_Keqing.5
-			}
-		}
-	}
-	# 权柄独尊无可争
-	focus = {
-		id = LYY_FC_Keqing_Authority_Unique
-		icon = GFX_goal_generic_political_pressure
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Beacon_Fires
-		prerequisite = {
-			focus = LYY_FC_Keqing_Beacon_Fires
-		}
-		available = {
-			# 控制地区不低于璃月总面积的80%
-			num_of_controlled_states > 20
-			117 = {
-				is_controlled_by = ROOT
-			}			# 璃月主要地区
-			121 = {
-				is_controlled_by = ROOT
-			}
-			124 = {
-				is_controlled_by = ROOT
-			}
-			126 = {
-				is_controlled_by = ROOT
-			}
-			127 = {
-				is_controlled_by = ROOT
-			}
-			128 = {
-				is_controlled_by = ROOT
-			}
-		}
-		completion_reward = {
-			# 移除民族精神"碎土离疆言国殇"
-			remove_ideas = LYY_fragmented_land_national_spirit
-			# 获得所有璃月地块的宣称
-			every_state = {
-				limit = {
-					is_core_of = LYY
-				}
-				add_claim_by = ROOT
-			}
-			add_political_power = 100
-			add_stability = 0.1
-		}
-	}
-	# 东陆辉光盛 - 替代/并列的消除“碎土离疆言国殇”国策
-	focus = {
-		id = LYY_FC_Donglu_Huiguang
-		icon = goal_LYY_KeQing03
-		cost = 10
-		x = 2
-		y = 0
-		relative_position_id = LYY_FC_Keqing_Authority_Unique
-		prerequisite = {
-			focus = LYY_FC_Keqing_Beacon_Fires
-		}
-		completion_reward = {
-			# 同样移除民族精神 "碎土离疆言国殇"
-			remove_ideas = LYY_fragmented_land_national_spirit
-			add_political_power = 100
-			add_stability = 0.05
-			set_country_flag = LYY_Donglu_Huiguang_Done
-		}
-	}
-	# === 甘雨互动线 (外交/统战) ===
-	# 旧贵归心聚
-	focus = {
-		id = LYY_FC_Keqing_Old_Aristocrats_Return
-		icon = GFX_goal_generic_dangerous_deal
-		cost = 10
-		x = 6
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Liyue_Red
-		prerequisite = {
-			focus = LYY_FC_Keqing_Liyue_Red
-		}
-		completion_reward = {
-			add_stability = -0.1
-			# 开启拉拢甘雨决议
-			set_country_flag = LYY_enable_wooing_ganyu
-			custom_effect_tooltip = LYY_Wooing_Ganyu_Unlocked
-		}
-	}
-	# 拉拢甘雨
-	focus = {
-		id = LYY_FC_Keqing_Wooing_Ganyu
-		icon = GFX_goal_generic_propaganda
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Old_Aristocrats_Return
-		prerequisite = {
-			focus = LYY_FC_Keqing_Old_Aristocrats_Return
-		}
-		available = {
-			has_country_flag = LYY_enable_wooing_ganyu
-		}
-		completion_reward = {
-			custom_effect_tooltip = GUN_Effects_are_Hidden
-			# 触发拉拢甘雨的事件和决议
-			set_country_flag = LYY_wooing_ganyu_active
-			add_political_power = 50
-		}
-	}
-	# 甘雨心相引
-	focus = {
-		id = LYY_FC_Keqing_Ganyu_Connection
-		icon = goal_LYY_GanYu03
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Wooing_Ganyu
-		prerequisite = {
-			focus = LYY_FC_Keqing_Wooing_Ganyu
-		}
-		completion_reward = {
-			# 触发概率事件
-			country_event = {
-				id = LYY_Keqing.10
-			}
-		}
-	}
-	# 晴雨共盟誓 (成功线)
-	focus = {
-		id = LYY_FC_Keqing_Sunny_Rain_Alliance
-		icon = GFX_goal_generic_alliance
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Ganyu_Connection
-		prerequisite = {
-			focus = LYY_FC_Keqing_Ganyu_Connection
-		}
-		available = {
-			has_country_flag = LYY_ganyu_allied
-		}
-		completion_reward = {
-			create_faction = LYY_Sunny_Rain_Alliance
-			# 假设甘雨的TAG是 GYP
-			GYP = {
-				add_to_faction = ROOT
-			}
-		}
-	}
-	# 携手共一统
-	focus = {
-		id = LYY_FC_Keqing_Hand_In_Hand
-		icon = GFX_goal_generic_victory
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Sunny_Rain_Alliance
-		prerequisite = {
-			focus = LYY_FC_Keqing_Sunny_Rain_Alliance
-		}
-		completion_reward = {
-			add_manpower = 10000
-			add_timed_idea = {
-				idea = LYY_hand_in_hand_buff
-				days = 360
-			}
-		}
-	}
-	# 诸势共谋安 (合并/和平)
-	focus = {
-		id = LYY_FC_Keqing_All_Forces_Peace
-		icon = GFX_goal_generic_peace_treaty
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Hand_In_Hand
-		prerequisite = {
-			focus = LYY_FC_Keqing_Hand_In_Hand
-		}
-		mutually_exclusive = {
-			focus = LYY_FC_Keqing_Eliminate_Ningguang
-		}
-		completion_reward = {
-			# 触发和平/合并事件
-			country_event = {
-				id = LYY_Keqing.20
-			}
-		}
-	}
-	# 策除凝光影 (清洗)
-	focus = {
-		id = LYY_FC_Keqing_Eliminate_Ningguang
-		icon = GFX_goal_generic_purge
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = LYY_FC_Keqing_Hand_In_Hand
-		prerequisite = {
-			focus = LYY_FC_Keqing_Hand_In_Hand
-		}
-		mutually_exclusive = {
-			focus = LYY_FC_Keqing_All_Forces_Peace
-		}
-		completion_reward = {
-			# 触发清洗事件
-			country_event = {
-				id = LYY_Keqing.21
-			}
-		}
-	}
-	# 终局：璃月民治一统国
-	focus = {
-		id = LYY_FC_Keqing_Unified_Country
-		icon = GFX_goal_generic_major_war
-		cost = 10
-		x = 1		# 回到中间位置，具体坐标需要根据树的整体布局微调
-		y = 9
-		relative_position_id = LYY_FC_Keqing_Start
-		prerequisite = {
-				or = {
-					focus = LYY_FC_Keqing_Authority_Unique
-					focus = LYY_FC_Keqing_All_Forces_Peace
-
-
-
-					focus = LYY_FC_Donglu_Huiguang
-					focus = LYY_FC_Keqing_All_Forces_Peace
-				}
-		}
-		available = { #无效代码
-			#not has_war = yes
-			#is_subject = no
-		}
-		completion_reward = {
-			set_cosmetic_tag = LYY_PEOPLES_REPUBLIC
-			add_political_power = 200
-			add_stability = 0.2
-			news_event = {
-				id = LYY_News.Keqing_Victory
-			}
-		}
-	}
-
-#  凝光内战国策线
+# 凝光内战国策线
 	focus = {
 		id = LYY_FC_Ningguang
 		icon = goal_LYY_NingGuang03
@@ -4906,19 +4371,18 @@ focus_tree = {
 		}
 	}
 
-
 # 甘雨内战国策线
 
 	# 月海幻梦 - 起始点
 	focus = {
 		id = LYY_FC_Ganyu_Start
-		icon = GFX_goal_LYY_GanYu03
+		icon = goal_LYY_GanYu03
 		cost = 1.5
 		x = 128
 		y = 2
 		# 因为有意识形态的限制，其实没有必要加互斥
 		available = {
-			date > 1945.1.1
+			# date > 1945.1.1
 			has_completed_focus = LYY_Rite_of_Parting
 			has_government = neutrality
 		}
@@ -5721,10 +5185,10 @@ focus_tree = {
 			#	target = MOT
 			#	modifier = LYY_Friendly_Relations
 			#}
-			add_opinion_modifier = {
-				target = FON
-				modifier = LYY_Friendly_Relations
-			}
+			#add_opinion_modifier = {
+			#	target = FON
+			#	modifier = LYY_Friendly_Relations
+			#}
 		}
 	}
 	# 提瓦特和平盟
@@ -6304,7 +5768,7 @@ focus_tree = {
 		available = {
 			# 刻晴派已完成"誓守革命火"决议，璃月联邦和"七星革命阵线"处于战争状态
 			OR = {
-				has_war_with = LYY_KEQ
+				has_war_with = KQP
 				has_country_flag = LYY_keqing_revolution_active
 			}
 		}
@@ -6335,10 +5799,10 @@ focus_tree = {
 		available = {
 			# 璃月联邦-刻晴战争已经结束，player不是刻晴
 			NOT = {
-				has_war_with = LYY_KEQ
+				has_war_with = KQP
 			}
 			NOT = {
-				tag = LYY_KEQ
+				tag = KQP
 			}
 		}
 		ai_will_do = {
@@ -6571,16 +6035,16 @@ focus_tree = {
 			every_other_country = {
 				limit = {
 					OR = {
-						tag = LYY_KEQ
-						tag = LYY_NGL
-						tag = LYY_SHH
-						tag = LYY_JMG
+						tag = KQP
+						tag = LYY
+						tag = SHP
+						tag = CYG
 					}
 				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = LYY_prepare_war_threat
-				}
+				#add_opinion_modifier = {
+				#	target = ROOT
+				#	modifier = LYY_prepare_war_threat
+				#}
 			}
 			# 其他派系可以对甘雨派宣战
 			set_country_flag = LYY_ganyu_can_be_attacked
@@ -6606,9 +6070,9 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Gaming
 		}
 		available = {
-			country_exists = LYY_NGL
+			country_exists = LYY
 			NOT = {
-				has_war_with = LYY_NGL
+				has_war_with = LYY
 			}
 		}
 		ai_will_do = {
@@ -6621,12 +6085,12 @@ focus_tree = {
 			# 甘雨派和凝光派强制停战，双方结盟
 			if = {
 				limit = {
-					has_war_with = LYY_NGL
+					has_war_with = LYY
 				}
-				white_peace = LYY_NGL
+				white_peace = LYY
 			}
 			create_faction = LYY_Ningguang_Alliance
-			add_to_faction = LYY_NGL
+			add_to_faction = LYY
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.33
@@ -6649,9 +6113,9 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Gaming
 		}
 		available = {
-			country_exists = LYY_SHH
+			country_exists = SHP
 			NOT = {
-				has_war_with = LYY_SHH
+				has_war_with = SHP
 			}
 		}
 		ai_will_do = {
@@ -6664,12 +6128,12 @@ focus_tree = {
 			# 甘雨派和申鹤派强制停战，双方结盟
 			if = {
 				limit = {
-					has_war_with = LYY_SHH
+					has_war_with = SHP
 				}
-				white_peace = LYY_SHH
+				white_peace = SHP
 			}
 			create_faction = LYY_Adepti_Alliance
-			add_to_faction = LYY_SHH
+			add_to_faction = SHP
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.32
@@ -6692,9 +6156,9 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Shenhe
 		}
 		available = {
-			country_exists = LYY_JMG
+			country_exists = CYG
 			NOT = {
-				has_war_with = LYY_JMG
+				has_war_with = CYG
 			}
 		}
 		ai_will_do = {
@@ -6707,12 +6171,12 @@ focus_tree = {
 			# 甘雨派和嘉明派强制停战，双方结盟
 			if = {
 				limit = {
-					has_war_with = LYY_JMG
+					has_war_with = CYG
 				}
-				white_peace = LYY_JMG
+				white_peace = CYG
 			}
 			create_faction = LYY_Northern_Alliance
-			add_to_faction = LYY_JMG
+			add_to_faction = CYG
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.34
@@ -6731,8 +6195,8 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Shenhe
 		}
 		available = {
-			country_exists = LYY_NGL
-			is_in_faction_with = LYY_SHH
+			country_exists = LYY
+			is_in_faction_with = SHP
 		}
 		ai_will_do = {
 			factor = 90
@@ -6743,7 +6207,7 @@ focus_tree = {
 		completion_reward = {
 			# 甘雨派对凝光派宣战
 			declare_war_on = {
-				target = LYY_NGL
+				target = LYY
 				type = annex_everything
 			}
 			# 触发事件
@@ -6764,8 +6228,8 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Ningguang
 		}
 		available = {
-			country_exists = LYY_KEQ
-			is_in_faction_with = LYY_NGL
+			country_exists = KQP
+			is_in_faction_with = LYY
 		}
 		ai_will_do = {
 			factor = 90
@@ -6776,7 +6240,7 @@ focus_tree = {
 		completion_reward = {
 			# 甘雨派对刻晴派宣战
 			declare_war_on = {
-				target = LYY_KEQ
+				target = KQP
 				type = annex_everything
 			}
 			# 触发事件
@@ -6797,8 +6261,8 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Ally_Gaming
 		}
 		available = {
-			country_exists = LYY_SHH
-			is_in_faction_with = LYY_JMG
+			country_exists = SHP
+			is_in_faction_with = CYG
 		}
 		ai_will_do = {
 			factor = 90
@@ -6809,7 +6273,7 @@ focus_tree = {
 		completion_reward = {
 			# 甘雨派对申鹤派宣战
 			declare_war_on = {
-				target = LYY_SHH
+				target = SHP
 				type = annex_everything
 			}
 			# 触发事件
@@ -6855,10 +6319,10 @@ focus_tree = {
 			every_other_country = {
 				limit = {
 					OR = {
-						tag = LYY_KEQ
-						tag = LYY_NGL
-						tag = LYY_SHH
-						tag = LYY_JMG
+						tag = KQP
+						tag = LYY
+						tag = SHP
+						tag = CYG
 					}
 					NOT = {
 						is_in_faction_with = ROOT
@@ -6898,10 +6362,10 @@ focus_tree = {
 			# 璃月内战已经结束
 			NOT = {
 				OR = {
-					has_war_with = LYY_KEQ
-					has_war_with = LYY_NGL
-					has_war_with = LYY_SHH
-					has_war_with = LYY_JMG
+					has_war_with = KQP
+					has_war_with = LYY
+					has_war_with = SHP
+					has_war_with = CYG
 				}
 			}
 		}
@@ -7002,10 +6466,10 @@ focus_tree = {
 			# 璃月内战已经结束
 			NOT = {
 				OR = {
-					has_war_with = LYY_KEQ
-					has_war_with = LYY_NGL
-					has_war_with = LYY_SHH
-					has_war_with = LYY_JMG
+					has_war_with = KQP
+					has_war_with = LYY
+					has_war_with = SHP
+					has_war_with = CYG
 				}
 			}
 		}
@@ -7082,21 +6546,27 @@ focus_tree = {
 	# 海纳百川（响应刻晴的"心甘晴愿"）
 	focus = {
 		id = LYY_FC_Ganyu_Accept_Keqing
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_DOT_Arcana_03
 		cost = 5
-		x = 100
-		y = 18
+		x = 9
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Liyue_Red
+		prerequisite = {
+			focus = LYY_FC_Keqing_Liyue_Red
+		}
 		available = {
 			# 刻晴派已经使用"心甘晴愿"国策
-			LYY_KEQ = {
+			KQP = {
 				has_completed_focus = LYY_FC_Keqing_Ganyu_Alliance
 			}
+			tag = KQP
 		}
 		bypass = {
 			# 刻晴派不存在或该国策已被使用
-			NOT = {
-				country_exists = LYY_KEQ
-			}
+			# NOT = {
+			#	country_exists = KQP
+			# }
+			date > 1945.1.1
 		}
 		ai_will_do = {
 			factor = 80
@@ -7106,12 +6576,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			# 甘雨和刻晴将会强制停战
-			if = {
-				limit = {
-					has_war_with = LYY_KEQ
-				}
-				white_peace = LYY_KEQ
-			}
+			#if = {
+			#	limit = {
+			#		has_war_with = KQP
+			#	}
+			#	white_peace = KQP
+			#}
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.44
@@ -7121,7 +6591,7 @@ focus_tree = {
 	# 接纳刻晴
 	focus = {
 		id = LYY_FC_Ganyu_Alliance_Keqing
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_DOT_Arcana_04
 		cost = 10
 		x = 0
 		y = 1
@@ -7138,7 +6608,7 @@ focus_tree = {
 		completion_reward = {
 			# 甘雨派和刻晴派结为军事同盟
 			create_faction = LYY_Ganyu_Keqing_Alliance
-			add_to_faction = LYY_KEQ
+			add_to_faction = KQP
 			# 触发事件
 			country_event = {
 				id = LYY_Ganyu.45
@@ -7148,7 +6618,7 @@ focus_tree = {
 	# 夹击凝光（与刻晴合作版）
 	focus = {
 		id = LYY_FC_Ganyu_Attack_Ningguang_Keqing
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_DOT_Arcana_05
 		cost = 10
 		x = 0
 		y = 1
@@ -7157,8 +6627,8 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Alliance_Keqing
 		}
 		available = {
-			country_exists = LYY_NGL
-			is_in_faction_with = LYY_KEQ
+			#country_exists = LYY
+			#is_in_faction_with = KQP
 		}
 		ai_will_do = {
 			factor = 95
@@ -7173,7 +6643,7 @@ focus_tree = {
 				days = 120
 			}
 			declare_war_on = {
-				target = LYY_NGL
+				target = LYY
 				type = annex_everything
 			}
 			# 触发夹击凝光事件
@@ -7185,7 +6655,7 @@ focus_tree = {
 	# 默契配合（说服申鹤）
 	focus = {
 		id = LYY_FC_Ganyu_Coordinate_Shenhe
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_DOT_Arcana_06
 		cost = 10
 		x = 0
 		y = 1
@@ -7194,9 +6664,9 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Attack_Ningguang_Keqing
 		}
 		available = {
-			country_exists = LYY_SHH
+			country_exists = SHP
 			NOT = {
-				has_war_with = LYY_SHH
+				has_war_with = SHP
 			}
 		}
 		ai_will_do = {
@@ -7212,11 +6682,11 @@ focus_tree = {
 					# 同意
 					if = {
 						limit = {
-							has_war_with = LYY_SHH
+							has_war_with = SHP
 						}
-						white_peace = LYY_SHH
+						white_peace = SHP
 					}
-					add_to_faction = LYY_SHH
+					add_to_faction = SHP
 					set_country_flag = LYY_shenhe_agreed_peace
 					country_event = {
 						id = LYY_Ganyu.47
@@ -7235,7 +6705,7 @@ focus_tree = {
 	# 夺取战果
 	focus = {
 		id = LYY_FC_Ganyu_Seize_Spoils
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_goal_DOT_Arcana_07
 		cost = 10
 		x = 0
 		y = 1
@@ -7256,12 +6726,12 @@ focus_tree = {
 			# 甘雨派获得申鹤派和刻晴派的部分土地主权宣称
 			custom_effect_tooltip = LYY_ganyu_seize_territory_tooltip
 			# 刻晴对甘雨的评价-25
-			LYY_KEQ = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = LYY_territory_dispute
-				}
-			}
+			#KQP = {
+				#add_opinion_modifier = {
+				#	target = ROOT
+				#	modifier = LYY_territory_dispute
+				#}
+			#}
 			# 触发事件（刻晴派、申鹤派触发焦土政策事件）
 			country_event = {
 				id = LYY_Ganyu.49
@@ -7271,7 +6741,7 @@ focus_tree = {
 	# 突入北境（合作版）
 	focus = {
 		id = LYY_FC_Ganyu_Northern_Campaign_Coop
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_DOT_Arcana_08
 		cost = 10
 		x = 0
 		y = 1
@@ -7280,7 +6750,7 @@ focus_tree = {
 			focus = LYY_FC_Ganyu_Seize_Spoils
 		}
 		available = {
-			country_exists = LYY_JMG
+			country_exists = CYG
 		}
 		ai_will_do = {
 			factor = 90
@@ -7291,12 +6761,12 @@ focus_tree = {
 		completion_reward = {
 			# 甘雨派和申鹤派各自获得5个步兵师
 			load_oob = LYY_Ganyu_Northern_Army
-			LYY_SHH = {
+			SHP = {
 				load_oob = LYY_Shenhe_Northern_Army
 			}
 			# 甘雨派对嘉明派宣战
 			declare_war_on = {
-				target = LYY_JMG
+				target = CYG
 				type = annex_everything
 			}
 			# 触发事件
@@ -7308,7 +6778,7 @@ focus_tree = {
 	# 划分界限
 	focus = {
 		id = LYY_FC_Ganyu_Divide_Territory
-		icon = GFX_goal_generic_forceful_treaty
+		icon = GFX_goal_DOT_Arcana_09
 		cost = 10
 		x = 0
 		y = 1
@@ -7319,7 +6789,7 @@ focus_tree = {
 		available = {
 			# 战争濒临结束
 			NOT = {
-				has_war_with = LYY_JMG
+				has_war_with = CYG
 			}
 		}
 		ai_will_do = {
@@ -7340,7 +6810,7 @@ focus_tree = {
 	# 镇压叛乱（刻晴二次起义）
 	focus = {
 		id = LYY_FC_Ganyu_Suppress_Rebellion
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_DOT_Arcana_10
 		cost = 5
 		x = 0
 		y = 1
@@ -7350,7 +6820,7 @@ focus_tree = {
 		}
 		available = {
 			# 刻晴派已开启国策"誓守革命火"
-			LYY_KEQ = {
+			KQP = {
 				has_country_flag = LYY_keqing_revolution_fire
 			}
 		}
@@ -7364,7 +6834,7 @@ focus_tree = {
 			# 璃月联邦对刻晴派宣战
 			set_cosmetic_tag = LYY_Federation
 			declare_war_on = {
-				target = LYY_KEQ
+				target = KQP
 				type = annex_everything
 			}
 			# 触发事件
@@ -7376,7 +6846,7 @@ focus_tree = {
 	# 策除启明派（与"接纳刻晴"互斥的清洗路线）
 	focus = {
 		id = LYY_FC_Ganyu_Eliminate_Qiming
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_DOT_Arcana_11
 		cost = 10
 		x = 2
 		y = 1
@@ -7395,11 +6865,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			# 刻晴对甘雨的评价+25%
-			LYY_KEQ = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = LYY_friendly_relations
-				}
+			KQP = {
+				#add_opinion_modifier = {
+				#	target = ROOT
+				#	modifier = LYY_friendly_relations
+				#}
 			}
 			# 触发事件
 			country_event = {
@@ -7410,7 +6880,7 @@ focus_tree = {
 	# 设下鸿门宴
 	focus = {
 		id = LYY_FC_Ganyu_Hongmen_Banquet
-		icon = GFX_goal_generic_intelligence_exchange
+		icon = GFX_goal_DOT_Arcana_12
 		cost = 10
 		x = 0
 		y = 1
@@ -7436,7 +6906,8 @@ focus_tree = {
 	# 关押刻晴
 	focus = {
 		id = LYY_FC_Ganyu_Imprison_Keqing
-		icon = GFX_goal_generic_political_criminal
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_DOT_Arcana_13
 		cost = 10
 		x = 0
 		y = 1
@@ -7452,7 +6923,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			# 刻晴派国家元首更换为云堇
-			LYY_KEQ = {
+			KQP = {
 				retire_character = LYY_KeQing
 				promote_character = LYY_YunJin
 			}
@@ -7465,7 +6936,7 @@ focus_tree = {
 	# 利用刻晴和启明派谈判
 	focus = {
 		id = LYY_FC_Ganyu_Negotiate_Qiming
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_DOT_Arcana_14
 		cost = 5
 		x = 0
 		y = 1
@@ -7489,7 +6960,7 @@ focus_tree = {
 	# 强并启明派
 	focus = {
 		id = LYY_FC_Ganyu_Annex_Qiming
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_DOT_Arcana_15
 		cost = 10
 		x = 0
 		y = 1
@@ -7507,10 +6978,10 @@ focus_tree = {
 			# 获得对启明派征服的战争目标
 			create_wargoal = {
 				type = annex_everything
-				target = LYY_KEQ
+				target = KQP
 			}
 			# 触发刻晴派国策：绝不屈服
-			LYY_KEQ = {
+			KQP = {
 				set_country_flag = LYY_keqing_never_surrender
 			}
 			# 触发事件
@@ -7522,7 +6993,7 @@ focus_tree = {
 	# 整合启明派
 	focus = {
 		id = LYY_FC_Ganyu_Integrate_Qiming
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_DOT_Arcana_16
 		cost = 10
 		x = 0
 		y = 1
@@ -7533,7 +7004,7 @@ focus_tree = {
 		available = {
 			# 刻晴派已被击败
 			NOT = {
-				country_exists = LYY_KEQ
+				country_exists = KQP
 			}
 		}
 		ai_will_do = {
@@ -7556,5 +7027,545 @@ focus_tree = {
 			}
 		}
 	}
+	
+# 刻晴内战国策线
+	# 登楼调律 - 起始点
+	focus = {
+		id = LYY_FC_Keqing_Start
+		icon = goal_LYY_KeQing03		# 请确保GFX已定义
+		cost = 1.5
+		x = 72
+		y = 2
+		available = {
+			# date > 1945.1.1
+			has_completed_focus = LYY_Rite_of_Parting
+			has_government = communism
+		}
+		completion_reward = {
+			add_political_power = 50
+			country_event = {
+				id = LYY_Keqing.1
+			}
+		}
+	}
+	# 璃月染赤霞
+	focus = {
+		id = LYY_FC_Keqing_Liyue_Red
+		icon = GFX_goal_DOT_Arcana_16
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Start
+		prerequisite = {
+			focus = LYY_FC_Keqing_Start
+		}
+		completion_reward = {
+			add_political_power = 120
+			add_stability = 0.1
+		}
+	}
+	# 千岩法立世 (政治/经济线起点)
+	focus = {
+		id = LYY_FC_Keqing_Millelith_Law
+		icon = GFX_goal_DOT_Arcana_18
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Liyue_Red
+		prerequisite = {
+			focus = LYY_FC_Keqing_Liyue_Red
+		}
+		completion_reward = {
+			add_political_power = 120
+			# 解锁贸易和经济法案修改 (通过变量或flag控制)
+			set_country_flag = LYY_unlock_economy_laws
+		}
+	}
+	# 驱贵启新章
+	focus = {
+		id = LYY_FC_Keqing_Expel_Aristocrats
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_DOT_Arcana_19
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Millelith_Law
+		prerequisite = {
+			focus = LYY_FC_Keqing_Millelith_Law
+		}
+		completion_reward = {
+			remove_ideas = LYY_idea_old_clan_undercurrents
+			add_tech_bonus = {
+				name = "Feiyun_Commerce_Guild"
+				bonus = 0.5
+				uses = 2
+				category = electronics
+			}
+			# 降低其他国家评价
+			every_country = {
+				limit = {
+					OR = {
+						tag = INA						# 稻妻
+						tag = NAT						# 纳塔
+						tag = MND						# 蒙德
+					}
+					NOT = {
+						has_government = communism
+					}
+				}
+				# add_opinion_modifier = { # 无法生效
+				#	target = ROOT
+				#	modifier = LYY_expelled_aristocrats
+				# }
+			}
+		}
+	}
+	# 岩国赤旗扬 (军事线起点)
+	focus = {
+		id = LYY_FC_Keqing_Rock_Nation_Red_Flag
+		icon = GFX_goal_DOT_Arcana_20
+		cost = 5
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Liyue_Red
+		prerequisite = {
+			focus = LYY_FC_Keqing_Liyue_Red
+		}
+		available = {
+			# 拥有领土不少于30% (这里用拥有州数量近似代替，假设璃月总共20个州)
+			num_of_controlled_states > 5
+			surrender_progress < 0.1
+		}
+		completion_reward = {
+			# 获得国际纵队
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 500
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 50
+			}
+			# 这里应该使用 create_unit 命令生成师团，简化为给装备和人力
+			add_manpower = 5000
+			# 开启地下组织决议
+			set_country_flag = LYY_enable_underground_decisions
+		}
+	}
+	# 军心铸魂行
+	focus = {
+		id = LYY_FC_Keqing_Army_Soul
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_morale_bonus
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Rock_Nation_Red_Flag
+		prerequisite = {
+			focus = LYY_FC_Keqing_Rock_Nation_Red_Flag
+		}
+		available = {
+			# army_experience > 199 # 无法生效
+		}
+		completion_reward = {
+			remove_ideas = LYY_idea_soulless_army
+			army_experience = -200
+		}
+	}
+	# 国际友援心
+	focus = {
+		id = LYY_FC_Keqing_International_Aid
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_more_territories
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Rock_Nation_Red_Flag
+		prerequisite = {
+			focus = LYY_FC_Keqing_Rock_Nation_Red_Flag
+		}
+		completion_reward = {
+			# 模拟获得补给和市场准入
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
+			}
+			add_resource = {
+				type = steel
+				amount = 10
+				state = 156				# 璃月港
+			}
+		}
+	}
+	# 民愿织理想
+	focus = {
+		id = LYY_FC_Keqing_Peoples_Wish
+		icon = GFX_goal_DOT_Arcana_21
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_International_Aid
+		prerequisite = {
+			focus = LYY_FC_Keqing_International_Aid
+			focus = LYY_FC_Keqing_Army_Soul
+		}
+		available = {
+			# stability > 0.4 # 无法生效
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_timed_idea = {
+				idea = LYY_idea_behind_us_is_yujing_terrace
+				days = 720
+			}
+
+			promote_character = LYY_YanFei
+
+		}
+	}
+	# === 互斥军事路线 ===
+	# 雷霆速胜策
+	# 璃月民治一统国 - 璃月民望筑盛世
+	focus = {
+		id = LYY_Democratic_Unification
+		icon = GFX_goal_DOT_Arcana_22
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = LYY_Rite_of_Parting
+		prerequisite = {
+			focus = LYY_Rite_of_Parting
+		}
+		available = {
+			owns_state = 156
+			controls_state = 156
+			owns_state = 121
+			controls_state = 121
+			owns_state = 144
+			controls_state = 144
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			add_political_power = 100
+			set_cosmetic_tag = LYY_Democratic_Republic
+			set_capital = {
+				state = 156
+			}
+			news_event = {
+				id = LYY_News.Democratic_Establishment
+				days = 2
+			}
+			add_timed_idea = {
+				idea = LYY_idea_peoples_government_establishment
+				days = 70
+			}
+		}
+	}
+	focus = {
+		id = LYY_FC_Keqing_Thunder_Victory
+		# icon = GFX_goal_generic_offensive
+		icon = goal_LYY_KeQing03
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Peoples_Wish
+		prerequisite = {
+			focus = LYY_FC_Keqing_Peoples_Wish
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Keqing_High_Walls
+		}
+		completion_reward = {
+			#set_rule = { #无效代码
+			#	can_use_special_forces = yes
+			#}
+			army_experience = 20
+			add_ideas = LYY_thunder_victory_buff
+		}
+	}
+	# 高垒深壑固
+	focus = {
+		id = LYY_FC_Keqing_High_Walls
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_defense
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Peoples_Wish
+		prerequisite = {
+			focus = LYY_FC_Keqing_Peoples_Wish
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Keqing_Thunder_Victory
+		}
+		completion_reward = {
+			#set_rule = { #无效代码
+			#	can_use_special_forces = yes
+			#}
+			army_experience = 20
+			add_ideas = LYY_enable_fortification_decisions
+		}
+	}
+	# 烽火连天起
+	focus = {
+		id = LYY_FC_Keqing_Beacon_Fires
+		icon = GFX_goal_DOT_Arcana_05
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = LYY_FC_Keqing_Peoples_Wish
+		prerequisite = {
+			focus = LYY_FC_Keqing_Thunder_Victory
+			focus = LYY_FC_Keqing_High_Walls
+		}
+		completion_reward = {
+			# 触发敌人起义事件
+			country_event = {
+				id = LYY_Keqing.5
+			}
+		}
+	}
+	# 权柄独尊无可争
+	focus = {
+		id = LYY_FC_Keqing_Authority_Unique
+		icon = GFX_goal_DOT_Arcana_11
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Beacon_Fires
+		prerequisite = {
+			focus = LYY_FC_Keqing_Beacon_Fires
+		}
+		available = {
+			# 控制地区不低于璃月总面积的80%
+			num_of_controlled_states > 20
+			117 = {
+				is_controlled_by = ROOT
+			}			# 璃月主要地区
+			121 = {
+				is_controlled_by = ROOT
+			}
+			124 = {
+				is_controlled_by = ROOT
+			}
+			126 = {
+				is_controlled_by = ROOT
+			}
+			127 = {
+				is_controlled_by = ROOT
+			}
+			128 = {
+				is_controlled_by = ROOT
+			}
+		}
+		completion_reward = {
+			# 移除民族精神"碎土离疆言国殇"
+			remove_ideas = LYY_fragmented_land_national_spirit
+			# 获得所有璃月地块的宣称
+			every_state = {
+				limit = {
+					is_core_of = LYY
+				}
+				add_claim_by = ROOT
+			}
+			add_political_power = 100
+			add_stability = 0.1
+		}
+	}
+	# 东陆辉光盛 - 替代/并列的消除“碎土离疆言国殇”国策
+	focus = {
+		id = LYY_FC_Donglu_Huiguang
+		icon = goal_LYY_KeQing03
+		cost = 10
+		x = 2
+		y = 0
+		relative_position_id = LYY_FC_Keqing_Authority_Unique
+		prerequisite = {
+			focus = LYY_FC_Keqing_Beacon_Fires
+		}
+		completion_reward = {
+			# 同样移除民族精神 "碎土离疆言国殇"
+			remove_ideas = LYY_fragmented_land_national_spirit
+			add_political_power = 100
+			add_stability = 0.05
+			set_country_flag = LYY_Donglu_Huiguang_Done
+		}
+	}
+	# === 甘雨互动线 (外交/统战) ===
+	# 旧贵归心聚
+	focus = {
+		id = LYY_FC_Keqing_Old_Aristocrats_Return
+		icon = GFX_goal_DOT_Arcana_14
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Liyue_Red
+		prerequisite = {
+			focus = LYY_FC_Keqing_Liyue_Red
+		}
+		completion_reward = {
+			add_stability = -0.1
+			# 开启拉拢甘雨决议
+			set_country_flag = LYY_enable_wooing_ganyu
+			custom_effect_tooltip = LYY_Wooing_Ganyu_Unlocked
+		}
+	}
+	# 拉拢甘雨
+	focus = {
+		id = LYY_FC_Keqing_Wooing_Ganyu
+		icon = GFX_goal_DOT_Arcana_15
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Old_Aristocrats_Return
+		prerequisite = {
+			focus = LYY_FC_Keqing_Old_Aristocrats_Return
+		}
+		available = {
+			has_country_flag = LYY_enable_wooing_ganyu
+		}
+		completion_reward = {
+			custom_effect_tooltip = GUN_Effects_are_Hidden
+			# 触发拉拢甘雨的事件和决议
+			set_country_flag = LYY_wooing_ganyu_active
+			add_political_power = 50
+		}
+	}
+	# 甘雨心相引
+	focus = {
+		id = LYY_FC_Keqing_Ganyu_Connection
+		icon = goal_LYY_GanYu03
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Wooing_Ganyu
+		prerequisite = {
+			focus = LYY_FC_Keqing_Wooing_Ganyu
+		}
+		completion_reward = {
+			# 触发概率事件
+			country_event = {
+				id = LYY_Keqing.10
+			}
+		}
+	}
+	# 晴雨共盟誓 (成功线)
+	focus = {
+		id = LYY_FC_Keqing_Sunny_Rain_Alliance
+		icon = GFX_goal_DOT_Arcana_01
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Ganyu_Connection
+		prerequisite = {
+			focus = LYY_FC_Keqing_Ganyu_Connection
+		}
+		available = {
+			has_country_flag = LYY_ganyu_allied
+		}
+		completion_reward = {
+			create_faction = LYY_Sunny_Rain_Alliance
+			# 假设甘雨的TAG是 GYP
+			GYP = {
+				add_to_faction = ROOT
+			}
+		}
+	}
+	# 携手共一统
+	focus = {
+		id = LYY_FC_Keqing_Hand_In_Hand
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_victory
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Sunny_Rain_Alliance
+		prerequisite = {
+			focus = LYY_FC_Keqing_Sunny_Rain_Alliance
+		}
+		completion_reward = {
+			add_manpower = 10000
+			#add_timed_idea = {
+			#	idea = LYY_hand_in_hand_buff
+			#	days = 360
+			#}
+		}
+	}
+	# 诸势共谋安 (合并/和平)
+	focus = {
+		id = LYY_FC_Keqing_All_Forces_Peace
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_peace_treaty
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Hand_In_Hand
+		prerequisite = {
+			focus = LYY_FC_Keqing_Hand_In_Hand
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Keqing_Eliminate_Ningguang
+		}
+		completion_reward = {
+			# 触发和平/合并事件
+			country_event = {
+				id = LYY_Keqing.20
+			}
+		}
+	}
+	# 策除凝光影 (清洗)
+	focus = {
+		id = LYY_FC_Keqing_Eliminate_Ningguang
+		icon = goal_LYY_KeQing03
+		#icon = GFX_goal_generic_purge
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = LYY_FC_Keqing_Hand_In_Hand
+		prerequisite = {
+			focus = LYY_FC_Keqing_Hand_In_Hand
+		}
+		mutually_exclusive = {
+			focus = LYY_FC_Keqing_All_Forces_Peace
+		}
+		completion_reward = {
+			# 触发清洗事件
+			country_event = {
+				id = LYY_Keqing.21
+			}
+		}
+	}
+	# 终局：璃月民治一统国
+	focus = {
+		id = LYY_FC_Keqing_Unified_Country
+		icon = GFX_goal_DOT_Arcana_02
+		cost = 10
+		x = 1		# 回到中间位置，具体坐标需要根据树的整体布局微调
+		y = 9
+		relative_position_id = LYY_FC_Keqing_Start
+		prerequisite = {
+				or = {
+					focus = LYY_FC_Keqing_Authority_Unique
+					focus = LYY_FC_Keqing_All_Forces_Peace
+					focus = LYY_FC_Donglu_Huiguang
+					focus = LYY_FC_Keqing_All_Forces_Peace
+				}
+		}
+		completion_reward = {
+			set_cosmetic_tag = LYY_PEOPLES_REPUBLIC
+			add_political_power = 200
+			add_stability = 0.2
+			news_event = {
+				id = LYY_News.Keqing_Victory
+			}
+		}
+	}
+
 #国策结束
 }
