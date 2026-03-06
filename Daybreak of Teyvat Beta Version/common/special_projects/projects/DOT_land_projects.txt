@@ -1,0 +1,556 @@
+  
+# 提瓦特黎明
+ 
+sp_land_land_cruiser = {
+	specialization = specialization_land
+	project_tags = sp_tag_tank
+	allowed = {
+		# has_dlc = "Gotterdammerung"
+	}
+	available = {
+		
+	}
+	prototype_time = sp_time.prototype.medium
+	complexity = sp_complexity.insane
+	breakthrough_cost = {
+		specialization_land = 1
+	}
+	resource_cost = {
+		resources = { 
+			steel = 1
+			chromium = 1
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 1
+			ROOT = { has_government = genshin }
+		}
+		modifier = {
+			factor = 2
+			ROOT = { 
+				IS_LYY = YES
+			}
+			date > 1936.6.1
+		}
+	}
+	project_output = {
+		country_effects = {
+			if = {
+				limit = {
+					# has_dlc = "No Step Back"
+				}
+				add_design_template_bonus = {
+					name = sp_land_land_cruiser
+					uses = 1
+					cost_factor = 1
+					equipment = land_cruiser_chassis_1
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = { 
+					type = land_cruiser_equipment_1
+					amount = 1
+				}
+
+				add_equipment_production = {
+					equipment = {
+						type = land_cruiser_equipment_1
+					}
+					requested_factories = 1 #optional
+					progress = 0.35 #optional
+					amount = 1
+					efficiency = 30
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_TECH
+				TECH = sp_armored_lc_naval_engine_conversion_tech	
+			}
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_TECH
+				TECH = sp_armored_lc_transmission_improvements_tech	
+			}
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_TECH
+				TECH = sp_armored_lc_specialized_field_manuals_tech	
+			}
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_TECH
+				TECH = sp_armored_lc_weapon_fire_control_tech	
+			}
+			if = {
+				limit = {
+					# has_dlc = "No Step Back"
+				}
+				custom_effect_tooltip = {
+					localization_key = SP_UNLOCK_TECH
+					TECH = sp_armored_lc_high_impact_obliterator_cannon_tech	
+				}
+			}
+		}
+		enable_subunits = {
+			land_cruiser
+		}
+		enable_equipments = {
+			limit = {
+				# has_dlc = "No Step Back"
+			}
+			land_cruiser_chassis_1
+		}
+		enable_equipments = {
+			limit = {
+				# NOT = { has_dlc = "No Step Back" }
+			}
+			land_cruiser_equipment_1
+		}
+		enable_equipment_modules = {
+			limit = {
+				# has_dlc = "No Step Back"
+			}
+			lc_heavy_naval_guns
+			lc_medium_naval_guns
+			lc_super_heavy_howitzer
+			lc_aircraft_catapult
+			lc_internal_fuel_tanks
+			lc_internal_ammunition_compartments
+			lc_wet_ammunition_storage
+			lc_smoke_generators
+			lc_stabilizers
+		}
+	}
+	generic_prototype_rewards = {
+		sp_land_generic_reward_scientist_xp_1
+		sp_land_generic_reward_scientist_xp_2
+		sp_land_generic_reward_scientist_xp_3
+		sp_land_generic_reward_army_xp_1
+		sp_land_generic_reward_army_xp_2
+		sp_land_generic_reward_army_xp_3
+		sp_land_generic_reward_major_progress_1
+		sp_land_generic_reward_major_progress_2
+		sp_land_generic_reward_major_progress_3
+		sp_land_generic_reward_test_failure_1
+		sp_land_generic_reward_test_failure_2
+		sp_land_generic_reward_test_failure_3
+		sp_land_generic_reward_armor_tech_1
+		sp_land_generic_reward_armor_tech_2
+		sp_land_generic_reward_armor_tech_3
+		sp_land_generic_reward_armor_bonus_1
+		sp_land_generic_reward_armor_bonus_2
+		sp_land_generic_reward_armor_bonus_3
+		sp_land_generic_reward_engine_bonus_1
+		sp_land_generic_reward_engine_bonus_2
+		sp_land_generic_reward_engine_bonus_3
+		sp_land_generic_reward_resource_scarcity
+		sp_land_generic_reward_critical_failure
+	}
+	unique_prototype_rewards = {
+		sp_land_reward_land_cruiser_overheating = {
+			fire_only_once = yes
+			threshold = { 
+				min = 0
+				max = 100
+			}
+			weight = {
+				base = 1
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_overheating
+				
+				iteration_output = {
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_chassis = {
+			fire_only_once = yes
+			threshold = { 
+				min = 20
+				max = 70
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_chassis_redesign
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							reliability = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.medium
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_chassis_reinforce
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_chassis_reinforce_bonus_name
+						land_cruiser_chassis_1 = {
+							reliability = -0.03
+							armor_value = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_chassis_lighter_materials
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_chassis_lighter_materials_bonus_name
+						land_cruiser_chassis_1 = {
+							armor_value = -0.05
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_engine = {
+			fire_only_once = yes
+			threshold = { 
+				min = 20
+				max = 70
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_engine_leave
+				
+				iteration_output = {
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_engine_modify
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							maximum_speed = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.medium
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_engine_new
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							reliability = 0.05
+							maximum_speed = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.high
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_turret = {
+			fire_only_once = yes
+			threshold = { 
+				min = 50
+				max = 100
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_turret_original
+				iteration_output = {
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_turret_simplify
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							breakthrough = -0.03
+							build_cost_ic = -0.02
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.gain.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_turret_redesign
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_turret_redesign_bonus_name
+						land_cruiser_chassis_1 = {
+							breakthrough = 0.03
+							maximum_speed = 0.03
+							build_cost_ic = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_track = {
+			fire_only_once = yes
+			threshold = { 
+				min = 30
+				max = 80
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_track_current
+				iteration_output = {
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_track_reduce_armor
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_track_reduce_armor_bonus_name
+						land_cruiser_chassis_1 = {
+							armor_value = -0.03
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_track_reinforce_track
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							reliability = 0.05
+							build_cost_ic = 0.03
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.medium
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_communication = {
+			fire_only_once = yes
+			threshold = { 
+				min = 60
+				max = 100
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_communication_current
+				iteration_output = {
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_communication_new
+				iteration_output = {
+					equipment_bonus = {
+						land_cruiser_chassis_1 = {
+							breakthrough = 0.03
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_communication_redesign
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_communication_redesign_bonus_name
+						land_cruiser_chassis_1 = {
+							breakthrough = 0.03
+							defense = 0.03
+							build_cost_ic = 0.02
+						}
+					}
+
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.medium
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_assembly = {
+			fire_only_once = yes
+
+			threshold = { 
+				min = 20
+				max = 60
+			}
+
+			weight = {
+				base = 4
+			}
+
+			option = {
+				token = sp_land_reward_option_land_cruiser_assembly_all
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_assembly_bonus_name
+						land_cruiser_chassis_1 = {
+							reliability = 0.07
+							build_cost_ic = 0.05
+						}
+					}
+
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+
+			option = {
+				token = sp_land_reward_option_land_cruiser_assembly_key
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_option_land_cruiser_assembly_bonus_name
+						land_cruiser_chassis_1 = {
+							reliability = 0.03
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_suspension = {
+			fire_only_once = yes
+
+			threshold = { 
+				min = 30
+				max = 100
+			}
+
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_suspension_full
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_land_cruiser_suspension
+						land_cruiser_chassis_1 = {
+							maximum_speed = 0.03
+							reliability = 0.03
+							build_cost_ic = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.gain.low
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_suspension_rear
+				
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_land_cruiser_suspension
+						land_cruiser_chassis_1 = {
+							reliability = 0.03
+						}
+					}
+				}
+			}
+		}
+		sp_land_reward_land_cruiser_ammunition = {
+			fire_only_once = yes
+			threshold = { 
+				min = 50
+				max = 100
+			}
+			weight = {
+				base = 4
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_ammunition_current
+				iteration_output = {
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_ammunition_simplified
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_land_cruiser_ammunition
+						land_cruiser_chassis_1 = {
+							breakthrough = 0.03
+							build_cost_ic = 0.02
+						}
+					}
+				}
+			}
+			option = {
+				token = sp_land_reward_option_land_cruiser_ammunition_new
+				iteration_output = {
+					equipment_bonus = {
+						#name = sp_land_reward_land_cruiser_ammunition
+						land_cruiser_chassis_1 = {
+							breakthrough = 0.05
+							reliability = 0.03
+							build_cost_ic = 0.05
+						}
+					}
+					country_effects = {
+						FROM = {
+							add_project_progress_ratio = constant:sp_progress.loss.low
+						}
+					}
+				}
+			}
+		}
+	}
+}
