@@ -1,0 +1,743 @@
+# 纳塔国家决议 - 30个决议，分为内政政治、军事治安、经济工业、文化外交四大类，突出部族冲突调解、内部政治操作、纳塔特色玩法
+NAT_decisions = {
+    #### 第一类：内政政治类决议（1-8）
+    # 1. 召开部族联合会议
+    NAT_Hold_Tribal_Joint_Council = {
+        icon = GFX_decision_political_summit
+        allowed = {
+            has_country_flag = NAT_Call_Tribal_Council
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Held_Tribal_Joint_Council }
+            stability < 0.8
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Held_Tribal_Joint_Council
+            add_stability = 0.10
+            add_political_power = 30
+            add_relations = { target = ALL_TRIBES  value = 15 }
+            custom_effect_tooltip = NAT_Hold_Tribal_Joint_Council_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.9
+        }
+    }
+
+    # 2. 调解部族边境冲突
+    NAT_Mediate_Tribal_Border_Conflict = {
+        icon = GFX_decision_peace_mediation
+        allowed = {
+            has_country_flag = NAT_Establish_Duel_Mediation_System
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Mediated_Tribal_Conflict_Recent }
+            stability < 0.75
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Mediated_Tribal_Conflict_Recent
+            clr_country_flag = NAT_Mediated_Tribal_Conflict_Recent days = 180
+            add_stability = 0.07
+            reduce_war_exhaustion = 0.05
+            custom_effect_tooltip = NAT_Mediate_Tribal_Border_Conflict_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.85
+        }
+    }
+
+    # 3. 授予英雄古名
+    NAT_Award_Hero_Ancient_Name = {
+        icon = GFX_decision_award_medal
+        allowed = {
+            has_country_flag = NAT_Codify_Ancient_Name_System
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Awarded_Ancient_Name_Recent }
+            war_support > 0.3
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Awarded_Ancient_Name_Recent
+            clr_country_flag = NAT_Awarded_Ancient_Name_Recent days = 365
+            add_land_attack = { value = 0.05  duration = 365 }
+            add_war_support = 0.08
+            add_nationalism = 0.05
+            custom_effect_tooltip = NAT_Award_Hero_Ancient_Name_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.8
+        }
+    }
+
+    # 4. 镇压部族分离主义叛乱
+    NAT_Suppress_Tribal_Separatist_Rebellion = {
+        icon = GFX_decision_counter_insurgency
+        allowed = {
+            has_country_flag = NAT_Suppress_Separatist_Forces
+        }
+        available = {
+            garrison_control < 0.9
+            NOT = { has_country_flag = NAT_Suppressed_Separatist_Recent }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Suppressed_Separatist_Recent
+            clr_country_flag = NAT_Suppressed_Separatist_Recent days = 180
+            add_garrison_efficiency = 0.15
+            add_government_authority = 5
+            custom_effect_tooltip = NAT_Suppress_Tribal_Separatist_Rebellion_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.95
+        }
+    }
+
+    # 5. 平反历史冤案
+    NAT_Redress_Historical_Injustice = {
+        icon = GFX_decision_justice_reform
+        allowed = {
+            has_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Redressed_Historical_Injustice }
+            stability < 0.8
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Redressed_Historical_Injustice
+            add_stability = 0.08
+            add_happiness = { target = all  value = 0.06 }
+            custom_effect_tooltip = NAT_Redress_Historical_Injustice_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.75
+        }
+    }
+
+    # 6. 规范部族税收制度
+    NAT_Standardize_Tribal_Taxation_System = {
+        icon = GFX_decision_taxation_reform
+        allowed = {
+            has_country_flag = NAT_Establish_Unified_Taxation_System
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Standardized_Taxation_Recent }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Standardized_Taxation_Recent
+            clr_country_flag = NAT_Standardized_Taxation_Recent days = 365
+            reduce_consumer_goods = 0.02
+            add_factory_output = 0.04
+            custom_effect_tooltip = NAT_Standardize_Tribal_Taxation_System_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.8
+        }
+    }
+
+    # 7. 拉拢部族长老议会
+    NAT_Woo_Tribal_Elder_Council = {
+        icon = GFX_decision_political_negotiation
+        allowed = {
+            has_country_flag = NAT_Reform_Tribal_Parliament
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Wooed_Tribal_Elders_Recent }
+            ideology_support = { ideology = authoritarianism  < 0.4 }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Wooed_Tribal_Elders_Recent
+            clr_country_flag = NAT_Wooed_Tribal_Elders_Recent days = 180
+            add_ideology_support = { ideology = authoritarianism  value = 0.05 }
+            add_government_authority = 6
+            custom_effect_tooltip = NAT_Woo_Tribal_Elder_Council_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.7
+        }
+    }
+
+    # 8. 清剿内部深渊邪教
+    NAT_Clean_Up_Internal_Abyss_Cults = {
+        icon = GFX_decision_counter_espionage
+        allowed = {
+            has_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Cleaned_Abyss_Cults_Recent }
+            counter_espionage < 0.8
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Cleaned_Abyss_Cults_Recent
+            clr_country_flag = NAT_Cleaned_Abyss_Cults_Recent days = 180
+            add_counter_espionage = 0.12
+            add_stability = 0.05
+            custom_effect_tooltip = NAT_Clean_Up_Internal_Abyss_Cults_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.9
+        }
+    }
+
+    #### 第二类：军事治安类决议（9-16）
+    # 9. 举办全国决斗演武
+    NAT_Hold_National_Duel_Martial_Arts = {
+        icon = GFX_decision_military_training
+        allowed = {
+            has_country_flag = NAT_Establish_Duel_Code
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Held_Duel_Martial_Arts_Recent }
+            army_organization < 0.85
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Held_Duel_Martial_Arts_Recent
+            clr_country_flag = NAT_Held_Duel_Martial_Arts_Recent days = 270
+            add_army_organization = 0.08
+            add_land_attack = { value = 0.04 duration = 270 }
+            add_war_support = 0.06
+            custom_effect_tooltip = NAT_Hold_National_Duel_Martial_Arts_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.85
+        }
+    }
+
+    # 10. 整编部族民兵武装
+    NAT_Restruct_Tribal_Militia = {
+        icon = GFX_decision_military_conscription
+        allowed = {
+            has_country_flag = NAT_Integrate_Tribal_Militias
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Restructed_Militia_Recent }
+            manpower < 0.75
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Restructed_Militia_Recent
+            clr_country_flag = NAT_Restructed_Militia_Recent days = 365
+            add_manpower = 0.10
+            add_division_recruitment_speed = 0.07
+            custom_effect_tooltip = NAT_Restruct_Tribal_Militia_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.9
+        }
+    }
+
+    # 11. 构筑边境防御隘口
+    NAT_Build_Border_Defense_Passes = {
+        icon = GFX_decision_infrastructure_fortifications
+        allowed = {
+            has_country_flag = NAT_Upgrade_Border_Defenses
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Built_Defense_Passes_Recent }
+            fort_level_average < 3
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Built_Defense_Passes_Recent
+            clr_country_flag = NAT_Built_Defense_Passes_Recent days = 730
+            add_fort_level = { value = 1  provinces = BORDER_PROVINCES duration = 730 }
+            add_land_defense = { value = 0.12  duration = 730 }
+            custom_effect_tooltip = NAT_Build_Border_Defense_Passes_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.8
+        }
+    }
+
+    # 12. 训练部族斥候部队
+    NAT_Train_Tribal_Scout_Units = {
+        icon = GFX_decision_military_intelligence
+        allowed = {
+            has_country_flag = NAT_Establish_Scout_Training_Camp
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Trained_Scouts_Recent }
+            recon_efficiency < 0.8
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Trained_Scouts_Recent
+            clr_country_flag = NAT_Trained_Scouts_Recent days = 270
+            add_recon_efficiency = 0.15
+            add_army_speed = 0.06
+            custom_effect_tooltip = NAT_Train_Tribal_Scout_Units_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.88
+        }
+    }
+
+    # 13. 清缴跨境武装走私
+    NAT_Crack_Down_Crossborder_Arms_Smuggling = {
+        icon = GFX_decision_customs_enforcement
+        allowed = {
+            has_country_flag = NAT_Enhance_Border_Patrols
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Cracked_Smuggling_Recent }
+            smuggling_activity > 0.2
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Cracked_Smuggling_Recent
+            clr_country_flag = NAT_Cracked_Smuggling_Recent days = 180
+            add_arms_availability = 0.08
+            add_counter_espionage = 0.09
+            custom_effect_tooltip = NAT_Crack_Down_Crossborder_Arms_Smuggling_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.82
+        }
+    }
+
+    # 14. 推行全民军事训练
+    NAT_Implement_Universal_Military_Training = {
+        icon = GFX_decision_military_drill
+        allowed = {
+            has_country_flag = NAT_Promote_Military_Culture
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Implemented_Military_Training_Recent }
+            war_support < 0.6
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Implemented_Military_Training_Recent
+            clr_country_flag = NAT_Implemented_Military_Training_Recent days = 365
+            add_manpower = 0.15
+            add_war_support = 0.10
+            add_army_morale = 0.07
+            custom_effect_tooltip = NAT_Implement_Universal_Military_Training_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.92
+        }
+    }
+
+    # 15. 平定军阀割据势力
+    NAT_Pacify_Warlord_Separatist_Forces = {
+        icon = GFX_decision_military_campaign
+        allowed = {
+            has_country_flag = NAT_Launch_Warlord_Pacification
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Pacified_Warlords_Recent }
+            central_control < 0.8
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Pacified_Warlords_Recent
+            clr_country_flag = NAT_Pacified_Warlords_Recent days = 365
+            add_central_control = 0.12
+            add_government_authority = 8
+            add_stability = 0.09
+            custom_effect_tooltip = NAT_Pacify_Warlord_Separatist_Forces_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.97
+        }
+    }
+
+    # 16. 升级军用装备制造线
+    NAT_Upgrade_Military_Equipment_Lines = {
+        icon = GFX_decision_military_production
+        allowed = {
+            has_country_flag = NAT_Modernize_War_Industry
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Upgraded_Equipment_Lines_Recent }
+            industrial_capacity < 0.7
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Upgraded_Equipment_Lines_Recent
+            clr_country_flag = NAT_Upgraded_Equipment_Lines_Recent days = 730
+            add_equipment_production_speed = 0.10
+            add_factory_output = 0.06
+            custom_effect_tooltip = NAT_Upgrade_Military_Equipment_Lines_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.86
+        }
+    }
+
+    #### 第三类：经济工业类决议（17-24）
+    # 17. 开发部族传统矿产资源
+    NAT_Develop_Tribal_Traditional_Minerals = {
+        icon = GFX_decision_resource_extraction
+        allowed = {
+            has_country_flag = NAT_Authorize_Mineral_Development
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Developed_Minerals_Recent }
+            resources = { type = steel value < 500 }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Developed_Minerals_Recent
+            clr_country_flag = NAT_Developed_Minerals_Recent days = 365
+            add_resource = { type = steel value = 150 duration = 365 }
+            add_resource = { type = chromium value = 80 duration = 365 }
+            add_factory_output = 0.05
+            custom_effect_tooltip = NAT_Develop_Tribal_Traditional_Minerals_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.83
+        }
+    }
+
+    # 18. 修建部族间贸易商道
+    NAT_Build_Inter_Tribal_Trade_Routes = {
+        icon = GFX_decision_infrastructure_roads
+        allowed = {
+            has_country_flag = NAT_Improve_Tribal_Connectivity
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Built_Trade_Routes_Recent }
+            infrastructure < 0.6
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Built_Trade_Routes_Recent
+            clr_country_flag = NAT_Built_Trade_Routes_Recent days = 730
+            add_infrastructure = { value = 0.10 provinces = ALL_PROVINCES duration = 730 }
+            add_trade_efficiency = 0.08
+            add_consumer_goods = -0.03
+            custom_effect_tooltip = NAT_Build_Inter_Tribal_Trade_Routes_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.87
+        }
+    }
+
+    # 19. 建立部族手工业合作社
+    NAT_Establish_Tribal_Crafts_Cooperatives = {
+        icon = GFX_decision_industrial_cooperatives
+        allowed = {
+            has_country_flag = NAT_Support_Tribal_Crafts
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Established_Cooperatives_Recent }
+            civilian_factories < 20
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Established_Cooperatives_Recent
+            clr_country_flag = NAT_Established_Cooperatives_Recent days = 365
+            add_civilian_factories = 5
+            add_happiness = { target = all value = 0.07 }
+            add_consumer_goods = -0.02
+            custom_effect_tooltip = NAT_Establish_Tribal_Crafts_Cooperatives_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.78
+        }
+    }
+
+    # 20. 改革部族土地分配制度
+    NAT_Reform_Tribal_Land_Allocation = {
+        icon = GFX_decision_agrarian_reform
+        allowed = {
+            has_country_flag = NAT_Redistribute_Tribal_Lands
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Reformed_Land_Allocation_Recent }
+            agricultural_efficiency < 0.7
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Reformed_Land_Allocation_Recent
+            clr_country_flag = NAT_Reformed_Land_Allocation_Recent days = 365
+            add_agricultural_efficiency = 0.12
+            add_resource = { type = food value = 200 duration = 365 }
+            add_stability = 0.07
+            custom_effect_tooltip = NAT_Reform_Tribal_Land_Allocation_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.81
+        }
+    }
+
+    # 21. 引入外来工业技术投资
+    NAT_Attract_Foreign_Industrial_Investment = {
+        icon = GFX_decision_foreign_investment
+        allowed = {
+            has_country_flag = NAT_Open_Industrial_Investment
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Attracted_Foreign_Investment_Recent }
+            industrial_capacity < 0.65
+            world_tension = < 0.5
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Attracted_Foreign_Investment_Recent
+            clr_country_flag = NAT_Attracted_Foreign_Investment_Recent days = 730
+            add_industrial_capacity = 0.10
+            add_military_factories = 4
+            add_relations = { target = MAJOR_POWERS value = 10 }
+            custom_effect_tooltip = NAT_Attract_Foreign_Industrial_Investment_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.76
+        }
+    }
+
+    # 22. 规范部族商品交易市场
+    NAT_Standardize_Tribal_Commodity_Markets = {
+        icon = GFX_decision_economic_regulation
+        allowed = {
+            has_country_flag = NAT_Establish_Market_Regulations
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Standardized_Markets_Recent }
+            trade_efficiency < 0.75
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Standardized_Markets_Recent
+            clr_country_flag = NAT_Standardized_Markets_Recent days = 365
+            add_trade_efficiency = 0.11
+            add_consumer_goods = -0.04
+            add_happiness = { target = all value = 0.05 }
+            custom_effect_tooltip = NAT_Standardize_Tribal_Commodity_Markets_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.84
+        }
+    }
+
+    # 23. 建设水利灌溉工程
+    NAT_Construct_Irrigation_Projects = {
+        icon = GFX_decision_infrastructure_irrigation
+        allowed = {
+            has_country_flag = NAT_Invest_In_Agricultural_Infrastructure
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Constructed_Irrigation_Recent }
+            agricultural_efficiency < 0.68
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Constructed_Irrigation_Recent
+            clr_country_flag = NAT_Constructed_Irrigation_Recent days = 730
+            add_agricultural_efficiency = 0.15
+            add_resource = { type = food value = 250 duration = 730 }
+            add_stability = 0.08
+            custom_effect_tooltip = NAT_Construct_Irrigation_Projects_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.89
+        }
+    }
+
+    # 24. 发行部族统一流通货币
+    NAT_Issue_Unified_Tribal_Currency = {
+        icon = GFX_decision_economic_currency
+        allowed = {
+            has_country_flag = NAT_Establish_Central_Banking
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Issued_Unified_Currency_Recent }
+            economic_stability < 0.7
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Issued_Unified_Currency_Recent
+            clr_country_flag = NAT_Issued_Unified_Currency_Recent days = 730
+            add_economic_stability = 0.13
+            add_trade_efficiency = 0.09
+            add_factory_output = 0.07
+            custom_effect_tooltip = NAT_Issue_Unified_Tribal_Currency_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.82
+        }
+    }
+
+    #### 第四类：文化外交类决议（25-30）
+    # 25. 编撰部族英雄史诗集
+    NAT_Compile_Tribal_Heroic_Epics = {
+        icon = GFX_decision_cultural_preservation
+        allowed = {
+            has_country_flag = NAT_Preserve_Tribal_Culture
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Compiled_Epics_Recent }
+            nationalism < 0.6
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Compiled_Epics_Recent
+            clr_country_flag = NAT_Compiled_Epics_Recent days = 365
+            add_nationalism = 0.09
+            add_happiness = { target = all value = 0.08 }
+            add_stability = 0.06
+            custom_effect_tooltip = NAT_Compile_Tribal_Heroic_Epics_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.77
+        }
+    }
+
+    # 26. 举办纳塔文化交流节
+    NAT_Hold_Nata_Cultural_Exchange_Festival = {
+        icon = GFX_decision_cultural_festival
+        allowed = {
+            has_country_flag = NAT_Promote_Cultural_Unity
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Held_Cultural_Festival_Recent }
+            unity < 0.75
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Held_Cultural_Festival_Recent
+            clr_country_flag = NAT_Held_Cultural_Festival_Recent days = 180
+            add_unity = 0.10
+            add_happiness = { target = all value = 0.07 }
+            add_relations = { target = ALL_TRIBES value = 20 }
+            custom_effect_tooltip = NAT_Hold_Nata_Cultural_Exchange_Festival_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.85
+        }
+    }
+
+    # 27. 与邻邦签署边境和平协定
+    NAT_Sign_Border_Peace_Agreement_With_Neighbors = {
+        icon = GFX_decision_diplomatic_peace
+        allowed = {
+            has_country_flag = NAT_Initiate_Border_Diplomatic_Talks
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Signed_Peace_Agreement_Recent }
+            relations = { target = NEIGHBOR_COUNTRIES value < 0 }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Signed_Peace_Agreement_Recent
+            clr_country_flag = NAT_Signed_Peace_Agreement_Recent days = 730
+            add_relations = { target = NEIGHBOR_COUNTRIES value = 30 }
+            reduce_war_exhaustion = 0.10
+            add_stability = 0.08
+            custom_effect_tooltip = NAT_Sign_Border_Peace_Agreement_With_Neighbors_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.80
+        }
+    }
+
+    # 28. 设立部族语言标准化机构
+    NAT_Establish_Tribal_Language_Standardization_Body = {
+        icon = GFX_decision_cultural_standardization
+        allowed = {
+            has_country_flag = NAT_Unify_Tribal_Languages
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Established_Language_Body_Recent }
+            unity < 0.7
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Established_Language_Body_Recent
+            clr_country_flag = NAT_Established_Language_Body_Recent days = 730
+            add_unity = 0.12
+            add_nationalism = 0.07
+            add_happiness = { target = all value = 0.06 }
+            custom_effect_tooltip = NAT_Establish_Tribal_Language_Standardization_Body_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.79
+        }
+    }
+
+    # 29. 派遣文化使团出访友邦
+    NAT_Dispatch_Cultural_Missions_To_Friendly_Nations = {
+        icon = GFX_decision_diplomatic_cultural
+        allowed = {
+            has_country_flag = NAT_Promote_Nata_Culture_Abroad
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Dispatched_Cultural_Missions_Recent }
+            relations = { target = FRIENDLY_NATIONS value < 20 }
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Dispatched_Cultural_Missions_Recent
+            clr_country_flag = NAT_Dispatched_Cultural_Missions_Recent days = 365
+            add_relations = { target = FRIENDLY_NATIONS value = 25 }
+            add_influence = { target = REGIONAL_NATIONS value = 5 duration = 365 }
+            custom_effect_tooltip = NAT_Dispatch_Cultural_Missions_To_Friendly_Nations_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.83
+        }
+    }
+
+    # 30. 确立纳塔传统决斗为国家仪式
+    NAT_Establish_Nata_Traditional_Duel_As_National_Ritual = {
+        icon = GFX_decision_cultural_ritual
+        allowed = {
+            has_country_flag = NAT_Codify_Duel_Traditions
+        }
+        available = {
+            NOT = { has_country_flag = NAT_Established_Duel_Ritual }
+            unity > 0.65
+            war_support > 0.4
+        }
+        cost = 30
+        days_remove = 30
+        complete_effect = {
+            set_country_flag = NAT_Established_Duel_Ritual
+            add_unity = 0.15
+            add_nationalism = 0.10
+            add_land_attack = { value = 0.08 duration = -1 }
+            add_war_support = 0.12
+            custom_effect_tooltip = NAT_Establish_Nata_Traditional_Duel_As_National_Ritual_Tooltip
+        }
+        ai_will_do = {
+            factor = 0.93
+        }
+    }
+}

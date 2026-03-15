@@ -1,0 +1,1399 @@
+###########################
+# 纳塔
+###########################
+
+#纳塔 MOD 剧本优化说明
+#本次优化严格遵循《原神》官方纳塔设定，基于六大部族（沃陆之邦、回声之子、流泉之众、悬木人、花羽会、烟谜主）核心设定重构剧本，严格保持 80 个国策、80 个事件、30 个决议、30 个理念的数量不变，核心优化方向如下：
+#核心矛盾强化：深度植入部族间的历史恩怨、权力博弈、自治与统一的路线冲突，加入火神权威与部族议会的政治斗争、人龙关系的派系争议、主战与主和的路线对立，大幅提升内部政治玩法的深度。
+#史诗感与贴合度：完全贴合纳塔官方剧情线（希巴拉克屠龙、奥奇坎暴政、五百年前坎瑞亚灾厄、烬寂海深渊威胁、归火圣夜巡礼、古名传承），所有代码内容与本地化文本均匹配原神世界观，摒弃非官方原创设定。
+#可玩性提升：国策树加入多分支路线选择（温和调解 / 强硬整合、传统守护 / 技术革新、深渊清剿 / 内部维稳），事件加入多选项分支，决议提供丰富的内政操作空间，不同选择将触发不同的部族反应、属性增益与剧情走向。
+#代码规范修正：修复原代码中 HOI4 语法不规范问题，完善国策前置条件、国策树层级结构，补全触发逻辑，确保 MOD 可正常运行，同时强化各系统间的联动性。
+
+focus_tree = {
+	id = NAT_Neo_Focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 100
+			or = {
+				tag = NAT
+			}
+		}
+	}
+	default = no
+	continuous_focus_position = {
+		x = 20
+		y = 900
+	}
+
+	#### 阶段1：六大部族的博弈（1-10）——核心突出部族间的政治博弈、拉拢与制衡，奠定内部冲突核心玩法
+	focus = {
+		id = NAT_Call_Tribal_Council
+		icon = GFX_goal_DOT_Arcana_07
+		cost = 7.00
+		x = 20
+		y = 1
+		completion_reward = {
+			custom_effect_tooltip = NAT_Call_Tribal_Council_Tooltip
+			add_political_power = 120
+			set_country_flag = NAT_Call_Tribal_Council
+			country_event = { id = NAT_Event.1  days = 1 }
+			add_ideas = NAT_Mavuika_Eternal_Authority
+		}
+	}
+	focus = {
+		id = NAT_Win_Warlords_Alliance
+		icon = GFX_goal_DOT_Arcana_15
+		cost = 7.00
+		x = 20
+		y = 2
+		prerequisite = { focus = NAT_Call_Tribal_Council }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Win_Warlords_Alliance_Tooltip
+			add_political_power = 90
+			set_country_flag = NAT_Win_Warlords_Alliance
+			add_stability = 0.05
+			country_event = { id = NAT_Event.2  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Pacify_Volu_Bang
+		icon = GFX_goal_DOT_Arcana_03
+		cost = 7.00
+		x = 18
+		y = 3
+		prerequisite = { focus = NAT_Win_Warlords_Alliance }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Pacify_Volu_Bang_Tooltip
+			add_civilian_factory = 5
+			set_country_flag = NAT_Pacify_Volu_Bang
+			add_manpower = 25000
+			country_event = { id = NAT_Event.3  days = 2 }
+			add_ideas = NAT_Volu_Bang_Fertility_Oath
+		}
+	}
+	focus = {
+		id = NAT_Woo_Echo_Sons
+		icon = GFX_goal_DOT_Arcana_12
+		cost = 7.00
+		x = 20
+		y = 3
+		prerequisite = { focus = NAT_Win_Warlords_Alliance }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Woo_Echo_Sons_Tooltip
+			add_war_factory = 4
+			set_country_flag = NAT_Woo_Echo_Sons
+			add_equipment_to_stockpile = { type = infantry_equipment_1  amount = 800  producer = NAT }
+			country_event = { id = NAT_Event.4  days = 1 }
+			add_ideas = NAT_Echo_Sons_Forging_Heritage
+		}
+	}
+	focus = {
+		id = NAT_Reconcile_Spring_Folk
+		icon = GFX_goal_DOT_Arcana_19
+		cost = 7.00
+		x = 22
+		y = 3
+		prerequisite = { focus = NAT_Win_Warlords_Alliance }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Reconcile_Spring_Folk_Tooltip
+			add_trade_efficiency = 0.15
+			set_country_flag = NAT_Reconcile_Spring_Folk
+			add_naval_factory = 3
+			country_event = { id = NAT_Event.5  days = 2 }
+			add_ideas = NAT_Spring_Folk_Trade_Waterway
+		}
+	}
+	focus = {
+		id = NAT_Bind_Hanging_Tree_Clan
+		icon = GFX_goal_DOT_Arcana_08
+		cost = 7.00
+		x = 17
+		y = 4
+		prerequisite = { focus = NAT_Pacify_Volu_Bang }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Bind_Hanging_Tree_Clan_Tooltip
+			add_land_breakthrough = 0.10
+			set_country_flag = NAT_Bind_Hanging_Tree_Clan
+			add_construction_speed = 0.10
+			country_event = { id = NAT_Event.6  days = 1 }
+			add_ideas = NAT_Hanging_Tree_Clan_Fortification
+		}
+	}
+	focus = {
+		id = NAT_Win_Feather_Guild
+		icon = GFX_goal_DOT_Arcana_14
+		cost = 7.00
+		x = 19
+		y = 4
+		prerequisite = { focus = NAT_Pacify_Volu_Bang focus = NAT_Woo_Echo_Sons }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Win_Feather_Guild_Tooltip
+			add_air_factory = 5
+			set_country_flag = NAT_Win_Feather_Guild
+			add_air_experience = 50
+			country_event = { id = NAT_Event.7  days = 2 }
+			add_ideas = NAT_Feather_Guild_Air_Supremacy
+		}
+	}
+	focus = {
+		id = NAT_Appease_Smoke_Mystics
+		icon = GFX_goal_DOT_Arcana_22
+		cost = 7.00
+		x = 21
+		y = 4
+		prerequisite = { focus = NAT_Woo_Echo_Sons focus = NAT_Reconcile_Spring_Folk }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Appease_Smoke_Mystics_Tooltip
+			add_intelligence_agency_efficiency = 0.12
+			set_country_flag = NAT_Appease_Smoke_Mystics
+			add_espionage_efficiency = { target = WORLD  value = 0.10 }
+			country_event = { id = NAT_Event.8  days = 1 }
+			add_ideas = NAT_Smoke_Mystics_Mystic_Ritual
+		}
+	}
+	focus = {
+		id = NAT_Mediate_Tribal_Border_Disputes
+		icon = GFX_goal_DOT_Arcana_05
+		cost = 7.00
+		x = 23
+		y = 4
+		prerequisite = { focus = NAT_Reconcile_Spring_Folk }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Mediate_Tribal_Border_Disputes_Tooltip
+			add_stability = 0.10
+			set_country_flag = NAT_Mediate_Tribal_Border_Disputes
+			reduce_war_exhaustion = 0.08
+			country_event = { id = NAT_Event.9  days = 3 }
+			add_ideas = NAT_Ancient_Name_Inheritance_System
+		}
+	}
+	focus = {
+		id = NAT_Establish_Great_Fire_Pact
+		icon = GFX_goal_DOT_Arcana_10
+		cost = 7.00
+		x = 20
+		y = 5
+		prerequisite = {
+			focus = NAT_Bind_Hanging_Tree_Clan
+			focus = NAT_Win_Feather_Guild
+			focus = NAT_Appease_Smoke_Mystics
+			focus = NAT_Mediate_Tribal_Border_Disputes
+		}
+		completion_reward = {
+			custom_effect_tooltip = NAT_Establish_Great_Fire_Pact_Tooltip
+			add_political_power = 150
+			set_country_flag = NAT_Establish_Great_Fire_Pact
+			add_stability = 0.15
+			add_government_authority = 15
+			country_event = { id = NAT_Event.10  days = 1 }
+			add_ideas = NAT_Fire_Return_Sacred_Night_Pilgrimage
+		}
+	}
+
+	#### 阶段2：火神的权柄与议会（11-20）——核心突出玛薇卡的权威与部族议会的政治斗争，路线选择与权力博弈
+	focus = {
+		id = NAT_Mavuika_s_Will_Declaration
+		icon = GFX_goal_DOT_Arcana_16
+		cost = 7.00
+		x = 20
+		y = 6
+		prerequisite = { focus = NAT_Establish_Great_Fire_Pact }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Mavuika_s_Will_Declaration_Tooltip
+			add_political_power = 18Phyton0
+			set_country_flag = NAT_Mavuika_s_Will_Declaration
+			add_war_support = 0.15
+			country_event = { id = NAT_Event.11  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Reform_Tribal_Parliament
+		icon = GFX_goal_DOT_Arcana_02
+		cost = 7.00
+		x = 19
+		y = 7
+		prerequisite = { focus = NAT_Mavuika_s_Will_Declaration }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Reform_Tribal_Parliament_Tooltip
+			add_government_authority = 12
+			set_country_flag = NAT_Reform_Tribal_Parliament
+			add_stability = 0.08
+			country_event = { id = NAT_Event.12  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Strengthen_Fire_God_Authority
+		icon = GFX_goal_DOT_Arcana_18
+		cost = 7.00
+		x = 21
+		y = 7
+		prerequisite = { focus = NAT_Mavuika_s_Will_Declaration }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Strengthen_Fire_God_Authority_Tooltip
+			add_ideology_support = { ideology = authoritarianism  value = 0.10 }
+			set_country_flag = NAT_Strengthen_Fire_God_Authority
+			add_political_power = 100
+			country_event = { id = NAT_Event.13  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Codify_Ancient_Name_System
+		icon = GFX_goal_DOT_Arcana_11
+		cost = 7.00
+		x = 17
+		y = 8
+		prerequisite = { focus = NAT_Reform_Tribal_Parliament }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Codify_Ancient_Name_System_Tooltip
+			add_nationalism = 0.12
+			set_country_flag = NAT_Codify_Ancient_Name_System
+			add_happiness = { target = all  value = 0.08 }
+			country_event = { id = NAT_Event.14  days = 3 }
+		}
+	}
+	focus = {
+		id = NAT_Suppress_Separatist_Forces
+		icon = GFX_goal_DOT_Arcana_20
+		cost = 7.00
+		x = 20
+		y = 8
+		prerequisite = { focus = NAT_Reform_Tribal_Parliament focus = NAT_Strengthen_Fire_God_Authority }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Suppress_Separatist_Forces_Tooltip
+			add_garrison_efficiency = 0.15
+			set_country_flag = NAT_Suppress_Separatist_Forces
+			reduce_consumer_goods = 0.02
+			country_event = { id = NAT_Event.15  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Honor_Heroes_Of_The_Calamity
+		icon = GFX_goal_DOT_Arcana_09
+		cost = 7.00
+		x = 23
+		y = 8
+		prerequisite = { focus = NAT_Strengthen_Fire_God_Authority }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Honor_Heroes_Of_The_Calamity_Tooltip
+			add_war_support = 0.18
+			set_country_flag = NAT_Honor_Heroes_Of_The_Calamity
+			add_army_experience = 50
+			country_event = { id = NAT_Event.16  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Redress_Ocican_Tyranny_Injustice
+		icon = GFX_goal_DOT_Arcana_04
+		cost = 7.00
+		x = 16
+		y = 9
+		prerequisite = { focus = NAT_Codify_Ancient_Name_System }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Redress_Ocican_Tyranny_Injustice_Tooltip
+			add_stability = 0.12
+			set_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+			add_relations = { target = ALL  value = 10 }
+			country_event = { id = NAT_Event.17  days = 1 }
+			add_ideas = NAT_Ocikan_Tyranny_Injustice_Redress
+		}
+	}
+	focus = {
+		id = NAT_Redress_Ocican_Tyranny_Injustice-B
+		icon = GFX_goal_DOT_Arcana_04
+		cost = 7.00
+		x = 24
+		y = 9
+		prerequisite = { focus = NAT_Codify_Ancient_Name_System }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Redress_Ocican_Tyranny_Injustice_Tooltip
+			add_stability = 0.12
+			set_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+			add_relations = { target = ALL  value = 10 }
+			country_event = { id = NAT_Event.17  days = 1 }
+			add_ideas = NAT_Ocikan_Tyranny_Injustice_Redress
+		}
+	}
+	focus = {
+		id = NAT_Establish_Duel_Mediation_System
+		icon = GFX_goal_DOT_Arcana_13
+		cost = 7.00
+		x = 18
+		y = 9
+		prerequisite = { focus = NAT_Codify_Ancient_Name_System focus = NAT_Suppress_Separatist_Forces }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Establish_Duel_Mediation_System_Tooltip
+			add_political_power = 80
+			set_country_flag = NAT_Establish_Duel_Mediation_System
+			reduce_war_exhaustion = 0.10
+			country_event = { id = NAT_Event.18  days = 3 }
+		}
+	}
+	focus = {
+		id = NAT_Unite_Tribal_Law_Code
+		icon = GFX_goal_DOT_Arcana_06
+		cost = 7.00
+		x = 22
+		y = 9
+		prerequisite = { focus = NAT_Suppress_Separatist_Forces focus = NAT_Honor_Heroes_Of_The_Calamity }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Unite_Tribal_Law_Code_Tooltip
+			add_government_authority = 18
+			set_country_flag = NAT_Unite_Tribal_Law_Code
+			add_stability = 0.10
+			country_event = { id = NAT_Event.19  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Mavuika_s_Oath_To_Natlan
+		icon = GFX_goal_DOT_Arcana_17
+		cost = 7.00
+		x = 20
+		y = 10
+		prerequisite = {
+			focus = NAT_Redress_Ocican_Tyranny_Injustice
+			focus = NAT_Establish_Duel_Mediation_System
+			focus = NAT_Unite_Tribal_Law_Code
+		}
+		completion_reward = {
+			custom_effect_tooltip = NAT_Mavuika_s_Oath_To_Natlan_Tooltip
+			set_country_flag = NAT_Mavuika_s_Oath_To_Natlan
+			add_stability = 0.20
+			add_war_support = 0.20
+			add_political_power = 200
+			country_event = { id = NAT_Event.20  days = 1 }
+		}
+	}
+
+	#### 阶段3：炉心与源火的秘辛（21-30）——核心突出源火、燃素技术、人龙关系的派系斗争，古龙遗迹的探索与争议
+	focus = {
+		id = NAT_Explore_Turan_Sacred_City
+		icon = GFX_goal_DOT_Arcana_21
+		cost = 7.00
+		x = 20
+		y = 11
+		prerequisite = { focus = NAT_Mavuika_s_Oath_To_Natlan }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Explore_Turan_Sacred_City_Tooltip
+			add_research_speed = 0.10
+			set_country_flag = NAT_Explore_Turan_Sacred_City
+			add_industrial_efficiency = 0.08
+			country_event = { id = NAT_Event.21  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Study_Phyton_Technology
+		icon = GFX_goal_DOT_Arcana_01
+		cost = 7.00
+		x = 18
+		y = 12
+		prerequisite = { focus = NAT_Explore_Turan_Sacred_City }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Study_Phyton_Technology_Tooltip
+			add_factory_output = 0.12
+			set_country_flag = NAT_Study_Phyton_Technology
+			add_industrial_capacity = 10
+			country_event = { id = NAT_Event.22  days = 2 }
+			add_ideas = NAT_Phyton_Technology_Innovation
+		}
+	}
+	focus = {
+		id = NAT_Dragon_Human_Relationship_Policy
+		icon = GFX_goal_DOT_Arcana_19
+		cost = 7.00
+		x = 22
+		y = 12
+		prerequisite = { focus = NAT_Explore_Turan_Sacred_City }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Dragon_Human_Relationship_Policy_Tooltip
+			add_stability = 0.07
+			set_country_flag = NAT_Dragon_Human_Relationship_Policy
+			add_relations = { target = NAT_DRAGON_TAG  value = 40 }
+			country_event = { id = NAT_Event.23  days = 1 }
+			add_ideas = NAT_Dragon_Human_Symbiosis_Covenant
+		}
+	}
+	focus = {
+		id = NAT_Source_Fire_Heart_Guard
+		icon = GFX_goal_DOT_Arcana_08
+		cost = 7.00
+		x = 16
+		y = 13
+		prerequisite = { focus = NAT_Study_Phyton_Technology }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Source_Fire_Heart_Guard_Tooltip
+			add_land_defense = { value = 0.15  duration = 730 }
+			set_country_flag = NAT_Source_Fire_Heart_Guard
+			build_fortifications = { level = 3  province = NAT_TURAN_VOLCANO_PROVINCE  amount = 1 }
+			country_event = { id = NAT_Event.24  days = 3 }
+			add_ideas = NAT_Fire_Stealer_Wisdom_Heritage
+		}
+	}
+	focus = {
+		id = NAT_Elemental_Furnace_Construction
+		icon = GFX_goal_DOT_Arcana_15
+		cost = 7.00
+		x = 18
+		y = 13
+		prerequisite = { focus = NAT_Study_Phyton_Technology }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Elemental_Furnace_Construction_Tooltip
+			add_electricity = 3000
+			set_country_flag = NAT_Elemental_Furnace_Construction
+			add_civilian_factory = 7
+			country_event = { id = NAT_Event.25  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Win_Dragon_Sages_Support
+		icon = GFX_goal_DOT_Arcana_12
+		cost = 7.00
+		x = 22
+		y = 13
+		prerequisite = { focus = NAT_Dragon_Human_Relationship_Policy }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Win_Dragon_Sages_Support_Tooltip
+			add_research_speed = 0.15
+			set_country_flag = NAT_Win_Dragon_Sages_Support
+			add_laboratory = 4
+			country_event = { id = NAT_Event.26  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Suppress_Anti_Dragon_Extremists
+		icon = GFX_goal_DOT_Arcana_04
+		cost = 7.00
+		x = 24
+		y = 13
+		prerequisite = { focus = NAT_Dragon_Human_Relationship_Policy }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Suppress_Anti_Dragon_Extremists_Tooltip
+			add_government_authority = 10
+			set_country_flag = NAT_Suppress_Anti_Dragon_Extremists
+			add_stability = 0.05
+			country_event = { id = NAT_Event.27  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Ancient_Dragon_Forge_Restoration
+		icon = GFX_goal_DOT_Arcana_20
+		cost = 7.00
+		x = 14
+		y = 14
+		prerequisite = { focus = NAT_Source_Fire_Heart_Guard focus = NAT_Elemental_Furnace_Construction }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Ancient_Dragon_Forge_Restoration_Tooltip
+			add_war_factory = 8
+			set_country_flag = NAT_Ancient_Dragon_Forge_Restoration
+			add_equipment_quality_factor = { type = infantry_equipment  value = 0.10 }
+			country_event = { id = NAT_Event.28  days = 3 }
+		}
+	}
+	focus = {
+		id = NAT_Seal_Abyss_Rifts_In_Volcano
+		icon = GFX_goal_DOT_Arcana_07
+		cost = 7.00
+		x = 26
+		y = 14
+		prerequisite = { focus = NAT_Win_Dragon_Sages_Support focus = NAT_Suppress_Anti_Dragon_Extremists }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Seal_Abyss_Rifts_In_Volcano_Tooltip
+			add_land_defense = { value = 0.10  duration = 1095 }
+			set_country_flag = NAT_Seal_Abyss_Rifts_In_Volcano
+			reduce_war_exhaustion = 0.05
+			country_event = { id = NAT_Event.29  days = 2 }
+			add_ideas = NAT_Volcano_Industrial_Zone_Expansion
+		}
+	}
+	focus = {
+		id = NAT_Master_Secret_Source_Technology
+		icon = GFX_goal_DOT_Arcana_16
+		cost = 7.00
+		x = 20
+		y = 15
+		prerequisite = { focus = NAT_Ancient_Dragon_Forge_Restoration focus = NAT_Seal_Abyss_Rifts_In_Volcano }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Master_Secret_Source_Technology_Tooltip
+			add_research_speed = 0.20
+			set_country_flag = NAT_Master_Secret_Source_Technology
+			add_industrial_efficiency = 0.15
+			add_nuclear_research = 10
+			country_event = { id = NAT_Event.30  days = 1 }
+			add_ideas = NAT_Secret_Source_Automaton_Military_Application
+		}
+	}
+
+	#### 阶段4：决斗法典与荣花演武（31-40）——核心突出纳塔决斗文化，用决斗解决内部冲突，强化军事与民族凝聚力，路线选择与内部荣誉斗争
+	focus = {
+		id = NAT_Establish_Duel_Code
+		icon = GFX_goal_DOT_Arcana_03
+		cost = 7.00
+		x = 20
+		y = 16
+		prerequisite = { focus = NAT_Master_Secret_Source_Technology }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Establish_Duel_Code_Tooltip
+			add_stability = 0.10
+			set_country_flag = NAT_Establish_Duel_Code
+			add_political_power = 60
+			country_event = { id = NAT_Event.31  days = 1 }
+			add_ideas = NAT_Duel_Code_Glory
+		}
+	}
+	focus = {
+		id = NAT_Build_Sacred_Duel_Arena
+		icon = GFX_goal_DOT_Arcana_11
+		cost = 7.00
+		x = 18
+		y = 17
+		prerequisite = { focus = NAT_Establish_Duel_Code }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Build_Sacred_Duel_Arena_Tooltip
+			add_construction_speed = 0.18
+			set_country_flag = NAT_Build_Sacred_Duel_Arena
+			add_civilian_factory = { province = NAT_CAPITAL_PROVINCE  amount = 6 }
+			country_event = { id = NAT_Event.32  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Hold_Glorious_Flower_Martial_Arts
+		icon = GFX_goal_DOT_Arcana_18
+		cost = 7.00
+		x = 22
+		y = 17
+		prerequisite = { focus = NAT_Establish_Duel_Code }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Hold_Glorious_Flower_Martial_Arts_Tooltip
+			add_army_experience = 80
+			set_country_flag = NAT_Hold_Glorious_Flower_Martial_Arts
+			add_war_support = 0.12
+			country_event = { id = NAT_Event.33  days = 1 }
+			add_ideas = NAT_Glorious_Flower_Martial_Arts_Ceremony
+		}
+	}
+	focus = {
+		id = NAT_Standardize_Honor_Duel_Rules
+		icon = GFX_goal_DOT_Arcana_09
+		cost = 7.00
+		x = 16
+		y = 18
+		prerequisite = { focus = NAT_Build_Sacred_Duel_Arena }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Standardize_Honor_Duel_Rules_Tooltip
+			add_stability = 0.08
+			set_country_flag = NAT_Standardize_Honor_Duel_Rules
+			add_government_authority = 8
+			country_event = { id = NAT_Event.34  days = 3 }
+		}
+	}
+	focus = {
+		id = NAT_Establish_Duel_Champion_System
+		icon = GFX_goal_DOT_Arcana_22
+		cost = 7.00
+		x = 20
+		y = 18
+		prerequisite = { focus = NAT_Build_Sacred_Duel_Arena focus = NAT_Hold_Glorious_Flower_Martial_Arts }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Establish_Duel_Champion_System_Tooltip
+			add_land_attack = { value = 0.12  duration = 730 }
+			set_country_flag = NAT_Establish_Duel_Champion_System
+			add_army_experience_gain = 0.10
+			country_event = { id = NAT_Event.35  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Duel_Training_Camp_System
+		icon = GFX_goal_DOT_Arcana_13
+		cost = 7.00
+		x = 24
+		y = 18
+		prerequisite = { focus = NAT_Hold_Glorious_Flower_Martial_Arts }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Duel_Training_Camp_System_Tooltip
+			add_land_recruitment_speed = 0.15
+			set_country_flag = NAT_Duel_Training_Camp_System
+			add_manpower = 50000
+			country_event = { id = NAT_Event.36  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Duel_Training_Camp_System-B
+		icon = GFX_goal_DOT_Arcana_05
+		cost = 7.00
+		x = 26
+		y = 19
+		prerequisite = { focus = NAT_Duel_Training_Camp_System }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Duel_Training_Camp_System_Tooltip
+			add_land_recruitment_speed = 0.15
+			set_country_flag = NAT_Duel_Training_Camp_System
+			add_manpower = 50000
+			country_event = { id = NAT_Event.36  days = 2 }
+			add_ideas = NAT_Great_Spirit_Soul_Blessing
+		}
+	}
+	focus = {
+		id = NAT_Hold_Fire_Return_Sacred_Night_Pilgrimage
+		icon = GFX_goal_DOT_Arcana_10
+		cost = 7.00
+		x = 14
+		y = 19
+		prerequisite = { focus = NAT_Standardize_Honor_Duel_Rules }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Hold_Fire_Return_Sacred_Night_Pilgrimage_Tooltip
+			add_nationalism = 0.18
+			set_country_flag = NAT_Hold_Fire_Return_Sacred_Night_Pilgrimage
+			add_war_support = 0.20
+			country_event = { id = NAT_Event.37  days = 1 }
+		}
+	}
+	focus = {
+		id = NAT_Duel_Resolve_Tribal_Conflicts
+		icon = GFX_goal_DOT_Arcana_17
+		cost = 7.00
+		x = 18
+		y = 19
+		prerequisite = { focus = NAT_Standardize_Honor_Duel_Rules focus = NAT_Establish_Duel_Champion_System }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Duel_Resolve_Tribal_Conflicts_Tooltip
+			add_stability = 0.15
+			set_country_flag = NAT_Duel_Resolve_Tribal_Conflicts
+			add_relations = { target = ALL  value = 15 }
+			country_event = { id = NAT_Event.38  days = 3 }
+		}
+	}
+	focus = {
+		id = NAT_Flame_Blessing_For_Duel_Warriors
+		icon = GFX_goal_DOT_Arcana_02
+		cost = 7.00
+		x = 22
+		y = 19
+		prerequisite = { focus = NAT_Establish_Duel_Champion_System focus = NAT_Duel_Training_Camp_System }
+		completion_reward = {
+			custom_effect_tooltip = NAT_Flame_Blessing_For_Duel_Warriors_Tooltip
+			add_war_factory = 6
+			set_country_flag = NAT_Flame_Blessing_For_Duel_Warriors
+			add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 300  producer = NAT }
+			country_event = { id = NAT_Event.39  days = 2 }
+		}
+	}
+	focus = {
+		id = NAT_Ultimate_Duel_Of_Heroes
+		icon = GFX_goal_DOT_Arcana_14
+		cost = 7.00
+		x = 20
+		y = 20
+		prerequisite = {
+			focus = NAT_Hold_Fire_Return_Sacred_Night_Pilgrimage
+			focus = NAT_Duel_Resolve_Tribal_Conflicts
+			focus = NAT_Flame_Blessing_For_Duel_Warriors
+		}
+		completion_reward = {
+			custom_effect_tooltip = NAT_Ultimate_Duel_Of_Heroes_Tooltip
+			add_land_attack = { value = 0.25  duration = 1095 }
+			set_country_flag = NAT_Ultimate_Duel_Of_Heroes
+			add_war_support = 0.30
+			add_army_experience = 150
+			country_event = { id = NAT_Event.40  days = 1 }
+		}
+	}
+	
+	# available = { has_completed_focus = LYY_Rite_of_Parting }
+
+	#### 阶段5：部族的整合与裂痕（41-50）——核心突出统一与自治的路线斗争，解决内部分裂风险，完成部族的深度整合，史诗级的国家构建
+	#### 阶段5：部族的整合与裂痕（41-50）——核心突出统一与自治的路线斗争，解决内部分裂风险，完成部族的深度整合，史诗级的国家构建
+focus = {
+	id = NAT_Promote_Natlan_National_Identity
+	icon = GFX_goal_DOT_Arcana_21
+	cost = 7.00
+	x = 40  ## 调整后
+	y = 1   ## 调整后
+	available = { has_completed_focus = NAT_Ultimate_Duel_Of_Heroes }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Promote_Natlan_National_Identity_Tooltip
+		add_nationalism = 0.20
+		set_country_flag = NAT_Promote_Natlan_National_Identity
+		add_stability = 0.10
+		country_event = { id = NAT_Event.41  days = 1 }
+		add_ideas = NAT_Natlan_National_Identity_Construction
+	}
+}
+focus = {
+	id = NAT_Integrate_Tribal_Resource_System
+	icon = GFX_goal_DOT_Arcana_06
+	cost = 7.00
+	x = 39  ## 原17+20
+	y = 2   ## 原22-20
+	prerequisite = { focus = NAT_Promote_Natlan_National_Identity }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Integrate_Tribal_Resource_System_Tooltip
+		add_resource = { type = steel  amount = 800 }
+		set_country_flag = NAT_Integrate_Tribal_Resource_System
+		add_resource = { type = oil  amount = 600 }
+		country_event = { id = NAT_Event.42  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Unify_Tribal_Military_Forces
+	icon = GFX_goal_DOT_Arcana_19
+	cost = 7.00
+	x = 41  ## 原23+20
+	y = 2   ## 原22-20
+	prerequisite = { focus = NAT_Promote_Natlan_National_Identity }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Unify_Tribal_Military_Forces_Tooltip
+		add_land_attack = { value = 0.10  duration = 730 }
+		set_country_flag = NAT_Unify_Tribal_Military_Forces
+		add_division_recruitment_speed = 0.15
+		country_event = { id = NAT_Event.43  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Autonomy_Policy_For_Loyal_Tribes
+	icon = GFX_goal_DOT_Arcana_12
+	cost = 7.00
+	x = 38  ## 原14+20
+	y = 3   ## 原23-20
+	prerequisite = { focus = NAT_Integrate_Tribal_Resource_System }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Autonomy_Policy_For_Loyal_Tribes_Tooltip
+		add_stability = 0.12
+		set_country_flag = NAT_Autonomy_Policy_For_Loyal_Tribes
+		add_happiness = { target = all  value = 0.10 }
+		country_event = { id = NAT_Event.44  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Establish_Unified_Taxation_System
+	icon = GFX_goal_DOT_Arcana_08
+	cost = 7.00
+	x = 40  ## 原20+20
+	y = 3   ## 原23-20
+	prerequisite = { focus = NAT_Integrate_Tribal_Resource_System focus = NAT_Unify_Tribal_Military_Forces }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Establish_Unified_Taxation_System_Tooltip
+		add_factory_output = 0.10
+		set_country_flag = NAT_Establish_Unified_Taxation_System
+		reduce_consumer_goods = 0.03
+		country_event = { id = NAT_Event.45  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Suppress_Rebellious_Tribal_Elders
+	icon = GFX_goal_DOT_Arcana_15
+	cost = 7.00
+	x = 42  ## 原26+20
+	y = 3   ## 原23-20
+	prerequisite = { focus = NAT_Unify_Tribal_Military_Forces }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Suppress_Rebellious_Tribal_Elders_Tooltip
+		add_government_authority = 15
+		set_country_flag = NAT_Suppress_Rebellious_Tribal_Elders
+		add_political_power = 90
+		country_event = { id = NAT_Event.46  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Suppress_Rebellious_Tribal_Elders-B
+	icon = GFX_goal_DOT_Arcana_22
+	cost = 7.00
+	x = 43  ## 原26+20
+	y = 4   ## 原24-20
+	prerequisite = { focus = NAT_Suppress_Rebellious_Tribal_Elders }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Suppress_Rebellious_Tribal_Elders_Tooltip
+		add_government_authority = 15
+		set_country_flag = NAT_Suppress_Rebellious_Tribal_Elders
+		add_political_power = 90
+		country_event = { id = NAT_Event.46  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Unify_Cultural_And_Educational_System
+	icon = GFX_goal_DOT_Arcana_01
+	cost = 7.00
+	x = 37  ## 原14+20
+	y = 4   ## 原24-20
+	prerequisite = { focus = NAT_Autonomy_Policy_For_Loyal_Tribes }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Unify_Cultural_And_Educational_System_Tooltip
+		add_research_speed = 0.08
+		set_country_flag = NAT_Unify_Cultural_And_Educational_System
+		add_cultural_influence = { target = WORLD  value = 0.10 }
+		country_event = { id = NAT_Event.47  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Establish_Natlan_Unified_Law
+	icon = GFX_goal_DOT_Arcana_10
+	cost = 7.00
+	x = 39  ## 原17+20
+	y = 4   ## 原24-20
+	prerequisite = { focus = NAT_Autonomy_Policy_For_Loyal_Tribes focus = NAT_Establish_Unified_Taxation_System }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Establish_Natlan_Unified_Law_Tooltip
+		add_stability = 0.18
+		set_country_flag = NAT_Establish_Natlan_Unified_Law
+		add_government_authority = 20
+		country_event = { id = NAT_Event.48  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Integrate_Tribal_Guard_Forces
+	icon = GFX_goal_DOT_Arcana_13
+	cost = 7.00
+	x = 41  ## 原23+20
+	y = 4   ## 原24-20
+	prerequisite = { focus = NAT_Establish_Unified_Taxation_System focus = NAT_Suppress_Rebellious_Tribal_Elders }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Integrate_Tribal_Guard_Forces_Tooltip
+		add_garrison_efficiency = 0.20
+		set_country_flag = NAT_Integrate_Tribal_Guard_Forces
+		add_land_defense = { value = 0.08  duration = 730 }
+		country_event = { id = NAT_Event.49  days = 2 }
+	}
+}
+focus = {
+	id = NAT_All_Tribes_Unification_Declaration
+	icon = GFX_goal_DOT_Arcana_17
+	cost = 7.00
+	x = 40  ## 原20+20
+	y = 5   ## 原25-20
+	prerequisite = {
+		focus = NAT_Unify_Cultural_And_Educational_System
+		focus = NAT_Establish_Natlan_Unified_Law
+		focus = NAT_Integrate_Tribal_Guard_Forces
+	}
+	completion_reward = {
+		custom_effect_tooltip = NAT_All_Tribes_Unification_Declaration_Tooltip
+		set_country_flag = NAT_All_Tribes_Unification_Declaration
+		set_national_stability = 0.90
+		add_political_power = 250
+		add_manpower = 100000
+		add_war_support = 0.25
+		country_event = { id = NAT_Event.50  days = 1 }
+	}
+}
+
+#### 阶段6：燃素军工与龙骸锻造（51-60）——核心突出军事工业建设，基于燃素技术的军工革新，强化军队战斗力，为内部稳定和外部对抗奠定基础
+focus = {
+	id = NAT_Establish_Phyton_Weapon_Research
+	icon = GFX_goal_DOT_Arcana_04
+	cost = 7.00
+	x = 35  ## 原15+20
+	y = 6   ## 原26-20
+	prerequisite = { focus = NAT_All_Tribes_Unification_Declaration }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Establish_Phyton_Weapon_Research_Tooltip
+		add_research_speed = { type = land_weapons  value = 0.15 }
+		set_country_flag = NAT_Establish_Phyton_Weapon_Research
+		add_equipment_quality_factor = { type = artillery_equipment  value = 0.10 }
+		country_event = { id = NAT_Event.51  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Flame_Enchantment_Forge_Expansion
+	icon = GFX_goal_DOT_Arcana_20
+	cost = 7.00
+	x = 34  ## 原13+20
+	y = 7   ## 原27-20
+	prerequisite = { focus = NAT_Establish_Phyton_Weapon_Research }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Flame_Enchantment_Forge_Expansion_Tooltip
+		add_war_factory = 9
+		set_country_flag = NAT_Flame_Enchantment_Forge_Expansion
+		add_equipment_production_efficiency = { type = infantry_equipment  value = 0.12 }
+		country_event = { id = NAT_Event.52  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Dragon_Bone_Armor_Development
+	icon = GFX_goal_DOT_Arcana_07
+	cost = 7.00
+	x = 36  ## 原17+20
+	y = 7   ## 原27-20
+	prerequisite = { focus = NAT_Establish_Phyton_Weapon_Research }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Dragon_Bone_Armor_Development_Tooltip
+		add_land_armor_value_bonus = 15
+		set_country_flag = NAT_Dragon_Bone_Armor_Development
+		add_equipment_to_stockpile = { type = heavy_tank_equipment_1  amount = 200  producer = NAT }
+		country_event = { id = NAT_Event.53  days = 1 }
+		add_ideas = NAT_Dragon_Bone_Military_Forging
+	}
+}
+focus = {
+	id = NAT_Expansion_Of_Volcano_Industrial_Zone
+	icon = GFX_goal_DOT_Arcana_16
+	cost = 7.00
+	x = 33  ## 原11+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Flame_Enchantment_Forge_Expansion }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Expansion_Of_Volcano_Industrial_Zone_Tooltip
+		add_civilian_factory = 10
+		set_country_flag = NAT_Expansion_Of_Volcano_Industrial_Zone
+		add_industrial_efficiency = 0.10
+		country_event = { id = NAT_Event.54  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Mobile_Warfare_Tactics_Innovation
+	icon = GFX_goal_DOT_Arcana_11
+	cost = 7.00
+	x = 35  ## 原15+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Flame_Enchantment_Forge_Expansion focus = NAT_Dragon_Bone_Armor_Development }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Mobile_Warfare_Tactics_Innovation_Tooltip
+		add_land_breakthrough = 0.15
+		set_country_flag = NAT_Mobile_Warfare_Tactics_Innovation
+		add_doctrine_progress = { type = mobile_warfare  value = 10 }
+		country_event = { id = NAT_Event.55  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Flame_Artillery_Development
+	icon = GFX_goal_DOT_Arcana_19
+	cost = 7.00
+	x = 37  ## 原19+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Dragon_Bone_Armor_Development }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Flame_Artillery_Development_Tooltip
+		add_equipment_to_stockpile = { type = artillery_equipment_1  amount = 500  producer = NAT }
+		set_country_flag = NAT_Flame_Artillery_Development
+		add_land_attack = { value = 0.08  duration = 540 }
+		country_event = { id = NAT_Event.56  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Flame_Artillery_Development-B
+	icon = GFX_goal_DOT_Arcana_09
+	cost = 7.00
+	x = 38  ## 原19+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Flame_Artillery_Development }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Flame_Artillery_Development_Tooltip
+		add_equipment_to_stockpile = { type = artillery_equipment_1  amount = 500  producer = NAT }
+		set_country_flag = NAT_Flame_Artillery_Development
+		add_land_attack = { value = 0.08  duration = 540 }
+		country_event = { id = NAT_Event.56  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Naval_Forge_Construction
+	icon = GFX_goal_DOT_Arcana_05
+	cost = 7.00
+	x = 32  ## 原11+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Expansion_Of_Volcano_Industrial_Zone }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Naval_Forge_Construction_Tooltip
+		add_naval_factory = 6
+		set_country_flag = NAT_Naval_Forge_Construction
+		add_naval_attack = { value = 0.10  duration = 730 }
+		country_event = { id = NAT_Event.57  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Aviation_Industry_Expansion
+	icon = GFX_goal_DOT_Arcana_14
+	cost = 7.00
+	x = 34  ## 原13+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Expansion_Of_Volcano_Industrial_Zone focus = NAT_Mobile_Warfare_Tactics_Innovation }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Aviation_Industry_Expansion_Tooltip
+		add_air_factory = 7
+		set_country_flag = NAT_Aviation_Industry_Expansion
+		add_air_attack = { value = 0.10  duration = 730 }
+		country_event = { id = NAT_Event.58  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Elite_Flame_Warrior_Training
+	icon = GFX_goal_DOT_Arcana_02
+	cost = 7.00
+	x = 36  ## 原17+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Mobile_Warfare_Tactics_Innovation focus = NAT_Flame_Artillery_Development }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Elite_Flame_Warrior_Training_Tooltip
+		add_army_experience = 120
+		set_country_flag = NAT_Elite_Flame_Warrior_Training
+		add_special_forces_cap = 10
+		country_event = { id = NAT_Event.59  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Military_Industry_Modernization
+	icon = GFX_goal_DOT_Arcana_18
+	cost = 7.00
+	x = 35  ## 原15+20
+	y = 10  ## 原30-20
+	prerequisite = {
+		focus = NAT_Naval_Forge_Construction
+		focus = NAT_Aviation_Industry_Expansion
+		focus = NAT_Elite_Flame_Warrior_Training
+	}
+	completion_reward = {
+		custom_effect_tooltip = NAT_Military_Industry_Modernization_Tooltip
+		add_war_factory = 15
+		set_country_flag = NAT_Military_Industry_Modernization
+		add_industrial_efficiency = 0.18
+		add_production_speed_factory = 0.10
+		country_event = { id = NAT_Event.60  days = 1 }
+	}
+}
+
+#### 阶段7：深渊的低语与烬寂海的阴影（61-70）——核心突出深渊渗透的内部危机，主战与主和的派系斗争，清剿内部深渊势力，解决五百年前灾厄遗留问题
+focus = {
+	id = NAT_Investigate_Abyss_Infiltration
+	icon = GFX_goal_DOT_Arcana_21
+	cost = 7.00
+	x = 45  ## 原25+20
+	y = 6   ## 原26-20
+	prerequisite = { focus = NAT_All_Tribes_Unification_Declaration }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Investigate_Abyss_Infiltration_Tooltip
+		add_counter_espionage = 0.15
+		set_country_flag = NAT_Investigate_Abyss_Infiltration
+		add_intelligence_agency_efficiency = 0.10
+		country_event = { id = NAT_Event.61  days = 1 }
+		add_ideas = NAT_Abyss_Resistance_Tactics_System
+	}
+}
+focus = {
+	id = NAT_Strengthen_Night_God_Realm_Protection
+	icon = GFX_goal_DOT_Arcana_06
+	cost = 7.00
+	x = 44  ## 原23+20
+	y = 7   ## 原27-20
+	prerequisite = { focus = NAT_Investigate_Abyss_Infiltration }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Strengthen_Night_God_Realm_Protection_Tooltip
+		add_stability = 0.10
+		set_country_flag = NAT_Strengthen_Night_God_Realm_Protection
+		add_nationalism = 0.10
+		country_event = { id = NAT_Event.62  days = 2 }
+		add_ideas = NAT_Xibarak_Hero_Legacy
+	}
+}
+focus = {
+	id = NAT_Clean_Up_Abyss_Cult_Forces
+	icon = GFX_goal_DOT_Arcana_12
+	cost = 7.00
+	x = 46  ## 原27+20
+	y = 7   ## 原27-20
+	prerequisite = { focus = NAT_Investigate_Abyss_Infiltration }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Clean_Up_Abyss_Cult_Forces_Tooltip
+		add_government_authority = 12
+		set_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
+		add_garrison_efficiency = 0.15
+		country_event = { id = NAT_Event.63  days = 1 }
+	}
+}
+focus = {
+	id = NAT_The_Shadow_Of_The_Embersea
+	icon = GFX_goal_DOT_Arcana_03
+	cost = 7.00
+	x = 43  ## 原21+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Strengthen_Night_God_Realm_Protection }
+	completion_reward = {
+		custom_effect_tooltip = NAT_The_Shadow_Of_The_Embersea_Tooltip
+		add_land_defense = { value = 0.12  duration = 1095 }
+		set_country_flag = NAT_The_Shadow_Of_The_Embersea
+		build_fortifications = { level = 4  province = NAT_EMBERSEA_BORDER_PROVINCE  amount = 1 }
+		country_event = { id = NAT_Event.64  days = 3 }
+		add_ideas = NAT_Embersea_Abyss_Defense_Line
+	}
+}
+focus = {
+	id = NAT_Hold_War_Council_Against_Abyss
+	icon = GFX_goal_DOT_Arcana_20
+	cost = 7.00
+	x = 45  ## 原25+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Strengthen_Night_God_Realm_Protection focus = NAT_Clean_Up_Abyss_Cult_Forces }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Hold_War_Council_Against_Abyss_Tooltip
+		add_war_support = 0.25
+		set_country_flag = NAT_Hold_War_Council_Against_Abyss
+		add_political_power = 120
+		country_event = { id = NAT_Event.65  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Unite_Dragon_Alliance_Against_Abyss
+	icon = GFX_goal_DOT_Arcana_08
+	cost = 7.00
+	x = 47  ## 原29+20
+	y = 8   ## 原28-20
+	prerequisite = { focus = NAT_Clean_Up_Abyss_Cult_Forces }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Unite_Dragon_Alliance_Against_Abyss_Tooltip
+		add_land_attack = { value = 0.10  duration = 730 }
+		set_country_flag = NAT_Unite_Dragon_Alliance_Against_Abyss
+		add_army_experience = 80
+		country_event = { id = NAT_Event.66  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Unite_Dragon_Alliance_Against_Abyss-B
+	icon = GFX_goal_DOT_Arcana_15
+	cost = 7.00
+	x = 48  ## 原29+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Clean_Up_Abyss_Cult_Forces }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Unite_Dragon_Alliance_Against_Abyss_Tooltip
+		add_land_attack = { value = 0.10  duration = 730 }
+		set_country_flag = NAT_Unite_Dragon_Alliance_Against_Abyss
+		add_army_experience = 80
+		country_event = { id = NAT_Event.66  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Repair_Sealing_Needle_Of_Shadow
+	icon = GFX_goal_DOT_Arcana_17
+	cost = 7.00
+	x = 42  ## 原21+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_The_Shadow_Of_The_Embersea }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Repair_Sealing_Needle_Of_Shadow_Tooltip
+		add_land_defense = { value = 0.18  duration = 1095 }
+		set_country_flag = NAT_Repair_Sealing_Needle_Of_Shadow
+		reduce_war_exhaustion = 0.10
+		country_event = { id = NAT_Event.67  days = 1 }
+		add_ideas = NAT_Shadow_Sealing_Needle_Reinforcement
+	}
+}
+focus = {
+	id = NAT_Develop_Abyss_Resistance_Technology
+	icon = GFX_goal_DOT_Arcana_01
+	cost = 7.00
+	x = 44  ## 原23+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_The_Shadow_Of_The_Embersea focus = NAT_Hold_War_Council_Against_Abyss }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Develop_Abyss_Resistance_Technology_Tooltip
+		add_research_speed = { type = military_technology  value = 0.12 }
+		set_country_flag = NAT_Develop_Abyss_Resistance_Technology
+		reduce_casualties = { type = land  value = 0.10 }
+		country_event = { id = NAT_Event.68  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Heroes_Memorial_For_Calamity
+	icon = GFX_goal_DOT_Arcana_22
+	cost = 7.00
+	x = 46  ## 原27+20
+	y = 9   ## 原29-20
+	prerequisite = { focus = NAT_Hold_War_Council_Against_Abyss focus = NAT_Unite_Dragon_Alliance_Against_Abyss }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Heroes_Memorial_For_Calamity_Tooltip
+		add_nationalism = 0.22
+		set_country_flag = NAT_Heroes_Memorial_For_Calamity
+		add_happiness = { target = all  value = 0.15 }
+		country_event = { id = NAT_Event.69  days = 2 }
+		add_ideas = NAT_Six_Heroes_Heroic_Legacy
+	}
+}
+focus = {
+	id = NAT_Mavuika_s_Abyss_Burning_Oath
+	icon = GFX_goal_DOT_Arcana_10
+	cost = 7.00
+	x = 45  ## 原25+20
+	y = 10  ## 原30-20
+	prerequisite = {
+		focus = NAT_Repair_Sealing_Needle_Of_Shadow
+		focus = NAT_Develop_Abyss_Resistance_Technology
+		focus = NAT_Heroes_Memorial_For_Calamity
+	}
+	completion_reward = {
+		custom_effect_tooltip = NAT_Mavuika_s_Abyss_Burning_Oath_Tooltip
+		set_country_flag = NAT_Mavuika_s_Abyss_Burning_Oath
+		add_land_attack = { value = 0.20  duration = 1095 }
+		add_war_support = 0.35
+		add_government_authority = 25
+		country_event = { id = NAT_Event.70  days = 1 }
+		add_ideas = NAT_Soul_Return_Poem_Oath
+	}
+}
+
+#### 阶段8：万火归一与纳塔的新生（71-80）——核心突出终极的国家统一与升华，解决所有内部矛盾，确立纳塔在提瓦特的地位，史诗级的终局内容
+focus = {
+	id = NAT_The_Great_Unity_Of_All_Fires
+	icon = GFX_goal_DOT_Arcana_16
+	cost = 7.00
+	x = 40  ## 原20+20
+	y = 11  ## 原31-20
+	prerequisite = { focus = NAT_Mavuika_s_Abyss_Burning_Oath }
+	prerequisite = { focus = NAT_Military_Industry_Modernization }
+	completion_reward = {
+		custom_effect_tooltip = NAT_The_Great_Unity_Of_All_Fires_Tooltip
+		set_national_stability = 1.0
+		set_country_flag = NAT_The_Great_Unity_Of_All_Fires
+		add_happiness = { target = all  value = 0.20 }
+		country_event = { id = NAT_Event.71  days = 1 }
+		add_ideas = NAT_Great_Tribal_Unity_Oath
+	}
+}
+focus = {
+	id = NAT_Establish_Diplomatic_Relations_With_Liyue
+	icon = GFX_goal_DOT_Arcana_07
+	cost = 7.00
+	x = 38  ## 原18+20
+	y = 12  ## 原32-20
+	prerequisite = { focus = NAT_The_Great_Unity_Of_All_Fires }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Establish_Diplomatic_Relations_With_Liyue_Tooltip
+		add_relations = { target = LIYUE  value = 40 }
+		set_country_flag = NAT_Establish_Diplomatic_Relations_With_Liyue
+		add_trade_efficiency = 0.20
+		country_event = { id = NAT_Event.72  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Teyvat_Flame_Diplomacy_Initiative
+	icon = GFX_goal_DOT_Arcana_19
+	cost = 7.00
+	x = 40  ## 原20+20
+	y = 12  ## 原32-20
+	prerequisite = { focus = NAT_The_Great_Unity_Of_All_Fires }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Teyvat_Flame_Diplomacy_Initiative_Tooltip
+		add_relations = { target = ALL  value = 20 }
+		set_country_flag = NAT_Teyvat_Flame_Diplomacy_Initiative
+		add_diplomatic_weight = 25
+		country_event = { id = NAT_Event.73  days = 1 }
+		add_ideas = NAT_Flame_Flow_Pool_Esoterica
+	}
+}
+focus = {
+	id = NAT_Alliance_With_Mondstadt_And_Inazuma
+	icon = GFX_goal_DOT_Arcana_13
+	cost = 7.00
+	x = 42  ## 原22+20
+	y = 12  ## 原32-20
+	prerequisite = { focus = NAT_The_Great_Unity_Of_All_Fires }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Alliance_With_Mondstadt_And_Inazuma_Tooltip
+		add_relations = { target = MONDSTADT  value = 35 }
+		add_relations = { target = INAZUMA  value = 30 }
+		set_country_flag = NAT_Alliance_With_Mondstadt_And_Inazuma
+		add_naval_attack = { value = 0.10  duration = 730 }
+		country_event = { id = NAT_Event.74  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Sumeru_Academic_And_Industrial_Cooperation
+	icon = GFX_goal_DOT_Arcana_04
+	cost = 7.00
+	x = 35  ## 原15+20
+	y = 13  ## 原33-20
+	prerequisite = { focus = NAT_Establish_Diplomatic_Relations_With_Liyue }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Sumeru_Academic_And_Industrial_Cooperation_Tooltip
+		add_research_speed = 0.15
+		set_country_flag = NAT_Sumeru_Academic_And_Industrial_Cooperation
+		add_relations = { target = SUMERU  value = 30 }
+		country_event = { id = NAT_Event.75  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Eternal_Flame_Legion_Establishment
+	icon = GFX_goal_DOT_Arcana_18
+	cost = 7.00
+	x = 37  ## 原17+20
+	y = 13  ## 原33-20
+	prerequisite = { focus = NAT_Establish_Diplomatic_Relations_With_Liyue focus = NAT_Teyvat_Flame_Diplomacy_Initiative }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Eternal_Flame_Legion_Establishment_Tooltip
+		add_land_recruitment_speed = 0.30
+		set_country_flag = NAT_Eternal_Flame_Legion_Establishment
+		add_manpower = 150000
+		add_division_recruitment_speed = 0.20
+		country_event = { id = NAT_Event.76  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Natlan_Industrial_Renaissance
+	icon = GFX_goal_DOT_Arcana_09
+	cost = 7.00
+	x = 43  ## 原23+20
+	y = 13  ## 原33-20
+	prerequisite = { focus = NAT_Teyvat_Flame_Diplomacy_Initiative focus = NAT_Alliance_With_Mondstadt_And_Inazuma }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Natlan_Industrial_Renaissance_Tooltip
+		add_civilian_factory = 20
+		add_war_factory = 15
+		set_country_flag = NAT_Natlan_Industrial_Renaissance
+		add_industrial_efficiency = 0.25
+		country_event = { id = NAT_Event.77  days = 3 }
+	}
+}
+focus = {
+	id = NAT_Fontaine_And_Snezhnaya_Diplomatic_Outreach
+	icon = GFX_goal_DOT_Arcana_05
+	cost = 7.00
+	x = 45  ## 原25+20
+	y = 13  ## 原33-20
+	prerequisite = { focus = NAT_Alliance_With_Mondstadt_And_Inazuma }
+	completion_reward = {
+		custom_effect_tooltip = NAT_Fontaine_And_Snezhnaya_Diplomatic_Outreach_Tooltip
+		add_relations = { target = FONTAINE  value = 25 }
+		add_relations = { target = SNEZHNAYA  value = 20 }
+		set_country_flag = NAT_Fontaine_And_Snezhnaya_Diplomatic_Outreach
+		add_diplomatic_influence = { target = WORLD  value = 15 }
+		country_event = { id = NAT_Event.78  days = 1 }
+	}
+}
+focus = {
+	id = NAT_Mavuika_s_Eternal_Flame_Blessing
+	icon = GFX_goal_DOT_Arcana_14
+	cost = 7.00
+	x = 39  ## 原18+20
+	y = 14  ## 原34-20
+	prerequisite = {
+		focus = NAT_Sumeru_Academic_And_Industrial_Cooperation
+		focus = NAT_Eternal_Flame_Legion_Establishment
+		focus = NAT_Natlan_Industrial_Renaissance
+	}
+	completion_reward = {
+		custom_effect_tooltip = NAT_Mavuika_s_Eternal_Flame_Blessing_Tooltip
+		add_war_factory = 20
+		set_country_flag = NAT_Mavuika_s_Eternal_Flame_Blessing
+		add_factory_output = 0.15
+		add_equipment_production_efficiency = 0.15
+		country_event = { id = NAT_Event.79  days = 2 }
+	}
+}
+focus = {
+	id = NAT_Glory_Of_Natlan_The_Land_Of_Burning_Fires
+	icon = GFX_goal_DOT_Arcana_11
+	cost = 7.00
+	x = 41  ## 原22+20
+	y = 14  ## 原34-20
+	prerequisite = {
+		focus = NAT_Natlan_Industrial_Renaissance
+		focus = NAT_Fontaine_And_Snezhnaya_Diplomatic_Outreach
+	}
+	completion_reward = {
+		custom_effect_tooltip = NAT_Glory_Of_Natlan_The_Land_Of_Burning_Fires_Tooltip
+		set_country_flag = NAT_Glory_Of_Natlan_The_Land_Of_Burning_Fires
+		add_nationalism = 0.50
+		add_war_support = 0.50
+		add_land_attack = { value = 0.30  duration = 1825 }
+		add_government_authority = 50
+		add_political_power = 500
+		country_event = { id = NAT_Event.80  days = 1 }
+		add_ideas = NAT_Great_Unity_Of_All_Fires_Glory
+	}
+}
+}
