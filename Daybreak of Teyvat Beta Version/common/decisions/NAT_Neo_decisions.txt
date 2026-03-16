@@ -1,19 +1,91 @@
 # 纳塔国家决议 - 30个决议，分为内政政治、军事治安、经济工业、文化外交四大类，突出部族冲突调解、内部政治操作、纳塔特色玩法
-NAT_decisions = {
+NAT_Decisions = {
+
+    NAT_decisions-01 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            tag = ABY
+        }
+        visible = {
+            tag = NAT
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 30 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_stability = -0.02
+            add_war_support = -0.02
+            add_manpower = -100
+            ABY = {
+                add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = NAT }
+                add_equipment_to_stockpile = { type = artillery_equipment  amount = 100  producer = NAT }
+                add_equipment_to_stockpile = { type = support_equipment  amount = 100  producer = NAT }
+                add_equipment_to_stockpile = { type = anti_tank_equipment  amount = 100  producer = NAT }
+            }
+            hidden_effect = { }
+        }
+    }
+
+    NAT_decisions-02 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            tag = ABY
+        }
+        visible = {
+            tag = NAT
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 30 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
+            add_stability = -0.02
+            add_war_support = -0.02
+            add_manpower = -100
+            NAT = {
+                add_equipment_to_stockpile = { type = infantry_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = artillery_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = support_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = anti_tank_equipment  amount = -100  producer = NAT }
+            }
+            hidden_effect = { }
+        }
+    }
+
     #### 第一类：内政政治类决议（1-8）
     # 1. 召开部族联合会议
     NAT_Hold_Tribal_Joint_Council = {
-        icon = GFX_decision_political_summit
+        icon = eng_install_government # icon = GFX_decision_political_summit
         allowed = {
             has_country_flag = NAT_Call_Tribal_Council
         }
+        visible = {  }
         available = {
-            NOT = { has_country_flag = NAT_Held_Tribal_Joint_Council }
+            # NOT = { has_country_flag = NAT_Held_Tribal_Joint_Council }
             stability < 0.8
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 5 } custom_effect_tooltip = MVK-Prestige-Index_Add_5
             set_country_flag = NAT_Held_Tribal_Joint_Council
             add_stability = 0.10
             add_political_power = 30
@@ -27,17 +99,20 @@ NAT_decisions = {
 
     # 2. 调解部族边境冲突
     NAT_Mediate_Tribal_Border_Conflict = {
-        icon = GFX_decision_peace_mediation
+        icon = eng_install_government # icon = GFX_decision_peace_mediation
         allowed = {
             has_country_flag = NAT_Establish_Duel_Mediation_System
         }
+        visible = {  }
         available = {
-            NOT = { has_country_flag = NAT_Mediated_Tribal_Conflict_Recent }
+            # NOT = { has_country_flag = NAT_Mediated_Tribal_Conflict_Recent }
             stability < 0.75
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 5 } custom_effect_tooltip = MVK-Prestige-Index_Add_5
             set_country_flag = NAT_Mediated_Tribal_Conflict_Recent
             clr_country_flag = NAT_Mediated_Tribal_Conflict_Recent days = 180
             add_stability = 0.07
@@ -51,17 +126,20 @@ NAT_decisions = {
 
     # 3. 授予英雄古名
     NAT_Award_Hero_Ancient_Name = {
-        icon = GFX_decision_award_medal
+        icon = eng_install_government # icon = GFX_decision_award_medal
         allowed = {
             has_country_flag = NAT_Codify_Ancient_Name_System
         }
+        visible = {  }
         available = {
-            NOT = { has_country_flag = NAT_Awarded_Ancient_Name_Recent }
+            # NOT = { has_country_flag = NAT_Awarded_Ancient_Name_Recent }
             war_support > 0.3
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Awarded_Ancient_Name_Recent
             clr_country_flag = NAT_Awarded_Ancient_Name_Recent days = 365
             add_land_attack = { value = 0.05  duration = 365 }
@@ -76,17 +154,22 @@ NAT_decisions = {
 
     # 4. 镇压部族分离主义叛乱
     NAT_Suppress_Tribal_Separatist_Rebellion = {
-        icon = GFX_decision_counter_insurgency
+        icon = eng_install_government # icon = GFX_decision_counter_insurgency
         allowed = {
+            has_country_flag = NAT_Suppress_Separatist_Forces
+        }
+        visible = {
             has_country_flag = NAT_Suppress_Separatist_Forces
         }
         available = {
             garrison_control < 0.9
-            NOT = { has_country_flag = NAT_Suppressed_Separatist_Recent }
+            # NOT = { has_country_flag = NAT_Suppressed_Separatist_Recent }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Suppressed_Separatist_Recent
             clr_country_flag = NAT_Suppressed_Separatist_Recent days = 180
             add_garrison_efficiency = 0.15
@@ -100,17 +183,22 @@ NAT_decisions = {
 
     # 5. 平反历史冤案
     NAT_Redress_Historical_Injustice = {
-        icon = GFX_decision_justice_reform
+        icon = eng_install_government # icon = GFX_decision_justice_reform
         allowed = {
             has_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
         }
+        visible = {
+            has_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+        }
         available = {
-            NOT = { has_country_flag = NAT_Redressed_Historical_Injustice }
+            # NOT = { has_country_flag = NAT_Redressed_Historical_Injustice }
             stability < 0.8
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Redressed_Historical_Injustice
             add_stability = 0.08
             add_happiness = { target = all  value = 0.06 }
@@ -123,16 +211,21 @@ NAT_decisions = {
 
     # 6. 规范部族税收制度
     NAT_Standardize_Tribal_Taxation_System = {
-        icon = GFX_decision_taxation_reform
+        icon = eng_install_government # icon = GFX_decision_taxation_reform
         allowed = {
             has_country_flag = NAT_Establish_Unified_Taxation_System
         }
+        visible = {
+            has_country_flag = NAT_Establish_Unified_Taxation_System
+        }
         available = {
-            NOT = { has_country_flag = NAT_Standardized_Taxation_Recent }
+            # NOT = { has_country_flag = NAT_Standardized_Taxation_Recent }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Standardized_Taxation_Recent
             clr_country_flag = NAT_Standardized_Taxation_Recent days = 365
             reduce_consumer_goods = 0.02
@@ -146,17 +239,22 @@ NAT_decisions = {
 
     # 7. 拉拢部族长老议会
     NAT_Woo_Tribal_Elder_Council = {
-        icon = GFX_decision_political_negotiation
+        icon = eng_install_government # icon = GFX_decision_political_negotiation
         allowed = {
             has_country_flag = NAT_Reform_Tribal_Parliament
         }
+        visible = {
+            has_country_flag = NAT_Reform_Tribal_Parliament
+        }
         available = {
-            NOT = { has_country_flag = NAT_Wooed_Tribal_Elders_Recent }
+            # NOT = { has_country_flag = NAT_Wooed_Tribal_Elders_Recent }
             ideology_support = { ideology = authoritarianism  < 0.4 }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Wooed_Tribal_Elders_Recent
             clr_country_flag = NAT_Wooed_Tribal_Elders_Recent days = 180
             add_ideology_support = { ideology = authoritarianism  value = 0.05 }
@@ -170,17 +268,22 @@ NAT_decisions = {
 
     # 8. 清剿内部深渊邪教
     NAT_Clean_Up_Internal_Abyss_Cults = {
-        icon = GFX_decision_counter_espionage
+        icon = eng_install_government # icon = GFX_decision_counter_espionage
         allowed = {
             has_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
         }
+        visible = {
+            has_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
+        }
         available = {
-            NOT = { has_country_flag = NAT_Cleaned_Abyss_Cults_Recent }
+            # NOT = { has_country_flag = NAT_Cleaned_Abyss_Cults_Recent }
             counter_espionage < 0.8
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Cleaned_Abyss_Cults_Recent
             clr_country_flag = NAT_Cleaned_Abyss_Cults_Recent days = 180
             add_counter_espionage = 0.12
@@ -195,17 +298,22 @@ NAT_decisions = {
     #### 第二类：军事治安类决议（9-16）
     # 9. 举办全国决斗演武
     NAT_Hold_National_Duel_Martial_Arts = {
-        icon = GFX_decision_military_training
+        icon = eng_install_government # icon = GFX_decision_military_training
         allowed = {
             has_country_flag = NAT_Establish_Duel_Code
         }
+        visible = {
+            has_country_flag = NAT_Establish_Duel_Code
+        }
         available = {
-            NOT = { has_country_flag = NAT_Held_Duel_Martial_Arts_Recent }
+            # NOT = { has_country_flag = NAT_Held_Duel_Martial_Arts_Recent }
             army_organization < 0.85
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Held_Duel_Martial_Arts_Recent
             clr_country_flag = NAT_Held_Duel_Martial_Arts_Recent days = 270
             add_army_organization = 0.08
@@ -220,17 +328,22 @@ NAT_decisions = {
 
     # 10. 整编部族民兵武装
     NAT_Restruct_Tribal_Militia = {
-        icon = GFX_decision_military_conscription
+        icon = eng_install_government # icon = GFX_decision_military_conscription
         allowed = {
             has_country_flag = NAT_Integrate_Tribal_Militias
         }
+        visible = {
+            has_country_flag = NAT_Integrate_Tribal_Militias
+        }
         available = {
-            NOT = { has_country_flag = NAT_Restructed_Militia_Recent }
+            # NOT = { has_country_flag = NAT_Restructed_Militia_Recent }
             manpower < 0.75
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Restructed_Militia_Recent
             clr_country_flag = NAT_Restructed_Militia_Recent days = 365
             add_manpower = 0.10
@@ -244,17 +357,22 @@ NAT_decisions = {
 
     # 11. 构筑边境防御隘口
     NAT_Build_Border_Defense_Passes = {
-        icon = GFX_decision_infrastructure_fortifications
+        icon = eng_install_government # icon = GFX_decision_infrastructure_fortifications
         allowed = {
             has_country_flag = NAT_Upgrade_Border_Defenses
         }
+        visible = {
+            has_country_flag = NAT_Upgrade_Border_Defenses
+        }
         available = {
-            NOT = { has_country_flag = NAT_Built_Defense_Passes_Recent }
+            # NOT = { has_country_flag = NAT_Built_Defense_Passes_Recent }
             fort_level_average < 3
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Built_Defense_Passes_Recent
             clr_country_flag = NAT_Built_Defense_Passes_Recent days = 730
             add_fort_level = { value = 1  provinces = BORDER_PROVINCES duration = 730 }
@@ -268,17 +386,22 @@ NAT_decisions = {
 
     # 12. 训练部族斥候部队
     NAT_Train_Tribal_Scout_Units = {
-        icon = GFX_decision_military_intelligence
+        icon = eng_install_government # icon = GFX_decision_military_intelligence
         allowed = {
             has_country_flag = NAT_Establish_Scout_Training_Camp
         }
+        visible = {
+            has_country_flag = NAT_Establish_Scout_Training_Camp
+        }
         available = {
-            NOT = { has_country_flag = NAT_Trained_Scouts_Recent }
+            # NOT = { has_country_flag = NAT_Trained_Scouts_Recent }
             recon_efficiency < 0.8
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Trained_Scouts_Recent
             clr_country_flag = NAT_Trained_Scouts_Recent days = 270
             add_recon_efficiency = 0.15
@@ -292,17 +415,22 @@ NAT_decisions = {
 
     # 13. 清缴跨境武装走私
     NAT_Crack_Down_Crossborder_Arms_Smuggling = {
-        icon = GFX_decision_customs_enforcement
+        icon = eng_install_government # icon = GFX_decision_customs_enforcement
         allowed = {
             has_country_flag = NAT_Enhance_Border_Patrols
         }
+        visible = {
+            has_country_flag = NAT_Enhance_Border_Patrols
+        }
         available = {
-            NOT = { has_country_flag = NAT_Cracked_Smuggling_Recent }
+            # NOT = { has_country_flag = NAT_Cracked_Smuggling_Recent }
             smuggling_activity > 0.2
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Cracked_Smuggling_Recent
             clr_country_flag = NAT_Cracked_Smuggling_Recent days = 180
             add_arms_availability = 0.08
@@ -316,17 +444,22 @@ NAT_decisions = {
 
     # 14. 推行全民军事训练
     NAT_Implement_Universal_Military_Training = {
-        icon = GFX_decision_military_drill
+        icon = eng_install_government # icon = GFX_decision_military_drill
         allowed = {
             has_country_flag = NAT_Promote_Military_Culture
         }
+        visible = {
+            has_country_flag = NAT_Promote_Military_Culture
+        }
         available = {
-            NOT = { has_country_flag = NAT_Implemented_Military_Training_Recent }
+            # NOT = { has_country_flag = NAT_Implemented_Military_Training_Recent }
             war_support < 0.6
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Implemented_Military_Training_Recent
             clr_country_flag = NAT_Implemented_Military_Training_Recent days = 365
             add_manpower = 0.15
@@ -341,17 +474,22 @@ NAT_decisions = {
 
     # 15. 平定军阀割据势力
     NAT_Pacify_Warlord_Separatist_Forces = {
-        icon = GFX_decision_military_campaign
+        icon = eng_install_government # icon = GFX_decision_military_campaign
         allowed = {
             has_country_flag = NAT_Launch_Warlord_Pacification
         }
+        visible = {
+            has_country_flag = NAT_Launch_Warlord_Pacification
+        }
         available = {
-            NOT = { has_country_flag = NAT_Pacified_Warlords_Recent }
+            # NOT = { has_country_flag = NAT_Pacified_Warlords_Recent }
             central_control < 0.8
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Pacified_Warlords_Recent
             clr_country_flag = NAT_Pacified_Warlords_Recent days = 365
             add_central_control = 0.12
@@ -366,17 +504,22 @@ NAT_decisions = {
 
     # 16. 升级军用装备制造线
     NAT_Upgrade_Military_Equipment_Lines = {
-        icon = GFX_decision_military_production
+        icon = eng_install_government # icon = GFX_decision_military_production
         allowed = {
             has_country_flag = NAT_Modernize_War_Industry
         }
+        visible = {
+            has_country_flag = NAT_Modernize_War_Industry
+        }
         available = {
-            NOT = { has_country_flag = NAT_Upgraded_Equipment_Lines_Recent }
+            # NOT = { has_country_flag = NAT_Upgraded_Equipment_Lines_Recent }
             industrial_capacity < 0.7
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Upgraded_Equipment_Lines_Recent
             clr_country_flag = NAT_Upgraded_Equipment_Lines_Recent days = 730
             add_equipment_production_speed = 0.10
@@ -391,17 +534,22 @@ NAT_decisions = {
     #### 第三类：经济工业类决议（17-24）
     # 17. 开发部族传统矿产资源
     NAT_Develop_Tribal_Traditional_Minerals = {
-        icon = GFX_decision_resource_extraction
+        icon = eng_install_government # icon = GFX_decision_resource_extraction
         allowed = {
             has_country_flag = NAT_Authorize_Mineral_Development
         }
+        visible = {
+            has_country_flag = NAT_Authorize_Mineral_Development
+        }
         available = {
-            NOT = { has_country_flag = NAT_Developed_Minerals_Recent }
+            # NOT = { has_country_flag = NAT_Developed_Minerals_Recent }
             resources = { type = steel value < 500 }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Developed_Minerals_Recent
             clr_country_flag = NAT_Developed_Minerals_Recent days = 365
             add_resource = { type = steel value = 150 duration = 365 }
@@ -416,17 +564,22 @@ NAT_decisions = {
 
     # 18. 修建部族间贸易商道
     NAT_Build_Inter_Tribal_Trade_Routes = {
-        icon = GFX_decision_infrastructure_roads
+        icon = eng_install_government # icon = GFX_decision_infrastructure_roads
         allowed = {
             has_country_flag = NAT_Improve_Tribal_Connectivity
         }
+        visible = {
+            has_country_flag = NAT_Improve_Tribal_Connectivity
+        }
         available = {
-            NOT = { has_country_flag = NAT_Built_Trade_Routes_Recent }
+            # NOT = { has_country_flag = NAT_Built_Trade_Routes_Recent }
             infrastructure < 0.6
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Built_Trade_Routes_Recent
             clr_country_flag = NAT_Built_Trade_Routes_Recent days = 730
             add_infrastructure = { value = 0.10 provinces = ALL_PROVINCES duration = 730 }
@@ -441,17 +594,22 @@ NAT_decisions = {
 
     # 19. 建立部族手工业合作社
     NAT_Establish_Tribal_Crafts_Cooperatives = {
-        icon = GFX_decision_industrial_cooperatives
+        icon = eng_install_government # icon = GFX_decision_industrial_cooperatives
         allowed = {
             has_country_flag = NAT_Support_Tribal_Crafts
         }
+        visible = {
+            has_country_flag = NAT_Support_Tribal_Crafts
+        }
         available = {
-            NOT = { has_country_flag = NAT_Established_Cooperatives_Recent }
+            # NOT = { has_country_flag = NAT_Established_Cooperatives_Recent }
             civilian_factories < 20
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Established_Cooperatives_Recent
             clr_country_flag = NAT_Established_Cooperatives_Recent days = 365
             add_civilian_factories = 5
@@ -466,17 +624,22 @@ NAT_decisions = {
 
     # 20. 改革部族土地分配制度
     NAT_Reform_Tribal_Land_Allocation = {
-        icon = GFX_decision_agrarian_reform
+        icon = eng_install_government # icon = GFX_decision_agrarian_reform
         allowed = {
             has_country_flag = NAT_Redistribute_Tribal_Lands
         }
+        visible = {
+            has_country_flag = NAT_Redistribute_Tribal_Lands
+        }
         available = {
-            NOT = { has_country_flag = NAT_Reformed_Land_Allocation_Recent }
+            # NOT = { has_country_flag = NAT_Reformed_Land_Allocation_Recent }
             agricultural_efficiency < 0.7
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Reformed_Land_Allocation_Recent
             clr_country_flag = NAT_Reformed_Land_Allocation_Recent days = 365
             add_agricultural_efficiency = 0.12
@@ -491,18 +654,23 @@ NAT_decisions = {
 
     # 21. 引入外来工业技术投资
     NAT_Attract_Foreign_Industrial_Investment = {
-        icon = GFX_decision_foreign_investment
+        icon = eng_install_government # icon = GFX_decision_foreign_investment
         allowed = {
             has_country_flag = NAT_Open_Industrial_Investment
         }
+        visible = {
+            has_country_flag = NAT_Open_Industrial_Investment
+        }
         available = {
-            NOT = { has_country_flag = NAT_Attracted_Foreign_Investment_Recent }
+            # NOT = { has_country_flag = NAT_Attracted_Foreign_Investment_Recent }
             industrial_capacity < 0.65
             world_tension = < 0.5
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Attracted_Foreign_Investment_Recent
             clr_country_flag = NAT_Attracted_Foreign_Investment_Recent days = 730
             add_industrial_capacity = 0.10
@@ -517,17 +685,22 @@ NAT_decisions = {
 
     # 22. 规范部族商品交易市场
     NAT_Standardize_Tribal_Commodity_Markets = {
-        icon = GFX_decision_economic_regulation
+        icon = eng_install_government # icon = GFX_decision_economic_regulation
         allowed = {
             has_country_flag = NAT_Establish_Market_Regulations
         }
+        visible = {
+            has_country_flag = NAT_Establish_Market_Regulations
+        }
         available = {
-            NOT = { has_country_flag = NAT_Standardized_Markets_Recent }
+            # NOT = { has_country_flag = NAT_Standardized_Markets_Recent }
             trade_efficiency < 0.75
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Standardized_Markets_Recent
             clr_country_flag = NAT_Standardized_Markets_Recent days = 365
             add_trade_efficiency = 0.11
@@ -542,17 +715,22 @@ NAT_decisions = {
 
     # 23. 建设水利灌溉工程
     NAT_Construct_Irrigation_Projects = {
-        icon = GFX_decision_infrastructure_irrigation
+        icon = eng_install_government # icon = GFX_decision_infrastructure_irrigation
         allowed = {
             has_country_flag = NAT_Invest_In_Agricultural_Infrastructure
         }
+        visible = {
+            has_country_flag = NAT_Invest_In_Agricultural_Infrastructure
+        }
         available = {
-            NOT = { has_country_flag = NAT_Constructed_Irrigation_Recent }
+            # NOT = { has_country_flag = NAT_Constructed_Irrigation_Recent }
             agricultural_efficiency < 0.68
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Constructed_Irrigation_Recent
             clr_country_flag = NAT_Constructed_Irrigation_Recent days = 730
             add_agricultural_efficiency = 0.15
@@ -567,17 +745,22 @@ NAT_decisions = {
 
     # 24. 发行部族统一流通货币
     NAT_Issue_Unified_Tribal_Currency = {
-        icon = GFX_decision_economic_currency
+        icon = eng_install_government # icon = GFX_decision_economic_currency
         allowed = {
             has_country_flag = NAT_Establish_Central_Banking
         }
+        visible = {
+            has_country_flag = NAT_Establish_Central_Banking
+        }
         available = {
-            NOT = { has_country_flag = NAT_Issued_Unified_Currency_Recent }
+            # NOT = { has_country_flag = NAT_Issued_Unified_Currency_Recent }
             economic_stability < 0.7
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Issued_Unified_Currency_Recent
             clr_country_flag = NAT_Issued_Unified_Currency_Recent days = 730
             add_economic_stability = 0.13
@@ -593,17 +776,22 @@ NAT_decisions = {
     #### 第四类：文化外交类决议（25-30）
     # 25. 编撰部族英雄史诗集
     NAT_Compile_Tribal_Heroic_Epics = {
-        icon = GFX_decision_cultural_preservation
+        icon = eng_install_government # icon = GFX_decision_cultural_preservation
         allowed = {
             has_country_flag = NAT_Preserve_Tribal_Culture
         }
+        visible = {
+            has_country_flag = NAT_Preserve_Tribal_Culture
+        }
         available = {
-            NOT = { has_country_flag = NAT_Compiled_Epics_Recent }
+            # NOT = { has_country_flag = NAT_Compiled_Epics_Recent }
             nationalism < 0.6
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Compiled_Epics_Recent
             clr_country_flag = NAT_Compiled_Epics_Recent days = 365
             add_nationalism = 0.09
@@ -618,17 +806,22 @@ NAT_decisions = {
 
     # 26. 举办纳塔文化交流节
     NAT_Hold_Nata_Cultural_Exchange_Festival = {
-        icon = GFX_decision_cultural_festival
+        icon = eng_install_government # icon = GFX_decision_cultural_festival
         allowed = {
             has_country_flag = NAT_Promote_Cultural_Unity
         }
+        visible = {
+            has_country_flag = NAT_Promote_Cultural_Unity
+        }
         available = {
-            NOT = { has_country_flag = NAT_Held_Cultural_Festival_Recent }
+            # NOT = { has_country_flag = NAT_Held_Cultural_Festival_Recent }
             unity < 0.75
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Held_Cultural_Festival_Recent
             clr_country_flag = NAT_Held_Cultural_Festival_Recent days = 180
             add_unity = 0.10
@@ -643,17 +836,22 @@ NAT_decisions = {
 
     # 27. 与邻邦签署边境和平协定
     NAT_Sign_Border_Peace_Agreement_With_Neighbors = {
-        icon = GFX_decision_diplomatic_peace
+        icon = eng_install_government # icon = GFX_decision_diplomatic_peace
         allowed = {
             has_country_flag = NAT_Initiate_Border_Diplomatic_Talks
         }
+        visible = {
+            has_country_flag = NAT_Initiate_Border_Diplomatic_Talks
+        }
         available = {
-            NOT = { has_country_flag = NAT_Signed_Peace_Agreement_Recent }
+            # NOT = { has_country_flag = NAT_Signed_Peace_Agreement_Recent }
             relations = { target = NEIGHBOR_COUNTRIES value < 0 }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Signed_Peace_Agreement_Recent
             clr_country_flag = NAT_Signed_Peace_Agreement_Recent days = 730
             add_relations = { target = NEIGHBOR_COUNTRIES value = 30 }
@@ -668,17 +866,22 @@ NAT_decisions = {
 
     # 28. 设立部族语言标准化机构
     NAT_Establish_Tribal_Language_Standardization_Body = {
-        icon = GFX_decision_cultural_standardization
+        icon = eng_install_government # icon = GFX_decision_cultural_standardization
         allowed = {
             has_country_flag = NAT_Unify_Tribal_Languages
         }
+        visible = {
+            has_country_flag = NAT_Unify_Tribal_Languages
+        }
         available = {
-            NOT = { has_country_flag = NAT_Established_Language_Body_Recent }
+            # NOT = { has_country_flag = NAT_Established_Language_Body_Recent }
             unity < 0.7
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Established_Language_Body_Recent
             clr_country_flag = NAT_Established_Language_Body_Recent days = 730
             add_unity = 0.12
@@ -693,17 +896,22 @@ NAT_decisions = {
 
     # 29. 派遣文化使团出访友邦
     NAT_Dispatch_Cultural_Missions_To_Friendly_Nations = {
-        icon = GFX_decision_diplomatic_cultural
+        icon = eng_install_government # icon = GFX_decision_diplomatic_cultural
         allowed = {
             has_country_flag = NAT_Promote_Nata_Culture_Abroad
         }
+        visible = {
+            has_country_flag = NAT_Promote_Nata_Culture_Abroad
+        }
         available = {
-            NOT = { has_country_flag = NAT_Dispatched_Cultural_Missions_Recent }
+            # NOT = { has_country_flag = NAT_Dispatched_Cultural_Missions_Recent }
             relations = { target = FRIENDLY_NATIONS value < 20 }
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
             set_country_flag = NAT_Dispatched_Cultural_Missions_Recent
             clr_country_flag = NAT_Dispatched_Cultural_Missions_Recent days = 365
             add_relations = { target = FRIENDLY_NATIONS value = 25 }
@@ -717,18 +925,23 @@ NAT_decisions = {
 
     # 30. 确立纳塔传统决斗为国家仪式
     NAT_Establish_Nata_Traditional_Duel_As_National_Ritual = {
-        icon = GFX_decision_cultural_ritual
+        icon = eng_install_government # icon = GFX_decision_cultural_ritual
         allowed = {
             has_country_flag = NAT_Codify_Duel_Traditions
         }
+        visible = {
+            has_country_flag = NAT_Codify_Duel_Traditions
+        }
         available = {
-            NOT = { has_country_flag = NAT_Established_Duel_Ritual }
+            # NOT = { has_country_flag = NAT_Established_Duel_Ritual }
             unity > 0.65
             war_support > 0.4
         }
         cost = 30
         days_remove = 30
         complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
             set_country_flag = NAT_Established_Duel_Ritual
             add_unity = 0.15
             add_nationalism = 0.10
