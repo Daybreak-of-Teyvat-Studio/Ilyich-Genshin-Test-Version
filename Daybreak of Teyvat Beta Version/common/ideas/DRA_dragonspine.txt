@@ -10,7 +10,8 @@ ideas = {
 			army_core_attack_factor = 0.25
 			army_defence_factor = 0.2
 			generate_wargoal_tension = 0.5
-			generate_wargoal_time = 1
+			# generate_wargoal_time = 1   # 宣战时间？
+			justify_war_goal_time = 1
 			enemy_justify_war_goal_time = 1
 			ai_desired_divisions_factor = 0.5
 			ai_focus_defense_factor = 0.25
@@ -113,7 +114,7 @@ ideas = {
 		removal_cost = 50
 		
 		modifier = {
-			war_support = -0.05
+			war_support_factor = -0.05
 			war_support_weekly = -0.005
 			surrender_limit = -0.15
 		}
@@ -125,7 +126,7 @@ ideas = {
 		removal_cost = 100
 		
 		modifier = {
-			war_support = -0.1
+			war_support_factor = -0.1
 			war_support_weekly = -0.005
 			surrender_limit = -0.15
 			conscription = -0.005
@@ -156,12 +157,14 @@ ideas = {
 			modifier = {
 				air_mission_efficiency = 0.05
 				air_ace_generation_chance_factor = 0.25
-				air_interception_attack_factor = 0.1
-				air_interception_defence_factor = 0.1
-				air_interception_agility_factor = 0.1
-		        air_air_superiority_attack_factor = 0.1
-		        air_air_superiority_defence_factor = 0.1
-		        air_air_superiority_agility_factor = 0.1
+				air_intercept_efficiency = 0.1
+				# air_interception_attack_factor = 0.1   # 空中拦截无法独立加成
+				# air_interception_defence_factor = 0.1
+				# air_interception_agility_factor = 0.1
+		        air_superiority_efficiency = 0.1
+				# air_air_superiority_attack_factor = 0.1   # 夺取制空无法独立加成
+		        # air_air_superiority_defence_factor = 0.1
+		        # air_air_superiority_agility_factor = 0.1
 			}
 		}
 		#化为灰烬
@@ -174,9 +177,10 @@ ideas = {
 			modifier = {
 				air_mission_efficiency = 0.05
 		        army_bonus_air_superiority_factor = 0.25
-		        air_close_air_support_attack_factor = 0.2
-		        air_close_air_support_defence_factor = 0.1
-		        air_close_air_support_agility_factor = 0.1
+				air_cas_efficiency = 0.15 
+		        # air_close_air_support_attack_factor = 0.2   # 近地支援无法地理加成
+		        # air_close_air_support_defence_factor = 0.1
+		        # air_close_air_support_agility_factor = 0.1
 			}
 		}
 		#末日闪光
@@ -188,7 +192,7 @@ ideas = {
 
 			modifier = {
 				air_mission_efficiency = 0.05
-				air_range = 0.4
+				air_range_factor = 0.4
 		        air_strategic_bomber_bombing_factor = 0.25
 			}
 		}
@@ -725,7 +729,8 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = -0.15
 				conscription = 0.005
-				manpower_gain_mult = 0.25
+				conscription_factor = 0.25
+				# manpower_gain_mult = 0.25   # 招募系数？
 			}
 		}
 		gene_advanced_large_farms3 = {
@@ -737,7 +742,8 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = -0.09
 				conscription = 0.003
-				manpower_gain_mult = 0.15
+				conscription_factor = 0.15
+				# manpower_gain_mult = 0.15
 			}
 		}
 		gene_advanced_large_farms2 = {
@@ -749,7 +755,8 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = -0.06
 				conscription = 0.002
-				manpower_gain_mult = 0.1
+				conscription_factor = 0.1
+				# manpower_gain_mult = 0.1
 			}
 		}
 		gene_advanced_large_farms1 = {
@@ -761,7 +768,8 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = -0.03
 				conscription = 0.001
-				manpower_gain_mult = 0.05
+				conscription_factor = 0.05
+				# manpower_gain_mult = 0.05
 			}
 		}
 		gene_not_enough_farms4 = {
@@ -1256,7 +1264,7 @@ ideas = {
 				consumer_goods_expected_value = -0.05
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.25
 				defense_bonus_against = 0.25
 			}
@@ -1284,7 +1292,7 @@ ideas = {
 				consumer_goods_expected_value = -0.04
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.2
 				defense_bonus_against = 0.2
 			}
@@ -1311,7 +1319,7 @@ ideas = {
 				consumer_goods_expected_value = -0.03
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.15
 				defense_bonus_against = 0.15
 			}
@@ -1335,7 +1343,7 @@ ideas = {
 				consumer_goods_expected_value = -0.02
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.1
 				defense_bonus_against = 0.1
 			}
@@ -1358,7 +1366,7 @@ ideas = {
 				consumer_goods_expected_value = -0.01
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1408,7 +1416,7 @@ ideas = {
 				resistance_target = -0.1
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.25
 				defense_bonus_against = 0.25
 			}
@@ -1436,7 +1444,7 @@ ideas = {
 				trade_opinion_factor = 0.1
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.2
 				defense_bonus_against = 0.2
 			}
@@ -1462,7 +1470,7 @@ ideas = {
 				consumer_goods_expected_value = -0.05
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.15
 				defense_bonus_against = 0.15
 			}
@@ -1488,7 +1496,7 @@ ideas = {
 				consumer_goods_expected_value = -0.03
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.1
 				defense_bonus_against = 0.1
 			}
@@ -1513,7 +1521,7 @@ ideas = {
 				improve_relations_maintain_cost_factor = -0.1
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1535,11 +1543,11 @@ ideas = {
 				opinion_gain_monthly_factor = 0.1
 				improve_relations_maintain_cost_factor = -0.1
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.05
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.05
+			#	}
+			#}
 			
 			removal_cost = -1
 		    
@@ -1558,11 +1566,11 @@ ideas = {
 				opinion_gain_monthly_factor = 0.15
 				improve_relations_maintain_cost_factor = -0.15
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.1
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.1
+			#	}
+			#}
 			
 			removal_cost = -1
 		  
@@ -1581,11 +1589,11 @@ ideas = {
 				opinion_gain_monthly_factor = 0.2
 				improve_relations_maintain_cost_factor = -0.2
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.15
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.15
+			#	}
+			#}
 			
 			removal_cost = -1
 		    
@@ -1598,7 +1606,7 @@ ideas = {
 				experience_loss_factor = -0.3
 				army_morale_factor = 0.3
 				army_org_factor = 0.1
-				supply_comsumption = -0.2
+				supply_consumption_factor = -0.2
 				stability_weekly = 0.005
 			    genshin_drift = -0.05
 			    neutrality_drift = -0.05
@@ -1606,13 +1614,13 @@ ideas = {
 				opinion_gain_monthly_factor = 0.4
 				improve_relations_maintain_cost_factor = -0.5
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.3
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.3
+			#	}
+			#}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1640,12 +1648,13 @@ ideas = {
 			    genshin_drift = -0.01
 			    neutrality_drift = -0.01
 			    fascism_drift = -0.01
+				experience_loss_factor = -0.1
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.1
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.1
+			#	}
+			#}
 			
 			removal_cost = -1
 		    
@@ -1667,12 +1676,13 @@ ideas = {
 			    genshin_drift = -0.02
 			    neutrality_drift = -0.02
 			    fascism_drift = -0.02
+				experience_loss_factor = -0.15
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.15
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.15
+			#	}
+			#}
 			
 			removal_cost = -1
 		  
@@ -1694,12 +1704,13 @@ ideas = {
 			    genshin_drift = -0.02
 			    neutrality_drift = -0.02
 			    fascism_drift = -0.02
+				experience_loss_factor = -0.2
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.2
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.2
+			#	}
+			#}
 			
 			removal_cost = -1
 		    
@@ -1721,19 +1732,20 @@ ideas = {
 			    genshin_drift = -0.03
 			    neutrality_drift = -0.03
 			    fascism_drift = -0.03
-				manpower_weekly = -500
+				weekly_manpower = -500
 				conscription = -0.005
-				mobilization_speed_factor = -0.5
+				mobilization_speed = -0.5
+				experience_loss_factor = -0.3
 			}
-			equipment_bonus = {
-				category_army = {
-					casualty_trickleback = 0.3
-				}
-			}
+			#equipment_bonus = {
+			#	category_army = {
+			#		casualty_trickleback = 0.3
+			#	}
+			#}
 			
 			removal_cost = -1
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1808,7 +1820,7 @@ ideas = {
 				justify_war_goal_time = -0.5
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1857,7 +1869,7 @@ ideas = {
 				compliance_gain = 0.02
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.05
 				defense_bonus_against = 0.05
 			}
@@ -1881,7 +1893,7 @@ ideas = {
 				compliance_gain = 0.03
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.15
 				defense_bonus_against = 0.15
 			}
@@ -1904,7 +1916,7 @@ ideas = {
 				compliance_gain = 0.05
 			}
 			targeted_modifier = {
-				target = PRI
+				tag = PRI
 				attack_bonus_against = 0.25
 				defense_bonus_against = 0.25
 			}
