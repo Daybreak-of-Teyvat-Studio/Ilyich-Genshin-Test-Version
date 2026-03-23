@@ -28,7 +28,7 @@ ideas = {
 
 			modifier = {
 				special_forces_cap = 4.00
-				special_forces_speed_factor = 0.1
+				# special_forces_speed_factor = 0.1   # 兵种速度只有装甲可以修改
 				special_forces_training_time_factor = -0.25
 				special_forces_attack_factor = 0.2
 				special_forces_defence_factor = 0.2
@@ -90,11 +90,11 @@ ideas = {
 				special_forces_no_supply_grace = 96
 				special_forces_out_of_supply_factor = -0.25
 			}
-			equipment_bonus = {
-				category_special_forces = {
-					max_organisation = 0.25
-				}
-			}
+			#equipment_bonus = {   # 组织度需要写为特殊兵种或者科技提高，精神则是全局加成无法单独加成
+			#	category_special_forces = {
+			#		max_organisation = 0.25
+			#	}
+			#}
 		}
 		##temprary##
 		ANR_many_immigrants = {
@@ -396,7 +396,7 @@ ideas = {
 			
 			}
 			equipment_bonus = {
-				category_army = {
+				infantry_equipment = {    # 无法全局加成软攻 只能加成特定
 					soft_attack = 0.2
 				}
 			}
@@ -428,11 +428,7 @@ ideas = {
 				no_supply_grace = 48
 				coordination_bonus = 0.05
 				max_planning = 0.1
-			}
-			equipment_bonus = {
-				category_army = {
-					initiative = 0.10
-				}
+				initiative_factor = 0.10
 			}
 		}
 		ANR_simple_artillery = {
@@ -447,11 +443,9 @@ ideas = {
 			
 			}
 			equipment_bonus = {
-				category_army = {
-					soft_attack = 0.1
-				}
 				artillery_equipment = {
 					instant = yes
+					soft_attack = 0.1
 					build_cost_ic = -0.1
 				}
 			}
@@ -703,8 +697,8 @@ ideas = {
 				max_planning = 0.1
 			}
 			equipment_bonus = {
-				category_army = {
-					hardness = 0.1
+				armor = {
+					hardness = 0.1    # 硬度需要分别加成
 				}
 			}
 		}
@@ -728,7 +722,7 @@ ideas = {
 				operation_outcome = 1.0
 			}
 			equipment_bonus = {
-				category_army = {
+				armor = {
 					hardness = 0.1
 				}
 			}
@@ -757,7 +751,7 @@ ideas = {
 				subversive_activites_upkeep = -1.0
 			}
 			equipment_bonus = {
-				category_army = {
+				armor = {
 					hardness = 0.1
 				}
 			}
@@ -787,18 +781,15 @@ ideas = {
 				communism_drift = 0.2
 				research_speed_factor = 0.15
 				org_loss_when_moving = -0.25
-				casualty_trickleback = 0.2
+				# casualty_trickleback = 0.2    这一词条无法生效，只能使用减少经验损耗
 				experience_loss_factor = -0.2
 				experience_gain_army_factor = 0.25
 				experience_gain_navy_factor = 0.25
 				experience_gain_air_factor = 0.25
 				experience_gain_factor = 0.5
+				breakthrough_factor = 0.2
 			}
-			equipment_bonus = {
-				category_army = {
-					breakthrough = 0.2
-				}
-			}
+			
 		}
 		ANR_contextualist_reform3 = {
 
@@ -811,7 +802,7 @@ ideas = {
 			modifier = {
 				communism_drift = 0.2
 				research_speed_factor = 0.2
-				casualty_trickleback = 0.2
+				# casualty_trickleback = 0.2
 				experience_loss_factor = -0.2
 				experience_gain_army_factor = 0.25
 				experience_gain_navy_factor = 0.25
@@ -819,11 +810,7 @@ ideas = {
 				experience_gain_factor = 0.5
 				army_core_attack_factor = 0.25
 				army_core_defence_factor = 0.25
-			}
-			equipment_bonus = {
-				category_army = {
-					breakthrough = 0.2
-				}
+				breakthrough_factor = 0.2
 			}
 		}
 		ANR_final_skill_in_the_history = {
@@ -837,7 +824,7 @@ ideas = {
 			modifier = {
 				communism_drift = 0.3
 				research_speed_factor = 0.3
-				casualty_trickleback = 0.2
+				# casualty_trickleback = 0.2
 				experience_loss_factor = -0.2
 				experience_gain_army_factor = 0.25
 				experience_gain_navy_factor = 0.25
@@ -847,12 +834,12 @@ ideas = {
 				army_core_defence_factor = 0.25
 				coordination_bonus = 0.1
 				experience_gain_army_unit_factor = 1.0
+				initiative_factor = 0.10
+                breakthrough_factor = 0.2
 			}
 			equipment_bonus = {
-				category_army = {
-					breakthrough = 0.2
+				armor = {
 					armor_value = 0.1
-					initiative = 0.10
 				}
 			}
 		}
@@ -1073,16 +1060,10 @@ ideas = {
 			
 			}
 			equipment_bonus = {
-				artillery = {
+				artillery_equipment = {
 					soft_attack = 0.25
 				}
-				artillery_brigade = {
-					soft_attack = 0.25
-				}
-				rocket_artillery = {
-					soft_attack = 0.25
-				}
-				rocket_artillery_brigade = {
+				rocket_artillery_equipment = {
 					soft_attack = 0.25
 				}
 			}
@@ -1110,7 +1091,7 @@ ideas = {
 			removal_cost = -1
 
 			modifier = {
-				casualty_trickleback = 0.2
+				# casualty_trickleback = 0.2
 				experience_loss_factor = -0.2
 				army_org_regain = 0.2
 				army_org = 10.0
@@ -1133,11 +1114,11 @@ ideas = {
 					maximum_speed = 0.1
 					breakthrough = 0.1
 				}
-				bicycle_battalion = {
-					max_organisation = 0.1
-					maximum_speed = 0.1
-					breakthrough = 0.1
-				}
+				#bicycle_battalion = {
+				#	max_organisation = 0.1
+				#	maximum_speed = 0.1
+				#	breakthrough = 0.1
+				#}
 			}
 		}
 		ANR_more_tanks = {
@@ -1152,13 +1133,13 @@ ideas = {
 			
 			}
 			equipment_bonus = {
-				light_armor = {
+				light_tank_chassis = {
 					build_cost_ic = -0.15
 				}
-				medium_armor = {
+				medium_tank_chassis = {
 					build_cost_ic = -0.15
 				}
-				heavy_armor = {
+				heavy_tank_chassis = {
 					build_cost_ic = -0.15
 				}
 			}
@@ -1189,13 +1170,13 @@ ideas = {
 			
 			}
 			equipment_bonus = {
-				category_all_infantry = {
-					combat_width = -0.2
+				infantry_equipment = {
+					# combat_width = -0.2   # 减少宽度到学说定义
 					max_organisation = 0.25
 					breakthrough = 0.1
 				}
-				armored_car = {
-					combat_width = -0.2
+				mechanized = {   # armored_car
+					# combat_width = -0.2
 					max_organisation = 0.25
 					breakthrough = 0.1
 				}
