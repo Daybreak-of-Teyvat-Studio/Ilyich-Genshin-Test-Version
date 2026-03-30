@@ -337,7 +337,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = industrial_complex
-						level > 1
+						size > 1
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -408,7 +408,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = arms_factory
-						level > 1
+						size > 1
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -760,7 +760,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = industrial_complex
-						level > 2
+						size > 2
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -833,7 +833,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = arms_factory
-						level > 2
+						size > 2
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -893,7 +893,7 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = LAW_tt_Change_Line
-			set_contry_flag = LAW_Completed_Focus_Eco_Tech1
+			set_country_flag = LAW_Completed_Focus_Eco_Tech1
 			add_tech_bonus = {
 				category = excavation_tech
 				bonus = 2
@@ -1174,7 +1174,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = industrial_complex
-						level > 3
+						size > 3
 					}
 				}
 				add_extra_state_shared_building_slots = 4
@@ -1246,7 +1246,7 @@ focus_tree = {
 				limit = {
 					free_building_slots = {
 						building = arms_factory
-						level > 3
+						size > 3
 					}
 				}
 				add_extra_state_shared_building_slots = 4
@@ -1827,6 +1827,82 @@ focus_tree = {
 			base = 500
 		}
 	}
+	#改革一 军事进步 
+	focus = {
+		id = LAW_Eula_Military_Change_1
+		icon = GFX_Goal_Icy_Military_System
+		cost = 1.00
+		x = 0
+		y = 3
+		relative_position_id = LAW_Eula_Begin_Dealt_Army
+		prerequisite = {
+			focus = LAW_Eula_Military_MOT_Way_11
+			focus = LAW_Eula_Military_MOT_Way_21
+			focus = LAW_Eula_Military_SNE_Way_11
+			focus = LAW_Eula_Military_SNE_Way_21
+		}
+		completion_reward = {
+			country_event = Lawrence.75
+			every_country_division = {
+				add_divisional_commander_xp = 25
+			}
+		}
+		available = {
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
+	#预留贵族指挥席位 LAW_Winter_Military_System2
+	focus = {
+		id = LAW_Eula_Military_Change_12
+		icon = GFX_Goal_Happy_Coo
+		cost = 5.00
+		x = 0
+		y = 1
+		relative_position_id = LAW_Eula_Military_Change_1
+		prerequisite = {
+			focus = LAW_Eula_Military_Change_1
+		}
+		mutually_exclusive = {
+			focus = LAW_Eula_Military_Change_11
+			focus = LAW_Eula_Military_Change_13
+		}
+		completion_reward = {
+			add_power_balance_value = {
+				id = LAW_Original_power_balance
+				value = 0.1
+				tooltip_side = LAW_Fascist_Power
+			}
+
+			LAW_Reform_Icy_Power3 = yes
+
+			set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+			custom_effect_tooltip = LAW_tt_More_Noble_Angry
+			add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+
+			add_ideas = LAW_Winter_System2
+			custom_effect_tooltip = LAW_tt_LAW_Eula_Military_Reform_2
+		}
+		available = {
+			LAW_Need_Icy_Power3 = yes
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		bypass = {
+			always = no
+		}
+		ai_will_do = {
+			base = 500
+		}
+	}
 	#人海线2 精锐步兵训练
 	focus = {
 		id = LAW_Eula_Military_SNE_Way_13
@@ -2006,38 +2082,7 @@ focus_tree = {
 			base = 500
 		}
 	}
-	#改革一 军事进步 
-	focus = {
-		id = LAW_Eula_Military_Change_1
-		icon = GFX_Goal_Icy_Military_System
-		cost = 1.00
-		x = 0
-		y = 3
-		relative_position_id = LAW_Eula_Begin_Dealt_Army
-		prerequisite = {
-			focus = LAW_Eula_Military_MOT_Way_11
-			focus = LAW_Eula_Military_MOT_Way_21
-			focus = LAW_Eula_Military_SNE_Way_11
-			focus = LAW_Eula_Military_SNE_Way_21
-		}
-		completion_reward = {
-			country_event = Lawrence.75
-			every_country_division = {
-				add_divisional_commander_xp = 25
-			}
-		}
-		available = {
-		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-		bypass = {
-			always = no
-		}
-		ai_will_do = {
-			base = 500
-		}
-	}
+
 	#保证贵族指挥特权 LAW_Winter_Military_System1
 	focus = {
 		id = LAW_Eula_Military_Change_11
@@ -3076,7 +3121,7 @@ focus_tree = {
 			custom_effect_tooltip = LAW_tt_LAW_Icy_Judge_Court3
 		}
 		available = {
-			LAW_Need_Icy_Power6 = yes
+			# LAW_Need_Icy_Power6 = yes
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -3138,7 +3183,7 @@ focus_tree = {
 			focus = LAW_Eula_Fool_From_Fool
 		}
 		completion_reward = {
-			set_contry_flag = LAW_Fool_Lower_Influence
+			set_country_flag = LAW_Fool_Lower_Influence
 			custom_effect_tooltip = LAW_tt_Fool_Lower_Influence
 			add_stability = 0.05
 		}
@@ -3170,7 +3215,7 @@ focus_tree = {
 			focus = LAW_Eula_Fool_Suppress_Fool
 		}
 		completion_reward = {
-			set_contry_flag = LAW_Fool_More_Help
+			set_country_flag = LAW_Fool_More_Help
 			custom_effect_tooltip = LAW_tt_Fool_More_Help
 			add_equipment_to_stockpile = {
 				type = artillery_equipment
