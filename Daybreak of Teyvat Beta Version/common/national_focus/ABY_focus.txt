@@ -1,4 +1,4 @@
-﻿focus_tree = {
+focus_tree = {
 	id =ABy_focus
 	country = {
 		factor = 0
@@ -333,6 +333,63 @@
 			
 		}
 	}
+
+
+#长期工业规划
+		focus = {
+		id = ABY_long_term_economic_planning
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = ABY_land_reform }
+		x = -1
+		y = 1
+		relative_position_id = ABY_land_reform
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 4
+		}
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				name = SIK_unified_industrial_planning
+				bonus = 0.35
+				uses = 4
+				category = industry
+			}
+			add_ideas = CHI_long_term_economic_planning
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
 	#科研强化
 	focus = {
 		id = ABY_education_reform
@@ -397,60 +454,7 @@
 			add_ideas = JAP_supremacy_of_technology
 		}
 	}
-	#长期工业规划
-		focus = {
-		id = ABY_long_term_economic_planning
-		icon = GFX_goal_generic_production2
-		prerequisite = { focus = ABY_land_reform }
-		x = -1
-		y = 1
-		relative_position_id = ABY_land_reform
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 4
-		}
-
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			add_tech_bonus = {
-				name = SIK_unified_industrial_planning
-				bonus = 0.35
-				uses = 4
-				category = industry
-			}
-			add_ideas = CHI_long_term_economic_planning
-			random_owned_controlled_state = {
-				limit = {
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
+	
 	#工业规划
 	focus = {
 		id = ABY_civil_works
@@ -1114,13 +1118,56 @@
 		}
 	}	
 
+    focus = {
+		id =ABY_a_modern_navy
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus =ABY_the_hellenic_navy }
+		mutually_exclusive = { focus =ABY_a_traditon_navy }
+		x = 2
+		y = 1
+		relative_position_id =ABY_the_hellenic_navy
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+			IF = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_ideas = cruiser_submarine_specialization_mtg
+			}
+			ELSE = {
+				add_ideas = cruiser_submarine_specialization
+			}
+
+			add_tech_bonus = {
+				name = GRE_a_modern_navy
+				bonus = 0.75
+				uses = 1
+				category = dd_tech
+			}
+			add_tech_bonus = {
+				name = GRE_a_modern_navy
+				bonus = 0.75
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}	
+
 	focus = {
 		id =ABY_disrupting_the_great_powers
 		icon = GFX_goal_generic_navy_anti_submarine
-		prerequisite = { focus =ABY_a_modern_navy }
+		prerequisite = { focus = ABY_a_modern_navy }
 		x = 0
 		y = 1
-		relative_position_id =ABY_a_modern_navy
+		relative_position_id = ABY_a_modern_navy
 		cost = 10
 		ai_will_do = {
 			base = 1
@@ -1228,49 +1275,6 @@
 			add_ideas = GRE_ancient_talents
 		}
 	}		
-
-	focus = {
-		id =ABY_a_modern_navy
-		icon = GFX_goal_generic_navy_submarine
-		prerequisite = { focus =ABY_the_hellenic_navy }
-		mutually_exclusive = { focus =ABY_a_traditon_navy }
-		x = 2
-		y = 1
-		relative_position_id =ABY_the_hellenic_navy
-		cost = 10
-		ai_will_do = {
-			base = 1
-		}
-
-		completion_reward = {
-			add_breakthrough_progress = {
-				specialization = specialization_naval
-				value = 0.25
-			}
-			IF = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_ideas = cruiser_submarine_specialization_mtg
-			}
-			ELSE = {
-				add_ideas = cruiser_submarine_specialization
-			}
-
-			add_tech_bonus = {
-				name = GRE_a_modern_navy
-				bonus = 0.75
-				uses = 1
-				category = dd_tech
-			}
-			add_tech_bonus = {
-				name = GRE_a_modern_navy
-				bonus = 0.75
-				uses = 1
-				category = ss_tech
-			}
-		}
-	}	
 
 		#进攻蒙德
 		focus = {
