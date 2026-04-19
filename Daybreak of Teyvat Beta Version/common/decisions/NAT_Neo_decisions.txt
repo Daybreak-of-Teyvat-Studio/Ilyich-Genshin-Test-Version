@@ -1030,7 +1030,7 @@ NAT_fascism_on_the_rise = {
             set_country_flag = preparation_for_fascist_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1045,11 +1045,7 @@ NAT_fascism_on_the_rise = {
             }
             NOT = { has_government = fascism }
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+        
         fire_only_once = no
 
         cost = 25
@@ -1079,11 +1075,7 @@ NAT_fascism_on_the_rise = {
             NOT = { has_government = fascism }
             # check_has_focus_tree_to_switch_to_fascism = yes
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+        
         fire_only_once = no
 
         cost = 50
@@ -1112,7 +1104,7 @@ NAT_fascism_on_the_rise = {
         complete_effect = {
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1144,7 +1136,7 @@ NAT_fascism_on_the_rise = {
             country_event = { id = decisions.1 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1179,7 +1171,7 @@ NAT_fascism_on_the_rise = {
             country_event = { id = decisions.2 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1215,7 +1207,7 @@ NAT_fascism_on_the_rise = {
             set_country_flag = siphoned_equipment_stockpiles_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1246,7 +1238,7 @@ NAT_fascism_on_the_rise = {
             set_country_flag = formulated_surprise_attack_plan_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1279,7 +1271,7 @@ NAT_fascism_on_the_rise = {
             clr_country_flag = civil_support_for_fascism_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1363,7 +1355,7 @@ NAT_fascism_on_the_rise = {
             set_country_flag = ideology_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1517,7 +1509,7 @@ NAT_fascism_on_the_rise = {
             factor = 210
             modifier = {
                 fascism > 0.6
-                factor = 10
+                factor = 00
             }
         }
     }
@@ -1544,7 +1536,7 @@ NAT_democratic_on_the_rise = {
             set_country_flag = preparation_for_democratic_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1553,9 +1545,13 @@ NAT_democratic_on_the_rise = {
         icon = generic_civil_support
 
         visible = {
+            democratic > 0.1
+            has_stability < 0.6
             OR = {
                 has_country_flag = preparation_for_democratic_civil_war
                 has_country_flag = open_up_political_discourse_democratic
+                democratic > 0.1
+                has_stability < 0.6
             }
             OR = {
                 has_idea_with_trait = democratic_reformer
@@ -1564,11 +1560,7 @@ NAT_democratic_on_the_rise = {
             NOT = { has_government = democratic }
             # check_has_focus_tree_to_switch_to_democratic = yes
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+
         fire_only_once = no
 
         cost = 25
@@ -1598,11 +1590,7 @@ NAT_democratic_on_the_rise = {
             NOT = { has_government = democratic }
             # check_has_focus_tree_to_switch_to_democratic = yes
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+        
         fire_only_once = no
 
         cost = 50
@@ -1630,7 +1618,7 @@ NAT_democratic_on_the_rise = {
         complete_effect = {
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1663,7 +1651,7 @@ NAT_democratic_on_the_rise = {
             country_event = { id = decisions.1 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1699,7 +1687,7 @@ NAT_democratic_on_the_rise = {
             country_event = { id = decisions.2 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1735,7 +1723,7 @@ NAT_democratic_on_the_rise = {
             set_country_flag = siphoned_equipment_stockpiles_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1766,7 +1754,7 @@ NAT_democratic_on_the_rise = {
             set_country_flag = formulated_surprise_attack_plan_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1775,18 +1763,12 @@ NAT_democratic_on_the_rise = {
         name = ignite_the_democratic_civil_war
 
         available = {
-            has_stability < 0.5
-            democratic > 0.50
+            democratic > 0.1
+            has_stability < 0.6
         }
         visible = {
-            has_country_flag = preparation_for_democratic_civil_war
-            OR = {
-                has_idea_with_trait = democratic_reformer
-                has_idea_with_trait = social_reformer
-            }
-            NOT = { has_government = democratic }
-            # check_has_focus_tree_to_switch_to_democratic = yes
-            check_variable = { num_owned_states = 1 }
+            democratic > 0.1
+            has_stability < 0.6
         }
         fire_only_once = yes
 
@@ -1799,7 +1781,7 @@ NAT_democratic_on_the_rise = {
             clr_country_flag = civil_support_for_democratic_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -1882,7 +1864,7 @@ NAT_democratic_on_the_rise = {
             clr_country_flag = civil_support_for_democratic_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2035,7 +2017,7 @@ NAT_democratic_on_the_rise = {
             factor = 210
             modifier = {
                 democratic > 0.6
-                factor = 10
+                factor = 00
             }
         }
     }
@@ -2062,7 +2044,7 @@ NAT_communism_on_the_rise = {
             set_country_flag = preparation_for_communist_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2082,11 +2064,7 @@ NAT_communism_on_the_rise = {
             NOT = { has_government = communism }
             # check_has_focus_tree_to_switch_to_communism = yes
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+        
         fire_only_once = no
 
         cost = 25
@@ -2116,11 +2094,7 @@ NAT_communism_on_the_rise = {
             NOT = { has_government = communism }
             # check_has_focus_tree_to_switch_to_communism = yes
         }
-        cancel_trigger = {
-            hidden_trigger = {
-                has_civil_war = yes
-            }
-        }
+        
         fire_only_once = no
 
         cost = 50
@@ -2148,7 +2122,7 @@ NAT_communism_on_the_rise = {
         complete_effect = {
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2181,7 +2155,7 @@ NAT_communism_on_the_rise = {
             country_event = { id = decisions.1 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2217,7 +2191,7 @@ NAT_communism_on_the_rise = {
             country_event = { id = decisions.2 }
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2254,7 +2228,7 @@ NAT_communism_on_the_rise = {
             set_country_flag = siphoned_equipment_stockpiles_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2285,7 +2259,7 @@ NAT_communism_on_the_rise = {
             set_country_flag = formulated_surprise_attack_plan_for_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2318,7 +2292,7 @@ NAT_communism_on_the_rise = {
             clr_country_flag = civil_support_for_communist_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2401,7 +2375,7 @@ NAT_communism_on_the_rise = {
             clr_country_flag = civil_support_for_communist_civil_war
         }
         ai_will_do = {
-            factor = 0
+            factor = 1
         }
     }
 
@@ -2555,7 +2529,7 @@ NAT_communism_on_the_rise = {
             factor = 210
             modifier = {
                 communism > 0.6
-                factor = 10
+                factor = 00
             }
         }
     }
