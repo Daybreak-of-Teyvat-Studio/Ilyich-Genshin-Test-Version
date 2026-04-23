@@ -186,6 +186,7 @@ country_event = {
 			limit = { Is_LYY = no }
 			news_event = { id = LYY_News.0601 days = 10 }
 		}
+		end_puppet = CYG
 		CYG = { 
 			add_timed_idea = { idea = LYY_Morax_Legacy days = 360 }
 		}
@@ -217,7 +218,7 @@ country_event = {
 	}
 }
 country_event = {
-	id = LYY_Event.0603
+	id = LYY_Event.0603                                      # 凝光上线
 	title = LYY_Event.0603.t
 	desc = LYY_Event.0603.d
 	picture = GFX_LYY_Event_P09
@@ -304,7 +305,7 @@ country_event = {
 		# country_event = { id = LYY_Event.060404 days = 10 }
 	}
 }
-country_event = { # 仙人问罪
+country_event = {                          # 仙人问罪
 	id = LYY_Event.0605
 	title = LYY_Event.0605.t
 	desc = LYY_Event.0605.d
@@ -319,6 +320,8 @@ country_event = { # 仙人问罪
 		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_Begin
 		# clr_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_Begin
 		add_ideas = LYY_Event_0605_t
+		LYY = { retire_character = LYY_ShenHe }
+		LYY_SHP_civil_war = yes
 		add_to_variable = { var = LYY_Crisis_Mighty_Illuminated_Adepti_Index value = 25 }
 		every_country = {
 			limit = { Is_LYY = no }
@@ -384,6 +387,7 @@ country_event = {
 		add_political_power = 10
 		# country_event = { id = LYY_Event.0605 days = 10 }
 		add_ideas = LYY_Event_0607_t
+		end_puppet = BRF
 	}
 }
 # 七星八门十二厅
@@ -545,6 +549,7 @@ country_event = { # 解决仙人危机，根据变量触发
 		add_political_power = 10
 		custom_effect_tooltip = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
 		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
+		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End_good
 		clr_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_Begin
 		remove_ideas = LYY_Event_0605_t
 	}
@@ -561,15 +566,14 @@ country_event = { # 爆发仙人危机，根据变量触发
 		add_political_power = 10
 		custom_effect_tooltip = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
 		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
+		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End_bad
 		clr_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_Begin
 		remove_ideas = LYY_Event_0605_t
-		LYY = { retire_character = LYY_ShenHe }
-		LYY_SHP_civil_war = yes
-		transfer_units_fraction = {
-			target = SHP
-			size = 0.3
-			navy_ratio = 0.3
-			keep_unit_leaders_trigger = { always = yes }
+		SHP= {
+			declare_war_on = {
+				target = LYY
+				type = civil_war
+			}
 		}
 		every_country = {
 			limit = { Is_LYY = no }
@@ -581,17 +585,16 @@ country_event = { # 爆发仙人危机，根据变量触发
 		add_political_power = 10
 		custom_effect_tooltip = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
 		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End
+		set_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End_bad
 		clr_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_Begin
 		remove_ideas = LYY_Event_0605_t
-		LYY = { retire_character = LYY_ShenHe }
-		LYY_SHP_civil_war = yes
-		transfer_units_fraction = {
-			target = SHP
-			size = 0.3
-			navy_ratio = 0.3
-			keep_unit_leaders_trigger = { always = yes }
-		}
 		SHP = { change_tag_from = ROOT }
+		SHP= {
+			declare_war_on = {
+				target = LYY
+				type = civil_war
+			}
+		}
 		trigger = { is_ai = no }
 		every_country = {
 			limit = { Is_LYY = no }
@@ -620,12 +623,12 @@ country_event = { # 强制触发器
 	hidden = yes
 	trigger = {
 		tag = LYY  
-		check_variable = { LYY_Crisis_Mighty_Illuminated_Adepti_Index > 200 }
+		check_variable = { LYY_Crisis_Mighty_Illuminated_Adepti_Index > 199 }
 	}
 	option = {
 	    name = LYY_Event.09040101.a
 		add_political_power = 10
-		# country_event = { id = LYY_Event.090401 days = 10 }
+		country_event = { id = LYY_Event.090401 days = 10 }
 		complete_national_focus = LYY_Crisis_Mighty_Illuminated_Adepti_04
 	}
 }
@@ -712,12 +715,12 @@ country_event = { # 强制触发器
 	hidden = yes
 	trigger = {
 		tag = LYY  
-		check_variable = { LYY_Crisis_Fatui_and_Osial_Index > 200 }
+		check_variable = { LYY_Crisis_Fatui_and_Osial_Index > 199 }
 	}
 	option = {
 	    name = LYY_Event.09040101.a
 		add_political_power = 10
-		# country_event = { id = LYY_Event.11 days = 10 }
+		country_event = { id = LYY_Event.11 days = 10 }
 		complete_national_focus = LYY_Crisis_Fatui_and_Osial_04
 	}
 }
@@ -816,12 +819,12 @@ country_event = { # 强制触发器
 	hidden = yes
 	trigger = {
 		tag = LYY  
-		check_variable = { LYY_Crisis_Liyue_Economy_Index > 200 }
+		check_variable = { LYY_Crisis_Liyue_Economy_Index > 199 }
 	}
 	option = {
 	    name = LYY_Event.09040101.a
 		add_political_power = 10
-		# country_event = { id = LYY_Event.11 days = 10 }
+		country_event = { id = LYY_Event.11 days = 10 }
 		complete_national_focus = LYY_Rite_of_Parting
 	}
 }
@@ -1324,6 +1327,7 @@ country_event = {
 		trigger = { is_ai = no }
 	}
 	option = { # NG派
+		has_country_flag = LYY_Crisis_Mighty_Illuminated_Adepti_Decision_End_good
 		name = Civil_War_of_Liyue.1.e
 		custom_effect_tooltip = GUN_Effects_are_Hidden
 		LYY = { retire_character = LYY_KeQing retire_character = LYY_GanYu retire_character = LYY_XiangLing retire_character = LYY_HuTao retire_character = LYY_Yunjin }
