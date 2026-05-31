@@ -2016,6 +2016,12 @@ focus_tree = {
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_max_efficiency_factor = 0.2}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_efficiency_gain_factor = 0.2}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.15}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_dockyard = 0.0}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_buildings_factor = 0.0}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_industrial_complex_factor = 0.0}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_conversion_cost_mil_to_civ_factor = 0.0}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_research_speed_factor = 0.0}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_local_resources_factor = 0.0}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_conscription = 0.03}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_attack_factor = 0.0}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_core_attack_factor = 0.2}
@@ -2028,6 +2034,7 @@ focus_tree = {
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_defence_factor = 0.1}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_minimum_training_level = -0.1}
             set_variable = {FOD_Reconstruction_of_Fontaine_modifier_training_time_factor = 0.1}
+            set_variable = {FOD_Reconstruction_of_Fontaine_modifier_monthly_population = 0.0}
             # 设置新动态修正变量（混乱的政府）
             set_variable = {FOD_Chaotic_Government_modifier_stability_factor = -0.15}
             set_variable = {FOD_Chaotic_Government_modifier_war_support_factor = 0.0}
@@ -2088,6 +2095,8 @@ focus_tree = {
         cancel_if_invalid = yes
         continue_if_invalid = no
         completion_reward = {
+            add_political_power = 100
+            add_command_power =  20
             promote_character = FOD_Tartuffe
             promote_character = FOD_Furina2
             set_politics = {
@@ -2095,10 +2104,10 @@ focus_tree = {
                 elections_allowed = yes
             }
             set_popularities = {
-                democratic = 60
-                neutrality = 20
-                communism = 20
-                fascism = 0
+                democratic = 40
+                neutrality = 40
+                communism = 15
+                fascism = 5
             }
             set_party_name = {
                 ideology = democratic
@@ -2146,6 +2155,11 @@ focus_tree = {
             focus = FOD_Destroy_the_Throne
         }
         completion_reward = {
+            add_popularity = {
+                ideology = fascism
+                popularity = -0.2
+            }
+            add_political_power = 100
             country_event = {
                 id = FOD_Furina_event.401
             }
@@ -2176,6 +2190,11 @@ focus_tree = {
             focus = FOD_Destroy_the_Throne
         }
         completion_reward = {
+            add_popularity = {
+                ideology = democratic
+                popularity = 0.2
+            }
+            add_political_power = 100
             country_event = {
                 id = FOD_Furina_event.402
             }
@@ -2209,6 +2228,7 @@ focus_tree = {
             focus = FOD_Establish_the_Citizens'Council
         }
         completion_reward = {
+            add_country_leader_trait = FOD_Unite_Fontaine
             country_event = {
                 id = FOD_Furina_event.405
             }
@@ -2239,6 +2259,28 @@ focus_tree = {
             focus =  FOD_Interim_Commander
         }
         completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_New_Codex_modifier
+                }
+            }
+            set_variable = { FOD_New_Codex_modifier_political_power_cost = -0.6 }
+            set_variable = { FOD_New_Codex_modifier_conscription_factor = 0.18 }
+            set_variable = { FOD_New_Codex_modifier_supply_consumption_factor = -0.08 }
+            set_variable = { FOD_New_Codex_modifier_army_org_regain = 0.28 }
+            set_variable = { FOD_New_Codex_modifier_production_speed_buildings_factor = 0.16 }
+            set_variable = { FOD_New_Codex_modifier_industrial_capacity_factory = 0.22 }
+            set_variable = { FOD_New_Codex_modifier_industrial_capacity_dockyard = 0.22 }
+            set_variable = { FOD_New_Codex_modifier_industry_repair_factor = 0.0 }
+            set_variable = { FOD_New_Codex_modifier_stability_factor = 0.0 }
+            set_variable = { FOD_New_Codex_modifier_war_support_factor = 0.0 }
+            set_variable = { FOD_New_Codex_modifier_conscription = 0.05 }
+            set_variable = { FOD_New_Codex_modifier_army_defence_factor = 0.05 }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_New_Codex_modifier_tooltip
+                }
+            }
             country_event = {
                 id = FOD_Furina_event.409
             }
@@ -2269,6 +2311,14 @@ focus_tree = {
             focus = FOD_New_Codex_of_the_Court_of_Fontaine
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_max_efficiency_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Northern_Energy_Reactivation_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2296,6 +2346,16 @@ focus_tree = {
             focus = FOD_Northern_Energy_Reactivation
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_buildings_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_industrial_complex_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_conversion_cost_mil_to_civ_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Southern_WorkRelief_Program_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2323,6 +2383,13 @@ focus_tree = {
             focus = FOD_New_Codex_of_the_Court_of_Fontaine
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_research_speed_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Reorient_the_Academy_of_Sciences_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2350,6 +2417,13 @@ focus_tree = {
             focus =  FOD_Reorient_the_Academy_of_Sciences
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_local_resources_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Exploit_All_Resources_of_Fontaine_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2380,6 +2454,14 @@ focus_tree = {
             focus = FOD_Exploit_All_Resources_of_Fontaine
         }
         completion_reward = {
+            add_to_variable = {FOD_New_Codex_modifier_production_speed_buildings_factor = 0.1}
+            add_to_variable = {FOD_New_Codex_modifier_industry_repair_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Service_Industry_Consolidation_tooltip
+                }
+            }
             country_event = {
                 id = FOD_Furina_event.410
             }
@@ -2410,6 +2492,30 @@ focus_tree = {
             focus =  FOD_Interim_Commander
         }
         completion_reward = {
+            add_dynamic_modifier = {
+                modifier = FOD_Republican_Military_Reform_modifier
+            }
+            set_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.05}
+            set_variable = {FOD_Republican_Military_Reform_modifier_army_attack_factor = 0.05}
+            set_variable = {FOD_Republican_Military_Reform_modifier_army_defence_factor = 0.05}
+            set_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_minimum_training_level = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_army_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_navy_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_air_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_army_anti_air_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_air_range_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_air_fuel_consumption_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_army_speed_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_naval_speed_factor = 0.0}
+            set_variable = {FOD_Republican_Military_Reform_modifier_naval_range_factor = 0.0}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Fontaine_Military_Reform_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2437,6 +2543,17 @@ focus_tree = {
             focus = FOD_Fontaine_Military_Reform
         }
         completion_reward = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 5000
+            }
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 500
+            }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = infantry_weapons }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
         }
         available = {
         }
@@ -2464,6 +2581,18 @@ focus_tree = {
             focus = FOD_Standardissue_Firearms_Deployment
         }
         completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_equipment_to_stockpile = {
+                type = convoy
+                amount = 500
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Form_the_Maritime_Patrol_Fleet_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2491,6 +2620,17 @@ focus_tree = {
             focus = FOD_Fontaine_Military_Reform
         }
         completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_attack_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_defence_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_minimum_training_level = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Professionalize_the_Ragtag_Army_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2518,6 +2658,15 @@ focus_tree = {
             focus = FOD_Professionalize_the_Ragtag_Army
         }
         completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_army_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_navy_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_air_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Clarify_Departmental_Powers_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2548,6 +2697,17 @@ focus_tree = {
             focus = FOD_Form_the_Maritime_Patrol_Fleet
         }
         completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = -0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = -0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_anti_air_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_The_Army_Is_Transformed_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2575,6 +2735,18 @@ focus_tree = {
             focus =  FOD_Interim_Commander
         }
         completion_reward = {
+            add_dynamic_modifier = {
+                modifier = FOD_Tea_Party_Diplomacy_modifier
+            }
+            set_variable = {FOD_Tea_Party_Diplomacy_modifier_political_power_gain = 0.15}
+            set_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = -0.05}
+            set_variable = {FOD_Tea_Party_Diplomacy_modifier_monthly_population = 0.0}
+            set_variable = {FOD_Tea_Party_Diplomacy_modifier_war_support_factor = 0.0}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Searching_for_Him_in_the_Crowd_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2602,6 +2774,13 @@ focus_tree = {
             focus = FOD_Searching_for_Him_in_the_Crowd
         }
         completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_monthly_population = 0.03}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Searching_for_Him_in_the_Crowd_tooltip
+                    add_idea = FOD_Tea_Party_Etiquette_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2629,8 +2808,15 @@ focus_tree = {
             focus = FOD_Tea_Party_Etiquette
         }
         completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = -0.05}
             country_event = {
                 id = FOD_Furina_event.407
+            }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Tea_Party_Etiquette_tooltip
+                    add_idea = FOD_Face_Your_Fears_tooltip
+                }
             }
         }
         available = {
@@ -2659,6 +2845,13 @@ focus_tree = {
             focus = FOD_Face_Your_Fears
         }
         completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_war_support_factor = -0.15}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Face_Your_Fears_tooltip
+                    add_idea = FOD_Heart_of_the_Hearth_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2692,8 +2885,19 @@ focus_tree = {
             focus = FOD_The_Army_Is_Transformed
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_stability_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_war_support_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_dockyard = 0.15}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = -0.05}
             country_event = {
                 id = FOD_Furina_event.411
+            }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Solitary_Heart_Salon_tooltip
+                }
             }
         }
         available = {
@@ -2726,6 +2930,14 @@ focus_tree = {
             has_country_flag = FOD_Furina_politic_22_34_flag
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_political_power_gain = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Solitary_Heart_Salon_tooltip
+                    add_idea = FOD_Expand_the_Cinematography_Industry_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2753,6 +2965,14 @@ focus_tree = {
             focus = FOD_Expand_the_Cinematography_Industry
         }
         completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_monthly_population = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expand_the_Cinematography_Industry_tooltip
+                    add_idea = FOD_Operation_Pastry_Colonel_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2784,6 +3004,9 @@ focus_tree = {
             has_country_flag = FOD_Furina_politic_22_34_flag
         }
         completion_reward = {
+            add_ideas = {
+                communism_drift = 0.05
+            }
         }
         available = {
         }
@@ -2811,6 +3034,17 @@ focus_tree = {
             focus = FOD_Deliberate_the_Human_Rights_Law
         }
         completion_reward = {
+            add_ideas = {
+                communism_drift = 0.05
+            }
+            add_to_variable = {FOD_New_Codex_modifier_stability_factor = 0.05}
+            add_to_variable = {FOD_New_Codex_modifier_war_support_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Exonerate_Eduardo_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2841,6 +3075,28 @@ focus_tree = {
             focus = FOD_Operation_Pastry_Colonel
         }
         completion_reward = {
+            remove_dynamic_modifier = {
+                modifier = FOD_Chaotic_Government_modifier
+            }
+            add_dynamic_modifier = {
+                modifier = FOD_Moon_Cooperation_modifier
+            }
+            set_variable = {FOD_Moon_Cooperation_modifier_stability_factor = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_war_support_factor = 0.0}
+            set_variable = {FOD_Moon_Cooperation_modifier_industrial_capacity_factory = 0.3}
+            set_variable = {FOD_Moon_Cooperation_modifier_democratic_drift = 0.03}
+            set_variable = {FOD_Moon_Cooperation_modifier_communism_drift = 0.01}
+            set_variable = {FOD_Moon_Cooperation_modifier_neutrality_drift = 0.01}
+            set_variable = {FOD_Moon_Cooperation_modifier_political_power_gain = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_land_reinforce_rate = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_research_speed_factor = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_consumer_goods_factor = -0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_production_factory_efficiency_gain_factor = 0.05}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_City_of_Joy_and_Harmony_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2872,6 +3128,9 @@ focus_tree = {
             has_country_flag = FOD_Furina_politic_22_34_flag
         }
         completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = special_forces_generic }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = special_forces_generic }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = special_forces_generic }
         }
         available = {
         }
@@ -2899,6 +3158,8 @@ focus_tree = {
             focus = FOD_Screen_the_Special_Operations_Unit
         }
         completion_reward = {
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = support_tech }
         }
         available = {
         }
@@ -2930,6 +3191,9 @@ focus_tree = {
             has_country_flag = FOD_Furina_politic_22_34_flag
         }
         completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
         }
         available = {
         }
@@ -2957,6 +3221,14 @@ focus_tree = {
             focus = FOD_Introduce_Wind_Gliders
         }
         completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_air_range_factor = 0.2}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_air_fuel_consumption_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Fontaine_Air_Force_Drill_tooltip
+                }
+            }
         }
         available = {
         }
@@ -2987,6 +3259,14 @@ focus_tree = {
             focus = FOD_Fontaine_Air_Force_Drill
         }
         completion_reward = {
+            add_ideas = {
+                FOD_Moment_of_Universal_Adjudication_idea
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Moment_of_Universal_Adjudication_tooltip
+                }
+            }
         }
         available = {
         }
