@@ -30,32 +30,18 @@ def CheckFileQuotation(filePath):
                 fileCorrect = False
     return fileCorrect
 
-def CheckDirWithFilter(dirPath, fileExtensions, checkFunction):
-    """
-    通用的目录检查函数
-
-    Args:
-        dirPath: 要检查的目录路径
-        fileExtensions: 文件扩展名列表，如 ['.yml'] 或 ['.txt', '.gui']
-        checkFunction: 文件检查函数，接收 filePath 参数，返回 bool
-
-    Returns:
-        bool: 所有文件是否都正确
-    """
+def CheckDirQuotation(dirPath):
     allFilesCorrect = True
     files = os.listdir(dirPath)
     for file in files:
         filePath = os.path.join(dirPath, file)
         if filePath in blackList:
             continue
-        elif os.path.isfile(filePath) and any(ext in file for ext in fileExtensions):
-            allFilesCorrect = (checkFunction(filePath) and allFilesCorrect)
+        elif os.path.isfile(filePath) and ".yml" in file:
+            allFilesCorrect = (CheckFileQuotation(filePath) and allFilesCorrect)
         elif os.path.isdir(filePath):
-            allFilesCorrect = (CheckDirWithFilter(filePath, fileExtensions, checkFunction) and allFilesCorrect)
+            allFilesCorrect = (CheckDirQuotation(filePath) and allFilesCorrect)
     return allFilesCorrect
-
-def CheckDirQuotation(dirPath):
-    return CheckDirWithFilter(dirPath, ['.yml'], CheckFileQuotation)
 
 # 检测本地化文件的编码格式
 def CheckFileEncoding(filePath):
@@ -67,7 +53,17 @@ def CheckFileEncoding(filePath):
         return False
 
 def CheckDirEncoding(dirPath):
-    return CheckDirWithFilter(dirPath, ['.yml'], CheckFileEncoding)
+    allFilesCorrect = True
+    files = os.listdir(dirPath)
+    for file in files:
+        filePath = os.path.join(dirPath, file)
+        if filePath in blackList:
+            continue
+        elif os.path.isfile(filePath) and ".yml" in file:
+            allFilesCorrect = (CheckFileEncoding(filePath) and allFilesCorrect)
+        elif os.path.isdir(filePath):
+            allFilesCorrect = (CheckDirEncoding(filePath) and allFilesCorrect)
+    return allFilesCorrect
 
 # 检测txt、gui文件的大括号匹配
 def CheckFileBracket(filePath):
@@ -98,7 +94,17 @@ def CheckFileBracket(filePath):
     return fileCorrect
 
 def CheckDirBracket(dirPath):
-    return CheckDirWithFilter(dirPath, ['.txt', '.gui'], CheckFileBracket)
+    allFilesCorrect = True
+    files = os.listdir(dirPath)
+    for file in files:
+        filePath = os.path.join(dirPath, file)
+        if filePath in blackList:
+            continue
+        if os.path.isfile(filePath) and (".txt" in file or ".gui" in file):
+            allFilesCorrect = (CheckFileBracket(filePath) and allFilesCorrect)
+        elif os.path.isdir(filePath):
+            allFilesCorrect = (CheckDirBracket(filePath) and allFilesCorrect)
+    return allFilesCorrect
 
 def main():
     modPath = "Daybreak of Teyvat Beta Version"
