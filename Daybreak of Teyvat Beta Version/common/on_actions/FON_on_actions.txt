@@ -1,0 +1,110 @@
+on_actions = {
+    on_capitulation_immediate = {
+        effect = {
+            # === 第一阶段：内部对战（HZH vs FOM / PBF vs FOD）===
+            # 不限AI/玩家，投降即被吞并
+            if = {
+                limit = {
+                    ROOT = { tag = HZH }
+                    FROM = { tag = FOM }
+                }
+                FROM = {
+                    annex_country = {
+                        target = HZH
+                        transfer_troops = yes
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    ROOT = { tag = FOM }
+                    FROM = { tag = HZH }
+                }
+                FROM = {
+                    annex_country = {
+                        target = FOM
+                        transfer_troops = yes
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    ROOT = { tag = PBF }
+                    FROM = { tag = FOD }
+                }
+                FROM = {
+                    annex_country = {
+                        target = PBF
+                        transfer_troops = yes
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    ROOT = { tag = FOD }
+                    FROM = { tag = PBF }
+                }
+                FROM = {
+                    annex_country = {
+                        target = FOD
+                        transfer_troops = yes
+                    }
+                }
+            }
+
+            # === 检测两组内战是否都已结束，标记进入最终决战阶段 ===
+            if = {
+                limit = {
+                    # 第一组已决出胜负：HZH和FOM不同时存在
+                    NOT = { AND = { HZH = { exists = yes } FOM = { exists = yes } } }
+                    # 第二组已决出胜负：PBF和FOD不同时存在
+                    NOT = { AND = { PBF = { exists = yes } FOD = { exists = yes } } }
+                    # 尚未标记
+                    NOT = { has_global_flag = FON_final_war_started }
+                }
+                set_global_flag = FON_final_war_started
+            }
+
+            # === 第二阶段：最终决战投降吞并 ===
+            if = {
+                limit = { has_global_flag = FON_final_war_started }
+                if = {
+                    limit = { ROOT = { tag = HZH } }
+                    FROM = {
+                        annex_country = {
+                            target = HZH
+                            transfer_troops = yes
+                        }
+                    }
+                }
+                if = {
+                    limit = { ROOT = { tag = FOM } }
+                    FROM = {
+                        annex_country = {
+                            target = FOM
+                            transfer_troops = yes
+                        }
+                    }
+                }
+                if = {
+                    limit = { ROOT = { tag = PBF } }
+                    FROM = {
+                        annex_country = {
+                            target = PBF
+                            transfer_troops = yes
+                        }
+                    }
+                }
+                if = {
+                    limit = { ROOT = { tag = FOD } }
+                    FROM = {
+                        annex_country = {
+                            target = FOD
+                            transfer_troops = yes
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
