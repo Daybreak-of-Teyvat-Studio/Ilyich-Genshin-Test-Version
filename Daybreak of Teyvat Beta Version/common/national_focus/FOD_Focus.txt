@@ -52,7 +52,7 @@ focus_tree = {
             
             set_variable = {FOD_Puppet_Queen_modifier_stability_factor = -0.05}
             set_variable = {FOD_Puppet_Queen_modifier_war_support_factor = 0.1}
-            set_variable = {FOD_Puppet_Queen_modifier_political_power_gain_factor = 0}
+            set_variable = {FOD_Puppet_Queen_modifier_political_power_factor = 0}
             effect_tooltip = {
                 add_ideas = {
                     FOD_Puppet_Queen_modifier_tooltip2
@@ -537,8 +537,6 @@ focus_tree = {
             focus = FOD_The_Rose_Society_Traitors
         }
         completion_reward = {
-            add_ideas = FOD_Tartuffe_political_advisor
-            
             set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_supply_consumption_factor = -0.05}
             set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_army_defence_factor = 0.05}
             set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_max_planning  = 0.1}
@@ -1707,6 +1705,7 @@ focus_tree = {
         }
         relative_position_id = FOD_The_Decisive_Game
         available = {
+            always = no
         }
         bypass = {
         }
@@ -2110,18 +2109,24 @@ focus_tree = {
             add_political_power = 100
             add_command_power =  20
             hidden_effect = {
-                promote_character = FOD_Tartuffe
-                promote_character = FOD_Furina2
                 set_cosmetic_tag = FOD_republic
-                set_politics = {
-                    ruling_party = democratic
-                    elections_allowed = yes
-                }
                 set_popularities = {
                     democratic = 40
                     neutrality = 40
                     communism = 15
                     fascism = 5
+                }
+                # 先切到中和主义，让达尔杜弗成为中和主义党魁
+                set_politics = {
+                    ruling_party = neutrality
+                    elections_allowed = yes
+                }
+                promote_character = FOD_Tartuffe
+                promote_character = FOD_Furina2
+                # 再切到修禊主义，让芙宁娜2号成为领袖
+                set_politics = {
+                    ruling_party = democratic
+                    elections_allowed = yes
                 }
                 set_party_name = {
                     ideology = democratic
@@ -2524,12 +2529,10 @@ focus_tree = {
                 set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_air_factor = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = 0.0}
-                set_variable = {FOD_Republican_Military_Reform_modifier_army_anti_air_factor = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_air_range_factor = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_air_fuel_consumption_factor = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_army_speed_factor = 0.0}
                 set_variable = {FOD_Republican_Military_Reform_modifier_naval_speed_factor = 0.0}
-                set_variable = {FOD_Republican_Military_Reform_modifier_naval_range_factor = 0.0}
             }
             effect_tooltip = {
                 add_ideas = {
@@ -2721,7 +2724,6 @@ focus_tree = {
             add_to_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.1}
             add_to_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.05}
             add_to_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = -0.05}
-            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_anti_air_factor = 0.1}
             effect_tooltip = {
                 swap_ideas = {
                     remove_idea = FOD_Fontaine_Military_Reform_tooltip

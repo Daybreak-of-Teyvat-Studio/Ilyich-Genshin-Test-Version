@@ -48,7 +48,7 @@ focus = {
             }
         }
         
-        country_event = { id = FOM.2 }
+        country_event = { id = FOM.1 }
     }
 
     ai_will_do = {
@@ -175,7 +175,7 @@ focus = {
         add_ideas = {
             FOM_optimize_capacity
         }
-        country_event = { id = FOM.3 }
+
     }
 
     ai_will_do = {
@@ -219,7 +219,6 @@ focus = {
             ideology = communism
             popularity = 0.05
         }
-        country_event = { id = FOM.6 }
     }
 
     ai_will_do = {
@@ -300,7 +299,7 @@ focus = {
             idea = FOM_temporary_resource_allocation_idea
             days = 365
         }
-        country_event = { id = FOM.4 }
+
     }
 
     ai_will_do = {
@@ -340,7 +339,7 @@ focus = {
         add_ideas = {
             FOM_Promotion_of_the_special_coupon_system_idea
         }
-        country_event = { id = FOM.5 }
+
     }
 
     ai_will_do = {
@@ -616,7 +615,7 @@ focus = {
 				category = land_doctrine
 			}
         army_experience = 20
-        country_event = { id = FOM.7 }
+
     }
 
     ai_will_do = {
@@ -1023,7 +1022,7 @@ focus = {
                 add_idea = FOM_fontain_great_revolution_modifier_tooltip9
             }
         }
-        country_event = { id = FOM.8 }
+
     }
 
     ai_will_do = {
@@ -2042,7 +2041,7 @@ focus = {
 
 ############军事############
 
-#枫丹革命卫队
+#新枫丹模范军
 focus = {
     id = FOM_Fengdan_Revolutionary_Guard
     icon = FOM
@@ -2539,7 +2538,6 @@ focus = {
 
     completion_reward = {
         set_variable = {FOM_military_naval_strike_attack_factor = 0.1}
-        set_variable = {FOM_military_air_close_air_support_attack_factor = 0.1}
         set_variable = {FOM_military_army_bonus_air_superiority_factor = 0.1}
         effect_tooltip = {
             swap_ideas = {
@@ -2779,7 +2777,7 @@ focus = {
                 add_idea = FOM_military_modifier_tooltip13
             }
         }
-        country_event = {id = FOM.9}
+        country_event = {id = FOM.2}
     }
 
     ai_will_do = {
@@ -2807,7 +2805,10 @@ focus = {
         continue_if_invalid = no
         available_if_capitulated = no
         completion_reward = {
+            add_political_power = 100
+            add_command_power = 20
             promote_character = FOM_Wriothesley2
+            country_event = {id = FOM.3}
         }
         ai_will_do = {
             factor = 1
@@ -2830,7 +2831,35 @@ focus = {
         prerequisite = {
             focus = FOM_The_Fontaine_Revolution
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = -0.05
+            set_variable = { FOM_political_political_power_gain = -0.01 }
+            set_variable = { FOM_political_conscription_factor = 0.02 }
+            set_variable = { FOM_political_democratic_drift = 0 }
+            set_variable = { FOM_political_monthly_population = 0 }
+            set_variable = { FOM_political_consumer_goods_factor = 0 }
+            set_variable = { FOM_political_industrial_capacity_factory = 0 }
+            set_variable = { FOM_political_army_org_factor = 0 }
+            set_variable = { FOM_political_production_speed_buildings_factor = 0 }
+            set_variable = { FOM_political_global_building_slots_factor = 0 }
+            set_variable = { FOM_political_research_speed_factor = 0 }
+            set_variable = { FOM_political_army_attack_factor = 0 }
+            set_variable = { FOM_political_local_resources_factor = 0 }
+            set_variable = { FOM_political_drift_defence_factor = 0 }
+            set_variable = { FOM_political_experience_loss_factor = 0 }
+            set_variable = { FOM_political_stability_factor = 0 }
+            set_variable = { FOM_political_production_factory_efficiency_gain_factor = 0 }
+            set_variable = { FOM_political_production_factory_max_efficiency_factor = 0 }
+            add_dynamic_modifier = {
+                modifier = FOM_political
+            }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_1
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2852,7 +2881,17 @@ focus = {
         prerequisite = {
             focus = FOM_Salvation_for_the_Steadfast_and_Suffering
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = 0.2
+            add_to_variable = { FOM_political_political_power_gain = 0.15 }
+            add_to_variable = { FOM_political_democratic_drift = 0.1 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_2
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2874,7 +2913,17 @@ focus = {
         prerequisite = {
             focus = FOM_The_Fontaine_Revolution
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = 0.1
+            add_to_variable = { FOM_political_political_power_gain = 0.25 }
+            add_to_variable = { FOM_political_democratic_drift = 0.25 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_3
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2896,7 +2945,18 @@ focus = {
         prerequisite = {
             focus = FOM_Comfort_for_the_Innocent
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = 0.05
+            add_to_variable = { FOM_political_monthly_population = 0.03 }
+            add_to_variable = { FOM_political_consumer_goods_factor = 0.02 }
+            add_to_variable = { FOM_political_political_power_gain = -0.05 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_4
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2918,7 +2978,14 @@ focus = {
         prerequisite = {
             focus = FOM_The_Fontaine_Revolution
         }
-        completion_reward = { }
+        completion_reward = { 
+            add_manpower = -500
+            add_popularity = {
+                ideology = communism
+                value = 0.15
+            }
+            country_event = {id = FOM.4}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2940,7 +3007,17 @@ focus = {
         prerequisite = {
             focus = FOM_Terror_for_the_Evildoers
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = -0.05
+            add_manpower = -200
+            add_to_variable = { FOM_political_consumer_goods_factor = -0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_5
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2968,7 +3045,20 @@ focus = {
         prerequisite = {
             focus = FOM_Organize_the_Revolutionary_Patrol
         }
-        completion_reward = { }
+        completion_reward = {
+            add_popularity = {
+                ideology = democratic
+                value = 0.10
+            }
+            add_popularity = {
+                ideology = communism
+                value = 0.15
+            }
+            add_popularity = {
+                ideology = fascism
+                value = 0.10
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -2994,7 +3084,26 @@ focus = {
         prerequisite = {
             focus = FOM_Set_the_Revolutionary_Course
         }
-        completion_reward = { }
+        completion_reward = {
+            add_popularity = {
+                ideology = communism
+                value = 0.30
+            }
+            add_popularity = {
+                ideology = democratic
+                value = 0.10
+            }
+            add_stability = 0.05
+            add_to_variable = { FOM_political_industrial_capacity_factory = 0.10 }
+            add_to_variable = { FOM_political_army_org_factor = 0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_6
+                }
+            }
+            country_event = {id = FOM.5}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3016,7 +3125,17 @@ focus = {
         prerequisite = {
             focus = FOM_Avant_garde_Council
         }
-        completion_reward = { }
+        completion_reward = {
+            add_to_variable = { FOM_political_production_speed_buildings_factor = 0.05 }
+            add_to_variable = { FOM_political_global_building_slots_factor = 0.20 }
+            add_to_variable = { FOM_political_industrial_capacity_factory = 0.05 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_7
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3038,7 +3157,17 @@ focus = {
         prerequisite = {
             focus = FOM_Avant_garde_Council
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = 0.05
+            add_to_variable = { FOM_political_political_power_gain = 0.1 }
+            add_to_variable = { FOM_political_research_speed_factor = 0.02 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_8
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3063,7 +3192,19 @@ focus = {
         prerequisite = {
             focus = FOM_Independence_as_Our_Prerequisite
         }
-        completion_reward = { }
+        completion_reward = {
+            add_stability = 0.15
+            add_to_variable = { FOM_political_monthly_population = 0.05 }
+            add_to_variable = { FOM_political_consumer_goods_factor = 0.05 }
+            add_to_variable = { FOM_political_political_power_gain = -0.005 }
+            add_to_variable = { FOM_political_experience_loss_factor = -0.20 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_9
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3089,7 +3230,20 @@ focus = {
         prerequisite = {
             focus = FOM_Set_the_Revolutionary_Course
         }
-        completion_reward = { }
+        completion_reward = {
+            add_popularity = {
+                ideology = communism
+                value = 0.50
+            }
+            add_to_variable = { FOM_political_army_attack_factor = 0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_10
+                }
+            }
+            country_event = {id = FOM.6}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3111,7 +3265,18 @@ focus = {
         prerequisite = {
             focus = FOM_Duke_Protector
         }
-        completion_reward = { }
+        completion_reward = { 
+            add_stability = -0.05
+            add_to_variable = { FOM_political_political_power_gain = -0.01 }
+            add_to_variable = { FOM_political_conscription_factor = 0.02 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_11
+                }
+            }
+            country_event = {id = FOM.7}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3133,7 +3298,17 @@ focus = {
         prerequisite = {
             focus = FOM_Duke_Protector
         }
-        completion_reward = { }
+        completion_reward = {
+            add_to_variable = { FOM_political_production_speed_buildings_factor = 0.10 }
+            add_to_variable = { FOM_political_global_building_slots_factor = 0.20 }
+            add_to_variable = { FOM_political_industrial_capacity_factory = 0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_12
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3158,7 +3333,18 @@ focus = {
         prerequisite = {
             focus = FOM_Mercy_for_the_Wronged
         }
-        completion_reward = { }
+        completion_reward = { 
+            add_to_variable = { FOM_political_industrial_capacity_factory = 0.10 }
+            add_to_variable = { FOM_political_local_resources_factor = 0.15 }
+            add_to_variable = { FOM_political_drift_defence_factor = 0.30 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_13
+                }
+            }
+            country_event = {id = FOM.8}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3184,7 +3370,22 @@ focus = {
         prerequisite = {
             focus = FOM_Set_the_Revolutionary_Course
         }
-        completion_reward = { }
+        completion_reward = { 
+            add_popularity = {
+                ideology = fascism
+                value = 0.40
+            }
+            add_to_variable = { FOM_political_army_org_factor = -0.10 }
+            add_to_variable = { FOM_political_industrial_capacity_factory = -0.10 }
+            add_to_variable = { FOM_political_stability_factor = -0.15 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_14
+                }
+            }
+            country_event = {id = FOM.9}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3206,7 +3407,14 @@ focus = {
         prerequisite = {
             focus = FOM_Revolutionary_Guard
         }
-        completion_reward = { }
+        completion_reward = {
+            add_popularity = {
+                ideology = communism
+                value = -0.15
+            }
+            add_stability = -0.20
+            add_war_support = 0.15
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3228,7 +3436,17 @@ focus = {
         prerequisite = {
             focus = FOM_Revolutionary_Guard
         }
-        completion_reward = { }
+        completion_reward = {
+            add_manpower = -2000
+            add_stability = -0.20
+            add_to_variable = { FOM_political_industrial_capacity_factory = -0.05 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_15
+                }
+            }
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3253,7 +3471,29 @@ focus = {
         prerequisite = {
             focus = FOM_Execute_the_Counter_Revolutionaries
         }
-        completion_reward = { }
+        completion_reward = { 
+            add_popularity = {
+                ideology = fascism
+                value = -0.30
+            }
+            add_popularity = {
+                ideology = communism
+                value = 0.15
+            }
+            add_popularity = {
+                ideology = neutrality
+                value = 0.20
+            }
+            add_stability = 0.30
+            add_to_variable = { FOM_political_army_org_factor = 0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_16
+                }
+            }
+            country_event = {id = FOM.10}
+        }
         ai_will_do = {
             factor = 1
         }
@@ -3278,6 +3518,19 @@ focus = {
             focus = FOM_Red_Cassiodoro
         }
         completion_reward = {
+            add_stability = 0.10
+            add_to_variable = { FOM_political_political_power_gain = 0.04 }
+            add_to_variable = { FOM_political_production_speed_buildings_factor = 0.10 }
+            add_to_variable = { FOM_political_production_factory_efficiency_gain_factor = 0.10 }
+            add_to_variable = { FOM_political_production_factory_max_efficiency_factor = 0.20 }
+            add_to_variable = { FOM_political_industrial_capacity_factory = 0.10 }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOM_political_tooltip
+                    add_idea = FOM_political_tooltip_17
+                }
+            }
+            country_event = {id = FOM.11}
             annex_country = {
                 target = FON
                 transfer_troops = yes
