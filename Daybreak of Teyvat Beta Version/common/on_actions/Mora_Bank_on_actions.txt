@@ -4,14 +4,14 @@ on_actions = {
 	on_startup = {
 		effect = {
 		    every_country={						  			    
-				    set_variable = { a = 100 }
-				    set_variable = { dx = a }
-				    set_variable = { debttotal = 0 }					
+				    set_variable = { a = 100 }               # 初始资金
+				    set_variable = { dx = a }                # 国库储备
+				    set_variable = { debttotal = 0 }		 # 初始债务			
 				}
 			}
 		}  
-	#每日计算
-	on_daily = {
+	#每日计算 → 每月计算
+	on_monthly = {
 		effect = {
 			clear_variable = resourceincome
 			clear_variable = resourceexpenses
@@ -62,36 +62,88 @@ on_actions = {
 			add_to_variable = { var = resourceexpenses value = oil_import}
 			add_to_variable = { var = resourceexpenses value = aluminium_import} 
 			
-			#一个民工1，一个军工0.4，一个海工0.4，每一千军队0.04
-			set_variable = { cfff = 5.0 } #国家基础收入
-			set_variable = { tax = num_of_civilian_factories } #民工税收 1.0		
+			#经济产业
+			#一个民工1.5，一个军工0.4，一个海工0.4，每一千军队0.04
+
+
+			set_variable = { num_of_CF = num_of_civilian_factories }  ##消费品民工
+    		subtract_from_variable = { num_of_CF = num_of_civilian_factories_available_for_projects }
+			
+			set_variable = { tax = num_of_CF } #民工税收 1.0
+			multiply_variable = { tax = 1.5 }
+			add_to_variable = { var = tax value = tax } #民工税收
+			
+			set_variable = { cf = num_of_civilian_factories_available_for_projects }
+			multiply_variable = { cf = 0.1 }  #民工支出
 			set_variable = { nf = num_of_military_factories } #军工
-			multiply_variable = { var = nf value = 0.4 } 			
+			multiply_variable = { var = nf value = 0.2 } 			
 			set_variable = { navf = num_of_naval_factories }  #海工
-			multiply_variable = { var = navf value = 0.4 } 			
+			multiply_variable = { var = navf value = 0.15 } 
+
+			set_variable = { io = cf }  #总和
+			add_to_variable = { var = io value = nf } #
+			add_to_variable = { var = io value = navf } #
+
+			set_variable = { temp_io = 1 }  #工业系数
+			add_to_variable = { var = temp_io value = modifier@mora_cost_io }
+			multiply_variable = { var = io value = temp_io }
+					
 			set_variable = { ms = deployed_army_manpower_k }  #每一千军队0.04
 			add_to_variable = { var = ms value = deployed_navy_manpower_k }
 			add_to_variable = { var = ms value = deployed_airforce_manpower_k }
 			multiply_variable = { var = ms value = 0.04 }
+			set_variable = { temp_ms = 1 }  #军事系数
+			add_to_variable = { var = temp_ms value = modifier@mora_cost_ms }
+			multiply_variable = { var = ms value = temp_ms }
 
+			#民生税收
+			set_variable = { Core_income = num_controlled_states }
+			multiply_variable = { var = Core_income value = 0.2 }
 			
+			#稳定性决定税收能力
+			
+			set_variable = { temp_Core_income =  has_stability  }
+			multiply_variable = { var = Core_income value = temp_Core_income }
+			multiply_variable = { var = tax value = temp_Core_income }
+
+			#行政支出
+			set_variable = { Core_outcome = num_controlled_states }
+			multiply_variable = { var = Core_outcome value = 0.05 }
+
+			set_variable = { temp_mora_cost_daily = 1 }  #行政系数
+			add_to_variable = { var = temp_mora_cost_daily value = modifier@mora_cost_daily1 }
+			add_to_variable = { var = temp_mora_cost_daily value = modifier@mora_cost_daily2 }
+			add_to_variable = { var = temp_mora_cost_daily value = modifier@mora_cost_daily3 }
+			add_to_variable = { var = temp_mora_cost_daily value = modifier@mora_cost_daily4 }
+			add_to_variable = { var = temp_mora_cost_daily value = modifier@mora_cost_daily5 }
+			multiply_variable = { var = Core_outcome value = temp_mora_cost_daily }
+
 			set_variable = { allexpenses = 0 } #总支出
 			add_to_variable = { var = allexpenses value = resourceexpenses } #资源进口总支出
 			add_to_variable = { var = allexpenses value = ms } #陆军
-			add_to_variable = { var = allexpenses value = nf } #军工
-			add_to_variable = { var = allexpenses value = navf } #海工
+			add_to_variable = { var = allexpenses value = io } #工业支出
+			add_to_variable = { var = allexpenses value = Core_outcome } #行政管理
 			add_to_variable = { var = allexpenses value = modifier@mora_cost_daily } #来自支出
 			
 			set_variable = { overcome = nmn } #净收入
+			# 收税
+
 			add_to_variable = { var = nmn value = tax } #民工税收
 			add_to_variable = { var = nmn value = resourceincome } #资源总收入
-			add_to_variable = { var = nmn value = cfff } #基础税收
+			add_to_variable = { var = nmn value = Core_income } #民税
 			add_to_variable = { var = nmn value = modifier@mora_gain_daily } #来自词条的收入
 			
+			# 收入
 			set_variable = { DOT_overcome = nmn } #净收入
-			subtract_from_variable = { var = nmn value = allexpenses } #总支出
-		
-			add_to_variable = { var = dx value = nmn  } #国库储备            
+			subtract_from_variable = { var = nmn value = allexpenses } #总收入
+		    
+			#国库
+			add_to_variable = { var = dx value = nmn  } #国库储备    
+			#国债			
+			set_variable = { DOT_interest = debttotal } # 国债利息
+			multiply_variable = { var = DOT_interest value = 0.035 }
+			multiply_variable = { var = debttotal value = 1.035 } # 国债总和
+			
         }   
     }
 }
