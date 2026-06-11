@@ -61,7 +61,7 @@ Economist_Paimon = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = DOT_mora_Cost
-				check_variable = { dx > 199999 }
+				check_variable = { dx > 19999 }
 			}
 		}
 		visible = {
@@ -74,7 +74,7 @@ Economist_Paimon = {
 		days_re_enable = 180
 		cost = 648
 		complete_effect = {
-			set_temp_variable = { DOT_Change_of_Mora = 200000 }
+			set_temp_variable = { DOT_Change_of_Mora = 20000 }
 			custom_effect_tooltip = DOT_mora_Spend
 			subtract_from_variable = { dx = DOT_Change_of_Mora }
 		}
@@ -470,12 +470,13 @@ Economist_Paimon = {
 
 #通用经济决议
 
-#印发一亿摩拉货币：增加1%通货膨胀
+#印发一亿摩拉货币：增加1%通货膨胀     # 只有璃月可以
     Mora_Impress_1000 = {
 		icon = hol_attract_foreign_investors
 		available = {
 			has_stability > 0.25
 			NOT = { check_variable = { inflation_level > 100 } }
+			original_tag = LYY
 		}
 		visible = {
 			always = yes
@@ -532,6 +533,7 @@ Economist_Paimon = {
 		cost = 1
 		complete_effect = {
 		    add_to_variable = { var = dx value = 1000 }
+			add_to_variable = { var = debttotal value = -1000 }
 
 			set_temp_variable = { DOT_TV_Change_of_Inflation = 1 }
 			custom_effect_tooltip = DOT_tt_Mora_Inflation_Level_Up
@@ -557,6 +559,7 @@ Economist_Paimon = {
 			has_stability < 0.95
 			check_variable = { dx > 1500 }
 			NOT = { check_variable = { inflation_level = 0 } }
+			original_tag = LYY
 		}
 		visible = {
 			always = yes
