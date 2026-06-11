@@ -234,84 +234,77 @@ on_actions = {
                 remove_ideas = DOT_Rich_4
 
                 # 根据dx范围添加idea
-                set_variable = { DOT_Mora_Linshibianliang1 = DOT_overcome }
-                set_variable = { DOT_Mora_Linshibianliang2 = dx }
-                divide_variable = { DOT_Mora_Linshibianliang2 = DOT_Mora_Linshibianliang1 }
+                set_variable = { DOT_Mora_Income = DOT_overcome }    # 收入
+                set_variable = { DOT_Mora_Interest = DOT_interest }   # 利息
+                set_variable = { DOT_Mora_national_treasury = dx }   # 国库
 
                 IF = {
                     limit = {
-                        check_variable = { dx > 0 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 30 }
+                        check_variable = { DOT_Mora_national_treasury > 0 }
+                        check_variable = { DOT_Mora_national_treasury < 1000 }
+                        check_variable = { DOT_Mora_Income > DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Treasury_1
                 }
                 IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > 30 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 60 }
-                        check_variable = { dx > 1000 }
+                        check_variable = { DOT_Mora_national_treasury > 1000 }
+                        check_variable = { DOT_Mora_national_treasury < 5000 }
+                        check_variable = { DOT_Mora_Income > DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Rich_1
                 }
                 IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > 60 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 90 }
-                        check_variable = { dx > 5000 }
+                        check_variable = { DOT_Mora_national_treasury > 5000 }
+                        check_variable = { DOT_Mora_national_treasury < 10000 }
+                        check_variable = { DOT_Mora_Income > DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Rich_2
                 }
                 IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > 90 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 180 }
-                        check_variable = { dx > 10000 }
+                        check_variable = { DOT_Mora_national_treasury > 10000 }
+                        check_variable = { DOT_Mora_national_treasury < 20000 }
+                        check_variable = { DOT_Mora_Income > DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Rich_3
                 }
                 IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > 180 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 360 }
-                        check_variable = { dx > 20000 }
-                    }
-                    add_ideas = DOT_Rich_4
-                }
-                IF = {
-                    limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > 360 }
-                        check_variable = { dx > 30000 }
+                        check_variable = { DOT_Mora_national_treasury > 20000 }
+                        check_variable = { DOT_Mora_Income > DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Rich_4
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > -90 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < 0 }
-                        check_variable = { dx = 0 compare = less_than }
+                        check_variable = { debttotal < 1000 }
+                        check_variable = { debttotal > 0 }
+                        check_variable = { DOT_Mora_Income < DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Treasury_2
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > -180 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < -90 }
-                        check_variable = { dx = -1000 compare = less_than }
+                        check_variable = { debttotal > 1000 }
+                        check_variable = { debttotal < 5000 }
+                        check_variable = { DOT_Mora_Income < DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Treasury_3
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 > -360 }
-                        check_variable = { DOT_Mora_Linshibianliang2 < -180 }
-                        check_variable = { dx = -5000 compare = less_than }
+                        check_variable = { debttotal > 5000 }
+                        check_variable = { debttotal < 10000 }
+                        check_variable = { DOT_Mora_Income < DOT_Mora_Interest }
                     }
                     add_ideas = DOT_Treasury_4
                 }
                 ELSE_IF = {
                     limit = {
-                        check_variable = { DOT_Mora_Linshibianliang2 < -360 }
-                        check_variable = { dx = -10000 compare = less_than }
+                        check_variable = { debttotal > 10000 }
+                        check_variable = { DOT_Mora_Income < DOT_Mora_Interest }
                     }
                     set_country_flag = DOT_Break_Timing
                     add_ideas = DOT_Treasury_5
