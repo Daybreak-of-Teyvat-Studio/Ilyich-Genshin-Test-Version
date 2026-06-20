@@ -1,0 +1,1065 @@
+
+
+focus_tree = {
+	id = SAN_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SAN_Abandon
+		}
+	}   
+	   default = no
+ #旧时代的落幕
+    focus = {
+      id = SAN_endofolddays
+      icon = GFX_focus_TUR_ratify_the_six_arrows
+      cost = 10
+      x = 16
+      y = 0
+
+      available ={
+    
+      }
+
+      completion_reward = {
+          add_political_power = 150
+          country_event = SAN.1
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  ###寻求援助
+      focus = {
+      id = SAN_callforhelp
+      icon = GFX_focus_CZE_german_puppet
+      cost = 10
+   x = 0
+    y = 2
+    prerequisite = {
+      focus = SAN_endofolddays
+    }
+    relative_position_id = SAN_endofolddays
+
+      completion_reward = {
+          add_political_power = 150
+          ##country_event = san.2
+          #选项，璃月，幕府，愚人众。
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  ###重审局势
+      focus = {
+      id = SAN_oursituation
+      icon = GFX_focus_CZE_german_puppet
+      cost = 10
+      x = 5
+      y = 1
+    prerequisite = {
+      focus = SAN_callforhelp
+    }
+    relative_position_id = SAN_callforhelp
+
+      completion_reward = {
+          add_political_power = 150
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  
+
+
+  
+  ##暗中发展
+  focus = {
+    id = SAN_undercoverdevelopment
+
+    icon = GFX_goal_generic_production
+    cost = 5
+    x = -2
+    y = 1
+ relative_position_id = SAN_oursituation
+  prerequisite = {
+       focus = SAN_oursituation
+    }
+
+    available ={
+    }
+    bypass = {
+		OR = {
+			NOT = { country_exists = INA }	
+			has_war_with = INA
+		}
+	}
+    completion_reward = {
+      #添加一个精神：+25%军工建设速度。与稻妻开战后移除。
+     add_ideas = { SAN_ina_support }
+     random_owned_controlled_state = {
+      limit = {
+        free_building_slots = {
+          building = arms_factory
+          size > 0
+          include_locked = yes
+        }
+        OR = {
+          is_in_home_area = yes
+          NOT = {
+            owner = {
+              any_owned_state = {
+                free_building_slots = {
+                  building = arms_factory
+                  size > 0
+                  include_locked = yes
+                }
+                is_in_home_area = yes
+              }
+            }
+          }
+        }
+      }
+      add_extra_state_shared_building_slots = 2
+      add_building_construction = {
+        type = arms_factory
+        level = 2
+        instant_build = yes
+      }
+    }
+    }
+    ai_will_do = {
+      factor = 10
+    }
+}
+  
+  	  #旅游业#
+      focus = {
+        id = SAN_undercovercivilindustry
+        icon = GFX_goal_generic_construct_civ_factory
+        cost = 5
+        x = -1
+        y = 1
+     relative_position_id = SAN_undercoverdevelopment
+       search_filters = {FOCUS_FILTER_INDUSTRY }
+      prerequisite = {
+           focus = SAN_undercoverdevelopment
+        }
+        available ={
+        }
+            bypass = {
+		OR = {
+			NOT = { country_exists = INA }	
+			has_war_with = INA
+		}
+	}
+        completion_reward = {
+      #随机奖励四个民用工厂
+           add_political_power = -30
+            add_manpower = -8000
+          random_owned_controlled_state = {
+      limit = {
+            free_building_slots = {
+              building = arms_factory
+              size > 0
+              include_locked = yes
+            }
+            OR = {
+              is_in_home_area = yes
+              NOT = {
+                owner = {
+                  any_owned_state = {
+                    free_building_slots = {
+                      building = arms_factory
+                      size > 0
+                      include_locked = yes
+                    }
+                    is_in_home_area = yes
+                  }
+                }
+              }
+            }
+          }
+      add_extra_state_shared_building_slots = 2
+        add_building_construction = {
+            type = industrial_complex
+                      level = 2
+            instant_build = yes
+          }  
+          }
+          random_owned_controlled_state = {
+            limit = {
+                  free_building_slots = {
+                    building = arms_factory
+                    size > 0
+                    include_locked = yes
+                  }
+                  OR = {
+                    is_in_home_area = yes
+                    NOT = {
+                      owner = {
+                        any_owned_state = {
+                          free_building_slots = {
+                            building = arms_factory
+                            size > 0
+                            include_locked = yes
+                          }
+                          is_in_home_area = yes
+                        }
+                      }
+                    }
+                  }
+                }
+            add_extra_state_shared_building_slots = 2
+              add_building_construction = {
+                  type = industrial_complex
+                            level = 2
+                  instant_build = yes
+                }  
+                }
+        }
+        ai_will_do = {
+          factor = 10
+        }
+    }
+    ###发展采集业。
+    focus = {
+      id = SAN_thecollectionindustry
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 5
+      x = 1
+      y = 1
+    prerequisite = {
+      focus = SAN_undercoverdevelopment
+    }
+        bypass = {
+		OR = {
+			NOT = { country_exists = INA }	
+			has_war_with = INA
+		}
+	}
+    relative_position_id = SAN_undercoverdevelopment
+
+      completion_reward = {
+     #4个军工
+          add_political_power = -40
+          add_manpower = -8000
+          random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+      random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+      
+      }
+      ai_will_do = {
+        factor = 10
+      }
+  }
+ 
+   ###奇袭
+      focus = {
+      id = SAN_surpriseattack
+      icon = GFX_focus_prc_infiltration
+      cost = 10
+      x = -4
+      y = 3
+    prerequisite = {
+      focus = SAN_undercoverdevelopment
+      focus = SAN_manpowerproblems
+    }
+    relative_position_id = SAN_oursituation
+
+      mutually_exclusive = {
+        focus = SAN_strengthendefender
+      }
+      search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+      completion_reward = {
+        ##添加buff：奇袭，+10%对稻妻攻防，+10%移速，组织度，组织度恢复。+48h补给。
+  	  	if = {
+				limit = {
+					is_subject = yes
+				}
+				add_country_leader_trait = nationalist_symbol
+			}
+		   	OVERLORD = { set_autonomy = { target = ROOT autonomy_state = autonomy_free } }
+			effect_tooltip = {		
+				if = {
+					limit = {
+						is_in_faction_with = OVERLORD
+					}
+					leave_faction = yes
+				}
+				declare_war_on = {
+					target = OVERLORD
+					type = puppet_wargoal_focus
+				}
+			}
+        
+        IF = {
+          limit = { INA = { has_civil_war = no } }
+          create_wargoal = {
+            type = annex_everything
+            target = INA
+            expire = 0
+          }
+        }
+        ELSE = {
+          every_country = {
+            limit = { original_tag = INA}
+          SAN = {
+              create_wargoal = {
+                type = annex_everything
+                target = PREV
+                expire = 0
+              }
+            }
+          }
+        }
+        hidden_effect = {
+          if = {
+            limit = {
+              is_in_faction_with = var:SAN_independence_target
+            }
+            leave_faction = yes
+          }
+        }
+        add_timed_idea = {
+          idea = SAN_surprise_invande
+          days = 210
+      }
+      add_to_variable = {
+       SAN_radicalism = 1
+       }
+      }
+      ai_will_do = {
+        factor = 80
+         	modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+      }
+  }
+     ###加强防守
+      focus = {
+      id = SAN_strengthendefender
+      icon = GFX_focus_generic_coastal_fort
+      cost = 10
+      x = 2
+      y = 3
+    prerequisite = {
+      focus = SAN_oursituation
+    }
+    
+      mutually_exclusive = {
+        focus = SAN_surpriseattack
+        focus = SAN_surpriseattack
+      }
+    relative_position_id = SAN_oursituation
+
+      completion_reward = {
+          add_political_power = 150
+        add_to_variable = {
+       SAN_radicalism = -1
+       }
+      }
+    ai_will_do = {
+        factor = 10
+         	modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+      }
+  }
+  ###重申关系
+      focus = {
+      id = SAN_reaffirmrelations
+      icon = GFX_focus_SWE_lottakoren
+      cost = 10
+      x = 2
+      y = 1
+    prerequisite = {
+      focus = SAN_surpriseattack
+       focus = SAN_strengthendefender
+    }
+    relative_position_id = SAN_surpriseattack
+
+      completion_reward = {
+          add_political_power = 150
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+
+    focus = {
+      id = SAN_invite_investors
+	  ##邀请投资#
+      icon = GFX_focus_renounce_the_treaty_of_trianon
+      cost = 10
+      x = 9
+      y = 1
+	 relative_position_id = SAN_reaffirmrelations
+	  prerequisite = {
+         focus = SAN_reaffirmrelations
+      }
+      available ={
+      }
+      completion_reward = {
+        add_offsite_building = { type = industrial_complex level = 1 }
+        add_offsite_building = { type = arms_factory level = 1 }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+  	  #二手民工#
+    focus = {
+      id = SAN_usedcivilindustry
+
+      icon = GFX_goal_generic_construct_civ_factory
+      cost = 8
+      x = -1
+      y = 1
+	 relative_position_id = SAN_invite_investors
+     search_filters = {FOCUS_FILTER_INDUSTRY }
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个民用工厂
+         add_political_power = -30
+          add_manpower = -8000
+      	random_owned_controlled_state = {
+		limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+		add_extra_state_shared_building_slots = 2
+	    add_building_construction = {
+					type = industrial_complex
+                    level = 2
+					instant_build = yes
+				}  
+				}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+      focus = {
+      id = SAN_focuscivilindustry
+	  #焦点民工#
+      icon = GFX_goal_generic_construct_civ_factory
+      cost = 5
+      x = -1
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	  prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+      available ={
+      }
+      completion_reward = {
+	    add_timed_idea = {
+        idea = INA_complexindustrial_focus
+        days = 180
+		  }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_usedmilitaryindustry
+	  #二手军工#
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 8
+      x = 3
+      y = 1
+	 relative_position_id = SAN_invite_investors
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+          add_political_power = -40
+          add_manpower = -8000
+          random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}#两个军工
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_focusmilitaryindustry
+	  #军工焦点#
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 5
+      x = 1
+      y = 1
+	 relative_position_id = SAN_usedmilitaryindustry
+	  prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+      available ={
+      }
+      completion_reward = {
+ 	     add_timed_idea = {
+        idea = INA_militaryindustrial_focus
+        days = 180
+		   }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_usednavalbase
+	  #二手港口#
+      icon = GFX_goal_generic_construct_naval_dockyard
+      cost = 8
+      x = 1
+      y = 1
+	 relative_position_id = SAN_invite_investors
+	  prerequisite = {
+         focus = SAN_invite_investors
+      }
+      available ={
+      }
+      completion_reward = {
+    #随机奖励两个海军船坞
+        add_political_power = -30
+          add_manpower = -8000
+  		random_state = {
+					limit = {
+						controller = { tag = ROOT }
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    focus = {
+      id = SAN_abilitytobuildfactory
+	  #建设工厂的能力#
+      icon = GFX_goal_generic_production
+      cost = 12
+      x = 1
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	  prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+	 prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+      available ={
+      }
+      completion_reward = {
+       
+    #随机奖励两个军用工厂三个民工
+        add_political_power = -50
+        add_manpower = -2500
+          random_owned_controlled_state = {
+          add_extra_state_shared_building_slots = 3
+          add_building_construction = {
+            type = industrial_complex
+            level = 3
+            instant_build = yes
+          }
+        }
+        random_owned_controlled_state = {
+          add_extra_state_shared_building_slots = 2
+          add_building_construction = {
+            type = arms_factory
+            level = 2
+            instant_build = yes
+          }
+        }
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     focus = {
+      id = SAN_catchupwiththetimes
+	  #追赶时代#
+      icon = GFX_focus_research
+      cost = 10
+      x = 3
+      y = 1
+	 relative_position_id = SAN_usedcivilindustry
+	 prerequisite = {
+         focus = SAN_usedcivilindustry
+      }
+	 prerequisite = {
+         focus = SAN_usedmilitaryindustry
+      }
+	 prerequisite = {
+         focus = SAN_usednavalbase
+      }
+     available ={  has_war = no
+    num_of_factories >20
+    amount_research_slots < 6
+    }
+      completion_reward = {
+    #建立一个科研槽
+    add_research_slot = 1
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }   
+
+  focus = {
+      id = SAN_renewcaptail
+	  #翻新珊瑚宫#
+      icon = GFX_focus_SWE_landsverk
+      cost = 8
+      x = 1
+      y = 1
+	 relative_position_id = SAN_abilitytobuildfactory
+	 prerequisite = {
+         focus = SAN_abilitytobuildfactory
+      }
+	 prerequisite = {
+         focus = SAN_catchupwiththetimes
+      }
+	
+      available ={
+      }
+      completion_reward = {
+    #触发事件翻修珊瑚宫
+    remove_ideas = SAN_worker_shortage
+    country_event =  SAN.3
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+
+
+
+   ###装备问题
+      focus = {
+      id = SAN_equipmentproblems
+      icon = GFX_goal_generic_axis_build_infantry
+      cost = 5
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = SAN_callforhelp
+    }
+    relative_position_id = SAN_callforhelp
+
+      completion_reward = {
+      ## country_event = SAN.5
+          #走私，璃月援助，愚人众.（根据合作者发不同的武器）
+     add_equipment_to_stockpile = { type = infantry_equipment_0  amount = 21241  producer = LYY }
+      add_equipment_to_stockpile = { type = train_equipment amount = 4335 producer = LYY  }
+	   add_equipment_to_stockpile = { type = artillery_equipment_1  amount = 981  producer = LYY }
+	   add_equipment_to_stockpile = { type = light_tank_chassis_1 amount = 113 producer = LYY } 
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    ###兵源问题
+      focus = {
+      id = SAN_manpowerproblems
+      icon = GFX_focus_generic_little_entente
+      cost = 6
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = SAN_equipmentproblems
+    }
+    relative_position_id = SAN_equipmentproblems
+
+      completion_reward = {
+          add_manpower = 72000
+         #country_event = SAN.7
+          #宁缺勿滥，整编海贼，愚人众
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+   ###采用的武器标准
+      focus = {
+      id = SAN_whichweapon
+      icon = GFX_focus_generic_manpower
+      cost = 8
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_manpowerproblems
+    }
+    relative_position_id = SAN_manpowerproblems
+
+      completion_reward = {
+          add_political_power = 150
+ 
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     ###步枪与火炮
+      focus = {
+      id = SAN_riflesandcannons
+      icon = GFX_goal_generic_military_sphere
+      cost = 8
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = SAN_whichweapon
+    }
+    relative_position_id = SAN_whichweapon
+
+      completion_reward = {
+         		add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			} 
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+     ###支援装备
+      focus = {
+      id = SAN_supports
+      icon = GFX_focus_generic_truck
+      cost = 8
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = SAN_whichweapon
+    }
+    relative_position_id = SAN_whichweapon
+
+      completion_reward = {
+     		add_tech_bonus = {
+							name = motorized_bonus
+							bonus = 0.7
+				       uses = 1
+							technology = motorised_infantry
+						} 
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+ #军事理论
+	  focus = {
+		id = SAN_methodical_battle
+		icon = GFX_goal_generic_army_doctrines
+		x = 0
+		y = 1
+
+		prerequisite = { focus = SAN_riflesandcannons }
+    prerequisite = { focus = SAN_supports }
+		relative_position_id = SAN_riflesandcannons
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+		}
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				category = land_doctrine
+				uses = 2
+				cost_reduction = 0.25
+			}
+		}
+	   }
+      ###合作者
+      focus = {
+      id = SAN_collaborator
+      icon = GFX_goal_generic_national_unity
+      cost = 6
+     x = -1
+     y = 1
+     prerequisite = {
+      focus = SAN_equipmentproblems
+     }
+    relative_position_id = SAN_equipmentproblems
+
+      completion_reward = {
+          add_political_power = 150
+          ##country_event = san.1
+          #社奉行，幕府反对派，愚人众
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    ###秘密技法
+      focus = {
+      id = SAN_secrettechniques
+      icon = GFX_focus_TUR_the_sun_language_theory
+      cost = 8
+     x = 0
+     y = 2
+     prerequisite = {
+      focus = SAN_collaborator
+     }
+    relative_position_id = SAN_collaborator
+
+      completion_reward = {
+          add_political_power = 150
+          ##country_event = san.1
+          #全面使用，精英使用。
+          remove_country_leader_trait = inexperienced_monarch
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    ###自产武器
+      focus = {
+      id = SAN_owndomesticweapon
+      icon = GFX_goal_generic_construct_mil_factory
+      cost = 8
+     x = 1
+     y = 2
+     prerequisite = {  focus = SAN_secrettechniques }
+    prerequisite = { focus = SAN_methodical_battle }
+     relative_position_id = SAN_secrettechniques
+     search_filters = { FOCUS_FILTER_INDUSTRY }
+      completion_reward = {
+        	random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}#一个军工
+			}
+          ##country_event = san.1
+          #数量优先vs质量优先
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    ###魔神武器
+      focus = {
+      id = SAN_thebigbomb
+      icon = GFX_focus_rocketry
+      cost = 12
+     x = 0
+     y = 1
+     prerequisite = {
+      focus = SAN_owndomesticweapon
+     }
+    relative_position_id = SAN_owndomesticweapon
+    	search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+      available ={
+        or = {
+          and = {
+            num_of_factories > 29
+            date > 1942.1.1
+          }
+        }
+        
+      }
+
+      completion_reward = {
+        	add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = nuclear
+				category = rocketry
+			}
+
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+    ###五郎特训
+      focus = {
+      id = SAN_specialtrainingofgurou
+      icon = GFX_goal_generic_wolf_pack
+      cost = 10
+     x = -2
+     y = 1
+     prerequisite = {
+      focus = SAN_owndomesticweapon
+     }
+    relative_position_id = SAN_owndomesticweapon
+
+      completion_reward = {
+       army_experience = 50
+         SAN_Gorou = {
+        add_logistics = 1
+        add_planning = 1
+	     }
+        add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.25
+				uses = 3
+				category = land_doctrine
+			}
+      }
+      ai_will_do = {
+        factor = 1
+      }
+  }
+}
+

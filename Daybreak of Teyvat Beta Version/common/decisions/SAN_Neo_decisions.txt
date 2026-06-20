@@ -1,559 +1,535 @@
 
-#####################
-# 珊瑚宫·海祇之道
-#####################
-#####################
-# 珊瑚宫·海祇之道
-#####################
-SAN_Decisions = {
-    #### 基础内政类（1-10）
+#add_to_variable = { var = SAN_prestige value = 10 }
+#add_to_variable = { var = SAN_prestige value = -10 }
 
-    # 1. 决议：凝聚海祇各部族
-    SAN_decision_01 = {
-        icon = generic_decision_political
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Sea_Clans_Unity
-            add_political_power = 15
-            set_national_stability = { value = 0.04  add = yes }
-        }
-    }
-    # 2. 决议：确立现人神巫女权威
-    SAN_decision_02 = {
-        icon = generic_decision_leadership
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Divine_Miko_Authority
-            add_government_authority = 8
-            add_political_power = 25
-            set_national_stability = { value = 0.06  add = yes }
-        }
-    }
-    # 3. 决议：重建海祇祭祀体系
-    SAN_decision_03 = {
-        icon = generic_decision_cultural
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Ritual_System
-            add_happiness = { target = all  value = 0.06 }
-            add_war_support = 0.05
-            add_political_power = 10
-        }
-    }
-    # 4. 决议：整合海祇岛民生经济
-    SAN_decision_04 = {
-        icon = generic_decision_industrial
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Economic_Integration
-            add_civilian_factory = 2
-            add_industrial_capacity = 4
-            add_construction_speed = 0.05
-        }
-    }
-    # 5. 决议：组建海祇智囊团
-    SAN_decision_05 = {
-        icon = generic_decision_technology
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Watatsumi_Think_Tank
-            add_research_speed = 0.06
-            add_political_power = 18
-            add_intelligence_agency_efficiency = 0.05
-        }
-    }
-    # 6. 决议：安抚海祇遗民
-    SAN_decision_06 = {
-        icon = generic_decision_diplomatic
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 30
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 2 }
-            add_ideas = SAN_Watatsumi_Refugee_Support
-            reduce_war_exhaustion = 0.06
-            add_happiness = { target = all  value = 0.05 }
-            add_manpower = 10000
-        }
-    }
-    # 7. 决议：规范海祇渔业与贸易
-    SAN_decision_07 = {
-        icon = generic_decision_trade
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Fishery_Trade
-            add_trade_efficiency = 0.08
-            add_civilian_factory = 1
-            add_relations = { target = ALL  value = 3 }
-        }
-    }
-    # 8. 决议：推行海祇民生法典
-    SAN_decision_08 = {
-        icon = generic_decision_legal
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Civil_Code
-            add_legal_efficiency = 0.06
-            set_national_stability = { value = 0.05  add = yes }
-            add_political_power = 12
-        }
-    }
-    # 9. 决议：海祇岛基础设施扩建
-    SAN_decision_09 = {
-        icon = generic_decision_construction
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 45
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Infrastructure_Expansion
-            add_construction_speed = 0.08
-            add_infrastructure = { province = SAN_Watatsumi_Capital  level = 3 }
-            add_industrial_efficiency_factor = 0.04
-        }
-    }
-    # 10. 决议：传承海祇医药技艺
-    SAN_decision_10 = {
-        icon = generic_decision_health
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 30
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 2 }
-            add_ideas = SAN_Watatsumi_Medical_Art
-            reduce_casualties = { type = land  value = 0.05 }
-            add_happiness = { target = all  value = 0.04 }
-            add_manpower_growth_factor = 0.03
-        }
-    }
+# ========================== 珊瑚宫决议定义 (SAN_decisions) ==========================
 
-    #### 军事动员类（11-20）
+# 组1：望泷内政与军事整固 (对应初期负面精神去除与基础强化)
+SAN_internal_reform_category = {
+	# 1. 肃清军队腐败
+	SAN_decision_purge_army_corruption = {
+		icon = generic_army
+		cost = 50
+		available = { has_completed_focus = SAN_gorou_military_reform }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_army_corruption
+			add_stability = 0.05
+		}
+	}
+	# 2. 征召外籍劳工
+	SAN_decision_foreign_labor = {
+		icon = generic_production
+		cost = 75
+		available = { has_completed_focus = SAN_wartime_tax_arrangements }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_worker_shortage
+			add_manpower = 5000
+		}
+	}
+	# 3. 简化战略文书
+	SAN_decision_simplify_strategy = {
+		icon = generic_intel
+		cost = 25
+		available = { has_completed_focus = SAN_kokomi_tactics_study }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_planingtoomuch
+			add_command_power = 10
+		}
+	}
+	# 4. 举行现人神升座大典
+	SAN_decision_ascension_ceremony = {
+		icon = generic_stability
+		cost = 100
+		available = { has_completed_focus = SAN_sangonomiya_hq }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_Too_young
+			add_political_power = 50
+		}
+	}
+	# 5. 经济结构重组
+	SAN_decision_economic_reconstruction = {
+		icon = generic_trade
+		cost = 50
+		available = { has_completed_focus = SAN_black_market_trade }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_devalue_the_inmuase
+			add_stability = 0.05
+		}
+	}
+	# 6. 海祇民兵正规化
+	SAN_decision_militia_regularization = {
+		icon = generic_manpower
+		cost = 40
+		available = { has_completed_focus = SAN_mobilize_watatsumi_militia }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_watatsumi_militia
+		}
+	}
+	# 7. 推行标准锻造法
+	SAN_decision_forge_standardization = {
+		icon = generic_production
+		cost = 60
+		available = { has_completed_focus = SAN_weapon_forging_standardization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_standardized_forging
+		}
+	}
+	# 8. 强化海祇虔诚
+	SAN_decision_strengthen_faith = {
+		icon = generic_stability
+		cost = 30
+		available = { has_completed_focus = SAN_village_council_authorization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_piety_of_watatsumi
+		}
+	}
+	# 9. 五郎亲自督导训练
+	SAN_decision_gorou_supervision = {
+		icon = generic_army
+		cost = 50
+		available = { has_completed_focus = SAN_gorou_military_reform }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_gorou_general
+		}
+	}
+	# 10. 加固近海防波堤
+	SAN_decision_fortify_watatsumi = {
+		icon = generic_defense
+		cost = 40
+		available = { has_completed_focus = SAN_resistance_reinforcement_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_omikami_protection
+		}
+	}
+}
 
-    # 11. 决议：组建珊瑚宫反抗军
-    SAN_decision_11 = {
-        icon = generic_decision_army
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 50
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 5 }
-            add_ideas = SAN_Coral_Palace_Rebel_Army
-            add_manpower = 30000
-            add_army_experience = 40
-            add_land_recruitment_speed = 0.08
-        }
-    }
-    # 12. 决议：任命海祇军大将五郎
-    SAN_decision_12 = {
-        icon = generic_decision_military
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Gorou_General_Leadership
-            add_army_attack_factor = 0.05
-            add_army_defense_factor = 0.04
-            add_land_experience_gain = 0.06
-        }
-    }
-    # 13. 决议：建立海祇军工厂
-    SAN_decision_13 = {
-        icon = generic_decision_industry
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 50
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Watatsumi_Military_Factory
-            add_war_factory = 3
-            add_equipment_to_stockpile = { type = infantry_equipment  amount = 600  producer = SAN }
-            add_industrial_capacity_factor = 0.05
-        }
-    }
-    # 14. 决议：建设海祇岛防御工事
-    SAN_decision_14 = {
-        icon = generic_decision_fortification
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 45
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Defensive_Fortification
-            add_fort_level = { province = SAN_Watatsumi_Coastal  level = 2 }
-            add_army_defense_factor = 0.06
-            add_garrison_efficiency = 0.07
-        }
-    }
-    # 15. 决议：组建海祇海军舰队
-    SAN_decision_15 = {
-        icon = generic_decision_navy
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 50
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Watatsumi_Navy_Fleet
-            add_naval_factory = 2
-            add_naval_experience = 35
-            add_naval_attack_factor = 0.05
-        }
-    }
-    # 16. 决议：眼狩令受害者征召
-    SAN_decision_16 = {
-        icon = generic_decision_recruitment
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Vision_Hunt_Victim_Conscription
-            add_manpower = 45000
-            add_war_support = 0.10
-            add_land_recruitment_speed = 0.10
-        }
-    }
-    # 17. 决议：海祇军特种侦察队
-    SAN_decision_17 = {
-        icon = generic_decision_intelligence
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Special_Recon_Team
-            add_espionage_efficiency = 0.08
-            add_land_recon_bonus = 0.06
-            add_intelligence_agency_efficiency = 0.06
-        }
-    }
-    # 18. 决议：战场医疗体系建设
-    SAN_decision_18 = {
-        icon = generic_decision_health
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Battlefield_Medical_System
-            reduce_casualties = { type = land  value = 0.08 }
-            add_hospital_capacity_factor = 0.10
-            reduce_war_exhaustion = 0.04
-        }
-    }
-    # 19. 决议：海祇军战术演练
-    SAN_decision_19 = {
-        icon = generic_decision_offensive
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Watatsumi_Tactical_Drill
-            add_land_breakthrough = 0.05
-            add_army_experience = 30
-            add_land_attack_factor = 0.04
-        }
-    }
-    # 20. 决议：八酝岛前线补给线建设
-    SAN_decision_20 = {
-        icon = generic_decision_logistics
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 45
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Yashiori_Frontline_Supply_Line
-            add_supply_throughput_factor = 0.10
-            add_truck_convoy_capacity_factor = 0.08
-            add_infrastructure = { province = SAN_Yashiori_Island  level = 2 }
-        }
-    }
+# 组2：战时动员与资源开发 (对应军事与工业Idea获得)
+SAN_war_mobilization_category = {
+	# 11. 动员神之眼持有者
+	SAN_decision_mobilize_vision_users = {
+		icon = generic_research
+		cost = 50
+		available = { has_completed_focus = SAN_vision_vanguard_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_vision_vanguard
+		}
+	}
+	# 12. 八酝山地游击演习
+	SAN_decision_yashiori_guerilla = {
+		icon = generic_army
+		cost = 40
+		available = { has_completed_focus = SAN_guerrilla_tactics_deployment }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_partisan_warfare
+		}
+	}
+	# 13. 招募浪人剑客
+	SAN_decision_recruit_ronin = {
+		icon = generic_army
+		cost = 60
+		available = { has_completed_focus = SAN_recruit_stray_samurai }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_ronin_mercenaries
+			add_manpower = 2000
+		}
+	}
+	# 14. 组建现人神禁卫军
+	SAN_decision_establish_divine_guard = {
+		icon = generic_army
+		cost = 100
+		available = { has_completed_focus = SAN_centralized_command_structure }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_elite_divine_guard
+		}
+	}
+	# 15. 整合白夜高压水术
+	SAN_decision_hydro_tech_research = {
+		icon = generic_research
+		cost = 80
+		available = { has_completed_focus = SAN_high_energy_hydro_weapon_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_high_pressure_hydro
+		}
+	}
+	# 16. 海雾隐蔽演练
+	SAN_decision_sea_fog_tactics = {
+		icon = generic_navy
+		cost = 50
+		available = { has_completed_focus = SAN_naval_ambush_tactics }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_naval_ambush
+		}
+	}
+	# 17. 清籁雷暴训练
+	SAN_decision_seirai_storm_training = {
+		icon = generic_army
+		cost = 70
+		available = { has_completed_focus = SAN_storm_rider_training_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_storm_riders
+		}
+	}
+	# 18. 重启御影炉心
+	SAN_decision_tatarasuna_restart = {
+		icon = generic_production
+		cost = 120
+		available = { has_completed_focus = SAN_seize_mikage_furnace_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_tatarasuna_engine
+		}
+	}
+	# 19. 确立海祇海洋主权
+	SAN_decision_naval_dominance = {
+		icon = generic_navy
+		cost = 150
+		available = { has_completed_focus = SAN_sangonomiya_ocean_hegemony_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_watatsumi_hegemony
+		}
+	}
+	# 20. 珍珠出口专卖
+	SAN_decision_pearl_export = {
+		icon = generic_trade
+		cost = 40
+		available = { has_completed_focus = SAN_pearl_rationing_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_pearl_monopoly
+		}
+	}
+}
 
-    #### 外交与探索类（21-30）
+# 组3：群岛整合与旧域治理 (对应领土治理Idea获得)
+SAN_regional_governance_category = {
+	# 21. 清籁电网铺设
+	SAN_decision_seirai_grid = {
+		icon = generic_production
+		cost = 100
+		available = { has_completed_focus = SAN_tenumo_energy_capture_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_seirai_storm_harnessing
+		}
+	}
+	# 22. 鹤观雷达部署
+	SAN_decision_tsurumi_radar = {
+		icon = generic_intel
+		cost = 80
+		available = { has_completed_focus = SAN_tsurumi_coast_radar_setting }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_tsurumi_fog_radar
+		}
+	}
+	# 23. 净化邪眼残余
+	SAN_decision_purify_delusions = {
+		icon = generic_stability
+		cost = 150
+		available = { has_completed_focus = SAN_vision_holder_integration }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_Delusion
+			add_stability = 0.1
+		}
+	}
+	# 24. 崇神抑制工程
+	SAN_decision_tatarigami_suppression = {
+		icon = generic_construction
+		cost = 60
+		available = { has_completed_focus = SAN_tatarigami_energy_containment_engineering }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			random_owned_state = { add_building_construction = { type = infrastructure level = 2 } }
+		}
+	}
+	# 25. 奥罗巴斯血枝研究
+	SAN_decision_hydro_mastery_ritual = {
+		icon = generic_navy
+		cost = 50
+		available = { has_completed_focus = SAN_hydro_mastery_ritual }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_hydro_mastery
+		}
+	}
+	# 26. 选拔新代地走官
+	SAN_decision_new_jizhashi = {
+		icon = generic_army
+		cost = 90
+		available = { has_completed_focus = SAN_jizhashi_training_reform }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_jizhashi_spirit
+		}
+	}
+	# 27. 离岛通商特区
+	SAN_decision_ritou_trade_zone = {
+		icon = generic_trade
+		cost = 70
+		available = { has_completed_focus = SAN_ritou_trade_agreement }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_liberal_market
+		}
+	}
+	# 28. 建设地底工业枢纽
+	SAN_decision_enkanomiya_hub = {
+		icon = generic_production
+		cost = 110
+		available = { has_completed_focus = SAN_enkanomiya_industrial_complex }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_subterranean_complex
+		}
+	}
+	# 29. 相位折叠实验
+	SAN_decision_phasing_experiment = {
+		icon = generic_intel
+		cost = 100
+		available = { has_completed_focus = SAN_evernight_temple_archaeology_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_evernight_phasing
+		}
+	}
+	# 30. 总指挥部扩建
+	SAN_decision_hq_expansion = {
+		icon = generic_defense
+		cost = 50
+		available = { has_completed_focus = SAN_enkanomiya_supreme_command }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_command_power = 20
+		}
+	}
+}
 
-    # 21. 决议：派遣璃月秘密外交使团
-    SAN_decision_21 = {
-        icon = generic_decision_foreign
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Liyue_Secret_Diplomatic_Mission
-            add_relations = { target = LIYUE  value = 25 }
-            add_trade_efficiency = 0.07
-            add_diplomatic_influence = 5
-        }
-    }
-    # 22. 决议：开启渊下宫探索
-    SAN_decision_22 = {
-        icon = generic_decision_research
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 50
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 5 }
-            add_ideas = SAN_Enkanomiya_Exploration_Initiative
-            add_research_speed = 0.07
-            set_country_flag = SAN_Enkanomiya_Unlocked
-            add_political_power = 20
-        }
-    }
-    # 23. 决议：清籁岛接触使团
-    SAN_decision_23 = {
-        icon = generic_decision_diplomatic
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Seirai_Island_Contact_Mission
-            add_relations = { target = SEIRAI  value = 20 }
-            add_naval_range_factor = 0.05
-            add_diplomatic_weight = 3
-        }
-    }
-    # 24. 决议：鹤观遗迹考察队
-    SAN_decision_24 = {
-        icon = generic_decision_cultural
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 30
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Tsurumi_Island_Expedition
-            add_archaeology_site_discovery_chance_factor = 0.10
-            add_happiness = { target = all  value = 0.03 }
-            add_political_power = 10
-        }
-    }
-    # 25. 决议：蒙德自由城邦联络
-    SAN_decision_25 = {
-        icon = generic_decision_diplomatic
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 35
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 3 }
-            add_ideas = SAN_Mondstadt_Liaison
-            add_relations = { target = MONDSTADT  value = 22 }
-            add_land_recruitment_speed = 0.04
-            add_war_support = 0.04
-        }
-    }
-    # 26. 决议：渊下宫白夜国遗产整理
-    SAN_decision_26 = {
-        icon = generic_decision_technology
-        available = { tag = SAN has_country_flag = SAN_Enkanomiya_Unlocked }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 55
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 6 }
-            add_ideas = SAN_Enkanomiya_Legacy_Sorting
-            add_research_speed = 0.10
-            add_laboratory = 2
-            add_industrial_efficiency_factor = 0.06
-        }
-    }
-    # 27. 决议：须弥学术交流使团
-    SAN_decision_27 = {
-        icon = generic_decision_foreign
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 40
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 4 }
-            add_ideas = SAN_Sumeru_Academic_Exchange
-            add_relations = { target = SUMERU  value = 20 }
-            add_research_speed = { type = industrial_technology value = 0.05 }
-            add_medical_efficiency_factor = 0.05
-        }
-    }
-    # 28. 决议：海祇大御神祭祀大典
-    SAN_decision_28 = {
-        icon = generic_decision_blessing
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 45
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 5 }
-            add_ideas = SAN_Orobashi_Sacrifice_Ceremony
-            set_national_stability = { value = 0.10  add = yes }
-            add_war_support = 0.12
-            add_nationalism_factor = 0.08
-        }
-    }
-    # 29. 决议：愚人众接触与试探
-    SAN_decision_29 = {
-        icon = generic_decision_intelligence
-        available = { tag = SAN }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 0.3 }
-        cost = 30
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = -2 }
-            add_ideas = SAN_Fatui_Contact_And_Probe
-            add_equipment_to_stockpile = { type = infantry_equipment  amount = 800  producer = FATUI }
-            add_army_experience = 20
-            set_country_flag = SAN_Fatui_Contacted
-        }
-    }
-    # 30. 决议：海祇独立宣言
-    SAN_decision_30 = {
-        icon = generic_decision_supremacy
-        available = { tag = SAN has_country_flag = SAN_Rebel_War_Victory }
-        visible = { tag = SAN }
-        fire_only_once = yes
-        modifier = { }
-        ai_will_do = { factor = 1 }
-        cost = 100
-        days_remove = 30
-        complete_effect = {
-            add_to_variable = { var = SAN_prestige value = 20 }
-            add_ideas = SAN_Watatsumi_Independence_Declaration
-            set_national_stability = 1.0
-            add_happiness = { target = all  value = 0.20 }
-            add_war_support = 0.25
-            add_diplomatic_weight = 20
-            add_civilian_factory = 5
-            add_war_factory = 4
-        }
-    }
+# 组4：白夜遗产与真理追寻 (对应白夜科技Idea获得)
+SAN_white_night_legacy_category = {
+	# 31. 卸下太阳之子的枷锁
+	SAN_decision_break_sun_child_chains = {
+		icon = generic_stability
+		cost = 80
+		available = { has_completed_focus = SAN_search_for_the_book_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_legacy_of_sun_child
+			add_political_power = 50
+		}
+	}
+	# 32. 解读《日月前事》
+	SAN_decision_read_forbidden_history = {
+		icon = generic_research
+		cost = 200
+		available = { has_completed_focus = SAN_decoder_of_ancient_files }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_abyssal_wisdom
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+	# 33. 点燃恒星之核
+	SAN_decision_ignite_helios = {
+		icon = generic_production
+		cost = 150
+		available = { has_completed_focus = SAN_restart_the_chariot_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_dainichi_energy
+		}
+	}
+	# 34. 龙蜥生物驯化
+	SAN_decision_vishap_domestication = {
+		icon = generic_army
+		cost = 50
+		available = { has_completed_focus = SAN_vishap_containment_arrangements }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_vishap_taming
+		}
+	}
+	# 35. 举行蛇心大祭
+	SAN_decision_serpent_heart_ceremony = {
+		icon = generic_intel
+		cost = 60
+		available = { has_completed_focus = SAN_serpent_heart_ritual_study }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_serpents_heart_ritual
+		}
+	}
+	# 36. 公开真实历史
+	SAN_decision_reveal_forbidden_truth = {
+		icon = generic_research
+		cost = 100
+		available = { has_completed_focus = SAN_forbidden_history_diffusion_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_forbidden_history
+		}
+	}
+	# 37. 编撰白夜作战条令
+	SAN_decision_white_night_tactics_book = {
+		icon = generic_army
+		cost = 70
+		available = { has_completed_focus = SAN_white_night_doctrine_development }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_white_night_doctrine
+		}
+	}
+	# 38. 研制深海潜航甲
+	SAN_decision_abyss_armor_project = {
+		icon = generic_research
+		cost = 120
+		available = { has_completed_focus = SAN_experimental_deep_sea_armor_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_tech_bonus = { bonus = 0.3 uses = 2 category = armor }
+		}
+	}
+	# 39. 时间之执政祈祷
+	SAN_decision_chronos_prayer = {
+		icon = generic_stability
+		cost = 90
+		available = { has_completed_focus = SAN_chronos_faith_integration }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_stability = 0.1
+		}
+	}
+	# 40. 渊下防卫动员
+	SAN_decision_abyss_mobilization = {
+		icon = generic_army
+		cost = 50
+		available = { has_completed_focus = SAN_enkanomiya_reserve_training_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_manpower = 3000
+		}
+	}
+}
+
+# 组5：现人神意志与万政合流 (对应政治路线Idea获得)
+SAN_political_path_category = {
+	# 41. 强化大蛇正统 (路线A)
+	SAN_decision_orobashi_orthodoxy = {
+		icon = generic_stability
+		cost = 100
+		available = { has_completed_focus = SAN_mandatory_orobashi_orthodoxy_faith }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_orobashi_orthodoxy
+		}
+	}
+	# 42. 神职官僚整肃 (路线A)
+	SAN_decision_clerical_admin_reform = {
+		icon = generic_stability
+		cost = 80
+		available = { has_completed_focus = SAN_clerical_admin_system_reorganization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_clerical_admin
+		}
+	}
+	# 43. 共和宪章宣誓 (路线B)
+	SAN_decision_republic_oath = {
+		icon = generic_stability
+		cost = 100
+		available = { has_completed_focus = SAN_sangonomiya_constitution_drafting_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_republic_spirit
+		}
+	}
+	# 44. 召开诸岛议会 (路线B)
+	SAN_decision_island_parliament_session = {
+		icon = generic_diplomacy
+		cost = 80
+		available = { has_completed_focus = SAN_multi_island_parliament_preparation }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_multi_island_parliament
+		}
+	}
+	# 45. 输出革命意志 (路线C)
+	SAN_decision_export_revolution = {
+		icon = generic_intel
+		cost = 100
+		available = { has_completed_focus = SAN_revolutionary_ideal_output_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_revolutionary_logic
+		}
+	}
+	# 46. 工业集体化运动 (路线C)
+	SAN_decision_industry_collectivization = {
+		icon = generic_production
+		cost = 80
+		available = { has_completed_focus = SAN_radical_industrial_collectivization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_collectivized_forges
+		}
+	}
+	# 47. 发起神圣征讨
+	SAN_decision_holy_crusade_start = {
+		icon = generic_army
+		cost = 50
+		available = { has_completed_focus = SAN_holy_expansionist_doctrine }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_holy_crusade
+		}
+	}
+	# 48. 宽容信仰宣言
+	SAN_decision_religious_tolerance = {
+		icon = generic_stability
+		cost = 50
+		available = { has_completed_focus = SAN_freedom_of_worship_proclamation }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_freedom_of_worship
+		}
+	}
+	# 49. 缔结深渊秘密契约
+	SAN_decision_abyss_secret_contract = {
+		icon = generic_intel
+		cost = 50
+		available = { has_completed_focus = SAN_abyss_secret_alliance_agreement }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_abyss_alliance
+		}
+	}
+	# 50. 宣告逆天行道
+	SAN_decision_defy_the_order = {
+		icon = generic_army
+		cost = 200
+		available = { has_completed_focus = SAN_defy_celestia_covenant }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_defiance_celestia
+			add_war_support = 0.2
+		}
+	}
 }
