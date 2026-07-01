@@ -569,7 +569,7 @@ focus = {
     x = 0
     y = 2
 
-    cost = 3
+    cost = 0.15
 
     available = {
 
@@ -596,11 +596,26 @@ focus = {
         focus = FON_judge_puren
     }
 
-    select_effect = {
-        country_event = { id= FON.8 days = 7} #事件：罪人舞步旋
-    }
 
     completion_reward = {
+        if = {
+            limit = {
+                check_variable = { FON_Percent_of_Preparation > 80 }
+            }
+            set_country_flag = FON_water_is_dealed_normal
+            country_event = { id= FON.8 } #事件：罪人舞步旋
+        }
+        else_if = {
+            limit = {
+                check_variable = { FON_Percent_of_Preparation < 30 }
+            }
+            set_country_flag = FON_water_is_not_dealed
+        }
+        else = {
+            set_country_flag = FON_water_is_dealed_war
+            country_event = { id= FON.8 } #事件：罪人舞步旋
+        }
+        
         add_political_power = 50 
     }
 
@@ -733,7 +748,7 @@ focus = {
         FON_is_stage_election_trigger = yes
     }
     completion_reward = {
-
+        
         }
     }
 
@@ -1199,6 +1214,7 @@ focus = {
 
     }
     completion_reward = {
+        country_event = { id = super.19 }
         news_event = { id = FON_civil_war_news.1}
         country_event = { id = FON_civil_war.6 }
         }

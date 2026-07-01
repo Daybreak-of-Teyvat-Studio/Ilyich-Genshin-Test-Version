@@ -10,6 +10,61 @@ FON_Primordial_Sea_decision_categories = {
 		}
 	
 	#胎海水危机
+	#FON_watercrisis_mission = {
+
+		#icon = 
+	#	activation = {
+	#		has_completed_focus = FON_search
+	#	}
+
+	#	allowed = {
+	#		tag = FON
+	#	}
+		
+	#	available = {
+	#		FON_final_date_trigger = yes
+	#		check_variable = { FON_Percent_of_Preparation > 80 }
+	#	}
+	#	visible = {
+	#		has_completed_focus = FON_search
+	#	}
+
+	#	days_mission_timeout = 220
+
+	#	is_good = no
+
+	#	timeout_effect = {
+	#		if = {
+	#		    limit = {check_variable = { FON_Percent_of_Preparation < 30 }}
+	#		    country_event = {days = 0 id = FON_water.1} #灭世事件（All gone）
+	#		}
+
+	#		else_if = {
+	#		    limit = {
+	#                check_variable = { FON_Percent_of_Preparation > 30 }
+	#                check_variable = { FON_Percent_of_Preparation < 80 }
+            
+	#		    }
+     #           country_event = { days = 0 id = FON_civil_war.1 }  # 内战事件
+    #        }
+	#	else = {
+     #           country_event = { days = 0 id = FON.12 }  #大洪水（正常线路）
+    #        }
+ 
+	#	complete_effect = {
+	#		country_event = {days = 0 id = FON.12 } #大洪水（正常线路）
+	#	}
+
+	#	priority = 10000
+
+#		fire_only_once = yes
+
+
+#	}
+
+
+
+	#准备度减少任务
 	FON_watercrisis_mission = {
 
 		#icon = 
@@ -23,42 +78,43 @@ FON_Primordial_Sea_decision_categories = {
 		
 		available = {
 			FON_final_date_trigger = yes
-			check_variable = { FON_Percent_of_Preparation > 80 }
 		}
 		visible = {
 			has_completed_focus = FON_search
 		}
 
-		days_mission_timeout = 220
+		days_mission_timeout = 15
 
 		is_good = no
 
 		timeout_effect = {
 			if = {
-			    limit = {check_variable = { FON_Percent_of_Preparation < 30 }}
-			    country_event = {days = 0 id = FON_water.1} #灭世事件（All gone）
+				limit = {
+					OR = {
+						check_variable = { FON_Percent_of_Preparation < 5 } 
+						check_variable = { FON_Percent_of_Preparation = 5 } 
+					}
+				}
+				set_variable = { FON_Percent_of_Preparation = 0 }
 			}
 
-			else_if = {
-                limit = {
-                check_variable = { FON_Percent_of_Preparation > 30 }
-                check_variable = { FON_Percent_of_Preparation < 80 }
+			
+
+			else = {
+              	add_to_variable = { FON_Percent_of_Preparation = -5 }
             }
-                country_event = { days = 0 id = FON_civil_war.1 }  # 内战事件
-            }
-		else = {
-            country_event = { days = 0 id = FON.12 }  #大洪水（正常线路）
-            }
-        }
+		}	
+
+ 
 		complete_effect = {
-			country_event = {days = 0 id = FON.12 } #大洪水（正常线路）
 		}
 
 		priority = 10000
 
-		fire_only_once = yes
+		fire_only_once = no
 
 	}
+
 
 	#加固封印
     FON_Neuvillette_repulse_Primordial_Sea = {
@@ -100,7 +156,7 @@ FON_Primordial_Sea_decision_categories = {
         remove_effect = {
 			add_days_mission_timeout = {
 				mission = FON_watercrisis_mission
-				days = 30
+				days = 7
 			}
 			FON_increase_Neuvillette_repulse_Primordial_Sea_cost_effect = yes
 		}
