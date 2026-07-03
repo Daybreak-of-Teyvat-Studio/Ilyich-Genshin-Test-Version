@@ -1,0 +1,402 @@
+# ================================================
+# 枫丹内战 AI 兵力调动策略
+# ================================================
+
+# ================================================
+# 势力一：FOD - 枫丹帝国（旧贵族）
+# 初始部署：向PBF边境集结兵力
+# ================================================
+FOD_initial_deployment = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		NOT = {
+			has_war_with = PBF
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向PBF边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		tag = PBF
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		tag = FON
+		value = 9999
+	}
+}
+
+
+
+
+
+FOD_after1 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = PBF
+			}
+			country_exists = HZH
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOD_The_Decisive_Game
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = HZH
+		value = 100
+	}
+}
+FOD_after2 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = PBF
+			}
+			country_exists = FOM
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOD_The_Decisive_Game
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOM
+		value = 100
+	}
+}
+
+
+
+
+FOD_second = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		OR = {
+			has_war_with = HZH
+			has_war_with = FOM
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		ordertype = front
+		execution_type = rush
+		priority = 1
+	}
+
+}
+
+# 开战后策略
+FOD_civil_war_offense = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+			has_war_with = PBF
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		tag = FON
+		value = 9999
+	}
+	
+}
+
+
+# ================================================
+# 势力二：FOM - 枫丹革命（梅洛彼得堡）
+# 初始部署：向HZH边境集结兵力
+# ================================================
+FOM_after1 = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = HZH
+			}
+			country_exists = FOD
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOM_The_Fontaine_Revolution
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOD
+		value = 100
+	}
+}
+FOM_after2 = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = HZH
+			}
+			country_exists = PBF
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOM_The_Fontaine_Revolution
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = PBF
+		value = 100
+	}
+}
+
+
+FOM_initial_deployment = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		NOT = {
+			has_completed_focus = FOM_Axiom_will_eventually_have_a_day_of_defense
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向HZH边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		tag = HZH
+		value = 100
+	}
+}
+
+# 开战后策略
+FOM_civil_war_offense = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		has_war_with = HZH
+	}
+	abort_when_not_enabled = yes
+
+	# 进攻型前线风格：激进进攻
+	ai_strategy = {
+		type = front_control
+		ordertype = front
+		execution_type = rush
+		priority = 1
+	}
+
+	# 重点进攻核心区
+	ai_strategy = {
+		type = area_priority
+		area = FON_fontaine_core
+		value = 100
+	}
+
+	# 同时抢占工业区
+	ai_strategy = {
+		type = area_priority
+		area = FON_fontaine_industrial
+		value = 80
+	}
+
+	# 生产偏向：步兵为主
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 800
+	}
+
+	
+}
+
+
+# ================================================
+# 势力三：HZH - 壁炉之家（愚人众）
+# 初始部署：向FOM边境集结兵力
+# ================================================
+HZH_after1 = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOM
+			}
+			country_exists = FOD
+		}
+		
+	}
+	abort = {
+		has_completed_focus = HZH_Father_Fontaine
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOD
+		value = 100
+	}
+}
+HZH_after2 = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOM
+			}
+			country_exists = PBF
+		}
+		
+	}
+	abort = {
+		has_completed_focus = HZH_Father_Fontaine
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = PBF
+		value = 100
+	}
+}
+
+
+
+HZH_initial_deployment = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+	}
+	abort_when_not_enabled = yes
+
+	# 向FOM边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOM
+		value = 100
+	}
+}
+
+# 开战后策略
+HZH_civil_war_basic = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		has_war_with = FOM
+	}
+	abort_when_not_enabled = yes
+
+	# 基础前线风格：均衡
+	ai_strategy = {
+		type = front_control
+		ordertype = front
+		execution_type = balanced
+		priority = 1
+	}
+
+	# 生产偏向：基础步兵
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 800
+	}
+
+	
+}
+
+
+# ================================================
+# 势力四：PBF - 枫丹社会党
+# 初始部署：向FOD边境集结兵力
+# ================================================
+PBF_after1 = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOD
+			}
+			country_exists = HZH
+		}
+		
+	}
+	abort = {
+		has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = HZH
+		value = 100
+	}
+}
+PBF_after2 = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOD
+			}
+			country_exists = FOM
+		}
+		
+	}
+	abort = {
+		has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOM
+		value = 100
+	}
+}
+
+
+PBF_initial_deployment = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		NOT = {
+			has_completed_focus = PBF_Rose_Society
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向FOD边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		tag = FOD
+		value = 100
+	}
+}
+
+
