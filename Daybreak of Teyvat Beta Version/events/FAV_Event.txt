@@ -19,6 +19,7 @@ country_event = {
 		name = Church.1.b
 		add_political_power = -50
 		set_temp_variable = { FAV_Difference_of_VP = 50 }
+		add_to_variable = { FAV_Victory_Ps_We = FAV_Difference_of_VP }
 		custom_effect_tooltip = FAV_Gain_VP_number
 		ai_chance = { factor = 0 }
 	}
@@ -61,7 +62,7 @@ country_event = {
 	
 	option = {
 		name = Church.3.a
-		add_political_power = 25
+		add_political_power = 20
 		add_stability = 0.02
 		set_temp_variable = { FAV_linshibianliang4 = 10 }
 		custom_effect_tooltip = FAV_tt_Raise_Fans
@@ -1120,6 +1121,7 @@ country_event = {
 		ai_chance = {
 			factor = 99
 		}
+		# 芭芭拉红线吞并骑士团
 		IF = {
 			limit = {
 				original_tag = FAV
@@ -1129,166 +1131,134 @@ country_event = {
 					has_country_flag = FAV_Help_MOT
 				}
 				MOT = {
-					change_tag_from = FAV
 					IF = {
 						limit = { has_country_flag = FAV_UnionBonus_Get_Core }
-						FAV = {
-							every_owned_state = {
-								limit = {
-									is_core_of = FAV
-								}
-								add_core_of = MOT
+						every_owned_state = {
+							limit = {
+								is_core_of = MOT
 							}
+							add_core_of = FAV
 						}
 					}
 					IF = {
 						limit = { has_country_flag = FAV_UnionBonus_Get_Character }
-						FAV = {
-							every_character = {
-								set_nationality = MOT
-							}
-						}
-					}
-					IF = {
-						limit = { has_country_flag = FAV_UnionBonus_Get_Army }
-						annex_country = {
-							target = FAV
-							transfer_troops = yes
-						}
-					}
-					ELSE_IF = {
-						annex_country = {
-							target = FAV
-							transfer_troops = no
-						}
-					}
-				}
-			}
-			ELSE_IF = {
-				LAW = {
-					change_tag_from = FAV
-					IF = {
-						limit = { has_country_flag = FAV_UnionBonus_Get_Core }
-						FAV = {
-							every_owned_state = {
-								limit = {
-									is_core_of = FAV
-								}
-								add_core_of = LAW
-							}
-						}
-					}
-					IF = {
-						limit = { has_country_flag = FAV_UnionBonus_Get_Character }
-						FAV = {
-							every_character = {
-								set_nationality = LAW
-							}
-						}
-					}
-					IF = {
-						limit = { has_country_flag = FAV_UnionBonus_Get_Army }
-						annex_country = {
-							target = FAV
-							transfer_troops = yes
-						}
-					}
-					ELSE_IF = {
-						annex_country = {
-							target = FAV
-							transfer_troops = no
-						}
-					}
-				}
-			}
-		}
-		ELSE_IF = {
-			FAV = {
-				IF = {
-					limit = {
-						has_country_flag = FAV_Help_MOT
-					}
-					change_tag_from = MOT
-				}
-				ELSE_IF = {
-					change_tag_from = LAW
-				}
-				IF = {
-					limit = { has_country_flag = FAV_UnionBonus_Get_Core }
-					IF = {
-						limit = { has_country_flag = FAV_Help_MOT }
-						MOT = {
-							every_owned_state = {
-								limit = {
-									is_core_of = MOT
-								}
-								add_core_of = FAV
-							}
-						}
-					}
-					ELSE_IF = {
-						LAW = {
-							every_owned_state = {
-								limit = {
-									is_core_of = LAW
-								}
-								add_core_of = FAV
-							}
-						}
-					}
-				}
-				IF = {
-					limit = { has_country_flag = FAV_UnionBonus_Get_Character }
-					IF = {
-						limit = { has_country_flag = FAV_Help_MOT }
-						MOT = {
-							every_character = {
-								set_nationality = FAV
-							}
-						}
-					}
-					ELSE_IF = {
-						LAW = {
-							every_character = {
-								set_nationality = FAV
-							}
+						every_character = {
+							set_nationality = FAV
 						}
 					}
 				}
 				IF = {
 					limit = { has_country_flag = FAV_UnionBonus_Get_Army }
+					annex_country = {
+						target = MOT
+						transfer_troops = yes
+					}
+				}
+				ELSE_IF = {
+					annex_country = { 
+						target = MOT  
+						transfer_troops = no 
+					}
+				}
+			}
+	        # 黑线吞并劳伦斯
+			ELSE_IF = {
+				IF = {
+					limit = { has_country_flag = FAV_UnionBonus_Get_Core }
+					LAW = {
+						every_owned_state = {
+							limit = {
+								is_core_of = LAW
+							}
+							add_core_of = FAV
+						}
+					}
+				}
 					IF = {
-						limit = { has_country_flag = FAV_Help_MOT }
+						limit = { has_country_flag = FAV_UnionBonus_Get_Character }
+						LAW = {
+							every_character = {
+								set_nationality = FAV
+							}
+						}
+					}
+					IF = {
+						limit = { has_country_flag = FAV_UnionBonus_Get_Army }
 						annex_country = {
-							target = MOT
+							target = LAW
 							transfer_troops = yes
 						}
 					}
 					ELSE_IF = {
 						annex_country = {
 							target = LAW
-							transfer_troops = yes
+							transfer_troops = no
+						}
+					}
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				original_tag = MOT
+			}
+			IF = {
+				limit = { has_country_flag = FAV_UnionBonus_Get_Core }
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					FAV = {
+						every_owned_state = {
+							limit = {
+								is_core_of = FAV
+							}
+							add_core_of = MOT
 						}
 					}
 				}
 				ELSE_IF = {
-					IF = {
-						limit = { has_country_flag = FAV_Help_MOT }
-						annex_country = {
-							target = MOT
-							transfer_troops = no
-						}
-					}
-					ELSE_IF = {
-						annex_country = {
-							target = LAW
-							transfer_troops = no
+					FAV = {
+						every_owned_state = {
+							limit = {
+								is_core_of = FAV
+							}
+							add_core_of = LAW
 						}
 					}
 				}
 			}
+			IF = {
+				limit = { has_country_flag = FAV_UnionBonus_Get_Character }
+				IF = {
+					limit = { has_country_flag = FAV_Help_MOT }
+					FAV = {
+						every_character = {
+							set_nationality = MOT
+						}
+					}
+				}
+				ELSE_IF = {
+					FAV = {
+						every_character = {
+							set_nationality = LAW
+						}
+					}
+				}
+			}
+			IF = {
+				limit = { has_country_flag = FAV_UnionBonus_Get_Army }
+				annex_country = {
+					target = FAV
+					transfer_troops = yes
+				}
+			}
+			ELSE_IF = {
+				annex_country = {
+					target = FAV
+					transfer_troops = no
+				}
+			}	
 		}
 	}
+
 	option = {
 		name = Church.40.b
 		ai_chance = {
