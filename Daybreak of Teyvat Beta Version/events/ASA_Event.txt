@@ -67,25 +67,7 @@ country_event = {
 	desc = ASA.4.d
 	picture = GFX_event_INA03
 	fire_only_once = yes
-	is_triggered_only = no
-	trigger = { 
-	original_tag = SAN	
-	SAN = { 
-		controls_state = 268
-		controls_state = 269
-		controls_state = 270
-		controls_state = 271
-		controls_state = 273
-		controls_state = 274
-		controls_state = 316
-		controls_state = 317
-		controls_state = 318
-		controls_state = 321
-		controls_state = 322
-		controls_state = 323
-		controls_state = 344
-		} 
-	}		
+	is_triggered_only = yes
 	mean_time_to_happen = { days = 1 }
 	option = { #和平，处死九条
 	name = SAN_Viva_Peace
@@ -125,7 +107,7 @@ country_event = {
 	add_to_variable = { var = dx value = 1 }
 	custom_effect_tooltip = Get_One_Million_Mora	
 	}
-    }
+}
 	
 country_event = {
 	id = ASA.5
@@ -184,5 +166,30 @@ country_event = {
 	add_to_variable = { var = dx value = 1 } custom_effect_tooltip = Get_One_Million_Mora	
 	}
 	}
+
+country_event = {
+	id = ASA.6
+	title = ASA.4.t
+	desc = ASA.4.d
+	picture = GFX_event_INA03
+	hidden = yes
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		or = {
+			SAN = { owns_state = 256 controls_state = 256 }
+			INA = { exists = no }
+		}
+	}
+	mean_time_to_happen = { days = 1 }
+	option = { #和平，处死九条
+		name = SAN_Viva_Peace
+		SAN = { unlock_national_focus = SAN_tenshukaku_offensive_arrangements }
+	}
+	option = { #战争
+		name = SAN_Viva_War
+		SAN = { unlock_national_focus = SAN_tenshukaku_offensive_arrangements }
+	}
+}
 
 
