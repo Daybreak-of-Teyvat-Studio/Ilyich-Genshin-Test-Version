@@ -19,7 +19,7 @@ focus_tree = {
 	}
 	default = no
 	reset_on_civilwar = no
-	continuous_focus_position = { x=100 y=4000}
+	continuous_focus_position = { x=100 y=2500}
 
 
 	# ========================================================================
@@ -85,6 +85,9 @@ focus_tree = {
 			country_event = { id = SAN_event.3 }
 			add_command_power = 20
 			add_ideas = SAN_omikami_protection
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
 		}
 	}
 
@@ -165,6 +168,9 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.8 }
 			add_stability = 0.05
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
 		}
 	}
 
@@ -197,6 +203,8 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.10 }
 			add_manpower = 2000
+			LYY = { add_ai_strategy = { type = send_volunteers_desire  id = SAN  value = 100 } }
+			GYP = { add_ai_strategy = { type = send_volunteers_desire  id = SAN  value = 100 } }
 		}
 	}
 
@@ -213,6 +221,13 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.11 }
 			add_manpower = 3000
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = { 
+					division = "name = \"\" division_template = \"Millelith_III\" start_experience_factor = 0.9 start_equipment_factor = 0.9" 
+					owner = ROOT  count = 2
+				}
+			}
 		}
 	}
 
@@ -277,6 +292,13 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.15 }
 			add_manpower = 1500
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = { 
+					division = "name = \"\" division_template = \"Millelith_III\" start_experience_factor = 0.9 start_equipment_factor = 0.9" 
+					owner = ROOT  count = 2
+				}
+			}
 		}
 	}
 
@@ -293,6 +315,9 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.16 }
 			add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
 		}
 	}
 
@@ -363,9 +388,9 @@ focus_tree = {
 	focus = {
 		id = SAN_emergency_rice_storage_tactics
 		x = -2
-		y = 1
-		relative_position_id = SAN_village_council_empowerment
-		prerequisite = { focus = SAN_village_council_empowerment }
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
 		cost = 4
 		icon = GFX_goal_DOT_Arcana_20
 		completion_reward = {
@@ -373,6 +398,9 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.21 }
 			add_ideas = SAN_worker_shortage
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
 		}
 	}
 
@@ -736,10 +764,11 @@ focus_tree = {
 
 	focus = {
 		id = SAN_ore_extraction_modernization
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = SAN_fontaine_engineering_outreach
 		prerequisite = { focus = SAN_fontaine_engineering_outreach }
+		prerequisite = { focus = SAN_weapon_forging_standardization }
 		cost = 4
 		icon = GFX_goal_DOT_Arcana_19
 		completion_reward = {
@@ -1129,9 +1158,9 @@ focus_tree = {
 	focus = {
 		id = SAN_national_conscription_arrangements
 		x = 0
-		y = 1
-		relative_position_id = SAN_strategic_reserve_mobilization
-		prerequisite = { focus = SAN_strategic_reserve_mobilization }
+		y = 2
+		relative_position_id = SAN_kujou_encampment_siege_plan
+		prerequisite = { focus = SAN_kujou_encampment_siege_plan }
 		cost = 4
 		icon = GFX_goal_DOT_Arcana_20
 		completion_reward = {
@@ -1215,9 +1244,9 @@ focus_tree = {
 	focus = {
 		id = SAN_tenshukaku_offensive_arrangements
 		x = 0
-		y = 1
-		relative_position_id = SAN_narukami_infiltration_strategy
-		prerequisite = { focus = SAN_narukami_infiltration_strategy }
+		y = 2
+		relative_position_id = SAN_centralized_command_structure
+		prerequisite = { focus = SAN_centralized_command_structure }
 		cost = 4
 		icon = GFX_goal_DOT_Arcana_03
 		completion_reward = {
@@ -1350,10 +1379,11 @@ focus_tree = {
 
 	focus = {
 		id = SAN_storm_rider_training_action
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = SAN_thunder_manifestation_study
 		prerequisite = { focus = SAN_thunder_manifestation_study }
+		prerequisite = { focus = SAN_asase_shrine_restoration_plan }
 		cost = 4
 		icon = GFX_goal_DOT_Arcana_11
 		completion_reward = {
@@ -1892,6 +1922,14 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.111 }
 			add_tech_bonus = { bonus = 0.5 uses = 2 category = electronics }
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = { 
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -2020,6 +2058,14 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.119 }
 			num_of_factories = 1
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = { 
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -2308,6 +2354,14 @@ focus_tree = {
 			custom_effect_tooltip = SAN_prestige_Add
 			country_event = { id = SAN_event.137 }
 			add_ideas = Daybreak_of_Teyvat
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = { 
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -2371,7 +2425,7 @@ focus_tree = {
 	focus = {
 		id = SAN_post_war_future_debate
 		x = 0
-		y = 4
+		y = 7
 		relative_position_id = SAN_tenshukaku_offensive_arrangements
 		prerequisite = { focus = SAN_tenshukaku_offensive_arrangements }
 		cost = 4
@@ -2747,7 +2801,7 @@ focus_tree = {
 	focus = {
 		id = SAN_pan_teyvat_diplomatic_outreach
 		x = -4
-		y = 2
+		y = 1
 		relative_position_id = SAN_democratic_council_strategy
 		prerequisite = { focus = SAN_democratic_council_strategy }
 		cost = 4
