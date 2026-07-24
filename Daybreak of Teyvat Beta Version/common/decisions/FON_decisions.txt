@@ -7,10 +7,6 @@ FON_Primordial_Sea_decision_categories = {
 			}
 		set_variable = { FON_Percent_of_Preparation = 0 }
 		set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
-		set_variable = { FON_add_army_to_FOD = 0 }
-		set_variable = { FON_add_army_to_FOM = 0 }
-		set_variable = { FON_add_army_to_HZH = 0 }
-		set_variable = { FON_add_army_to_PBF = 0 }
 		}
 		#胎海水危机
 	#FON_watercrisis_mission = {
@@ -200,7 +196,7 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		modifier = {
-			consumer_goods_factor = -0.1
+			consumer_goods_factor = 0.1
 		}
 
 		days_remove = 10
@@ -242,7 +238,7 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		modifier = {
-			consumer_goods_factor = -0.05
+			consumer_goods_factor = 0.05
 		}
 
 		days_remove = 10
@@ -281,6 +277,10 @@ FON_Primordial_Sea_decision_categories = {
 					max = 100
 				}
 			}
+
+			modifier = {
+				industrial_capacity_factor = -0.05
+			}
 	
 			days_remove = 10
 			days_re_enable = 30
@@ -299,7 +299,7 @@ FON_Primordial_Sea_decision_categories = {
 			
 		}
 		visible = {
-			has_completed_focus = FON_resources_right
+			has_completed_focus = FON_resources_left
 		}
 		available = {
 			
@@ -339,7 +339,7 @@ FON_Primordial_Sea_decision_categories = {
 
 		}
 		visible = {
-			has_completed_focus = FON_resources_right
+			has_completed_focus = FON_resources_left
 		}
 		available = {
 			
@@ -379,7 +379,7 @@ FON_Primordial_Sea_decision_categories = {
 
 			}
 			visible = {
-				has_completed_focus = FON_resources_right
+				has_completed_focus = FON_resources_left
 			}
 			available = {
 	
@@ -398,7 +398,7 @@ FON_Primordial_Sea_decision_categories = {
 			}
 
 			modifier = {
-				industrial_capacity_factory = 0.05
+				industrial_capacity_factor = -0.05
 			}
 	
 			days_remove = 10
@@ -417,19 +417,18 @@ FON_Primordial_Sea_decision_categories = {
 
 		}
 		visible = {
-			has_completed_focus = FON_people_left
+			has_completed_focus = FON_resources_right
 		}
 		available = {
 
 		}
 
-		cost = 15
+		cost = 30
 
 		remove_effect = {
 		    custom_effect_tooltip = FON_add_preparation_0.1_tt
 			add_command_power = -10
 			add_to_variable = { FON_Percent_of_Preparation = 10 }
-			add_to_variable = { FON_add_army_to_PBF = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -438,15 +437,55 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		modifier = {
-			industrial_capacity_factory = 0.1
-			
+			consumer_goods_factor = 0.1
+		}
+
+		days_remove = 30
+		days_re_enable = 20
+	}
+
+
+
+	#刺玫会的物资
+	FON_people_from_left_resources = {
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		visible = {
+			has_completed_focus = FON_resources_right
+		}
+		available = {
+
+		}
+
+		cost = 10
+
+		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.1_tt
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			clamp_variable = {
+				var = FON_Percent_of_Preparation
+				min = 0
+				max = 100
+			}
+		}
+
+		modifier = {
+			consumer_goods_factor = 0.05
+			industrial_capacity_factor = -0.05
 		}
 
 		days_remove = 10
-		days_re_enable = 30
+		days_re_enable = 15
 	}
 
-	#组织政府人员救援
+	#组织梅堡救援
 	FON_people_from_right = {
 		ai_will_do = {
 			base = 15
@@ -462,19 +501,18 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		visible = {
-			has_completed_focus = FON_people_right
+			has_completed_focus = FON_resources_right
 		}
 		available = {
 
 		}
 
-		cost = 15
+		cost = 30
 
 		remove_effect = {
 		    custom_effect_tooltip = FON_add_preparation_0.1_tt
 			add_command_power = -10
 			add_to_variable = { FON_Percent_of_Preparation = 10 }
-			add_to_variable = { FON_add_army_to_FOD = 5 }
 			clamp_variable = {
 				var = FON_Percent_of_Preparation
 				min = 0
@@ -483,10 +521,98 @@ FON_Primordial_Sea_decision_categories = {
 		}
 
 		modifier = {
-			industrial_capacity_factory = 0.1
+			consumer_goods_factor = 0.1
+		}
+
+		days_remove = 30
+		days_re_enable = 20
+	}
+
+
+
+
+
+
+
+	#梅堡的物资
+	FON_people_from_right_resources = {
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		visible = {
+			has_completed_focus = FON_resources_right
+		}
+		available = {
+
+		}
+
+		cost = 10
+
+		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.1_tt
+			add_to_variable = { FON_Percent_of_Preparation = 10 }
+			clamp_variable = {
+				var = FON_Percent_of_Preparation
+				min = 0
+				max = 100
+			}
+		}
+
+		modifier = {
+			consumer_goods_factor = 0.05
+			industrial_capacity_factor = -0.05
 		}
 
 		days_remove = 10
-		days_re_enable = 30
+		days_re_enable = 15
 	}
+
+
+
+	#通用决议
+	FON_crisis_basic_decision = {
+		ai_will_do = {
+			base = 15
+			modifier={
+
+			}
+		} 
+		allowed={
+
+		}
+		visible = {
+			has_completed_focus = FON_search
+		}
+		available = {
+
+		}
+
+		cost = 5
+
+		remove_effect = {
+		    custom_effect_tooltip = FON_add_preparation_0.1_tt
+			add_to_variable = { FON_Percent_of_Preparation = 5 }
+			clamp_variable = {
+				var = FON_Percent_of_Preparation
+				min = 0
+				max = 100
+			}
+		}
+
+		modifier = {
+			consumer_goods_factor = 0.02
+		}
+
+		days_remove = 10
+		days_re_enable = 10
+	}
+
+
+
 }
