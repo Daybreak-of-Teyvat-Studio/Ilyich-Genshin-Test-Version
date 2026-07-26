@@ -7,6 +7,11 @@ FON_Primordial_Sea_decision_categories = {
 			}
 		set_variable = { FON_Percent_of_Preparation = 0 }
 		set_variable = { FON_Neuvillette_repulse_Primordial_Sea_cost = 10 }
+		set_variable = { FON_crisis_severity_level = 0 }
+		set_variable = { FON_crisis_army_of_FOD = 0 }
+		set_variable = { FON_crisis_army_of_HZH = 0 }
+		set_variable = { FON_crisis_army_of_PBF = 0 }
+		set_variable = { FON_crisis_army_of_FOM = 0 }
 		}
 		#胎海水危机
 	#FON_watercrisis_mission = {
@@ -61,6 +66,67 @@ FON_Primordial_Sea_decision_categories = {
 
 #	}
 
+	
+	
+	
+	
+	
+	
+	##Debugging_decisions
+	FON_watercrisis_mission_debug_decision1 = {
+		allowed = {
+			tag = FON
+		}
+		visible = {
+			is_debug = yes
+		}
+		complete_effect = {
+			set_variable = { FON_Percent_of_Preparation = 0 }
+		}
+		priority = 100000
+	}
+	FON_watercrisis_mission_debug_decision2 = {
+		allowed = {
+			tag = FON
+		}
+		visible = {
+			is_debug = yes
+		}
+		complete_effect = {
+			set_variable = { FON_Percent_of_Preparation = 50 }
+		}
+		priority = 100000
+	}
+	FON_watercrisis_mission_debug_decision3 = {
+		allowed = {
+			tag = FON
+		}
+		visible = {
+			is_debug = yes
+		}
+		complete_effect = {
+			set_variable = { FON_Percent_of_Preparation = 100 }
+		}
+		priority = 100000
+	}
+	FON_watercrisis_mission_debug_decision4 = {
+		allowed = {
+			tag = FON
+		}
+		visible = {
+			is_debug = yes
+		}
+		complete_effect = {
+			set_variable = { FON_crisis_severity_level = 0 }
+		}
+		priority = 100000
+	}
+	
+
+
+
+
+
 
 
 	#准备度减少任务
@@ -94,13 +160,17 @@ FON_Primordial_Sea_decision_categories = {
 						check_variable = { FON_Percent_of_Preparation = 5 } 
 					}
 				}
+				custom_effect_tooltip = FON_decrease_preparation_0_tt
 				set_variable = { FON_Percent_of_Preparation = 0 }
+				add_to_variable = { FON_crisis_severity_level = 1 }
 			}
 
 			
 
 			else = {
+				custom_effect_tooltip = FON_decrease_preparation_5_tt
               	add_to_variable = { FON_Percent_of_Preparation = -5 }
+				add_to_variable = { FON_crisis_severity_level = 1 }
             }
 		}	
 
@@ -157,6 +227,9 @@ FON_Primordial_Sea_decision_categories = {
 				mission = FON_watercrisis_mission
 				days = 7
 			}
+				add_to_variable = { FON_crisis_severity_level = -1 }
+			
+			 
 			FON_increase_Neuvillette_repulse_Primordial_Sea_cost_effect = yes
 		}
 		
@@ -192,6 +265,14 @@ FON_Primordial_Sea_decision_categories = {
 				var = FON_Percent_of_Preparation
 				min = 0
 				max = 100
+			}
+			custom_effect_tooltip = FON_crisis_add_army_to_HZH_tt
+			add_to_variable = { FON_crisis_army_of_HZH = 1 }
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
 			}
 		}
 
@@ -235,6 +316,14 @@ FON_Primordial_Sea_decision_categories = {
 				min = 0
 				max = 100
 			}
+			custom_effect_tooltip = FON_crisis_add_army_to_HZH_tt
+			add_to_variable = { FON_crisis_army_of_HZH = 1 }
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
+			}
 		}
 
 		modifier = {
@@ -276,6 +365,12 @@ FON_Primordial_Sea_decision_categories = {
 					min = 0
 					max = 100
 				}
+				add_to_variable = { FON_crisis_severity_level = -1 }
+				clamp_variable = {
+					var = FON_crisis_severity_level
+					min = 0
+					max = 30
+				}
 			}
 
 			modifier = {
@@ -315,6 +410,14 @@ FON_Primordial_Sea_decision_categories = {
 				var = FON_Percent_of_Preparation
 				min = 0
 				max = 100
+			}
+			custom_effect_tooltip = FON_crisis_add_army_to_FOD_tt
+			add_to_variable = { FON_crisis_army_of_FOD = 1 }
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
 			}
 		}
 
@@ -356,6 +459,12 @@ FON_Primordial_Sea_decision_categories = {
 				min = 0
 				max = 100
 			}
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
+			}
 		}
 
 		modifier = {
@@ -394,6 +503,13 @@ FON_Primordial_Sea_decision_categories = {
 					var = FON_Percent_of_Preparation
 					min = 0
 					max = 100
+				}
+
+				add_to_variable = { FON_crisis_severity_level = -1 }
+				clamp_variable = {
+					var = FON_crisis_severity_level
+					min = 0
+					max = 30
 				}
 			}
 
@@ -434,6 +550,15 @@ FON_Primordial_Sea_decision_categories = {
 				min = 0
 				max = 100
 			}
+			custom_effect_tooltip = FON_crisis_add_army_to_PBF_tt
+			add_to_variable = { FON_crisis_army_of_PBF = 1 }
+
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
+			}
 		}
 
 		modifier = {
@@ -473,6 +598,14 @@ FON_Primordial_Sea_decision_categories = {
 				var = FON_Percent_of_Preparation
 				min = 0
 				max = 100
+			}
+			custom_effect_tooltip = FON_crisis_add_army_to_PBF_tt
+			add_to_variable = { FON_crisis_army_of_PBF = 1 }
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
 			}
 		}
 
@@ -518,6 +651,15 @@ FON_Primordial_Sea_decision_categories = {
 				min = 0
 				max = 100
 			}
+			custom_effect_tooltip = FON_crisis_add_army_to_FOM_tt
+			add_to_variable = { FON_crisis_army_of_FOM = 1 }
+
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
+			}
 		}
 
 		modifier = {
@@ -562,6 +704,14 @@ FON_Primordial_Sea_decision_categories = {
 				min = 0
 				max = 100
 			}
+			custom_effect_tooltip = FON_crisis_add_army_to_FOM_tt
+			add_to_variable = { FON_crisis_army_of_FOM = 1 }
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
+			}
 		}
 
 		modifier = {
@@ -602,6 +752,12 @@ FON_Primordial_Sea_decision_categories = {
 				var = FON_Percent_of_Preparation
 				min = 0
 				max = 100
+			}
+			add_to_variable = { FON_crisis_severity_level = -1 }
+			clamp_variable = {
+				var = FON_crisis_severity_level
+				min = 0
+				max = 30
 			}
 		}
 
