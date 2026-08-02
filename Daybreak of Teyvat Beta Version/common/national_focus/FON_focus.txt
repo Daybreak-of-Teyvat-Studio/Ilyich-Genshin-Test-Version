@@ -274,6 +274,7 @@ default = no
 
     completion_reward = {
         add_political_power = 50
+        set_country_flag = FON_people_left_flag
         custom_effect_tooltip = FON_people_left_tt
     }
 
@@ -320,6 +321,7 @@ default = no
 
     completion_reward = {
         add_political_power = 50
+        set_country_flag = FON_people_right_flag
         custom_effect_tooltip = FON_people_right_tt
     }
 
@@ -593,21 +595,50 @@ focus = {
     completion_reward = {
         if = {
             limit = {
-                check_variable = { FON_Percent_of_Preparation > 80 }
+                is_ai = yes
             }
-            set_country_flag = FON_water_is_dealed_normal
-            country_event = { id= FON.8 } #事件：罪人舞步旋
-        }
-        else_if = {
-            limit = {
-                check_variable = { FON_Percent_of_Preparation < 30 }
+            random_list = {
+                90 = {
+                    set_country_flag = FON_water_is_dealed_normal
+                    country_event = { id= FON.8 } #事件：罪人舞步旋
+                    modifier = {
+                        has_war = yes
+                        factor = 0.05
+                    }
+                }
+                9 = {
+                    set_country_flag = FON_water_is_dealed_war
+                    country_event = { id= FON.8 } #事件：罪人舞步旋
+                    modifier = {
+                        stability < 0.4
+                        factor = 15
+                    }
+                }
+                1 = {
+                    set_country_flag = FON_water_is_not_dealed
+                }
             }
-            set_country_flag = FON_water_is_not_dealed
         }
         else = {
-            set_country_flag = FON_water_is_dealed_war
-            country_event = { id= FON.8 } #事件：罪人舞步旋
+            if = {
+                limit = {
+                    check_variable = { FON_Percent_of_Preparation > 80 }
+                }
+                set_country_flag = FON_water_is_dealed_normal
+                country_event = { id= FON.8 } #事件：罪人舞步旋
+            }
+            else_if = {
+                limit = {
+                    check_variable = { FON_Percent_of_Preparation < 30 }
+                }
+                set_country_flag = FON_water_is_not_dealed
+            }
+            else = {
+                set_country_flag = FON_water_is_dealed_war
+                country_event = { id= FON.8 } #事件：罪人舞步旋
+            }
         }
+        
         
         add_political_power = 50 
     }
@@ -902,7 +933,7 @@ focus =  {
 
 
 
-
+#以下不可用
 
 
 #那维莱特缺席
