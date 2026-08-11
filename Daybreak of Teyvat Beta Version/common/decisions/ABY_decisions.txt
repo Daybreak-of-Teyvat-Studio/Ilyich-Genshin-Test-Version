@@ -26,7 +26,8 @@ ABY_Decisions = {
 		available = { tag = ABY }
 		visible = { tag = ABY }
 		fire_only_once = no
-		#
+		days_remove = 180
+		days_re_enable = 1
 		cost = 199
 		ai_will_do = { factor = 1 }
 		complete_effect = {
@@ -39,21 +40,20 @@ ABY_Decisions = {
 					set_state_controller_to = HIP
 				}
 			}
-			HIP = { add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY } }
-			HIP = { every_neighbor_country = { declare_war_on = { target = HIP type = annex_everything } } }
-			HIP = { country_event = { id = ABY.2 } }
+			ABY = { add_manpower = -1000 }
+			# NAT = { random_owned_state = { set_state_owner_to = HIP } }
 			HIP = {
-				add_manpower = 800000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 }
-			}
-			ABY = {
-				add_ai_strategy = { type = send_volunteers_desire id = HIP value = 100 }
+				# transfer_state = 653
+				add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY }
+				add_manpower = 1000000 army_experience = 50
+				add_offsite_building = { type = arms_factory level = 5 }
+				add_offsite_building = { type = industrial_complex level = 5 }
 			}
 			HIP = {
 				division_template = {
 					name = "深渊魔物"
 					division_names_group = ABY_SS_01
 					regiments = {
-						HIP_RockfondRifthound = { x = 0 y = 0 }
 						HIP_RockfondRifthound = { x = 0 y = 1 }
 						HIP_RockfondRifthound = { x = 0 y = 2 }
 						HIP_RockfondRifthound = { x = 0 y = 3 }
@@ -78,15 +78,14 @@ ABY_Decisions = {
 						HIP_RockfondRifthound = { x = 4 y = 2 }
 						HIP_RockfondRifthound = { x = 4 y = 3 }
 					}
-					support = {
-						#
-					}
+					support = { }
 					priority = 1
 					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
+					allow_new_equipment = yes
+					allow_foreign_equipment = yes
 				}
 			}
+			HIP = { country_event = { id = ABY.2 } }
 			HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
 		}
 	}
@@ -94,69 +93,26 @@ ABY_Decisions = {
 	#丘丘人远征军 停用
 	HIP_Expeditionary_Forces_02 = {
 		icon = eng_install_government
-		available = { tag = HIP }
+		available = { tag = HIP always = no }
 		visible = { tag = HIP }
 		fire_only_once = no
 		#
 		cost = 100
 		ai_will_do = { factor = 1 }
 		complete_effect = {
-			HIP = { add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY } }
-			HIP = { every_neighbor_country = { declare_war_on = { target = HIP type = annex_everything } } }
-			HIP = { country_event = { id = ABY.2 } }
-			HIP = {
-				add_manpower = 800000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 }
-			}
-			ABY = {
-				add_ai_strategy = { type = send_volunteers_desire id = HIP value = 100 }
-			}
-			HIP = {
-				division_template = {
-					name = "深渊魔物"
-					division_names_group = ABY_SS_01
-					regiments = {
-						HIP_RockfondRifthound = { x = 0 y = 0 }
-						HIP_RockfondRifthound = { x = 0 y = 1 }
-						HIP_RockfondRifthound = { x = 0 y = 2 }
-						HIP_RockfondRifthound = { x = 0 y = 3 }
 
-						HIP_RockfondRifthound = { x = 1 y = 0 }
-						HIP_RockfondRifthound = { x = 1 y = 1 }
-						HIP_RockfondRifthound = { x = 1 y = 2 }
-						HIP_RockfondRifthound = { x = 1 y = 3 }
-
-						HIP_RockfondRifthound = { x = 2 y = 0 }
-						HIP_RockfondRifthound = { x = 2 y = 1 }
-						HIP_RockfondRifthound = { x = 2 y = 2 }
-						HIP_RockfondRifthound = { x = 2 y = 3 }
-
-						HIP_RockfondRifthound = { x = 3 y = 0 }
-						HIP_RockfondRifthound = { x = 3 y = 1 }
-						HIP_RockfondRifthound = { x = 3 y = 2 }
-						HIP_RockfondRifthound = { x = 3 y = 3 }
-
-						HIP_RockfondRifthound = { x = 4 y = 0 }
-						HIP_RockfondRifthound = { x = 4 y = 1 }
-						HIP_RockfondRifthound = { x = 4 y = 2 }
-						HIP_RockfondRifthound = { x = 4 y = 3 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-			}
-			HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
 		}
 	}
 
-	#丘丘人远征军 纳塔
+	#丘丘人远征军 纳塔 停用
 	HIP_Expeditionary_Forces_03 = {
 		icon = eng_install_government
-		available = { tag = ABY }
+		available = {
+			tag = ABY
+			NAT = { exist = yes }
+			date > 1936.10.1
+			always = no
+		}
 		visible = { tag = ABY }
 		fire_only_once = no
 		#
@@ -165,59 +121,7 @@ ABY_Decisions = {
 		days_remove = 180
 		days_re_enable = 1
 		complete_effect = {
-			add_manpower = -1000
-			# NAT = { random_owned_state = { set_state_owner_to = HIP } }
-			HIP = { transfer_state = 653 }
-			HIP = { add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY } }
-			HIP = { every_neighbor_country = { declare_war_on = { target = HIP type = annex_everything } } }
-			HIP = { country_event = { id = ABY.2 } }
-			HIP = {
-				add_manpower = 800000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 }
-			}
-			ABY = {
-				add_ai_strategy = { type = send_volunteers_desire id = HIP value = 100 }
-			}
-			HIP = {
-				division_template = {
-					name = "深渊魔物"
-					division_names_group = ABY_SS_01
-					regiments = {
-						HIP_RockfondRifthound = { x = 0 y = 0 }
-						HIP_RockfondRifthound = { x = 0 y = 1 }
-						HIP_RockfondRifthound = { x = 0 y = 2 }
-						HIP_RockfondRifthound = { x = 0 y = 3 }
 
-						HIP_RockfondRifthound = { x = 1 y = 0 }
-						HIP_RockfondRifthound = { x = 1 y = 1 }
-						HIP_RockfondRifthound = { x = 1 y = 2 }
-						HIP_RockfondRifthound = { x = 1 y = 3 }
-
-						HIP_RockfondRifthound = { x = 2 y = 0 }
-						HIP_RockfondRifthound = { x = 2 y = 1 }
-						HIP_RockfondRifthound = { x = 2 y = 2 }
-						HIP_RockfondRifthound = { x = 2 y = 3 }
-
-						HIP_RockfondRifthound = { x = 3 y = 0 }
-						HIP_RockfondRifthound = { x = 3 y = 1 }
-						HIP_RockfondRifthound = { x = 3 y = 2 }
-						HIP_RockfondRifthound = { x = 3 y = 3 }
-
-						HIP_RockfondRifthound = { x = 4 y = 0 }
-						HIP_RockfondRifthound = { x = 4 y = 1 }
-						HIP_RockfondRifthound = { x = 4 y = 2 }
-						HIP_RockfondRifthound = { x = 4 y = 3 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-			}
-			HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
-			HIP = { declare_war_on = { target = every_neighbor_country  type = annex_everything } }
 		}
 	}
 

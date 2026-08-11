@@ -6,6 +6,8 @@ NAT_Decisions = {
         available = { #失败条件
             # ABY = { exist = no }
             not = { country_exists = ABY }
+            check_variable = { NAT-ABY-Index < 0 }
+            custom_effect_tooltip = NAT-ABY-Index_LT_0
         }
         visible = {
             tag = NAT
@@ -13,6 +15,8 @@ NAT_Decisions = {
         fire_only_once = no
         activation = { #自动触发的条件
             tag = NAT
+            check_variable = { NAT-ABY-Index > 0 }
+            custom_effect_tooltip = NAT-ABY-Index_GT_0
         }
         days_re_enable = 1
         days_remove = 1
@@ -22,16 +26,98 @@ NAT_Decisions = {
             consumer_goods_factor = -0.01
         }
         timeout_effect = { #失败效果
-            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
-            add_stability = -0.02
-            add_war_support = -0.02
-            add_manpower = -100
-            ABY = {
-                add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = NAT }
-                add_equipment_to_stockpile = { type = artillery_equipment  amount = 100  producer = NAT }
-                add_equipment_to_stockpile = { type = support_equipment  amount = 100  producer = NAT }
-                add_equipment_to_stockpile = { type = anti_tank_equipment  amount = 100  producer = NAT }
+            add_to_variable = { var = NAT-ABY-Index value = 5 }
+            custom_effect_tooltip = NAT-ABY-Index_Add_5
+            NAT = {
+                add_stability = -0.02
+                add_war_support = -0.02
+                add_manpower = -200
             }
+            hidden_effect = { }
+        }
+    }
+    NAT_decisions-03 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            # ABY = { exist = no }
+            not = { country_exists = ABY }
+            check_variable = { NAT-ABY-Index < 0 }
+            custom_effect_tooltip = NAT-ABY-Index_LT_0
+        }
+        visible = {
+            tag = NAT
+            date > 1936.9.1
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+            check_variable = { NAT-ABY-Index > 0 }
+            custom_effect_tooltip = NAT-ABY-Index_GT_0
+            date > 1936.9.1
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 180 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = NAT-ABY-Index value = 5 }
+            custom_effect_tooltip = NAT-ABY-Index_Add_5
+            ABY = { add_manpower = -1000 }
+            # NAT = { random_owned_state = { set_state_owner_to = HIP } }
+            HIP = {
+                transfer_state = 653
+                add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY }
+                add_manpower = 1000000 army_experience = 50
+                add_offsite_building = { type = arms_factory level = 5 }
+                add_offsite_building = { type = industrial_complex level = 5 }
+            }
+            HIP = {
+                division_template = {
+                    name = "深渊魔物"
+                    division_names_group = ABY_SS_01
+                    regiments = {
+                        HIP_RockfondRifthound = { x = 0 y = 1 }
+                        HIP_RockfondRifthound = { x = 0 y = 2 }
+                        HIP_RockfondRifthound = { x = 0 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 1 y = 0 }
+                        HIP_RockfondRifthound = { x = 1 y = 1 }
+                        HIP_RockfondRifthound = { x = 1 y = 2 }
+                        HIP_RockfondRifthound = { x = 1 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 2 y = 0 }
+                        HIP_RockfondRifthound = { x = 2 y = 1 }
+                        HIP_RockfondRifthound = { x = 2 y = 2 }
+                        HIP_RockfondRifthound = { x = 2 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 3 y = 0 }
+                        HIP_RockfondRifthound = { x = 3 y = 1 }
+                        HIP_RockfondRifthound = { x = 3 y = 2 }
+                        HIP_RockfondRifthound = { x = 3 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 4 y = 0 }
+                        HIP_RockfondRifthound = { x = 4 y = 1 }
+                        HIP_RockfondRifthound = { x = 4 y = 2 }
+                        HIP_RockfondRifthound = { x = 4 y = 3 }
+                    }
+                    support = { }
+                    priority = 1
+                    is_locked = yes
+                    allow_new_equipment = yes
+                    allow_foreign_equipment = yes
+                }
+                random_owned_state = {
+                    create_unit = {
+                        division = "name = \"1. 深渊魔物\" division_template = \"深渊魔物\" start_experience_factor = 0.9 start_equipment_factor = 1.0"
+                        owner = HIP
+                        count = 10
+                    }
+                }
+            }
+            HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
             hidden_effect = { }
         }
     }
@@ -395,13 +481,13 @@ NAT_Decisions = {
             # clr_country_flag = NAT_Built_Defense_Passes_Recent days = 730
             # add_fort_level = { value = 1  provinces = BORDER_PROVINCES duration = 730 }
             add_building_construction = {
-				type = fort
+                type = fort
                 level = 1
-				instant_build = yes
-				province = {
-					id = BORDER_PROVINCES
-				}
-			}
+                instant_build = yes
+                province = {
+                    id = BORDER_PROVINCES
+                }
+            }
             navy_experience = 20 # add_land_defense = { value = 0.12  duration = 730 }
             custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Build_Border_Defense_Passes_Tooltip
         }
@@ -631,16 +717,16 @@ NAT_Decisions = {
             # clr_country_flag = NAT_Built_Trade_Routes_Recent days = 730
             # add_infrastructure = { value = 0.10 provinces = ALL_PROVINCES }
             every_state = {
-				limit = {
-					is_core_of = GER
-					is_controlled_by = GER
+                limit = {
+                    is_core_of = GER
+                    is_controlled_by = GER
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-			    }
+                    type = infrastructure
+                    level = 1
+                    instant_build = yes
+                }
             }
             # add_trade_efficiency = 0.08
             consumer_goods_factor = -0.03
@@ -676,10 +762,10 @@ NAT_Decisions = {
             # clr_country_flag = NAT_Established_Cooperatives_Recent days = 365
             random_state = {
                 add_building_construction = {
-				    type = industrial_complex
-				    level = 5
-				    instant_build = yes
-			    }
+                    type = industrial_complex
+                    level = 5
+                    instant_build = yes
+                }
             }
             # add_happiness = { target = all value = 0.07 }
             consumer_goods_factor = -0.02
@@ -748,10 +834,10 @@ NAT_Decisions = {
             air_experience = 10 # add_industrial_capacity = 0.10
             random_state = {
                 add_building_construction = {
-				    type = arms_factory
-				    level = 4
-				    instant_build = yes
-			    }
+                    type = arms_factory
+                    level = 4
+                    instant_build = yes
+                }
             }
             add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = MAJOR_POWERS value = 10 }
             custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Attract_Foreign_Industrial_Investment_Tooltip
@@ -1087,7 +1173,7 @@ NAT_fascism_on_the_rise = {
             }
             NOT = { has_government = fascism }
         }
-        
+
         fire_only_once = no
 
         cost = 25
@@ -1117,7 +1203,7 @@ NAT_fascism_on_the_rise = {
             NOT = { has_government = fascism }
             # check_has_focus_tree_to_switch_to_fascism = yes
         }
-        
+
         fire_only_once = no
 
         cost = 50
@@ -1632,7 +1718,7 @@ NAT_democratic_on_the_rise = {
             NOT = { has_government = democratic }
             # check_has_focus_tree_to_switch_to_democratic = yes
         }
-        
+
         fire_only_once = no
 
         cost = 50
@@ -2106,7 +2192,7 @@ NAT_communism_on_the_rise = {
             NOT = { has_government = communism }
             # check_has_focus_tree_to_switch_to_communism = yes
         }
-        
+
         fire_only_once = no
 
         cost = 25
@@ -2136,7 +2222,7 @@ NAT_communism_on_the_rise = {
             NOT = { has_government = communism }
             # check_has_focus_tree_to_switch_to_communism = yes
         }
-        
+
         fire_only_once = no
 
         cost = 50
@@ -2576,4 +2662,3 @@ NAT_communism_on_the_rise = {
         }
     }
 }
-
