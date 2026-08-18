@@ -1,4 +1,4 @@
-version="4.0"
+version="1945.0"
 supported_version="1.*"
 name="Daybreak of Teyvat | Beta Version"
 tags={
