@@ -1,0 +1,74 @@
+#须弥教令院专员辖区
+autonomy_state = {
+    id = auto_SUM_forecast_state
+
+    default = yes
+    is_puppet = yes
+    min_freedom_level = 0.0
+    manpower_influence = 0.9
+    allowed_levels_filter = {
+        autonomy_free
+        auto_SUM_New_Sumeru
+        auto_SUM_forecast_state
+        auto_SUM_forecast_worker_state
+        autonomy_annex
+   }
+    
+    rule = {
+		desc = "RULE_DESC_IS_A_SUBJECT"
+		
+		can_not_declare_war = yes
+		can_decline_call_to_war = no
+		units_deployed_to_overlord = no
+		can_be_spymaster = yes
+		contributes_operatives = yes
+		can_create_collaboration_government = no
+    }
+
+    modifier = {
+            autonomy_manpower_share = 0.5
+		    can_master_build_for_us = 1
+		    extra_trade_to_overlord_factor = 0.8
+		    overlord_trade_cost_factor = -0.4
+		    cic_to_overlord_factor = 0.8
+            mic_to_overlord_factor = 0.8
+		    autonomy_gain_global_factor = -0.5
+		    peace_score_ratio_transferred_to_overlord = 0.05
+            research_sharing_per_country_bonus_factor = -0.5
+      }
+
+     ai_subject_wants_higher = {
+		 factor = 5.0
+	}
+	
+	ai_overlord_wants_lower = {
+		 factor = 0.5
+	}
+
+	ai_overlord_wants_garrison = {
+		 always = yes
+	}
+
+    allowed = {
+        has_dlc = "Together for Victory"
+        OR = {
+            OVERLORD = { original_tag = VAN }
+            OVERLORD = { original_tag = SUM }
+            OVERLORD = { original_tag = SGS }
+            OVERLORD = { original_tag = SDH }
+            OVERLORD = { original_tag = SGD }
+        }
+    }
+    
+    #ROOT is puppet - FROM is potential OVERLORD
+    
+    can_take_level = {
+        #trigger here
+    }
+
+    can_lose_level = {
+		has_global_flag = Civil_War_of_Sumeru
+	}
+}
+
+    
