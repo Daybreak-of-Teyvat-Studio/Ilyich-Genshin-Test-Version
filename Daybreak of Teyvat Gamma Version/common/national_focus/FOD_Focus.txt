@@ -1,0 +1,4541 @@
+focus_tree = {
+    id = FOD_focus_tree
+    country = {
+        factor = 0
+        modifier = {
+            add = 10
+            tag = FOD
+        }
+    }
+    continuous_focus_position = {
+        x = 0
+        y = 1500
+    }
+    default = no
+
+    ########################################
+    #####         内战（一）国策树    #######
+    ########################################
+
+    #完美的君主人选
+    focus = {
+        id = FOD_The_perfect_candidate_for_a_monarch
+        x = 5
+        y = 0
+        cost = 3
+        icon = GFX_FOD_The_perfect_candidate_for_a_monarch
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_Puppet_Queen_modifier
+                }
+                add_dynamic_modifier = {
+                    modifier = FOD_The_Restoration_of_the_Aristocracy_modifier
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.100
+            }
+            
+            
+            set_variable = {FOD_Puppet_Queen_modifier_stability_factor = -0.05}
+            set_variable = {FOD_Puppet_Queen_modifier_war_support_factor = 0.1}
+            set_variable = {FOD_Puppet_Queen_modifier_political_power_factor = 0}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Puppet_Queen_modifier_tooltip2
+                }
+            }
+        }
+        allow_branch = {
+            has_country_flag = FON_civil_flag
+        }
+    }
+
+    #贵族晚宴
+    focus = {
+        id = FOD_Noble_Banquet
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Noble_Banquet
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_perfect_candidate_for_a_monarch
+        }
+        completion_reward = {
+            
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_war_support_factor = 0.05}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_political_power_gain = 0.05}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_army_core_defence_factor = 0.1}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_army_morale_factor = 0.05}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip2
+                }
+            }
+        
+        
+        
+        }
+        relative_position_id = FOD_The_perfect_candidate_for_a_monarch
+    }
+
+    #命令特巡队镇压
+    focus = {
+        id = FOD_Order_the_special_patrol_team_to_suppress
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Order_the_special_patrol_team_to_suppress
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_perfect_candidate_for_a_monarch
+        }
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_Expanding_and_Optimizing_Movement_modifier
+                }
+            }
+            add_command_power = 50
+            add_timed_idea = {
+                idea = FOD_war_PBF
+                days = 180
+            }
+            
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_political_power_gain = -1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_stability_factor = -0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_war_support_factor = -0.2}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_consumer_goods_factor = 0.2}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_max_efficiency_factor = -0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_efficiency_gain_factor = -0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_industrial_capacity_factory = -0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_conscription = -0.02}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_attack_factor = -0.2}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_core_attack_factor = 0.15}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Expanding_and_Optimizing_Movement_modifier_tooltip2
+                }
+            }
+        }
+        relative_position_id = FOD_The_perfect_candidate_for_a_monarch
+    }
+
+    #不安的傀儡
+    focus = {
+        id = FOD_An_uneasy_puppet
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_An_uneasy_puppet
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Noble_Banquet
+        }
+        completion_reward = {
+            remove_ideas = FOD_An_uneasy_puppet_idea
+            country_event = {
+                id = FOD_Furina_event.101
+            }
+	        #丝线交织
+            add_political_power = 50
+            add_to_variable = {FOD_Puppet_Queen_modifier_war_support_factor = -0.2}
+            add_to_variable = {FOD_Puppet_Queen_modifier_political_power_factor = -0.2}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip3
+                }
+            }
+        }
+        relative_position_id = FOD_Noble_Banquet
+    }
+
+    #水神的新衣
+    focus = {
+        id = FOD_The_New_Clothes_of_the_Water_God
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_New_Clothes_of_the_Water_God
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+           has_country_flag = FOD_Rose_and_Gun_flag
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Noble_Banquet
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.104
+            }
+	    #织锦的夹层
+            add_to_variable = {FOD_Puppet_Queen_modifier_war_support_factor = 0.2}
+            add_to_variable = {FOD_Puppet_Queen_modifier_political_power_factor = 0.2}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip4
+                }
+            }
+        }
+        relative_position_id = FOD_Noble_Banquet
+    }
+
+    #学习稻妻模式
+    focus = {
+        id = FOD_Learning_the_Rice_Wife_Model
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Learning_the_Rice_Wife_Model
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Order_the_special_patrol_team_to_suppress
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = neutrality
+                popularity = 0.1
+            }
+            add_stability = 0.05
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 3000
+            }
+            add_equipment_to_stockpile = {
+                type = artillery_equipment
+                amount = 500
+            }
+            add_doctrine_cost_reduction = {
+		        name = FOD_Learning_the_Rice_Wife_Model
+		        cost_reduction = 0.5 
+		        uses = 2
+		        category = land_doctrine
+	        }
+        }
+        relative_position_id = FOD_Order_the_special_patrol_team_to_suppress
+    }
+
+    #灰河的暴徒
+    focus = {
+        id = FOD_The_rioters_of_Grey_River
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_rioters_of_Grey_River
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Order_the_special_patrol_team_to_suppress
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_consumer_goods_factor = -0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_max_efficiency_factor = 0.1}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_efficiency_gain_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip4
+                }
+            }
+        }
+        relative_position_id = FOD_Order_the_special_patrol_team_to_suppress
+    }
+
+    #蔷薇和铳枪
+    focus = {
+        id = FOD_Rose_and_Gun
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Rose_and_Gun
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_An_uneasy_puppet
+        }
+        completion_reward = {
+            hidden_effect = {
+                set_country_flag = FOD_Rose_and_Gun_flag
+            }
+            
+            country_event = {
+                id = FOD_Furina_event.103
+            }
+	    #铳枪指向何处
+            add_political_power = 50
+            set_variable = {FOD_Puppet_Queen_modifier_experience_gain_army = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip5
+                }
+            }
+        }
+        relative_position_id = FOD_An_uneasy_puppet
+    }
+
+    #剧团的演出
+    focus = {
+        id = FOD_The_performance_of_the_theater_troupe
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_performance_of_the_theater_troupe
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_New_Clothes_of_the_Water_God
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.102
+            }
+            # 剧本指导
+            set_variable = {FOD_Puppet_Queen_modifier_production_speed_buildings_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip6
+                }
+            }
+        }
+        relative_position_id = FOD_The_New_Clothes_of_the_Water_God
+    }
+
+    #严格边境管控
+    focus = {
+        id = FOD_Strict_border_control
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Strict_border_control
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Learning_the_Rice_Wife_Model
+        }
+        completion_reward = {
+            add_manpower = 30000
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_stability_factor = 0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_war_support_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip3
+                }
+            }
+        }
+        relative_position_id = FOD_Learning_the_Rice_Wife_Model
+    }
+
+    #刺玫会叛徒
+    focus = {
+        id = FOD_The_Rose_Society_Traitors
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_Rose_Society_Traitors
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_rioters_of_Grey_River
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_consumer_goods_factor = -0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_political_power_gain = 0.6}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_attack_factor = 0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_attrition = 0.02}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip5
+                }
+            }
+        }
+        relative_position_id = FOD_The_rioters_of_Grey_River
+    }
+
+    #暗中盘算
+    focus = {
+        id = FOD_Secretly_calculating
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Secretly_calculating
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Rose_and_Gun
+        }
+        prerequisite = {
+            focus = FOD_The_performance_of_the_theater_troupe
+        }
+        completion_reward = {
+            set_variable = {FOD_Puppet_Queen_modifier_local_resources_factor = 0.15}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip7
+                }
+            }
+        }
+        relative_position_id = FOD_Rose_and_Gun
+    }
+
+    #统治一切
+    focus = {
+        id = FOD_Rule_over_everything
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Rule_over_everything
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Strict_border_control
+        }
+        prerequisite = {
+            focus = FOD_The_Rose_Society_Traitors
+        }
+        completion_reward = {
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_supply_consumption_factor = -0.05}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_army_defence_factor = 0.05}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_max_planning  = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip
+                    add_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip3
+                }
+            }
+        }
+        relative_position_id = FOD_Strict_border_control
+    }
+
+    #往昔帝国的疆土
+    focus = {
+        id = FOD_The_territory_of_the_past_empire
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_territory_of_the_past_empire
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Rule_over_everything
+        }
+        prerequisite = {
+            focus = FOD_Secretly_calculating
+        }
+        completion_reward = {
+            add_political_power = 200
+            615 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            500 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            606 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            624 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            501 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            add_tech_bonus = {
+                name = FOD_The_territory_of_the_past_empire
+                bonus = 1.0
+                uses = 2
+                category = industry
+            
+                
+            }
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_research_speed_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip
+                    add_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip4
+                }
+            }
+            country_event = {
+                id = FOD_civil_war.100
+            }
+        }
+        relative_position_id = FOD_Rule_over_everything
+    }
+
+    ########################################
+    #####         内战（二）国策树    #######
+    ########################################
+
+    #北方威胁
+    focus = {
+        id = FOD_Norther_threat
+        x = 15
+        y = 0
+        cost = 3
+        icon = GFX_FOD_Norther_threat
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+            has_country_flag = FOD_second_civil_war_flag
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = neutrality
+                popularity = -0.05
+            }
+            add_popularity = {
+                ideology = communism
+                popularity = -0.05
+            }
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_stability_factor = -0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_consumer_goods_factor = -0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_political_power_gain = 1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip6
+                }
+            }
+        }
+    }
+
+    #境外势力
+    focus = {
+        id = FOD_foreign_forces
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_foreign_forces
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+            NOT = { FOM = { exists = yes } }
+            has_war = no
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        mutually_exclusive = {
+            focus = FOD_land_of_exile
+        }
+        prerequisite = {
+            focus = FOD_Norther_threat
+        }
+        completion_reward = {
+            declare_war_on = {
+                type = annex_everything
+                target = HZH
+            }
+            add_timed_idea = {
+                idea = FOD_war_HZH
+                days = 180
+            }
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_war_support_factor = 0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_political_power_gain = -0.2}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip7
+                }
+            }
+        }
+        relative_position_id = FOD_Norther_threat
+    }
+
+    #流放之地
+    focus = {
+        id = FOD_land_of_exile
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_land_of_exile
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+            NOT = { HZH = { exists = yes } }
+            has_war = no
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        mutually_exclusive = {
+            focus = FOD_foreign_forces
+        }
+        prerequisite = {
+            focus = FOD_Norther_threat
+        }
+        completion_reward = {
+            declare_war_on = {
+                type = annex_everything
+                target = FOM
+            }
+            add_timed_idea = {
+                idea = FOD_war_FOM
+                days = 180
+            }
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_war_support_factor = 0.15}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_political_power_gain = -0.2}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip7
+                }
+            }
+        }
+        relative_position_id = FOD_Norther_threat
+    }
+
+    #罪祸的终末
+    focus = {
+        id = FOD_The_End_of_Sin_and_Calamity
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_End_of_Sin_and_Calamity
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_foreign_forces
+            focus = FOD_land_of_exile
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_efficiency_gain_factor = 0.1}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_max_efficiency_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip8
+                }
+            }
+        }
+        relative_position_id = FOD_foreign_forces
+    }
+
+    #刺玫会残党
+    focus = {
+        id = FOD_The_Rose_Society_is_a_remnant_of_the_Party
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_Rose_Society_is_a_remnant_of_the_Party
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_End_of_Sin_and_Calamity
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.200
+            }
+            add_offsite_building = { type = industrial_complex level = 1 }
+            set_variable = {FOD_Puppet_Queen_modifier_monthly_population = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Puppet_Queen_modifier_tooltip
+                    add_idea = FOD_Puppet_Queen_modifier_tooltip8
+                }
+            }
+        }
+        relative_position_id = FOD_The_End_of_Sin_and_Calamity
+    }
+
+    #切断外部支援
+    focus = {
+        id = FOD_Cut_off_external_support
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Cut_off_external_support
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_End_of_Sin_and_Calamity
+        }
+        completion_reward = {
+            add_to_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_supply_consumption_factor = -0.05}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_dig_in_speed_factor = 0.1}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_max_dig_in = 10.0}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip
+                    add_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip5
+                }
+            }
+        }
+        relative_position_id = FOD_The_End_of_Sin_and_Calamity
+    }
+
+    #收买帮会武装
+    focus = {
+        id = FOD_Buying_off_gang_weapons
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Buying_off_gang_weapons
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_End_of_Sin_and_Calamity
+        }
+        completion_reward = {
+            add_manpower = 30000
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 500
+            }
+        }
+        relative_position_id = FOD_The_End_of_Sin_and_Calamity
+    }
+
+    #暗通逐影庭
+    focus = {
+        id = FOD_Dark_Sky_Chasing_Shadow_Court
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Dark_Sky_Chasing_Shadow_Court
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_Rose_Society_is_a_remnant_of_the_Party
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.201
+            }
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 2000
+            }
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 200
+            }
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_attrition = -0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_attack_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip9
+                }
+            }
+        }
+        relative_position_id = FOD_The_Rose_Society_is_a_remnant_of_the_Party
+    }
+
+    #试探执律庭
+    focus = {
+        id = FOD_Exploring_the_Enforcement_Court
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Exploring_the_Enforcement_Court
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_Rose_Society_is_a_remnant_of_the_Party
+        }
+        completion_reward = {
+            add_stability = 0.05
+            add_political_power = -50
+        }
+        relative_position_id = FOD_The_Rose_Society_is_a_remnant_of_the_Party
+    }
+
+    #北城区堡垒群
+    focus = {
+        id = FOD_Beicheng_District_Fortress_Group
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Beicheng_District_Fortress_Group
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Cut_off_external_support
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_attack_factor = 0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_core_attack_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip11
+                }
+            }   
+        }
+        relative_position_id = FOD_Cut_off_external_support
+    }
+
+    #规范军队纪律
+    focus = {
+        id = FOD_Standardize_military_discipline
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Standardize_military_discipline
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Buying_off_gang_weapons
+        }
+        completion_reward = {
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_org_factor = 0.15}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_experience_gain_army_factor = 0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_defence_factor = 0.1}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_training_time_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip12
+                }
+            }
+        }
+        relative_position_id = FOD_Buying_off_gang_weapons
+    }
+
+    #与各商会沟通
+    focus = {
+        id = FOD_Communicate_with_various_chambers_of_commerce
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Communicate_with_various_chambers_of_commerce
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Buying_off_gang_weapons
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_industrial_capacity_factory = 0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_efficiency_gain_factor = 0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_max_efficiency_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip13
+                }
+            }
+        }
+        relative_position_id = FOD_Buying_off_gang_weapons
+    }
+
+    #三个铳枪手
+    focus = {
+        id = FOD_Three_gunners
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Three_gunners
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Exploring_the_Enforcement_Court
+        }
+        prerequisite = {
+            focus = FOD_Dark_Sky_Chasing_Shadow_Court
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_efficiency_gain_factor = 0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_production_factory_max_efficiency_factor = 0.05}
+            set_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_democratic_drift = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip10
+                }
+            } 
+        }
+        relative_position_id = FOD_Exploring_the_Enforcement_Court
+    }
+
+    #帝国复兴之战
+    focus = {
+        id = FOD_The_War_of_Empire_Rejuvenation
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_The_War_of_Empire_Rejuvenation
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Beicheng_District_Fortress_Group
+        }
+        completion_reward = {
+            army_experience = 50
+            add_doctrine_cost_reduction = {
+		        name = FOD_The_War_of_Empire_Rejuvenation
+		        cost_reduction = 0.5 
+		        uses = 1 
+		        category = land_doctrine
+	        }
+        }
+        relative_position_id = FOD_Beicheng_District_Fortress_Group
+    }
+
+    #降低征兵指标
+    focus = {
+        id = FOD_Reduce_conscription_quotas
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Reduce_conscription_quotas
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_Standardize_military_discipline
+        }
+        prerequisite = {
+            focus = FOD_Communicate_with_various_chambers_of_commerce
+        }
+        completion_reward = {
+            add_manpower = 50000
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_conscription = 0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_army_org_factor = -0.05}
+            add_to_variable = {FOD_Expanding_and_Optimizing_Movement_modifier_minimum_training_level = -0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip
+                    add_idea = FOD_Expanding_and_Optimizing_Movement_modifier_tooltip14
+                }
+            }
+        }
+        relative_position_id = FOD_Standardize_military_discipline
+    }
+
+    #旧世遗谶
+    focus = {
+        id = FOD_Old_World_Heritage_Prophecy
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Old_World_Heritage_Prophecy
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        available = {
+            has_war = no
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        allow_branch = {
+        }
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+        prerequisite = {
+            focus = FOD_The_War_of_Empire_Rejuvenation
+        }
+        prerequisite = {
+            focus = FOD_Three_gunners
+        }
+        prerequisite = {
+            focus = FOD_Reduce_conscription_quotas
+        }
+        completion_reward = {
+            add_research_slot = 1
+            add_to_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_research_speed_factor = 0.1}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_industrial_capacity_factory = 0.1}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_industry_repair_factor = 0.1}
+            set_variable = {FOD_The_Restoration_of_the_Aristocracy_modifier_local_resources_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip
+                    add_idea = FOD_The_Restoration_of_the_Aristocracy_modifier_tooltip6
+                }
+            }
+            country_event = {
+                id = FOD_civil_war.200
+            }
+        }
+        relative_position_id = FOD_The_War_of_Empire_Rejuvenation
+    }
+
+    ########################################
+    #####        权力争夺            #######
+    ########################################
+
+    #决胜的棋局
+    focus = {
+        id = FOD_The_Decisive_Game
+        x = 26
+        y = 0
+        cost = 3
+        icon = GFX_FOD_The_Decisive_Game
+        allow_branch = {
+            has_country_flag = FOD_civil_war_end_flag
+        }
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_The_Storm_is_Brewing_modifier
+                }
+            }
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_stability_factor = -0.1}
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_industrial_capacity_factory = 0.2}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_The_Storm_is_Brewing_modifier_tooltip2
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #后翼弃兵
+    focus = {
+        id = FOD_Queens_Gambit
+        x = -3
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Queens_Gambit
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        mutually_exclusive = {
+            focus = FOD_Castling
+        }
+        prerequisite = {
+            focus = FOD_The_Decisive_Game
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.300
+            }
+            add_to_variable = {FOD_The_Storm_is_Brewing_modifier_industrial_capacity_factory = 0.05}
+            add_to_variable = {FOD_The_Storm_is_Brewing_modifier_stability_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Storm_is_Brewing_modifier_tooltip
+                    add_idea = FOD_The_Storm_is_Brewing_modifier_tooltip3
+                }
+            }
+        }
+        relative_position_id = FOD_The_Decisive_Game
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #一子捉双
+    focus = {
+        id = FOD_Fork
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Fork
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Queens_Gambit
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.301
+            }
+            add_stability = 0.05
+            add_war_support = -0.1
+        }
+        relative_position_id = FOD_Queens_Gambit
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #长将不休
+    focus = {
+        id = FOD_Perpetual_Check
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Perpetual_Check
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Fork
+        }
+        completion_reward = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 1000
+            }
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 200
+            }
+        }
+        relative_position_id = FOD_Fork
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #过载威胁
+    focus = {
+        id = FOD_Overload_Threat
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Overload_Threat
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Perpetual_Check
+        }
+        completion_reward = {
+            add_stability = -0.05
+            add_war_support = 0.05
+        }
+        relative_position_id = FOD_Perpetual_Check
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #无子可动
+    focus = {
+        id = FOD_Stalemate
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Stalemate
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Overload_Threat
+        }
+        completion_reward = {
+            add_to_variable = {FOD_The_Storm_is_Brewing_modifier_stability_factor = -0.05}
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_democratic_drift = 0.03}
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_communism_drift = 0.01}
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_neutrality_drift = 0.01}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Storm_is_Brewing_modifier_tooltip
+                    add_idea = FOD_The_Storm_is_Brewing_modifier_tooltip4
+                }
+            }
+        }
+        relative_position_id = FOD_Overload_Threat
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #控制中心
+    focus = {
+        id = FOD_Central_Control
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Central_Control
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Queens_Gambit
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.304
+            }
+            add_stability = 0.05
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_land_reinforce_rate = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Storm_is_Brewing_modifier_tooltip
+                    add_idea = FOD_The_Storm_is_Brewing_modifier_tooltip5
+                }
+            }
+        }
+        relative_position_id = FOD_Queens_Gambit
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #底线渗透
+    focus = {
+        id = FOD_BackRank_Penetration
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_BackRank_Penetration
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Central_Control
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.302
+            }
+            502 = {
+                add_extra_state_shared_building_slots = 1
+            }
+            add_to_variable = {FOD_The_Storm_is_Brewing_modifier_industrial_capacity_factory = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Storm_is_Brewing_modifier_tooltip
+                    add_idea = FOD_The_Storm_is_Brewing_modifier_tooltip6
+                }
+            }
+        }
+        relative_position_id = FOD_Central_Control
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #通路奇兵
+    focus = {
+        id = FOD_Passed_Pawn
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Passed_Pawn
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_BackRank_Penetration
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.303
+            }
+            set_variable = {FOD_The_Storm_is_Brewing_modifier_political_power_gain = 0.05}
+            add_to_variable = {FOD_The_Storm_is_Brewing_modifier_stability_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_The_Storm_is_Brewing_modifier_tooltip
+                    add_idea = FOD_The_Storm_is_Brewing_modifier_tooltip7
+                }
+            }
+        }
+        relative_position_id = FOD_BackRank_Penetration
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #底线升变
+    focus = {
+        id = FOD_BackRank_Promotion
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_BackRank_Promotion
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Passed_Pawn
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.305
+            }
+            add_political_power = 100
+            add_command_power = 20
+            remove_dynamic_modifier = {
+                modifier = FOD_Puppet_Queen_modifier
+            }
+        }
+        relative_position_id = FOD_Passed_Pawn
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #弃后杀王
+    focus = {
+        id = FOD_Queen_Sacrifice_Mate
+        x = 0
+        y = 5
+        cost = 3
+        icon = GFX_FOD_Queen_Sacrifice_Mate
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_BackRank_Promotion
+        }
+        prerequisite = {
+            focus = FOD_Stalemate
+        }
+        completion_reward = {
+            country_event = {
+                id = FOD_Furina_event.306
+            }
+            add_political_power = 50
+            add_command_power = 15
+
+            set_country_flag = FOD_civil_furina_flag
+            
+        }
+        relative_position_id = FOD_Queens_Gambit
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+
+    ##############################################
+    ###################贵族线######################
+    ##############################################
+
+
+    #王车易位
+    focus = {
+        id = FOD_Castling
+        x = 3
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Castling
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        mutually_exclusive = {
+            focus = FOD_Queens_Gambit
+        }
+        prerequisite = {
+            focus = FOD_The_Decisive_Game
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_The_Decisive_Game
+        available = {
+            always = no
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #绝对先手
+    focus = {
+        id = FOD_Absolute_Initiative
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Absolute_Initiative
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Castling
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Castling
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #顿挫攻击
+    focus = {
+        id = FOD_Zwischenzug
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Zwischenzug
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Absolute_Initiative
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Absolute_Initiative
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #清除保护
+    focus = {
+        id = FOD_Removal_of_the_Defender
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Removal_of_the_Defender
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Zwischenzug
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Zwischenzug
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #排局诱导
+    focus = {
+        id = FOD_Decoy
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Decoy
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Removal_of_the_Defender
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Removal_of_the_Defender
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #铁幕防御
+    focus = {
+        id = FOD_Iron_Curtain_Defense
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Iron_Curtain_Defense
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Castling
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Castling
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #斜线牵制
+    focus = {
+        id = FOD_Diagonal_Pin
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Diagonal_Pin
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Iron_Curtain_Defense
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Iron_Curtain_Defense
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #捉双战术
+    focus = {
+        id = FOD_Double_Attack
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Double_Attack
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Diagonal_Pin
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Diagonal_Pin
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #错者自危
+    focus = {
+        id = FOD_Peril_of_the_Errant
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Peril_of_the_Errant
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Double_Attack
+        }
+        completion_reward = {
+        }
+        relative_position_id = FOD_Double_Attack
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #将杀王棋
+    focus = {
+        id = FOD_Checkmate
+        x = 0
+        y = 5
+        cost = 3
+        icon = GFX_FOD_Checkmate
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Decoy
+        }
+        prerequisite = {
+            focus = FOD_Peril_of_the_Errant
+        }
+        completion_reward = {
+            set_country_flag = FOD_civil_noble_flag
+            mark_focus_tree_layout_dirty = yes
+        }
+        relative_position_id = FOD_Castling
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    ########################################################
+    ########################################################
+
+
+
+    #博弈终局
+    focus = {
+        id = FOD_Endgame
+        x = 0
+        y = 7
+        cost = 3
+        icon = GFX_FOD_Endgame
+        continue_if_invalid = no
+        cancel_if_invalid = yes
+        prerequisite = {
+            focus = FOD_Queen_Sacrifice_Mate
+            focus = FOD_Checkmate
+        }
+        completion_reward = {
+            hidden_effect = {
+                remove_ideas = FOD_Noble_Army_idea
+                remove_ideas = FOD_An_uneasy_puppet_idea
+                remove_dynamic_modifier = {
+                    modifier = FOD_The_Storm_is_Brewing_modifier
+                }
+                remove_dynamic_modifier = {
+                    modifier = FOD_Expanding_and_Optimizing_Movement_modifier
+                }
+                remove_dynamic_modifier = {
+                    modifier = FOD_The_Restoration_of_the_Aristocracy_modifier
+                }
+                # 添加新动态修正（改名）
+                add_dynamic_modifier = {
+                    modifier = FOD_Chaotic_Government_modifier
+                }
+                add_dynamic_modifier = {
+                    modifier = FOD_Reconstruction_of_Fontaine_modifier
+                }
+                add_dynamic_modifier = {
+                    modifier = FOD_Settling_Old_Scores_modifier
+                }
+                # 设置新动态修正变量（重建枫丹）
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_stability_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_war_support_factor = 0.05}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_political_power_gain = 0.2}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = -0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_max_efficiency_factor = 0.2}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_efficiency_gain_factor = 0.2}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.15}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_dockyard = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_buildings_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_industrial_complex_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_conversion_cost_mil_to_civ_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_research_speed_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_local_resources_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_conscription = 0.03}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_attack_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_core_attack_factor = 0.2}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_attrition = -0.03}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_democratic_drift = 0.05}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_dig_in_speed_factor = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_max_dig_in = 0.0}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_experience_gain_army_factor = 0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_org_factor = 0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_army_defence_factor = 0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_minimum_training_level = -0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_training_time_factor = 0.1}
+                set_variable = {FOD_Reconstruction_of_Fontaine_modifier_monthly_population = 0.0}
+                # 设置新动态修正变量（混乱的政府）
+                set_variable = {FOD_Chaotic_Government_modifier_stability_factor = -0.15}
+                set_variable = {FOD_Chaotic_Government_modifier_war_support_factor = 0.0}
+                set_variable = {FOD_Chaotic_Government_modifier_industrial_capacity_factory = 0.3}
+                set_variable = {FOD_Chaotic_Government_modifier_democratic_drift = 0.03}
+                set_variable = {FOD_Chaotic_Government_modifier_communism_drift = 0.01}
+                set_variable = {FOD_Chaotic_Government_modifier_neutrality_drift = 0.01}
+                set_variable = {FOD_Chaotic_Government_modifier_political_power_gain = 0.05}
+                set_variable = {FOD_Chaotic_Government_modifier_land_reinforce_rate = 0.05}
+                # 设置新动态修正变量（旧账清算）
+                set_variable = {FOD_Settling_Old_Scores_modifier_war_support_factor = 0.05}
+                set_variable = {FOD_Settling_Old_Scores_modifier_political_power_gain = 0.05}
+                set_variable = {FOD_Settling_Old_Scores_modifier_army_defence_factor = 0.05}
+                set_variable = {FOD_Settling_Old_Scores_modifier_army_core_defence_factor = 0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_army_morale_factor = 0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_supply_consumption_factor = -0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_max_planning = 0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_research_speed_factor = 0.15}
+                set_variable = {FOD_Settling_Old_Scores_modifier_local_resources_factor = 0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_industrial_capacity_factory = 0.1}
+                set_variable = {FOD_Settling_Old_Scores_modifier_industry_repair_factor = 0.1}
+                annex_country = {
+                    target = FON
+                    transfer_troops = yes
+                }
+                # 统一枫丹，解除内战加成
+                remove_ideas = FOD_civil_war_buff_idea
+                mark_focus_tree_layout_dirty = yes
+                # 解锁枫丹军工组织（三级补偿）
+                mio:FON_fire_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_Chiori_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_ford_motor_company_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_yoimiya_tank_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_sara_tank_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_camco_medium_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_camco_bomber_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_aichi_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_hailu_shipyard_organization = { add_mio_size = 1 add_mio_funds = 600 }
+                mio:FON_roudeng_naval_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            }
+            custom_effect_tooltip = FOD_Endgame_rename_tooltip
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Reconstruction_of_Fontaine_initial_tooltip
+                    FOD_Chaotic_Government_initial_tooltip
+                    FOD_Settling_Old_Scores_initial_tooltip
+                }
+            }
+        }
+        relative_position_id = FOD_The_Decisive_Game
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+    ##################################################################
+    ######芙宁娜线####################################################
+    ##################################################################
+
+    #摧毁王位
+    focus = {
+        id = FOD_Destroy_the_Throne
+        x = 15
+		y = 8
+        cost = 3
+        icon = GFX_FOD_Destroy_the_Throne
+        allow_branch = {
+            has_completed_focus = FOD_Endgame
+            has_country_flag = FOD_civil_furina_flag
+        }
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        completion_reward = {
+            add_political_power = 100
+            add_command_power =  20
+            hidden_effect = {
+                set_cosmetic_tag = FOD_republic
+                set_popularities = {
+                    democratic = 40
+                    neutrality = 40
+                    communism = 15
+                    fascism = 5
+                }
+                # 先切到中和主义，让达尔杜弗成为中和主义党魁
+                set_politics = {
+                    ruling_party = neutrality
+                    elections_allowed = yes
+                }
+                promote_character = FOD_Tartuffe
+                promote_character = FOD_Furina2
+                # 再切到修禊主义，让芙宁娜2号成为领袖
+                set_politics = {
+                    ruling_party = democratic
+                    elections_allowed = yes
+                }
+                set_party_name = {
+                    ideology = democratic
+                    long_name =  FOD_democratic_name_2
+                    name = FOD_democratic_name_2
+                }
+                set_party_name = {
+                    ideology = neutrality
+                    long_name =  FOD_neutrality_name_2
+                    name = FOD_neutrality_name_2
+                }
+                set_party_name = {
+                    ideology = communism 
+                    long_name =  FOD_communism_name_2
+                    name = FOD_communism_name_2
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.400
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #解散贵族议会
+    focus = {
+        id = FOD_Dissolve_the_Noble_Council
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Dissolve_the_Noble_Council
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Destroy_the_Throne
+        prerequisite = {
+            focus = FOD_Destroy_the_Throne
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = fascism
+                popularity = -0.2
+            }
+            add_political_power = 100
+            country_event = {
+                id = FOD_Furina_event.401
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #组建公民议会
+    focus = {
+        id = FOD_Establish_the_Citizens_Council
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Establish_the_Citizens_Council
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Destroy_the_Throne
+        prerequisite = {
+            focus = FOD_Destroy_the_Throne
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = democratic
+                popularity = 0.2
+            }
+            add_political_power = 100
+            country_event = {
+                id = FOD_Furina_event.402
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #临时统领
+    focus = {
+        id =  FOD_Interim_Commander
+        x = 0
+        y = 2
+        cost = 3
+        icon = GFX_FOD_Interim_Commander
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Destroy_the_Throne
+        prerequisite = {
+            focus = FOD_Dissolve_the_Noble_Council
+        }
+        prerequisite = {
+            focus = FOD_Establish_the_Citizens_Council
+        }
+        completion_reward = {
+            add_country_leader_trait = FOD_Unite_Fontaine
+            country_event = {
+                id = FOD_Furina_event.405
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #枫丹廷新法典
+    focus = {
+        id = FOD_New_Codex_of_the_Court_of_Fontaine
+        x = -3
+        y = 1
+        cost = 3
+        icon = GFX_FOD_New_Codex_of_the_Court_of_Fontaine
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id =  FOD_Interim_Commander
+        prerequisite = {
+            focus =  FOD_Interim_Commander
+        }
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_New_Codex_modifier
+                }
+                set_variable = { FOD_New_Codex_modifier_political_power_cost = -0.6 }
+                set_variable = { FOD_New_Codex_modifier_conscription_factor = 0.18 }
+                set_variable = { FOD_New_Codex_modifier_supply_consumption_factor = -0.08 }
+                set_variable = { FOD_New_Codex_modifier_army_org_regain = 0.28 }
+                set_variable = { FOD_New_Codex_modifier_production_speed_buildings_factor = 0.16 }
+                set_variable = { FOD_New_Codex_modifier_industrial_capacity_factory = 0.22 }
+                set_variable = { FOD_New_Codex_modifier_industrial_capacity_dockyard = 0.22 }
+                set_variable = { FOD_New_Codex_modifier_industry_repair_factor = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_stability_factor = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_war_support_factor = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_conscription = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_army_defence_factor = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_democratic_drift = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_communism_drift = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_neutrality_drift = 0.0 }
+                set_variable = { FOD_New_Codex_modifier_consumer_goods_factor = 0.0 }
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_New_Codex_initial_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.409
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #北方能源重启
+    focus = {
+        id = FOD_Northern_Energy_Reactivation
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Northern_Energy_Reactivation
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_New_Codex_of_the_Court_of_Fontaine
+        prerequisite = {
+            focus = FOD_New_Codex_of_the_Court_of_Fontaine
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_factory_max_efficiency_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Northern_Energy_Reactivation_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #南方以工代赈
+    focus = {
+        id = FOD_Southern_WorkRelief_Program
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Southern_WorkRelief_Program
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Northern_Energy_Reactivation
+        prerequisite = {
+            focus = FOD_Northern_Energy_Reactivation
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.1}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_buildings_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_production_speed_industrial_complex_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_conversion_cost_mil_to_civ_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Southern_WorkRelief_Program_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #调整科学院方向
+    focus = {
+        id =  FOD_Reorient_the_Academy_of_Sciences
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Reorient_the_Academy_of_Sciences
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_New_Codex_of_the_Court_of_Fontaine
+        prerequisite = {
+            focus = FOD_New_Codex_of_the_Court_of_Fontaine
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_research_speed_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Reorient_the_Academy_of_Sciences_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #开发全枫丹资源
+    focus = {
+        id = FOD_Exploit_All_Resources_of_Fontaine
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Exploit_All_Resources_of_Fontaine
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id =  FOD_Reorient_the_Academy_of_Sciences
+        prerequisite = {
+            focus =  FOD_Reorient_the_Academy_of_Sciences
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_local_resources_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Exploit_All_Resources_of_Fontaine_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #服务产业整合
+    focus = {
+        id = FOD_Service_Industry_Consolidation
+        x = 0
+        y = 3
+        cost = 3
+        icon = GFX_FOD_Service_Industry_Consolidation
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_New_Codex_of_the_Court_of_Fontaine
+        prerequisite = {
+            focus = FOD_Southern_WorkRelief_Program
+        }
+        prerequisite = {
+            focus = FOD_Exploit_All_Resources_of_Fontaine
+        }
+        completion_reward = {
+            add_to_variable = {FOD_New_Codex_modifier_production_speed_buildings_factor = 0.1}
+            add_to_variable = {FOD_New_Codex_modifier_industry_repair_factor = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Service_Industry_Consolidation_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.410
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #枫丹武装改革
+    focus = {
+        id = FOD_Fontaine_Military_Reform
+        x = 3
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Fontaine_Military_Reform
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id =  FOD_Interim_Commander
+        prerequisite = {
+            focus =  FOD_Interim_Commander
+        }
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_Republican_Military_Reform_modifier
+                }
+                set_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.05}
+                set_variable = {FOD_Republican_Military_Reform_modifier_army_attack_factor = 0.05}
+                set_variable = {FOD_Republican_Military_Reform_modifier_army_defence_factor = 0.05}
+                set_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_minimum_training_level = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_army_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_navy_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_air_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_air_range_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_air_fuel_consumption_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_army_speed_factor = 0.0}
+                set_variable = {FOD_Republican_Military_Reform_modifier_naval_speed_factor = 0.0}
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Fontaine_Military_Reform_initial_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #制式铳枪列装
+    focus = {
+        id = FOD_Standardissue_Firearms_Deployment
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Standardissue_Firearms_Deployment
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Fontaine_Military_Reform
+        prerequisite = {
+            focus = FOD_Fontaine_Military_Reform
+        }
+        completion_reward = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 5000
+            }
+            add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 500
+            }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = infantry_weapons }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #组建海巡舰队
+    focus = {
+        id = FOD_Form_the_Maritime_Patrol_Fleet
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Form_the_Maritime_Patrol_Fleet
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Standardissue_Firearms_Deployment
+        prerequisite = {
+            focus = FOD_Standardissue_Firearms_Deployment
+        }
+        completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = naval_equipment }
+            add_equipment_to_stockpile = {
+                type = convoy
+                amount = 500
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Form_the_Maritime_Patrol_Fleet_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #杂牌军队职业化
+    focus = {
+        id = FOD_Professionalize_the_Ragtag_Army
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Professionalize_the_Ragtag_Army
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Fontaine_Military_Reform
+        prerequisite = {
+            focus = FOD_Fontaine_Military_Reform
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_attack_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_defence_factor = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_minimum_training_level = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Professionalize_the_Ragtag_Army_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #明确各部门职权
+    focus = {
+        id = FOD_Clarify_Departmental_Powers
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Clarify_Departmental_Powers
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Professionalize_the_Ragtag_Army
+        prerequisite = {
+            focus = FOD_Professionalize_the_Ragtag_Army
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_army_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_navy_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_experience_gain_air_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Clarify_Departmental_Powers_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #军队焕然一新
+    focus = {
+        id = FOD_The_Army_Is_Transformed
+        x = 0
+        y = 3
+        cost = 3
+        icon = GFX_FOD_The_Army_Is_Transformed
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Fontaine_Military_Reform
+        prerequisite = {
+            focus = FOD_Clarify_Departmental_Powers
+        }
+        prerequisite = {
+            focus = FOD_Form_the_Maritime_Patrol_Fleet
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_training_time_factor = -0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_max_planning = 0.1}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_army_org_factor = 0.05}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_supply_consumption_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_The_Army_Is_Transformed_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #众里寻他
+    focus = {
+        id = FOD_Searching_for_Him_in_the_Crowd
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Searching_for_Him_in_the_Crowd
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id =  FOD_Interim_Commander
+        prerequisite = {
+            focus =  FOD_Interim_Commander
+        }
+        completion_reward = {
+            hidden_effect = {
+                add_dynamic_modifier = {
+                    modifier = FOD_Tea_Party_Diplomacy_modifier
+                }
+                set_variable = {FOD_Tea_Party_Diplomacy_modifier_political_power_gain = 0.15}
+                set_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = -0.05}
+                set_variable = {FOD_Tea_Party_Diplomacy_modifier_monthly_population = 0.0}
+                set_variable = {FOD_Tea_Party_Diplomacy_modifier_war_support_factor = 0.0}
+            }
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Searching_for_Him_initial_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #茶会礼仪
+    focus = {
+        id = FOD_Tea_Party_Etiquette
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Tea_Party_Etiquette
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Searching_for_Him_in_the_Crowd
+        prerequisite = {
+            focus = FOD_Searching_for_Him_in_the_Crowd
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_monthly_population = 0.03}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Searching_for_Him_in_the_Crowd_tooltip
+                    add_idea = FOD_Tea_Party_Etiquette_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #直面恐惧
+    focus = {
+        id = FOD_Face_Your_Fears
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Face_Your_Fears
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Tea_Party_Etiquette
+        prerequisite = {
+            focus = FOD_Tea_Party_Etiquette
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = -0.05}
+            country_event = {
+                id = FOD_Furina_event.407
+            }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Searching_for_Him_in_the_Crowd_tooltip
+                    add_idea = FOD_Face_Your_Fears_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #壁炉之心
+    focus = {
+        id = FOD_Heart_of_the_Hearth
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Heart_of_the_Hearth
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Face_Your_Fears
+        prerequisite = {
+            focus = FOD_Face_Your_Fears
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_war_support_factor = -0.15}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Searching_for_Him_in_the_Crowd_tooltip
+                    add_idea = FOD_Heart_of_the_Hearth_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #孤心沙龙
+    focus = {
+        id = FOD_Solitary_Heart_Salon
+        x = 0
+        y = 3
+        cost = 3
+        icon = GFX_FOD_Solitary_Heart_Salon
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Tea_Party_Etiquette
+        prerequisite = {
+            focus = FOD_Service_Industry_Consolidation
+        }
+        prerequisite = {
+            focus = FOD_Heart_of_the_Hearth
+        }
+        prerequisite = {
+            focus = FOD_The_Army_Is_Transformed
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_stability_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_war_support_factor = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_factory = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_industrial_capacity_dockyard = 0.15}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = -0.05}
+            country_event = {
+                id = FOD_Furina_event.411
+            }
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Reconstruction_of_Fontaine_modifier_tooltip
+                    add_idea = FOD_Solitary_Heart_Salon_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #扩展映影业
+    focus = {
+        id = FOD_Expand_the_Cinematography_Industry
+        x = -4
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Expand_the_Cinematography_Industry
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        prerequisite = {
+            focus = FOD_Solitary_Heart_Salon
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_22_34_flag
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_political_power_gain = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Solitary_Heart_Salon_tooltip_0
+                    add_idea = FOD_Expand_the_Cinematography_Industry_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #甜点大校出击
+    focus = {
+        id = FOD_Operation_Pastry_Colonel
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Operation_Pastry_Colonel
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Expand_the_Cinematography_Industry
+        prerequisite = {
+            focus = FOD_Expand_the_Cinematography_Industry
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_monthly_population = 0.05}
+            add_to_variable = {FOD_Reconstruction_of_Fontaine_modifier_consumer_goods_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Expand_the_Cinematography_Industry_tooltip
+                    add_idea = FOD_Operation_Pastry_Colonel_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #商讨人权法
+    focus = {
+        id = FOD_Deliberate_the_Human_Rights_Law
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Deliberate_the_Human_Rights_Law
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        prerequisite = {
+            focus = FOD_Solitary_Heart_Salon
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_22_34_flag
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = communism
+                popularity = 0.05
+            }
+            add_to_variable = {FOD_New_Codex_modifier_conscription = 0.05}
+            add_to_variable = {FOD_New_Codex_modifier_army_defence_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Deliberate_the_Human_Rights_Law_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #爱德华多平反
+    focus = {
+        id = FOD_Exonerate_Eduardo
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Exonerate_Eduardo
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Deliberate_the_Human_Rights_Law
+        prerequisite = {
+            focus = FOD_Deliberate_the_Human_Rights_Law
+        }
+        completion_reward = {
+            add_popularity = {
+                ideology = communism
+                popularity = 0.05
+            }
+            add_to_variable = {FOD_New_Codex_modifier_stability_factor = 0.05}
+            add_to_variable = {FOD_New_Codex_modifier_war_support_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Exonerate_Eduardo_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #百乐谐荣之城
+    focus = {
+        id = FOD_City_of_Joy_and_Harmony
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_City_of_Joy_and_Harmony
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Exonerate_Eduardo
+        prerequisite = {
+            focus = FOD_Exonerate_Eduardo
+        }
+        prerequisite = {
+            focus = FOD_Operation_Pastry_Colonel
+        }
+        completion_reward = {
+            remove_dynamic_modifier = {
+                modifier = FOD_Chaotic_Government_modifier
+            }
+            add_dynamic_modifier = {
+                modifier = FOD_Moon_Cooperation_modifier
+            }
+            set_variable = {FOD_Moon_Cooperation_modifier_stability_factor = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_war_support_factor = 0.0}
+            set_variable = {FOD_Moon_Cooperation_modifier_industrial_capacity_factory = 0.3}
+            set_variable = {FOD_Moon_Cooperation_modifier_democratic_drift = 0.03}
+            set_variable = {FOD_Moon_Cooperation_modifier_communism_drift = 0.01}
+            set_variable = {FOD_Moon_Cooperation_modifier_neutrality_drift = 0.01}
+            set_variable = {FOD_Moon_Cooperation_modifier_political_power_gain = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_land_reinforce_rate = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_research_speed_factor = 0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_consumer_goods_factor = -0.05}
+            set_variable = {FOD_Moon_Cooperation_modifier_production_factory_efficiency_gain_factor = 0.05}
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_City_of_Joy_and_Harmony_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #筛选特战队
+    focus = {
+        id = FOD_Screen_the_Special_Operations_Unit
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Screen_the_Special_Operations_Unit
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        prerequisite = {
+            focus = FOD_Solitary_Heart_Salon
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_22_34_flag
+        }
+        completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = cat_special_forces_generic }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = cat_special_forces_generic }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = cat_special_forces_generic }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #地方传奇收拢
+    focus = {
+        id = FOD_Recruit_Local_Legends
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Recruit_Local_Legends
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Screen_the_Special_Operations_Unit
+        prerequisite = {
+            focus = FOD_Screen_the_Special_Operations_Unit
+        }
+        completion_reward = {
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = support_tech }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #引进风之翼
+    focus = {
+        id = FOD_Introduce_Wind_Gliders
+        x = 4
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Introduce_Wind_Gliders
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        prerequisite = {
+            focus = FOD_Solitary_Heart_Salon
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_22_34_flag
+        }
+        completion_reward = {
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
+            add_tech_bonus = { bonus = 1.0 uses = 1 category = air_equipment }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #枫丹空军演练
+    focus = {
+        id = FOD_Fontaine_Air_Force_Drill
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Fontaine_Air_Force_Drill
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Introduce_Wind_Gliders
+        prerequisite = {
+            focus = FOD_Introduce_Wind_Gliders
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_air_range_factor = 0.2}
+            add_to_variable = {FOD_Republican_Military_Reform_modifier_air_fuel_consumption_factor = -0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Fontaine_Military_Reform_tooltip
+                    add_idea = FOD_Fontaine_Air_Force_Drill_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #万象裁灭之刻
+    focus = {
+        id = FOD_Moment_of_Universal_Adjudication
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Moment_of_Universal_Adjudication
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Recruit_Local_Legends
+        prerequisite = {
+            focus = FOD_Recruit_Local_Legends
+        }
+        prerequisite = {
+            focus = FOD_Fontaine_Air_Force_Drill
+        }
+        completion_reward = {
+            hidden_effect = {
+                 add_ideas = {
+                    FOD_Moment_of_Universal_Adjudication_idea
+                }
+            }
+           
+            effect_tooltip = {
+                add_ideas = {
+                    FOD_Moment_of_Universal_Adjudication_tooltip
+                }
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #督促愚人众
+    focus = {
+        id = FOD_Press_the_Fatui
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Press_the_Fatui
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        prerequisite = {
+            focus = FOD_Solitary_Heart_Salon
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_22_34_flag
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = -0.05}
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_war_support_factor = -0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Heart_of_the_Hearth_tooltip
+                    add_idea = FOD_Press_the_Fatui_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.412
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #达达利亚承诺
+    focus = {
+        id = FOD_Tartaglias_Promise
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Tartaglias_Promise
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Press_the_Fatui
+        prerequisite = {
+            focus = FOD_Press_the_Fatui
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_stability_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Press_the_Fatui_tooltip
+                    add_idea = FOD_Tartaglias_Promise_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.413
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #渡越旧日之影
+    focus = {
+        id = FOD_Crossing_the_Shadows_of_Olden_Days
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Crossing_the_Shadows_of_Olden_Days
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Tartaglias_Promise
+        prerequisite = {
+            focus = FOD_Tartaglias_Promise
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Tea_Party_Diplomacy_modifier_supply_consumption_factor = -0.15}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_Tartaglias_Promise_tooltip
+                    add_idea = FOD_Crossing_the_Shadows_of_Olden_Days_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.415
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #好梦，枫丹
+    focus = {
+        id = FOD_Sweet_Dreams_Fontaine
+        x = 0
+        y = 4
+        cost = 3
+        icon = GFX_FOD_Sweet_Dreams_Fontaine
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Solitary_Heart_Salon
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_35_flag
+        }
+        prerequisite = {
+            focus = FOD_Crossing_the_Shadows_of_Olden_Days
+        }
+        prerequisite = {
+            focus = FOD_Moment_of_Universal_Adjudication
+        }
+        prerequisite = {
+            focus = FOD_City_of_Joy_and_Harmony
+        }
+        completion_reward = {
+            remove_dynamic_modifier = {
+                modifier = FOD_Tea_Party_Diplomacy_modifier
+            }
+            country_event = {
+                id = FOD_Furina_event.416
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #一封辞呈
+    focus = {
+        id = FOD_A_Letter_of_Resignation
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_A_Letter_of_Resignation
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Sweet_Dreams_Fontaine
+        prerequisite = {
+            focus = FOD_Sweet_Dreams_Fontaine
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_36_40_flag
+        }
+        completion_reward = {
+            add_political_power = 50
+            promote_character = FOD_Pauleau
+            add_country_leader_trait = FOD_Expected_Successor
+            country_event = {
+                id = FOD_Furina_event.417
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #泯然众人
+    focus = {
+        id = FOD_Fading_into_the_Crowd
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Fading_into_the_Crowd
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_A_Letter_of_Resignation
+        prerequisite = {
+            focus = FOD_Return_of_the_Tides
+        }
+        prerequisite = {
+            focus = FOD_A_Letter_of_Resignation
+        }
+        completion_reward = {
+            add_manpower = 10000
+            add_political_power = 25
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #潮水归来
+    focus = {
+        id = FOD_Return_of_the_Tides
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Return_of_the_Tides
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Sweet_Dreams_Fontaine
+        prerequisite = {
+            focus = FOD_Sweet_Dreams_Fontaine
+        }
+        allow_branch = {
+            
+            has_country_flag = FOD_Furina_politic_36_40_flag
+        }
+        completion_reward = {
+            add_ideas = FOD_Neuvillette
+            add_to_variable = {FOD_New_Codex_modifier_consumer_goods_factor = -0.05}
+            add_to_variable = {FOD_New_Codex_modifier_democratic_drift = 0.02}
+            add_to_variable = {FOD_New_Codex_modifier_communism_drift = 0.01}
+            add_to_variable = {FOD_New_Codex_modifier_neutrality_drift = 0.01}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_New_Codex_modifier_tooltip
+                    add_idea = FOD_Return_of_the_Tides_tooltip
+                }
+            }
+            country_event = {
+                id = FOD_Furina_event.418
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #人间喜剧
+    focus = {
+        id = FOD_La_Comedie_Humaine
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_La_Comedie_Humaine
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Return_of_the_Tides
+        prerequisite = {
+            focus = FOD_Return_of_the_Tides
+        }
+        prerequisite = {
+            focus = FOD_A_Letter_of_Resignation
+        }
+        completion_reward = {
+            add_to_variable = {FOD_Moon_Cooperation_modifier_political_power_gain = 0.15}
+            add_to_variable = {FOD_Moon_Cooperation_modifier_command_power_gain = 0.1}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = FOD_City_of_Joy_and_Harmony_tooltip0
+                    add_idea = FOD_La_Comedie_Humaine_tooltip
+                }
+            }
+            116 = {
+                add_extra_state_shared_building_slots = 1
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #水的女儿
+    focus = {
+        id = FOD_Daughter_of_the_Waters
+        x = 0
+        y = 3
+        cost = 3
+        icon = GFX_FOD_Daughter_of_the_Waters
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Sweet_Dreams_Fontaine
+        prerequisite = {
+            focus = FOD_La_Comedie_Humaine
+        }
+        prerequisite = {
+            focus = FOD_Fading_into_the_Crowd
+        }
+        completion_reward = {
+            country_event = { id = super.17 }
+            country_event = {
+                id = FOD_Furina_event.419
+            }
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+    #######################
+    #####贵族线###########
+
+
+
+    #####################
+    ######## 经济 ###########
+    #####################
+
+    #往昔繁荣
+    focus = {
+        id = FOD_Bygone_Prosperity
+        x = 16
+        y = 9
+        cost = 3
+        icon = GFX_FOD_Bygone_Prosperity
+        allow_branch = {
+            has_country_flag = FOD_civil_noble_flag
+        }
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #枫丹廷美化工程
+    focus = {
+        id = FOD_Court_of_Fontaine_Beautification_Project
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Court_of_Fontaine_Beautification_Project
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Bygone_Prosperity
+        prerequisite = {
+            focus = FOD_Bygone_Prosperity
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #广场集市税
+    focus = {
+        id = FOD_Plaza_Market_Tax
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Plaza_Market_Tax
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Court_of_Fontaine_Beautification_Project
+        prerequisite = {
+            focus = FOD_Court_of_Fontaine_Beautification_Project
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #纺织业行会
+    focus = {
+        id = FOD_Textile_Guild
+        x = -1
+        y = 2
+        cost = 3
+        icon = GFX_FOD_Textile_Guild
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Court_of_Fontaine_Beautification_Project
+        prerequisite = {
+            focus = FOD_Plaza_Market_Tax
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #歌剧院人员限制
+    focus = {
+        id = FOD_Opera_House_Personnel_Restrictions
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Opera_House_Personnel_Restrictions
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Court_of_Fontaine_Beautification_Project
+        prerequisite = {
+            focus = FOD_Court_of_Fontaine_Beautification_Project
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #狩猎与林业行会
+    focus = {
+        id = FOD_Hunting_and_Forestry_Guild
+        x = 1
+        y = 2
+        cost = 3
+        icon = GFX_FOD_Hunting_and_Forestry_Guild
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Court_of_Fontaine_Beautification_Project
+        prerequisite = {
+            focus = FOD_Opera_House_Personnel_Restrictions
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #沫芒宫帝国银行
+    focus = {
+        id = FOD_Imperial_Bank_of_Palais_Mermonia
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Imperial_Bank_of_Palais_Mermonia
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Bygone_Prosperity
+        prerequisite = {
+            focus = FOD_Bygone_Prosperity
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #科学院实用化转型
+    focus = {
+        id = FOD_Practical_Transformation_of_the_Academy_of_Sciences
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Practical_Transformation_of_the_Academy_of_Sciences
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Imperial_Bank_of_Palais_Mermonia
+        prerequisite = {
+            focus = FOD_Imperial_Bank_of_Palais_Mermonia
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #白淞镇庄园经济
+    focus = {
+        id = FOD_Poisson_Manor_Economy
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Poisson_Manor_Economy
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Practical_Transformation_of_the_Academy_of_Sciences
+        prerequisite = {
+            focus = FOD_Practical_Transformation_of_the_Academy_of_Sciences
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #厄里那斯矿场
+    focus = {
+        id = FOD_Elynas_Quarry
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Elynas_Quarry
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Imperial_Bank_of_Palais_Mermonia
+        prerequisite = {
+            focus = FOD_Imperial_Bank_of_Palais_Mermonia
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #水道航运垄断
+    focus = {
+        id = FOD_Waterway_Shippin_Monopoly
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Waterway_Shippin_Monopoly
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Elynas_Quarry
+        prerequisite = {
+            focus = FOD_Elynas_Quarry
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #帝国复兴
+    focus = {
+        id = FOD_Imperial_Restoration
+        x = 0
+        y = 4
+        cost = 3
+        icon = GFX_FOD_Imperial_Restoration
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Bygone_Prosperity
+        prerequisite = {
+            focus = FOD_Hunting_and_Forestry_Guild
+        }
+        prerequisite = {
+            focus = FOD_Textile_Guild
+        }
+        prerequisite = {
+            focus = FOD_Poisson_Manor_Economy
+        }
+        prerequisite = {
+            focus = FOD_Waterway_Shippin_Monopoly
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #####################
+    #####    军事       ###########
+    #####################
+
+
+
+    #贵族近卫军
+    focus = {
+        id = FOD_Noble_Praetorian_Guard
+        x = 26
+        y = 10
+        cost = 3
+        icon = GFX_FOD_Noble_Praetorian_Guard
+        allow_branch = {
+            has_country_flag = FOD_civil_noble_flag
+        }
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #帝国军事改革
+    focus = {
+        id = FOD_Imperial_Military_Reform
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Imperial_Military_Reform
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Noble_Praetorian_Guard
+        prerequisite = {
+            focus = FOD_Noble_Praetorian_Guard
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #皇家陆军学院
+    focus = {
+        id = FOD_Royal_Army_Academy
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Royal_Army_Academy
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Imperial_Military_Reform
+        prerequisite = {
+            focus = FOD_Imperial_Military_Reform
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #水下监狱铸造厂
+    focus = {
+        id = FOD_Underwater_Prison_Foundry
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Underwater_Prison_Foundry
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Royal_Army_Academy
+        prerequisite = {
+            focus = FOD_Royal_Army_Academy
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #重用决斗代理人
+    focus = {
+        id = FOD_Appoint_Champion_Duelists
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Appoint_Champion_Duelists
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Underwater_Prison_Foundry
+        prerequisite = {
+            focus = FOD_Underwater_Prison_Foundry
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #设计载人步行机
+    focus = {
+        id = FOD_Design_Manned_Walkers
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Design_Manned_Walkers
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Appoint_Champion_Duelists
+        prerequisite = {
+            focus = FOD_Appoint_Champion_Duelists
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #皇家海巡舰队
+    focus = {
+        id = FOD_Royal_Maritime_Patrol_Fleet
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Royal_Maritime_Patrol_Fleet
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Imperial_Military_Reform
+        prerequisite = {
+            focus = FOD_Imperial_Military_Reform
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #水道突击
+    focus = {
+        id = FOD_Waterway_Assault
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Waterway_Assault
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Royal_Maritime_Patrol_Fleet
+        prerequisite = {
+            focus = FOD_Royal_Maritime_Patrol_Fleet
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #空中骑兵中队
+    focus = {
+        id = FOD_Aerial_Cavalry_Squadron
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Aerial_Cavalry_Squadron
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Waterway_Assault
+        prerequisite = {
+            focus = FOD_Waterway_Assault
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #海风驭者
+    focus = {
+        id = FOD_Sea_Breeze_Rider
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Sea_Breeze_Rider
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Aerial_Cavalry_Squadron
+        prerequisite = {
+            focus = FOD_Aerial_Cavalry_Squadron
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #碎浪之武
+    focus = {
+        id = FOD_Wavebreakers_Might
+        x = 0
+        y = 5
+        cost = 3
+        icon = GFX_FOD_Wavebreakers_Might
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Imperial_Military_Reform
+        prerequisite = {
+            focus = FOD_Design_Manned_Walkers
+        }
+        prerequisite = {
+            focus = FOD_Sea_Breeze_Rider
+        }
+        completion_reward = {
+            
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+
+    ###################
+    ####### 外交  #####
+    ###################
+
+
+    #贵胄之友
+    focus = {
+        id = FOD_Friend_of_the_Nobility
+        x = 16
+        y = 16
+        cost = 3
+        icon = GFX_FOD_Friend_of_the_Nobility
+        allow_branch = {
+            has_country_flag = FOD_civil_noble_flag
+        }
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #与愚人众合作
+    focus = {
+        id = FOD_Cooperate_with_the_Fatui
+        x = -2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Cooperate_with_the_Fatui
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Friend_of_the_Nobility
+        prerequisite = {
+            focus = FOD_Friend_of_the_Nobility
+        }
+        completion_reward = {
+        }
+        available = {
+
+        }
+    
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #交好稻妻幕府
+    focus = {
+        id = FOD_Befriend_the_Inazuma_Shogunate
+        x = 0
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Befriend_the_Inazuma_Shogunate
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Friend_of_the_Nobility
+        prerequisite = {
+            focus = FOD_Friend_of_the_Nobility
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #同劳伦斯会晤
+    focus = {
+        id = FOD_Meet_with_Lawrence
+        x = 2
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Meet_with_Lawrence
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Friend_of_the_Nobility
+        prerequisite = {
+            focus = FOD_Friend_of_the_Nobility
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #同“博士”合作
+    focus = {
+        id = FOD_Cooperate_with_The_Doctor
+        x = -1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Cooperate_with_The_Doctor
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Befriend_the_Inazuma_Shogunate
+        mutually_exclusive = {
+            focus = FOD_Reconcile_with_The_Knave
+        }
+        prerequisite = {
+            focus = FOD_Cooperate_with_the_Fatui
+        }
+        prerequisite = {
+            focus = FOD_Befriend_the_Inazuma_Shogunate
+        }
+        prerequisite = {
+            focus = FOD_Meet_with_Lawrence
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #与“仆人”和解
+    focus = {
+        id = FOD_Reconcile_with_The_Knave
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Reconcile_with_The_Knave
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Befriend_the_Inazuma_Shogunate
+        mutually_exclusive = {
+            focus = FOD_Cooperate_with_The_Doctor
+        }
+        prerequisite = {
+            focus = FOD_Meet_with_Lawrence
+        }
+        prerequisite = {
+            focus = FOD_Befriend_the_Inazuma_Shogunate
+        }
+        prerequisite = {
+            focus = FOD_Cooperate_with_the_Fatui
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+
+    #宣称旧日之海
+    focus = {
+        id = FOD_Claim_the_Sea_of_Old
+        x = 1
+        y = 1
+        cost = 3
+        icon = GFX_FOD_Claim_the_Sea_of_Old
+        cancel_if_invalid = yes
+        continue_if_invalid = no
+        relative_position_id = FOD_Cooperate_with_The_Doctor
+        prerequisite = {
+            focus = FOD_Cooperate_with_The_Doctor
+            focus = FOD_Reconcile_with_The_Knave
+        }
+        completion_reward = {
+        }
+        available = {
+        }
+        bypass = {
+        }
+        available_if_capitulated = no
+        ai_will_do = {
+            factor = 1
+            modifier = {
+            }
+        }
+    }
+}

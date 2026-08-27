@@ -1,0 +1,2441 @@
+# ========================================================================
+# 珊瑚宫事件 BY 桂花糕
+# ========================================================================
+
+add_namespace = SANG
+add_namespace = SANG_Event
+add_namespace = SANG_News
+add_namespace = SAN_Event
+
+# ========================== 特殊事件 ==========================
+
+# 结盟
+country_event = {
+	id = SAN_event.10081
+	title = SAN_event.10081.t
+	desc = SAN_event.10081.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_speech
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.10081.a
+		add_political_power = 100
+		SAN = {
+			country_event = { id = SAN_event.10082 }
+		}
+	}
+	option = {
+		name = SAN_event.10081.b
+		add_political_power = 100
+		trigger = { is_ai = no }
+	}
+}
+country_event = {
+	id = SAN_event.10082
+	title = SAN_event.10082.t
+	desc = SAN_event.10082.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_speech
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.10082.a
+		add_political_power = 100
+		GYP = { add_to_faction = SAN }
+		news_event = { id = SAN_event.10083 days = 10 }
+		random_owned_controlled_state = {
+			limit = { ROOT = { has_full_control_of_state = PREV } }
+			create_unit = {
+				division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+				owner = ROOT  count = 6
+			}
+		}
+	}
+	option = {
+		name = SAN_event.10082.b
+		add_political_power = 100
+	}
+}
+news_event = {
+	id = SAN_event.10083
+	title = SAN_event.10083.t
+	desc = SAN_event.10083.desc
+	picture = GFX_GUN_News_06
+	major = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = SAN_event.10083.a
+	}
+}
+
+# ========================== 第一阶段：揭旗起事 (1-30) ==========================
+
+# 1. 反抗的开端
+country_event = {
+	id = SAN_event.1
+	title = SAN_event.1.t
+	desc = SAN_event.1.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_speech
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.1.a
+		declare_war_on = { target = INA type = annex_everything }
+		add_political_power = 100
+	}
+}
+
+# 2. 动员海祇民兵
+country_event = {
+	id = SAN_event.2
+	title = SAN_event.2.t
+	desc = SAN_event.2.desc
+	picture = GFX_event_INA04 # GFX_report_event_militia
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.2.a
+		add_manpower = 5000
+		add_stability = 0.05
+	}
+}
+
+# 3. 建立珊瑚宫大本营
+country_event = {
+	id = SAN_event.3
+	title = SAN_event.3.t
+	desc = SAN_event.3.desc
+	picture = GFX_event_INA04 # GFX_report_event_hq
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.3.a
+		add_command_power = 20
+		add_ideas = SAN_sangonomiya_hq_spirit
+	}
+}
+
+# 4. 五郎军事改革
+country_event = {
+	id = SAN_event.4
+	title = SAN_event.4.t
+	desc = SAN_event.4.desc
+	picture = GFX_event_INA04 # GFX_report_event_gorou_train
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.4.a
+		add_ideas = SAN_gorou_general
+		army_experience = 20
+	}
+}
+
+# 5. 秘密情报网
+country_event = {
+	id = SAN_event.5
+	title = SAN_event.5.t
+	desc = SAN_event.5.desc
+	picture = GFX_event_INA04 # GFX_report_event_spy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.5.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 6. 锦囊妙计战略
+country_event = {
+	id = SAN_event.6
+	title = SAN_event.6.t
+	desc = SAN_event.6.desc
+	picture = GFX_event_INA04 # GFX_report_event_tactics
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.6.a
+		add_ideas = SAN_planingtoomuch
+	}
+}
+
+# 7. 神之眼先锋行动
+country_event = {
+	id = SAN_event.7
+	title = SAN_event.7.t
+	desc = SAN_event.7.desc
+	picture = GFX_event_INA04 # GFX_report_event_vision_squad
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.7.a
+		add_ideas = SAN_Delusion
+		add_war_support = 0.05
+	}
+}
+
+# 8. 珍珠配给计划
+country_event = {
+	id = SAN_event.8
+	title = SAN_event.8.t
+	desc = SAN_event.8.desc
+	picture = GFX_event_INA04 # GFX_report_event_ration
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.8.a
+		add_stability = 0.1
+	}
+}
+
+# 9. 海上伏击战术
+country_event = {
+	id = SAN_event.9
+	title = SAN_event.9.t
+	desc = SAN_event.9.desc
+	picture = GFX_event_INA04 # GFX_report_event_naval_ambush
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.9.a
+		navy_experience = 20
+	}
+}
+
+# 10. 巫女志愿者动员
+country_event = {
+	id = SAN_event.10
+	title = SAN_event.10.t
+	desc = SAN_event.10.desc
+	picture = GFX_event_INA04 # GFX_report_event_maiden
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.10.a
+		add_manpower = 2000
+	}
+}
+
+# 11. 招募流浪武士
+country_event = {
+	id = SAN_event.11
+	title = SAN_event.11.t
+	desc = SAN_event.11.desc
+	picture = GFX_event_INA04 # GFX_report_event_ronin
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.11.a
+		add_manpower = 3000
+		army_experience = 10
+	}
+}
+
+# 12. 心海兵法研习
+country_event = {
+	id = SAN_event.12
+	title = SAN_event.12.t
+	desc = SAN_event.12.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_study
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.12.a
+		add_ideas = DOT_Government_Control5
+	}
+}
+
+# 13. 战时税收安排
+country_event = {
+	id = SAN_event.13
+	title = SAN_event.13.t
+	desc = SAN_event.13.desc
+	picture = GFX_event_INA04 # GFX_report_event_tax
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.13.a
+		add_political_power = 50
+	}
+}
+
+# 14. 反抗军加固计划
+country_event = {
+	id = SAN_event.14
+	title = SAN_event.14.t
+	desc = SAN_event.14.desc
+	picture = GFX_event_INA04 # GFX_report_event_fortify
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.14.a
+		random_owned_state = { add_building_construction = { type = land_fort level = 1 } }
+	}
+}
+
+# 15. 异国雇佣兵联络
+country_event = {
+	id = SAN_event.15
+	title = SAN_event.15.t
+	desc = SAN_event.15.desc
+	picture = GFX_event_INA04 # GFX_report_event_mercenary
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.15.a
+		add_manpower = 1500
+		add_political_power = -20
+	}
+}
+
+# 16. 后勤隧道工程
+country_event = {
+	id = SAN_event.16
+	title = SAN_event.16.t
+	desc = SAN_event.16.desc
+	picture = GFX_event_INA04 # GFX_report_event_tunnel
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.16.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+	}
+}
+
+# 17. 神之眼持有者整合
+country_event = {
+	id = SAN_event.17
+	title = SAN_event.17.t
+	desc = SAN_event.17.desc
+	picture = GFX_event_INA04 # GFX_report_event_vision_merge
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.17.a
+		army_experience = 30
+	}
+}
+
+# 18. 地下情报网络扩张
+country_event = {
+	id = SAN_event.18
+	title = SAN_event.18.t
+	desc = SAN_event.18.desc
+	picture = GFX_event_INA04 # GFX_report_event_narukami_intel
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.18.a
+		add_political_power = 30
+	}
+}
+
+# 19. 海岸线巡逻战略
+country_event = {
+	id = SAN_event.19
+	title = SAN_event.19.t
+	desc = SAN_event.19.desc
+	picture = GFX_event_INA04 # GFX_report_event_coast_patrol
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.19.a
+		navy_experience = 15
+	}
+}
+
+# 20. 村议会授权
+country_event = {
+	id = SAN_event.20
+	title = SAN_event.20.t
+	desc = SAN_event.20.desc
+	picture = GFX_event_INA04 # GFX_report_event_village_council
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.20.a
+		add_stability = 0.05
+	}
+}
+
+# 21. 紧急粮食储备战略
+country_event = {
+	id = SAN_event.21
+	title = SAN_event.21.t
+	desc = SAN_event.21.desc
+	picture = GFX_event_INA04 # GFX_report_event_rice
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.21.a
+		add_ideas = SAN_worker_shortage
+	}
+}
+
+# 22. 旗语通讯协议
+country_event = {
+	id = SAN_event.22
+	title = SAN_event.22.t
+	desc = SAN_event.22.desc
+	picture = GFX_event_INA04 # GFX_report_event_signal
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.22.a
+		add_command_power = 10
+	}
+}
+
+# 23. 游击战术部署
+country_event = {
+	id = SAN_event.23
+	title = SAN_event.23.t
+	desc = SAN_event.23.desc
+	picture = GFX_event_INA04 # GFX_report_event_partisan
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.23.a
+		add_war_support = 0.05
+	}
+}
+
+# 24. 侦察部队改组
+country_event = {
+	id = SAN_event.24
+	title = SAN_event.24.t
+	desc = SAN_event.24.desc
+	picture = GFX_event_INA04 # GFX_report_event_scout
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.24.a
+		army_experience = 10
+	}
+}
+
+# 25. 水雷布设战略
+country_event = {
+	id = SAN_event.25
+	title = SAN_event.25.t
+	desc = SAN_event.25.desc
+	picture = GFX_event_INA04 # GFX_report_event_mine
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.25.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_equipment }
+	}
+}
+
+# 26. 岛屿要塞化目标
+country_event = {
+	id = SAN_event.26
+	title = SAN_event.26.t
+	desc = SAN_event.26.desc
+	picture = GFX_event_INA04 # GFX_report_event_bunker
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.26.a
+		random_owned_state = { add_building_construction = { type = land_fort level = 1 } }
+	}
+}
+
+# 27. 英雄史诗宣传行动
+country_event = {
+	id = SAN_event.27
+	title = SAN_event.27.t
+	desc = SAN_event.27.desc
+	picture = GFX_event_INA04 # GFX_report_event_propaganda
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.27.a
+		add_war_support = 0.1
+	}
+}
+
+# 28. 防线协同强化
+country_event = {
+	id = SAN_event.28
+	title = SAN_event.28.t
+	desc = SAN_event.28.desc
+	picture = GFX_event_INA04 # GFX_report_event_defense_line
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.28.a
+		add_ideas = SAN_omikami_protection
+	}
+}
+
+# 29. 黑市物资交易协议
+country_event = {
+	id = SAN_event.29
+	title = SAN_event.29.t
+	desc = SAN_event.29.desc
+	picture = GFX_event_INA04 # GFX_report_event_black_market
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.29.a
+		add_political_power = 40
+	}
+}
+
+# 30. 第一阶段攻势筹备
+country_event = {
+	id = SAN_event.30
+	title = SAN_event.30.t
+	desc = SAN_event.30.desc
+	picture = GFX_event_INA04 # GFX_report_event_attack_plan
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.30.a
+		army_experience = 25
+	}
+}
+
+# ========================== 第二阶段：内战烽火 (31-70) ==========================
+
+# 31. 神无冢攻势战略
+country_event = {
+	id = SAN_event.31
+	title = SAN_event.31.t
+	desc = SAN_event.31.desc
+	picture = GFX_event_INA04 # GFX_report_event_kannazuka_war
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.31.a
+		add_war_support = 0.1
+	}
+}
+
+# 32. 夺取御影炉心行动
+country_event = {
+	id = SAN_event.32
+	title = SAN_event.32.t
+	desc = SAN_event.32.desc
+	picture = GFX_event_INA04 # GFX_report_event_furnace
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.32.a
+		random_owned_state = { add_extra_state_shared_building_slots = 2 add_building_construction = { type = industrial_complex level = 2 } }
+	}
+}
+
+# 33. 名椎滩战术部署
+country_event = {
+	id = SAN_event.33
+	title = SAN_event.33.t
+	desc = SAN_event.33.desc
+	picture = GFX_event_INA04 # GFX_report_event_nazuchi_beach
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.33.a
+		add_ideas = SAN_army_corruption
+	}
+}
+
+# 34. 踏鞴砂重建计划
+country_event = {
+	id = SAN_event.34
+	title = SAN_event.34.t
+	desc = SAN_event.34.desc
+	picture = GFX_event_INA04 # GFX_report_event_rebuild
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.34.a
+		add_extra_state_shared_building_slots = 2
+	}
+}
+
+# 35. 八酝岛平定行动
+country_event = {
+	id = SAN_event.35
+	title = SAN_event.35.t
+	desc = SAN_event.35.desc
+	picture = GFX_event_INA04 # GFX_report_event_yashiori
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.35.a
+		add_stability = 0.05
+	}
+}
+
+# 36. 祟神能量遏制工程
+country_event = {
+	id = SAN_event.36
+	title = SAN_event.36.t
+	desc = SAN_event.36.desc
+	picture = GFX_event_INA04 # GFX_report_event_tatarigami
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.36.a
+		add_ideas = SAN_piety_of_watatsumi
+	}
+}
+
+# 37. 联络枫丹工程团队
+country_event = {
+	id = SAN_event.37
+	title = SAN_event.37.t
+	desc = SAN_event.37.desc
+	picture = GFX_event_INA04 # GFX_report_event_fontaine
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.37.a
+		add_tech_bonus = { bonus = 0.5 uses = 2 category = engineering }
+	}
+}
+
+# 38. 神里家秘密联络
+country_event = {
+	id = SAN_event.38
+	title = SAN_event.38.t
+	desc = SAN_event.38.desc
+	picture = GFX_event_INA04 # GFX_report_event_ayaka
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.38.a
+		add_political_power = 75
+	}
+}
+
+# 39. 万叶先锋战略单位
+country_event = {
+	id = SAN_event.39
+	title = SAN_event.39.t
+	desc = SAN_event.39.desc
+	picture = GFX_event_INA04 # GFX_report_event_kazuha
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.39.a
+		army_experience = 30
+	}
+}
+
+# 40. 终末番协同战术
+country_event = {
+	id = SAN_event.40
+	title = SAN_event.40.t
+	desc = SAN_event.40.desc
+	picture = GFX_event_INA04 # GFX_report_event_shumatsuban
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.40.a
+		add_ideas = DOT_Government_Research2
+	}
+}
+
+# 41. 绯木村救援行动
+country_event = {
+	id = SAN_event.41
+	title = SAN_event.41.t
+	desc = SAN_event.41.desc
+	picture = GFX_event_INA04 # GFX_report_event_higi_village
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.41.a
+		add_stability = 0.1
+	}
+}
+
+# 42. 矿产开采现代化行动
+country_event = {
+	id = SAN_event.42
+	title = SAN_event.42.t
+	desc = SAN_event.42.desc
+	picture = GFX_event_INA04 # GFX_report_event_mining
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.42.a
+		random_owned_state = { add_resource = { type = steel amount = 10 } }
+	}
+}
+
+# 43. 无想刃狭间防线
+country_event = {
+	id = SAN_event.43
+	title = SAN_event.43.t
+	desc = SAN_event.43.desc
+	picture = GFX_event_INA04 # GFX_report_event_gorge
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.43.a
+		random_owned_state = { add_building_construction = { type = land_fort level = 2 } }
+	}
+}
+
+# 44. 武器锻造标准化
+country_event = {
+	id = SAN_event.44
+	title = SAN_event.44.t
+	desc = SAN_event.44.desc
+	picture = GFX_event_INA04 # GFX_report_event_forge
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.44.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+	}
+}
+
+# 45. 八酝岛志愿者招募
+country_event = {
+	id = SAN_event.45
+	title = SAN_event.45.t
+	desc = SAN_event.45.desc
+	picture = GFX_event_INA04 # GFX_report_event_yashiori_recruit
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.45.a
+		add_manpower = 4000
+	}
+}
+
+# 46. 御影炉心过载安全协议
+country_event = {
+	id = SAN_event.46
+	title = SAN_event.46.t
+	desc = SAN_event.46.desc
+	picture = GFX_event_INA04 # GFX_report_event_furnace_safe
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.46.a
+		add_ideas = DOT_Government_Industry2
+	}
+}
+
+# 47. 破坏天领奉行补给线
+country_event = {
+	id = SAN_event.47
+	title = SAN_event.47.t
+	desc = SAN_event.47.desc
+	picture = GFX_event_INA04 # GFX_report_event_sabotage
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.47.a
+		add_war_support = 0.05
+	}
+}
+
+# 48. 九条阵屋围攻计划
+country_event = {
+	id = SAN_event.48
+	title = SAN_event.48.t
+	desc = SAN_event.48.desc
+	picture = GFX_event_INA04 # GFX_report_event_kujou_siege
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.48.a
+		army_experience = 20
+	}
+}
+
+# 49. 战时宣传扩张
+country_event = {
+	id = SAN_event.49
+	title = SAN_event.49.t
+	desc = SAN_event.49.desc
+	picture = GFX_event_INA04 # GFX_report_event_propaganda_2
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.49.a
+		add_political_power = 60
+	}
+}
+
+# 50. 中心化指挥结构
+country_event = {
+	id = SAN_event.50
+	title = SAN_event.50.t
+	desc = SAN_event.50.desc
+	picture = GFX_event_INA04 # GFX_report_event_central_command
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.50.a
+		add_ideas = SAN_Too_young
+	}
+}
+
+# 51. 资源储备战略
+country_event = {
+	id = SAN_event.51
+	title = SAN_event.51.t
+	desc = SAN_event.51.desc
+	picture = GFX_event_INA04 # GFX_report_event_resource_stack
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.51.a
+		add_extra_state_shared_building_slots = 1
+	}
+}
+
+# 52. 行为准则修正案
+country_event = {
+	id = SAN_event.52
+	title = SAN_event.52.t
+	desc = SAN_event.52.desc
+	picture = GFX_event_INA04 # GFX_report_event_law
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.52.a
+		add_stability = 0.1
+	}
+}
+
+# 53. 海祇贸易航线保护
+country_event = {
+	id = SAN_event.53
+	title = SAN_event.53.t
+	desc = SAN_event.53.desc
+	picture = GFX_event_INA04 # GFX_report_event_convoy_protect
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.53.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_doctrine }
+	}
+}
+
+# 54. 联合参谋军事学院
+country_event = {
+	id = SAN_event.54
+	title = SAN_event.54.t
+	desc = SAN_event.54.desc
+	picture = GFX_event_INA04 # GFX_report_event_academy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.54.a
+		army_experience = 40
+	}
+}
+
+# 55. 工业迁移计划
+country_event = {
+	id = SAN_event.55
+	title = SAN_event.55.t
+	desc = SAN_event.55.desc
+	picture = GFX_event_INA04 # GFX_report_event_industrial_migration
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.55.a
+		random_owned_state = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 } }
+	}
+}
+
+# 56. 高级侦察任务
+country_event = {
+	id = SAN_event.56
+	title = SAN_event.56.t
+	desc = SAN_event.56.desc
+	picture = GFX_event_INA04 # GFX_report_event_advanced_recon
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.56.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 57. 前线医疗支援改革
+country_event = {
+	id = SAN_event.57
+	title = SAN_event.57.t
+	desc = SAN_event.57.desc
+	picture = GFX_event_INA04 # GFX_report_event_medical
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.57.a
+		add_ideas = SAN_devalue_the_inmuase
+	}
+}
+
+# 58. 海祇海军造船厂扩张
+country_event = {
+	id = SAN_event.58
+	title = SAN_event.58.t
+	desc = SAN_event.58.desc
+	picture = GFX_event_INA04 # GFX_report_event_shipyard
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.58.a
+		random_owned_state = { add_building_construction = { type = dockyard level = 1 } }
+	}
+}
+
+# 59. 战略储备动员
+country_event = {
+	id = SAN_event.59
+	title = SAN_event.59.t
+	desc = SAN_event.59.desc
+	picture = GFX_event_INA04 # GFX_report_event_reserve_mob
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.59.a
+		add_manpower = 5000
+	}
+}
+
+# 60. 神社防御协同
+country_event = {
+	id = SAN_event.60
+	title = SAN_event.60.t
+	desc = SAN_event.60.desc
+	picture = GFX_event_INA04 # GFX_report_event_shrine_defense
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.60.a
+		add_stability = 0.05
+	}
+}
+
+# 61. 后勤效率大整顿
+country_event = {
+	id = SAN_event.61
+	title = SAN_event.61.t
+	desc = SAN_event.61.desc
+	picture = GFX_event_INA04 # GFX_report_event_logistics
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.61.a
+		add_ideas = Daybreak_of_Teyvat
+	}
+}
+
+# 62. 海上巡逻舰队组建
+country_event = {
+	id = SAN_event.62
+	title = SAN_event.62.t
+	desc = SAN_event.62.desc
+	picture = GFX_event_INA04 # GFX_report_event_fleet
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.62.a
+		navy_experience = 25
+	}
+}
+
+# 63. 精锐勇士训练改革
+country_event = {
+	id = SAN_event.63
+	title = SAN_event.63.t
+	desc = SAN_event.63.desc
+	picture = GFX_event_INA04 # GFX_report_event_elite_train
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.63.a
+		army_experience = 30
+	}
+}
+
+# 64. 合成材料研究行动
+country_event = {
+	id = SAN_event.64
+	title = SAN_event.64.t
+	desc = SAN_event.64.desc
+	picture = GFX_event_INA04 # GFX_report_event_synthetic
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.64.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+	}
+}
+
+# 65. 国民征兵安排
+country_event = {
+	id = SAN_event.65
+	title = SAN_event.65.t
+	desc = SAN_event.65.desc
+	picture = GFX_event_INA04 # GFX_report_event_conscription
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.65.a
+		add_manpower = 10000
+	}
+}
+
+# 66. 重型火炮部署计划
+country_event = {
+	id = SAN_event.66
+	title = SAN_event.66.t
+	desc = SAN_event.66.desc
+	picture = GFX_event_INA04 # GFX_report_event_artillery
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.66.a
+		army_experience = 20
+	}
+}
+
+# 67. 实验性航空雏形计划
+country_event = {
+	id = SAN_event.67
+	title = SAN_event.67.t
+	desc = SAN_event.67.desc
+	picture = GFX_event_INA04 # GFX_report_event_air_proto
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.67.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+	}
+}
+
+# 68. 全面战争工业重点
+country_event = {
+	id = SAN_event.68
+	title = SAN_event.68.t
+	desc = SAN_event.68.desc
+	picture = GFX_event_INA04 # GFX_report_event_total_war
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.68.a
+		random_owned_state = { add_building_construction = { type = arms_factory level = 3 } }
+	}
+}
+
+# 69. 鸣神岛渗透战略
+country_event = {
+	id = SAN_event.69
+	title = SAN_event.69.t
+	desc = SAN_event.69.desc
+	picture = GFX_event_INA04 # GFX_report_event_narukami_infiltrate
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.69.a
+		add_political_power = 50
+	}
+}
+
+# 70. 天守阁总攻安排
+country_event = {
+	id = SAN_event.70
+	title = SAN_event.70.t
+	desc = SAN_event.70.desc
+	picture = GFX_event_INA04 # GFX_report_event_tenshukaku
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.70.a
+		add_war_support = 0.1
+	}
+}
+
+# ========================== 第三阶段：平定旧域 (71-110) ==========================
+
+# 71. 清籁岛远征战略
+country_event = {
+	id = SAN_event.71
+	title = SAN_event.71.t
+	desc = SAN_event.71.desc
+	picture = GFX_event_INA04 # GFX_report_event_seirai_war
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.71.a
+		declare_war_on = { target = ASA type = annex_everything }
+	}
+}
+
+# 72. 解封天云雷暴计划
+country_event = {
+	id = SAN_event.72
+	title = SAN_event.72.t
+	desc = SAN_event.72.desc
+	picture = GFX_event_INA04 # GFX_report_event_storm
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.72.a
+		add_ideas = SAN_piety_of_watatsumi
+	}
+}
+
+# 73. 越石村康复安排
+country_event = {
+	id = SAN_event.73
+	title = SAN_event.73.t
+	desc = SAN_event.73.desc
+	picture = GFX_event_INA04 # GFX_report_event_village_rehab
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.73.a
+		add_stability = 0.1
+	}
+}
+
+# 74. 百目鬼遗产调查行动
+country_event = {
+	id = SAN_event.74
+	title = SAN_event.74.t
+	desc = SAN_event.74.desc
+	picture = GFX_event_INA04 # GFX_report_event_pirate_legacy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.74.a
+		navy_experience = 30
+	}
+}
+
+# 75. 清籁丸打捞工程
+country_event = {
+	id = SAN_event.75
+	title = SAN_event.75.t
+	desc = SAN_event.75.desc
+	picture = GFX_event_INA04 # GFX_report_event_ship_salvage
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.75.a
+		random_owned_state = { add_building_construction = { type = dockyard level = 2 } }
+	}
+}
+
+# 76. 雷音权现研究行动
+country_event = {
+	id = SAN_event.76
+	title = SAN_event.76.t
+	desc = SAN_event.76.desc
+	picture = GFX_event_INA04 # GFX_report_event_thunder_manifestation
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.76.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 77. 浅濑神社修复计划
+country_event = {
+	id = SAN_event.77
+	title = SAN_event.77.t
+	desc = SAN_event.77.desc
+	picture = GFX_event_INA04 # GFX_report_event_asase_shrine
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.77.a
+		add_political_power = 50
+	}
+}
+
+# 78. 雷暴骑兵训练行动
+country_event = {
+	id = SAN_event.78
+	title = SAN_event.78.t
+	desc = SAN_event.78.desc
+	picture = GFX_event_INA04 # GFX_report_event_storm_rider
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.78.a
+		army_experience = 20
+	}
+}
+
+# 79. 清籁海军要塞战略
+country_event = {
+	id = SAN_event.79
+	title = SAN_event.79.t
+	desc = SAN_event.79.desc
+	picture = GFX_event_INA04 # GFX_report_event_naval_fort
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.79.a
+		random_owned_state = { add_building_construction = { type = coastal_bunker level = 3 } }
+	}
+}
+
+# 80. 天云能量捕获计划
+country_event = {
+	id = SAN_event.80
+	title = SAN_event.80.t
+	desc = SAN_event.80.desc
+	picture = GFX_event_INA04 # GFX_report_event_energy_capture
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.80.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 1 } }
+	}
+}
+
+# 81. 鹤观岛侦察安排
+country_event = {
+	id = SAN_event.81
+	title = SAN_event.81.t
+	desc = SAN_event.81.desc
+	picture = GFX_event_INA04 # GFX_report_event_tsurumi_recon
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.81.a
+		declare_war_on = { target = TSU type = annex_everything }
+	}
+}
+
+# 82. 驱散鹤观迷雾行动
+country_event = {
+	id = SAN_event.82
+	title = SAN_event.82.t
+	desc = SAN_event.82.desc
+	picture = GFX_event_INA04 # GFX_report_event_fog_clear
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.82.a
+		add_stability = 0.1
+	}
+}
+
+# 83. 救赎阿瑠灵魂战略
+country_event = {
+	id = SAN_event.83
+	title = SAN_event.83.t
+	desc = SAN_event.83.desc
+	picture = GFX_event_INA04 # GFX_report_event_ruu
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.83.a
+		add_stability = 0.15
+	}
+}
+
+# 84. 卡帕奇莉能量遏制
+country_event = {
+	id = SAN_event.84
+	title = SAN_event.84.t
+	desc = SAN_event.84.desc
+	picture = GFX_event_INA04 # GFX_report_event_bird_energy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.84.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 85. 茂知祭场改革安排
+country_event = {
+	id = SAN_event.85
+	title = SAN_event.85.t
+	desc = SAN_event.85.desc
+	picture = GFX_event_INA04 # GFX_report_event_ritual_reform
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.85.a
+		add_political_power = 40
+	}
+}
+
+# 86. 菅名山矿产勘探行动
+country_event = {
+	id = SAN_event.86
+	title = SAN_event.86.t
+	desc = SAN_event.86.desc
+	picture = GFX_event_INA04 # GFX_report_event_tsurumi_mining
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.86.a
+		random_owned_state = { add_resource = { type = chromium amount = 5 } }
+	}
+}
+
+# 87. 知比山观测站建设
+country_event = {
+	id = SAN_event.87
+	title = SAN_event.87.t
+	desc = SAN_event.87.desc
+	picture = GFX_event_INA04 # GFX_report_event_mountain_base
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.87.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = engineering }
+	}
+}
+
+# 88. 兽境猎犬遏制战术
+country_event = {
+	id = SAN_event.88
+	title = SAN_event.88.t
+	desc = SAN_event.88.desc
+	picture = GFX_event_INA04 # GFX_report_event_wolf
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.88.a
+		army_experience = 25
+	}
+}
+
+# 89. 远古文明系统性研究
+country_event = {
+	id = SAN_event.89
+	title = SAN_event.89.t
+	desc = SAN_event.89.desc
+	picture = GFX_event_INA04 # GFX_report_event_ancient_civ
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.89.a
+		add_research_slot = 1
+	}
+}
+
+# 90. 鹤观海岸雷达设置
+country_event = {
+	id = SAN_event.90
+	title = SAN_event.90.t
+	desc = SAN_event.90.desc
+	picture = GFX_event_INA04 # GFX_report_event_radar
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.90.a
+		random_owned_state = { add_building_construction = { type = radar_station level = 1 } }
+	}
+}
+
+# 91. 外岛巫女巡抚行动
+country_event = {
+	id = SAN_event.91
+	title = SAN_event.91.t
+	desc = SAN_event.91.desc
+	picture = GFX_event_INA04 # GFX_report_event_maiden_tour
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.91.a
+		add_stability = 0.05
+	}
+}
+
+# 92. 老兵移居安置行动
+country_event = {
+	id = SAN_event.92
+	title = SAN_event.92.t
+	desc = SAN_event.92.desc
+	picture = GFX_event_INA04 # GFX_report_event_veteran
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.92.a
+		add_manpower = 5000
+	}
+}
+
+# 93. 要塞网络全域扩张
+country_event = {
+	id = SAN_event.93
+	title = SAN_event.93.t
+	desc = SAN_event.93.desc
+	picture = GFX_event_INA04 # GFX_report_event_fort_net
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.93.a
+		random_owned_state = { add_building_construction = { type = anti_air level = 2 } }
+	}
+}
+
+# 94. 诸岛经济整合战略
+country_event = {
+	id = SAN_event.94
+	title = SAN_event.94.t
+	desc = SAN_event.94.desc
+	picture = GFX_event_INA04 # GFX_report_event_econ_merge
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.94.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 1 } }
+	}
+}
+
+# 95. 外海防御司令部改组
+country_event = {
+	id = SAN_event.95
+	title = SAN_event.95.t
+	desc = SAN_event.95.desc
+	picture = GFX_event_INA04 # GFX_report_event_command_reform
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.95.a
+		add_command_power = 20
+	}
+}
+
+# 96. 海洋贸易垄断战略
+country_event = {
+	id = SAN_event.96
+	title = SAN_event.96.t
+	desc = SAN_event.96.desc
+	picture = GFX_event_INA04 # GFX_report_event_monopoly
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.96.a
+		add_political_power = 100
+	}
+}
+
+# 97. 海军航空兵强化训练
+country_event = {
+	id = SAN_event.97
+	title = SAN_event.97.t
+	desc = SAN_event.97.desc
+	picture = GFX_event_INA04 # GFX_report_event_navy_air
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.97.a
+		air_experience = 30
+	}
+}
+
+# 98. 离岛后勤中枢计划
+country_event = {
+	id = SAN_event.98
+	title = SAN_event.98.t
+	desc = SAN_event.98.desc
+	picture = GFX_event_INA04 # GFX_report_event_hub
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.98.a
+		random_owned_state = { add_building_construction = { type = infrastructure level = 2 } }
+	}
+}
+
+# 99. 区域行政署设立
+country_event = {
+	id = SAN_event.99
+	title = SAN_event.99.t
+	desc = SAN_event.99.desc
+	picture = GFX_event_INA04 # GFX_report_event_admin
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.99.a
+		add_stability = 0.05
+	}
+}
+
+# 100. 全岛防御公约行动
+country_event = {
+	id = SAN_event.100
+	title = SAN_event.100.t
+	desc = SAN_event.100.desc
+	picture = GFX_event_INA04 # GFX_report_event_pact
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.100.a
+		add_war_support = 0.1
+	}
+}
+
+# 101. 鹤观资源深加工中心
+country_event = {
+	id = SAN_event.101
+	title = SAN_event.101.t
+	desc = SAN_event.101.desc
+	picture = GFX_event_INA04 # GFX_report_event_refinery
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.101.a
+		random_owned_state = { add_building_construction = { type = synthetic_refinery level = 1 } }
+	}
+}
+
+# 102. 仪式石能量研究
+country_event = {
+	id = SAN_event.102
+	title = SAN_event.102.t
+	desc = SAN_event.102.desc
+	picture = GFX_event_INA04 # GFX_report_event_ritual_stone
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.102.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = engineering }
+	}
+}
+
+# 103. 清籁风暴预测中心
+country_event = {
+	id = SAN_event.103
+	title = SAN_event.103.t
+	desc = SAN_event.103.desc
+	picture = GFX_event_INA04 # GFX_report_event_storm_predict
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.103.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+	}
+}
+
+# 104. 百目鬼余部整合行动
+country_event = {
+	id = SAN_event.104
+	title = SAN_event.104.t
+	desc = SAN_event.104.desc
+	picture = GFX_event_INA04 # GFX_report_event_pirate_join
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.104.a
+		navy_experience = 20
+	}
+}
+
+# 105. 越石村渔业标准化
+country_event = {
+	id = SAN_event.105
+	title = SAN_event.105.t
+	desc = SAN_event.105.desc
+	picture = GFX_event_INA04 # GFX_report_event_fishing
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.105.a
+		add_stability = 0.05
+	}
+}
+
+# 106. 天云峰科研基地建设
+country_event = {
+	id = SAN_event.106
+	title = SAN_event.106.t
+	desc = SAN_event.106.desc
+	picture = GFX_event_INA04 # GFX_report_event_peak_base
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.106.a
+		add_research_slot = 1
+	}
+}
+
+# 107. 风暴护盾技术计划
+country_event = {
+	id = SAN_event.107
+	title = SAN_event.107.t
+	desc = SAN_event.107.desc
+	picture = GFX_event_INA04 # GFX_report_event_shield
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.107.a
+		add_tech_bonus = { bonus = 0.5 uses = 2 category = electronics }
+	}
+}
+
+# 108. 外岛关税同盟安排
+country_event = {
+	id = SAN_event.108
+	title = SAN_event.108.t
+	desc = SAN_event.108.desc
+	picture = GFX_event_INA04 # GFX_report_event_tariff
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.108.a
+		add_political_power = 60
+	}
+}
+
+# 109. 海祇海洋霸权计划
+country_event = {
+	id = SAN_event.109
+	title = SAN_event.109.t
+	desc = SAN_event.109.desc
+	picture = GFX_event_INA04 # GFX_report_event_supremacy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.109.a
+		add_ideas = SAN_piety_of_watatsumi
+	}
+}
+
+# 110. 外海远征军团组建
+country_event = {
+	id = SAN_event.110
+	title = SAN_event.110.t
+	desc = SAN_event.110.desc
+	picture = GFX_event_INA04 # GFX_report_event_expedition
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.110.a
+		army_experience = 30
+	}
+}
+
+# ========================== 第四阶段：白夜遗产 (111-140) ==========================
+
+# 111. 渊下宫大探险计划
+country_event = {
+	id = SAN_event.111
+	title = SAN_event.111.t
+	desc = SAN_event.111.desc
+	picture = GFX_event_INA04 # GFX_report_event_enkanomiya_exploration
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.111.a
+		add_tech_bonus = { bonus = 0.5 uses = 2 category = electronics }
+	}
+}
+
+# 112. 寻找《日月前事》行动
+country_event = {
+	id = SAN_event.112
+	title = SAN_event.112.t
+	desc = SAN_event.112.desc
+	picture = GFX_event_INA04 # GFX_report_event_book
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.112.a
+		add_ideas = SAN_legacy_of_sun_child
+	}
+}
+
+# 113. 重启大日御舆计划
+country_event = {
+	id = SAN_event.113
+	title = SAN_event.113.t
+	desc = SAN_event.113.desc
+	picture = GFX_event_INA04 # GFX_report_event_sun_chariot
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.113.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 2 } }
+	}
+}
+
+# 114. 地走官训练改革
+country_event = {
+	id = SAN_event.114
+	title = SAN_event.114.t
+	desc = SAN_event.114.desc
+	picture = GFX_event_INA04 # GFX_report_event_jizhashi
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.114.a
+		army_experience = 20
+	}
+}
+
+# 115. 龙蜥遏制战术安排
+country_event = {
+	id = SAN_event.115
+	title = SAN_event.115.t
+	desc = SAN_event.115.desc
+	picture = GFX_event_INA04 # GFX_report_event_vishap
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.115.a
+		add_ideas = DOT_Government_Control5
+	}
+}
+
+# 116. 常夜灵庙考古行动
+country_event = {
+	id = SAN_event.116
+	title = SAN_event.116.t
+	desc = SAN_event.116.desc
+	picture = GFX_event_INA04 # GFX_report_event_temple_dig
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.116.a
+		add_research_slot = 1
+	}
+}
+
+# 117. 蛇心之地仪式研究
+country_event = {
+	id = SAN_event.117
+	title = SAN_event.117.t
+	desc = SAN_event.117.desc
+	picture = GFX_event_INA04 # GFX_report_event_serpent_heart
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.117.a
+		add_political_power = 50
+	}
+}
+
+# 118. 深渊科技系统性整合
+country_event = {
+	id = SAN_event.118
+	title = SAN_event.118.t
+	desc = SAN_event.118.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_tech
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.118.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+	}
+}
+
+# 119. 渊下宫工业联合体
+country_event = {
+	id = SAN_event.119
+	title = SAN_event.119.t
+	desc = SAN_event.119.desc
+	picture = GFX_event_INA04 # GFX_report_event_underground_factory
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.119.a
+		random_owned_state = { add_building_construction = { type = arms_factory level = 1 } }
+	}
+}
+
+# 120. 古代潜航舰修复
+country_event = {
+	id = SAN_event.120
+	title = SAN_event.120.t
+	desc = SAN_event.120.desc
+	picture = GFX_event_INA04 # GFX_report_event_sub_repair
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.120.a
+		navy_experience = 20
+	}
+}
+
+# 121. 时间之执政信仰整合
+country_event = {
+	id = SAN_event.121
+	title = SAN_event.121.t
+	desc = SAN_event.121.desc
+	picture = GFX_event_INA04 # GFX_report_event_chronos
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.121.a
+		add_ideas = SAN_piety_of_watatsumi
+	}
+}
+
+# 122. 禁忌历史扩散行动
+country_event = {
+	id = SAN_event.122
+	title = SAN_event.122.t
+	desc = SAN_event.122.desc
+	picture = GFX_event_INA04 # GFX_report_event_forbidden_truth
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.122.a
+		add_political_power = 80
+	}
+}
+
+# 123. 白夜军事标准化
+country_event = {
+	id = SAN_event.123
+	title = SAN_event.123.t
+	desc = SAN_event.123.desc
+	picture = GFX_event_INA04 # GFX_report_event_standard_army
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.123.a
+		army_experience = 25
+	}
+}
+
+# 124. 水元素高能武器计划
+country_event = {
+	id = SAN_event.124
+	title = SAN_event.124.t
+	desc = SAN_event.124.desc
+	picture = GFX_event_INA04 # GFX_report_event_hydro_cannon
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.124.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+	}
+}
+
+# 125. 深渊情报收集安排
+country_event = {
+	id = SAN_event.125
+	title = SAN_event.125.t
+	desc = SAN_event.125.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_intel
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.125.a
+		add_ideas = DOT_Government_Research2
+	}
+}
+
+# 126. 大日御舆能源网扩张
+country_event = {
+	id = SAN_event.126
+	title = SAN_event.126.t
+	desc = SAN_event.126.desc
+	picture = GFX_event_INA04 # GFX_report_event_power_grid
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.126.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 1 } }
+	}
+}
+
+# 127. 地底碉堡群网络
+country_event = {
+	id = SAN_event.127
+	title = SAN_event.127.t
+	desc = SAN_event.127.desc
+	picture = GFX_event_INA04 # GFX_report_event_underground_bunker
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.127.a
+		random_owned_state = { add_building_construction = { type = land_fort level = 2 } }
+	}
+}
+
+# 128. 渊下宫平民迁入安排
+country_event = {
+	id = SAN_event.128
+	title = SAN_event.128.t
+	desc = SAN_event.128.desc
+	picture = GFX_event_INA04 # GFX_report_event_resettlement
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.128.a
+		add_manpower = 4000
+	}
+}
+
+# 129. 古代档案全面解码
+country_event = {
+	id = SAN_event.129
+	title = SAN_event.129.t
+	desc = SAN_event.129.desc
+	picture = GFX_event_INA04 # GFX_report_event_decoder
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.129.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 130. 海祇-渊下宫统一战线
+country_event = {
+	id = SAN_event.130
+	title = SAN_event.130.t
+	desc = SAN_event.130.desc
+	picture = GFX_event_INA04 # GFX_report_event_united_front
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.130.a
+		add_stability = 0.1
+	}
+}
+
+# 131. 深渊资源垄断计划
+country_event = {
+	id = SAN_event.131
+	title = SAN_event.131.t
+	desc = SAN_event.131.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_resource
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.131.a
+		random_owned_state = {
+			limit = { is_controlled_by = ROOT }
+			add_resource = { type = aluminum amount = 10 }
+		}
+	}
+}
+
+# 132. 实验性深海装甲行动
+country_event = {
+	id = SAN_event.132
+	title = SAN_event.132.t
+	desc = SAN_event.132.desc
+	picture = GFX_event_INA04 # GFX_report_event_exo_suit
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.132.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+	}
+}
+
+# 133. 白夜作战教义开发
+country_event = {
+	id = SAN_event.133
+	title = SAN_event.133.t
+	desc = SAN_event.133.desc
+	picture = GFX_event_INA04 # GFX_report_event_doctrine_study
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.133.a
+		army_experience = 25
+	}
+}
+
+# 134. 渊下宫最高指挥部
+country_event = {
+	id = SAN_event.134
+	title = SAN_event.134.t
+	desc = SAN_event.134.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_command
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.134.a
+		add_command_power = 15
+	}
+}
+
+# 135. 古代战术系统性整合
+country_event = {
+	id = SAN_event.135
+	title = SAN_event.135.t
+	desc = SAN_event.135.desc
+	picture = GFX_event_INA04 # GFX_report_event_ancient_tactics
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.135.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = land_doctrine }
+	}
+}
+
+# 136. 渊下宫预备役训练计划
+country_event = {
+	id = SAN_event.136
+	title = SAN_event.136.t
+	desc = SAN_event.136.desc
+	picture = GFX_event_INA04 # GFX_report_event_underground_train
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.136.a
+		add_manpower = 3000
+	}
+}
+
+# 137. 地底物资周转大整顿
+country_event = {
+	id = SAN_event.137
+	title = SAN_event.137.t
+	desc = SAN_event.137.desc
+	picture = GFX_event_INA04 # GFX_report_event_underground_supply
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.137.a
+		add_ideas = Daybreak_of_Teyvat
+	}
+}
+
+# 138. 深渊文化复兴计划
+country_event = {
+	id = SAN_event.138
+	title = SAN_event.138.t
+	desc = SAN_event.138.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_culture
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.138.a
+		add_political_power = 40
+	}
+}
+
+# 139. 两界意志大统一
+country_event = {
+	id = SAN_event.139
+	title = SAN_event.139.t
+	desc = SAN_event.139.desc
+	picture = GFX_event_INA04 # GFX_report_event_unity
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.139.a
+		add_stability = 0.05
+	}
+}
+
+# 140. 最终考古学大综述
+country_event = {
+	id = SAN_event.140
+	title = SAN_event.140.t
+	desc = SAN_event.140.desc
+	picture = GFX_event_INA04 # GFX_report_event_final_dig
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.140.a
+		add_research_slot = 1
+	}
+}
+
+# ========================== 第五阶段：战后构想 (141-180) ==========================
+
+# 141. 战后未来大辩论
+country_event = {
+	id = SAN_event.141
+	title = SAN_event.141.t
+	desc = SAN_event.141.desc
+	picture = GFX_event_INA04 # GFX_report_event_debate
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.141.a
+		add_political_power = 50
+	}
+}
+
+# --- 路线A：现人神绝对权威 (142-154) ---
+
+# 142. 强化现人神绝对权威
+country_event = {
+	id = SAN_event.142
+	title = SAN_event.142.t
+	desc = SAN_event.142.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_divine
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.142.a
+		set_politics = { ruling_party = fascism }
+		add_ideas = SAN_divine_authority
+	}
+}
+
+# 143. 强制大蛇正统信仰
+country_event = {
+	id = SAN_event.143
+	title = SAN_event.143.t
+	desc = SAN_event.143.desc
+	picture = GFX_event_INA04 # GFX_report_event_orobashi_shrine
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.143.a
+		add_stability = 0.1
+	}
+}
+
+# 144. 神职行政体系重组
+country_event = {
+	id = SAN_event.144
+	title = SAN_event.144.t
+	desc = SAN_event.144.desc
+	picture = GFX_event_INA04 # GFX_report_event_clerical_admin
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.144.a
+		add_political_power = 60
+	}
+}
+
+# 145. 单一工业重点化战略
+country_event = {
+	id = SAN_event.145
+	title = SAN_event.145.t
+	desc = SAN_event.145.desc
+	picture = GFX_event_INA04 # GFX_report_event_monolith_industry
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.145.a
+		random_owned_state = { add_building_construction = { type = arms_factory level = 2 } }
+	}
+}
+
+# 146. 神权军事洗脑行动
+country_event = {
+	id = SAN_event.146
+	title = SAN_event.146.t
+	desc = SAN_event.146.desc
+	picture = GFX_event_INA04 # GFX_report_event_fanatic_army
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.146.a
+		army_experience = 30
+	}
+}
+
+# 147. 清除不信者行动
+country_event = {
+	id = SAN_event.147
+	title = SAN_event.147.t
+	desc = SAN_event.147.desc
+	picture = GFX_event_INA04 # GFX_report_event_purge
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.147.a
+		add_war_support = 0.1
+		add_stability = -0.05
+	}
+}
+
+# 148. 神圣经济计划战略
+country_event = {
+	id = SAN_event.148
+	title = SAN_event.148.t
+	desc = SAN_event.148.desc
+	picture = GFX_event_INA04 # GFX_report_event_command_econ
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.148.a
+		add_ideas = DOT_Government_Industry2
+	}
+}
+
+# 149. 深渊先知情报网
+country_event = {
+	id = SAN_event.149
+	title = SAN_event.149.t
+	desc = SAN_event.149.desc
+	picture = GFX_event_INA04 # GFX_report_event_prophet
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.149.a
+		add_political_power = 50
+	}
+}
+
+# 150. 最高诏令草拟计划
+country_event = {
+	id = SAN_event.150
+	title = SAN_event.150.t
+	desc = SAN_event.150.desc
+	picture = GFX_event_INA04 # GFX_report_event_edict
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.150.a
+		add_stability = 0.05
+	}
+}
+
+# 151. 神圣扩张主义教义
+country_event = {
+	id = SAN_event.151
+	title = SAN_event.151.t
+	desc = SAN_event.151.desc
+	picture = GFX_event_INA04 # GFX_report_event_crusade
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.151.a
+		army_experience = 20
+	}
+}
+
+# 152. 海祇永恒主宰计划
+country_event = {
+	id = SAN_event.152
+	title = SAN_event.152.t
+	desc = SAN_event.152.desc
+	picture = GFX_event_INA04 # GFX_report_event_dominance
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.152.a
+		add_ideas = SAN_omikami_protection
+	}
+}
+
+# 153. 神圣君主制宣言
+country_event = {
+	id = SAN_event.153
+	title = SAN_event.153.t
+	desc = SAN_event.153.desc
+	picture = GFX_event_INA04 # GFX_report_event_empire
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.153.a
+		add_research_slot = 1
+	}
+}
+
+# 154. 终极神权体制实施
+country_event = {
+	id = SAN_event.154
+	title = SAN_event.154.t
+	desc = SAN_event.154.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_god
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.154.a
+		add_political_power = 150
+		add_stability = 0.2
+	}
+}
+
+# --- 路线B：海祇民主议会 (155-168) ---
+
+# 155. 海祇民主议会战略
+country_event = {
+	id = SAN_event.155
+	title = SAN_event.155.t
+	desc = SAN_event.155.desc
+	picture = GFX_event_INA04 # GFX_report_event_parliament
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.155.a
+		set_politics = { ruling_party = democratic }
+		add_ideas = SAN_republic_spirit
+	}
+}
+
+# 156. 多岛联合议会筹建
+country_event = {
+	id = SAN_event.156
+	title = SAN_event.156.t
+	desc = SAN_event.156.desc
+	picture = GFX_event_INA04 # GFX_report_event_election
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.156.a
+		add_stability = 0.15
+	}
+}
+
+# 157. 社奉行顾问咨询权
+country_event = {
+	id = SAN_event.157
+	title = SAN_event.157.t
+	desc = SAN_event.157.desc
+	picture = GFX_event_INA04 # GFX_report_event_kamisato_advisor
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.157.a
+		add_political_power = 60
+	}
+}
+
+# 158. 离岛商会贸易协定
+country_event = {
+	id = SAN_event.158
+	title = SAN_event.158.t
+	desc = SAN_event.158.desc
+	picture = GFX_event_INA04 # GFX_report_event_ritou_trade
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.158.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 2 } }
+	}
+}
+
+# 159. 信仰自由大宣言
+country_event = {
+	id = SAN_event.159
+	title = SAN_event.159.t
+	desc = SAN_event.159.desc
+	picture = GFX_event_INA04 # GFX_report_event_free_worship
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.159.a
+		add_stability = 0.05
+	}
+}
+
+# 160. 自由派经济改革计划
+country_event = {
+	id = SAN_event.160
+	title = SAN_event.160.t
+	desc = SAN_event.160.desc
+	picture = GFX_event_INA04 # GFX_report_event_liberal_econ
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.160.a
+		add_ideas = DOT_Government_Industry2
+	}
+}
+
+# 161. 长老议会整合安排
+country_event = {
+	id = SAN_event.161
+	title = SAN_event.161.t
+	desc = SAN_event.161.desc
+	picture = GFX_event_INA04 # GFX_report_event_elders
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.161.a
+		add_political_power = 40
+	}
+}
+
+# 162. 公民民兵组织建设
+country_event = {
+	id = SAN_event.162
+	title = SAN_event.162.t
+	desc = SAN_event.162.desc
+	picture = GFX_event_INA04 # GFX_report_event_citizens_army
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.162.a
+		add_manpower = 5000
+	}
+}
+
+# 163. 社会福利扩张行动
+country_event = {
+	id = SAN_event.163
+	title = SAN_event.163.t
+	desc = SAN_event.163.desc
+	picture = GFX_event_INA04 # GFX_report_event_welfare
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.163.a
+		add_stability = 0.05
+	}
+}
+
+# 164. 全提瓦特外交拓展
+country_event = {
+	id = SAN_event.164
+	title = SAN_event.164.t
+	desc = SAN_event.164.desc
+	picture = GFX_event_INA04 # GFX_report_event_diplomacy
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.164.a
+		add_political_power = 100
+	}
+}
+
+# 165. 珊瑚宫宪法草拟行动
+country_event = {
+	id = SAN_event.165
+	title = SAN_event.165.t
+	desc = SAN_event.165.desc
+	picture = GFX_event_INA04 # GFX_report_event_constitution
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.165.a
+		add_ideas = SAN_piety_of_watatsumi
+	}
+}
+
+# 166. 民主工业现代化
+country_event = {
+	id = SAN_event.166
+	title = SAN_event.166.t
+	desc = SAN_event.166.desc
+	picture = GFX_event_INA04 # GFX_report_event_modern_factory
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.166.a
+		random_owned_state = { add_building_construction = { type = industrial_complex level = 2 } }
+	}
+}
+
+# 167. 诸岛联合防御改革
+country_event = {
+	id = SAN_event.167
+	title = SAN_event.167.t
+	desc = SAN_event.167.desc
+	picture = GFX_event_INA04 # GFX_report_event_joint_defense
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.167.a
+		army_experience = 30
+	}
+}
+
+# 168. 终极共和远景蓝图
+country_event = {
+	id = SAN_event.168
+	title = SAN_event.168.t
+	desc = SAN_event.168.desc
+	picture = GFX_event_INA04 # GFX_report_event_republic_victory
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.168.a
+		add_stability = 0.2
+		add_political_power = 50
+	}
+}
+
+# --- 路线C：白夜远征军 (169-180) ---
+
+# 169. 反抗天理圣约
+country_event = {
+	id = SAN_event.169
+	title = SAN_event.169.t
+	desc = SAN_event.169.desc
+	picture = GFX_event_INA04 # GFX_report_event_defy_celestia
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.169.a
+		set_politics = { ruling_party = communism }
+		add_ideas = SAN_legacy_of_sun_child
+	}
+}
+
+# 170. 革命理想输出行动
+country_event = {
+	id = SAN_event.170
+	title = SAN_event.170.t
+	desc = SAN_event.170.desc
+	picture = GFX_event_INA04 # GFX_report_event_rev_export
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.170.a
+		add_war_support = 0.15
+	}
+}
+
+# 171. 暗之外海远征战略
+country_event = {
+	id = SAN_event.171
+	title = SAN_event.171.t
+	desc = SAN_event.171.desc
+	picture = GFX_event_INA04 # GFX_report_event_dark_sea
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.171.a
+		navy_experience = 40
+	}
+}
+
+# 172. 天理秩序扰乱计划
+country_event = {
+	id = SAN_event.172
+	title = SAN_event.172.t
+	desc = SAN_event.172.desc
+	picture = GFX_event_INA04 # GFX_report_event_disruption
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.172.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+	}
+}
+
+# 173. 激进工业集体化
+country_event = {
+	id = SAN_event.173
+	title = SAN_event.173.t
+	desc = SAN_event.173.desc
+	picture = GFX_event_INA04 # GFX_report_event_collectivization
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.173.a
+		random_owned_state = { add_building_construction = { type = arms_factory level = 3 } }
+	}
+}
+
+# 174. 深渊先锋兵团招募
+country_event = {
+	id = SAN_event.174
+	title = SAN_event.174.t
+	desc = SAN_event.174.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_vanguard
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.174.a
+		add_manpower = 8000
+	}
+}
+
+# 175. 深渊秘密结盟协议
+country_event = {
+	id = SAN_event.175
+	title = SAN_event.175.t
+	desc = SAN_event.175.desc
+	picture = GFX_event_INA04 # GFX_report_event_abyss_pact
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.175.a
+		add_political_power = 60
+	}
+}
+
+# 176. 地底住民总动员战略
+country_event = {
+	id = SAN_event.176
+	title = SAN_event.176.t
+	desc = SAN_event.176.desc
+	picture = GFX_event_INA04 # GFX_report_event_underground_mob
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.176.a
+		add_manpower = 5000
+	}
+}
+
+# 177. 全域意识形态战备
+country_event = {
+	id = SAN_event.177
+	title = SAN_event.177.t
+	desc = SAN_event.177.desc
+	picture = GFX_event_INA04 # GFX_report_event_ideology_war
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.177.a
+		add_war_support = 0.2
+	}
+}
+
+# 178. 天之御座侦察行动
+country_event = {
+	id = SAN_event.178
+	title = SAN_event.178.t
+	desc = SAN_event.178.desc
+	picture = GFX_event_INA04 # GFX_report_event_sky_recon
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.178.a
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+	}
+}
+
+# 179. 神圣安排终极突击
+country_event = {
+	id = SAN_event.179
+	title = SAN_event.179.t
+	desc = SAN_event.179.desc
+	picture = GFX_event_INA04 # GFX_report_event_final_assault
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.179.a
+		army_experience = 50
+	}
+}
+
+# 180. 全提瓦特解放战略愿景
+country_event = {
+	id = SAN_event.180
+	title = SAN_event.180.t
+	desc = SAN_event.180.desc
+	picture = GFX_event_INA04 # GFX_report_event_kokomi_world_liberator
+	is_triggered_only = yes
+	option = {
+		name = SAN_event.180.a
+		add_ideas = SAN_legacy_of_sun_child
+		add_research_slot = 1
+		add_political_power = 200
+	}
+}

@@ -1,0 +1,1635 @@
+focus_tree = {
+    id = FON_focus_tree
+    country = {
+        factor = 0
+        modifier = {
+            add = 10
+            tag = FON
+        }
+    }
+
+continuous_focus_position = {
+    x=0 
+    y =1500
+}
+
+default = no
+
+########################################
+#####         胎海水危机国策树    -######
+########################################
+
+#好戏开场
+ focus = {
+    id = FON_magictime
+    icon = GFX_FON_magictime
+
+    x = 10
+    y = 0
+
+    cost = 1
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_zero_trigger = yes
+    }
+
+    completion_reward = {
+        add_stability = 0.05
+        hidden_effect={
+            country_event = {id=FON.1} #事件：少女神秘消失，开始调查
+            mark_focus_tree_layout_dirty = yes
+        }
+        
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#调查真相
+ focus = {
+    id = FON_search
+    icon = GFX_FON_search
+
+    relative_position_id = FON_magictime
+    x = 0
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    allow_branch = {
+        FON_is_stage_search_trigger = yes
+    }
+
+    prerequisite = {
+        focus = FON_magictime
+    }
+
+    completion_reward = {
+        add_political_power = 20
+        hidden_effect = {
+            country_event = {days = 2 id =FON.2} #事件：发现溶解的事实，恐慌开始蔓延
+            country_event = {days = 5 id =FON.3} #事件：莱欧斯利发来汇报
+            activate_mission = FON_watercrisis_mission
+            mark_focus_tree_layout_dirty = yes
+        } 
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#处理胎海水
+ focus = {
+    id = FON_waterdeal
+    icon = GFX_FON_waterdeal
+
+    relative_position_id = FON_search
+    x = 0
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_search
+    }
+
+    completion_reward ={
+        add_political_power = 20
+        hidden_effect = {
+            country_event = {days = 3 id = FON.4} #事件：白淞镇水位上升
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#至冬物资
+ focus = {
+    id = FON_resources_left
+    icon = GFX_FON_resources_left
+
+    relative_position_id = FON_waterdeal
+    x = -1
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_waterdeal
+    }
+    mutually_exclusive = {focus = FON_resources_right}
+
+    completion_reward = {
+        add_political_power = 50
+        custom_effect_tooltip = FON_resources_left_tt
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#依靠民众力量
+ focus = {
+    id = FON_resources_right
+    icon = GFX_FON_resources_right
+
+    relative_position_id = FON_waterdeal
+    x = 1
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_waterdeal
+    }
+    mutually_exclusive = {
+        focus = FON_resources_left
+    }
+    
+
+    completion_reward = {
+        add_political_power = 50
+        custom_effect_tooltip = FON_resources_right_tt
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#重视南方救灾
+ focus = {
+    id = FON_people_left
+    icon = GFX_FON_people_left
+
+    relative_position_id = FON_waterdeal
+    x = -1
+    y = 2.5
+
+    cost = 4
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_resources_left 
+        focus = FON_resources_right
+    }
+    mutually_exclusive = {
+        focus = FON_people_right
+    }
+
+    completion_reward = {
+        add_political_power = 50
+        set_country_flag = FON_people_left_flag
+        custom_effect_tooltip = FON_people_left_tt
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#增加北方产能
+ focus = {
+    id = FON_people_right
+    icon = GFX_FON_people_right
+
+    relative_position_id = FON_waterdeal
+    x = 1 
+    y = 2.5
+
+    cost = 4
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_resources_left 
+        focus = FON_resources_right
+    }
+    mutually_exclusive = {
+        focus = FON_people_left
+    }
+
+    completion_reward = {
+        add_political_power = 50
+        set_country_flag = FON_people_right_flag
+        custom_effect_tooltip = FON_people_right_tt
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#时不我待
+ focus = {
+    id = FON_Time_and_tide_wait_for_no_man
+    icon = FON_Time_and_tide_wait_for_no_man
+
+    relative_position_id = FON_people_right
+    x = -1
+    y = 1
+
+    cost = 4
+    available = {
+
+    }
+    bypass = {
+
+    }
+    
+    prerequisite = {
+        focus = FON_people_left 
+        focus = FON_people_right
+    }
+
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+    completion_reward = {
+        add_political_power = 100
+        custom_effect_tooltip = FON_add_preparation_0.1_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 10 }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#审判芙芙
+ focus = {
+    id = FON_kingjudge
+    icon = GFX_FON_kingjudge
+
+    relative_position_id = FON_Time_and_tide_wait_for_no_man
+    x = 0
+    y = 1
+    
+    cost = 5
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+
+    prerequisite = {
+        focus = FON_Time_and_tide_wait_for_no_man
+    }
+
+    select_effect = {
+        
+    }
+
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.5} #事件：船中密会
+    } 
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#娜维娅的协助
+ focus = {
+    id = FON_judge_naweiya
+    icon = GFX_FON_judge_naweiya
+
+    relative_position_id = FON_kingjudge
+    x = -2.5
+    y = 1
+
+    cost = 5
+
+    available = {
+
+    }
+    bypass={
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+    prerequisite = {
+        focus = FON_kingjudge
+    }
+
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.6} #事件：娜维娅与那维莱特的谈话
+        custom_effect_tooltip = FON_add_preparation_0.05_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 5 }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#愚人众的协助
+ focus = {
+    id = FON_judge_puren
+    icon = GFX_FON_judge_puren
+
+    relative_position_id = FON_kingjudge
+    x = 2.5
+    y = 1
+
+    cost = 5
+    available ={
+
+    }
+    bypass={
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+    prerequisite = {
+        focus = FON_kingjudge
+    }
+    completion_reward = {
+        add_political_power = 50 
+        country_event = {id= FON.7} #事件：仆人来访
+        custom_effect_tooltip = FON_add_preparation_0.05_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 5 }
+        }
+    } 
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#那维莱特的心意
+ focus = {
+    id = FON_judge_naweilaite
+    icon = GFX_FON_judge_naweilaite
+
+    relative_position_id = FON_kingjudge
+    x = 0
+    y = 1
+
+    cost = 5
+
+    available ={
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+    prerequisite = {
+        focus= FON_kingjudge
+    }
+
+    completion_reward = {
+        add_political_power = 50
+        custom_effect_tooltip = FON_add_preparation_0.1_tt
+        hidden_effect = {
+            add_to_variable = { FON_Percent_of_Preparation = 10 }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#罪人舞步旋
+focus = {
+    id = FON_final_date
+    icon = GFX_FON_final_date
+
+    relative_position_id = FON_kingjudge
+    x = 0
+    y = 2
+
+    cost = 0.15
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = no
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_deal_trigger = yes
+    }
+
+    prerequisite = {
+        focus= FON_judge_naweiya 
+    }
+
+    prerequisite = {
+        focus = FON_judge_naweilaite
+    }
+
+    prerequisite = {
+        focus = FON_judge_puren
+    }
+
+#根据是不是ai决定判定形式
+    completion_reward = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    is_ai = yes
+                }
+                random_list = {
+                    90 = {
+                        set_country_flag = FON_water_is_dealed_normal
+                        country_event = { id= FON.8 } #事件：罪人舞步旋
+                        modifier = {
+                            has_war = yes
+                            factor = 0.05
+                        }
+                    }
+                    9 = {
+                        set_country_flag = FON_water_is_dealed_war
+                        country_event = { id= FON.8 } #事件：罪人舞步旋
+                        modifier = {
+                            has_stability < 0.4
+                            factor = 15
+                        }
+                    }
+                    1 = {
+                        set_country_flag = FON_water_is_not_dealed
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = {
+                        check_variable = { FON_Percent_of_Preparation > 80 }
+                    }
+                    set_country_flag = FON_water_is_dealed_normal
+                    country_event = { id= FON.8 } #事件：罪人舞步旋
+                }
+                else_if = {
+                    limit = {
+                        check_variable = { FON_Percent_of_Preparation < 30 }
+                    }
+                    set_country_flag = FON_water_is_not_dealed
+                }
+                else = {
+                    set_country_flag = FON_water_is_dealed_war
+                    country_event = { id= FON.8 } #事件：罪人舞步旋
+                }
+            }
+        }
+        
+        
+        
+        add_political_power = 50
+        custom_effect_tooltip = FON_final_date_tt
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+########################################
+#####         那维莱特国策树       ######
+########################################
+
+#秩序化身
+focus = {
+    id = FON_Order_incarnation
+    icon = FON_Order_incarnation
+
+    x=3
+    y=0
+
+    cost = 5
+    available = {
+
+    }
+    bypass= {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+
+    completion_reward = {
+        
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+}
+
+#定义水神位置
+focus = {
+    id = FON_Define_the_position_of_the_ff
+    icon = FON_Define_the_position_of_the_ff
+
+    relative_position_id = FON_Order_incarnation
+    x=-1
+    y=1
+
+    cost = 5
+    available = {}
+    bypass = {}
+    prerequisite = {
+        focus = FON_Order_incarnation
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+
+    completion_reward = {
+       
+    }
+}
+
+#调节内部矛盾
+focus = {
+    id = FON_adjust_internal_contradictions
+    icon = FON_adjust_internal_contradictions
+
+    relative_position_id = FON_Order_incarnation
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Order_incarnation
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+        
+    }
+    
+}
+
+#强化社会公正
+focus = {
+    id = FON_Strengthen_social_justice
+    icon = GFX_FON_Strengthen_social_justice
+
+    relative_position_id = FON_adjust_internal_contradictions
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_adjust_internal_contradictions
+    }
+    mutually_exclusive = {
+        focus = FON_furina_leave
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+        
+        }
+    }
+
+#像魔神一样爱人
+focus = {
+    id = FON_Love_like_a_demon_god
+    icon = GFX_FON_Love_like_a_demon_god
+    
+    relative_position_id = FON_Strengthen_social_justice
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Strengthen_social_justice
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#改革审判规则
+focus = {
+    id = FON_reform_trial_rules
+    icon = GFX_FON_reform_trial_rules
+    
+    relative_position_id = FON_Define_the_position_of_the_ff
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Define_the_position_of_the_ff
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#新歌剧院模式
+focus = {
+    id = FON_New_Opera_House_Mode
+    icon = GFX_FON_New_Opera_House_Mode
+    
+    relative_position_id = FON_reform_trial_rules
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_reform_trial_rules
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+#凡高大者
+focus = {
+    id = FON_Those_who_are_high_and_mighty
+    icon = GFX_FON_Those_who_are_high_and_mighty
+    
+    relative_position_id = FON_New_Opera_House_Mode
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_New_Opera_House_Mode
+    }
+    prerequisite = {
+        focus = FON_Love_like_a_demon_god
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+        FON_is_stage_election_trigger = yes
+    }
+    completion_reward = {
+
+        }
+    }
+
+########################################
+#####         内战国策树       #########
+########################################
+
+#内战爆发
+focus =  {
+    id = FON_civil_war_break_out
+    icon = GFX_FON_civil_war_break_out
+    x = 4
+    y = 0
+    cost = 40
+    prerequisite = {
+        
+    }
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag }
+    select_effect = {
+        country_event = { days = 5 id = FON_civil_war.2  }
+    }
+    completion_reward = {
+        
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#以下不可用
+
+
+#那维莱特缺席
+focus = {
+    id = FON_The_disappearance_of_Navellet
+    icon = GFX_FON_The_disappearance_of_Navellet
+    
+    x=4
+    y=0
+
+    cost=5
+    prerequisite = {
+        
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {has_country_flag = FON_civil_war_flag111 }#暂时禁用
+    completion_reward = {
+        
+        }
+    }
+
+#旧贵族重掌大权
+focus = {
+    id = FON_The_old_aristocracy_regained_power
+    icon = GFX_FON_The_old_aristocracy_regained_power
+    
+    relative_position_id = FON_The_disappearance_of_Navellet
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_disappearance_of_Navellet
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        country_event = { id = FON_civil_war.2 }
+        }
+    }
+
+#台前幕后
+focus = {
+    id = FON_on_stage_and_behind_the_scenes
+    icon = GFX_FON_on_stage_and_behind_the_scenes
+    
+    relative_position_id = FON_The_old_aristocracy_regained_power
+    x=-1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_old_aristocracy_regained_power
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+    }
+    completion_reward = {
+        
+        }
+    }
+
+#愚人之家
+focus = {
+    id = FON_House_of_Fools
+    icon = GFX_FON_House_of_Fools
+    
+    relative_position_id = FON_The_old_aristocracy_regained_power
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_old_aristocracy_regained_power
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        country_event = { id = FON_civil_war.4 }
+        }
+    }
+
+#破碎枷锁
+focus = {
+    id = FON_Break_the_Chains
+    icon = GFX_FON_Break_the_Chains
+    
+    relative_position_id = FON_House_of_Fools
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_House_of_Fools
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        country_event = { id = FON_civil_war.3 }
+        }
+    }
+
+#风暴玫瑰
+focus = {
+    id = FON_Storm_Rose
+    icon = GFX_FON_Storm_Rose
+    
+    relative_position_id = FON_on_stage_and_behind_the_scenes
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_on_stage_and_behind_the_scenes
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        country_event = { id = FON_civil_war.5 }
+        }
+    }
+
+#全面失控
+focus = {
+    id = FON_Total_loss_of_control
+    icon = GFX_FON_Total_loss_of_control
+    
+    relative_position_id = FON_Storm_Rose
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Break_the_Chains
+    }
+
+    prerequisite = {
+        focus = FON_Storm_Rose
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        FOD = {
+            division_template = {
+		        name = "civil_war_division_1" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 2 y = 0 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+		        }
+		        support = { 
+		        } 
+	        }
+            division_template = {
+		        name = "civil_war_division_2" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 0 y = 3 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 1 y = 3 } 
+                    infantry = { x = 2 y = 0 } 
+                    infantry = { x = 2 y = 1 } 
+                    infantry = { x = 2 y = 2 } 
+                    infantry = { x = 2 y = 3 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+                    artillery_brigade = { x = 3 y = 2 } 
+                    artillery_brigade = { x = 3 y = 3 } 
+		        }
+		        support = { 
+                    artillery = { x = 0 y = 0 } 
+			        engineer = { x = 0 y = 1 }
+		        } 
+	        }
+
+            capital_scope = {
+                create_unit = {
+                    division = "name = \"枫丹帝国第一步兵师\" division_template = \"civil_war_division_1\" start_experience_factor = 0.7 start_equipment_factor = 1.0"
+                    owner = FOD
+                    count = 20
+                }
+                create_unit = {
+                    division = "name = \"枫丹帝国第一步兵师\" division_template = \"civil_war_division_2\" start_experience_factor = 1.0 start_equipment_factor = 1.0"
+                    owner = FOD
+                    count = 10
+                }
+            }
+        }
+        FOM = {
+            division_template = {
+		        name = "civil_war_division_1" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 2 y = 0 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+		        }
+		        support = { 
+		        } 
+	        }
+            division_template = {
+		        name = "civil_war_division_2" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 0 y = 3 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 1 y = 3 } 
+                    infantry = { x = 2 y = 0 } 
+                    infantry = { x = 2 y = 1 } 
+                    infantry = { x = 2 y = 2 } 
+                    infantry = { x = 2 y = 3 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+                    artillery_brigade = { x = 3 y = 2 } 
+                    artillery_brigade = { x = 3 y = 3 } 
+		        }
+		        support = { 
+                    artillery = { x = 0 y = 0 } 
+			        engineer = { x = 0 y = 1 }
+		        } 
+	        }
+            capital_scope = {
+                create_unit = {
+                    division = "name = \"枫丹革命第一步兵师\" division_template = \"civil_war_division_1\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = FOM
+                    count = 19
+                }
+                create_unit = {
+                    division = "name = \"枫丹革命第一步兵师\" division_template = \"civil_war_division_2\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = FOM
+                    count = 8
+                }
+            }
+        }
+        HZH = {
+            division_template = {
+		        name = "civil_war_division_1" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 2 y = 0 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+		        }
+		        support = { 
+		        } 
+	        }
+            division_template = {
+		        name = "civil_war_division_2" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 0 y = 3 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 1 y = 3 } 
+                    infantry = { x = 2 y = 0 } 
+                    infantry = { x = 2 y = 1 } 
+                    infantry = { x = 2 y = 2 } 
+                    infantry = { x = 2 y = 3 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+                    artillery_brigade = { x = 3 y = 2 } 
+                    artillery_brigade = { x = 3 y = 3 } 
+		        }
+		        support = { 
+                    artillery = { x = 0 y = 0 } 
+			        engineer = { x = 0 y = 1 }
+		        } 
+	        }
+            capital_scope = {
+                create_unit = {
+                    division = "name = \"壁炉之家第一步兵师\" division_template = \"civil_war_division_1\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = HZH
+                    count = 6
+                }
+                create_unit = {
+                    division = "name = \"壁炉之家第一步兵师\" division_template = \"civil_war_division_2\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = HZH
+                    count = 3
+                }
+            }
+        }
+        PBF = {
+            division_template = {
+		        name = "civil_war_division_1" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 2 y = 0 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+		        }
+		        support = { 
+		        } 
+	        }
+            division_template = {
+		        name = "civil_war_division_2" 
+		        is_locked = no
+		        priority = 0 
+		        regiments = {
+			        infantry = { x = 0 y = 0 } 
+                    infantry = { x = 0 y = 1 } 
+                    infantry = { x = 0 y = 2 } 
+                    infantry = { x = 0 y = 3 } 
+                    infantry = { x = 1 y = 0 } 
+                    infantry = { x = 1 y = 1 } 
+                    infantry = { x = 1 y = 2 } 
+                    infantry = { x = 1 y = 3 } 
+                    infantry = { x = 2 y = 0 } 
+                    infantry = { x = 2 y = 1 } 
+                    infantry = { x = 2 y = 2 } 
+                    infantry = { x = 2 y = 3 } 
+                    artillery_brigade = { x = 3 y = 0 } 
+                    artillery_brigade = { x = 3 y = 1 } 
+                    artillery_brigade = { x = 3 y = 2 } 
+                    artillery_brigade = { x = 3 y = 3 } 
+		        }
+		        support = { 
+                    artillery = { x = 0 y = 0 } 
+			        engineer = { x = 0 y = 1 }
+		        } 
+	        }
+            capital_scope = {
+                create_unit = {
+                    division = "name = \"社会党第一步兵师\" division_template = \"civil_war_division_1\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = PBF
+                    count = 7
+                }
+                create_unit = {
+                    division = "name = \"社会党第一步兵师\" division_template = \"civil_war_division_2\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+                    owner = PBF
+                    count = 1
+                }
+            }
+        }
+    }
+    
+
+
+#高海欲火
+focus = {
+    id = FON_Passion_on_the_high_seas
+    icon = GFX_FON_Passion_on_the_high_seas
+    
+    relative_position_id = FON_Total_loss_of_control
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Total_loss_of_control
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = {
+
+    }
+    completion_reward = {
+        country_event = { id = super.19 }
+        news_event = { id = FON_civil_war_news.1}
+        country_event = { id = FON_civil_war.6 }
+        }
+    }
+
+########################################
+#####     水仙十字结社国策树     #########
+########################################
+
+#结社成员密会
+focus = {
+    id = FON_Members_association_hold_secret_meetings
+    icon = GFX_FON_Members_association_hold_secret_meetings
+
+    x=4
+    y=0
+
+    cost=5
+    prerequisite = {
+       
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#雅各布掌握局面
+focus = {
+    id = FON_Jacob_took_control_of_the_situation
+    icon = GFX_FON_Jacob_took_control_of_the_situation
+
+    relative_position_id = FON_Members_association_hold_secret_meetings
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Members_association_hold_secret_meetings
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#溶解者的意志
+focus = {
+    id = FON_The_Will_of_the_Dissolver
+    icon = GFX_FON_The_Will_of_the_Dissolver
+    
+    relative_position_id = FON_Members_association_hold_secret_meetings
+    x=-1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Members_association_hold_secret_meetings
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#阿兰·吉约丹遗产
+focus = {
+    id = FON_al_heritage
+    icon = GFX_FON_al_heritage
+
+    relative_position_id = FON_The_Will_of_the_Dissolver
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_The_Will_of_the_Dissolver
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#天外之力
+focus = {
+    id = FON_Power_from_beyond_the_heavens
+    icon = GFX_FON_Power_from_beyond_the_heavens
+
+    relative_position_id = FON_Jacob_took_control_of_the_situation
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Jacob_took_control_of_the_situation
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#新人类理论
+focus = {
+    id = FON_New_Human_Theory
+    icon = GFX_FON_New_Human_Theory
+
+    relative_position_id = FON_Power_from_beyond_the_heavens
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_Power_from_beyond_the_heavens
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#水仙十字往事
+focus = {
+    id = FON_The_Past_of_Narcissus_Cross
+    icon = GFX_FON_The_Past_of_Narcissus_Cross
+    
+    relative_position_id = FON_al_heritage
+    x=0
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_al_heritage
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+
+#结社接管枫丹
+focus = {
+    id = FON_Association_takes_over_Fengdan
+    icon = GFX_FON_Association_takes_over_Fengdan
+    
+    relative_position_id = FON_The_Past_of_Narcissus_Cross
+    x=1
+    y=1
+
+    cost=5
+    prerequisite = {
+        focus = FON_New_Human_Theory
+    }
+    prerequisite = {
+        focus = FON_The_Past_of_Narcissus_Cross
+    }
+    
+    available = {
+        
+    }
+    bypass = {}
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    allow_branch = { has_country_flag = FON_Narcissus_Cross_Association_flag }
+    completion_reward = {
+
+        }
+    }
+}

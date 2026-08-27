@@ -1,0 +1,547 @@
+add_namespace = LYY_Keqing
+# ��ʼ�¼�����¥����
+country_event = {
+	id = LYY_Keqing.1
+	title = LYY_Keqing.1.t
+	desc = LYY_Keqing.1.d
+	picture = GFX_report_event_keqing_speech
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.1.a		# ѡ���ı���"Ϊ���ս��"
+		# --- 1. ȷ���쵼����ִ���� ---
+		# ȷ��������Ϊ��ɫ����
+		promote_character = LYY_KeQing
+		# �趨����֧���ʣ������Ͷ�������������/�������壩100%
+		set_political_party = {
+			ideology = communism
+			popularity = 100
+		}
+		# ������λ
+		promote_character = LYY_KeQing
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		# �������ר���������ʣ���ҫ���µĺ���
+		# Ч�����ȶ���+10%��½������+10%��������������+10% (����common/country_leader_traits�ж����id)
+		add_country_leader_trait = {
+			character = LYY_KeQing
+			trait = LYY_trait_shining_red_star
+		}
+		# --- 2. ���������������� ---
+		# ���Ϊ�����Ǹ�������
+		set_cosmetic_tag = LYY_SEVEN_STARS_FRONT
+		# --- 3. �趨���һ������� ---
+		# �ı�Ҫ�󣺻����ȶ���40%��ս��֧�ֶ�80%
+		# ע�⣺set_ָ����ֱ���趨��ǰֵ
+		set_stability = 0.4
+		set_war_support = 0.8
+		# �ı�Ҫ�󣺿��в� 3
+		set_research_slots = 3
+		# --- 4. �������徫�� (Debuffs) ---
+		# ���񣺾��尵��ӿ (�ȶ���-40%����Ԯ��-30%��ս��֧�ֶ�-30%)
+		add_ideas = LYY_idea_old_clan_undercurrents
+		# ���񣺻�������֮ʦ (½����֯��-30%���ƻ��ٶ�-40%��½������-30%)
+		add_ideas = LYY_idea_soulless_army
+		# --- 5. �趨������ó���ƶ� ---
+		# �ı�Ҫ�󣺷��ѵľ�����ϵ�����������Ը����㣨������
+		add_ideas = LYY_split_economic_system		# �Զ��徭�÷�����������д
+		add_ideas = closed_economy		# ó�׷������Ը����� (ԭ��id)��������д
+	}
+}
+
+# ��������� - ���˸��ر������壬����Ϊ5�����ÿ���������5���ؿ�
+country_event = {
+    id = LYY_Keqing.5
+    title = LYY_Keqing.5.t
+    desc = LYY_Keqing.5.d
+    picture = "GFX_report_event_partisan_activity"
+    is_triggered_only = yes
+    fire_only_once = yes
+    hidden = no
+    option = {
+        name = "LYY_Keqing.5.a"
+        # ��鲢�������ʦ���� (����Ϊ5������Ӫ)
+        if = {
+            limit = {
+                NOT = { has_division_template = "LYY_Keqing_Militia_Template" }
+            }
+            create_division_template = {
+                name = "LYY_Keqing_Militia_Template"
+                regiments = {
+                    infantry = { x = 0 y = 0 }
+                    infantry = { x = 0 y = 1 }
+                    infantry = { x = 0 y = 2 }
+                    infantry = { x = 0 y = 3 }
+                    infantry = { x = 0 y = 4 }
+                }
+            }
+        }
+        # ���˸��ر������壺Ϊÿ����ս���޵Ĺ��ң����5���ؿ鱬���������
+        every_country = {
+            limit = {
+                OR = {
+                    is_at_war_with = ROOT
+                    has_opinion = { who = ROOT value < -50 }
+                }
+                NOT = { 
+                    has_government_in_exile = yes
+                    tag = ROOT
+                }
+            }
+            
+            # ÿ���������ѡ��5���ؿ鴥������
+            random_owned_states = {
+                limit = {
+                    is_controlled_by = ROOT
+                    NOT = { is_core = ROOT }
+                }
+                count = 5
+                
+                # �ڸõؿ�����5�����ʦ
+                create_unit = {
+                    # PREV ָ�� every_country �еĹ��ң����õؿ��ԭ��/�й���������ϡ����塱���߼�
+                    # �����ϣ�����ɵĵ�λ���� ROOT��ռ�췽�������Ϊ owner = ROOT
+                    owner = PREV
+                    template = "LYY_Keqing_Militia_Template"
+                    amount = 5
+                    location = THIS # �ڵ�ǰѡ�еĵؿ�����
+                }
+                
+                # ���ӵֿ��������η���90����Ч�ڣ�
+                add_state_modifier = {
+                    name = resistance_target
+                    days = 90
+                }
+            }
+            # ��Ǹù����ѱ�������
+            set_country_flag = uprising_triggered
+        }
+        
+        # ��Ǳ��¼��ѷ���
+        set_country_flag = uprising_happened
+        
+        # ����ս��֧�ֶ�
+        add_war_support = 0.05
+        ai_chance = {
+            factor = 1.0
+        }
+    }
+}
+
+# ���������� - �ж��¼�
+country_event = {
+	id = LYY_Keqing.10
+	title = LYY_Keqing.10.t
+	desc = LYY_Keqing.10.d
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_enable_wooing_ganyu
+	}
+	immediate = {
+		# ������Ҫ���ӵı����߼�����Ϊֱ���ж�
+		if = {
+			limit = {
+				check_variable = {
+					LYY_Ganyu_Favor > 80
+				}
+			}
+			set_country_flag = LYY_ganyu_success
+		}
+		else = {
+			set_country_flag = LYY_ganyu_failed
+		}
+	}
+	option = {
+		name = "Success"
+		trigger = {
+			has_country_flag = LYY_ganyu_success
+		}
+		set_country_flag = LYY_ganyu_allied
+		white_peace = GYP
+		add_political_power = 120
+		add_stability = 0.05
+	}
+	option = {
+		name = "Failure"
+		trigger = {
+			has_country_flag = LYY_ganyu_failed
+		}
+		add_stability = -0.1
+		add_war_support = -0.1
+	}
+}
+
+# ��������Σ�� (�򵥿��)
+# �ⲿ��ͨ������ on_actions �� on_daily_tick �м��
+# ������ṩ�¼��ṹ
+country_event = {
+	id = LYY_Ningguang_Crisis.1
+	title = "Economic Crisis Deepens"
+	desc = "The crisis value is rising..."
+	trigger = {
+		tag = LYY		# ����������ԭTAG
+		has_country_flag = LYY_ningguang_new_deal_active
+	}
+	option = {
+		name = "We must act!"
+		add_variable = {
+			LYY_crisis_value = 0.5
+		}
+	}
+}
+
+# ===== ����-����������� =====
+# ��£�����¼�
+country_event = {
+	id = LYY_Keqing.11
+	title = LYY_Keqing.11.t
+	desc = LYY_Keqing.11.d
+	picture = GFX_report_event_generic_negotiation
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_enable_wooing_ganyu
+	}
+	immediate = {
+		# ��ʼ����������ֵ����Χ0-100��50Ϊ������
+		if = {
+			limit = {
+				NOT = { has_variable = LYY_ganyu_toward_immortals }
+			}
+			set_variable = {
+				LYY_ganyu_toward_immortals = 50
+			}
+			set_variable = {
+				LYY_ganyu_toward_keqing = 50
+			}
+		}
+	}
+	option = {
+		name = LYY_Keqing.11.a
+		# ���е���������ÿ�������Կ��������
+		set_variable = {
+			LYY_ganyu_propaganda_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_propaganda_tooltip
+	}
+	option = {
+		name = LYY_Keqing.11.b
+		# �ƻ��Է���ʩ���Եз���ɹ�ҵ���
+		set_variable = {
+			LYY_ganyu_sabotage_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_sabotage_tooltip
+	}
+	option = {
+		name = LYY_Keqing.11.c
+		# �߽���ģ�ͨ����͸�����з�����
+		set_variable = {
+			LYY_ganyu_infiltration_active = 1
+		}
+		add_political_power = -50
+		custom_effect_tooltip = LYY_ganyu_infiltration_tooltip
+	}
+}
+
+# �����������ɹ��¼�
+country_event = {
+	id = LYY_Keqing.12
+	title = LYY_Keqing.12.t
+	desc = LYY_Keqing.12.d
+	picture = GFX_report_event_generic_alliance
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_wooing_ganyu_active
+	}
+	immediate = {
+		# �ж��ɹ����ʣ����ڸ�������
+		if = {
+			limit = {
+				check_variable = {
+					LYY_ganyu_toward_keqing > 80
+				}
+			}
+			set_country_flag = LYY_ganyu_connected_success
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					LYY_ganyu_toward_keqing > 50
+				}
+			}
+			# 40%���ʳɹ�
+			random_list = {
+				40 = {
+					set_country_flag = LYY_ganyu_connected_success
+				}
+				60 = {
+					set_country_flag = LYY_ganyu_connected_failed
+				}
+			}
+		}
+		else = {
+			set_country_flag = LYY_ganyu_connected_failed
+		}
+	}
+	option = {
+		name = LYY_Keqing.12.a
+		trigger = {
+			has_country_flag = LYY_ganyu_connected_success
+		}
+		# ͣս�ɹ����������ͬ��
+		set_country_flag = LYY_ganyu_allied
+		white_peace = GYP
+		GYP = {
+			white_peace = ROOT
+		}
+		add_political_power = 120
+		add_stability = 0.05
+		custom_effect_tooltip = LYY_ganyu_alliance_formed
+	}
+	option = {
+		name = LYY_Keqing.12.b
+		trigger = {
+			has_country_flag = LYY_ganyu_connected_failed
+		}
+		# ���ѣ�����ܾ�����
+		add_stability = -0.1
+		add_war_support = -0.1
+		custom_effect_tooltip = LYY_ganyu_alliance_failed
+	}
+}
+
+# ���깲�����¼�
+country_event = {
+	id = LYY_Keqing.13
+	title = LYY_Keqing.13.t
+	desc = LYY_Keqing.13.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_ganyu_allied
+	}
+	option = {
+		name = LYY_Keqing.13.a
+		# �齨����ͬ��
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction = no
+				}
+			}
+			create_faction = LYY_Sunny_Rain_Alliance
+			GYP = {
+				add_to_faction = ROOT
+			}
+		}
+		add_political_power = 100
+		add_stability = 0.05
+	}
+	option = {
+		name = LYY_Keqing.13.b
+		# ���ǿ��ͬ�ˣ�Ч������
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction = no
+				}
+			}
+			create_faction = LYY_Sunny_Rain_Alliance
+			GYP = {
+				add_to_faction = ROOT
+			}
+		}
+		GYP = {
+			create_alliance = ROOT
+		}
+		add_political_power = 150
+		add_stability = 0.08
+		add_timed_idea = {
+			idea = LYY_keqing_ganyu_strong_alliance
+			days = 360
+		}
+	}
+}
+
+# Я�ֹ�һͳ�¼�
+country_event = {
+	id = LYY_Keqing.14
+	title = LYY_Keqing.14.t
+	desc = LYY_Keqing.14.d
+	picture = GFX_report_event_generic_army
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = LYY_ganyu_allied
+		any_state = {
+			is_core_of = LYY
+			is_controlled_by = LYY
+		}
+	}
+	option = {
+		name = LYY_Keqing.14.a
+		# ����������˿���50%�������������󴥷�
+		add_manpower = 10000
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_timed_idea = {
+			idea = LYY_hand_in_hand_buff
+			days = 360
+		}
+		custom_effect_tooltip = LYY_keqing_ganyu_unified_bonus
+	}
+}
+
+# ���ƹ�ı���¼�����ƽ�ϲ�·�ߣ�
+country_event = {
+	id = LYY_Keqing.20
+	title = LYY_Keqing.20.t
+	desc = LYY_Keqing.20.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.20.a
+		# ��ƽ�ϲ�·��
+		hidden_effect = {
+			every_state = {
+				limit = {
+					is_core_of = GYP
+				}
+				set_state_controller = ROOT
+			}
+		}
+		GYP = {
+			every_unit_leader = {
+				set_unit_leader_flag = leader_has_switched_sides
+			}
+		}
+		add_political_power = 150
+		add_stability = 0.15
+		custom_effect_tooltip = LYY_keqing_ganyu_peaceful_merger
+	}
+	option = {
+		name = LYY_Keqing.20.b
+		# �������ˣ����ɸ�������
+		add_political_power = 200
+		add_stability = 0.1
+		custom_effect_tooltip = LYY_keqing_alliance_expansion
+	}
+}
+
+# �߳�����Ӱ�¼�����ϴ·�ߣ�
+country_event = {
+	id = LYY_Keqing.21
+	title = LYY_Keqing.21.t
+	desc = LYY_Keqing.21.d
+	picture = GFX_report_event_generic_purge
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.21.a
+		# �ñ����ܵ������쵼�˼���
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = LYY_ningguang_defeated
+				}
+				promote_character = LYY_NingGuang
+				promote_character = LYY_ShenHe
+			}
+		}
+		add_political_power = 100
+		add_stability = -0.1
+		custom_effect_tooltip = LYY_keqing_absorb_defeated_leaders
+	}
+	option = {
+		name = LYY_Keqing.21.b
+		# ���ڴ���������Ȩ��
+		add_political_power = 150
+		add_stability = 0.2
+		add_war_support = 0.1
+		custom_effect_tooltip = LYY_keqing_execute_enemies
+	}
+}
+
+# ��½�Թ�ʢ�¼���ͳһ�¼���
+country_event = {
+	id = LYY_Keqing.22
+	title = LYY_Keqing.22.t
+	desc = LYY_Keqing.22.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.22.a
+		# ��������쵼
+		set_cosmetic_tag = LYY_LIYUE_FEDERATION
+		set_party_name = {
+			ideology = communism
+			name = LYY_communist_party
+			long_name = LYY_communist_party_long
+		}
+		add_political_power = 200
+		add_stability = 0.2
+		custom_effect_tooltip = LYY_keqing_leads_federation
+		# ��ȫ�������������ʤ��
+		every_other_country = {
+			news_event = { id = LYY_News.Keqing_Victory days = 3 }
+		}
+	}
+	option = {
+		name = LYY_Keqing.22.b
+		# ����Ϳ��繲ͬ�쵼����
+		set_cosmetic_tag = LYY_LIYUE_FEDERATION
+		# ���ɷֲ������絳50%�����굳50%
+		hidden_effect = {
+			set_party_name = {
+				ideology = communism
+				name = LYY_coalition_government
+				long_name = LYY_coalition_government_long
+			}
+		}
+		add_political_power = 250
+		add_stability = 0.25
+		custom_effect_tooltip = LYY_keqing_ganyu_joint_leadership
+		# ��ȫ����������������������ʤ��
+		every_other_country = {
+			news_event = { id = LYY_News.Keqing_Victory days = 3 }
+		}
+	}
+}
+
+# ���ظ������¼�����ѡ��ս·�ߣ�
+country_event = {
+	id = LYY_Keqing.23
+	title = LYY_Keqing.23.t
+	desc = LYY_Keqing.23.d
+	picture = GFX_report_event_generic_civil_war
+	is_triggered_only = yes
+	option = {
+		name = LYY_Keqing.23.a
+		# �ܾ�����깲��Ȩ����������ս
+		if = {
+			limit = {
+				GYP = {
+					is_in_faction_with = ROOT
+				}
+			}
+			GYP = {
+				remove_from_faction = ROOT
+			}
+		}
+		declare_war_on = {
+			target = GYP
+			type = civil_war
+			generator = civil_war
+		}
+		add_political_power = 100
+		add_stability = -0.2
+		custom_effect_tooltip = LYY_keqing_ganyu_renewed_war
+	}
+	option = {
+		name = LYY_Keqing.23.b
+		# ά��ͬ�ˣ������Ž�
+		add_political_power = 200
+		add_stability = 0.1
+		custom_effect_tooltip = LYY_keqing_ganyu_maintain_alliance
+	}
+}

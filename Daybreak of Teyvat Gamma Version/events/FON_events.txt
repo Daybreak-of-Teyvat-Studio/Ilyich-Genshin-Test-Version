@@ -1,0 +1,839 @@
+add_namespace = FON
+add_namespace = FON_water
+add_namespace = FON_civil_war
+
+
+#############################
+###     胎海水危机事件     ###
+#############################
+#少女消失事件，第一个国策的事件
+country_event = {
+	id = FON.1
+	title = FON.1.t
+	desc = FON.1.desc
+	picture = FON.1_pic.png
+	is_triggered_only = yes
+
+
+
+	option = {
+		log = "[GetLogRoot]: country flag set FON_stage_search_begins_flag"
+		name = FON.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_stability = -0.01
+		add_manpower = -1
+		set_country_flag = FON_stage_search_begins_flag
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {#调查结果
+	id = FON.2
+	title = FON.2.t
+	desc = FON.2.desc
+	picture = FON.2_pic.jpg
+	is_triggered_only = yes
+
+	option = {
+		name = FON.2.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_stability = -0.05
+		hidden_effect = {
+			remove_ideas = FON_high_time_of_economy
+			add_ideas = FON_eco_crisis_3
+		}
+	    set_country_flag = FON_stage_deal_begins_flag
+		mark_focus_tree_layout_dirty = yes
+	}
+
+	option = {
+		name = FON.2.b
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_stability = -0.05
+		hidden_effect = {
+			remove_ideas = FON_high_time_of_economy
+			add_ideas = FON_eco_crisis_3
+		}
+		set_country_flag = FON_stage_deal_begins_flag
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {#公爵大人的汇报
+	id = FON.3
+	title = FON.3.t
+	desc = FON.3.desc
+	picture = FON.3_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_stability = -0.03
+	}
+	option = {
+		name = FON.3.b
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_stability = -0.03
+	}
+}
+
+country_event = {#白淞镇事件
+    id = FON.4
+	title = FON.4.t
+	desc = FON.4.desc
+	picture = FON.4_pic.png
+	is_triggered_only =yes
+	option = {#组织救援
+		name= FON.4.saving
+		ai_chance={
+			base =10
+			modifier={
+
+			}
+		}
+		add_political_power =-20
+	}
+	option= {#无事发生
+		name=FON.4.nothing
+		ai_chance={
+			base =10
+			modifier= {
+
+			}
+		}
+		add_stability=-0.05
+	}
+}
+
+country_event = {#船中密会
+	id = FON.5
+	title = FON.5.t
+	desc = FON.5.desc
+	picture = FON.5_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON.5.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_political_power = 50
+	}
+}
+
+country_event = {#沫茫来客·娜维娅
+	id = FON.6
+	title = FON.6.t
+	desc = FON.6.desc
+	picture = FON.6_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON.6.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		add_manpower = 2000
+		add_command_power = 10
+		army_experience = 5
+	}
+}
+
+country_event = {#沫茫来客·仆人
+	id = FON.7
+	title = FON.7.t
+	desc = FON.7.desc
+	is_triggered_only = yes
+	option = {
+		name = FON.7.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+	}
+}
+
+country_event = {#罪人舞步旋1
+	id = FON.8
+	title = FON.8.t
+	desc = FON.8.desc
+	picture = FON.8_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON.8.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON.9}
+	}
+}
+
+country_event = {#罪人舞步旋2
+	id = FON.9
+	title = FON.9.t
+	desc = FON.9.desc
+	picture = FON.9_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON.9.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON.10}
+	}
+}
+
+country_event = {#罪人舞步旋3
+	id = FON.10
+	title = FON.10.t
+	desc = FON.10.desc
+	picture = FON.10_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON.10.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+
+	}
+	option = {
+		name = FON.10.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				
+			}
+		}
+
+	}
+}
+
+country_event = {#成功
+	id = FON.12
+	title = FON.12.t
+	desc = FON.12.desc
+	picture = FON.12_pic.png
+	fire_only_once = yes
+	trigger = {
+		has_completed_focus = FON_final_date
+		has_country_flag = FON_water_is_dealed_normal
+	}
+	option = {
+		name = FON.12.a
+		custom_effect_tooltip = FON_stage2_tt
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		promote_character = FON_Neuvillette
+		clr_country_flag = FON_stage_zero_begins_flag
+		clr_country_flag = FON_stage_search_begins_flag
+		clr_country_flag = FON_stage_deal_begins_flag
+		clr_country_flag = FON_water_is_dealed_normal
+		set_country_flag = FON_stage_election_begins_flag
+		mark_focus_tree_layout_dirty = yes 
+		news_event = { days = 1 id = FON_news.1}
+		country_event = { days = 1 id = super.20 }
+	}
+
+}
+
+##########################################
+########        洪水事件          ########
+##########################################
+
+
+country_event = {#血溶于水
+	id = FON_water.1
+	title = FON_water.1.t
+	desc = FON_water.1.desc
+	picture = FON_water.1_pic.png
+	fire_only_once = yes
+	trigger = {
+		has_completed_focus = FON_final_date
+		has_country_flag = FON_water_is_not_dealed
+	}
+	option = {
+		name = FON_water.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		promote_character = FON_Rene
+		country_event = { id = FON_water.2 days = 1}
+		clr_country_flag = FON_water_is_not_dealed
+	}
+}
+
+country_event = {#翻覆之舟
+	id = FON_water.2
+	title = FON_water.2.t
+	desc = FON_water.2.desc
+	picture = FON_water.2_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON_water.2.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON_water.3 days = 1}
+	}
+}
+
+country_event = {#凋零之玫
+	id = FON_water.3
+	title = FON_water.3.t
+	desc = FON_water.3.desc
+	picture = FON_water.3_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON_water.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON_water.4 days = 1}
+	}
+}
+
+country_event = {#悲惨世界
+	id = FON_water.4
+	title = FON_water.4.t
+	desc = FON_water.4.desc
+	picture = FON_water.4_pic.png
+	is_triggered_only = yes
+	option = {
+		name = FON_water.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		clr_country_flag = FON_stage_zero_begins_flag
+		clr_country_flag = FON_stage_search_begins_flag
+		clr_country_flag = FON_stage_deal_begins_flag
+		set_country_flag = FON_Narcissus_Cross_Association_flag
+        FON_Association = yes
+		news_event = { days = 1 id = FON_water_news.1}
+	}
+}
+
+##########################################
+########        内战事件         #########
+##########################################
+
+
+country_event = {
+	id = FON_civil_war.1
+	title = FON_civil_war.1.t
+	desc = FON_civil_war.1.desc
+	picture = FON_civil_war.1_pic.png
+	fire_only_once = yes
+	trigger = {
+		has_completed_focus = FON_final_date
+		has_country_flag = FON_water_is_dealed_war
+	}
+
+	option = {
+		name = FON_civil_war.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		promote_character = FON_Clorinde
+		set_cosmetic_tag = FON_neutrality2
+		hidden_effect = {
+		clr_country_flag = FON_stage_zero_begins_flag
+		clr_country_flag = FON_stage_search_begins_flag
+		clr_country_flag = FON_stage_deal_begins_flag
+		clr_country_flag = FON_water_is_dealed_war
+		set_country_flag = FON_civil_war_flag
+		mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+
+country_event = {
+	id = FON_civil_war.2
+	title = FON_civil_war.2.t
+	desc = FON_civil_war.2.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.2.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		hidden_effect = {
+		FON_civil_war = yes
+		FOD_civil_war = yes
+		FOD = {
+			promote_character = FOD_Furina1
+			set_party_name = {
+				ideology = neutrality
+				long_name =  FOD_neutrality_name_1
+				name =  FOD_neutrality_name_1
+			}
+		}
+		
+		country_event = { days = 5 id = FON_civil_war.3 }
+		}
+	}
+}
+
+country_event = {
+	id = FON_civil_war.3
+	title = FON_civil_war.3.t
+	desc = FON_civil_war.3.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		hidden_effect = {
+		FOM_civil_war = yes
+		FOM = {
+			promote_character = FOM_Wriothesley1
+			set_party_name = {
+				ideology = communism
+				long_name =  FOM_communism_name_1
+				name =  FOM_communism_name_1
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name =  FOM_fascism_name_1	
+				name =  FOM_fascism_name_1
+			}
+		}
+		country_event = { days = 5 id = FON_civil_war.4 }
+		}
+	}
+}
+
+country_event = {
+	id = FON_civil_war.4
+	title = FON_civil_war.4.t
+	desc = FON_civil_war.4.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		hidden_effect = {
+		HZH_civil_war = yes
+		HZH = {
+			promote_character = HZH_The_Knave
+			set_party_name = {
+				ideology = neutrality
+				long_name =  HZH_neutrality_name_1
+				name =  HZH_neutrality_name_1
+			}
+		}
+		country_event = { days = 5 id = FON_civil_war.5 }
+		}
+	}
+}
+
+country_event = {
+	id = FON_civil_war.5
+	title = FON_civil_war.5.t
+	desc = FON_civil_war.5.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.5.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		hidden_effect = {
+			PBF_civil_war = yes
+			PBF = {
+				promote_character = PBF_Navia1
+				set_party_name = {
+					ideology = democratic
+					long_name =  PBF_democratic_name_1
+					name =  PBF_democratic_name_1
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name =  PBF_fascism_name_1
+					name =  PBF_fascism_name_1
+				}
+			}	
+			if = {
+				limit = {
+					has_country_flag = FON_people_left_flag
+				}
+				FOD = {
+					add_ideas = FOD_civil_war_buff_idea
+				}
+				PBF = {
+					add_ideas = PBF_civil_war_buff_idea
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = FON_people_right_flag
+				}
+				FOM = {
+					add_ideas = FOM_civil_war_buff_idea	
+				}
+				HZH = {
+					add_ideas = HZH_civil_war_buff_idea
+				}
+			}
+			FON_pre_civil_war_add_army_1 = yes
+			
+			country_event = { days = 1 id = FON_civil_war.9 }
+			country_event = { days = 5 id = FON_civil_war.6 }
+			news_event = { days = 5 id = FON_civil_war_news.1}
+		}
+		
+		
+	}
+}
+#第二次爆兵隐藏事件
+country_event = {
+	id = FON_civil_war.9
+	title = FON_civil_war.9.t
+	desc = FON_civil_war.9.desc
+	picture = FON_civil_war.2_pic.png
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = FON_civil_war.9.a
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOD = 1}
+			}
+			FOD_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOD = 2}
+			}
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOD = 3}
+			}
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOD > 3}
+				}
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+			FOD_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOM = 1}
+			}
+			FOM_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOM = 2}
+			}
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOM = 3}
+			}
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_FOM > 3}
+				}
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+			FOM_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_PBF = 1}
+			}
+			PBF_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_PBF = 2}
+			}
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_PBF = 3}
+			}
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_PBF > 3}
+			}
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+			PBF_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_HZH = 1}
+			}
+			HZH_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_HZH = 2}
+			}
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_HZH = 3}
+			}
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+		}
+		if = {
+			limit = {
+				check_variable = { FON_crisis_army_of_HZH > 3}
+			}
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+			HZH_pre_civil_war_add_army_2 = yes
+		}
+	}
+}
+
+country_event = {
+	id = FON_civil_war.6
+	title = FON_civil_war.6.t
+	desc = FON_civil_war.6.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.6.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		custom_effect_tooltip = FON_civil_war.6.tip
+	    FOD = { change_tag_from = ROOT }
+		FON = {
+			FON_undo_demilitarized_zone = yes
+		}
+		country_event = { days = 5 id = FON_civil_war.8 }
+	}
+
+	option = {
+		name = FON_civil_war.6.b
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		custom_effect_tooltip = FON_civil_war.6.tip
+	    FOM = { change_tag_from = ROOT }
+		FON = {
+			FON_undo_demilitarized_zone = yes
+		}
+		country_event = { days = 5 id = FON_civil_war.8 }
+	}
+
+	option = {
+		name = FON_civil_war.6.c
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		custom_effect_tooltip = FON_civil_war.6.tip
+		PBF = { change_tag_from = ROOT }
+		FON = {
+			FON_undo_demilitarized_zone = yes
+		}
+		country_event = { days = 5 id = FON_civil_war.8 }
+	}
+
+	option = {
+		name = FON_civil_war.6.d
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON_civil_war.7 }
+	}
+}
+
+country_event = {
+	id = FON_civil_war.7
+	title = FON_civil_war.6.t
+	desc = FON_civil_war.6.desc
+	picture = FON_civil_war.2_pic.png
+	is_triggered_only = yes
+
+	option = {
+		name = FON_civil_war.7.a
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		custom_effect_tooltip = FON_civil_war.6.tip
+		HZH = { change_tag_from = ROOT }
+		FON = {
+			FON_undo_demilitarized_zone = yes
+		}
+		country_event = { days = 5 id = FON_civil_war.8 }
+	}
+
+	option = {
+		name = FON_civil_war.7.b
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		custom_effect_tooltip = FON_civil_war.7.tip
+		FON = {
+			FON_undo_demilitarized_zone = yes
+		}
+		country_event = { days = 5 id = FON_civil_war.8 }
+	}
+
+	option = {
+		name = FON_civil_war.7.c
+		ai_chance = {
+			base = 10
+			modifier = {
+
+			}
+		}
+		country_event = { id = FON_civil_war.6 }
+	}
+}
+
+#内战开始
+country_event = {
+	id = FON_civil_war.8
+	title = FON_civil_war.8.t
+	desc = FON_civil_war.8.desc
+	picture = FON_civil_war.2_pic.png
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = FON_civil_war.8.a
+		HZH = { declare_war_on = { target = FOM type = annex_everything } }
+		PBF = { declare_war_on = { target = FOD type = annex_everything } }
+	}
+}

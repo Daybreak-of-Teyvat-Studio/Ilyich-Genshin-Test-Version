@@ -1,0 +1,3387 @@
+add_namespace = LYY_Ganyu
+# ��ʼ�¼����º�����
+country_event = {
+	id = LYY_Ganyu.1
+	title = LYY_Ganyu.1.t
+	desc = LYY_Ganyu.1.d
+	picture = GFX_report_event_ganyu_speech
+	is_triggered_only = yes
+	option = {
+		name = LYY_Ganyu.1.a		# ѡ���ı���"�йŸ��ƣ����ɼ�֮�Σ���������ˮ��"
+		# --- 1. ȷ���쵼����ִ���� ---
+		# ȷ��������Ϊ��ɫ����
+		promote_character = LYY_GanYu
+		# �趨����֧���ʣ��º�ͤ�ɣ��������壩100%
+		set_political_party = {
+			ideology = neutrality
+			popularity = 100
+		}
+		# ������λ
+		promote_character = LYY_GanYu
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		# �������ר���������ʣ��۱鳾��֮��
+		# Ч���������˿�+5%��½�������ȡ+0.05%������Ч��+10%����ʩ�����ٶ�+5%
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_witness_of_mortal_world
+		}
+		# --- 2. ���������������� ---
+		# ���Ϊ���º�ͤ��ʡ����
+		set_cosmetic_tag = LYY_MOONCHASE_ALLIANCE
+		# --- 3. �趨���һ������� ---
+		# �ı�Ҫ�󣺻����ȶ���80%��ս��֧�ֶ�50%
+		set_stability = 0.8
+		set_war_support = 0.5
+		# �ı�Ҫ�󣺿��в� 4
+		set_research_slots = 4
+		# --- 4. �������徫�� (Buffs/Debuffs) ---
+		# ���񣺵�Ը����ƽ (�ȶ���+10%������ѵ���ٶ�-10%)
+		add_ideas = LYY_idea_ganyu_peaceful_waves
+		# ������ְ֮�ף����ǿɼ� (��������Ч��-30%�������ٶ�-20%��ս��֧�ֶ�-30%)
+		add_ideas = LYY_idea_ganyu_secretarial_corruption
+		# ���������뽮�Թ��� (��������-30%����Դ����Ч��-60%����ҵ�о��ٶ�-30%���ʱ��˿�-30%)
+		add_ideas = LYY_idea_ganyu_fragmented_land
+		# --- 5. �趨������ó���ƶ� ---
+		# �ı�Ҫ�󣺷��ѵľ�����ϵ������������վ���
+		add_ideas = LYY_split_economic_system		# �Զ��徭�÷���������
+		add_ideas = closed_economy		# ó�׷�������վ��� (ԭ��id)
+		# --- 6. ������ƣ�ս�������� ---
+		# ע�������ɳ�������û�����κ�������ս��Ҳ���ܱ��κ�������ս
+		# ��ȵ����߽����ſɽ���ս�����˲��ֿ�ͨ���Զ���modifier��scripted_effectʵ��
+		add_timed_idea = {
+			idea = LYY_idea_ganyu_neutrality_period
+			days = 70		# ��Ӧ"������֮ͽ������ս�⣡"���ߵ�30��+���ֻ���ʱ��
+		}
+	}
+}
+
+# ������֮ͽ������ս�⣡
+country_event = {
+	id = LYY_Ganyu.2
+	title = LYY_Ganyu.2.t
+	desc = LYY_Ganyu.2.d
+	picture = GFX_report_event_ganyu_declaration
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.2.a		# "ֻ�����ǲ������µ���ͳ��"
+		
+		# �Ƴ�ս�������ھ���
+		remove_ideas = LYY_idea_ganyu_neutrality_period
+		
+		# ��öԸ���ϵ��ս��Ŀ��
+		# �Կ�����
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_KEQ
+			}
+		}
+		
+		# ��������
+		if = {
+			limit = { country_exists = LYY_NGL }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_NGL
+			}
+		}
+		
+		# �������
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_SHH
+			}
+		}
+		
+		# �Լ�����
+		if = {
+			limit = { country_exists = LYY_JMG }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_JMG
+			}
+		}
+		
+		# ���ù��ұ�־����ʾ����ս��
+		set_country_flag = LYY_ganyu_war_declaration_made
+		
+		# ���������������һ��
+		add_timed_idea = {
+			idea = LYY_idea_righteous_cause
+			days = 180
+		}
+	}
+}
+
+# ����������
+country_event = {
+	id = LYY_Ganyu.3
+	title = LYY_Ganyu.3.t
+	desc = LYY_Ganyu.3.d
+	picture = GFX_report_event_ganyu_keqing_conflict
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.3.a		# "���磬�������⣬����Ϊ�����¡�"
+		
+		# �Կ�������ս
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# ���ñ�־�����ᴥ������������͸debuff
+		set_country_flag = LYY_ganyu_no_qiming_infiltration
+		
+		# ������ʱ�������ô����
+		add_timed_idea = {
+			idea = LYY_idea_disciplining_friend
+			days = 70
+		}
+		
+		# ½����������
+		add_timed_idea = {
+			idea = LYY_idea_offensive_against_keqing
+			days = 70
+		}
+	}
+}
+
+# �Ƕ�Ⱥ���
+country_event = {
+	id = LYY_Ganyu.4
+	title = LYY_Ganyu.4.t
+	desc = LYY_Ganyu.4.d
+	picture = GFX_report_event_jade_chamber
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.4.a		# "���ɼ�֮�Σ�֤�����ǵ���Խ��"
+		
+		# ����������ս
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+		}
+		
+		# ������ʱ������֤���ɼ�ͳ��
+		add_timed_idea = {
+			idea = LYY_idea_prove_adepti_rule
+			days = 70
+		}
+		
+		# ʿ������
+		army_experience = 20
+	}
+}
+
+# ͻ�뱱��
+country_event = {
+	id = LYY_Ganyu.5
+	title = LYY_Ganyu.5.t
+	desc = LYY_Ganyu.5.d
+	picture = GFX_report_event_northern_expedition
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.5.a		# "�����������������ж���"
+		
+		# �������ɾ���ͨ��Ȩ
+		if = {
+			limit = { country_exists = LYY_SHH }
+			give_military_access = LYY_SHH
+			LYY_SHH = {
+				give_military_access = ROOT
+			}
+		}
+		
+		# �Լ�������ս
+		if = {
+			limit = { country_exists = LYY_JMG }
+			declare_war_on = {
+				target = LYY_JMG
+				type = annex_everything
+			}
+		}
+		
+		# ������ʱ������Զ������
+		add_timed_idea = {
+			idea = LYY_idea_northern_campaign
+			days = 70
+		}
+	}
+}
+
+# ˵�����
+country_event = {
+	id = LYY_Ganyu.6
+	title = LYY_Ganyu.6.t
+	desc = LYY_Ganyu.6.d
+	picture = GFX_report_event_ganyu_shenhe_meeting
+	is_triggered_only = yes
+	
+	# ѡ��A�����ͬ�⣨80%���ʣ�
+	option = {
+		name = LYY_Ganyu.6.a		# "��׽������ҵ����顣"
+		trigger = {
+			NOT = { has_country_flag = LYY_shenhe_refuses }
+		}
+		
+		# ������ɽ���
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_faction = LYY_adepti_alliance
+			add_to_faction = LYY_SHH
+			
+			# ���ƹ�ϵ
+			LYY_SHH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_adepti_bond
+				}
+			}
+		}
+		
+		# ���óɹ���־
+		set_country_flag = LYY_shenhe_alliance_success
+		
+		# ���Ӿ����ɼ�����
+		add_ideas = LYY_idea_adepti_alliance
+	}
+	
+	# ѡ��B����׾ܾ���20%���ʣ�
+	option = {
+		name = LYY_Ganyu.6.b		# "��׾ܾ��ˣ��Ǿ�ֻ�ܱ��������"
+		trigger = {
+			has_country_flag = LYY_shenhe_refuses
+		}
+		
+		# ��������������ս
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		
+		# ����"���ƻ���"����
+		set_country_flag = LYY_skip_sole_authority
+		
+		# ������ʱ�������ɼ��ڶ�
+		add_timed_idea = {
+			idea = LYY_idea_adepti_infighting
+			days = 70
+		}
+	}
+}
+
+# ���ƻ���
+country_event = {
+	id = LYY_Ganyu.7
+	title = LYY_Ganyu.7.t
+	desc = LYY_Ganyu.7.d
+	picture = GFX_report_event_ganyu_shenhe_battle
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.7.a		# "��ף��Ҳ������ս�������㲻Ҫ���ң�"
+		
+		# ��ö�����ɵ�ս��Ŀ��
+		if = {
+			limit = { country_exists = LYY_SHH }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_SHH
+			}
+		}
+		
+		# ������ʱ������ʦ���öԾ�
+		add_timed_idea = {
+			idea = LYY_idea_sisters_duel
+			days = 70
+		}
+		
+		# ½����������
+		army_experience = 30
+	}
+}
+
+# �ʶ�����
+country_event = {
+	id = LYY_Ganyu.8
+	title = LYY_Ganyu.8.t
+	desc = LYY_Ganyu.8.d
+	picture = GFX_report_event_liyue_unification
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.8.a		# "��������ͳһ�ˣ�"
+		
+		# �Ƴ������뽮�Թ���debuff
+		remove_ideas = LYY_idea_ganyu_fragmented_land
+		
+		# ���Ĺ�������Ϊ"����"
+		set_cosmetic_tag = LYY_UNIFIED
+		
+		# ���Ӿ�������ͳһ
+		add_ideas = LYY_idea_liyue_unified
+		
+		# �����ȶ��Ⱥ�ս��֧�ֶ�
+		add_stability = 0.15
+		add_war_support = 0.10
+		
+		# ���ε�������
+		add_political_power = 200
+		
+		# ���������¼�ѡ��
+		country_event = {
+			id = LYY_Ganyu.9
+			days = 5
+		}
+	}
+}
+
+# �ʶ����º���ѡ����ɲо����ɱ������
+country_event = {
+	id = LYY_Ganyu.9
+	title = LYY_Ganyu.9.t
+	desc = LYY_Ganyu.9.d
+	picture = GFX_report_event_liyue_consolidation
+	is_triggered_only = yes
+	
+	# ѡ��A����ɲо�
+	option = {
+		name = LYY_Ganyu.9.a		# "��ɲ�������������ͳ�Ρ�"
+		
+		add_timed_idea = {
+			idea = LYY_idea_purge_remnants
+			days = 60
+		}
+		
+		# Ч���������˿�-0.5%���ȶ���+10%
+		add_manpower = -5000
+		add_stability = 0.10
+	}
+	
+	# ѡ��B����ɱ������
+	option = {
+		name = LYY_Ganyu.9.b		# "���������ɣ��ž��󻼡�"
+		
+		add_timed_idea = {
+			idea = LYY_idea_suppress_opposition
+			days = 60
+		}
+		
+		# ���������¼�
+		news_event = {
+			id = LYY_News.1
+			days = 1
+		}
+	}
+}
+
+# ����˼��
+country_event = {
+	id = LYY_Ganyu.10
+	title = LYY_Ganyu.10.t
+	desc = LYY_Ganyu.10.d
+	picture = GFX_report_event_thought_control
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.10.a		# "����������ǵ�˼�봫����"
+		
+		# ���ó�ʼ֧���ʱ���
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 20
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_gaming_support
+			value = 5
+		}
+		
+		# ����"���ѵĶ���"�¼������
+		add_ideas = LYY_idea_disaster_signs_active
+		
+		# ��������Ȩ�������¼�
+		country_event = {
+			id = LYY_Ganyu.11
+			days = 3
+		}
+	}
+}
+
+# ���µ�Ȩ����������
+country_event = {
+	id = LYY_Ganyu.11
+	title = LYY_Ganyu.11.t
+	desc = LYY_Ganyu.11.d
+	picture = GFX_report_event_liyue_power_struggle
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.11.a		# "���ɹ��Σ���Ҫƽ�⡣"
+		
+		# ���ó�ʼȨ����������
+		set_variable = {
+			var = LYY_adepti_faction
+			value = 50
+		}
+		set_variable = {
+			var = LYY_mortal_faction
+			value = 50
+		}
+		
+		# ���Ӿ���Ȩ������
+		add_ideas = LYY_idea_power_struggle_active
+		
+		# �����������
+		set_country_flag = LYY_power_struggle_begins
+	}
+}
+
+# ���ѵĶ��ߣ��������ǵ�˼�루���ظ��¼���
+country_event = {
+	id = LYY_Ganyu.12
+	title = LYY_Ganyu.12.t
+	desc = LYY_Ganyu.12.d
+	picture = GFX_report_event_thought_suppression
+	
+	trigger = {
+		has_idea = LYY_idea_disaster_signs_active
+		NOT = { has_country_flag = LYY_thought_control_cooldown }
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		name = LYY_Ganyu.12.a		# "����˼�룬ά��ͳ�Σ�"
+		
+		# ������֧����+5%
+		add_to_variable = {
+			var = LYY_ganyu_support
+			value = 5
+		}
+		
+		# ������ȴ��־
+		set_country_flag = LYY_thought_control_cooldown
+		
+		# 30�պ��Ƴ���ȴ
+		country_event = {
+			id = LYY_Ganyu.13
+			days = 30
+		}
+		
+		# ����Ƿ���ʤ������
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_ganyu_support
+					value = 100
+				}
+			}
+			country_event = {
+				id = LYY_Ganyu.14
+				days = 15
+			}
+		}
+	}
+}
+
+# �Ƴ�˼�������ȴ
+country_event = {
+	id = LYY_Ganyu.13
+	title = LYY_Ganyu.13.t
+	desc = LYY_Ganyu.13.d
+	picture = GFX_report_event_liyue_politics
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.13.a
+		clr_country_flag = LYY_thought_control_cooldown
+	}
+}
+
+# ���ѵĶ����¼������
+country_event = {
+	id = LYY_Ganyu.14
+	title = LYY_Ganyu.14.t
+	desc = LYY_Ganyu.14.d
+	picture = GFX_report_event_ganyu_victory
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.14.a		# "���ǳɹ�������ͳ�Σ�"
+		
+		# �Ƴ����Ѷ��߾���
+		remove_ideas = LYY_idea_disaster_signs_active
+		
+		# ���ӽ���
+		add_stability = 0.15
+		add_political_power = 150
+		
+		# �������
+		clear_variable = LYY_shenhe_support
+		clear_variable = LYY_ganyu_support
+		clear_variable = LYY_ningguang_support
+		clear_variable = LYY_keqing_support
+		clear_variable = LYY_gaming_support
+	}
+}
+
+# �йŸ���
+country_event = {
+	id = LYY_Ganyu.15
+	title = LYY_Ganyu.15.t
+	desc = LYY_Ganyu.15.d
+	picture = GFX_report_event_ganyu_shenhe_argument
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.15.a		# "�Ҽ̳е��ǵ۾�����־��"
+		
+		# �����ȶ��Ⱥ����ε���
+		set_stability = 0.80
+		add_political_power = 200
+		
+		# ���õ���֧����
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 20
+		}
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 40
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 30
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 30
+		}
+		
+		# ���Ӿ����йŸ���
+		add_ideas = LYY_idea_restore_ancient_system
+		
+		# �����ø�������
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_reformer
+		}
+	}
+}
+
+# �ŷ�����
+country_event = {
+	id = LYY_Ganyu.16
+	title = LYY_Ganyu.16.t
+	desc = LYY_Ganyu.16.d
+	picture = GFX_report_event_ancient_education
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.16.a		# "Ϊ�����µĳ��ξð������Ǳ�Ҫ��������"
+		
+		# �����ȶ��Ⱥ�ս��֧�ֶ�
+		set_stability = 0.90
+		set_war_support = 0.90
+		
+		# ����debuff������ʽ����
+		add_ideas = LYY_idea_ancient_education
+		
+		# �������飺�Ͼ�����·
+		set_country_flag = LYY_enable_sever_immortal_path
+	}
+}
+
+# �Ͼ�����·����ִ�к󴥷��¼�
+country_event = {
+	id = LYY_Ganyu.17
+	title = LYY_Ganyu.17.t
+	desc = LYY_Ganyu.17.d
+	picture = GFX_report_event_severing_immortal_path
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.17.a		# "�ɷ��б����Ǳ�Ȼ�ġ�"
+		
+		# �����ȶ��Ⱥ�ս��֧�ֶ�
+		add_stability = -0.20
+		add_war_support = -0.20
+		
+		# ������ռ������100%
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 100
+		}
+		
+		# ���Ӿ��񣺶Ͼ�����·
+		add_ideas = LYY_idea_severed_immortal_path
+		
+		# 120���������ȶ���ÿ��-0.1%
+		add_timed_idea = {
+			idea = LYY_idea_social_unrest_post_severance
+			days = 120
+		}
+		
+		# ���������¼�
+		news_event = {
+			id = LYY_News.2
+			days = 1
+		}
+	}
+}
+
+# Ⱥ�ڵĺ���
+country_event = {
+	id = LYY_Ganyu.18
+	title = LYY_Ganyu.18.t
+	desc = LYY_Ganyu.18.d
+	picture = GFX_report_event_ganyu_keqing_night_talk
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.18.a		# "�һ��������������"
+		
+		# ���ӽ���
+		add_political_power = 200
+		add_stability = 0.10
+		add_manpower = 10000
+		
+		# �����������ʣ��ᶨ�쵼��
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_firm_leader
+		}
+		
+		# ���������¼�
+		news_event = {
+			id = LYY_News.3
+			days = 1
+		}
+	}
+}
+
+# �Ͷ��ĸ�
+country_event = {
+	id = LYY_Ganyu.19
+	title = LYY_Ganyu.19.t
+	desc = LYY_Ganyu.19.d
+	picture = GFX_report_event_labor_reform
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.19.a		# "�̳е۾�ʱ�ڵ����ߡ�"
+		
+		# ������������ȱ���
+		set_variable = {
+			var = LYY_people_satisfaction
+			value = 50
+		}
+		
+		# ���������Ͷ���������
+		set_country_flag = LYY_enable_labor_law_decisions
+		
+		# ���Ӿ����Ͷ��ĸ�
+		add_ideas = LYY_idea_labor_reform_active
+	}
+}
+
+# �����Ͷ�����ѹե���ǣ����鴥����
+country_event = {
+	id = LYY_Ganyu.20
+	title = LYY_Ganyu.20.t
+	desc = LYY_Ganyu.20.d
+	picture = GFX_report_event_exploitation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.20.a		# "����Ч�����ȣ�"
+		
+		# ������ʱ������ѹե�͹�
+		add_timed_idea = {
+			idea = LYY_idea_exploit_workers
+			days = 30
+		}
+		
+		# ���������ÿ��-0.5%��ͨ���ű�����Ч��ʵ�֣�
+		set_country_flag = LYY_exploiting_workers
+		
+		# 30�պ��������
+		country_event = {
+			id = LYY_Ganyu.22
+			days = 30
+		}
+	}
+}
+
+# �����Ͷ�������������ͬ�ڣ����鴥����
+country_event = {
+	id = LYY_Ganyu.21
+	title = LYY_Ganyu.21.t
+	desc = LYY_Ganyu.21.d
+	picture = GFX_report_event_people_welfare
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.21.a		# "����ĸ�������Ҫ��"
+		
+		# ������ʱ�������Ŵ��͹�
+		add_timed_idea = {
+			idea = LYY_idea_care_for_workers
+			days = 30
+		}
+		
+		# ���������ÿ��+0.5%��ͨ���ű�����Ч��ʵ�֣�
+		set_country_flag = LYY_caring_for_workers
+		
+		# 30�պ��������
+		country_event = {
+			id = LYY_Ganyu.23
+			days = 30
+		}
+	}
+}
+
+# �����������ȣ�ѹե·�ߣ�
+country_event = {
+	id = LYY_Ganyu.22
+	title = LYY_Ganyu.22.t
+	desc = LYY_Ganyu.22.d
+	picture = GFX_report_event_worker_unrest
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.22.a
+		
+		# �����־
+		clr_country_flag = LYY_exploiting_workers
+		
+		# ���������Ƿ����10%
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_people_satisfaction
+					value = 10
+					compare = less_than
+				}
+			}
+			# �����ɸ���
+			country_event = {
+				id = LYY_Ganyu.24
+				days = 1
+			}
+		}
+	}
+}
+
+# �����������ȣ��Ŵ�·�ߣ�
+country_event = {
+	id = LYY_Ganyu.23
+	title = LYY_Ganyu.23.t
+	desc = LYY_Ganyu.23.d
+	picture = GFX_report_event_worker_happiness
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = LYY_Ganyu.23.a
+		
+		# �����־
+		clr_country_flag = LYY_caring_for_workers
+		
+		# ���������Ƿ����90%
+		if = {
+			limit = {
+				check_variable = {
+					var = LYY_people_satisfaction
+					value = 90
+					compare = greater_than
+				}
+			}
+			# �����Ͼ�����·debuff
+			remove_ideas = LYY_idea_severed_immortal_path
+			
+			# ���ӽ���
+			add_stability = 0.10
+			add_war_support = 0.10
+		}
+	}
+}
+
+# �����ɸ����¼�
+country_event = {
+	id = LYY_Ganyu.24
+	title = LYY_Ganyu.24.t
+	desc = LYY_Ganyu.24.d
+	picture = GFX_report_event_keqing_uprising
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.24.a		# "����ѡ���˿��硭��"
+		
+		# �����ɸ�������Ҫͨ���ű�ʵ�ֹ����ؽ���
+		# �������ʹ���ͷſ��ܻ����ƻ���
+		
+		# �������سͷ�
+		add_stability = -0.30
+		add_war_support = -0.30
+		add_political_power = -200
+	}
+}
+
+# ��������
+country_event = {
+	id = LYY_Ganyu.25
+	title = LYY_Ganyu.25.t
+	desc = LYY_Ganyu.25.d
+	picture = GFX_report_event_infrastructure_development
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.25.a		# "�Թ����⣬�������£�"
+		
+		# ����Ħ��
+		add_offsite_building = {
+			type = arms_factory
+			level = 2
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		
+		# ���5���ؿ��û�����ʩ
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				NOT = { has_state_flag = LYY_����_improved }
+			}
+			set_state_flag = LYY_����_improved
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		
+		# ��������
+		add_ideas = LYY_idea_people_livelihood_guarantee
+	}
+}
+
+# �ᵳ�ɼ�
+country_event = {
+	id = LYY_Ganyu.26
+	title = LYY_Ganyu.26.t
+	desc = LYY_Ganyu.26.d
+	picture = GFX_report_event_adepti_gathering
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.26.a		# "�������˳�ɽ��"
+		
+		# ������������Ȼ��ƣ�������ڣ�
+		if = {
+			limit = { has_country_flag = LYY_enable_labor_law_decisions }
+			clr_country_flag = LYY_enable_labor_law_decisions
+			remove_ideas = LYY_idea_labor_reform_active
+		}
+		
+		# ���������������������
+		promote_character = LYY_Moon_Carver
+		
+		# ������������ɽ��ˮ���
+		promote_character = LYY_Mountain_Shaper
+		
+		# ���Ӿ������˸���
+		add_ideas = LYY_idea_adepti_governance
+	}
+}
+
+# ��������
+country_event = {
+	id = LYY_Ganyu.27
+	title = LYY_Ganyu.27.t
+	desc = LYY_Ganyu.27.d
+	picture = GFX_report_event_cloud_retainer
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.27.a		# "ʦ������Ը���ɽ�ˣ�"
+		
+		# �������������ƽ�����
+		promote_character = LYY_Cloud_Retainer
+		
+		# �������������Ƶ��ǻ�
+		add_ideas = LYY_idea_cloud_retainer_wisdom
+		
+		# �ȶ�������
+		add_stability = 0.10
+	}
+}
+
+# ���˵Ĵ���
+country_event = {
+	id = LYY_Ganyu.28
+	title = LYY_Ganyu.28.t
+	desc = LYY_Ganyu.28.d
+	picture = GFX_report_event_ganyu_shenhe_dispute
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.28.a		# "��ף��Ҳ��ܷ������ǣ�"
+		
+		# �������źͺ����¼�
+		news_event = {
+			id = LYY_News.4
+			days = 1
+		}
+		
+		# 3�պ󴥷�����Ⱥ����¼�
+		country_event = {
+			id = LYY_Ganyu.29
+			days = 3
+		}
+	}
+}
+
+# ����Ⱥ����¼�
+country_event = {
+	id = LYY_Ganyu.29
+	title = LYY_Ganyu.29.t
+	desc = LYY_Ganyu.29.d
+	picture = GFX_report_event_seven_stars_fate
+	is_triggered_only = yes
+	
+	# ѡ��A���������Ǽ�������
+	option = {
+		name = LYY_Ganyu.29.a		# "������Ҫ���ǵ��ǻۡ�"
+		
+		# ��ļ����
+		promote_character = LYY_KeQing
+		promote_character = LYY_XingQiu
+		promote_character = LYY_YeLan
+		promote_character = LYY_BeiDou
+		promote_character = LYY_Felgodette
+		
+		# �ȶ��Ƚ���
+		add_stability = -0.10
+		
+		# ���ñ�־��δ��������
+		set_country_flag = LYY_seven_stars_retained
+	}
+	
+	# ѡ��B���������ǣ�
+	option = {
+		name = LYY_Ganyu.29.b		# "����������˥�ܵ����ˣ�"
+		
+		# ���ӽ���
+		add_stability = 0.10
+		add_political_power = 200
+		# ����Ħ�����Զ�����Դ
+		
+		# ���ñ�־����������
+		set_country_flag = LYY_seven_stars_exiled
+		
+		# ������������
+		set_country_flag = LYY_skip_economy_control
+		set_country_flag = LYY_skip_commercial_pressure
+		set_country_flag = LYY_skip_six_nations_strategy
+		set_country_flag = LYY_skip_mortal_adepti_conflict
+		set_country_flag = LYY_skip_invite_more_adepti
+		
+		# Ȩ������ֱ�ӽ���
+		if = {
+			limit = { has_idea = LYY_idea_power_struggle_active }
+			remove_ideas = LYY_idea_power_struggle_active
+		}
+	}
+}
+
+# ���뺮������
+country_event = {
+	id = LYY_Ganyu.30
+	title = LYY_Ganyu.30.t
+	desc = LYY_Ganyu.30.d
+	picture = GFX_report_event_weapon_forging
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.30.a		# "��ʦ�������չ�Ȼ��տ��"
+		
+		# �����Ƽ��飺��������
+		add_tech_bonus = {
+			bonus = 0.10
+			uses = 3
+			category = infantry_weapons
+		}
+		
+		# ���Ӿ��񣺺�������
+		add_ideas = LYY_idea_hanfeng_ironworks
+	}
+}
+
+# �����ɼҷ���
+country_event = {
+	id = LYY_Ganyu.31
+	title = LYY_Ganyu.31.t
+	desc = LYY_Ganyu.31.d
+	picture = GFX_report_event_adepti_artifacts
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.31.a		# "�ɼҷ����������ǵľ����������ң�"
+		
+		# 360�պ���buff
+		add_timed_idea = {
+			idea = LYY_idea_adepti_artifacts_training
+			days = 360
+		}
+		
+		# 360�պ󴥷�����¼�
+		country_event = {
+			id = LYY_Ganyu.32
+			days = 360
+		}
+	}
+}
+
+# �ɼҷ���ѵ�����
+country_event = {
+	id = LYY_Ganyu.32
+	title = LYY_Ganyu.32.t
+	desc = LYY_Ganyu.32.d
+	picture = GFX_report_event_adepti_army
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.32.a		# "���ǵľ����Ѿ���̥���ǣ�"
+		
+		# �Ƴ�ѵ���ھ���
+		remove_ideas = LYY_idea_adepti_artifacts_training
+		
+		# ��������buff���ɼҷ���
+		add_ideas = LYY_idea_adepti_artifacts
+	}
+}
+
+# ������ֶ�
+country_event = {
+	id = LYY_Ganyu.33
+	title = LYY_Ganyu.33.t
+	desc = LYY_Ganyu.33.d
+	picture = GFX_report_event_ningguang_business
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.33.a		# "������Ҫ����ľ��ò��ܡ�"
+		
+		# �������ε���
+		add_political_power = 120
+		
+		# ��������������
+		promote_character = LYY_NingGuang
+		
+		# ���Ӿ�������ľ�������
+		add_ideas = LYY_idea_ningguang_economics
+	}
+}
+
+# �ƿ����¾���
+country_event = {
+	id = LYY_Ganyu.34
+	title = LYY_Ganyu.34.t
+	desc = LYY_Ganyu.34.d
+	picture = GFX_report_event_liyue_economy_control
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.34.a		# "�����������������ڹ������У�"
+		
+		# �������ε�����Ħ��
+		add_political_power = 200
+		
+		# ����������ʩ�Ƽ���
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 2
+			category = industry
+		}
+		
+		# ���Ӿ���Ⱥ����������������ջ
+		add_ideas = LYY_idea_jade_chamber_control
+		add_ideas = LYY_idea_liuli_pavilion_control
+		add_ideas = LYY_idea_wangshu_inn_control
+	}
+}
+
+# ��;ʩѹ����������
+country_event = {
+	id = LYY_Ganyu.35
+	title = LYY_Ganyu.35.t
+	desc = LYY_Ganyu.35.d
+	picture = GFX_report_event_trade_pressure
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.35.a		# "���¿��������صľ���������"
+		
+		# ������ʩ��ѹ��������ʹ��TAG��
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = MOT  # �ɵ�
+					tag = DVA  # ����
+					tag = FON  # �㵤
+					tag = NAT  # ����
+					tag = SNE  # ����
+					tag = FAT  # ����
+				}
+			}
+			add_stability = -0.10
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_trade_pressure
+			}
+		}
+		
+		# �����ɻ�����ε����ӳ�
+		add_ideas = LYY_idea_six_nations_pressure
+		
+		# ��������
+		news_event = {
+			id = LYY_News.5
+			days = 1
+		}
+	}
+}
+
+# ��������
+country_event = {
+	id = LYY_Ganyu.36
+	title = LYY_Ganyu.36.t
+	desc = LYY_Ganyu.36.d
+	picture = GFX_report_event_shenhe_outburst
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.36.a		# "��ף���������ĵ��ǡ���"
+		
+		# ��������֮���¼�
+		country_event = {
+			id = LYY_Ganyu.37
+			days = 3
+		}
+		
+		# ���Ӿ�����ϵ��ͻ
+		add_ideas = LYY_idea_faction_conflict
+	}
+}
+
+# ����֮���������¼���
+country_event = {
+	id = LYY_Ganyu.37
+	title = LYY_Ganyu.37.t
+	desc = LYY_Ganyu.37.d
+	picture = GFX_report_event_mortal_adepti_conflict
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.37.a		# "��������֮��������ơ�"
+		
+		# ����������
+		set_country_flag = LYY_mortal_adepti_conflict_active
+		
+		# ���ó�ʼƽ��
+		set_variable = {
+			var = LYY_ganyu_control
+			value = 40
+		}
+	}
+}
+
+# ����֮�����飺֧�ֿ���
+country_event = {
+	id = LYY_Ganyu.38
+	title = LYY_Ganyu.38.t
+	desc = LYY_Ganyu.38.d
+	picture = GFX_report_event_support_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.38.a		# "֧�ֿ�����᰸��"
+		
+		# ���ӿ�����֧����
+		add_timed_idea = {
+			idea = LYY_idea_support_keqing_faction
+			days = 30
+		}
+		
+		# ������ϵ��������
+		add_to_variable = {
+			var = LYY_mortal_faction
+			value = 3
+		}
+	}
+}
+
+# ����֮�����飺֧������
+country_event = {
+	id = LYY_Ganyu.39
+	title = LYY_Ganyu.39.t
+	desc = LYY_Ganyu.39.d
+	picture = GFX_report_event_support_ningguang
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.39.a		# "֧��������᰸��"
+		
+		# ����������֧����
+		add_timed_idea = {
+			idea = LYY_idea_support_ningguang_faction
+			days = 30
+		}
+		
+		# ������ϵ��������
+		add_to_variable = {
+			var = LYY_mortal_faction
+			value = 3
+		}
+	}
+}
+
+# ����֮�����飺֧�����
+country_event = {
+	id = LYY_Ganyu.40
+	title = LYY_Ganyu.40.t
+	desc = LYY_Ganyu.40.d
+	picture = GFX_report_event_support_shenhe
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.40.a		# "֧����׵��᰸��"
+		
+		# ���������֧����
+		add_timed_idea = {
+			idea = LYY_idea_support_shenhe_faction
+			days = 30
+		}
+		
+		# ������ϵ��������
+		add_to_variable = {
+			var = LYY_adepti_faction
+			value = 3
+		}
+	}
+}
+
+# �賾����
+country_event = {
+	id = LYY_Ganyu.41
+	title = LYY_Ganyu.41.t
+	desc = LYY_Ganyu.41.d
+	picture = GFX_report_event_madame_ping
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.41.a		# "��Ƽ���ѳ�ɽָ���Խ�"
+		
+		# ��������/���죺Ƽ����
+		promote_character = LYY_MadamePing
+		
+		# ����Ƽ���ѳ�ɽ�¼�
+		country_event = {
+			id = LYY_Ganyu.42
+			days = 5
+		}
+	}
+}
+
+# Ƽ���ѳ�ɽ
+country_event = {
+	id = LYY_Ganyu.42
+	title = LYY_Ganyu.42.t
+	desc = LYY_Ganyu.42.d
+	picture = GFX_report_event_madame_ping_advice
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.42.a		# "���ǽ�����֧�ֿ��磡"
+		
+		# ���ð���֧�ֿ����־
+		set_country_flag = LYY_secretly_support_keqing
+		
+		# ���Ӿ���Ƽ���ѵ��ǻ�
+		add_ideas = LYY_idea_madame_ping_wisdom
+		
+		# �ȶ�������
+		add_stability = 0.15
+	}
+}
+
+# ����ʢ��
+country_event = {
+	id = LYY_Ganyu.43
+	title = LYY_Ganyu.43.t
+	desc = LYY_Ganyu.43.d
+	picture = GFX_report_event_liyue_prosperity
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.43.a		# "���ɹ��ε���������ʵ���ˣ�"
+		
+		# �Ƴ������뽮�Թ��䣨��������ڣ�
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_fragmented_land }
+			remove_ideas = LYY_idea_ganyu_fragmented_land
+		}
+		
+		# ��������buff������ʢ��
+		add_ideas = LYY_idea_xuanli_prosperity
+		
+		# ��������
+		add_stability = 0.15
+		add_war_support = 0.15
+		
+		# ����һ����Ϸ�¼�
+		country_event = {
+			id = LYY_Ganyu.44
+			days = 3
+		}
+	}
+}
+
+# һ����Ϸ
+country_event = {
+	id = LYY_Ganyu.44
+	title = LYY_Ganyu.44.t
+	desc = LYY_Ganyu.44.d
+	picture = GFX_report_event_ganyu_masterplan
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.44.a		# "�����Ǹ��꣬������ı���㣡"
+		
+		# ���������ʣ�ı�Դ�ʦ
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_master_strategist
+		}
+		
+		# ������ϵ���ƽ��
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		
+		# ���Ӿ����ķ�ƽ��
+		add_ideas = LYY_idea_four_factions_balanced
+		
+		# ���ε����������
+		add_political_power = 300
+	}
+}
+
+# ��ɨ�����أ���ѡ·�ߣ�
+country_event = {
+	id = LYY_Ganyu.45
+	title = LYY_Ganyu.45.t
+	desc = LYY_Ganyu.45.d
+	picture = GFX_report_event_teyvat_conquest
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.45.a		# "���½�ͳһ�����أ�"
+		
+		# ������������
+		set_variable = {
+			var = LYY_ganyu_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_keqing_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_ningguang_support
+			value = 25
+		}
+		set_variable = {
+			var = LYY_shenhe_support
+			value = 25
+		}
+		
+		# �������飺������ͳս�ƻ�
+		set_country_flag = LYY_enable_teyvat_unification
+		
+		# ���Ӿ������µ�Ұ��
+		add_ideas = LYY_idea_liyue_ambition
+		
+		# ������¼ӳ�
+		army_experience = 50
+	}
+}
+
+# �Ż�����
+country_event = {
+	id = LYY_Ganyu.46
+	title = LYY_Ganyu.46.t
+	desc = LYY_Ganyu.46.d
+	picture = GFX_report_event_ganyu_waiting
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.46.a		# "���Ӹ�����µľ��ߡ�"
+		
+		# ���8�����Ʋ���
+		load_oob = "LYY_ganyu_qianyan_army"
+		
+		# ������������������
+		add_ideas = LYY_idea_biding_time
+		
+		# ½������
+		army_experience = 30
+	}
+}
+
+# ����ҵ֮��
+country_event = {
+	id = LYY_Ganyu.47
+	title = LYY_Ganyu.47.t
+	desc = LYY_Ganyu.47.d
+	picture = GFX_report_event_industrial_preparation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.47.a		# "����װ�������ƴ�����"
+		
+		# ���5���ؿ��þ��ù���
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		random_owned_controlled_state = {
+			limit = { 
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+				NOT = { has_state_flag = LYY_��ҵ_built }
+			}
+			set_state_flag = LYY_��ҵ_built
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		# ���װ��+500k
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 50000
+		}
+	}
+}
+
+# ��ս�ľ�
+country_event = {
+	id = LYY_Ganyu.48
+	title = LYY_Ganyu.48.t
+	desc = LYY_Ganyu.48.d
+	picture = GFX_report_event_war_preparation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.48.a		# "ս������������"
+		
+		# ������ϵ�Ը��������۽���
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_war_preparation_hostility
+			}
+		}
+		
+		# �Ƴ�����������
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_neutrality_period }
+			remove_ideas = LYY_idea_ganyu_neutrality_period
+		}
+		
+		# ���Ӿ��񣺱�ս״̬
+		add_ideas = LYY_idea_war_readiness
+	}
+}
+
+# ����������
+country_event = {
+	id = LYY_Ganyu.49
+	title = LYY_Ganyu.49.t
+	desc = LYY_Ganyu.49.d
+	picture = GFX_report_event_ganyu_ningguang_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.49.a		# "���⣬�������ٴ����֣�"
+		
+		# �������ɽ���
+		if = {
+			limit = { country_exists = LYY_NGL }
+			# ͣս
+			white_peace = LYY_NGL
+			
+			# ����
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_NGL } }
+				add_to_faction = LYY_NGL
+			}
+			
+			# ���ƹ�ϵ
+			LYY_NGL = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_old_colleagues_bond
+				}
+			}
+		}
+		
+		# ������������������
+		add_ideas = LYY_idea_ningguang_alliance
+	}
+}
+
+# ���������
+country_event = {
+	id = LYY_Ganyu.50
+	title = LYY_Ganyu.50.t
+	desc = LYY_Ganyu.50.d
+	picture = GFX_report_event_ganyu_shenhe_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.50.a		# "��ף�������ʦ���ã�"
+		
+		# ������ɽ���
+		if = {
+			limit = { country_exists = LYY_SHH }
+			# ͣս
+			white_peace = LYY_SHH
+			
+			# ����
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
+			}
+			
+			# ���ƹ�ϵ
+			LYY_SHH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_adepti_sisters_bond
+				}
+			}
+		}
+		
+		# �����������������
+		add_ideas = LYY_idea_shenhe_alliance
+	}
+}
+
+# ���ϼ�����
+country_event = {
+	id = LYY_Ganyu.51
+	title = LYY_Ganyu.51.t
+	desc = LYY_Ganyu.51.d
+	picture = GFX_report_event_ganyu_gaming_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.51.a		# "���ü�������Դ��λ�ã�"
+		
+		# ������ɽ���
+		if = {
+			limit = { country_exists = LYY_JMG }
+			# ͣս
+			white_peace = LYY_JMG
+			
+			# ����
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_JMG } }
+				add_to_faction = LYY_JMG
+			}
+			
+			# ���ƹ�ϵ
+			LYY_JMG = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_strategic_partnership
+				}
+			}
+		}
+		
+		# ������������������
+		add_ideas = LYY_idea_gaming_alliance
+	}
+}
+
+# �л����⣨���������ʱ��
+country_event = {
+	id = LYY_Ganyu.52
+	title = LYY_Ganyu.52.t
+	desc = LYY_Ganyu.52.d
+	picture = GFX_report_event_pincer_ningguang
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.52.a		# "������£���Ͷ����"
+		
+		# ����������ս
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+		}
+		
+		# ����ս������
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_ningguang
+			days = 90
+		}
+	}
+}
+
+# �л����磨����������ʱ��
+country_event = {
+	id = LYY_Ganyu.53
+	title = LYY_Ganyu.53.t
+	desc = LYY_Ganyu.53.d
+	picture = GFX_report_event_pincer_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.53.a		# "����С�㣬���������ɡ�"
+		
+		# �Կ�������ս
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# ����ս������
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_keqing
+			days = 90
+		}
+	}
+}
+
+# �л���ף����������ʱ��
+country_event = {
+	id = LYY_Ganyu.54
+	title = LYY_Ganyu.54.t
+	desc = LYY_Ganyu.54.d
+	picture = GFX_report_event_pincer_shenhe
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.54.a		# "��ף��Բ��𡭡�"
+		
+		# ���������ս
+		if = {
+			limit = { country_exists = LYY_SHH }
+			declare_war_on = {
+				target = LYY_SHH
+				type = annex_everything
+			}
+		}
+		
+		# ����ս������
+		add_timed_idea = {
+			idea = LYY_idea_pincer_attack_shenhe
+			days = 90
+		}
+	}
+}
+
+# ��������
+country_event = {
+	id = LYY_Ganyu.55
+	title = LYY_Ganyu.55.t
+	desc = LYY_Ganyu.55.d
+	picture = GFX_report_event_blood_oath
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.55.a		# "�����ѹ�ͬɨ�����£�"
+		
+		# ������������ϵ��ս
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_NGL
+					tag = LYY_SHH
+					tag = LYY_JMG
+				}
+				NOT = { is_in_faction_with = ROOT }
+			}
+			ROOT = {
+				declare_war_on = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		
+		# ���Ӿ���Ѫ����Լ
+		add_ideas = LYY_idea_blood_oath_alliance
+		
+		# ���¼ӳ�
+		army_experience = 40
+	}
+}
+
+# ��������
+country_event = {
+	id = LYY_Ganyu.56
+	title = LYY_Ganyu.56.t
+	desc = LYY_Ganyu.56.d
+	picture = GFX_report_event_ganyu_exhausted
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.56.a		# "�����ˡ���"
+		
+		# ���ò�������������
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				transfer_state_to = PREV
+			}
+		}
+		
+		# ����ʧȥ���ʣ����ƣ������
+		if = {
+			limit = { has_country_leader = { character = LYY_GanYu } }
+			remove_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_master_strategist
+			}
+			add_country_leader_trait = {
+				character = LYY_GanYu
+				trait = LYY_trait_exhausted
+			}
+		}
+		
+		# ����debuff
+		add_ideas = LYY_idea_subordinate_position
+		
+		# ��������ѡ��
+		country_event = {
+			id = LYY_Ganyu.57
+			days = 15
+		}
+	}
+}
+
+# ��������ְ֮
+country_event = {
+	id = LYY_Ganyu.57
+	title = LYY_Ganyu.57.t
+	desc = LYY_Ganyu.57.d
+	picture = GFX_report_event_ganyu_secretary
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.57.a		# "�ðɣ��Ҵ�Ӧ�㡭��"
+		
+		# �������Ƹı�Ϊ����
+		set_autonomy = {
+			target = ROOT
+			autonomous_state = autonomy_puppet
+			freedom_level = 0.3
+		}
+		
+		# ���꽵ְΪ���飨�ı��ɫ��ɫ��
+		retire_character = LYY_GanYu
+		
+		# ���������¼�
+		country_event = {
+			id = LYY_Ganyu.58
+			days = 30
+		}
+	}
+}
+
+# ������Ȩ
+country_event = {
+	id = LYY_Ganyu.58
+	title = LYY_Ganyu.58.t
+	desc = LYY_Ganyu.58.d
+	picture = GFX_report_event_ganyu_surrender
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.58.a		# "���½��������ˡ���"
+		
+		# �������̲�
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+			
+			# ����л������ѹ���
+			if = {
+				limit = { ROOT = { is_ai = no } }
+				change_tag_from = ROOT
+			}
+		}
+	}
+}
+
+# ��ȡȨ��
+country_event = {
+	id = LYY_Ganyu.59
+	title = LYY_Ganyu.59.t
+	desc = LYY_Ganyu.59.d
+	picture = GFX_report_event_ganyu_coup
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.59.a		# "�������ҽ���ȡһ�У�"
+		
+		# ��ö����ѵ�ս��Ŀ��
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = PREV
+				}
+			}
+		}
+		
+		# ���Ӿ�������׼��
+		add_ideas = LYY_idea_coup_preparation
+		
+		# �������������¼�
+		news_event = {
+			id = LYY_News.6
+			days = 1
+		}
+	}
+}
+
+# �沢�Ѱ�
+country_event = {
+	id = LYY_Ganyu.60
+	title = LYY_Ganyu.60.t
+	desc = LYY_Ganyu.60.d
+	picture = GFX_report_event_liyue_final_unification
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.60.a		# "�����չ�һͳ��"
+		
+		# �����ʶ����¹���
+		set_country_flag = LYY_enable_final_unification
+		
+		# �������ռ�����
+		add_country_leader_trait = {
+			character = LYY_GanYu
+			trait = LYY_trait_master_of_liyue
+		}
+		
+		# ���Ӿ���������ͳһ
+		add_ideas = LYY_idea_true_unification
+		
+		# �������
+		add_political_power = 500
+		add_stability = 0.20
+		add_war_support = 0.20
+	}
+}
+
+# ���ɰٴ�
+country_event = {
+	id = LYY_Ganyu.61
+	title = LYY_Ganyu.61.t
+	desc = LYY_Ganyu.61.d
+	picture = GFX_report_event_keqing_alliance_offer
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.61.a		# "���ɿ���Ľ������롣"
+		
+		# ǿ��ͣս
+		if = {
+			limit = { 
+				country_exists = LYY_KEQ
+				has_war_with = LYY_KEQ
+			}
+			white_peace = LYY_KEQ
+		}
+		
+		# �������ɿ����¼�
+		country_event = {
+			id = LYY_Ganyu.62
+			days = 5
+		}
+	}
+	
+	option = {
+		name = LYY_Ganyu.61.b		# "�ܾ���������롣"
+		
+		# ����Ը������۽���
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_alliance_rejected
+				}
+			}
+		}
+	}
+}
+
+# ���ɿ���
+country_event = {
+	id = LYY_Ganyu.62
+	title = LYY_Ganyu.62.t
+	desc = LYY_Ganyu.62.d
+	picture = GFX_report_event_ganyu_keqing_handshake
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.62.a		# "���磬��ӭ���룡"
+		
+		# ������ɽ�Ϊ����ͬ��
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_KEQ } }
+				add_to_faction = LYY_KEQ
+			}
+			
+			# ���ƹ�ϵ
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_ideological_alliance
+				}
+			}
+		}
+		
+		# ���Ӿ��񣺿�������
+		add_ideas = LYY_idea_keqing_alliance
+	}
+}
+
+# �л����⣨�������˰棩
+country_event = {
+	id = LYY_Ganyu.63
+	title = LYY_Ganyu.63.t
+	desc = LYY_Ganyu.63.d
+	picture = GFX_report_event_attack_ningguang_together
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.63.a		# "���������ǹ�ͬ�ĵ��ˣ�"
+		
+		# ����������ս
+		if = {
+			limit = { country_exists = LYY_NGL }
+			declare_war_on = {
+				target = LYY_NGL
+				type = annex_everything
+			}
+			
+			# ����Ҳ��������ս
+			if = {
+				limit = { country_exists = LYY_KEQ }
+				LYY_KEQ = {
+					declare_war_on = {
+						target = LYY_NGL
+						type = annex_everything
+					}
+				}
+			}
+		}
+		
+		# ���Ӷ�����Ľ�������
+		add_timed_idea = {
+			idea = LYY_idea_joint_offensive_ningguang
+			days = 90
+		}
+	}
+}
+
+# Ĭ�����
+country_event = {
+	id = LYY_Ganyu.64
+	title = LYY_Ganyu.64.t
+	desc = LYY_Ganyu.64.d
+	picture = GFX_report_event_shenhe_peace_offer
+	is_triggered_only = yes
+	
+	# ѡ��A�����ͬ�⣨80%��
+	option = {
+		name = LYY_Ganyu.64.a		# "���ͬ���źͣ�"
+		trigger = {
+			NOT = { has_country_flag = LYY_shenhe_refuses_peace }
+		}
+		
+		# ��������ź�
+		if = {
+			limit = { 
+				country_exists = LYY_SHH
+				has_war_with = LYY_SHH
+			}
+			white_peace = LYY_SHH
+			
+			# ��������
+			if = {
+				limit = { NOT = { is_in_faction_with = LYY_SHH } }
+				add_to_faction = LYY_SHH
+			}
+		}
+		
+		# ���Ӿ�����������
+		add_ideas = LYY_idea_three_way_alliance
+	}
+	
+	# ѡ��B����׾ܾ���20%��
+	option = {
+		name = LYY_Ganyu.64.b		# "��׾ܾ��ˡ���"
+		trigger = {
+			has_country_flag = LYY_shenhe_refuses_peace
+		}
+		
+		# ����ս��
+		add_war_support = 0.05
+	}
+}
+
+# ��ȡս��
+country_event = {
+	id = LYY_Ganyu.65
+	title = LYY_Ganyu.65.t
+	desc = LYY_Ganyu.65.d
+	picture = GFX_report_event_territory_demand
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.65.a		# "��Щ���������ɼң�"
+		
+		# ������Ѳ������ص���Ȩ����
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = LYY_KEQ
+					tag = LYY_SHH
+				}
+				is_in_faction_with = ROOT
+			}
+			every_owned_state = {
+				limit = { 
+					is_core_of = PREV
+					NOT = { is_core_of = ROOT }
+				}
+				random_list = {
+					30 = {
+						add_claim_by = ROOT
+					}
+					70 = { }
+				}
+			}
+		}
+		
+		# ����Ը������۽���
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_territorial_greed
+				}
+			}
+		}
+		
+		
+		# ���������¼�������ǿռ����
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				country_event = {
+					id = LYY_Keqing.100
+					days = 1
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				country_event = {
+					id = LYY_Shenhe.100
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# ͻ�뱱�����������˰棩
+country_event = {
+	id = LYY_Ganyu.66
+	title = LYY_Ganyu.66.t
+	desc = LYY_Ganyu.66.d
+	picture = GFX_report_event_northern_campaign_alliance
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.66.a		# "��׸�����ξ����ж���"
+		
+		# �����ɺ�����ɸ����5������ʦ
+		load_oob = "LYY_ganyu_northern_army"
+		if = {
+			limit = { country_exists = LYY_SHH }
+			LYY_SHH = {
+				load_oob = "LYY_shenhe_northern_army"
+			}
+		}
+		
+		# �Լ�������ս
+		if = {
+			limit = { country_exists = LYY_JMG }
+			declare_war_on = {
+				target = LYY_JMG
+				type = annex_everything
+			}
+		}
+		
+		# ��������������Զ��
+		add_timed_idea = {
+			idea = LYY_idea_northern_expedition_alliance
+			days = 70
+		}
+	}
+}
+
+# ���ֽ���
+country_event = {
+	id = LYY_Ganyu.67
+	title = LYY_Ganyu.67.t
+	desc = LYY_Ganyu.67.d
+	picture = GFX_report_event_territory_division
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.67.a		# "��ʱ�����г�ŵ�ˡ�"
+		
+		# �����ǰ���Ƶ�����
+		every_owned_state = {
+			limit = { 
+				is_claimed_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_core_of = ROOT
+		}
+		
+		# �����䲻�ʵ�ͬ��
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_forced_concession
+				}
+			}
+		}
+		
+		# ���Ӿ�����������
+		add_ideas = LYY_idea_territory_expansion
+	}
+}
+
+# ��ѹ���ң�����������壩
+country_event = {
+	id = LYY_Ganyu.68
+	title = LYY_Ganyu.68.t
+	desc = LYY_Ganyu.68.d
+	picture = GFX_report_event_keqing_second_uprising
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.68.a		# "һ�ж��ڰ��ƻ����С���"
+		
+		# ������������������Կ�������ս
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# �������ܼƻ���־
+		set_country_flag = LYY_secret_plan_active
+		
+		# ���Ӿ��񣺼ƻ��е�ս��
+		add_ideas = LYY_idea_planned_conflict
+	}
+}
+
+# �߳�������
+country_event = {
+	id = LYY_Ganyu.69
+	title = LYY_Ganyu.69.t
+	desc = LYY_Ganyu.69.d
+	picture = GFX_report_event_eliminate_keqing_plan
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.69.a		# "��ȡ���磬���������ɣ�"
+		
+		# ����Ը�������+25%
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_strategic_cooperation
+				}
+			}
+		}
+		
+		# ���Ӿ�����ȡ�ƻ�
+		add_ideas = LYY_idea_outsmart_keqing_plan
+	}
+}
+
+# ���º�����
+country_event = {
+	id = LYY_Ganyu.70
+	title = LYY_Ganyu.70.t
+	desc = LYY_Ganyu.70.d
+	picture = GFX_report_event_hongmen_banquet
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.70.a		# "׼����һ�У��Է����⡣"
+		
+		# �����˿�-5%
+		add_manpower = -5000
+		
+		# ���������������粼��
+		add_ideas = LYY_idea_hongmen_setup
+		
+		# ���������¼�
+		country_event = {
+			id = LYY_Ganyu.71
+			days = 10
+		}
+	}
+}
+
+# ��Ѻ����
+country_event = {
+	id = LYY_Ganyu.71
+	title = LYY_Ganyu.71.t
+	desc = LYY_Ganyu.71.d
+	picture = GFX_report_event_keqing_detained
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.71.a		# "���磬�������ҡ�"
+		
+		# �����ɹ���Ԫ�׸���Ϊ����
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				retire_character = LYY_KeQing
+				promote_character = LYY_YunJin
+			}
+		}
+		
+		# ���ÿ��类��Ѻ��־
+		set_country_flag = LYY_keqing_detained
+		
+		# ��������̸���¼�
+		country_event = {
+			id = LYY_Ganyu.72
+			days = 5
+		}
+	}
+}
+
+# ���ÿ����������̸��
+country_event = {
+	id = LYY_Ganyu.72
+	title = LYY_Ganyu.72.t
+	desc = LYY_Ganyu.72.d
+	picture = GFX_report_event_negotiate_with_keqing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.72.a		# "��������ȥ���š�"
+		
+		# �������ƶ�����
+		# �����ʳ���飨�ڲ���־��
+		set_country_flag = LYY_keqing_hunger_strike
+		
+		# ����ǿ���������¼�
+		country_event = {
+			id = LYY_Ganyu.73
+			days = 10
+		}
+	}
+}
+
+# ǿ��������
+country_event = {
+	id = LYY_Ganyu.73
+	title = LYY_Ganyu.73.t
+	desc = LYY_Ganyu.73.d
+	picture = GFX_report_event_annex_keqing_faction
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.73.a		# "һ�����ڱ���ȡʤ��"
+		
+		# ��ö�����������ս��Ŀ��
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			create_wargoal = {
+				type = annex_everything
+				target = LYY_KEQ
+			}
+		}
+		
+		# ���������ɹ��ߣ���������
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				country_event = {
+					id = LYY_Keqing.200
+					days = 1
+				}
+			}
+		}
+		
+		# ���ӽ�������
+		add_timed_idea = {
+			idea = LYY_idea_decisive_assault
+			days = 30
+		}
+	}
+}
+
+# ����������
+country_event = {
+	id = LYY_Ganyu.74
+	title = LYY_Ganyu.74.t
+	desc = LYY_Ganyu.74.d
+	picture = GFX_report_event_integrate_keqing_faction
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.74.a		# "�����������ҵĿ��ġ���"
+		
+		# ��ļ����
+		promote_character = LYY_KeQing
+		promote_character = LYY_YunJin
+		promote_character = LYY_XiangLing
+		promote_character = LYY_HuTao
+		promote_character = LYY_XinYan
+		
+		# ��ÿ����ɵؿ����Ȩ
+		every_state = {
+			limit = { is_core_of = LYY_KEQ }
+			add_core_of = ROOT
+		}
+		
+		# �̲�������
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			annex_country = {
+				target = LYY_KEQ
+				transfer_troops = yes
+			}
+		}
+		
+		# ���Ӿ�������������
+		add_ideas = LYY_idea_keqing_faction_integrated
+		
+		# �������
+		add_political_power = 250
+		add_stability = 0.15
+	}
+}
+
+# ��ѹ���ң������ʹ���ɼҷ�����
+country_event = {
+	id = LYY_Ganyu.75
+	title = LYY_Ganyu.75.t
+	desc = LYY_Ganyu.75.d
+	picture = GFX_report_event_keqing_using_artifacts
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.75.a		# "һ�ж��ڰ��ƻ����С���"
+		
+		# ½�������ͷ����ӳ�
+		add_timed_idea = {
+			idea = LYY_idea_artifact_warfare
+			days = 30
+		}
+		
+		# ����׼��Ӧ������
+		add_political_power = 100
+	}
+}
+
+# �����ɸ����¼��������¼���
+country_event = {
+	id = LYY_Ganyu.76
+	title = LYY_Ganyu.76.t
+	desc = LYY_Ganyu.76.d
+	picture = GFX_report_event_keqing_restore
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.76.a		# "����������ѹ��ɲ��ȶ��Ļ��档"
+		
+		# �Ƴ��ȶ�����
+		if = {
+			limit = { has_idea = LYY_idea_ganyu_peaceful_waves }
+			remove_ideas = LYY_idea_ganyu_peaceful_waves
+		}
+		
+		# �����ڲ�����debuff
+		add_timed_idea = {
+			idea = LYY_idea_internal_turmoil
+			days = 90
+		}
+		
+		# ���سͷ�
+		add_stability = -0.20
+		add_war_support = -0.15
+		add_political_power = -150
+		
+		# ��������ɴ��ڣ���������
+		if = {
+			limit = {
+				country_exists = LYY_KEQ
+				NOT = { has_war_with = LYY_KEQ }
+			}
+			# ��������������
+			LYY_KEQ = {
+				declare_war_on = {
+					target = ROOT
+					type = annex_everything
+				}
+			}
+		}
+		
+		# ���ֵ�����������
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_resistance = 30
+			add_compliance = -20
+		}
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_resistance = 25
+			add_compliance = -15
+		}
+		
+		# ����flag
+		set_country_flag = LYY_keqing_restoration_attempt
+		
+		# ��������
+		news_event = {
+			id = LYY_News.106
+			days = 1
+		}
+	}
+}
+
+# �����������ì�ܱ�����
+country_event = {
+	id = LYY_Ganyu.77
+	title = LYY_Ganyu.77.t
+	desc = LYY_Ganyu.77.d
+	picture = GFX_report_event_ganyu_shenhe_dispute
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.77.a		# "����֮�����������⡣"
+		
+		# ��������ì�ܵĸ���Ч��
+		add_timed_idea = {
+			idea = LYY_idea_mortal_adepti_conflict
+			days = 120
+		}
+		
+		# �ȶ����½�
+		add_stability = -0.10
+		
+		# ս��֧�ֶ��������ڲ�ì�ܵ���ǿӲ·�ߣ�
+		add_war_support = 0.05
+		
+		# �������ε�������
+		add_political_power = 50
+	}
+}
+
+# ������Ȩ���������̲���
+country_event = {
+	id = LYY_Ganyu.78
+	title = LYY_Ganyu.78.t
+	desc = LYY_Ganyu.78.d
+	picture = GFX_report_event_ganyu_defeat
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.78.a		# "������������ҵĽ��..."
+		
+		# ��Ϸ������ʾ
+		custom_effect_tooltip = LYY_ganyu_game_over_tt
+		
+		# ʧ��Ч��
+		add_stability = -0.50
+		add_war_support = -0.50
+	}
+}
+
+# �л����⣨��������ϣ�
+country_event = {
+	id = LYY_Ganyu.79
+	title = LYY_Ganyu.79.t
+	desc = LYY_Ganyu.79.d
+	picture = GFX_report_event_joint_offensive
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.79.a		# "������ս����ȡ���衣"
+		
+		# ��ǿ����buff
+		add_timed_idea = {
+			idea = LYY_idea_coordinated_attack
+			days = 60
+		}
+		
+		# ���½������
+		army_experience = 25
+		
+		# ս��֧�ֶ�����
+		add_war_support = 0.10
+	}
+}
+
+# Ȩ�����������¼�
+country_event = {
+	id = LYY_Ganyu.61
+	title = LYY_Ganyu.61.t
+	desc = LYY_Ganyu.61.d
+	picture = GFX_report_event_power_struggle_end
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.61.a		# "��������ӭ���˺�ƽ����"
+		
+		# �Ƴ�����֮������
+		remove_ideas = LYY_idea_mortal_adepti_struggle
+		
+		# �������
+		add_stability = 0.15
+		add_war_support = 0.10
+		add_political_power = 150
+		
+		# �����¹���
+		if = {
+			limit = {
+				check_variable = { var = LYY_adepti_faction value = 50 compare = greater_than }
+			}
+			# ������ռ�ţ�����������������ɽ��ˮ
+			add_ideas = LYY_advisor_moon_carver
+			add_ideas = LYY_advisor_mountain_shaper
+		}
+		else = {
+			# ������ռ�ţ�����������������
+			add_ideas = LYY_advisor_keqing
+			add_ideas = LYY_advisor_ningguang
+		}
+		
+		# ��������
+		news_event = {
+			id = LYY_News.107
+			days = 1
+		}
+	}
+}
+
+# === ��ս����·���¼���201-209�� ===
+
+# �ؾ������
+country_event = {
+	id = LYY_Ganyu.201
+	title = LYY_Ganyu.201.t
+	desc = LYY_Ganyu.201.d
+	picture = GFX_report_event_ganyu_nobles
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.201.a		# "Ϊ�˴�֣�������Ҫ��Щ���ϼ����֧�֡�"
+		
+		# �Ƴ����Ѿ���debuff
+		remove_ideas = LYY_idea_ganyu_fragmented_land
+		
+		# ���ӹ���֧��buff
+		add_ideas = LYY_idea_noble_support
+		
+		# ��ô����ʽ�
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_political_power = 150
+		
+		# ��ͬʱ���Ӹ���
+		add_stability = -0.05
+		set_country_flag = LYY_noble_alliance
+		
+		# ��ļ�������
+		add_ideas = LYY_advisor_noble_elders
+	}
+}
+
+# ���Ѵ��ӻ�
+country_event = {
+	id = LYY_Ganyu.202
+	title = LYY_Ganyu.202.t
+	desc = LYY_Ganyu.202.d
+	picture = GFX_report_event_adepti_blessing
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.202.a		# "�ɼҴȱ������Ụ�����²�����"
+		
+		# ��ļ���˽�ɫ
+		promote_character = LYY_CloudRetainer
+		promote_character = LYY_MoonCarver
+		promote_character = LYY_MountainShaper
+		
+		# ���˳�Ϊ����
+		LYY_CloudRetainer = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MoonCarver = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MountainShaper = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		
+		# ���������ӻ�����
+		add_ideas = LYY_idea_adepti_protection
+		
+		# ����ս������
+		add_war_support = 0.15
+		army_experience = 50
+		
+		# ���������Ƽ�
+		set_technology = {
+			LYY_adepti_arts_1 = 1
+		}
+		
+		set_country_flag = LYY_adepti_blessing
+	}
+}
+
+# ������ͽ�
+country_event = {
+	id = LYY_Ganyu.203
+	title = LYY_Ganyu.203.t
+	desc = LYY_Ganyu.203.d
+	picture = GFX_report_event_ganyu_mediation
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.203.a		# "�Ž�һ�п����Ž��������"
+		
+		# �Ƴ��ڲ�ì��debuff��������ڣ�
+		if = {
+			limit = { has_idea = LYY_idea_internal_conflict }
+			remove_ideas = LYY_idea_internal_conflict
+		}
+		
+		# ���������Ž�
+		add_stability = 0.10
+		add_political_power = 100
+		
+		# ����������ʲ�λ
+		add_ideas = LYY_idea_unified_command
+		
+		# ���������ϵ��ϵ
+		if = {
+			limit = { has_country_flag = LYY_noble_alliance }
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.10
+			}
+		}
+		
+		set_country_flag = LYY_internal_reconciliation
+	}
+}
+
+# ������£����
+country_event = {
+	id = LYY_Ganyu.204
+	title = LYY_Ganyu.204.t
+	desc = LYY_Ganyu.204.d
+	picture = GFX_report_event_ganyu_keqing_letter
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.204.a		# "Ը���յ������ܻ��غ�ƽ��ϣ����"
+		
+		# �����⽻���Ա�־
+		set_country_flag = LYY_approached_keqing
+		
+		# ��ʱͣ�������ս���У�
+		if = {
+			limit = {
+				has_war_with = LYY_KEQ
+			}
+			white_peace = LYY_KEQ
+		}
+		
+		# ���ƹ�ϵ
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_diplomatic_approach
+				}
+			}
+			add_opinion_modifier = {
+				target = LYY_KEQ
+				modifier = LYY_diplomatic_approach
+			}
+		}
+		
+		# ���������¼������껥�½�����ܾ���
+		random_list = {
+			70 = {		# 70%�ɹ�
+				country_event = {
+					id = LYY_Ganyu.205
+					days = 7
+				}
+			}
+			30 = {		# 30%ʧ��
+				country_event = {
+					id = LYY_Ganyu.207
+					days = 7
+				}
+			}
+		}
+	}
+}
+
+# ���껥�½�
+country_event = {
+	id = LYY_Ganyu.205
+	title = LYY_Ganyu.205.t
+	desc = LYY_Ganyu.205.d
+	picture = GFX_report_event_ganyu_keqing_meeting
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.205.a		# "��ͬ���죬��Ϊ����֮����"
+		
+		# ���óɹ���־
+		set_country_flag = LYY_keqing_reconciliation
+		clr_country_flag = LYY_approached_keqing
+		
+		# ����ǿ���⽻��ϵ
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			LYY_KEQ = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_old_friendship
+				}
+			}
+			add_opinion_modifier = {
+				target = LYY_KEQ
+				modifier = LYY_old_friendship
+			}
+		}
+		
+		# �������
+		add_stability = 0.15
+		add_war_support = 0.10
+		add_political_power = 200
+		
+		# ��������ִ���¼�
+		country_event = {
+			id = LYY_Ganyu.206
+			days = 14
+		}
+	}
+}
+
+# ���깲���£�����ִ����
+country_event = {
+	id = LYY_Ganyu.206
+	title = LYY_Ganyu.206.t
+	desc = LYY_Ganyu.206.d
+	picture = GFX_report_event_liyue_joint_government
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.206.a		# "����������õĽ�֣�"
+		
+		# �̲������ɣ���ƽͳһ��
+		if = {
+			limit = { country_exists = LYY_KEQ }
+			annex_country = {
+				target = LYY_KEQ
+				transfer_troops = yes
+			}
+		}
+		
+		# ��ļ����Ϊ����/����
+		promote_character = LYY_KeQing
+		promote_character = LYY_KeQing
+		
+		# ����������������
+		add_ideas = LYY_idea_joint_government
+		
+		# ������ұ�ǩΪ��������
+		set_cosmetic_tag = LYY_UNITED_GOVERNMENT
+		
+		# �������
+		add_stability = 0.20
+		add_war_support = 0.15
+		add_political_power = 300
+		
+		# ����ͳһ����
+		every_owned_state = {
+			add_compliance = 50
+		}
+		
+		# ��ö��⽨���λ
+		add_extra_state_shared_building_slots = 3
+		
+		# ���������ĸ�
+		add_ideas = LYY_idea_democratic_reforms
+		
+		set_country_flag = LYY_joint_government_established
+		
+		# ��������
+		news_event = {
+			id = LYY_News.200
+			days = 1
+		}
+	}
+}
+
+# �����������
+country_event = {
+	id = LYY_Ganyu.207
+	title = LYY_Ganyu.207.t
+	desc = LYY_Ganyu.207.d
+	picture = GFX_report_event_ganyu_purge
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.207.a		# "��Ȼ�޷����֣��Ǿ�ֻ�ܻӵ���"
+		
+		# �����ƽ��־
+		clr_country_flag = LYY_approached_keqing
+		set_country_flag = LYY_keqing_purge
+		
+		# �Կ�������ս
+		if = {
+			limit = {
+				country_exists = LYY_KEQ
+				NOT = { has_war_with = LYY_KEQ }
+			}
+			declare_war_on = {
+				target = LYY_KEQ
+				type = annex_everything
+			}
+		}
+		
+		# ����������ѹ����
+		add_ideas = LYY_idea_iron_fist_rule
+		
+		# �ȶ����½���ս����������
+		add_stability = -0.10
+		add_war_support = 0.15
+		
+		# ���½���
+		army_experience = 30
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 5000
+		}
+		
+		# ��ļǿӲ�ɽ���
+		promote_character = LYY_General_Hardliner
+	}
+}
+
+# ����������
+country_event = {
+	id = LYY_Ganyu.208
+	title = LYY_Ganyu.208.t
+	desc = LYY_Ganyu.208.d
+	picture = GFX_report_event_liyue_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.208.a		# "�²��£������ڡ�"
+		
+		# ��������������Ӫ
+		if = {
+			limit = { NOT = { has_faction_members = yes } }
+			create_faction = LYY_liyue_confederation
+		}
+		
+		# �Զ����Ѻù��ҽ���
+		# �ɵ�
+		if = {
+			limit = {
+				country_exists = MOT
+				NOT = { has_war_with = MOT }
+			}
+			MOT = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_alliance_offer
+				}
+			}
+			add_to_faction = MOT
+		}
+		
+		# ���ޣ�������ڣ�
+		if = {
+			limit = {
+				country_exists = INA
+				NOT = { has_war_with = INA }
+			}
+			INA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_alliance_offer
+				}
+			}
+		}
+		
+		# ���֣�������ڣ�
+		if = {
+			limit = {
+				country_exists = SUM
+				NOT = { has_war_with = SUM }
+			}
+			SUM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = LYY_alliance_offer
+				}
+			}
+		}
+		
+		# �����⽻���ƾ���
+		add_ideas = LYY_idea_diplomatic_influence
+		
+		# �⽻����
+		add_political_power = 200
+		add_stability = 0.10
+		
+		# ó�׼ӳ�
+		add_ideas = LYY_idea_trade_network
+		
+		set_country_flag = LYY_confederation_leader
+	}
+}
+
+# �����غ�ƽ��
+country_event = {
+	id = LYY_Ganyu.209
+	title = LYY_Ganyu.209.t
+	desc = LYY_Ganyu.209.d
+	picture = GFX_report_event_teyvat_peace_pact
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.209.a		# "Ը��ƽ����Լ�������������ص��ǿա�"
+		
+		# ���������غ�ƽ��
+		if = {
+			limit = { NOT = { has_faction_members = yes } }
+			create_faction = LYY_teyvat_peace_pact
+		}
+		
+		# �������зǵжԹ���
+		every_country = {
+			limit = {
+				NOT = { tag = ROOT }
+				NOT = { has_war_with = ROOT }
+				is_major = yes
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = LYY_peace_pact_founder
+			}
+		}
+		
+		# ������ұ�ǩ
+		set_cosmetic_tag = LYY_PEACE_LEADER
+		
+		# �޴��⽻����
+		add_political_power = 500
+		add_stability = 0.20
+		add_war_support = 0.10
+		
+		# ���Ӻ�ƽ��������
+		add_ideas = LYY_idea_peace_pact_leader
+		
+		# �����������
+		add_ideas = LYY_decision_category_peace_pact
+		
+		# ���мӳɣ����ʺ�����
+		add_research_slot = 1
+		add_tech_bonus = {
+			name = LYY_international_cooperation
+			bonus = 0.5
+			uses = 3
+			category = industry
+		}
+		
+		# ���üӳ�
+		add_ideas = LYY_idea_international_trade
+		
+		set_country_flag = LYY_peace_pact_founder
+		
+		# ���������¼�����
+		news_event = {
+			id = LYY_News.201
+			days = 1
+		}
+	}
+}
+
+# === �վ���ʤ���¼� ===
+# ������Լһͳ������ƽͳһ�վ֣�
+country_event = {
+	id = LYY_Ganyu.100
+	title = LYY_Ganyu.100.t
+	desc = LYY_Ganyu.100.d
+	picture = GFX_report_event_liyue_peace_unification
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.100.a		# "����Լ�ļ�֤�£�����ӭ���������ĺ�ƽ��"
+		
+		# ���������������
+		add_political_power = 500
+		add_stability = 0.30
+		add_war_support = 0.25
+		
+		# ��ҵ�Ϳ��н���
+		add_offsite_building = {
+			type = industrial_complex
+			level = 5
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 3
+		}
+		add_research_slot = 1
+		
+		# ���������¼�
+		news_event = {
+			id = LYY_News.100
+			days = 1
+		}
+	}
+}
+
+# �����º�ʢ��������Ѫͳһ�վ֣�
+country_event = {
+	id = LYY_Ganyu.101
+	title = LYY_Ganyu.101.t
+	desc = LYY_Ganyu.101.d
+	picture = GFX_report_event_liyue_iron_rule
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.101.a		# "�º������Ľ���ԶƮ���������Ͽգ�"
+		
+		# ���»����ҽ���
+		add_political_power = 400
+		add_stability = 0.25
+		add_war_support = 0.35
+		army_experience = 200
+		
+		# ���½�������
+		add_offsite_building = {
+			type = arms_factory
+			level = 8
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+			}
+			add_building_construction = {
+				type = bunker
+				level = 3
+				province = 10001
+				instant_build = yes
+			}
+		}
+		
+		# ���������¼�
+		news_event = {
+			id = LYY_News.101
+			days = 1
+		}
+	}
+}
+
+# ������Լ��־�սʤ����
+country_event = {
+	id = LYY_Ganyu.102
+	title = LYY_Ganyu.102.t
+	desc = LYY_Ganyu.102.d
+	picture = GFX_report_event_ganyu_steady_victory
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.102.a		# "�����ȴ���Լ֮���ս�ʤ����"
+		
+		# �ȶ���չ�ͽ���
+		add_political_power = 200
+		add_stability = 0.15
+		add_war_support = 0.10
+		
+		# ������ʩ����
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		# �����ӳɳ���
+		add_timed_idea = {
+			idea = LYY_idea_post_war_consolidation
+			days = 180
+		}
+	}
+}
+
+# �º���Ǭ������ʤսʤ����
+country_event = {
+	id = LYY_Ganyu.103
+	title = LYY_Ganyu.103.t
+	desc = LYY_Ganyu.103.d
+	picture = GFX_report_event_ganyu_swift_victory
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.103.a		# "˪���������˿ɵ���"
+		
+		# ����ʤ���ͽ���
+		add_political_power = 250
+		add_war_support = 0.20
+		army_experience = 150
+		
+		# ���¹�ҵ����
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		# ���񲿶Ӽӳɳ���
+		add_timed_idea = {
+			idea = LYY_idea_victorious_army
+			days = 180
+		}
+	}
+}
+
+# ��ս���������¼�������110�����ͻ��
+country_event = {
+	id = LYY_Ganyu.110
+	title = LYY_Ganyu.110.t
+	desc = LYY_Ganyu.110.d
+	picture = GFX_report_event_celestia_war
+	is_triggered_only = yes
+	
+	option = {
+		name = LYY_Ganyu.100.a		# "�����ص����ˣ��������������У�"
+		
+		# ��������ս������
+		add_ideas = LYY_idea_war_against_celestia
+		
+		# �������ս������
+		add_war_support = 0.50
+		add_stability = 0.20
+		
+		# �����������˽�ɫ
+		promote_character = LYY_MoonCarver
+		promote_character = LYY_MountainShaper
+		promote_character = LYY_CloudRetainer
+		promote_character = LYY_MadamePing
+		
+		# ÿ�����˳�Ϊ������ӵ������ӳ�
+		LYY_MoonCarver = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MountainShaper = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_CloudRetainer = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		LYY_MadamePing = {
+			add_unit_leader_trait = LYY_trait_adeptus_general
+		}
+		
+		# ���ɴ�������
+		load_oob = LYY_Celestia_War_Army
+		
+	# ���������¼�����
+	news_event = {
+		id = LYY_News.108
+		days = 1
+	}		# ��������ս����Ҫ����Ϸ�ж����������Ҵ���CEL��
+		if = {
+			limit = {
+				country_exists = CEL
+			}
+			declare_war_on = {
+				target = CEL
+				type = annex_everything
+			}
+		}
+	}
+}

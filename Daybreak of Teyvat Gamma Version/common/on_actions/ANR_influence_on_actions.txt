@@ -1,0 +1,468 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			ANR = {
+		        set_variable = { bennetts_influence = 0 }
+		        set_variable = { fischls_influence = 0 }
+		        set_variable = { dionas_influence = 0 }
+				country_event = andrius.1049
+				add_ideas = MOT_All_Tradition_of_Air
+		    }
+			MOT = {
+				country_event = Knights.2
+				set_variable = { MOT_Noelle_Exp = 1 }
+				set_variable = { MOT_PE_Right = 1 }
+				set_variable = { MOT_PE_Right = 1 }
+				set_variable = { MOT_Jean_Choice_B = 0 }
+				set_variable = { MOT_Jean_Choice_G = 0 }
+				set_variable = { MOT_Meeting_Cost = 0.75 }
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			LAW = {
+				LAW_Start_All_Vars = yes
+				add_ideas = MOT_All_Tradition_of_Air
+				activate_mission = LAW_Begin_Civil_WAR
+				IF = {
+					limit = { 
+						is_ai = yes 
+						has_game_rule = {
+							rule = MOT_Strengthen_Them
+							option = MOT_STTHEMOK
+						}
+					}
+					IF = {
+						limit = {
+							difficulty > -1
+							difficulty < 1
+						}
+						add_ideas = LAW_ST0
+						add_political_power = 50
+						add_command_power = 50
+						add_manpower = 50000
+					}
+					ELSE_IF = {
+						limit = {
+							difficulty > 0
+							difficulty < 2
+						}
+						add_ideas = LAW_ST1
+						LAW_Eula = {
+							add_skill_level = 1
+							add_max_trait = 1
+							add_attack = 1
+							add_defense = 1
+							add_planning = 1
+							add_logistics = 1
+						}
+						add_political_power = 50
+						add_command_power = 50
+						add_manpower = 50000
+					}
+					ELSE_IF = {
+						limit = {
+							difficulty > 1
+							difficulty < 3
+						}
+						add_ideas = LAW_ST2
+						LAW_Eula = {
+							add_skill_level = 2
+							add_max_trait = 2
+							add_attack = 2
+							add_defense = 2
+							add_planning = 2
+							add_logistics = 2
+						}
+						add_political_power = 100
+						add_command_power = 100
+						add_manpower = 100000
+						random_owned_state = {
+							add_building_construction = {
+								type = arms_factory
+								level = 3
+								instant_build = yes
+							}
+						}
+					}
+					ELSE_IF = {
+						limit = {
+							difficulty > 2
+							difficulty < 4
+						}
+						add_ideas = LAW_ST3
+						LAW_Eula = {
+							add_skill_level = 3
+							add_max_trait = 3
+							add_attack = 3
+							add_defense = 3
+							add_planning = 3
+							add_logistics = 3
+						}
+						add_political_power = 150
+						add_command_power = 150
+						add_manpower = 150000
+						random_owned_state = {
+							add_building_construction = {
+								type = arms_factory
+								level = 5
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = industrial_complex
+								level = 3
+								instant_build = yes
+							}
+						}
+					}
+					ELSE = {
+						add_ideas = LAW_ST4
+						LAW_Eula = {
+							add_skill_level = 4
+							add_max_trait = 4
+							add_attack = 5
+							add_defense = 3
+							add_planning = 5
+							add_logistics = 5
+						}
+						add_political_power = 250
+						add_command_power = 250
+						add_manpower = 250000
+						random_owned_state = {
+							add_building_construction = {
+								type = arms_factory
+								level = 7
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = industrial_complex
+								level = 5
+								instant_build = yes
+							}
+						}
+						add_ideas = DOT_Government_Industry5
+						add_ideas = DOT_Government_Research5
+						add_ideas = DOT_Government_Control7
+					}
+				}
+				country_event = Lawrence.2
+				country_event = { id = Lawrence.31 days = 10 }
+			}
+			FAV = {
+				FAV_Start_DM = yes
+				FAV_Org_DM = yes
+				set_variable = { FAV_Number_of_Fans = 0 }
+				IF = {
+					limit = { is_ai = no }
+					set_variable = { FAV_Number_of_Fans = 1 }
+				}
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			DVA = {
+				#对委员会精神进行初始化
+				DVA_Start_Committee = yes
+				DVA_ReOrg_DMC = yes
+				#计算季度的变量
+				set_variable = { DVA_Number_of_Months = 0 }
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			DRA = {
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			GUN = {
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			RAG = {
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+			SPI = {
+				add_ideas = MOT_All_Tradition_of_Air
+			}
+		}
+	}
+	on_monthly_DVA = {
+		effect = {
+			IF = {
+				#满足这个条件，即一个季度轮回
+				limit = { check_variable = { DVA_Number_of_Months = 2 } }
+				set_variable = { DVA_Number_of_Months = 0 }
+				IF = {
+					limit = { has_dynamic_modifier = { modifier = DVA_Committee_Union_Strong } }
+					DVA_ReOrg_DMC = yes
+				}
+			}
+			ELSE_IF = { add_to_variable = { DVA_Number_of_Months = 1 } }
+		}
+	}
+	on_monthly_RAG = {
+		IF = {
+			limit = {
+				is_ai = yes
+				NOT = { has_country_flag = RAG_Hide_1 }
+				SPI = {
+					is_puppet = no
+					is_subject = no
+				}
+			}
+			create_wargoal = {
+				target = SPI
+				type = annex_everything
+			}
+			set_country_flag = RAG_Hide_1
+		}
+		IF = {
+			limit = {
+				is_ai = yes
+				date > 1937.9.1
+				has_country_flag = RAG_Hide_1
+				NOT = { has_country_flag = RAG_Hide_2 }
+				SPI = {
+					OR = {
+						exists = no
+						is_subject = yes
+						is_puppet = yes
+					}
+				}
+			}
+			create_wargoal = {
+				target = ANR
+				type = annex_everything
+			}
+			set_country_flag = RAG_Hide_2
+		}
+	}
+	on_monthly_MOT = {
+		effect = {
+			IF = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = MOT_Support_From_Meeting
+					}
+				}
+				MOT_Re_Meeting = yes
+				MOT_Var_Limit = yes
+				MOT_Re_Org_PowerandSupport = yes
+			}
+			IF = {
+				limit = {
+					has_country_flag = {
+						flag = MOT_Preing_for_New_War
+						days > 60
+					}
+					has_war = no
+				}
+				clr_country_flag = MOT_Preing_for_New_War
+			}
+		}
+	}
+    # 修复了优菈影响力和愚人众影响力不生效的问题，这两个flag没找到，还请后续完善
+	on_monthly_LAW = {
+        effect = {
+        LAW_Monthly_Var_Change = yes
+		IF = {
+			limit = {
+				has_country_flag = LAW_Begin_Mid
+			}
+			LAW_Monthly_Var_Change = yes
+		}
+		ELSE = {
+			limit = { has_country_flag = LAW_Begin_Fin }
+		    }
+        }
+	}
+	#ROOT is new controller
+	#FROM is old controller
+	#FROM.FROM is state ID
+	on_state_control_changed = {
+		effect = {
+			#蒙德势力自动启用约法三章
+			FROM.FROM = {
+				IF = {
+					limit = {
+						NOT = { is_core_of = ROOT }
+						impassable = no
+						is_core_of = MOT
+						ROOT = { Is_MOT = yes }
+					}
+					set_temp_variable = { integration_target = THIS }
+					ROOT = { var:integration_target = { set_occupation_law_where_available = DOT_Emergency_Occupy } }
+				}
+			}
+			#攻陷新闻
+			
+			IF = {
+				limit = {
+					has_war_with = FROM
+					FROM.FROM = {
+						is_owned_by = FROM
+						NOT = { has_state_flag = city_has_fallen_once }
+					}
+				}
+				FROM.FROM = { save_event_target_as = fallen_state }
+				#西风大教堂
+				IF = {
+					limit = {
+						FROM.FROM = { state = 2 }
+						ROOT = {
+							controls_province = 4371
+							NOT = { original_tag = FAV }
+						}
+					}
+					news_event = DOT_ControlProvince.1
+				}
+				#蒙德城门
+				IF = {
+					limit = {
+						FROM.FROM = { state = 3 }
+						ROOT = { controls_province = 4436 }
+					}
+					news_event = DOT_ControlProvince.2
+				}
+				#风起地
+				IF = {
+					limit = {
+						FROM.FROM = { state = 4 }
+						ROOT = { controls_province = 4540 }
+					}
+					news_event = DOT_ControlProvince.3
+				}
+				#千风神殿
+				IF = {
+					limit = {
+						FROM.FROM = { state = 9 }
+						ROOT = { controls_province = 4340 }
+					}
+					news_event = DOT_ControlProvince.4
+				}
+				#劳伦斯堡
+				IF = {
+					limit = {
+						FROM.FROM = { state = 72 }
+						ROOT = { controls_province = 2212 }
+					}
+					news_event = DOT_ControlProvince.5
+				}
+				#达达乌帕城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 32 }
+						ROOT = { controls_province = 4741 }
+					}
+					news_event = DOT_ControlProvince.6
+				}
+				##西风骑士团攻克达达乌帕城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 32 }
+						ROOT = {
+							controls_province = 4741
+							original_tag = LAW
+						}
+					}
+					news_event = DOT_ControlProvince.7
+				}
+				#清泉镇
+				IF = {
+					limit = {
+						FROM.FROM = { state = 38 }
+						ROOT = { controls_province = 4567 }
+					}
+					news_event = DOT_ControlProvince.8
+				}
+				#安德琉斯谷
+				IF = {
+					limit = {
+						FROM.FROM = { state = 54 }
+						ROOT = { controls_province = 1174 }
+					}
+					news_event = DOT_ControlProvince.9
+				}
+				#风王高塔
+				IF = {
+					limit = {
+						FROM.FROM = { state = 60 }
+						ROOT = { controls_province = 1314 }
+					}
+					news_event = DOT_ControlProvince.10
+				}
+				#营地城
+				IF = {
+					limit = {
+						FROM.FROM = { state = 44 }
+						ROOT = { controls_province = 4783 }
+					}
+					news_event = DOT_ControlProvince.11
+				}
+				#芬德尼尔之顶
+				IF = {
+					limit = {
+						FROM.FROM = { state = 41 }
+						ROOT = { controls_province = 4873 }
+					}
+					news_event = DOT_ControlProvince.12
+				}
+				#晨曦酒庄
+				IF = {
+					limit = {
+						FROM.FROM = { state = 50 }
+						ROOT = { controls_province = 4548 }
+					}
+					news_event = DOT_ControlProvince.13
+				}
+				#教会反对派攻克西风大教堂
+				IF = {
+					limit = {
+						FROM.FROM = { state = 2 }
+						ROOT = {
+							controls_province = 4371
+							original_tag = FAV
+						}
+					}
+					news_event = DOT_ControlProvince.14
+				}
+				#15 璃月港 121 5643
+				IF = {
+					limit = {
+						FROM = { Is_LYY = yes }
+						FROM.FROM = { state = 121 }
+						ROOT = { controls_province = 5643 }
+					}
+					news_event = DOT_ControlProvince.15
+				}
+				#16 玉京台 122 1153
+				IF = {
+					limit = {
+						FROM.FROM = { state = 122 }
+						ROOT = { controls_province = 1153 }
+					}
+					news_event = DOT_ControlProvince.16
+				}
+				#17 黄金屋 123 5731
+				IF = {
+					limit = {
+						FROM = { Is_LYY = yes }
+						FROM.FROM = { state = 123 }
+						ROOT = { controls_province = 5731 }
+					}
+					news_event = DOT_ControlProvince.17
+				}
+				#18 层岩巨渊 124 1803
+				IF = {
+					limit = {
+						FROM.FROM = { state = 124 }
+						ROOT = { controls_province = 1803 }
+					}
+					news_event = DOT_ControlProvince.18
+				}
+				#19 庆云顶 144 1595
+				#20 孤云阁 156 5463
+				IF = {
+					limit = {
+						FROM = { Is_LYY = yes }
+						FROM.FROM = { state = 156 }
+						ROOT = { controls_province = 5463 }
+					}
+					news_event = DOT_ControlProvince.20
+				}
+			}
+		}
+	}
+}

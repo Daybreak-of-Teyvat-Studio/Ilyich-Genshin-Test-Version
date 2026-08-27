@@ -1,0 +1,400 @@
+focus_tree = {
+	id = PRI_Focus_II
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = PRI
+		}
+	}
+	default = no
+	focus = {
+		id = PRI_VS_PRI
+		icon = goal_DOT_03
+		#prerequisite = { focus = PRI_wake_up}
+		# relative_position_id = PRI_wake_up
+		cost = 10.00
+		x = 14
+		y = 0
+		completion_reward = {
+			add_equipment_to_stockpile = { type = fighter_equipment_1  amount = 50 producer = MOT }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 1000  producer = LYY }
+			add_equipment_to_stockpile = { type = motorized_equipment_1  amount = 500 producer = INA }
+			add_equipment_to_stockpile = { type = train_equipment amount = 500 producer = SUM }
+			add_equipment_to_stockpile = { type = transport_plane_equipment_1  amount = 500 producer = PRI }
+			country_event = { id = Ilyich_Character.1  days = 1  }
+			country_event = { id = Ilyich_Weapon.1  days = 1  }
+			add_ideas = Daybreak_of_Teyvat
+			add_ideas = For_PRI
+			remove_ideas = PRI_Sleepy_God
+			remove_ideas = PRI_Highest_God
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_offsite_building = { type = arms_factory level = 77 }
+			set_technology = { Ilyich_Sizhaoxing_tech = 1 }
+			create_equipment_variant = {
+				name = "死兆星号"
+				type = Ilyich_Sizhaoxing_1
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_3
+					fixed_ship_anti_air_slot = ship_anti_air_3
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+					fixed_ship_radar_slot = ship_radar_3
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_bb_3
+					front_1_custom_slot = ship_anti_air_3
+					mid_1_custom_slot = ship_anti_air_3
+					mid_2_custom_slot = ship_secondaries_2
+					rear_1_custom_slot = ship_heavy_battery_3
+				}
+			}
+			create_ship = {
+				type = Ilyich_Sizhaoxing_1
+				equipment_variant = "死兆星号"
+				creator = Root
+				name = "死兆星号"
+			}
+		}		
+	}
+	focus = {
+		id = PRI_VS_SNE
+		icon = GFX_goal_generic_army_artillery2
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_PRI
+		}
+		relative_position_id = PRI_VS_PRI
+		x = -1
+		y = 1
+		available = {
+			#threat > 0.7
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				#threat > 0.9
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Cryo 
+			declare_war_on = { target = SNE type = annex_everything }
+			# every_state = { limit = { is_core_of = SNE } add_core_of = ROOT }
+			set_technology = { Ilyich_Sizhaoxing_tech = 1 }
+			create_equipment_variant = {
+				name = "死兆星号"
+				type = Ilyich_Sizhaoxing_1
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_3
+					fixed_ship_anti_air_slot = ship_anti_air_3
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+					fixed_ship_radar_slot = ship_radar_3
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_bb_3
+					front_1_custom_slot = ship_anti_air_3
+					mid_1_custom_slot = ship_anti_air_3
+					mid_2_custom_slot = ship_secondaries_2
+					rear_1_custom_slot = ship_heavy_battery_3
+				}
+			}
+			create_ship = {
+				type = Ilyich_Sizhaoxing_1
+				equipment_variant = "死兆星号"
+				creator = Root
+				name = "死兆星号"
+			}
+		}
+	}
+	focus = {
+		id = PRI_VS_NAT
+		icon = GFX_goal_generic_army_tanks
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_INA
+		}
+		prerequisite = {
+			focus = PRI_VS_SUM
+		}
+		relative_position_id = PRI_VS_PRI
+		x = 1
+		y = 4
+		available = {
+			#threat > 0.80
+			date > 1941.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				#threat > 0.9
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Pyro
+			declare_war_on = { target = NAT type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = NAT }
+			# every_state = { limit = { is_core_of = NAT } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = PRI_VS_FON
+		icon = GFX_goal_generic_navy_battleship
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_INA
+		}
+		prerequisite = {
+			focus = PRI_VS_SUM
+		}
+		relative_position_id = PRI_VS_PRI
+		x = -1
+		y = 4
+		available = {
+			#threat > 0.80
+			date > 1941.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				#threat > 0.9
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Hydro
+			declare_war_on = { target = FON type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = FON }
+			# every_state = { limit = { is_core_of = FON } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = PRI_VS_ABY
+		icon = GFX_goal_generic_territory_or_war
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_PRI
+		}
+		relative_position_id = PRI_VS_PRI
+		x = 1
+		y = 1
+		available = {
+			#threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			declare_war_on = { target = ABY type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = ABY }
+			# every_state = { limit = { is_core_of = ABY } add_core_of = ROOT }
+			set_technology = { atomic_research = 1 }
+			# load_naval_oob = "PRI_1936_Naval"
+		}
+	}
+	focus = {
+		id = PRI_VS_SUM
+		icon = GFX_goal_generic_national_unity
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_MOT
+		}
+		prerequisite = {
+			focus = PRI_VS_LYY
+		}
+		relative_position_id = PRI_VS_PRI
+		x = 1
+		y = 3
+		available = { 
+			#threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1944.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Dendro
+			declare_war_on = { target = SUM type = annex_everything }
+			declare_war_on = { target = VAN type = annex_everything }
+			declare_war_on = { target = SGD type = annex_everything }
+			declare_war_on = { target = SDH type = annex_everything }
+			declare_war_on = { target = SGS type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = SUM }
+			create_wargoal = { type = puppet_wargoal_focus target = VAN }
+			create_wargoal = { type = puppet_wargoal_focus target = SGD }
+			create_wargoal = { type = puppet_wargoal_focus target = SDH }
+			create_wargoal = { type = puppet_wargoal_focus target = SGS }
+			# every_state = { limit = { is_core_of = SUM } add_core_of = ROOT }
+			set_technology = { nuclear_reactor = 1 }
+			# load_naval_oob = "PRI_1936_Naval"
+		}
+	}
+	focus = {
+		id = PRI_VS_MOT
+		icon = GFX_goal_generic_wolf_pack
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_SNE
+		}
+		prerequisite = {
+			focus = PRI_VS_ABY
+		}
+		relative_position_id = PRI_VS_PRI
+		x = -1
+		y = 2
+		available = {
+			#threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_manpower = 64800
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Anemo
+			declare_war_on = { target = MOT type = annex_everything }
+			declare_war_on = { target = GUN type = annex_everything }
+			declare_war_on = { target = DRA type = annex_everything }
+			declare_war_on = { target = RAG type = annex_everything }
+			declare_war_on = { target = LAW type = annex_everything }
+			declare_war_on = { target = FAV type = annex_everything }
+			declare_war_on = { target = DVA type = annex_everything }
+			declare_war_on = { target = SPI type = annex_everything }
+			declare_war_on = { target = ANR type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = MOT }
+			create_wargoal = { type = puppet_wargoal_focus target = GUN }
+			create_wargoal = { type = puppet_wargoal_focus target = DRA }
+			create_wargoal = { type = puppet_wargoal_focus target = RAG }
+			create_wargoal = { type = puppet_wargoal_focus target = LAW }
+			create_wargoal = { type = puppet_wargoal_focus target = FAV }
+			create_wargoal = { type = puppet_wargoal_focus target = DVA }
+			create_wargoal = { type = puppet_wargoal_focus target = SPI }
+			create_wargoal = { type = puppet_wargoal_focus target = ANR }
+			# every_state = { limit = { is_core_of = MOT } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = PRI_VS_LYY
+		icon = GFX_goal_generic_soviet_construction
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_SNE
+		}
+		prerequisite = {
+			focus = PRI_VS_ABY
+		}
+		relative_position_id = PRI_VS_PRI
+		x = 1
+		y = 2
+		available = {
+			#threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_manpower = 64800
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Geo
+			declare_war_on = { target = LYY type = annex_everything }
+			declare_war_on = { target = KQP type = annex_everything }
+			declare_war_on = { target = SHP type = annex_everything }
+			declare_war_on = { target = GYP type = annex_everything }
+			declare_war_on = { target = BRF type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = LYY }
+			create_wargoal = { type = puppet_wargoal_focus target = KQP }
+			create_wargoal = { type = puppet_wargoal_focus target = SHP }
+			create_wargoal = { type = puppet_wargoal_focus target = GYP }
+			create_wargoal = { type = puppet_wargoal_focus target = BRF }
+			# every_state = { limit = { is_core_of = LYY } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = KQP } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = GYP } add_core_of = ROOT }
+			# every_state = { limit = { is_core_of = SHP } add_core_of = ROOT }
+		}
+	}
+	focus = {
+		id = PRI_VS_INA
+		icon = GFX_goal_support_fascism
+		cost = 14.00
+		prerequisite = {
+			focus = PRI_VS_MOT
+		}
+		prerequisite = {
+			focus = PRI_VS_LYY
+		}
+		relative_position_id = PRI_VS_PRI
+		x = -1
+		y = 3
+		available = {
+			#threat > 0.90
+			date > 1942.1.1
+			OR = {
+				NOT = { has_global_flag = PRI_War_Slow }
+				date > 1942.1.1
+			}
+		}
+		completion_reward = {
+			add_political_power = 160
+			add_war_support = 0.05
+			add_stability = 0.05
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_ideas = PRI_Vision_Electro
+			declare_war_on = { target = INA type = annex_everything }
+			declare_war_on = { target = SAN type = annex_everything }
+			declare_war_on = { target = ASA type = annex_everything }
+			declare_war_on = { target = TSU type = annex_everything }
+			create_wargoal = { type = puppet_wargoal_focus target = INA }
+			create_wargoal = { type = puppet_wargoal_focus target = SAN }
+			create_wargoal = { type = puppet_wargoal_focus target = ASA }
+			create_wargoal = { type = puppet_wargoal_focus target = TSU }
+			# load_naval_oob = "PRI_1936_Naval"
+			# every_state = { limit = { is_core_of = INA } add_core_of = ROOT }
+		}
+	}
+}

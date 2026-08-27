@@ -1,0 +1,193 @@
+﻿###########################
+# ABY Events
+###########################
+
+add_namespace = ABY
+add_namespace = ABY_Event
+add_namespace = ABY_News
+
+# ABY
+
+country_event = {
+	id = ABY.1
+	title = ABY.1.t
+	desc = ABY.1.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { # INA
+		name = ABY.1.a
+		news_event = { id = Teyvat_News.11  days = 1 }
+	}
+}
+country_event = {
+	id = ABY.2
+	title = ABY.2.t
+	desc = ABY.2.d
+	picture = GFX_event_ASA
+	fire_only_once = no
+	is_triggered_only = yes
+	option = { # INA
+		name = ABY.2.a
+		HIP = {
+			random_owned_state = {
+				create_unit = {
+					division = "name = \"1. 深渊魔物\" division_template = \"深渊魔物\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+					owner = HIP
+					count = 10
+				}
+			}
+		}
+	}
+}
+
+#登陆天空岛
+country_event = {
+	id = ABY.3
+	title = ABY.3.t
+	desc = ABY.3.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	trigger = {
+		TAG = ROOT
+		730 = { is_controlled_by = ROOT }
+		NOT = { TAG = PRI }
+	}
+	option = {
+		name = ABY.3.a
+		PRI = {
+			add_ideas = PRI_Contact_Ley_Line
+		}
+	}
+}
+
+#AI调整 已废弃
+country_event = {
+	id = ABY.4
+	title = MOT.1.t
+	desc = MOT.1.d
+	picture = GFX_event_ASA
+	is_triggered_only = yes
+	# trigger = {
+	#	date > 1935.1.1
+	#	is_ai = yes
+	#	NOT= { has_country_flag = idea_Teyvat_People }
+	# }
+	fire_only_once = yes
+	option = {
+		name = MOT.1.a
+		add_ideas = idea_Teyvat_People #尘世之民
+		set_country_flag = idea_Teyvat_People
+	}
+}
+
+#彩蛋势力说明
+country_event = {
+	id = ABY_Event.1
+	title = ABY_Event.1.t
+	desc = ABY_Event.1.d
+	picture = GFX_GUN_Event_04
+	trigger = {
+		is_ai = no
+		or = {
+			country_exists = GER
+			country_exists = SOV
+			country_exists = ENG
+			country_exists = USA
+			country_exists = JAP
+			country_exists = ITA
+			country_exists = PRC
+			country_exists = FRA
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = ABY_Event.1.a
+	}
+}
+#坦克设计
+country_event = {
+	id = ABY_Event.2
+	title = ABY_Event.2.t
+	desc = ABY_Event.2.d
+	picture = GFX_GUN_Event_04
+	trigger = {
+		date > 1936.2.1
+		tag = ABY
+	}
+	fire_only_once = yes
+	# hidden = yes
+	option = {
+		name = ABY_Event.2.a
+		every_country = {
+			limit = { is_ai = yes }
+			set_technology = {
+				basic_medium_tank_chassis = 1
+			}
+			create_equipment_variant = {
+				type = medium_tank_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_heavy_machine_gun
+					turret_type_slot = tank_light_one_man_tank_turret
+					suspension_type_slot = tank_christie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = tank_radio_1
+				}
+				upgrades = {
+					tank_nsb_engine_upgrade = 8
+					tank_nsb_armor_upgrade = 8
+				}
+				icon = "GFX_GER_improved_heavy_tank_medium"
+				obsolete = no
+			}
+		}
+	}
+}
+
+#海军会议
+news_event = {
+	id = ABY_News.5
+	title = ABY_News.5.t
+	desc = ABY_News.5.d
+	picture = GFX_GUN_News_06
+	major = yes
+	is_triggered_only = no
+	trigger = {
+		date > 1936.1.10
+		is_ai = no
+		#NOT = { has_country_flag = ABY_News.5 }
+	}
+	fire_only_once = yes
+	option = {
+		name = ABY_News.5.a
+		#set_country_flag = ABY_News.5
+	}
+}
+
+#胎海水
+news_event = {
+	id = ABY_News.6
+	title = ABY_News.6.t
+	desc = ABY_News.6.d
+	picture = GFX_LYY_News_P09
+	major = yes
+	is_triggered_only = no
+	trigger = {
+		date > 1936.1.20
+		is_ai = no
+		#NOT = { has_country_flag = ABY_News.5 }
+	}
+	fire_only_once = yes
+	option = {
+		name = ABY_News.6.a
+		trigger = { is_ai = no }
+		NAT = { add_manpower = -180000 }
+		NDK = { add_manpower = -180000 }
+	}
+	option = {
+		# name = ABY_News.6.a
+		trigger = { is_ai = yes }
+	}
+}

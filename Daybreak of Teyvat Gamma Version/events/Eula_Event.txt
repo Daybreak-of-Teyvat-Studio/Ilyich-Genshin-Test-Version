@@ -1,0 +1,1818 @@
+###########################
+# Ilyich Genshin Events
+###########################
+
+
+add_namespace = Lawrence
+
+country_event = { 
+	id = Lawrence.1
+	title = Lawrence.1.t
+	desc = Lawrence.1.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.1.a
+
+		give_guarantee = LAW
+		LAW = { give_guarantee = FROM }
+		
+		ai_chance = {
+			factor = 60
+			modifier = {
+				add = 20
+				has_same_ideology = LAW
+			}
+			modifier = {
+				add = -10
+				has_opinion = {
+					target = LAW
+					value < -30
+				}
+			}
+			modifier = {
+				add = -10
+				has_opinion = {
+					target = LAW
+					value < 0
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = LAW
+					value > 30
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = LAW
+					value > 60
+				}
+			}
+			modifier = {
+				add = 20
+				OR = {
+					is_neighbor_of = MOT
+					is_neighbor_of = RAG
+				}
+			}
+			modifier = {
+				add = -1000
+				OR = {
+					is_puppet = yes
+					has_subject = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = Lawrence.1.b
+		ai_chance = {
+			factor = 40
+			modifier = {
+				add = -20
+				has_same_ideology = LAW
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = LAW
+					value < -30
+				}
+			}
+			modifier = {
+				add = 10
+				has_opinion = {
+					target = LAW
+					value < 0
+				}
+			}
+			modifier = {
+				add = -10
+				has_opinion = {
+					target = LAW
+					value > 30
+				}
+			}
+			modifier = {
+				add = -10
+				has_opinion = {
+					target = LAW
+					value > 60
+				}
+			}
+			modifier = {
+				add = -20
+				OR = {
+					is_neighbor_of = MOT
+					is_neighbor_of = RAG
+				}
+			}
+		}
+	}
+}
+country_event = { 
+	id = Lawrence.2
+	title = Lawrence.2.t
+	desc = Lawrence.2.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.2.a
+		add_political_power = 50
+	}
+	option = {
+		name = Lawrence.2.b
+		army_experience = 25
+	}
+	option = {
+		name = Lawrence.2.c
+		add_command_power = 20
+	}
+}
+country_event = { 
+	id = Lawrence.3
+	title = Lawrence.3.t
+	desc = Lawrence.3.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.3.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = -0.01
+		add_timed_idea = { idea = gene_less_burden days = 90 }
+		set_temp_variable = { LAW_Change_of_Fool_Power = 4 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.3.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+	option = {
+		name = Lawrence.3.c
+		trigger = {
+			has_idea = LAW_System_of_Ice
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea2
+		add_timed_idea = { idea = gene_less_burden days = 120 }
+		set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+}
+country_event = { 
+	id = Lawrence.4
+	title = Lawrence.4.t
+	desc = Lawrence.4.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.4.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = -0.01
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		IF = {
+			limit = { num_of_civilian_factories > 49 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.4.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 5 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+	option = {
+		name = Lawrence.4.c
+		trigger = {
+			has_idea = LAW_Economy_Controled
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea4
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		IF = {
+			limit = { num_of_civilian_factories > 49 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		set_temp_variable = { LAW_Change_of_Fool_Power = 1 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+}
+country_event = { 
+	id = Lawrence.5
+	title = Lawrence.5.t
+	desc = Lawrence.5.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.5.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = -0.03
+		add_manpower = -100
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		IF = {
+			limit = { num_of_civilian_factories > 49 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.5.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+	option = {
+		name = Lawrence.5.c
+		trigger = {
+			has_idea = LAW_Economy_Controled
+		}
+		add_manpower = -100
+		custom_effect_tooltip = LAW_tt_Another_For_Idea8
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		IF = {
+			limit = { num_of_civilian_factories > 49 }
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+	}
+}
+country_event = { 
+	id = Lawrence.6
+	title = Lawrence.6.t
+	desc = Lawrence.6.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.6.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = 0.03
+		set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.6.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+	option = {
+		name = Lawrence.6.c
+		trigger = {
+			OR = {
+				has_idea = LAW_Fundamental_Organization1
+				has_idea = LAW_Fundamental_Organization2
+				has_idea = LAW_Fundamental_Organization3
+			}
+		}
+		add_stability = 0.04
+		custom_effect_tooltip = LAW_tt_Another_For_Idea10
+		set_temp_variable = { LAW_Change_of_Fool_Power = 1 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+}
+country_event = { 
+	id = Lawrence.7
+	title = Lawrence.7.t
+	desc = Lawrence.7.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.7.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		set_temp_variable = { LAW_Change_of_Fool_Power = 3 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.7.b
+		trigger = {
+			OR = {
+				has_idea = LAW_Icy_Judge_Court1
+				has_idea = LAW_Icy_Judge_Court2
+				has_idea = LAW_Icy_Judge_Court3
+			}
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+	}
+}
+country_event = { 
+	id = Lawrence.8
+	title = Lawrence.8.t
+	desc = Lawrence.8.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.8.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		army_experience = 10
+		add_command_power = 10
+		set_temp_variable = { LAW_Change_of_Fool_Power = 4 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.8.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+	option = {
+		name = Lawrence.8.c
+		trigger = {
+				has_idea = LAW_Army_of_Tide
+		}
+		army_experience = 20
+		add_command_power = 10
+		custom_effect_tooltip = LAW_tt_Another_For_Idea3
+		set_temp_variable = { LAW_Change_of_Fool_Power = 2 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+}
+country_event = { 
+	id = Lawrence.9
+	title = Lawrence.9.t
+	desc = Lawrence.9.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.9.a
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		subtract_from_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_Less_Fool_Angry
+		set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+	}
+	option = {
+		name = Lawrence.9.b
+		add_stability = 0.02
+	}
+	option = {
+		name = Lawrence.9.c
+		trigger = {
+			has_idea = LAW_Secret_Police
+		}
+		add_stability = 0.05
+		custom_effect_tooltip = LAW_tt_Another_For_Idea5
+		set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+		subtract_from_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_Less_Fool_Power
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.10
+	title = Lawrence.10.t
+	desc = Lawrence.10.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.10.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		set_temp_variable = { LAW_Change_of_Fool_Power = 5 }
+		add_to_variable = { LAW_Whole_Fool_Power = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_More_Fool_Power
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		subtract_from_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_Less_Fool_Angry
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.10.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+		add_to_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 10 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+		subtract_from_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_Less_Noble_Angry
+	}
+	option = {
+		name = Lawrence.10.c
+		trigger = {
+			OR = {
+				has_idea = LAW_Icy_Judge_Court1
+				has_idea = LAW_Icy_Judge_Court2
+				has_idea = LAW_Icy_Judge_Court3
+			}
+		}
+		add_stability = 0.04
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+		set_temp_variable = { LAW_Change_of_Fool_Angry = 5 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Angry }
+		custom_effect_tooltip = LAW_tt_More_Fool_Angry
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.11
+	title = Lawrence.11.t
+	desc = Lawrence.11.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.11.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_political_power = -20
+		set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+		add_to_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+	}
+	option = {
+		name = Lawrence.11.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		add_stability = -0.02
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.11.c
+		trigger = {
+			OR = {
+				has_idea = LAW_Icy_Judge_Court1
+				has_idea = LAW_Icy_Judge_Court2
+				has_idea = LAW_Icy_Judge_Court3
+			}
+		}
+		add_stability = 0.02
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.12
+	title = Lawrence.12.t
+	desc = Lawrence.12.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.12.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_manpower = -101
+		add_command_power = -20
+	}
+	option = {
+		name = Lawrence.12.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		add_war_support = -0.02
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.12.c
+		trigger = {
+			OR = {
+				has_idea = LAW_Icy_Judge_Court1
+				has_idea = LAW_Icy_Judge_Court2
+				has_idea = LAW_Icy_Judge_Court3
+			}
+		}
+		add_stability = 0.02
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.13
+	title = Lawrence.13.t
+	desc = Lawrence.13.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.13.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = -0.02
+	}
+	option = {
+		name = Lawrence.13.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		add_timed_idea = { idea = gene_less_burden days = 60 }
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.13.c
+		trigger = {
+			LAW_Has_Completed_Idea4 = yes
+		}
+		add_stability = 0.04
+		custom_effect_tooltip = LAW_tt_Another_For_Idea4
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+
+country_event = { 
+	id = Lawrence.14
+	title = Lawrence.14.t
+	desc = Lawrence.14.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.14.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		army_experience = -10
+	}
+	option = {
+		name = Lawrence.14.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		add_political_power = -10
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.14.c
+		trigger = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea9
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.15
+	title = Lawrence.15.t
+	desc = Lawrence.15.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.15.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		set_temp_variable = { LAW_Change_of_Noble_Power = 5 }
+		add_to_variable = { LAW_Whole_Noble_Power = LAW_Change_of_Noble_Power }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+	option = {
+		name = Lawrence.15.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+	option = {
+		name = Lawrence.15.c
+		trigger = {
+			LAW_Has_Completed_Idea9 = yes
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea2
+	}
+}
+country_event = { 
+	id = Lawrence.16
+	title = Lawrence.16.t
+	desc = Lawrence.16.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.16.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+	}
+	option = {
+		name = Lawrence.16.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+		add_stability = -0.02
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		set_temp_variable = { DOT_Change_of_Mora = 30 }
+		custom_effect_tooltip = DOT_tt_Get_Mora
+		add_to_variable = { dx = DOT_Change_of_Mora }
+	}
+	option = {
+		name = Lawrence.16.c
+		trigger = {
+			has_country_flag = LAW_tt_Noble_Lost
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_ND
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		set_temp_variable = { DOT_Change_of_Mora = 30 }
+		custom_effect_tooltip = DOT_tt_Get_Mora
+		add_to_variable = { dx = DOT_Change_of_Mora }
+	}
+}
+
+country_event = { 
+	id = Lawrence.17
+	title = Lawrence.17.t
+	desc = Lawrence.17.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.17.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+			add_war_support = -0.02
+		}
+	}
+	option = {
+		name = Lawrence.17.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+		add_stability = -0.02
+		
+	}
+	option = {
+		name = Lawrence.17.c
+		trigger = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+		add_political_power = 10
+	}
+}
+country_event = { 
+	id = Lawrence.18
+	title = Lawrence.18.t
+	desc = Lawrence.18.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.18.a
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 10 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+		every_controlled_state = {
+			limit = { is_core_of = MOT }
+			add_resistance = 3
+			add_resistance_target = 1
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+		}
+	}
+	option = {
+		name = Lawrence.18.b
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+		}
+		add_stability = -0.05
+		every_controlled_state = {
+			limit = { is_core_of = MOT }
+			add_resistance = 5
+			add_resistance_target = 3
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = industrial_complex
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+		}
+		random_controlled_state = {
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+		}
+	}
+	option = {
+		name = Lawrence.18.c
+		trigger = {
+			LAW_Has_Completed_Idea3 = yes
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea3
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 20 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+
+country_event = { 
+	id = Lawrence.19
+	title = Lawrence.19.t
+	desc = Lawrence.19.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.19.a
+		IF = {
+			limit = { NOT = { has_country_flag = LAW_Shubbert_Die } }
+			custom_effect_tooltip = LAW_tt_Only_One_For_Shubbert
+			add_war_support = -0.02
+		}
+	}
+	option = {
+		name = Lawrence.19.b
+		trigger = {
+			has_country_flag = LAW_Shubbert_Die
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Eula
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+		add_stability = -0.02
+		
+	}
+	option = {
+		name = Lawrence.19.c
+		trigger = {
+			LAW_Has_Completed_Idea15 = yes
+		}
+		custom_effect_tooltip = LAW_tt_Another_For_Idea15
+		add_political_power = 10
+	}
+}
+country_event = { 
+	id = Lawrence.20
+	title = Lawrence.20.t
+	desc = Lawrence.20.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.20.a
+		
+		set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+		add_to_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+		set_temp_variable = { LAW_Change_of_Fool_Power = 10 }
+		subtract_from_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Fool_Power }
+		custom_effect_tooltip = LAW_tt_Less_Fool_Power
+	}
+	option = {
+		name = Lawrence.20.b
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.21
+	title = Lawrence.21.t
+	desc = Lawrence.21.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.21.a
+		set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+		add_to_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+	}
+	option = {
+		name = Lawrence.21.b
+		set_temp_variable = { LAW_Change_of_Noble_STST = 5 }
+		add_to_variable = { LAW_Noble_STST = LAW_Change_of_Noble_STST }
+		custom_effect_tooltip = LAW_tt_More_Noble_STST
+	}
+	option = {
+		name = Lawrence.21.c
+		trigger = {
+			has_country_flag = LAW_tt_Noble_Lost
+		}
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 5 }
+		add_to_variable = { LAW_Whole_Noble_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_Noble_Lost
+	}
+}
+country_event = { 
+	id = Lawrence.22
+	title = Lawrence.22.t
+	desc = Lawrence.22.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = LAW
+		date > 1936.3.1
+	}
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.22.a
+		28 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 5
+				instant_build = yes
+			}
+		}
+		add_timed_idea = { idea = gene_less_burden days = 180 }
+	}
+}
+country_event = { 
+	id = Lawrence.23
+	title = Lawrence.23.t
+	desc = Lawrence.23.d
+	fire_only_once = yes
+	is_triggered_only = no
+	timeout_days = 3  picture = GFX_event_LAW_01
+	trigger = {
+		has_global_flag = {
+			flag = MOT_Civil_War_Begun
+			 days > 30
+		}
+	}
+	option = {
+		name = Lawrence.23.a
+	}
+}
+country_event = { 
+	id = Lawrence.24
+	title = Lawrence.24.t
+	desc = Lawrence.24.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = LAW
+		date > 1936.6.1
+	}
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.24.a
+		country_event = { id = Lawrence.25 days = 10 }
+		set_temp_variable = { DOT_Change_of_Mora = 5000 }
+		custom_effect_tooltip = DOT_mora_Get
+		add_to_variable = { dx = DOT_Change_of_Mora }
+	}
+}
+country_event = { 
+	id = Lawrence.25
+	title = Lawrence.25.t
+	desc = Lawrence.25.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.25.a
+	}
+}
+country_event = { 
+	id = Lawrence.26
+	title = Lawrence.26.t
+	desc = Lawrence.26.d
+	fire_only_once = yes
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.26.a
+		set_temp_variable = { DOT_Change_of_Mora = 5000 }
+		custom_effect_tooltip = DOT_mora_Get
+		add_to_variable = { dx = DOT_Change_of_Mora }
+	}
+}
+country_event = { 
+	id = Lawrence.27
+	title = Lawrence.27.t
+	desc = Lawrence.27.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = LAW
+		date > 1936.8.1
+	}
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.27.a
+	}
+}
+country_event = { 
+	id = Lawrence.28
+	title = Lawrence.28.t
+	desc = Lawrence.28.d
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		original_tag = LAW
+		has_war = yes
+	}
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.28.a
+	}
+}
+country_event = { 
+	id = Lawrence.29
+	title = Lawrence.29.t
+	desc = Lawrence.29.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.29.a
+		add_war_support = 0.01
+	}
+}
+country_event = { 
+	id = Lawrence.30
+	title = Lawrence.30.t
+	desc = Lawrence.30.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.30.a
+		add_war_support = 0.01
+	}
+}
+country_event = { 
+	id = Lawrence.31
+	title = Lawrence.31.t
+	desc = Lawrence.31.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.31.a
+	}
+}
+country_event = { 
+	id = Lawrence.32
+	title = Lawrence.32.t
+	desc = Lawrence.32.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.32.a
+		army_experience = 5
+	}
+}
+country_event = { 
+	id = Lawrence.33
+	title = Lawrence.33.t
+	desc = Lawrence.33.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.33.a
+		add_war_support = 0.01
+	}
+}
+country_event = {
+	id = Lawrence.34
+	title = Lawrence.34.t
+	desc = Lawrence.34.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.34.a
+		add_stability = -0.05
+		every_owned_state = {
+			add_dynamic_modifier = { modifier = LAW_SM_Area_Unstable1 }
+		}
+		remove_ideas = {
+			LAW_Shocking_Intelligence
+			LAW_People_Want
+			LAW_Pure_Government
+			LAW_Fast_Government
+		}
+		set_country_flag = LAW_Unlock_BOP
+		set_power_balance = {
+			id = LAW_Original_power_balance
+			left_side = LAW_Noble_Power
+			right_side = LAW_Fascist_Power
+			set_value = -1
+		}
+		custom_effect_tooltip = LAW_tt_Unlock_BOP
+	}
+}
+country_event = { 
+	id = Lawrence.35
+	title = Lawrence.35.t
+	desc = Lawrence.35.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.35.a
+		add_timed_idea = { idea = MOT_Betrayal_of_Amry DAYS = 120 }
+	}
+}
+country_event = { 
+	id = Lawrence.36
+	title = Lawrence.36.t
+	desc = Lawrence.36.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.36.a
+		add_timed_idea = { idea = MOT_Betrayal_of_Fool DAYS = 120 }
+	}
+}
+country_event = { 
+	id = Lawrence.37
+	title = Lawrence.37.t
+	desc = Lawrence.37.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.37.a
+		add_war_support = -0.3
+		every_controlled_state = { add_resistance = 5 }
+	}
+}
+country_event = { 
+	id = Lawrence.38
+	title = Lawrence.38.t
+	desc = Lawrence.38.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.38.a
+		add_stability = -0.5
+		add_war_support = -0.2
+		every_owned_state = {
+			remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable1 }
+			add_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 }
+		}
+		hidden_effect = {
+			country_event = {
+				id = Lawrence.39
+				days = 2
+			}
+		}
+	}
+}
+country_event = { 
+	id = Lawrence.39
+	title = Lawrence.39.t
+	desc = Lawrence.39.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.39.a
+		add_country_leader_role = {
+			character = LAW_Eula
+			promote_leader = yes
+			country_leader = {
+				ideology = Icism
+				expire = "1999.1.1"
+				traits = {
+					LAW_Rising_Tide
+					LAW_Ability_of_Knight
+				}
+			}
+		}
+		retire_character = LAW_Schubert
+		add_manpower = -1
+		hidden_effect = {
+			country_event = {
+				id = Lawrence.40
+				days = 2
+			}
+			set_country_flag = LAW_Shubbert_Die
+			set_global_flag = LAW_Death_of_Shubbert
+		}
+	}
+}
+country_event = { 
+	id = Lawrence.40
+	title = Lawrence.40.t
+	desc = Lawrence.40.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.40.a
+		every_state = {
+			remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 }
+		}
+		MOT = { change_tag_from = LAW }
+		MOT = {
+			annex_country = { target = LAW transfer_troops = no }
+		}
+		trigger = { is_ai = no }
+	}
+	option = {
+		name = Lawrence.40.b
+		country_event = Lawrence.41
+	}
+}
+country_event = { 
+	id = Lawrence.41
+	title = Lawrence.41.t
+	desc = Lawrence.41.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.41.b
+		set_country_flag = LAW_Unlock_Sta_DecCat
+		custom_effect_tooltip = LAW_tt_Unlock_Sta_Dec
+		custom_effect_tooltip = LAW_tt_Unlock_Main_Decisions
+		set_country_flag = LAW_Unlock_Ice_DecCat
+		set_country_flag = LAW_Unlock_Noble_DecCat
+		set_country_flag = LAW_Unlock_Fool_DecCat
+		activate_mission = LAW_Call_for_Stability
+		load_focus_tree = LAW_Focus_01
+	}
+	option = {
+		name = Lawrence.41.a
+		every_state = {
+			remove_dynamic_modifier = { modifier = LAW_SM_Area_Unstable2 }
+		}
+		MOT = { change_tag_from = LAW }
+		MOT = {
+			annex_country = { target = LAW transfer_troops = no }
+		}
+		trigger = { is_ai = no }
+	}
+}
+country_event = { 
+	id = Lawrence.43
+	title = Lawrence.43.t
+	desc = Lawrence.43.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.43.a
+		set_temp_variable = { LAW_Change_of_Icy_Power = 10 }
+		custom_effect_tooltip = LAW_tt_More_Icy_Power
+		add_to_variable = { LAW_Whole_Icy_Power = LAW_Change_of_Icy_Power }
+	}
+}
+country_event = { 
+	id = Lawrence.47
+	title = Lawrence.47.t
+	desc = Lawrence.47.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.47.a
+		add_war_support = -0.2
+		add_stability = 0.2
+		everY_state = {
+			limit = { is_core_of = MOT }
+			add_core_of = LAW
+		}
+		country_event = Lawrence.48
+	}
+}
+country_event = { 
+	id = Lawrence.48
+	title = Lawrence.48.t
+	desc = Lawrence.48.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.48.a
+		add_stability = -0.2
+		set_country_flag = LAW_Unlock_PreUnion_Crisis
+		custom_effect_tooltip = LAW_tt_Beginning_of_Crisis
+		set_variable = { LAW_Whole_Icy_Power = 0 }
+		activate_mission = LAW_Noble_Crisis
+	}
+}
+country_event = { 
+	id = Lawrence.58
+	title = Lawrence.58.t
+	desc = Lawrence.58.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.58.a
+		add_war_support = 0.05
+		add_days_mission_timeout = { mission = LAW_Noble_Crisis days = 100 }
+		set_temp_variable = { LAW_Change_of_Noble_Angry = 9999 }
+		add_to_variable = { LAW_Whole_Fool_Angry = LAW_Change_of_Noble_Angry }
+		custom_effect_tooltip = LAW_tt_More_Noble_Angry
+	}
+}
+country_event = { 
+	id = Lawrence.59
+	title = Lawrence.59.t
+	desc = Lawrence.59.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.59.a
+		add_stability = 0.1
+		add_war_support = 0.1
+	}
+}
+
+#第一次全国大会
+country_event = {
+	id = Lawrence.60
+	title = Lawrence.60.t
+	desc = Lawrence.60.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.60.a
+		add_stability = 0.05
+		add_war_support = -0.05
+	}
+	option = {
+		name = Lawrence.60.b
+		add_stability = 0.03
+	}
+}
+
+#军队复员政策
+country_event = {
+	id = Lawrence.61
+	title = Lawrence.61.t
+	desc = Lawrence.61.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.61.a
+		set_country_flag = LAW_United_Pol_11
+	}
+	option = {
+		name = Lawrence.61.b
+		set_country_flag = LAW_United_Pol_12
+	}
+}
+country_event = {
+	id = Lawrence.62
+	title = Lawrence.62.t
+	desc = Lawrence.62.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.62.a
+		set_country_flag = LAW_United_Pol_21
+	}
+	option = {
+		name = Lawrence.62.b
+		set_country_flag = LAW_United_Pol_22
+	}
+}
+country_event = {
+	id = Lawrence.63
+	title = Lawrence.63.t
+	desc = Lawrence.63.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.63.a
+		set_country_flag = LAW_United_Pol_31
+	}
+	option = {
+		name = Lawrence.63.b
+		set_country_flag = LAW_United_Pol_32
+	}
+}
+country_event = {
+	id = Lawrence.64
+	title = Lawrence.64.t
+	desc = Lawrence.64.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.64.a
+		set_country_flag = LAW_United_Pol_41
+	}
+	option = {
+		name = Lawrence.64.b
+		set_country_flag = LAW_United_Pol_42
+	}
+}
+country_event = {
+	id = Lawrence.65
+	title = Lawrence.65.t
+	desc = Lawrence.65.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.65.a
+		set_country_flag = LAW_United_Pol_51
+	}
+	option = {
+		name = Lawrence.65.b
+		set_country_flag = LAW_United_Pol_52
+	}
+}
+country_event = {
+	id = Lawrence.66
+	title = Lawrence.66.t
+	desc = Lawrence.66.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.66.a
+		set_country_flag = LAW_United_Pol_61
+	}
+	option = {
+		name = Lawrence.66.b
+		set_country_flag = LAW_United_Pol_62
+	}
+}
+country_event = {
+	id = Lawrence.67
+	title = Lawrence.67.t
+	desc = Lawrence.67.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.67.a
+		set_country_flag = LAW_United_Pol_71
+	}
+	option = {
+		name = Lawrence.67.b
+		set_country_flag = LAW_United_Pol_72
+	}
+}
+country_event = {
+	id = Lawrence.68
+	title = Lawrence.68.t
+	desc = Lawrence.68.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.68.a
+		set_country_flag = LAW_United_Pol_81
+	}
+	option = {
+		name = Lawrence.68.b
+		set_country_flag = LAW_United_Pol_82
+	}
+}
+#法团大会闭幕
+country_event = {
+	id = Lawrence.69
+	title = Lawrence.69.t
+	desc = Lawrence.69.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.69.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		complete_national_focus = LAW_United_First_National_Congree
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+#腓特烈大帝入阁
+country_event = {
+	id = Lawrence.71
+	title = Lawrence.71.t
+	desc = Lawrence.71.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.71.a
+		set_country_flag = LAW_Flag_Allow_FTL
+		custom_effect_tooltip = LAW_tt_Allow_FTL
+		add_power_balance_value = {
+			id = LAW_Original_power_balance
+			value = 0.05
+			tooltip_side = LAW_Fascist_Power
+		}
+	}
+}
+#基督山伯爵入阁
+country_event = {
+	id = Lawrence.72
+	title = Lawrence.72.t
+	desc = Lawrence.72.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.72.a
+		set_country_flag = LAW_Flag_Allow_TTS
+		custom_effect_tooltip = LAW_tt_Allow_TTS
+		add_power_balance_value = {
+			id = LAW_Original_power_balance
+			value = 0.05
+			tooltip_side = LAW_Fascist_Power
+		}
+	}
+}
+#奥托一世入阁
+country_event = {
+	id = Lawrence.73
+	title = Lawrence.73.t
+	desc = Lawrence.73.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.73.a
+		set_country_flag = LAW_Flag_Allow_Auto
+		custom_effect_tooltip = LAW_tt_Allow_Auto
+		add_power_balance_value = {
+			id = LAW_Original_power_balance
+			value = 0.05
+			tooltip_side = LAW_Fascist_Power
+		}
+	}
+}
+#查理曼大帝入阁
+country_event = {
+	id = Lawrence.74
+	title = Lawrence.74.t
+	desc = Lawrence.74.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.74.a
+		set_country_flag = LAW_Flag_Allow_Carl
+		custom_effect_tooltip = LAW_tt_Allow_Carl
+		add_power_balance_value = {
+			id = LAW_Original_power_balance
+			value = 0.05
+			tooltip_side = LAW_Fascist_Power
+		}
+	}
+}
+#拿破仑入阁
+country_event = {
+	id = Lawrence.75
+	title = Lawrence.75.t
+	desc = Lawrence.75.d
+	fire_only_once = no
+	is_triggered_only = yes
+	timeout_days = 3  picture = GFX_event_LAW_01
+	
+	option = {
+		name = Lawrence.75.a
+		set_country_flag = LAW_Flag_Allow_Nap
+		custom_effect_tooltip = LAW_tt_Allow_Nap
+		add_power_balance_value = {
+			id = LAW_Original_power_balance
+			value = 0.05
+			tooltip_side = LAW_Fascist_Power
+		}
+	}
+}

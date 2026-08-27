@@ -1,0 +1,3727 @@
+focus_tree = {
+    id = PBF_focus_tree
+    country = {
+        factor = 0
+        modifier = {
+            add = 10
+            tag = PBF
+        }
+    }
+
+continuous_focus_position = {
+    x=0 
+    y =2200
+}
+
+default = no
+
+########################################
+#####         内战（一）国策树    #######
+########################################
+
+#第二次灰河起义
+focus = {
+    id = PBF_The_Second_Grey_River_Uprising
+    icon = PBF
+
+    x = 5
+    y = 0
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    allow_branch = { 
+        has_country_flag = FON_civil_flag 
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    completion_reward = {
+        add_dynamic_modifier = {
+            modifier = PBF_life_goes_on_and_on_modifier
+        }
+            add_political_power = 200
+            add_command_power = 10
+        country_event = {
+            id = PBF.1
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#与白淞对话
+focus = {
+    id = PBF_Talk_to_Baicong
+    icon = PBF
+
+	relative_position_id = PBF_The_Second_Grey_River_Uprising
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_The_Second_Grey_River_Uprising
+    }
+
+    completion_reward = {
+        add_manpower = 30000
+        add_stability = 0.05
+        add_command_power = 10
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#去灰河演讲
+focus = {
+    id = PBF_Go_Gray_River_to_speech
+    icon = PBF
+
+	relative_position_id = PBF_The_Second_Grey_River_Uprising
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_The_Second_Grey_River_Uprising
+    }
+
+    completion_reward = {
+        504={
+            add_extra_state_shared_building_slots = 1
+        }
+        add_war_support = 0.05
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#深入山野
+focus = {
+    id = PBF_deep_into_the_mountains
+    icon = PBF
+
+	relative_position_id = PBF_Talk_to_Baicong
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Talk_to_Baicong
+    }
+	prerequisite = {
+        focus = PBF_Go_Gray_River_to_speech
+    }
+
+    completion_reward = {
+        add_timed_idea = {
+            idea = PBF_temporary_resource_allowcation
+            days = 365
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#保护北方难民
+focus = {
+    id = PBF_Protect_refugees_in_the_north
+    icon =PBF
+
+	relative_position_id = PBF_Talk_to_Baicong
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Talk_to_Baicong
+    }
+	prerequisite = {
+        focus = PBF_Go_Gray_River_to_speech
+    }
+
+    completion_reward = {
+        add_stability = -0.05
+        add_war_support = 0.05
+        add_popularity = {
+            ideology = democratic
+            popularity = 0.05
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#激励人民
+focus = {
+    id = PBF_inspire_the_people
+    icon =PBF
+
+	relative_position_id = PBF_Go_Gray_River_to_speech
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Go_Gray_River_to_speech
+    }
+	prerequisite = {
+        focus = PBF_Talk_to_Baicong
+    }
+
+    completion_reward = {
+        add_timed_idea = {
+            idea = PBF_inspired_people
+            days = 180
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#杜绝饥饿
+focus = {
+    id = PBF_Eradicate_hunger
+    icon =PBF
+
+	relative_position_id = PBF_deep_into_the_mountains
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_deep_into_the_mountains
+    }
+
+    completion_reward = {
+        
+        set_variable = { PBF_life_goes_on_and_on_consumer_goods_factor = -0.15 }  
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip2
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#工坊南移
+focus = {
+    id = PBF_The_workshop_moved_south
+    icon =PBF
+
+	relative_position_id = PBF_deep_into_the_mountains
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_deep_into_the_mountains
+    }
+
+    completion_reward = {
+        add_equipment_to_stockpile = {
+            type = infantry_equipment
+            amount = 1000
+        }
+        add_equipment_to_stockpile = {
+            type = support_equipment
+            amount = 100
+        }
+        add_offsite_building = { type = arms_factory level = 1 }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#呼吁南方接纳
+focus = {
+    id = PBF_Urge_the_South_to_accept
+    icon =PBF
+
+	relative_position_id = PBF_Protect_refugees_in_the_north
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Protect_refugees_in_the_north
+    }
+
+    completion_reward = {
+        
+        set_variable = { PBF_life_goes_on_and_on_local_resources_factor = 0.1 }
+        set_variable = { PBF_life_goes_on_and_on_industrial_capacity_factory = 0.1 }
+        set_variable = { PBF_life_goes_on_and_on_conscription_factor = 0.05 }
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip4
+            }
+        }
+        country_event = {
+            id = PBF.3
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#平民主力军
+focus = {
+    id = PBF_the_main_force_of_the_common_people
+    icon =PBF
+
+	relative_position_id = PBF_inspire_the_people
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	mutually_exclusive = {
+		focus = PBF_Gang_mercenaries
+	}
+
+	prerequisite = {
+        focus = PBF_inspire_the_people
+    }
+
+    completion_reward = {
+        add_manpower = 30000
+        set_variable = { PBF_life_goes_on_and_on_production_factory_max_efficiency_factor = 0.05 }
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip5
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#帮会雇佣兵
+focus = {
+    id = PBF_Gang_mercenaries
+    icon =PBF
+
+	relative_position_id = PBF_inspire_the_people
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	mutually_exclusive = {
+		focus = PBF_the_main_force_of_the_common_people
+	}
+
+	prerequisite = {
+        focus = PBF_inspire_the_people
+    }
+
+    completion_reward = {
+        set_variable = { PBF_life_goes_on_and_on_supply_consumption_factor = -0.05 }
+        set_variable = { PBF_life_goes_on_and_on_army_attack_factor = 0.05 }
+        set_variable = { PBF_life_goes_on_and_on_army_defence_factor = 0.1 }
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip6
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#克莱门汀的仁慈
+focus = {
+    id = PBF_Clementine_kindness
+    icon =PBF
+
+	relative_position_id = PBF_Eradicate_hunger
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Eradicate_hunger
+    }
+
+	prerequisite = {
+        focus = PBF_The_workshop_moved_south
+    }
+
+    completion_reward = {
+        set_variable = {PBF_life_goes_on_and_on_research_speed_factor = 0.05}
+        set_variable = {PBF_life_goes_on_and_on_production_speed_buildings_factor = 0.05}
+		effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip3
+            }
+        }    	
+        country_event = {
+            id = PBF.2
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#卡雷斯的声望
+focus = {
+    id = PBF_The_reputation_of_Cales
+    icon =PBF
+
+	relative_position_id = PBF_Urge_the_South_to_accept
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_Urge_the_South_to_accept
+    }
+
+    completion_reward = {
+        add_war_support = 0.05
+        add_popularity = {
+            ideology = democratic
+            popularity = 0.05
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#爱德华多的精神
+focus = {
+    id = PBF_Eduardo_spirit
+    icon =PBF
+
+	relative_position_id = PBF_the_main_force_of_the_common_people
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_the_main_force_of_the_common_people
+		focus = PBF_Gang_mercenaries
+    }
+
+    completion_reward = {
+        army_experience = 20
+        add_doctrine_cost_reduction = {
+				name = PBF_land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+ 
+#双城之战
+focus = {
+    id = PBF_Arcane
+    icon =PBF
+
+	relative_position_id = PBF_The_reputation_of_Cales
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+	prerequisite = {
+        focus = PBF_The_reputation_of_Cales
+    }
+
+    prerequisite = {
+        focus = PBF_Clementine_kindness
+    }
+
+	prerequisite = {
+        focus = PBF_Eduardo_spirit
+    }
+
+    completion_reward = {
+        add_stability = 0.1
+        add_war_support = 0.1
+        add_tech_bonus = {
+				name = PBF_industrial_bonus
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+        505 = {
+            add_extra_state_shared_building_slots = 1
+        }
+        516 = {
+            add_extra_state_shared_building_slots = 1
+        }
+        527 = {
+            add_extra_state_shared_building_slots = 1
+        }
+        add_to_variable = {PBF_life_goes_on_and_on_research_speed_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip7
+            }
+        }
+        country_event = {
+            id = PBF_civil_war.100 
+        }
+
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+########################################
+#####         内战（二）国策树    #######
+########################################
+
+#审视北方
+focus = {
+    id = PBF_Examine_the_North
+    icon =PBF
+
+    x = 15
+    y = 0
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    allow_branch = {
+        has_country_flag = PBF_second_civil_war_flag 
+    }
+
+    completion_reward = {
+        add_popularity = {
+                ideology = neutrality
+                popularity = -0.05
+            }
+            add_popularity = {
+                ideology = communism
+                popularity = -0.05
+            }
+            add_to_variable = {PBF_life_goes_on_and_on_production_speed_buildings_factor = 0.05}
+            add_stability = -0.05
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                    add_idea = PBF_life_goes_on_and_on_modifier_tooltip8
+                }
+            }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+        }
+    }
+ }
+
+#付出不是理由
+focus = {
+    id = PBF_Effort_is_not_an_excuse
+    icon =PBF
+
+    relative_position_id = PBF_Examine_the_North
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+        NOT = { FOM = { exists = yes } }
+        has_war = no
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    mutually_exclusive = {
+        focus = PBF_Freedom_is_not_an_excuse
+    }
+
+    prerequisite = {
+        focus = PBF_Examine_the_North
+    }
+
+    completion_reward = {
+        declare_war_on = {
+            type = take_state
+            target = HZH
+        }
+        add_timed_idea = {
+            idea = PBF_resist_foreign_aggression
+            days = 180
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#自由不是借口
+focus = {
+    id = PBF_Freedom_is_not_an_excuse
+    icon =PBF
+
+    relative_position_id = PBF_Examine_the_North
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+        NOT = { HZH = { exists = yes } }
+        has_war = no
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+    mutually_exclusive = {
+        focus = PBF_Effort_is_not_an_excuse
+    }
+
+    prerequisite = {
+        focus = PBF_Examine_the_North
+    }
+
+    completion_reward = {
+        declare_war_on = {
+            type = take_state
+            target = FOM
+        }
+        add_timed_idea = {
+            idea = PBF_pacify_the_home_front
+            days = 180
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#刺玫的裁断
+focus = {
+    id = PBF_Rose_Society
+    icon =PBF
+
+    relative_position_id = PBF_Freedom_is_not_an_excuse
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Effort_is_not_an_excuse
+        focus = PBF_Freedom_is_not_an_excuse
+    }
+
+    completion_reward = {
+        add_to_variable = {PBF_life_goes_on_and_on_conscription_factor = 0.05}
+        add_to_variable = {PBF_life_goes_on_and_on_supply_consumption_factor = -0.1}
+        set_variable = {PBF_life_goes_on_and_on_consumer_goods_expected_value = -0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip9
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#填补武器缺口
+focus = {
+    id = PBF_Fill_the_weapon_gap
+    icon =PBF
+
+    relative_position_id = PBF_Rose_Society
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Rose_Society
+    }
+
+    completion_reward = {
+        add_equipment_to_stockpile = {
+            type = infantry_equipment
+            amount = 1000
+        }
+        add_equipment_to_stockpile = {
+            type = support_equipment
+            amount = 200
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#山地作战训练
+focus = {
+    id = PBF_Mountain_warfare_training
+    icon =PBF
+
+    relative_position_id = PBF_Rose_Society
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Rose_Society
+    }
+
+    completion_reward = {
+        set_variable = {PBF_life_goes_on_and_on_terrain_penalty_reduction = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip10
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#同我们一样
+focus = {
+    id = PBF_Like_us
+    icon =PBF
+
+    relative_position_id = PBF_Rose_Society
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Rose_Society
+    }
+
+    completion_reward = {
+        add_manpower = 3000
+        add_offsite_building = { type = industrial_complex level = 1 }
+        add_to_variable = {PBF_life_goes_on_and_on_conscription_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip11
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#向逐影庭求助
+focus = {
+    id = PBF_Seek_help_from_the_Shadow_Chasing_Court
+    icon =PBF
+
+    relative_position_id = PBF_Fill_the_weapon_gap
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Fill_the_weapon_gap
+    }
+
+    completion_reward = {
+        add_command_power = 20
+        army_experience = 10
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#新型武器创想
+focus = {
+    id = PBF_Innovative_Weapon_Concept
+    icon =PBF
+
+    relative_position_id = PBF_Fill_the_weapon_gap
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Fill_the_weapon_gap
+    }
+
+    completion_reward = {
+        add_tech_bonus = {
+            name = PBF_innovative_weapon_concept_bonus
+            bonus = 1.0
+            uses = 2
+            category = infantry_weapons
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#飞艇运输计划
+focus = {
+    id = PBF_Airship_transportation_plan
+    icon =PBF
+
+    relative_position_id = PBF_Mountain_warfare_training
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Mountain_warfare_training
+    }
+
+    completion_reward = {
+        add_to_variable = {PBF_life_goes_on_and_on_supply_consumption_factor = -0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_army_attack_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_army_defence_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip12
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#批判暴徒和懦夫
+focus = {
+    id = PBF_Criticize_the_thugs_and_cowards
+    icon =PBF
+
+    relative_position_id = PBF_Like_us
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Like_us
+    }
+
+    completion_reward = {
+        505 = {
+            create_unit = {
+                division = "name = \"志愿兵团\" division_template = \"NDF_I\" start_experience_factor = 1.0 start_equipment_factor = 1.0"
+                owner = ROOT
+                count = 2
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#生死蒙于其下
+focus = {
+    id = PBF_Life_and_death_are_hidden_beneath_it
+    icon =PBF
+
+    relative_position_id = PBF_Like_us
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Like_us
+    }
+
+    completion_reward = {
+        add_popularity = {
+            ideology = democratic
+            popularity = 0.05
+        }
+        add_to_variable = {PBF_life_goes_on_and_on_industrial_capacity_factory = 0.05}
+        set_variable = {PBF_life_goes_on_and_on_production_factory_efficiency_gain_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip13
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#拳头与玫瑰
+focus = {
+    id = PBF_Fist_and_Rose
+    icon =PBF
+
+    relative_position_id = PBF_Innovative_Weapon_Concept
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Innovative_Weapon_Concept
+    }
+    prerequisite = {
+        focus = PBF_Seek_help_from_the_Shadow_Chasing_Court
+    }
+
+    completion_reward = {
+        add_to_variable = {PBF_life_goes_on_and_on_training_time_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_army_org_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip14
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#围困黎翡区
+focus = {
+    id = PBF_Siege_of_the_Liffey_District
+    icon =PBF
+
+    relative_position_id = PBF_Airship_transportation_plan
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Airship_transportation_plan
+    }
+
+    completion_reward = {
+        set_variable = {PBF_life_goes_on_and_on_attrition = -0.05}
+        add_to_variable = {PBF_life_goes_on_and_on_army_attack_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip15
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+            
+        }
+    }
+ }
+
+#让玫瑰永远绽放
+focus = {
+    id = PBF_Let_the_rose_bloom_forever
+    icon =PBF
+
+    relative_position_id = PBF_Criticize_the_thugs_and_cowards
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Criticize_the_thugs_and_cowards
+    }
+    prerequisite = {
+        focus = PBF_Life_and_death_are_hidden_beneath_it
+    }
+
+    completion_reward = {
+        set_variable = {PBF_life_goes_on_and_on_industry_repair_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_local_resources_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_production_factory_max_efficiency_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip16
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#于高海上生长
+focus = {
+    id = PBF_Growing_on_the_high_seas
+    icon =PBF
+
+    relative_position_id = PBF_Siege_of_the_Liffey_District
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+        has_war = no
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Fist_and_Rose
+    }
+    prerequisite = {
+        focus = PBF_Siege_of_the_Liffey_District
+    }
+    prerequisite = {
+        focus = PBF_Let_the_rose_bloom_forever
+    }
+
+    completion_reward = {
+        add_research_slot = 1
+        add_to_variable = {PBF_life_goes_on_and_on_research_speed_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_industrial_capacity_factory = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_local_resources_factor = 0.1}
+        add_to_variable = {PBF_life_goes_on_and_on_industry_repair_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_life_goes_on_and_on_modifier_tooltip
+                add_idea = PBF_life_goes_on_and_on_modifier_tooltip17
+            }
+        }
+        country_event = {
+            id = PBF_civil_war.200 
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+########################################
+#####         统一国策树          #######
+########################################
+
+############经济############
+#经营家的开阔视野
+focus = {
+    id = PBF_The_broad_vision_of_an_entrepreneur
+    icon =PBF
+
+    x = 20
+    y = 8
+
+    cost = 3
+    allow_branch = {
+        has_country_flag = PBF_politics_finished_flag
+    }
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+
+    completion_reward = {
+        
+        add_stability = 0.05
+        add_dynamic_modifier = {
+            modifier = PBF_economic_modifier
+        }
+        set_variable = {PBF_economic_industrial_capacity_factory = 0.1}
+        set_variable = {PBF_economic_political_power_gain = 0.2}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip2
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#团结互助
+focus = {
+    id = PBF_Unity_and_mutual_assistance
+    icon =PBF
+
+    relative_position_id = PBF_The_broad_vision_of_an_entrepreneur
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_broad_vision_of_an_entrepreneur
+    }
+
+    completion_reward = {
+        add_stability = 0.05
+        add_to_variable = {PBF_economic_industrial_capacity_factory = 0.15}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip3
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#持续发展
+focus = {
+    id = PBF_sustainable_development
+    icon =PBF
+
+    relative_position_id = PBF_The_broad_vision_of_an_entrepreneur
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_broad_vision_of_an_entrepreneur
+    }
+
+    completion_reward = {
+        add_stability = 0.1
+        set_variable = {PBF_economic_monthly_population = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip7
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#刺玫协助基金
+focus = {
+    id = PBF_Rose_Assistance_Fund
+    icon =PBF
+
+    relative_position_id = PBF_Unity_and_mutual_assistance
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Unity_and_mutual_assistance
+    }
+
+    completion_reward = {
+        set_variable = {PBF_economic_industrial_capacity_factory = 0.1}
+        set_variable = {PBF_economic_local_resources_factor = 0.15}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip4
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#白淞重建计划
+focus = {
+    id = PBF_Baishan_Reconstruction_Plan
+    icon =PBF
+
+    relative_position_id = PBF_Unity_and_mutual_assistance
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Unity_and_mutual_assistance
+    }
+
+    completion_reward = {
+        505 = {
+            add_building_construction = {
+	            type = infrastructure
+	            level = 1
+	            instant_build = yes
+            }
+        }
+        516 = {
+            add_building_construction = {
+                type = infrastructure
+                level = 1
+                instant_build = yes
+            }
+        }
+        527 = {
+            add_building_construction = {
+                type = infrastructure
+                level = 1
+                instant_build = yes
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#农渔保障计划
+focus = {
+    id = PBF_Agricultural_and_Fishery_Protection_Plan
+    icon =PBF
+
+    relative_position_id = PBF_sustainable_development
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_sustainable_development
+    }
+
+    completion_reward = {
+        set_variable = {PBF_economic_production_speed_buildings_factor = 0.05}
+        add_to_variable = {PBF_economic_industrial_capacity_factory = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip8
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#灰河交通网络
+focus = {
+    id = PBF_Grey_River_transportation_network
+    icon =PBF
+
+    relative_position_id = PBF_sustainable_development
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_sustainable_development
+    }
+
+    completion_reward = {
+        504 = {
+            add_building_construction = {
+                type = infrastructure
+                level = 1
+                instant_build = yes
+            }
+        }
+        set_variable = {PBF_economic_consumer_goods_expected_value = -0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip10
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#工匠行会振兴
+focus = {
+    id = PBF_Revitalization_of_the_Craftsmen_Guild
+    icon =PBF
+
+    relative_position_id = PBF_Rose_Assistance_Fund
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {   
+        focus = PBF_Rose_Assistance_Fund
+    }
+
+    completion_reward = {
+        add_to_variable = {PBF_economic_industrial_capacity_factory = 0.05}
+        set_variable = {PBF_economic_production_factory_efficiency_gain_factor = 0.05}
+        set_variable = {PBF_economic_production_factory_max_efficiency_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip5
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#科学院橄榄枝
+focus = {
+    id = PBF_Olive_branch_of_the_Academy_of_Sciences
+    icon =PBF
+
+    relative_position_id = PBF_Baishan_Reconstruction_Plan
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Baishan_Reconstruction_Plan
+    }
+    
+    completion_reward = {
+        add_tech_bonus = {
+            name = PBF_olive_branch_of_the_academy_of_sciences_bonus
+            bonus = 1.0
+            uses = 1
+            category = electronics
+        }
+        set_variable = {PBF_economic_research_speed_factor = 0.08}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip6
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#梅堡产线复工
+focus = {
+    id = PBF_Meibao_production_line_resumes_work
+    icon =PBF
+
+    relative_position_id = PBF_Agricultural_and_Fishery_Protection_Plan
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Agricultural_and_Fishery_Protection_Plan
+    }
+
+    completion_reward = {
+        add_to_variable = {PBF_economic_local_resources_factor = 0.1}
+        set_variable = {PBF_economic_industry_repair_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip9
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#枫丹市场准入
+focus = {
+    id = PBF_Market_access_for_Fengdan
+    icon =PBF
+
+    relative_position_id = PBF_Grey_River_transportation_network
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Grey_River_transportation_network
+    }
+
+    completion_reward = {
+        add_stability = -0.05
+        add_to_variable = {PBF_economic_political_power_gain = -0.15}
+        set_variable = {PBF_economic_command_power_gain = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip11
+            }
+        }
+        
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+        }
+    }
+ }
+
+#繁荣之玫
+focus = {
+    id = PBF_Rose_of_Prosperity
+    icon =PBF
+
+    relative_position_id = PBF_Olive_branch_of_the_Academy_of_Sciences
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Revitalization_of_the_Craftsmen_Guild
+    }
+    prerequisite = {
+        focus = PBF_Olive_branch_of_the_Academy_of_Sciences
+    }
+    prerequisite = {
+        focus = PBF_Meibao_production_line_resumes_work
+    }
+    prerequisite = {
+        focus = PBF_Market_access_for_Fengdan
+    }
+
+    completion_reward = {
+        add_stability = 0.05
+        add_to_variable = {PBF_economic_industrial_capacity_factory = 0.1}
+        add_to_variable = {PBF_economic_production_speed_buildings_factor = 0.15}
+        add_to_variable = {PBF_economic_political_power_gain = 0.3}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_economic_modifier_tooltip
+                add_idea = PBF_economic_modifier_tooltip12
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+############军事############
+
+#玫瑰的号召
+focus = {
+    id = PBF_The_Call_of_the_Rose
+    icon =PBF
+
+    x = 13
+    y = 8
+
+    cost = 3
+    allow_branch = {
+        has_country_flag = PBF_politics_finished_flag
+    }
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    
+
+    completion_reward = {
+        add_dynamic_modifier = {
+            modifier = PBF_military_modifier
+        }
+        set_variable = {PBF_military_experience_gain_army_factor = 0.05}
+        set_variable = {PBF_military_army_org_factor = 0.03}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip2
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#逐影庭指挥
+focus = {
+    id = PBF_Shadow_Court_Commander
+    icon =PBF
+
+    relative_position_id = PBF_The_Call_of_the_Rose
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    mutually_exclusive = {
+        focus = PBF_Rose_Society_Commander
+    }
+
+    prerequisite = {
+        focus = PBF_The_Call_of_the_Rose
+    }
+
+    
+
+    completion_reward = {
+        add_stability = -0.05
+            set_variable = {PBF_military_consumer_goods_expected_value = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = PBF_military_modifier_tooltip
+                    add_idea = PBF_military_modifier_tooltip3
+                }
+            }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+        }
+    }
+ }
+
+#刺玫会指挥
+focus = {
+    id = PBF_Rose_Society_Commander
+    icon =PBF
+
+    relative_position_id = PBF_The_Call_of_the_Rose
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    mutually_exclusive = {
+        focus = PBF_Shadow_Court_Commander
+    }
+
+    prerequisite = {
+        focus = PBF_The_Call_of_the_Rose
+    }
+
+    
+
+    completion_reward = {
+        add_war_support = 0.1
+            set_variable = {PBF_military_conscription_factor = 0.05}
+            effect_tooltip = {
+                swap_ideas = {
+                    remove_idea = PBF_military_modifier_tooltip
+                    add_idea = PBF_military_modifier_tooltip4
+                }
+            }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+        }
+    }
+ }
+
+#筛选刺玫会精锐
+focus = {
+    id = PBF_Screening_the_elite_of_the_Rose_Society
+    icon =PBF
+
+    relative_position_id = PBF_Shadow_Court_Commander
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Shadow_Court_Commander
+    }
+
+    
+
+    completion_reward = {
+        add_to_variable = {PBF_military_army_org_factor = 0.1}
+        add_to_variable = {PBF_military_experience_gain_army_factor = 0.15}
+        set_variable = {PBF_military_army_morale_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip5
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#白淞镇军港化
+focus = {
+    id = PBF_Military_portization_of_Baishan_Town
+    icon =PBF
+
+    relative_position_id = PBF_Shadow_Court_Commander
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Shadow_Court_Commander
+        focus = PBF_Rose_Society_Commander
+    }
+
+    
+
+    completion_reward = {
+        set_variable = {PBF_military_naval_strike = 0.05}
+        set_variable = {PBF_military_amphibious_invasion = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip10
+            }
+        }
+    }
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#动员全枫丹平民
+focus = {
+    id = PBF_Mobilize_all_Fengdan_civilians
+    icon =PBF
+
+    relative_position_id = PBF_Rose_Society_Commander
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Rose_Society_Commander
+    }
+
+    
+
+    completion_reward = {
+        add_to_variable = {PBF_military_army_org_factor = 0.05}
+        add_to_variable = {PBF_military_experience_gain_army_factor = 0.15}
+        add_to_variable = {PBF_military_army_morale_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip8
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#逐影狩夜
+focus = {
+    id = PBF_Shadow_Stalker
+    icon =PBF
+
+    relative_position_id = PBF_Screening_the_elite_of_the_Rose_Society
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Screening_the_elite_of_the_Rose_Society
+    }
+
+    
+
+    completion_reward = {
+        army_experience = 10
+        navy_experience = 10
+        air_experience = 10
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#扩大飞艇优势
+focus = {
+    id = PBF_Expand_the_advantage_of_airships
+    icon =PBF
+
+    relative_position_id = PBF_Military_portization_of_Baishan_Town
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Military_portization_of_Baishan_Town
+    }
+
+    
+
+    completion_reward = {
+        set_variable = {PBF_military_naval_strike_attack_factor = 0.1}
+        set_variable = {PBF_military_army_bonus_air_superiority_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip12
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#直率辞绝
+focus = {
+    id = PBF_blunt_refusal
+    icon =PBF
+
+    relative_position_id = PBF_Mobilize_all_Fengdan_civilians
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Mobilize_all_Fengdan_civilians
+    }
+
+    
+
+    completion_reward = {
+        army_experience = 10
+        navy_experience = 10
+        air_experience = 10
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#残光将终的进攻
+focus = {
+    id = PBF_The_final_attack_with_the_fading_light
+    icon =PBF
+
+    relative_position_id = PBF_Shadow_Stalker
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Shadow_Stalker
+    }
+
+    
+
+    completion_reward = {
+        set_variable = {PBF_military_special_forces_min = 2}
+        set_variable = {PBF_military_army_attack_factor = 0.1}
+        set_variable = {PBF_military_army_defence_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip6
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#高地防御学说
+focus = {
+    id = PBF_Highland_defense_doctrine
+    icon =PBF
+
+    relative_position_id = PBF_Expand_the_advantage_of_airships
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Expand_the_advantage_of_airships
+    }
+
+    
+
+    completion_reward = {
+        set_variable = {PBF_military_dig_in_speed_factor = 0.05}
+        set_variable = {PBF_military_max_dig_in = 10}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip11
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#如霰澄天的轰炸
+focus = {
+    id = PBF_A_bombardment_like_snowflakes_clarifying_the_sky
+    icon =PBF
+
+    relative_position_id = PBF_blunt_refusal
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_blunt_refusal
+    }
+
+    
+
+    completion_reward = {
+        add_ideas = {
+            idea = PBF_bombardment_idea
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#克洛琳德的荣耀
+focus = {
+    id = PBF_The_glory_of_Clorinda
+    icon =PBF
+
+    relative_position_id = PBF_The_final_attack_with_the_fading_light
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_final_attack_with_the_fading_light
+    }
+
+    
+
+    completion_reward = {
+        set_variable = {PBF_military_planning_speed = 0.1}
+        set_variable = {PBF_military_max_planning = 0.1}
+        set_variable = {PBF_military_special_forces_attack_factor = 0.1}
+        set_variable = {PBF_military_special_forces_defence_factor = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip7
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+            
+        }
+    }
+ }
+
+#医疗补给支援
+focus = {
+    id = PBF_Medical_supply_support
+    icon =PBF
+
+    relative_position_id = PBF_Highland_defense_doctrine
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Highland_defense_doctrine
+    }
+
+    
+
+    completion_reward = {
+        add_tech_bonus = {
+            name = PBF_medical_supply_support_bonus
+            bonus = 0.5
+            uses = 2
+            category = support_tech
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#娜维娅的楷模
+focus = {
+    id = PBF_The_model_of_Navia
+    icon =PBF
+
+    relative_position_id = PBF_A_bombardment_like_snowflakes_clarifying_the_sky
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_A_bombardment_like_snowflakes_clarifying_the_sky
+    }
+
+    
+
+    completion_reward = {
+        add_to_variable = {PBF_military_experience_gain_army_factor = 0.1}
+        add_to_variable = {PBF_military_planning_speed = 0.1}
+        add_to_variable = {PBF_military_max_planning = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip9
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#尖刺之玫
+focus = {
+    id = PBF_Thorned_Rose
+    icon =PBF
+
+    relative_position_id = PBF_Medical_supply_support
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Medical_supply_support
+    }
+    prerequisite = {
+        focus = PBF_The_glory_of_Clorinda
+        focus = PBF_The_model_of_Navia
+    }
+
+    
+
+    completion_reward = {
+        add_to_variable = {PBF_military_planning_speed = 0.1}
+        add_to_variable = {PBF_military_max_planning = 0.1}
+        add_to_variable = {PBF_military_army_attack_factor = 0.05}
+        add_to_variable = {PBF_military_army_defence_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_military_modifier_tooltip
+                add_idea = PBF_military_modifier_tooltip13
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+############内务#########################################
+#########################################################
+
+#父辈们的遗志
+focus = {
+    id = PBF_The_unfulfilled_aspirations_of_our_forefathers
+    icon =PBF
+
+    x = 5
+    y = 8
+
+
+    cost = 5
+    allow_branch = {
+        has_country_flag = PBF_civil_war_end_flag
+    }
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    
+
+    completion_reward = {
+        hidden_effect = {
+            promote_character = PBF_Navia2
+        }
+        set_country_flag = PBF_housekeeping_flag
+        custom_effect_tooltip = PBF_housekeeping_categories_tt
+        custom_effect_tooltip = generic_skip_one_line_tt
+        add_dynamic_modifier = {
+            modifier = PBF_political_modifier
+        }
+        set_variable = {PBF_political_political_power_gain = 0}
+        add_political_power = 100
+        add_command_power = 20
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#追踪乐斯网络
+focus = {
+    id = PBF_Tracking_the_Les_network
+    icon =PBF
+
+    relative_position_id = PBF_The_unfulfilled_aspirations_of_our_forefathers
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+    }
+
+    completion_reward = {
+        add_stability = 0.2
+        add_to_variable = {PBF_political_political_power_gain = 0.15}
+        set_variable = {PBF_political_democratic_drift = 0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip2
+            }
+        }
+        country_event = {
+            id = PBF.4
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#帮会背景调查
+focus = {
+    id = PBF_Background_investigation_of_gangs
+    icon =PBF
+
+    relative_position_id = PBF_The_unfulfilled_aspirations_of_our_forefathers
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+        custom_trigger_tooltip = {
+            tooltip = PBF_Background_investigation_of_gangs35
+            check_variable = {
+                PBF_Our_approval_rating > 35
+            }
+        }
+    }
+    bypass = {
+
+    }
+    
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+    }
+
+    
+
+    completion_reward = {
+        add_popularity = {
+            ideology = fascism
+            popularity = -0.1
+        }
+        add_political_power = 100
+        add_stability = 0.05
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+}
+
+#迷途者的机会
+focus = {
+    id = PBF_Opportunities_for_those_who_have_lost_their_way
+    icon =PBF
+
+    relative_position_id = PBF_Tracking_the_Les_network
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Tracking_the_Les_network
+    }
+
+    completion_reward = {
+        add_stability = -0.05
+        add_to_variable = {PBF_political_political_power_gain = -0.1}
+        set_variable = {PBF_political_conscription_factor = 0.02}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip3
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+}
+#决定内部清洗
+focus = {
+    id = PBF_Decide_to_conduct_internal_cleaning
+    icon =PBF
+
+    relative_position_id = PBF_Tracking_the_Les_network
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Tracking_the_Les_network
+    } 
+
+    completion_reward = {
+        add_stability = -0.05
+        add_manpower = -200
+        add_to_variable = {PBF_political_consumer_goods_factor = -0.1}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip4
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#功臣与公民
+focus = {
+    id = PBF_meritorious_individuals_and_citizens
+    icon =PBF
+
+    relative_position_id = PBF_Background_investigation_of_gangs
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Background_investigation_of_gangs
+    }
+    
+    completion_reward = {
+        add_stability = 0.1
+        add_to_variable = {PBF_political_political_power_gain = 0.25}
+        add_to_variable = {PBF_political_democratic_drift = 0.25}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip5
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#保护费菲法
+focus = {
+    id = PBF_Protection_Fee_Law
+    icon =PBF
+
+    relative_position_id = PBF_Background_investigation_of_gangs
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Background_investigation_of_gangs
+    }
+    
+    completion_reward = {
+        add_stability = 0.05
+        set_variable = {PBF_political_monthly_population = 0.03}
+        add_to_variable = {PBF_political_political_power_gain = -0.05}
+        add_to_variable = {PBF_political_consumer_goods_expected_value = 0.02}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip6
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#铭誓者的绝不姑息
+focus = {
+    id = PBF_The_oath_taker_unyielding_resolve
+    icon =PBF
+
+    relative_position_id = PBF_Opportunities_for_those_who_have_lost_their_way
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_Opportunities_for_those_who_have_lost_their_way
+    }
+    prerequisite = {
+        focus = PBF_Decide_to_conduct_internal_cleaning
+    }
+
+    completion_reward = {
+        add_manpower = -500
+        add_popularity = {
+            ideology = democratic
+            popularity = 0.15
+        }
+        country_event = {
+            id = PBF.5
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#协商者的坚定抉择
+focus = {
+    id = PBF_The_negotiator_firm_decision
+    icon =PBF
+
+    relative_position_id = PBF_meritorious_individuals_and_citizens
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_meritorious_individuals_and_citizens
+    }
+    prerequisite = {
+        focus = PBF_Protection_Fee_Law
+    }
+
+    completion_reward = {
+        add_political_power = 100
+        add_stability = 0.05
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#从白淞到枫丹
+focus = {
+    id = PBF_From_Baisong_to_Fengdan
+    icon =PBF
+
+    relative_position_id = PBF_The_oath_taker_unyielding_resolve
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_oath_taker_unyielding_resolve
+    }
+    prerequisite = {
+        focus = PBF_The_negotiator_firm_decision
+    }
+
+    completion_reward = {
+        add_political_power = 100
+        add_stability = 0.05
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#卡雷斯的梦想
+focus = {
+    id = PBF_The_dream_of_Calles
+    icon =PBF
+
+    relative_position_id = PBF_From_Baisong_to_Fengdan
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_From_Baisong_to_Fengdan
+    }
+
+    
+
+    completion_reward = {
+        add_stability = 0.1
+        add_popularity = {
+            ideology = democratic
+            popularity = 0.1
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#柔灯港的誓言
+focus = {
+    id = PBF_The_vow_of_the_Soft_Lamp_Port
+    icon =PBF
+
+    relative_position_id = PBF_From_Baisong_to_Fengdan
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_From_Baisong_to_Fengdan
+    }   
+
+    completion_reward = {
+        add_to_variable = {PBF_political_conscription_factor = -0.05}
+        set_variable = {PBF_political_training_time_factor = -0.05}
+        set_variable = {PBF_political_minimum_training_level = -0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip7
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#平民之玫
+focus = {
+    id = PBF_Disorderly_liberation
+    icon =PBF
+
+    relative_position_id = PBF_The_dream_of_Calles
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_The_dream_of_Calles
+    }
+    prerequisite = {
+        focus = PBF_The_vow_of_the_Soft_Lamp_Port
+    }
+    
+    completion_reward = {
+        set_variable = {PBF_political_production_speed_buildings_factor = 0.05}
+        set_variable = {PBF_political_global_building_slots_factor = 0.2}
+        set_variable = {PBF_political_industrial_capacity_factory = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_political_modifier_tooltip
+                add_idea = PBF_political_modifier_tooltip8
+            }
+        }
+        annex_country = {
+                target = FON
+                transfer_troops = yes
+            }
+            # 统一枫丹，解除内战加成
+            remove_ideas = PBF_civil_war_buff_idea
+            set_country_flag = PBF_politics_finished_flag
+            mark_focus_tree_layout_dirty = yes
+            # 解锁枫丹军工组织（三级补偿）
+            mio:FON_fire_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_Chiori_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_ford_motor_company_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_yoimiya_tank_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_sara_tank_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_camco_medium_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_camco_bomber_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_aichi_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_hailu_shipyard_organization = { add_mio_size = 1 add_mio_funds = 600 }
+            mio:FON_roudeng_naval_arsenal_organization = { add_mio_size = 1 add_mio_funds = 600 }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+}
+
+############外交############
+
+#淑女的外交守则
+focus = {
+    id = PBF_A_lady_diplomatic_code
+    icon =PBF
+
+    x = 27
+    y = 8
+
+    cost = 3
+    allow_branch = {
+        has_country_flag = PBF_politics_finished_flag
+    }
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    
+
+    completion_reward = {
+        add_political_power = 200
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#灵活的手腕
+focus = {
+    id = PBF_flexible_wrist
+    icon =PBF
+
+    relative_position_id = PBF_A_lady_diplomatic_code
+    x = -2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_A_lady_diplomatic_code
+    }
+
+    
+
+    completion_reward = {
+        add_opinion_modifier = { target = LYY modifier = PBF_flexible_wrist}
+        add_opinion_modifier = { target = SNE modifier = PBF_flexible_wrist}
+        LYY = {
+            add_opinion_modifier = { target = PBF modifier = PBF_flexible_wrist}
+        }
+        
+        SNE = {
+                add_opinion_modifier = { target = PBF modifier = PBF_flexible_wrist}
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#利用外邦居民
+focus = {
+    id = PBF_Utilize_foreign_residents
+    icon =PBF
+
+    relative_position_id = PBF_A_lady_diplomatic_code
+    x = 0
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_A_lady_diplomatic_code
+    }
+
+    
+
+    completion_reward = {
+        add_opinion_modifier = { target = NAT modifier = PBF_Utilize_foreign_residents}
+        add_opinion_modifier = { target = INA modifier = PBF_Utilize_foreign_residents}
+        NAT = {
+            add_opinion_modifier = { target = PBF modifier = PBF_Utilize_foreign_residents}
+        }
+        
+        INA = {
+            add_opinion_modifier = { target = PBF modifier = PBF_Utilize_foreign_residents}
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#海上野蔷薇
+focus = {
+    id = PBF_Forward_Alliance
+    icon =PBF
+
+    relative_position_id = PBF_A_lady_diplomatic_code
+    x = 2
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_A_lady_diplomatic_code
+    }
+
+    
+
+    completion_reward = {
+        add_dynamic_modifier = {
+            modifier = PBF_diplomatic_modifier
+        }
+        add_equipment_to_stockpile = {
+            type = convoy
+            amount = 200
+        }
+        set_variable = {PBF_diplomatic_industrial_capacity_dockyard = 0.15}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_diplomatic_modifier_tooltip
+                add_idea = PBF_diplomatic_modifier_tooltip2
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+ 
+#花香四溢
+focus = {
+    id = PBF_The_fragrance_of_flowers_fills_the_air
+    icon =PBF
+
+    relative_position_id = PBF_Utilize_foreign_residents
+    x = -1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    mutually_exclusive = {
+        focus = PBF_thorny_fragrance
+    }
+
+    prerequisite = {
+        focus = PBF_Utilize_foreign_residents
+    }
+    prerequisite = {
+        focus = PBF_flexible_wrist
+    }
+    prerequisite = {
+        focus = PBF_Forward_Alliance
+    }
+
+    completion_reward = {
+        add_opinion_modifier = { target = SUM modifier = PBF_The_fragrance_of_flowers_fills_the_air}
+        SUM = {
+            add_opinion_modifier = { target = PBF modifier = PBF_The_fragrance_of_flowers_fills_the_air}
+        }
+        set_variable = {PBF_diplomatic_army_defence_factor = 0.1}
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#带刺芬芳
+focus = {
+    id = PBF_thorny_fragrance
+    icon =PBF
+
+    relative_position_id = PBF_Utilize_foreign_residents
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    mutually_exclusive = {
+        focus = PBF_The_fragrance_of_flowers_fills_the_air
+    }
+
+    prerequisite = {
+        focus = PBF_Utilize_foreign_residents
+    }
+    prerequisite = {
+        focus = PBF_flexible_wrist
+    }
+    prerequisite = {
+        focus = PBF_Forward_Alliance
+    } 
+
+    completion_reward = {
+        create_wargoal = {
+            type = take_core_state
+            target = SUM
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+
+#世界之玫
+focus = {
+    id = PBF_The_Rose_of_the_World
+    icon =PBF
+
+    relative_position_id = PBF_The_fragrance_of_flowers_fills_the_air
+    x = 1
+    y = 1
+
+    cost = 3
+
+    available = {
+
+    }
+    bypass = {
+
+    }
+    cancel_if_invalid = yes
+    continue_if_invalid = no
+    available_if_capitulated = no
+
+    prerequisite = {
+        focus = PBF_thorny_fragrance
+        focus = PBF_The_fragrance_of_flowers_fills_the_air
+    }
+
+    
+
+    completion_reward = {
+        add_opinion_modifier = { target = MOT modifier = PBF_The_Rose_of_the_World}
+        add_opinion_modifier = { target = NDK modifier = PBF_The_Rose_of_the_World}
+        MOT ={
+            add_opinion_modifier = { target = PBF modifier = PBF_The_Rose_of_the_World}
+        }
+        
+        NDK ={
+            add_opinion_modifier = { target = PBF modifier = PBF_The_Rose_of_the_World}
+        }
+        set_variable = {PBF_diplomatic_production_factory_efficiency_gain_factor = 0.05}
+        set_variable = {PBF_diplomatic_production_factory_max_efficiency_factor = 0.05}
+        effect_tooltip = {
+            swap_ideas = {
+                remove_idea = PBF_diplomatic_modifier_tooltip
+                add_idea = PBF_diplomatic_modifier_tooltip4
+            }
+        }
+    }
+
+    ai_will_do = {
+        factor=1
+        modifier={
+
+        }
+    }
+ }
+}

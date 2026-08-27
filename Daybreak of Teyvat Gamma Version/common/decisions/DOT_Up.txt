@@ -1,0 +1,178 @@
+political_actions = {
+
+	Close_GUN_voice = {
+		
+		icon = generic_propaganda
+		allowed = {
+			#
+		}
+		available = {
+			#
+		}
+		visible = {
+			is_ai = no
+			NOT = {
+				has_global_flag = GUN_closed_flag
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		remove_effect = { 
+			set_global_flag = GUN_closed_flag
+        }
+	}
+	Open_GUN_voice = {
+		
+		icon = generic_propaganda
+		allowed = {
+			#
+		}
+		available = {
+			#
+		}
+		visible = {
+			is_ai = no
+			has_global_flag = GUN_closed_flag
+		}
+		cost = 0
+		fire_only_once = yes
+		remove_effect = { 
+			clr_global_flag = GUN_closed_flag
+        }
+	}
+
+	Up_my_Size = {
+		
+		icon = generic_propaganda
+		allowed = {
+			
+		}
+		available = {
+			IF = {
+				limit = {
+					Size_is_1 = yes
+				}
+				num_of_controlled_states > 2
+			}
+			IF = {
+				limit = {
+					Size_is_2 = yes
+				}
+				num_of_controlled_states > 8
+			}
+			IF = {
+				limit = {
+					Size_is_3 = yes
+				}
+				num_of_controlled_states > 20
+			}
+			IF = {
+				limit = {
+					Size_is_4 = yes
+				}
+				num_of_controlled_states > 50
+			}
+		}
+		visible = {
+			NOT = {
+				Size_is_5 = yes
+				Is_INA = yes
+			}
+            always = no
+		}
+		cost = 100
+		fire_only_once = no
+		days_remove = 10
+		remove_effect = { 
+			IF = {
+				limit = {
+					OR = {
+						Is_MOT = yes
+						Is_FON = yes
+					}
+				}
+				MOTSize_Up = yes
+			}
+			ELSE_IF = {
+				limit = {
+					Is_LYY = yes
+				}
+				LYYSize_Up = yes
+			}
+			ELSE_IF = {
+				limit = {
+					Is_INA = yes
+				}
+				INASize_Up = yes
+			}
+			ELSE_IF = {
+				limit = {
+					Is_SUM = yes
+				}
+				SUMSize_Up = yes
+			}
+			ELSE = {
+				limit = {
+					Is_Nothing = yes
+				}
+				NothingSize_Up = yes
+			}
+			IF = {
+				limit = {
+					has_idea = MOT_Tea_Party_of_Witches
+				}
+				add_offsite_building = { type = arms_factory level = 1 }
+				add_offsite_building = { type = industrial_complex level = 1 }
+			}
+        }
+
+	}
+	
+	Up_my_Size_INA = {
+		
+		icon = generic_propaganda
+		allowed = {
+			
+		}
+		available = {
+			IF = {
+				limit = {
+					Size_is_1 = yes
+				}
+				num_of_controlled_states > 2
+			}
+			IF = {
+				limit = {
+					Size_is_2 = yes
+				}
+				num_of_controlled_states > 6
+			}
+			IF = {
+				limit = {
+					Size_is_3 = yes
+				}
+				num_of_controlled_states > 15
+			}
+			IF = {
+				limit = {
+					Size_is_4 = yes
+				}
+				num_of_controlled_states > 30
+			}
+		}
+		visible = {
+			NOT = {
+				Size_is_5 = yes
+			}
+			Is_INA = yes
+            always = no
+		}
+		cost = 100
+		fire_only_once = no
+		days_remove = 10
+		remove_effect = { 
+			Size_Up = yes
+        }
+	}
+	
+}

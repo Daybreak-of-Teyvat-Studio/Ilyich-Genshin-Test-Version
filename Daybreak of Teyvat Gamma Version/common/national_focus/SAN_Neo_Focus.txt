@@ -1,0 +1,3109 @@
+
+# ========================================================================
+# 珊瑚宫国策树 BY 桂花糕
+# ========================================================================
+
+# give_guarantee = SNE
+# declare_war_on = { target = PRI type = annex_everything }
+# every_state = { limit = { is_core_of = PRI } add_core_of = ROOT }
+# 揭旗起事 (1-30)位于中上  内战烽火 (31-70)位于中中 平定旧域 (71-110)位于中左  白夜遗产 (111-140)位于中右 战后构想 (141-180)位于中下
+
+focus_tree = {
+	id = SAN_Neo_Focus_Tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SAN
+		}
+	}
+	default = no
+	reset_on_civilwar = no
+	continuous_focus_position = { x=100 y=2500}
+
+
+	# ========================================================================
+	# 珊瑚宫国策树 BY 桂花糕
+	# ========================================================================
+
+	# give_guarantee = SNE
+	# declare_war_on = { target = PRI type = annex_everything }
+	# every_state = { limit = { is_core_of = PRI } add_core_of = ROOT }
+
+	# ========================== 第一阶段：揭旗起事 (1-30) | 中上区域 ==========================
+
+	focus = {
+		id = SAN_the_resistance_begins
+		x = 0
+		y = 0
+		cost = 1
+		icon = GFX_goal_DOT_Arcana_09 #1-22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.1 }
+			INA = { end_puppet = SAN }
+			declare_war_on = { target = INA type = annex_everything } # 对稻妻幕府宣战
+			every_state = { limit = { is_core_of = INA } add_core_of = ROOT }
+			add_political_power = 100
+			add_ideas = SAN_piety_of_watatsumi
+			add_to_variable = { var = SAN_prestige value = -100 }
+			remove_ideas = SAN_Tax
+			SAN = { set_variable = { debttotal = 0 } }
+			custom_effect_tooltip = SAN_prestige_Les
+		}
+	}
+
+	focus = {
+		id = SAN_mobilize_watatsumi_militia
+		x = -4
+		y = 1
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 7
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.2 }
+			add_manpower = 5000
+			add_ideas = SAN_legacy_of_sun_child
+		}
+	}
+
+	focus = {
+		id = SAN_establish_sangonomiya_hq
+		x = 2
+		y = 1
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 7
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.3 }
+			add_command_power = 20
+			add_ideas = SAN_omikami_protection
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
+		}
+	}
+
+	focus = {
+		id = SAN_gorou_army_reforms
+		x = 0
+		y = 1
+		relative_position_id = SAN_establish_sangonomiya_hq
+		prerequisite = { focus = SAN_establish_sangonomiya_hq }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.4 }
+			add_ideas = SAN_gorou_general # 大将之威
+			# SAN-LYY_Support = yes
+			# set_technology = { LYY_unit_tech = 1 }
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+					owner = ROOT  count = 2
+				}
+			}
+			# remove_effect = { SAN-LYY_Support = yes }
+		}
+	}
+
+	focus = {
+		id = SAN_covert_courier_service
+		x = 0
+		y = 1
+		relative_position_id = SAN_mobilize_watatsumi_militia
+		prerequisite = { focus = SAN_mobilize_watatsumi_militia }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.5 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_strategic_pockets_doctrine
+		x = 0
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.6 }
+			add_ideas = SAN_planingtoomuch # 锦囊妙计
+			# SAN-LYY_Support = yes
+			# set_technology = { LYY_unit_tech = 1 }
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+					owner = ROOT  count = 2
+				}
+			}
+			# remove_effect = { SAN-LYY_Support = yes }
+		}
+	}
+
+	focus = {
+		id = SAN_vision_vanguard_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_gorou_army_reforms
+		prerequisite = { focus = SAN_gorou_army_reforms }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.7 }
+			add_ideas = SAN_Delusion
+		}
+	}
+
+	focus = {
+		id = SAN_pearl_rationing_program
+		x = 0
+		y = 1
+		relative_position_id = SAN_covert_courier_service
+		prerequisite = { focus = SAN_covert_courier_service }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.8 }
+			add_stability = 0.05
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
+		}
+	}
+
+	focus = {
+		id = SAN_naval_ambush_tactics
+		x = 0
+		y = 1
+		relative_position_id = SAN_strategic_pockets_doctrine
+		prerequisite = { focus = SAN_strategic_pockets_doctrine }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.9 }
+			navy_experience = 20
+		}
+	}
+
+	focus = {
+		id = SAN_shrine_maiden_volunteers
+		x = 0
+		y = 1
+		relative_position_id = SAN_pearl_rationing_program
+		prerequisite = { focus = SAN_pearl_rationing_program }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.10 }
+			add_manpower = 2000
+			LYY = { add_ai_strategy = { type = send_volunteers_desire  id = SAN  value = 100 } }
+			GYP = { add_ai_strategy = { type = send_volunteers_desire  id = SAN  value = 100 } }
+		}
+	}
+
+	focus = {
+		id = SAN_recruitment_of_ronin
+		x = 0
+		y = 1
+		relative_position_id = SAN_vision_vanguard_action
+		prerequisite = { focus = SAN_vision_vanguard_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.11 }
+			add_manpower = 3000
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+					owner = ROOT  count = 2
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_kokomi_art_of_war_study
+		x = 0
+		y = 1
+		relative_position_id = SAN_naval_ambush_tactics
+		prerequisite = { focus = SAN_naval_ambush_tactics }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.12 }
+			add_ideas = DOT_Government_Control5
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+					owner = ROOT  count = 2
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_wartime_taxation_arrangements
+		x = 0
+		y = 1
+		relative_position_id = SAN_shrine_maiden_volunteers
+		prerequisite = { focus = SAN_shrine_maiden_volunteers }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.13 }
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = SAN_resistance_fortification_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_recruitment_of_ronin
+		prerequisite = { focus = SAN_recruitment_of_ronin }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.14 }
+			random_owned_state = { add_building_construction = { type = land_fort level = 1 } }
+		}
+	}
+
+	focus = {
+		id = SAN_foreign_mercenary_outreach
+		x = 0
+		y = 1
+		relative_position_id = SAN_kokomi_art_of_war_study
+		prerequisite = { focus = SAN_kokomi_art_of_war_study }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.15 }
+			add_manpower = 1500
+			random_owned_controlled_state = {
+				limit = { ROOT = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"\" division_template = \"千岩军\" start_experience_factor = 0.9 start_equipment_factor = 0.9"
+					owner = ROOT  count = 2
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_logistics_tunnel_project
+		x = -6
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.16 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
+		}
+	}
+
+	focus = {
+		id = SAN_vision_user_integration
+		x = 6
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.17 }
+			army_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_underground_intelligence_network
+		x = 0
+		y = 1
+		relative_position_id = SAN_wartime_taxation_arrangements
+		prerequisite = { focus = SAN_wartime_taxation_arrangements }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.18 }
+			add_political_power = 30
+		}
+	}
+
+	focus = {
+		id = SAN_coastline_patrol_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_resistance_fortification_plan
+		prerequisite = { focus = SAN_resistance_fortification_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.19 }
+			navy_experience = 15
+		}
+	}
+
+	focus = {
+		id = SAN_village_council_empowerment
+		x = 0
+		y = 1
+		relative_position_id = SAN_foreign_mercenary_outreach
+		prerequisite = { focus = SAN_foreign_mercenary_outreach }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.20 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_emergency_rice_storage_tactics
+		x = -2
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.21 }
+			add_ideas = SAN_worker_shortage
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 2000  producer = LYY }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 500  producer = LYY }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = LYY }
+		}
+	}
+
+	focus = {
+		id = SAN_signal_flag_protocol
+		x = 0
+		y = 1
+		relative_position_id = SAN_underground_intelligence_network
+		prerequisite = { focus = SAN_underground_intelligence_network }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.22 }
+			add_command_power = 10
+		}
+	}
+
+	focus = {
+		id = SAN_partisan_warfare_arrangements
+		x = 0
+		y = 1
+		relative_position_id = SAN_coastline_patrol_strategy
+		prerequisite = { focus = SAN_coastline_patrol_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.23 }
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_scout_unit_reorganization
+		x = 0
+		y = 1
+		relative_position_id = SAN_signal_flag_protocol
+		prerequisite = { focus = SAN_signal_flag_protocol }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.24 }
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = SAN_naval_mine_laying_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_partisan_warfare_arrangements
+		prerequisite = { focus = SAN_partisan_warfare_arrangements }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.25 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_equipment }
+		}
+	}
+
+	focus = {
+		id = SAN_island_fortress_objective
+		x = 0
+		y = 1
+		relative_position_id = SAN_naval_mine_laying_strategy
+		prerequisite = { focus = SAN_naval_mine_laying_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.26 }
+			random_owned_state = { add_building_construction = { type = coastal_bunker level = 1 } }
+		}
+	}
+
+	focus = {
+		id = SAN_heroic_propaganda_campaign
+		x = 0
+		y = 1
+		relative_position_id = SAN_village_council_empowerment
+		prerequisite = { focus = SAN_village_council_empowerment }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.27 }
+			add_war_support = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_defense_line_coordination
+		x = 0
+		y = 1
+		relative_position_id = SAN_island_fortress_objective
+		prerequisite = { focus = SAN_island_fortress_objective }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.28 }
+			add_ideas = SAN_omikami_protection # 大御神之佑
+		}
+	}
+
+	focus = {
+		id = SAN_black_market_supply_deal
+		x = 0
+		y = 1
+		relative_position_id = SAN_scout_unit_reorganization
+		prerequisite = { focus = SAN_scout_unit_reorganization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.29 }
+			add_political_power = 40
+		}
+	}
+
+	focus = {
+		id = SAN_first_phase_offensive_prep
+		x = 0
+		y = 1
+		relative_position_id = SAN_heroic_propaganda_campaign
+		prerequisite = { focus = SAN_heroic_propaganda_campaign }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.30 }
+			army_experience = 25
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	# ========================== 第二阶段：内战烽火 (31-70) | 中中区域 ==========================
+
+	focus = {
+		id = SAN_kannazuka_offensive_strategy
+		x = 0
+		y = 3
+		relative_position_id = SAN_first_phase_offensive_prep
+		prerequisite = { focus = SAN_first_phase_offensive_prep }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.31 }
+			add_war_support = 0.1
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_seize_mikage_furnace_action
+		x = -5
+		y = 1
+		relative_position_id = SAN_kannazuka_offensive_strategy
+		prerequisite = { focus = SAN_kannazuka_offensive_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.32 }
+			num_of_factories = 2
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_nazuchi_beach_deployment
+		x = 5
+		y = 1
+		relative_position_id = SAN_kannazuka_offensive_strategy
+		prerequisite = { focus = SAN_kannazuka_offensive_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.33 }
+			add_ideas = SAN_army_corruption
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_tatarasuna_reconstruction_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_seize_mikage_furnace_action
+		prerequisite = { focus = SAN_seize_mikage_furnace_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.34 }
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+
+	focus = {
+		id = SAN_yashiori_island_pacification
+		x = 0
+		y = 1
+		relative_position_id = SAN_nazuchi_beach_deployment
+		prerequisite = { focus = SAN_nazuchi_beach_deployment }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.35 }
+			add_stability = 0.05
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_tatarigami_containment_project
+		x = 0
+		y = 1
+		relative_position_id = SAN_yashiori_island_pacification
+		prerequisite = { focus = SAN_yashiori_island_pacification }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.36 }
+			add_ideas = SAN_piety_of_watatsumi # 海祇虔诚
+		}
+	}
+
+	focus = {
+		id = SAN_fontaine_engineering_outreach
+		x = -1
+		y = 1
+		relative_position_id = SAN_tatarasuna_reconstruction_plan
+		prerequisite = { focus = SAN_tatarasuna_reconstruction_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.37 }
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = engineering }
+		}
+	}
+
+	focus = {
+		id = SAN_secret_liaison_with_kamisato
+		x = 0
+		y = 1
+		relative_position_id = SAN_kannazuka_offensive_strategy
+		prerequisite = { focus = SAN_kannazuka_offensive_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.38 }
+			add_political_power = 75
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_kazuha_vanguard_strategic_unit
+		x = 2
+		y = 1
+		relative_position_id = SAN_secret_liaison_with_kamisato
+		prerequisite = { focus = SAN_secret_liaison_with_kamisato }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.39 }
+			army_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_shumatsuban_collaboration_tactics
+		x = -2
+		y = 1
+		relative_position_id = SAN_secret_liaison_with_kamisato
+		prerequisite = { focus = SAN_secret_liaison_with_kamisato }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.40 }
+			add_ideas = DOT_Government_Research2
+		}
+	}
+
+	focus = {
+		id = SAN_higi_village_relief_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_tatarigami_containment_project
+		prerequisite = { focus = SAN_tatarigami_containment_project }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.41 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_ore_extraction_modernization
+		x = 1
+		y = 1
+		relative_position_id = SAN_fontaine_engineering_outreach
+		prerequisite = { focus = SAN_fontaine_engineering_outreach }
+		prerequisite = { focus = SAN_weapon_forging_standardization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.42 }
+			random_owned_state = { add_resource = { type = steel amount = 10 } }
+		}
+	}
+
+	focus = {
+		id = SAN_musoujin_gorge_defensive_line
+		x = 0
+		y = 1
+		relative_position_id = SAN_higi_village_relief_action
+		prerequisite = { focus = SAN_higi_village_relief_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.43 }
+			random_owned_state = { add_building_construction = { type = land_fort level = 2 } }
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_weapon_forging_standardization
+		x = 1
+		y = 1
+		relative_position_id = SAN_tatarasuna_reconstruction_plan
+		prerequisite = { focus = SAN_tatarasuna_reconstruction_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.44 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = SAN_recruit_yashiori_volunteers
+		x = 0
+		y = 1
+		relative_position_id = SAN_musoujin_gorge_defensive_line
+		prerequisite = { focus = SAN_musoujin_gorge_defensive_line }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.45 }
+			add_manpower = 4000
+		}
+	}
+
+	focus = {
+		id = SAN_mikage_furnace_overload_safety
+		x = 0
+		y = 1
+		relative_position_id = SAN_ore_extraction_modernization
+		prerequisite = { focus = SAN_ore_extraction_modernization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.46 }
+			add_ideas = DOT_Government_Industry2
+		}
+	}
+
+	focus = {
+		id = SAN_sabotage_tenryou_supply_lines
+		x = 0
+		y = 1
+		relative_position_id = SAN_shumatsuban_collaboration_tactics
+		prerequisite = { focus = SAN_shumatsuban_collaboration_tactics }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.47 }
+			add_war_support = 0.05
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_kujou_encampment_siege_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_kazuha_vanguard_strategic_unit
+		prerequisite = { focus = SAN_kazuha_vanguard_strategic_unit }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.48 }
+			army_experience = 20
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_wartime_propaganda_expansion
+		x = 0
+		y = 1
+		relative_position_id = SAN_secret_liaison_with_kamisato
+		prerequisite = { focus = SAN_secret_liaison_with_kamisato }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.49 }
+			add_political_power = 60
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_centralized_command_structure
+		x = 0
+		y = 1
+		relative_position_id = SAN_wartime_propaganda_expansion
+		prerequisite = { focus = SAN_wartime_propaganda_expansion }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.50 }
+			add_ideas = SAN_Too_young
+		}
+	}
+
+	focus = {
+		id = SAN_resource_stockpiling_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_mikage_furnace_overload_safety
+		prerequisite = { focus = SAN_mikage_furnace_overload_safety }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.51 }
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+
+	focus = {
+		id = SAN_amendment_of_the_code_of_conduct
+		x = 0
+		y = 1
+		relative_position_id = SAN_recruit_yashiori_volunteers
+		prerequisite = { focus = SAN_recruit_yashiori_volunteers }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.52 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_watatsumi_trade_routes_protection
+		x = 0
+		y = 1
+		relative_position_id = SAN_resource_stockpiling_strategy
+		prerequisite = { focus = SAN_resource_stockpiling_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.53 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = naval_doctrine }
+		}
+	}
+
+	focus = {
+		id = SAN_joint_staff_military_academy
+		x = 0
+		y = 1
+		relative_position_id = SAN_amendment_of_the_code_of_conduct
+		prerequisite = { focus = SAN_amendment_of_the_code_of_conduct }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.54 }
+			army_experience = 40
+		}
+	}
+
+	focus = {
+		id = SAN_industrial_migration_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_watatsumi_trade_routes_protection
+		prerequisite = { focus = SAN_watatsumi_trade_routes_protection }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.55 }
+			num_of_factories = 1
+		}
+	}
+
+	focus = {
+		id = SAN_advanced_reconnaissance_missions
+		x = 0
+		y = 1
+		relative_position_id = SAN_sabotage_tenryou_supply_lines
+		prerequisite = { focus = SAN_sabotage_tenryou_supply_lines }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.56 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_frontline_medical_support_reform
+		x = 0
+		y = 1
+		relative_position_id = SAN_joint_staff_military_academy
+		prerequisite = { focus = SAN_joint_staff_military_academy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.57 }
+			add_ideas = SAN_devalue_the_inmuase
+		}
+	}
+
+	focus = {
+		id = SAN_watatsumi_naval_shipyard_expansion
+		x = 0
+		y = 1
+		relative_position_id = SAN_industrial_migration_plan
+		prerequisite = { focus = SAN_industrial_migration_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.58 }
+			random_owned_state = { add_building_construction = { type = dockyard level = 1 } }
+		}
+	}
+
+	focus = {
+		id = SAN_strategic_reserve_mobilization
+		x = 0
+		y = 1
+		relative_position_id = SAN_centralized_command_structure
+		prerequisite = { focus = SAN_centralized_command_structure }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.59 }
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = SAN_shrine_defence_coordination
+		x = 0
+		y = 1
+		relative_position_id = SAN_kujou_encampment_siege_plan
+		prerequisite = { focus = SAN_kujou_encampment_siege_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.60 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_logistical_efficiency_overhaul
+		x = 0
+		y = 1
+		relative_position_id = SAN_advanced_reconnaissance_missions
+		prerequisite = { focus = SAN_advanced_reconnaissance_missions }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.61 }
+			add_ideas = Daybreak_of_Teyvat
+		}
+	}
+
+	focus = {
+		id = SAN_maritime_patrol_fleet_setup
+		x = 0
+		y = 1
+		relative_position_id = SAN_watatsumi_naval_shipyard_expansion
+		prerequisite = { focus = SAN_watatsumi_naval_shipyard_expansion }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.62 }
+			navy_experience = 25
+		}
+	}
+
+	focus = {
+		id = SAN_elite_warrior_training_reforms
+		x = 0
+		y = 1
+		relative_position_id = SAN_frontline_medical_support_reform
+		prerequisite = { focus = SAN_frontline_medical_support_reform }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.63 }
+			army_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_synthetic_material_research_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_logistical_efficiency_overhaul
+		prerequisite = { focus = SAN_logistical_efficiency_overhaul }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.64 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+		}
+	}
+
+	focus = {
+		id = SAN_national_conscription_arrangements
+		x = 0
+		y = 2
+		relative_position_id = SAN_kujou_encampment_siege_plan
+		prerequisite = { focus = SAN_kujou_encampment_siege_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.65 }
+			add_manpower = 10000
+		}
+	}
+
+	focus = {
+		id = SAN_heavy_artillery_deployment_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_elite_warrior_training_reforms
+		prerequisite = { focus = SAN_elite_warrior_training_reforms }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.66 }
+			army_experience = 20
+		}
+	}
+
+	focus = {
+		id = SAN_experimental_aircraft_prototype_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_synthetic_material_research_action
+		prerequisite = { focus = SAN_synthetic_material_research_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.67 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+
+	focus = {
+		id = SAN_total_war_industrial_focus
+		x = 0
+		y = 1
+		relative_position_id = SAN_national_conscription_arrangements
+		prerequisite = { focus = SAN_national_conscription_arrangements }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.68 }
+			num_of_factories = 3
+		}
+	}
+
+	focus = {
+		id = SAN_narukami_infiltration_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_total_war_industrial_focus
+		prerequisite = { focus = SAN_total_war_industrial_focus }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.69 }
+			add_political_power = 50
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_tenshukaku_offensive_arrangements
+		x = 0
+		y = 2
+		relative_position_id = SAN_centralized_command_structure
+		prerequisite = { focus = SAN_centralized_command_structure }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.70 }
+			add_war_support = 0.1
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	# ========================== 第三阶段：平定旧域 (71-110) | 中左区域 ==========================
+
+	focus = {
+		id = SAN_seirai_island_expedition_strategy
+		x = -15
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.71 }
+			declare_war_on = { target = ASA type = annex_everything } # 对清籁宣战
+		}
+	}
+
+	focus = {
+		id = SAN_unseal_amakumo_thunder_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_seirai_island_expedition_strategy
+		prerequisite = { focus = SAN_seirai_island_expedition_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.72 }
+			add_ideas = SAN_piety_of_watatsumi
+		}
+	}
+
+	focus = {
+		id = SAN_koseki_village_rehabilitation
+		x = -2
+		y = 1
+		relative_position_id = SAN_unseal_amakumo_thunder_plan
+		prerequisite = { focus = SAN_unseal_amakumo_thunder_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.73 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_ako_domeki_legacy_investigation
+		x = 2
+		y = 1
+		relative_position_id = SAN_unseal_amakumo_thunder_plan
+		prerequisite = { focus = SAN_unseal_amakumo_thunder_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.74 }
+			navy_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_seirai_maru_salvage_operation
+		x = 0
+		y = 1
+		relative_position_id = SAN_ako_domeki_legacy_investigation
+		prerequisite = { focus = SAN_ako_domeki_legacy_investigation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.75 }
+			random_owned_state = { add_building_construction = { type = dockyard level = 2 } }
+		}
+	}
+
+	focus = {
+		id = SAN_thunder_manifestation_study
+		x = 1
+		y = 1
+		relative_position_id = SAN_koseki_village_rehabilitation
+		prerequisite = { focus = SAN_koseki_village_rehabilitation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.76 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_asase_shrine_restoration_plan
+		x = -1
+		y = 1
+		relative_position_id = SAN_koseki_village_rehabilitation
+		prerequisite = { focus = SAN_koseki_village_rehabilitation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.77 }
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = SAN_storm_rider_training_action
+		x = -1
+		y = 1
+		relative_position_id = SAN_thunder_manifestation_study
+		prerequisite = { focus = SAN_thunder_manifestation_study }
+		prerequisite = { focus = SAN_asase_shrine_restoration_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.78 }
+			army_experience = 20
+		}
+	}
+
+	focus = {
+		id = SAN_seirai_naval_fortress_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_seirai_maru_salvage_operation
+		prerequisite = { focus = SAN_seirai_maru_salvage_operation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.79 }
+			random_owned_state = { add_building_construction = { type = coastal_bunker level = 3 } }
+		}
+	}
+
+	focus = {
+		id = SAN_amakumo_energy_harnessing_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_storm_rider_training_action
+		prerequisite = { focus = SAN_storm_rider_training_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.80 }
+			num_of_factories = 1
+		}
+	}
+
+	focus = {
+		id = SAN_tsurumi_island_reconnaissance_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_seirai_naval_fortress_strategy
+		prerequisite = { focus = SAN_seirai_naval_fortress_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.81 }
+			declare_war_on = { target = TSU type = annex_everything } # 对鹤观宣战
+		}
+	}
+
+	focus = {
+		id = SAN_dispel_fog_over_tsurumi_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_tsurumi_island_reconnaissance_plan
+		prerequisite = { focus = SAN_tsurumi_island_reconnaissance_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.82 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_save_ruu_soul_strategic_action
+		x = -4
+		y = 1
+		relative_position_id = SAN_dispel_fog_over_tsurumi_action
+		prerequisite = { focus = SAN_dispel_fog_over_tsurumi_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.83 }
+			add_stability = 0.15 # 救赎阿瑠
+		}
+	}
+
+	focus = {
+		id = SAN_kapatcir_restless_energy_containment
+		x = 4
+		y = 1
+		relative_position_id = SAN_dispel_fog_over_tsurumi_action
+		prerequisite = { focus = SAN_dispel_fog_over_tsurumi_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.84 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_moshiri_ritual_site_reform
+		x = 0
+		y = 1
+		relative_position_id = SAN_save_ruu_soul_strategic_action
+		prerequisite = { focus = SAN_save_ruu_soul_strategic_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.85 }
+			add_political_power = 40
+		}
+	}
+
+	focus = {
+		id = SAN_mt_kanna_mining_exploration
+		x = 0
+		y = 1
+		relative_position_id = SAN_kapatcir_restless_energy_containment
+		prerequisite = { focus = SAN_kapatcir_restless_energy_containment }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.86 }
+			random_owned_state = { add_resource = { type = chromium amount = 5 } }
+		}
+	}
+
+	focus = {
+		id = SAN_shirakoro_peak_observation_post
+		x = 0
+		y = 1
+		relative_position_id = SAN_moshiri_ritual_site_reform
+		prerequisite = { focus = SAN_moshiri_ritual_site_reform }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.87 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = engineering }
+		}
+	}
+
+	focus = {
+		id = SAN_riftstalker_containment_tactics
+		x = 0
+		y = 1
+		relative_position_id = SAN_mt_kanna_mining_exploration
+		prerequisite = { focus = SAN_mt_kanna_mining_exploration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.88 }
+			army_experience = 25
+		}
+	}
+
+	focus = {
+		id = SAN_ancient_civilization_study_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_dispel_fog_over_tsurumi_action
+		prerequisite = { focus = SAN_dispel_fog_over_tsurumi_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.89 }
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = SAN_tsurumi_coastal_radar_setup
+		x = 0
+		y = 1
+		relative_position_id = SAN_ancient_civilization_study_action
+		prerequisite = { focus = SAN_ancient_civilization_study_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.90 }
+			random_owned_state = { add_building_construction = { type = radar_station level = 1 } }
+		}
+	}
+
+	focus = {
+		id = SAN_shirne_maiden_of_outer_islands
+		x = 0
+		y = 1
+		relative_position_id = SAN_tsurumi_coastal_radar_setup
+		prerequisite = { focus = SAN_tsurumi_coastal_radar_setup }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.91 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_veteran_resettlement_program
+		x = -2
+		y = 1
+		relative_position_id = SAN_shirne_maiden_of_outer_islands
+		prerequisite = { focus = SAN_shirne_maiden_of_outer_islands }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.92 }
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = SAN_fortress_network_expansion
+		x = 2
+		y = 1
+		relative_position_id = SAN_shirne_maiden_of_outer_islands
+		prerequisite = { focus = SAN_shirne_maiden_of_outer_islands }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.93 }
+			random_owned_state = { add_building_construction = { type = anti_air level = 2 } }
+		}
+	}
+
+	focus = {
+		id = SAN_islands_economic_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_veteran_resettlement_program
+		prerequisite = { focus = SAN_veteran_resettlement_program }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.94 }
+			num_of_factories = 1
+		}
+	}
+
+	focus = {
+		id = SAN_outer_defence_command_reforms
+		x = 0
+		y = 1
+		relative_position_id = SAN_fortress_network_expansion
+		prerequisite = { focus = SAN_fortress_network_expansion }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.95 }
+			add_command_power = 20
+		}
+	}
+
+	focus = {
+		id = SAN_maritime_trade_monopoly_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_islands_economic_integration
+		prerequisite = { focus = SAN_islands_economic_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.96 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = SAN_naval_aviation_training_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_outer_defence_command_reforms
+		prerequisite = { focus = SAN_outer_defence_command_reforms }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.97 }
+			air_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_island_logistics_hub_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_maritime_trade_monopoly_strategy
+		prerequisite = { focus = SAN_maritime_trade_monopoly_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.98 }
+			random_owned_state = { add_building_construction = { type = infrastructure level = 2 } }
+		}
+	}
+
+	focus = {
+		id = SAN_regional_administrative_offices
+		x = 0
+		y = 1
+		relative_position_id = SAN_island_logistics_hub_plan
+		prerequisite = { focus = SAN_island_logistics_hub_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.99 }
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = SAN_tsurumi_resource_processing_hub
+		x = 4
+		y = 1
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.101 }
+			num_of_factories = 1
+		}
+	}
+
+	focus = {
+		id = SAN_ritual_stone_energy_research
+		x = 0
+		y = 1
+		relative_position_id = SAN_tsurumi_resource_processing_hub
+		prerequisite = { focus = SAN_tsurumi_resource_processing_hub }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.102 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = engineering }
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_seirai_storm_prediction_center
+		x = 0
+		y = 1
+		relative_position_id = SAN_ritual_stone_energy_research
+		prerequisite = { focus = SAN_ritual_stone_energy_research }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.103 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+
+	focus = {
+		id = SAN_ako_pirate_fleet_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_seirai_storm_prediction_center
+		prerequisite = { focus = SAN_seirai_storm_prediction_center }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.104 }
+			navy_experience = 20
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_koseki_village_fishing_standardization
+		x = 0
+		y = 1
+		relative_position_id = SAN_ako_pirate_fleet_integration
+		prerequisite = { focus = SAN_ako_pirate_fleet_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.105 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_amakumo_peak_scientific_base
+		x = 0
+		y = 1
+		relative_position_id = SAN_koseki_village_fishing_standardization
+		prerequisite = { focus = SAN_koseki_village_fishing_standardization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.106 }
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = SAN_storm_shield_technology_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_amakumo_peak_scientific_base
+		prerequisite = { focus = SAN_amakumo_peak_scientific_base }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.107 }
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = electronics }
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_outer_islands_customs_union
+		x = 0
+		y = 1
+		relative_position_id = SAN_storm_shield_technology_plan
+		prerequisite = { focus = SAN_storm_shield_technology_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.108 }
+			add_political_power = 60
+		}
+	}
+
+	focus = {
+		id = SAN_watatsumi_maritime_supremacy_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_outer_islands_customs_union
+		prerequisite = { focus = SAN_outer_islands_customs_union }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.109 }
+			add_ideas = SAN_piety_of_watatsumi
+		}
+	}
+
+	focus = {
+		id = SAN_outer_expeditionary_corps_setup
+		x = 0
+		y = 1
+		relative_position_id = SAN_watatsumi_maritime_supremacy_plan
+		prerequisite = { focus = SAN_watatsumi_maritime_supremacy_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.110 }
+			army_experience = 30
+		}
+	}
+
+	# ========================== 第四阶段：白夜遗产 (111-140) | 中右区域 ==========================
+
+	focus = {
+		id = SAN_enkanomiya_exploration_project
+		x = 15
+		y = 2
+		relative_position_id = SAN_the_resistance_begins
+		prerequisite = { focus = SAN_the_resistance_begins }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.111 }
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = electronics }
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_search_for_before_sun_and_moon_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_enkanomiya_exploration_project
+		prerequisite = { focus = SAN_enkanomiya_exploration_project }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.112 }
+			add_ideas = SAN_legacy_of_sun_child # 太阳之子枷锁
+		}
+	}
+
+	focus = {
+		id = SAN_dainichi_mikoshi_reactivation_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_search_for_before_sun_and_moon_action
+		prerequisite = { focus = SAN_search_for_before_sun_and_moon_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.113 }
+			num_of_factories = 2
+		}
+	}
+
+	focus = {
+		id = SAN_jizhashi_training_reforms
+		x = -3
+		y = 1
+		relative_position_id = SAN_dainichi_mikoshi_reactivation_plan
+		prerequisite = { focus = SAN_dainichi_mikoshi_reactivation_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.114 }
+			army_experience = 20 # 地走官训练
+		}
+	}
+
+	focus = {
+		id = SAN_vishap_containment_measures
+		x = 3
+		y = 1
+		relative_position_id = SAN_dainichi_mikoshi_reactivation_plan
+		prerequisite = { focus = SAN_dainichi_mikoshi_reactivation_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.115 }
+			add_ideas = DOT_Government_Control5
+		}
+	}
+
+	focus = {
+		id = SAN_evernight_temple_archeology
+		x = 0
+		y = 1
+		relative_position_id = SAN_jizhashi_training_reforms
+		prerequisite = { focus = SAN_jizhashi_training_reforms }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.116 }
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = SAN_serpents_heart_ritual_study
+		x = 0
+		y = 1
+		relative_position_id = SAN_vishap_containment_measures
+		prerequisite = { focus = SAN_vishap_containment_measures }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.117 }
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = SAN_abyss_technology_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_dainichi_mikoshi_reactivation_plan
+		prerequisite = { focus = SAN_dainichi_mikoshi_reactivation_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.118 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = industry }
+		}
+	}
+
+	focus = {
+		id = SAN_enkanomiya_industrial_complex
+		x = 0
+		y = 1
+		relative_position_id = SAN_evernight_temple_archeology
+		prerequisite = { focus = SAN_evernight_temple_archeology }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.119 }
+			num_of_factories = 1
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_ancient_vessel_restoration
+		x = 0
+		y = 1
+		relative_position_id = SAN_serpents_heart_ritual_study
+		prerequisite = { focus = SAN_serpents_heart_ritual_study }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.120 }
+			navy_experience = 20
+		}
+	}
+
+	focus = {
+		id = SAN_chronos_worship_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_abyss_technology_integration
+		prerequisite = { focus = SAN_abyss_technology_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.121 }
+			add_ideas = SAN_piety_of_watatsumi # 时间之执政
+		}
+	}
+
+	focus = {
+		id = SAN_forbidden_history_dissemination
+		x = 0
+		y = 1
+		relative_position_id = SAN_chronos_worship_integration
+		prerequisite = { focus = SAN_chronos_worship_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.122 }
+			add_political_power = 80
+		}
+	}
+
+	focus = {
+		id = SAN_byakuya_military_standardization
+		x = 0
+		y = 1
+		relative_position_id = SAN_enkanomiya_industrial_complex
+		prerequisite = { focus = SAN_enkanomiya_industrial_complex }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.123 }
+			army_experience = 25
+		}
+	}
+
+	focus = {
+		id = SAN_hydro_elemental_weaponry_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_ancient_vessel_restoration
+		prerequisite = { focus = SAN_ancient_vessel_restoration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.124 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = SAN_abyssal_intelligence_gathering
+		x = 0
+		y = 1
+		relative_position_id = SAN_forbidden_history_dissemination
+		prerequisite = { focus = SAN_forbidden_history_dissemination }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.125 }
+			add_ideas = DOT_Government_Research3
+		}
+	}
+
+	focus = {
+		id = SAN_dainichi_energy_grid_expansion
+		x = 0
+		y = 1
+		relative_position_id = SAN_byakuya_military_standardization
+		prerequisite = { focus = SAN_byakuya_military_standardization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.126 }
+			num_of_factories = 1
+		}
+	}
+
+	focus = {
+		id = SAN_subterranean_bunker_network
+		x = 0
+		y = 1
+		relative_position_id = SAN_hydro_elemental_weaponry_plan
+		prerequisite = { focus = SAN_hydro_elemental_weaponry_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.127 }
+			random_owned_state = { add_building_construction = { type = land_fort level = 2 } }
+		}
+	}
+
+	focus = {
+		id = SAN_enkanomiya_civilian_resettlement
+		x = 0
+		y = 1
+		relative_position_id = SAN_abyssal_intelligence_gathering
+		prerequisite = { focus = SAN_abyssal_intelligence_gathering }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.128 }
+			add_manpower = 4000
+		}
+	}
+
+	focus = {
+		id = SAN_ancient_archives_decryption_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_dainichi_energy_grid_expansion
+		prerequisite = { focus = SAN_dainichi_energy_grid_expansion }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.129 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_watatsumi_enkanomiya_united_front
+		x = 0
+		y = 1
+		relative_position_id = SAN_enkanomiya_civilian_resettlement
+		prerequisite = { focus = SAN_enkanomiya_civilian_resettlement }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.130 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_abyssal_resource_monopoly_plan
+		x = -1
+		y = 1
+		relative_position_id = SAN_watatsumi_enkanomiya_united_front
+		prerequisite = { focus = SAN_watatsumi_enkanomiya_united_front }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.131 }
+			random_owned_state = { add_resource = { type = aluminum amount = 10 } }
+		}
+	}
+
+	focus = {
+		id = SAN_experimental_underwater_armor_action
+		x = 1
+		y = 1
+		relative_position_id = SAN_watatsumi_enkanomiya_united_front
+		prerequisite = { focus = SAN_watatsumi_enkanomiya_united_front }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.132 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }
+		}
+	}
+
+	focus = {
+		id = SAN_white_night_doctrine_development
+		x = 0
+		y = 1
+		relative_position_id = SAN_experimental_underwater_armor_action
+		prerequisite = { focus = SAN_experimental_underwater_armor_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.133 }
+			army_experience = 25
+		}
+	}
+
+	focus = {
+		id = SAN_enkanomiya_high_command_setup
+		x = 0
+		y = 1
+		relative_position_id = SAN_abyssal_resource_monopoly_plan
+		prerequisite = { focus = SAN_abyssal_resource_monopoly_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.134 }
+			add_command_power = 15
+		}
+	}
+
+	focus = {
+		id = SAN_ancient_tactics_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_white_night_doctrine_development
+		prerequisite = { focus = SAN_white_night_doctrine_development }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.135 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+
+	focus = {
+		id = SAN_enkanomiya_reserve_training_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_enkanomiya_high_command_setup
+		prerequisite = { focus = SAN_enkanomiya_high_command_setup }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.136 }
+			add_manpower = 3000
+		}
+	}
+
+	focus = {
+		id = SAN_subterranean_supply_overhaul
+		x = 0
+		y = 1
+		relative_position_id = SAN_enkanomiya_reserve_training_plan
+		prerequisite = { focus = SAN_enkanomiya_reserve_training_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.137 }
+			add_ideas = Daybreak_of_Teyvat
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory level = 1 instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SAN_abyssal_cultural_restoration_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_ancient_tactics_integration
+		prerequisite = { focus = SAN_ancient_tactics_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.138 }
+			add_political_power = 40
+			declare_war_on = { target = HIL type = annex_everything }
+		}
+	}
+
+	focus = {
+		id = SAN_unification_of_the_two_realms
+		x = 0
+		y = 1
+		relative_position_id = SAN_abyssal_cultural_restoration_plan
+		prerequisite = { focus = SAN_abyssal_cultural_restoration_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.139 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_final_archeological_synthesis
+		x = 0
+		y = 1
+		relative_position_id = SAN_unification_of_the_two_realms
+		prerequisite = { focus = SAN_unification_of_the_two_realms }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.140 }
+			add_research_slot = 1
+		}
+		bypass = {
+			or = {
+				SAN = { owns_state = 256 controls_state = 256 }
+				INA = { exists = no }
+			}
+		}
+	}
+
+	# ========================== 第五阶段：战后构想 (141-180) | 中下区域 ==========================
+
+	focus = {
+		id = SAN_post_war_future_debate
+		x = 0
+		y = 7
+		relative_position_id = SAN_tenshukaku_offensive_arrangements
+		prerequisite = { focus = SAN_tenshukaku_offensive_arrangements }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.141 }
+			add_political_power = 50
+		}
+	}
+
+	# --- 路线A：现人神绝对权威 (威权) ---
+	focus = {
+		id = SAN_divine_authority_consolidation
+		x = -10
+		y = 1
+		relative_position_id = SAN_post_war_future_debate
+		prerequisite = { focus = SAN_post_war_future_debate }
+		cost = 4
+		mutually_exclusive = { focus = SAN_democratic_council_strategy }
+		mutually_exclusive = { focus = SAN_celestia_defiance_pact }
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.142 }
+			set_politics = { ruling_party = fascism }
+		}
+	}
+
+	focus = {
+		id = SAN_enforced_orobashi_orthodoxy
+		x = 2
+		y = 1
+		relative_position_id = SAN_divine_authority_consolidation
+		prerequisite = { focus = SAN_divine_authority_consolidation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.143 }
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_clerical_administrative_overhaul
+		x = -1
+		y = 1
+		relative_position_id = SAN_enforced_orobashi_orthodoxy
+		prerequisite = { focus = SAN_enforced_orobashi_orthodoxy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.144 }
+			add_political_power = 60
+		}
+	}
+
+	focus = {
+		id = SAN_monolith_industrial_prioritization
+		x = 0
+		y = 1
+		relative_position_id = SAN_clerical_administrative_overhaul
+		prerequisite = { focus = SAN_clerical_administrative_overhaul }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.145 }
+			num_of_factories = 2
+		}
+	}
+
+	focus = {
+		id = SAN_theocratic_military_indoctrination
+		x = 1
+		y = 1
+		relative_position_id = SAN_enforced_orobashi_orthodoxy
+		prerequisite = { focus = SAN_enforced_orobashi_orthodoxy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.146 }
+			army_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_purging_the_unbelievers_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_theocratic_military_indoctrination
+		prerequisite = { focus = SAN_theocratic_military_indoctrination }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.147 }
+			add_war_support = 0.1
+		}
+	}
+
+	focus = {
+		id = SAN_divine_economic_planning_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_monolith_industrial_prioritization
+		prerequisite = { focus = SAN_monolith_industrial_prioritization }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.148 }
+			add_ideas = DOT_Government_Industry2
+		}
+	}
+
+	focus = {
+		id = SAN_prophets_of_the_deep_network
+		x = 0
+		y = 1
+		relative_position_id = SAN_purging_the_unbelievers_action
+		prerequisite = { focus = SAN_purging_the_unbelievers_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.149 }
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = SAN_supreme_edict_drafting
+		x = -3
+		y = 1
+		relative_position_id = SAN_divine_authority_consolidation
+		prerequisite = { focus = SAN_divine_authority_consolidation }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.150 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_holy_expansionist_doctrine
+		x = 0
+		y = 1
+		relative_position_id = SAN_supreme_edict_drafting
+		prerequisite = { focus = SAN_supreme_edict_drafting }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.151 }
+			army_experience = 20
+			declare_war_on = { target = MOT type = annex_everything }
+			declare_war_on = { target = LYY type = annex_everything }
+		}
+	}
+
+	focus = {
+		id = SAN_watatsumi_eternal_dominance_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_holy_expansionist_doctrine
+		prerequisite = { focus = SAN_holy_expansionist_doctrine }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.152 }
+			add_ideas = SAN_omikami_protection
+		}
+	}
+
+	focus = {
+		id = SAN_divine_monarchy_manifesto
+		x = 0
+		y = 1
+		relative_position_id = SAN_watatsumi_eternal_dominance_plan
+		prerequisite = { focus = SAN_watatsumi_eternal_dominance_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.153 }
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = SAN_ultimate_theocracy_implementation
+		x = 0
+		y = 1
+		relative_position_id = SAN_divine_monarchy_manifesto
+		prerequisite = { focus = SAN_divine_monarchy_manifesto }
+		cost = 15
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.154 }
+			add_political_power = 150
+		}
+	}
+
+	# --- 路线B：海祇民主议会 (民主) ---
+	focus = {
+		id = SAN_democratic_council_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_post_war_future_debate
+		prerequisite = { focus = SAN_post_war_future_debate }
+		cost = 4
+		mutually_exclusive = { focus = SAN_divine_authority_consolidation }
+		mutually_exclusive = { focus = SAN_celestia_defiance_pact }
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.155 }
+			set_politics = { ruling_party = democratic }
+		}
+	}
+
+	focus = {
+		id = SAN_multi_island_parliament_setup
+		x = 2
+		y = 1
+		relative_position_id = SAN_democratic_council_strategy
+		prerequisite = { focus = SAN_democratic_council_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.156 }
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = SAN_yashiro_commission_advisory_role
+		x = 3
+		y = 1
+		relative_position_id = SAN_multi_island_parliament_setup
+		prerequisite = { focus = SAN_multi_island_parliament_setup }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.157 }
+			add_political_power = 60
+		}
+	}
+
+	focus = {
+		id = SAN_ritou_merchant_trade_pact
+		x = -3
+		y = 1
+		relative_position_id = SAN_multi_island_parliament_setup
+		prerequisite = { focus = SAN_multi_island_parliament_setup }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.158 }
+			num_of_factories = 2
+		}
+	}
+
+	focus = {
+		id = SAN_freedom_of_worship_proclamation
+		x = 0
+		y = 1
+		relative_position_id = SAN_yashiro_commission_advisory_role
+		prerequisite = { focus = SAN_yashiro_commission_advisory_role }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_04
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.159 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_liberal_economic_reforms_plan
+		x = 0
+		y = 1
+		relative_position_id = SAN_ritou_merchant_trade_pact
+		prerequisite = { focus = SAN_ritou_merchant_trade_pact }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_05
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.160 }
+			add_ideas = DOT_Government_Industry2
+		}
+	}
+
+	focus = {
+		id = SAN_council_of_elders_integration
+		x = 0
+		y = 1
+		relative_position_id = SAN_multi_island_parliament_setup
+		prerequisite = { focus = SAN_multi_island_parliament_setup }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_06
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.161 }
+			add_political_power = 40
+		}
+	}
+
+	focus = {
+		id = SAN_citizens_militia_organization
+		x = 1
+		y = 1
+		relative_position_id = SAN_council_of_elders_integration
+		prerequisite = { focus = SAN_council_of_elders_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_07
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.162 }
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = SAN_social_welfare_expansion_action
+		x = -1
+		y = 1
+		relative_position_id = SAN_council_of_elders_integration
+		prerequisite = { focus = SAN_council_of_elders_integration }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_08
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.163 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SAN_pan_teyvat_diplomatic_outreach
+		x = -4
+		y = 1
+		relative_position_id = SAN_democratic_council_strategy
+		prerequisite = { focus = SAN_democratic_council_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_09
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.164 }
+			add_political_power = 100
+			give_guarantee = MOT
+			give_guarantee = LYY
+			give_guarantee = NAT
+		}
+	}
+
+	focus = {
+		id = SAN_constitution_of_sangonomiya_drafting
+		x = 0
+		y = 1
+		relative_position_id = SAN_pan_teyvat_diplomatic_outreach
+		prerequisite = { focus = SAN_pan_teyvat_diplomatic_outreach }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_10
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.165 }
+			add_ideas = SAN_piety_of_watatsumi
+		}
+	}
+
+	focus = {
+		id = SAN_democratic_industrial_modernization
+		x = -1
+		y = 1
+		relative_position_id = SAN_constitution_of_sangonomiya_drafting
+		prerequisite = { focus = SAN_constitution_of_sangonomiya_drafting }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_11
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.166 }
+			num_of_factories = 2
+		}
+	}
+
+	focus = {
+		id = SAN_joint_island_defense_reforms
+		x = 1
+		y = 1
+		relative_position_id = SAN_constitution_of_sangonomiya_drafting
+		prerequisite = { focus = SAN_constitution_of_sangonomiya_drafting }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_12
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.167 }
+			army_experience = 30
+		}
+	}
+
+	focus = {
+		id = SAN_ultimate_republican_vision
+		x = 0
+		y = 1
+		relative_position_id = SAN_joint_island_defense_reforms
+		prerequisite = { focus = SAN_joint_island_defense_reforms }
+		cost = 15
+		icon = GFX_goal_DOT_Arcana_13
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.168 }
+			add_stability = 0.2
+		}
+	}
+
+	# --- 路线C：白夜远征军 (共产/革命) ---
+	focus = {
+		id = SAN_celestia_defiance_pact
+		x = 10
+		y = 1
+		relative_position_id = SAN_post_war_future_debate
+		prerequisite = { focus = SAN_post_war_future_debate }
+		cost = 4
+		mutually_exclusive = { focus = SAN_divine_authority_consolidation }
+		mutually_exclusive = { focus = SAN_democratic_council_strategy }
+		icon = GFX_goal_DOT_Arcana_14
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.169 }
+			set_politics = { ruling_party = communism }
+			give_guarantee = SNE
+			declare_war_on = { target = PRI type = annex_everything }
+			every_state = { limit = { is_core_of = PRI } add_core_of = ROOT }
+		}
+	}
+
+	focus = {
+		id = SAN_export_revolutionary_ideals_action
+		x = -2
+		y = 1
+		relative_position_id = SAN_celestia_defiance_pact
+		prerequisite = { focus = SAN_celestia_defiance_pact }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_15
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.170 }
+			add_war_support = 0.15
+		}
+	}
+
+	focus = {
+		id = SAN_dark_sea_expeditionary_strategy
+		x = 1
+		y = 1
+		relative_position_id = SAN_export_revolutionary_ideals_action
+		prerequisite = { focus = SAN_export_revolutionary_ideals_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_16
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.171 }
+			navy_experience = 40
+		}
+	}
+
+	focus = {
+		id = SAN_celestial_order_disruption_plan
+		x = -1
+		y = 1
+		relative_position_id = SAN_export_revolutionary_ideals_action
+		prerequisite = { focus = SAN_export_revolutionary_ideals_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_17
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.172 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = SAN_radical_industrial_collectivization
+		x = 0
+		y = 1
+		relative_position_id = SAN_dark_sea_expeditionary_strategy
+		prerequisite = { focus = SAN_dark_sea_expeditionary_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_18
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.173 }
+			num_of_factories = 3
+		}
+	}
+
+	focus = {
+		id = SAN_vanguard_of_the_abyss_recruitment
+		x = 0
+		y = 1
+		relative_position_id = SAN_celestial_order_disruption_plan
+		prerequisite = { focus = SAN_celestial_order_disruption_plan }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_19
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.174 }
+			add_manpower = 8000
+		}
+	}
+
+	focus = {
+		id = SAN_clandestine_abyssal_alliances
+		x = 2
+		y = 1
+		relative_position_id = SAN_celestia_defiance_pact
+		prerequisite = { focus = SAN_celestia_defiance_pact }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_20
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.175 }
+			add_political_power = 60
+		}
+	}
+
+	focus = {
+		id = SAN_mobilize_the_under_dwellers_strategy
+		x = 0
+		y = 1
+		relative_position_id = SAN_clandestine_abyssal_alliances
+		prerequisite = { focus = SAN_clandestine_abyssal_alliances }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_21
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.176 }
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = SAN_total_ideological_war_prep
+		x = 0
+		y = 1
+		relative_position_id = SAN_mobilize_the_under_dwellers_strategy
+		prerequisite = { focus = SAN_mobilize_the_under_dwellers_strategy }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_22
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.177 }
+			add_war_support = 0.2
+		}
+	}
+
+	focus = {
+		id = SAN_sky_throne_reconnaissance_action
+		x = 0
+		y = 1
+		relative_position_id = SAN_total_ideological_war_prep
+		prerequisite = { focus = SAN_total_ideological_war_prep }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_01
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.178 }
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+
+	focus = {
+		id = SAN_final_assault_on_the_divine_arrangements
+		x = 0
+		y = 1
+		relative_position_id = SAN_sky_throne_reconnaissance_action
+		prerequisite = { focus = SAN_sky_throne_reconnaissance_action }
+		cost = 4
+		icon = GFX_goal_DOT_Arcana_02
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.179 }
+			army_experience = 50
+		}
+	}
+
+	focus = {
+		id = SAN_liberation_of_all_teyvat_strategic_vision
+		x = 0
+		y = 1
+		relative_position_id = SAN_final_assault_on_the_divine_arrangements
+		prerequisite = { focus = SAN_final_assault_on_the_divine_arrangements }
+		cost = 20
+		icon = GFX_goal_DOT_Arcana_03
+		completion_reward = {
+			add_to_variable = { var = SAN_prestige value = 20 }
+			custom_effect_tooltip = SAN_prestige_Add
+			country_event = { id = SAN_event.180 }
+			add_ideas = SAN_legacy_of_sun_child
+			add_research_slot = 1
+		}
+	}
+}

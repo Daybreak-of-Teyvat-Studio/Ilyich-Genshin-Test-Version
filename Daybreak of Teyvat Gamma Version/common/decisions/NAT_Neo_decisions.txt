@@ -1,0 +1,2665 @@
+# 纳塔国家决议 - 30个决议，分为内政政治、军事治安、经济工业、文化外交四大类，突出部族冲突调解、内部政治操作、纳塔特色玩法
+NAT_Decisions = {
+
+    NAT_decisions-01 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            # ABY = { exist = no }
+            not = { country_exists = ABY }
+            check_variable = { NAT-ABY-Index < 0 }
+            custom_effect_tooltip = NAT-ABY-Index_LT_0
+        }
+        visible = {
+            tag = NAT
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+            check_variable = { NAT-ABY-Index > 0 }
+            custom_effect_tooltip = NAT-ABY-Index_GT_0
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 30 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = NAT-ABY-Index value = 5 }
+            custom_effect_tooltip = NAT-ABY-Index_Add_5
+            NAT = {
+                add_stability = -0.02
+                add_war_support = -0.02
+                add_manpower = -200
+            }
+            hidden_effect = { }
+        }
+    }
+    NAT_decisions-03 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            # ABY = { exist = no }
+            not = { country_exists = ABY }
+            check_variable = { NAT-ABY-Index < 0 }
+            custom_effect_tooltip = NAT-ABY-Index_LT_0
+        }
+        visible = {
+            tag = NAT
+            date > 1936.9.1
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+            check_variable = { NAT-ABY-Index > 0 }
+            custom_effect_tooltip = NAT-ABY-Index_GT_0
+            date > 1936.9.1
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 180 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = NAT-ABY-Index value = 5 }
+            custom_effect_tooltip = NAT-ABY-Index_Add_5
+            ABY = { add_manpower = -1000 }
+            # NAT = { random_owned_state = { set_state_owner_to = HIP } }
+            HIP = {
+                transfer_state = 653
+                add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = ABY }
+                add_manpower = 1000000 army_experience = 50
+                add_offsite_building = { type = arms_factory level = 5 }
+                add_offsite_building = { type = industrial_complex level = 5 }
+            }
+            HIP = {
+                division_template = {
+                    name = "深渊魔物"
+                    division_names_group = ABY_SS_01
+                    regiments = {
+                        HIP_RockfondRifthound = { x = 0 y = 0 }
+                        HIP_RockfondRifthound = { x = 0 y = 1 }
+                        HIP_RockfondRifthound = { x = 0 y = 2 }
+                        HIP_RockfondRifthound = { x = 0 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 1 y = 0 }
+                        HIP_RockfondRifthound = { x = 1 y = 1 }
+                        HIP_RockfondRifthound = { x = 1 y = 2 }
+                        HIP_RockfondRifthound = { x = 1 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 2 y = 0 }
+                        HIP_RockfondRifthound = { x = 2 y = 1 }
+                        HIP_RockfondRifthound = { x = 2 y = 2 }
+                        HIP_RockfondRifthound = { x = 2 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 3 y = 0 }
+                        HIP_RockfondRifthound = { x = 3 y = 1 }
+                        HIP_RockfondRifthound = { x = 3 y = 2 }
+                        HIP_RockfondRifthound = { x = 3 y = 3 }
+
+                        HIP_RockfondRifthound = { x = 4 y = 0 }
+                        HIP_RockfondRifthound = { x = 4 y = 1 }
+                        HIP_RockfondRifthound = { x = 4 y = 2 }
+                        HIP_RockfondRifthound = { x = 4 y = 3 }
+                    }
+                    support = { }
+                    priority = 1
+                    is_locked = yes
+                    allow_new_equipment = yes
+                    allow_foreign_equipment = yes
+                }
+                random_owned_state = {
+                    create_unit = {
+                        division = "name = \"1. 深渊魔物\" division_template = \"深渊魔物\" start_experience_factor = 0.9 start_equipment_factor = 1.0"
+                        owner = HIP
+                        count = 10
+                    }
+                }
+            }
+            HIP = { every_neighbor_country = { declare_war_on = { target = HIP  type = annex_everything } } }
+            hidden_effect = { }
+        }
+    }
+
+    NAT_decisions-02 = {
+        icon = eng_install_government # icon = Wish_Stone
+        available = { #失败条件
+            neutrality > 0.99
+            has_stability > 0.99
+        }
+        visible = {
+            tag = NAT
+        }
+        fire_only_once = no
+        activation = { #自动触发的条件
+            tag = NAT
+        }
+        days_re_enable = 1
+        days_remove = 1
+        days_mission_timeout = 30 #失败时间
+        modifier = {
+            war_support_factor = -0.01
+            consumer_goods_factor = -0.01
+        }
+        timeout_effect = { #失败效果
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
+            add_stability = -0.02
+            add_war_support = -0.02
+            add_manpower = -100
+            NAT = {
+                add_equipment_to_stockpile = { type = infantry_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = artillery_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = support_equipment  amount = -100  producer = NAT }
+                add_equipment_to_stockpile = { type = anti_tank_equipment  amount = -100  producer = NAT }
+            }
+            hidden_effect = {
+            }
+        }
+    }
+
+    #### 第一类：内政政治类决议（1-8）
+    # 1. 召开部族联合会议
+    NAT_Hold_Tribal_Joint_Council = {
+        icon = eng_install_government # icon = GFX_decision_political_summit
+        allowed = {
+
+        }
+        visible = {  }
+        available = {
+            has_country_flag = NAT_Call_Tribal_Council
+            # NOT = { has_country_flag = NAT_Held_Tribal_Joint_Council }
+            has_stability < 0.8
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 5 } custom_effect_tooltip = MVK-Prestige-Index_Add_5
+            # set_country_flag = NAT_Held_Tribal_Joint_Council
+            add_stability = 0.10
+            add_political_power = 30
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = ALL_TRIBES  value = 15 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Hold_Tribal_Joint_Council_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.9
+        }
+    }
+
+    # 2. 调解部族边境冲突
+    NAT_Mediate_Tribal_Border_Conflict = {
+        icon = eng_install_government # icon = GFX_decision_peace_mediation
+        allowed = {
+
+        }
+        visible = {  }
+        available = {
+            has_country_flag = NAT_Establish_Duel_Mediation_System
+            # NOT = { has_country_flag = NAT_Mediated_Tribal_Conflict_Recent }
+            has_stability < 0.75
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 5 } custom_effect_tooltip = MVK-Prestige-Index_Add_5
+            # set_country_flag = NAT_Mediated_Tribal_Conflict_Recent
+            # clr_country_flag = NAT_Mediated_Tribal_Conflict_Recent days = 180
+            add_stability = 0.07
+            random_owned_controlled_state = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Mediate_Tribal_Border_Conflict_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.85
+        }
+    }
+
+    # 3. 授予英雄古名
+    NAT_Award_Hero_Ancient_Name = {
+        icon = eng_install_government # icon = GFX_decision_award_medal
+        allowed = {
+
+        }
+        visible = {  }
+        available = {
+            has_country_flag = NAT_Codify_Ancient_Name_System
+            # NOT = { has_country_flag = NAT_Awarded_Ancient_Name_Recent }
+            has_stability > 0.3
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Awarded_Ancient_Name_Recent
+            # clr_country_flag = NAT_Awarded_Ancient_Name_Recent days = 365
+            army_experience = 49 # add_land_attack = { value = 0.05  duration = 365 }
+            add_war_support = 0.08
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_nationalism = 0.05
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Award_Hero_Ancient_Name_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.8
+        }
+    }
+
+    # 4. 镇压部族分离主义叛乱
+    NAT_Suppress_Tribal_Separatist_Rebellion = {
+        icon = eng_install_government # icon = GFX_decision_counter_insurgency
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Suppress_Separatist_Forces
+        }
+        available = {
+            has_country_flag = NAT_Suppress_Separatist_Forces
+            has_stability < 0.9
+            # NOT = { has_country_flag = NAT_Suppressed_Separatist_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Suppressed_Separatist_Recent
+            # clr_country_flag = NAT_Suppressed_Separatist_Recent days = 180
+            add_manpower = -1000 # add_garrison_efficiency = 0.15
+            add_command_power = 100 # add_government_authority = 5
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Suppress_Tribal_Separatist_Rebellion_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.95
+        }
+    }
+
+    # 5. 平反历史冤案
+    NAT_Redress_Historical_Injustice = {
+        icon = eng_install_government # icon = GFX_decision_justice_reform
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+        }
+        available = {
+            has_country_flag = NAT_Redress_Ocican_Tyranny_Injustice
+            # NOT = { has_country_flag = NAT_Redressed_Historical_Injustice }
+            has_stability < 0.8
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Redressed_Historical_Injustice
+            add_stability = 0.08
+            # add_happiness = { target = all  value = 0.06 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Redress_Historical_Injustice_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.75
+        }
+    }
+
+    # 6. 规范部族税收制度
+    NAT_Standardize_Tribal_Taxation_System = {
+        icon = eng_install_government # icon = GFX_decision_taxation_reform
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Establish_Unified_Taxation_System
+        }
+        available = {
+            has_country_flag = NAT_Establish_Unified_Taxation_System
+            # NOT = { has_country_flag = NAT_Standardized_Taxation_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Standardized_Taxation_Recent
+            # clr_country_flag = NAT_Standardized_Taxation_Recent days = 365
+            random_owned_controlled_state = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } } # reduce_consumer_goods = 0.02
+            add_resource = { type = oil amount = 10 state = random_owned_controlled_state 	} # add_factory_output = 0.04
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Standardize_Tribal_Taxation_System_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.8
+        }
+    }
+
+    # 7. 拉拢部族长老议会
+    NAT_Woo_Tribal_Elder_Council = {
+        icon = eng_install_government # icon = GFX_decision_political_negotiation
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Reform_Tribal_Parliament
+        }
+        available = {
+            has_country_flag = NAT_Reform_Tribal_Parliament
+            # NOT = { has_country_flag = NAT_Wooed_Tribal_Elders_Recent }
+            # ideology_support = { ideology = authoritarianism  < 0.4 }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Wooed_Tribal_Elders_Recent
+            # clr_country_flag = NAT_Wooed_Tribal_Elders_Recent days = 180
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_ideology_support = { ideology = authoritarianism  value = 0.05 }
+            add_command_power = 100 # add_government_authority = 6
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Woo_Tribal_Elder_Council_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.7
+        }
+    }
+
+    # 8. 清剿内部深渊邪教
+    NAT_Clean_Up_Internal_Abyss_Cults = {
+        icon = eng_install_government # icon = GFX_decision_counter_espionage
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
+        }
+        available = {
+            has_country_flag = NAT_Clean_Up_Abyss_Cult_Forces
+            # NOT = { has_country_flag = NAT_Cleaned_Abyss_Cults_Recent }
+            # counter_espionage < 0.8
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Cleaned_Abyss_Cults_Recent
+            # clr_country_flag = NAT_Cleaned_Abyss_Cults_Recent days = 180
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_counter_espionage = 0.12
+            add_stability = 0.05
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Clean_Up_Internal_Abyss_Cults_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.9
+        }
+    }
+
+    #### 第二类：军事治安类决议（9-16）
+    # 9. 举办全国决斗演武
+    NAT_Hold_National_Duel_Martial_Arts = {
+        icon = eng_install_government # icon = GFX_decision_military_training
+        allowed = {
+
+        }
+        visible = {
+            has_country_flag = NAT_Establish_Duel_Code
+        }
+        available = {
+            has_country_flag = NAT_Establish_Duel_Code
+            # NOT = { has_country_flag = NAT_Held_Duel_Martial_Arts_Recent }
+            has_stability < 0.85
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Held_Duel_Martial_Arts_Recent
+            # clr_country_flag = NAT_Held_Duel_Martial_Arts_Recent days = 270
+            # add_army_organization = 0.08   # 这个要写一个精神放进去
+            army_experience = 49 # add_land_attack = { value = 0.04 duration = 270 }
+            add_war_support = 0.06
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Hold_National_Duel_Martial_Arts_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.85
+        }
+    }
+
+    # 10. 整编部族民兵武装
+    NAT_Restruct_Tribal_Militia = {
+        icon = eng_install_government # icon = GFX_decision_military_conscription
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Strengthen_Fire_God_Authority
+            # has_country_flag = NAT_Integrate_Tribal_Militias
+        }
+        available = {
+            has_completed_focus = NAT_Strengthen_Fire_God_Authority
+            # has_country_flag = NAT_Integrate_Tribal_Militias
+            # NOT = { has_country_flag = NAT_Restructed_Militia_Recent }
+            has_stability < 0.75
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
+            # set_country_flag = NAT_Restructed_Militia_Recent
+            # clr_country_flag = NAT_Restructed_Militia_Recent days = 365
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }  # add_manpower = 0.10
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }  # add_manpower = 10000  # add_division_recruitment_speed = 0.07
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Restruct_Tribal_Militia_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.9
+        }
+    }
+
+    # 11. 构筑边境防御隘口
+    NAT_Build_Border_Defense_Passes = {
+        icon = eng_install_government # icon = GFX_decision_infrastructure_fortifications
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Suppress_Separatist_Forces
+            # has_country_flag = NAT_Upgrade_Border_Defenses
+        }
+        available = {
+            has_completed_focus = NAT_Suppress_Separatist_Forces
+            # has_country_flag = NAT_Upgrade_Border_Defenses
+            # NOT = { has_country_flag = NAT_Built_Defense_Passes_Recent }
+            # fort_level_average < 3
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Built_Defense_Passes_Recent
+            # clr_country_flag = NAT_Built_Defense_Passes_Recent days = 730
+            # add_fort_level = { value = 1  provinces = BORDER_PROVINCES duration = 730 }
+            add_building_construction = {
+                type = fort
+                level = 1
+                instant_build = yes
+                province = {
+                    id = BORDER_PROVINCES
+                }
+            }
+            navy_experience = 20 # add_land_defense = { value = 0.12  duration = 730 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Build_Border_Defense_Passes_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.8
+        }
+    }
+
+    # 12. 训练部族斥候部队
+    NAT_Train_Tribal_Scout_Units = {
+        icon = eng_install_government # icon = GFX_decision_military_intelligence
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Honor_Heroes_Of_The_Calamity
+            # has_country_flag = NAT_Establish_Scout_Training_Camp
+        }
+        available = {
+            has_completed_focus = NAT_Honor_Heroes_Of_The_Calamity
+            # has_country_flag = NAT_Establish_Scout_Training_Camp
+            # NOT = { has_country_flag = NAT_Trained_Scouts_Recent }
+            # recon_efficiency < 0.8
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Trained_Scouts_Recent
+            # clr_country_flag = NAT_Trained_Scouts_Recent days = 270
+            # add_recon_efficiency = 0.15
+            # add_army_speed = 0.06
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Train_Tribal_Scout_Units_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.88
+        }
+    }
+
+    # 13. 清缴跨境武装走私
+    NAT_Crack_Down_Crossborder_Arms_Smuggling = {
+        icon = eng_install_government # icon = GFX_decision_customs_enforcement
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Enhance_Border_Patrols
+        }
+        available = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Enhance_Border_Patrols
+            # NOT = { has_country_flag = NAT_Cracked_Smuggling_Recent }
+            has_stability > 0.2
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Cracked_Smuggling_Recent
+            # clr_country_flag = NAT_Cracked_Smuggling_Recent days = 180
+            # add_arms_availability = 0.08
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_counter_espionage = 0.09
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Crack_Down_Crossborder_Arms_Smuggling_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.82
+        }
+    }
+
+    # 14. 推行全民军事训练
+    NAT_Implement_Universal_Military_Training = {
+        icon = eng_install_government # icon = GFX_decision_military_drill
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Promote_Military_Culture
+        }
+        available = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Promote_Military_Culture
+            # NOT = { has_country_flag = NAT_Implemented_Military_Training_Recent }
+            # war_support < 0.6
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Implemented_Military_Training_Recent
+            # clr_country_flag = NAT_Implemented_Military_Training_Recent days = 365
+            add_tech_bonus = { bonus = 0.5 uses = 1 category = armor }  # add_manpower = 0.15
+            add_war_support = 0.10
+            # add_army_morale = 0.07
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Implement_Universal_Military_Training_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.92
+        }
+    }
+
+    # 15. 平定军阀割据势力
+    NAT_Pacify_Warlord_Separatist_Forces = {
+        icon = eng_install_government # icon = GFX_decision_military_campaign
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Launch_Warlord_Pacification
+        }
+        available = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Launch_Warlord_Pacification
+            # NOT = { has_country_flag = NAT_Pacified_Warlords_Recent }
+            # central_control < 0.8
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Pacified_Warlords_Recent
+            # clr_country_flag = NAT_Pacified_Warlords_Recent days = 365
+            # add_central_control = 0.12
+            add_command_power = 100 # add_government_authority = 8
+            add_stability = 0.09
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Pacify_Warlord_Separatist_Forces_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.97
+        }
+    }
+
+    # 16. 升级军用装备制造线
+    NAT_Upgrade_Military_Equipment_Lines = {
+        icon = eng_install_government # icon = GFX_decision_military_production
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Modernize_War_Industry
+        }
+        available = {
+            has_completed_focus = NAT_Redress_Ocican_Tyranny_Injustice
+            # has_country_flag = NAT_Modernize_War_Industry
+            # NOT = { has_country_flag = NAT_Upgraded_Equipment_Lines_Recent }
+            # industrial_capacity < 0.7
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Upgraded_Equipment_Lines_Recent
+            # clr_country_flag = NAT_Upgraded_Equipment_Lines_Recent days = 730
+            # add_equipment_production_speed = 0.10
+            add_resource = { type = oil amount = 10 state = random_owned_controlled_state 	} # add_factory_output = 0.06
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Upgrade_Military_Equipment_Lines_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.86
+        }
+    }
+
+    #### 第三类：经济工业类决议（17-24）
+    # 17. 开发部族传统矿产资源
+    NAT_Develop_Tribal_Traditional_Minerals = {
+        icon = eng_install_government # icon = GFX_decision_resource_extraction
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Authorize_Mineral_Development
+        }
+        available = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Authorize_Mineral_Development
+            # NOT = { has_country_flag = NAT_Developed_Minerals_Recent }
+            # resources = { type = steel value < 500 }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Developed_Minerals_Recent
+            # clr_country_flag = NAT_Developed_Minerals_Recent days = 365
+            add_resource = { type = steel value = 150 }
+            add_resource = { type = chromium value = 80 }
+            add_resource = { type = oil amount = 10 state = random_owned_controlled_state 	} # add_factory_output = 0.05
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Develop_Tribal_Traditional_Minerals_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.83
+        }
+    }
+
+    # 18. 修建部族间贸易商道
+    NAT_Build_Inter_Tribal_Trade_Routes = {
+        icon = eng_install_government # icon = GFX_decision_infrastructure_roads
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Improve_Tribal_Connectivity
+        }
+        available = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Improve_Tribal_Connectivity
+            # NOT = { has_country_flag = NAT_Built_Trade_Routes_Recent }
+            # infrastructure < 0.6
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = -5 } custom_effect_tooltip = MVK-Prestige-Index_Decrease_5
+            # set_country_flag = NAT_Built_Trade_Routes_Recent
+            # clr_country_flag = NAT_Built_Trade_Routes_Recent days = 730
+            # add_infrastructure = { value = 0.10 provinces = ALL_PROVINCES }
+            every_state = {
+                limit = {
+                    is_core_of = GER
+                    is_controlled_by = GER
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = infrastructure
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            # add_trade_efficiency = 0.08
+            consumer_goods_factor = -0.03
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Build_Inter_Tribal_Trade_Routes_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.87
+        }
+    }
+
+    # 19. 建立部族手工业合作社
+    NAT_Establish_Tribal_Crafts_Cooperatives = {
+        icon = eng_install_government # icon = GFX_decision_industrial_cooperatives
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Support_Tribal_Crafts
+        }
+        available = {
+            has_completed_focus = NAT_Source_Fire_Heart_Guard
+            # has_country_flag = NAT_Support_Tribal_Crafts
+            # NOT = { has_country_flag = NAT_Established_Cooperatives_Recent }
+            # civilian_factories < 20
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Established_Cooperatives_Recent
+            # clr_country_flag = NAT_Established_Cooperatives_Recent days = 365
+            random_state = {
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 5
+                    instant_build = yes
+                }
+            }
+            # add_happiness = { target = all value = 0.07 }
+            consumer_goods_factor = -0.02
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Establish_Tribal_Crafts_Cooperatives_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.78
+        }
+    }
+
+    # 20. 改革部族土地分配制度
+    NAT_Reform_Tribal_Land_Allocation = {
+        icon = eng_install_government # icon = GFX_decision_agrarian_reform
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Redistribute_Tribal_Lands
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Redistribute_Tribal_Lands
+            # NOT = { has_country_flag = NAT_Reformed_Land_Allocation_Recent }
+            # agricultural_efficiency < 0.7
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Reformed_Land_Allocation_Recent
+            # clr_country_flag = NAT_Reformed_Land_Allocation_Recent days = 365
+            # add_agricultural_efficiency = 0.12
+            add_fuel = 800 # add_resource = { type = food value = 200 duration = 365 }
+            add_stability = 0.07
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Reform_Tribal_Land_Allocation_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.81
+        }
+    }
+
+    # 21. 引入外来工业技术投资
+    NAT_Attract_Foreign_Industrial_Investment = {
+        icon = eng_install_government # icon = GFX_decision_foreign_investment
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Open_Industrial_Investment
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Open_Industrial_Investment
+            # NOT = { has_country_flag = NAT_Attracted_Foreign_Investment_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Attracted_Foreign_Investment_Recent
+            # clr_country_flag = NAT_Attracted_Foreign_Investment_Recent days = 730
+            air_experience = 10 # add_industrial_capacity = 0.10
+            random_state = {
+                add_building_construction = {
+                    type = arms_factory
+                    level = 4
+                    instant_build = yes
+                }
+            }
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = MAJOR_POWERS value = 10 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Attract_Foreign_Industrial_Investment_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.76
+        }
+    }
+
+    # 22. 规范部族商品交易市场
+    NAT_Standardize_Tribal_Commodity_Markets = {
+        icon = eng_install_government # icon = GFX_decision_economic_regulation
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Establish_Market_Regulations
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Establish_Market_Regulations
+            # NOT = { has_country_flag = NAT_Standardized_Markets_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Standardized_Markets_Recent
+            # clr_country_flag = NAT_Standardized_Markets_Recent days = 365
+            # add_trade_efficiency = 0.11
+            consumer_goods_factor = -0.04
+            # add_happiness = { target = all value = 0.05 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Standardize_Tribal_Commodity_Markets_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.84
+        }
+    }
+
+    # 23. 建设水利灌溉工程
+    NAT_Construct_Irrigation_Projects = {
+        icon = eng_install_government # icon = GFX_decision_infrastructure_irrigation
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Invest_In_Agricultural_Infrastructure
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Invest_In_Agricultural_Infrastructure
+            # NOT = { has_country_flag = NAT_Constructed_Irrigation_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Constructed_Irrigation_Recent
+            # clr_country_flag = NAT_Constructed_Irrigation_Recent days = 730
+            # add_agricultural_efficiency = 0.15
+            add_fuel = 800 # add_resource = { type = food value = 250 duration = 730 }
+            add_stability = 0.08
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Construct_Irrigation_Projects_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.89
+        }
+    }
+
+    # 24. 发行部族统一流通货币
+    NAT_Issue_Unified_Tribal_Currency = {
+        icon = eng_install_government # icon = GFX_decision_economic_currency
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Establish_Central_Banking
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Establish_Central_Banking
+            # NOT = { has_country_flag = NAT_Issued_Unified_Currency_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Issued_Unified_Currency_Recent
+            # clr_country_flag = NAT_Issued_Unified_Currency_Recent days = 730
+            # add_economic_stability = 0.13
+            # add_trade_efficiency = 0.09
+            add_resource = { type = oil amount = 10 state = random_owned_controlled_state 	} # add_factory_output = 0.07
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Issue_Unified_Tribal_Currency_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.82
+        }
+    }
+
+    #### 第四类：文化外交类决议（25-30）
+    # 25. 编撰部族英雄史诗集
+    NAT_Compile_Tribal_Heroic_Epics = {
+        icon = eng_install_government # icon = GFX_decision_cultural_preservation
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Preserve_Tribal_Culture
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Preserve_Tribal_Culture
+            # NOT = { has_country_flag = NAT_Compiled_Epics_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Compiled_Epics_Recent
+            # clr_country_flag = NAT_Compiled_Epics_Recent days = 365
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_nationalism = 0.09
+            # add_happiness = { target = all value = 0.08 }
+            add_stability = 0.06
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Compile_Tribal_Heroic_Epics_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.77
+        }
+    }
+
+    # 26. 举办纳塔文化交流节
+    NAT_Hold_Nata_Cultural_Exchange_Festival = {
+        icon = eng_install_government # icon = GFX_decision_cultural_festival
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Promote_Cultural_Unity
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Promote_Cultural_Unity
+            # NOT = { has_country_flag = NAT_Held_Cultural_Festival_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Held_Cultural_Festival_Recent
+            # clr_country_flag = NAT_Held_Cultural_Festival_Recent days = 180
+            # add_unity = 0.10
+            # add_happiness = { target = all value = 0.07 }
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = ALL_TRIBES value = 20 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Hold_Nata_Cultural_Exchange_Festival_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.85
+        }
+    }
+
+    # 27. 与邻邦签署边境和平协定
+    NAT_Sign_Border_Peace_Agreement_With_Neighbors = {
+        icon = eng_install_government # icon = GFX_decision_diplomatic_peace
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Initiate_Border_Diplomatic_Talks
+        }
+        available = {
+            has_completed_focus = NAT_Flame_Blessing_For_Duel_Warriors
+            # has_country_flag = NAT_Initiate_Border_Diplomatic_Talks
+            # NOT = { has_country_flag = NAT_Signed_Peace_Agreement_Recent } relations = { target = NEIGHBOR_COUNTRIES value < 0 }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Signed_Peace_Agreement_Recent
+            # clr_country_flag = NAT_Signed_Peace_Agreement_Recent days = 730
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = NEIGHBOR_COUNTRIES value = 30 }
+            add_stability = -0.05 # reduce_war_exhaustion = 0.10
+            add_stability = 0.08
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Sign_Border_Peace_Agreement_With_Neighbors_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.80
+        }
+    }
+
+    # 28. 设立部族语言标准化机构
+    NAT_Establish_Tribal_Language_Standardization_Body = {
+        icon = eng_install_government # icon = GFX_decision_cultural_standardization
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            # has_country_flag = NAT_Unify_Tribal_Languages
+        }
+        available = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            # has_country_flag = NAT_Unify_Tribal_Languages
+            # NOT = { has_country_flag = NAT_Established_Language_Body_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Established_Language_Body_Recent
+            # clr_country_flag = NAT_Established_Language_Body_Recent days = 730
+            # add_unity = 0.12
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_nationalism = 0.07
+            # add_happiness = { target = all value = 0.06 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Establish_Tribal_Language_Standardization_Body_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.79
+        }
+    }
+
+    # 29. 派遣文化使团出访友邦
+    NAT_Dispatch_Cultural_Missions_To_Friendly_Nations = {
+        icon = eng_install_government # icon = GFX_decision_diplomatic_cultural
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            # has_country_flag = NAT_Promote_Nata_Culture_Abroad
+        }
+        available = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            # has_country_flag = NAT_Promote_Nata_Culture_Abroad
+            # NOT = { has_country_flag = NAT_Dispatched_Cultural_Missions_Recent }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = -10 } custom_effect_tooltip = NAT-ABY-Index_Decrease_10
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Dispatched_Cultural_Missions_Recent
+            # clr_country_flag = NAT_Dispatched_Cultural_Missions_Recent days = 365
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = industry } # add_relations = { target = FRIENDLY_NATIONS value = 25 }
+            # add_influence = { target = REGIONAL_NATIONS value = 5 }
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Dispatch_Cultural_Missions_To_Friendly_Nations_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.83
+        }
+    }
+
+    # 30. 确立纳塔传统决斗为国家仪式
+    NAT_Establish_Nata_Traditional_Duel_As_National_Ritual = {
+        icon = eng_install_government # icon = GFX_decision_cultural_ritual
+        allowed = {
+
+        }
+        visible = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            #  has_country_flag = NAT_Codify_Duel_Traditions
+        }
+        available = {
+            has_completed_focus = NAT_Promote_Natlan_National_Identity
+            # has_country_flag = NAT_Codify_Duel_Traditions
+            # NOT = { has_country_flag = NAT_Established_Duel_Ritual }
+        }
+        cost = 30
+        days_remove = 30  fire_only_once = yes
+        complete_effect = {
+            add_to_variable = { var = NAT-ABY-Index value = 5 } custom_effect_tooltip = NAT-ABY-Index_Add_5
+            add_to_variable = { var = MVK-Prestige-Index value = 10 } custom_effect_tooltip = MVK-Prestige-Index_Add_10
+            # set_country_flag = NAT_Established_Duel_Ritual
+            # add_unity = 0.15
+            add_tech_bonus = { bonus = 0.2 uses = 1 category = motorized_equipment } # add_nationalism = 0.10
+            army_experience = 49 # add_land_attack = { value = 0.08 duration = -1 }
+            add_war_support = 0.12
+            custom_effect_tooltip = GUN_Effects_are_Hidden # custom_effect_tooltip = NAT_Establish_Nata_Traditional_Duel_As_National_Ritual_Tooltip
+        }
+        ai_will_do = {
+            factor = 1 # factor = 0.93
+        }
+    }
+}
+
+
+NAT_fascism_on_the_rise = {
+    prepare_for_fascist_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            fascism > 0.1
+            has_stability < 0.6
+        }
+        visible = {
+            fascism > 0.1
+            has_stability < 0.6
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_country_flag = preparation_for_fascist_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    expand_civil_fascism_support = {
+
+        icon = generic_civil_support
+
+        visible = {
+            OR = {
+                has_country_flag = preparation_for_fascist_civil_war
+                has_country_flag = open_up_political_discourse_fascism
+            }
+            NOT = { has_government = fascism }
+        }
+
+        fire_only_once = no
+
+        cost = 25
+
+        days_remove = 30
+
+        modifier = {
+            fascism_drift = 0.02
+            stability_weekly = -0.03
+            political_power_gain = -0.2
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    army_support_for_fascist_civil_war = {
+
+        icon = generic_army_support
+
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+            }
+            NOT = { has_government = fascism }
+            # check_has_focus_tree_to_switch_to_fascism = yes
+        }
+
+        fire_only_once = no
+
+        cost = 50
+
+        days_remove = 30
+
+        modifier = {
+            command_power_gain = -0.2
+        }
+        remove_effect = {
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = less_than }
+                }
+                set_variable = { var = army_support_var value = 0.1 }
+            }
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = greater_than_or_equals }
+                }
+                add_to_variable = { var = army_support_var value = 0.1 }
+            }
+            set_country_flag = military_support_for_fascist_civil_war
+            custom_effect_tooltip = army_support_TT
+        }
+        complete_effect = {
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_general_loyalty_for_fascist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_fascist_civil_war
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+            }
+            NOT = { has_government = fascism }
+            any_army_leader = {
+                is_field_marshal = no
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_fascism = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.1 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_marshal_loyalty_for_fascist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_fascist_civil_war
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+            }
+            NOT = { has_government = fascism }
+            any_army_leader = {
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_fascism = yes
+            any_army_leader = {
+                is_field_marshal = yes
+                NOT = { has_unit_leader_flag = hidden_sympathies_marshal }
+            }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.2 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    siphon_equipment_stockpiles_for_fascist_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            has_country_flag = military_support_for_fascist_civil_war
+            has_equipment = { infantry_equipment > 1000 }
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            has_country_flag = military_support_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+            }
+            NOT = { has_government = fascism }
+            # check_has_focus_tree_to_switch_to_fascism = yes
+        }
+        fire_only_once = no
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = -1000
+            }
+            set_country_flag = siphoned_equipment_stockpiles_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    formulate_surprise_attack_plan_for_fascist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_fascist_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+            }
+            NOT = { has_government = fascism }
+            # check_has_focus_tree_to_switch_to_fascism = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            custom_effect_tooltip = formulate_surprise_attack_plan_for_civil_war_tt
+            set_country_flag = formulated_surprise_attack_plan_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_fascist_civil_war_single_state = {
+        icon = generic_ignite_civil_war
+        name = ignite_the_fascist_civil_war
+
+        available = {
+            has_stability < 0.5
+            fascism > 0.50
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+                has_idea_with_trait = GER_revolutionary_nationalist_advisor
+            }
+            NOT = { has_government = fascism }
+            check_variable = { num_owned_states = 1 }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_politics = { ruling_party = fascism elections_allowed = no }
+            clr_country_flag = preparation_for_fascism_civil_war
+            clr_country_flag = military_support_for_fascism_civil_war
+            clr_country_flag = civil_support_for_fascism_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_fascist_civil_war = {
+
+        icon = generic_ignite_civil_war
+
+        available = {
+            has_stability < 0.5
+        }
+        visible = {
+            has_country_flag = preparation_for_fascist_civil_war
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+                has_idea_with_trait = GER_revolutionary_nationalist_advisor
+            }
+            NOT = { has_government = fascism }
+            check_variable = { num_owned_states > 1 }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            if = {
+                limit = {
+                    has_government = democratic
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@democratic
+                }
+            }
+            if = {
+                limit = {
+                    has_government = communism
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@communism
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@neutrality
+                }
+            }
+            subtract_from_variable = {
+                var = civil_war_size_var
+                value = army_support_var
+            }
+            if = {
+                limit = {
+                    check_variable = {
+                        var = civil_war_size_var
+                        value = 0.3
+                        compare = less_than
+                    }
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = 0.3
+                }
+            }
+            start_civil_war = {
+                ruling_party = fascism
+                ideology = ROOT
+                size = civil_war_size_var
+                keep_unit_leaders_trigger = {
+                    has_trait = hidden_sympathies
+                }
+            }
+            clr_country_flag = preparation_for_fascism_civil_war
+            clr_country_flag = military_support_for_fascism_civil_war
+            clr_country_flag = civil_support_for_fascism_civil_war
+            set_country_flag = ideology_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    rebuild_the_nation_fascism = {
+
+        icon = generic_construction
+
+        visible = {
+            has_government = fascism
+            has_country_flag = won_ideology_civil_war
+        }
+        fire_only_once = yes
+
+        cost = 25
+
+        days_remove = 365
+
+        modifier = {
+            political_power_gain = -1
+            industry_repair_factor = 0.20
+            production_speed_industrial_complex_factor = 0.1
+            production_speed_infrastructure_factor = 0.1
+            industrial_capacity_factory = 0.1
+            industrial_capacity_dockyard = 0.1
+        }
+        ai_will_do = {
+            factor = 200
+        }
+    }
+
+    open_up_political_discourse_fascism = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.9
+            democratic < 0.9
+            communism < 0.9
+            neutrality < 0.9
+        }
+        visible = {
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+                has_idea_with_trait = GER_revolutionary_nationalist_advisor
+            }
+            NOT = { has_country_flag = open_up_political_discourse_fascism }
+            NOT = { has_government = fascism }
+        }
+        remove_trigger = {
+            has_government = fascism
+        }
+        fire_only_once = yes
+
+        cost = 75
+
+        complete_effect = {
+            set_country_flag = open_up_political_discourse_fascism
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    discredit_government_fascism = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.8
+            democratic < 0.8
+            communism < 0.8
+            neutrality < 0.8
+            OR = {
+                has_idea_with_trait = fascist_demagogue
+                has_idea_with_trait = syncretic_revanchist
+                has_idea_with_trait = GER_revolutionary_nationalist_advisor
+            }
+        }
+        visible = {
+            has_country_flag = open_up_political_discourse_fascism
+            NOT = { has_government = fascism }
+        }
+        remove_trigger = {
+            has_government = fascism
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_stability = -0.010
+            if = {
+                limit = {
+                    has_government = democratic
+                }
+                add_popularity = {
+                    ideology = democratic
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = communism
+                }
+                add_popularity = {
+                    ideology = communism
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                add_popularity = {
+                    ideology = neutrality
+                    popularity = -0.1
+                }
+            }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    hold_the_fascist_national_referendum = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism > 0.5
+        }
+        visible = {
+            NOT = { has_government = fascism }
+            OR = {
+                fascism > 0.6
+                has_country_flag = open_up_political_discourse_fascism
+            }
+        }
+        remove_trigger = {
+            has_government = fascism
+        }
+        fire_only_once = yes
+
+        cost = 100
+
+        complete_effect = {
+            country_event = { id = political.18 }
+        }
+        ai_will_do = {
+            factor = 210
+            modifier = {
+                fascism > 0.6
+                factor = 00
+            }
+        }
+    }
+}
+
+NAT_democratic_on_the_rise = {
+    prepare_for_democratic_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            democratic > 0.1
+            has_stability < 0.6
+        }
+        visible = {
+            democratic > 0.1
+            has_stability < 0.6
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_country_flag = preparation_for_democratic_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    expand_civil_democratic_support = {
+
+        icon = generic_civil_support
+
+        visible = {
+            democratic > 0.1
+            has_stability < 0.6
+            OR = {
+                has_country_flag = preparation_for_democratic_civil_war
+                has_country_flag = open_up_political_discourse_democratic
+                democratic > 0.1
+                has_stability < 0.6
+            }
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+
+        fire_only_once = no
+
+        cost = 25
+
+        days_remove = 30
+
+        modifier = {
+            democratic_drift = 0.05
+            stability_weekly = -0.003
+            political_power_gain = -0.2
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    army_support_for_democratic_civil_war = {
+
+        icon = generic_army_support
+
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+
+        fire_only_once = no
+
+        cost = 50
+
+        days_remove = 30
+
+        modifier = {
+            command_power_gain = -0.2
+        }
+        remove_effect = {
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = less_than }
+                }
+                set_variable = { var = army_support_var value = 0.1 }
+            }
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = greater_than_or_equals }
+                }
+                add_to_variable = { var = army_support_var value = 0.1 }
+            }
+            set_country_flag = military_support_for_democratic_civil_war
+        }
+        complete_effect = {
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_general_loyalty_for_democratic_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_democratic_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            any_army_leader = {
+                is_field_marshal = no
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.1 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_marshal_loyalty_for_democratic_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_democratic_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            any_army_leader = {
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+            any_army_leader = {
+                is_field_marshal = yes
+                NOT = { has_unit_leader_flag = hidden_sympathies_marshal }
+            }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.2 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    siphon_equipment_stockpiles_for_democratic_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            has_country_flag = military_support_for_democratic_civil_war
+            has_equipment = { infantry_equipment > 1000 }
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            has_country_flag = military_support_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+        fire_only_once = no
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = -1000
+            }
+            set_country_flag = siphoned_equipment_stockpiles_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    formulate_surprise_attack_plan_for_democratic_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_democratic_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            custom_effect_tooltip = formulate_surprise_attack_plan_for_civil_war_tt
+            set_country_flag = formulated_surprise_attack_plan_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_democratic_civil_war_single_state = {
+        icon = generic_ignite_civil_war
+        name = ignite_the_democratic_civil_war
+
+        available = {
+            democratic > 0.1
+            has_stability < 0.6
+        }
+        visible = {
+            democratic > 0.1
+            has_stability < 0.6
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_politics = { ruling_party = democratic elections_allowed = yes }
+            clr_country_flag = preparation_for_democratic_civil_war
+            clr_country_flag = military_support_for_democratic_civil_war
+            clr_country_flag = civil_support_for_democratic_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_democratic_civil_war = {
+
+        icon = generic_ignite_civil_war
+
+        available = {
+            has_stability < 0.5
+        }
+        visible = {
+            has_country_flag = preparation_for_democratic_civil_war
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+            check_variable = { num_owned_states > 1 }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            if = {
+                limit = {
+                    has_government = fascism
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@fascism
+                }
+            }
+            if = {
+                limit = {
+                    has_government = communism
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@communism
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@neutrality
+                }
+            }
+            subtract_from_variable = {
+                var = civil_war_size_var
+                value = army_support_var
+            }
+            if = {
+                limit = {
+                    check_variable = {
+                        var = civil_war_size_var
+                        value = 0.3
+                        compare = less_than
+                    }
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = 0.3
+                }
+            }
+            start_civil_war = {
+                ruling_party = democratic
+                ideology = ROOT
+                size = civil_war_size_var
+                keep_unit_leaders_trigger = {
+                    has_trait = hidden_sympathies
+                }
+            }
+            clr_country_flag = preparation_for_democratic_civil_war
+            clr_country_flag = military_support_for_democratic_civil_war
+            clr_country_flag = civil_support_for_democratic_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    rebuild_the_nation_democratic = {
+
+        icon = generic_construction
+
+        visible = {
+            has_government = democratic
+            has_country_flag = won_ideology_civil_war
+        }
+        fire_only_once = yes
+
+        cost = 25
+
+        days_remove = 365
+
+        modifier = {
+            political_power_gain = -1
+            industry_repair_factor = 0.20
+            production_speed_industrial_complex_factor = 0.1
+            production_speed_infrastructure_factor = 0.1
+            industrial_capacity_factory = 0.1
+            industrial_capacity_dockyard = 0.1
+        }
+        ai_will_do = {
+            factor = 200
+        }
+    }
+
+    open_up_political_discourse_democratic = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.9
+            democratic < 0.9
+            communism < 0.9
+            neutrality < 0.9
+        }
+        visible = {
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+        remove_trigger = {
+            has_government = democratic
+        }
+        fire_only_once = yes
+
+        cost = 75
+
+        complete_effect = {
+            set_country_flag = open_up_political_discourse_democratic
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    discredit_government_democratic = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.8
+            democratic < 0.8
+            communism < 0.8
+            neutrality < 0.8
+            OR = {
+                has_idea_with_trait = democratic_reformer
+                has_idea_with_trait = social_reformer
+            }
+        }
+        visible = {
+            has_country_flag = open_up_political_discourse_democratic
+            NOT = { has_government = democratic }
+            # check_has_focus_tree_to_switch_to_democratic = yes
+        }
+        remove_trigger = {
+            has_government = democratic
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_stability = -0.010
+            if = {
+                limit = {
+                    has_government = fascism
+                }
+                add_popularity = {
+                    ideology = fascism
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = communism
+                }
+                add_popularity = {
+                    ideology = communism
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                add_popularity = {
+                    ideology = neutrality
+                    popularity = -0.1
+                }
+            }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    hold_the_democratic_national_referendum = {
+
+        icon = generic_political_discourse
+
+        available = {
+            democratic > 0.5
+        }
+        visible = {
+            NOT = { has_government = democratic }
+            OR = {
+                democratic > 0.6
+                has_country_flag = open_up_political_discourse_democratic
+            }
+        }
+        remove_trigger = {
+            has_government = democratic
+        }
+        fire_only_once = yes
+
+        cost = 100
+
+        complete_effect = {
+            country_event = { id = political.20 }
+        }
+        ai_will_do = {
+            factor = 210
+            modifier = {
+                democratic > 0.6
+                factor = 00
+            }
+        }
+    }
+}
+
+NAT_communism_on_the_rise = {
+    prepare_for_communist_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            communism > 0.1
+            has_stability < 0.6
+        }
+        visible = {
+            communism > 0.1
+            has_stability < 0.6
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_country_flag = preparation_for_communist_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    expand_civil_communist_support = {
+
+        icon = generic_civil_support
+
+        visible = {
+            OR = {
+                has_country_flag = preparation_for_communist_civil_war
+                has_country_flag = open_up_political_discourse_communism
+            }
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+
+        fire_only_once = no
+
+        cost = 25
+
+        days_remove = 30
+
+        modifier = {
+            communism_drift = 0.02
+            stability_weekly = -0.03
+            political_power_gain = -0.2
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    army_support_for_communist_civil_war = {
+
+        icon = generic_army_support
+
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+
+        fire_only_once = no
+
+        cost = 50
+
+        days_remove = 30
+
+        modifier = {
+            command_power_gain = -0.2
+        }
+        remove_effect = {
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = less_than }
+                }
+                set_variable = { var = army_support_var value = 0.1 }
+            }
+            if = {
+                limit = {
+                    check_variable = { var = army_support_var value = 0.1 compare = greater_than_or_equals }
+                }
+                add_to_variable = { var = army_support_var value = 0.1 }
+            }
+            set_country_flag = military_support_for_communist_civil_war
+        }
+        complete_effect = {
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_general_loyalty_for_communist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_communist_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            any_army_leader = {
+                is_field_marshal = no
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.1 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ensure_marshal_loyalty_for_communist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_communist_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            any_army_leader = {
+                NOT = { has_trait = hidden_sympathies }
+            }
+            # check_has_focus_tree_to_switch_to_communism = yes
+            any_army_leader = {
+                is_field_marshal = yes
+                NOT = { has_unit_leader_flag = hidden_sympathies_marshal }
+            }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            country_event = { id = decisions.2 }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    siphon_equipment_stockpiles_for_communist_civil_war = {
+
+        icon = generic_prepare_civil_war
+
+        available = {
+            has_country_flag = military_support_for_communist_civil_war
+            has_equipment = { infantry_equipment > 1000 }
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            has_country_flag = military_support_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        fire_only_once = no
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = -1000
+            }
+            set_country_flag = siphoned_equipment_stockpiles_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    formulate_surprise_attack_plan_for_communist_civil_war = {
+
+        icon = generic_army_support
+
+        available = {
+            has_country_flag = military_support_for_communist_civil_war
+            command_power > 2
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_command_power = -2
+            custom_effect_tooltip = formulate_surprise_attack_plan_for_civil_war_tt
+            set_country_flag = formulated_surprise_attack_plan_for_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_communist_civil_war_single_state = {
+        icon = generic_ignite_civil_war
+        name = ignite_the_communist_civil_war
+
+        available = {
+            has_stability < 0.5
+            communism > 0.50
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+            check_variable = { num_owned_states = 1 }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            set_politics = { ruling_party = communism elections_allowed = no }
+            clr_country_flag = preparation_for_communist_civil_war
+            clr_country_flag = military_support_for_communist_civil_war
+            clr_country_flag = civil_support_for_communist_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    ignite_the_communist_civil_war = {
+
+        icon = generic_ignite_civil_war
+
+        available = {
+            has_stability < 0.5
+        }
+        visible = {
+            has_country_flag = preparation_for_communist_civil_war
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+            check_variable = { num_owned_states > 1 }
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            if = {
+                limit = {
+                    has_government = fascism
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@fascism
+                }
+            }
+            if = {
+                limit = {
+                    has_government = democratic
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@democratic
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = party_popularity@neutrality
+                }
+            }
+            subtract_from_variable = {
+                var = civil_war_size_var
+                value = army_support_var
+            }
+            if = {
+                limit = {
+                    check_variable = {
+                        var = civil_war_size_var
+                        value = 0.3
+                        compare = less_than
+                    }
+                }
+                set_variable = {
+                    var = civil_war_size_var
+                    value = 0.3
+                }
+            }
+            start_civil_war = {
+                ruling_party = communism
+                ideology = ROOT
+                size = civil_war_size_var
+                keep_unit_leaders_trigger = {
+                    has_trait = hidden_sympathies
+                }
+            }
+            clr_country_flag = preparation_for_communist_civil_war
+            clr_country_flag = military_support_for_communist_civil_war
+            clr_country_flag = civil_support_for_communist_civil_war
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    rebuild_the_nation_communism = {
+
+        icon = generic_construction
+
+        visible = {
+            has_government = communism
+            has_country_flag = won_ideology_civil_war
+        }
+        fire_only_once = yes
+
+        cost = 25
+
+        days_remove = 365
+
+        modifier = {
+            political_power_gain = -1
+            industry_repair_factor = 0.20
+            production_speed_industrial_complex_factor = 0.1
+            production_speed_infrastructure_factor = 0.1
+            industrial_capacity_factory = 0.1
+            industrial_capacity_dockyard = 0.1
+        }
+        ai_will_do = {
+            factor = 200
+        }
+    }
+
+    open_up_political_discourse_communist = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.9
+            democratic < 0.9
+            communism < 0.9
+            neutrality < 0.9
+        }
+        visible = {
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        remove_trigger = {
+            has_government = communism
+        }
+        fire_only_once = yes
+
+        cost = 75
+
+        complete_effect = {
+            set_country_flag = open_up_political_discourse_communist
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    discredit_government_communism = {
+
+        icon = generic_political_discourse
+
+        available = {
+            fascism < 0.8
+            democratic < 0.8
+            communism < 0.8
+            neutrality < 0.8
+            OR = {
+                has_idea_with_trait = communist_revolutionary
+                has_idea_with_trait = ambitious_union_boss
+            }
+        }
+        visible = {
+            has_country_flag = open_up_political_discourse_communist
+            NOT = { has_government = communism }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        remove_trigger = {
+            has_government = communism
+        }
+        fire_only_once = yes
+
+        cost = 50
+
+        complete_effect = {
+            add_stability = -0.010
+            if = {
+                limit = {
+                    has_government = fascism
+                }
+                add_popularity = {
+                    ideology = fascism
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = democratic
+                }
+                add_popularity = {
+                    ideology = democratic
+                    popularity = -0.1
+                }
+            }
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                add_popularity = {
+                    ideology = neutrality
+                    popularity = -0.1
+                }
+            }
+        }
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    hold_the_communist_national_referendum = {
+
+        icon = generic_political_discourse
+
+        available = {
+            communism > 0.5
+        }
+        visible = {
+            NOT = { has_government = communism }
+            OR = {
+                communism > 0.6
+                has_country_flag = open_up_political_discourse_communist
+            }
+            # check_has_focus_tree_to_switch_to_communism = yes
+        }
+        remove_trigger = {
+            has_government = communism
+        }
+        fire_only_once = yes
+
+        cost = 100
+
+        complete_effect = {
+            country_event = { id = political.19 }
+        }
+        ai_will_do = {
+            factor = 210
+            modifier = {
+                communism > 0.6
+                factor = 00
+            }
+        }
+    }
+}

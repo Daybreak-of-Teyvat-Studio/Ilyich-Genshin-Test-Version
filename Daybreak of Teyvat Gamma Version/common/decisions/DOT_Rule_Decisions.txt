@@ -1,0 +1,4589 @@
+# ==============================
+# 游戏规则决议
+# ==============================
+
+DOT_Generic_DecCat = {
+	DOT_Expel_You = {
+		icon = GFX_Wish_Stone
+		fire_only_once = yes
+		cost = 0
+		complete_effect = { set_country_flag = DOT_Dont_Show_Generic }
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Stop_PRI_War = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			PRI = { NOT = { has_idea = PRI_Lock_War } }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { PRI = { add_ideas = PRI_Lock_War } }
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Stop_PRI_War_off = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			PRI = { has_idea = PRI_Lock_War }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { PRI = { remove_ideas = PRI_Lock_War } }
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Slow_PRI_War = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			NOT = { has_global_flag = PRI_War_Slow }
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { set_global_flag = PRI_War_Slow }
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Slow_PRI_War_off = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {
+			is_ai = no
+			has_global_flag = PRI_War_Slow
+		}
+		fire_only_once = yes
+		days_remove = 1
+		cost = 0
+		complete_effect = { clr_global_flag = PRI_War_Slow }
+		ai_will_do = { factor = 0  }
+	}
+	#蒙德路线说明
+	MOT_Route_Teller = {
+		icon = GFX_Wish_Stone
+		fire_only_once = no
+		visible = {
+			Is_MOT = yes
+			NOT = { has_country_flag = MOT_Not_See_Teller }
+		}
+		available = { is_ai = no }
+		cost = 0
+		complete_effect = {
+			country_event = Knights.109
+		}
+		ai_will_do = { factor = 0  }
+	}
+	##蒙德乐子决议：
+	#坏将领包，讨厌来自高塔孤王
+	MOT_Advisor_of_KingKiller = {
+		icon = GFX_Wish_Stone
+		fire_only_once = yes
+		visible = { is_ai = no }
+		allowed = {
+			Is_MOT = yes
+			NOT = { original_tag = FAV }
+			NOT = { original_tag = DVA }
+		}
+		cost = 0
+		complete_effect = {
+			custom_effect_tooltip = MOT_Recruit_Advisors1
+			set_country_flag = MOT_Show_King_Killer
+		}
+	}
+	DOT_Change_Type_of_LYY_War_tt = {
+		fire_only_once = no
+		icon = GFX_Wish_Stone
+		allowed = { is_ai = no }
+		cost = 0
+		complete_effect = {
+			IF = {
+				limit = {
+					has_global_flag = DOT_Use_Poem_LYY
+				}
+				clr_global_flag = DOT_Use_Poem_LYY
+			}
+			ELSE = {
+				set_global_flag = DOT_Use_Poem_LYY
+			}
+		}
+	}
+	#天理会议
+	PRI_War_Meeting = {
+		icon = GFX_Wish_Stone
+		allowed = { always = yes }
+		fire_only_once = yes
+		cost = 100
+		visible = { always = yes }
+		complete_effect = {  custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }
+			country_event = { id = Teyvat.2 days = 10 }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	#暗夜会议
+	Polar_Night_Meeting = {
+		icon = GFX_Wish_Stone
+		allowed = { always = yes }
+		fire_only_once = yes
+		cost = 100
+		visible = { always = yes }
+		complete_effect = {
+			every_country = {
+				remove_ideas = Daybreak_of_Teyvat
+				add_ideas = { Polar_Night }
+			}
+		}
+		ai_will_do = { factor = 0  }
+	}
+
+	#提瓦特战争
+	Teyvat_War = {
+		icon = GFX_Wish_Stone
+		fire_only_once = no
+		cost = 1648
+		visible = { always = yes  }
+		complete_effect = {
+			country_event = { id = Teyvat.1  }
+			add_timed_idea = { idea = For_Sea  days = 365  }
+			leave_faction = yes
+			create_faction = For_Teyvat
+			declare_war_on = { 	target = INA type = annex_everything  }
+			declare_war_on = { 	target = SAN type = annex_everything  }
+			declare_war_on = { 	target = ASA type = annex_everything  }
+			declare_war_on = { 	target = TSU type = annex_everything  }
+			every_state = { limit = { is_core_of = INA  } add_core_of = ROOT  }
+			declare_war_on = { 	target = FON type = annex_everything  }
+			every_state = { limit = { is_core_of = FON  } add_core_of = ROOT  }
+			declare_war_on = { 	target = NAT type = annex_everything  }
+			every_state = { limit = { is_core_of = NAT  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SUM type = annex_everything  }
+			every_state = { limit = { is_core_of = SUM  } add_core_of = ROOT  }
+			declare_war_on = { 	target = VAN type = annex_everything  }
+			every_state = { limit = { is_core_of = VAN  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SGD type = annex_everything  }
+			every_state = { limit = { is_core_of = SGD  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SDH type = annex_everything  }
+			every_state = { limit = { is_core_of = SDH  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SGS type = annex_everything  }
+			every_state = { limit = { is_core_of = SGS  } add_core_of = ROOT  }
+			declare_war_on = { 	target = MOT type = annex_everything  }
+			declare_war_on = { 	target = LAW type = annex_everything  }
+			declare_war_on = { 	target = SPI type = annex_everything  }
+			declare_war_on = { 	target = RAG type = annex_everything  }
+			declare_war_on = { 	target = ANR type = annex_everything  }
+			declare_war_on = { 	target = DVA type = annex_everything  }
+			declare_war_on = { 	target = FAV type = annex_everything  }
+			declare_war_on = { 	target = GUN type = annex_everything  }
+			declare_war_on = { 	target = SDS type = annex_everything  }
+			declare_war_on = { 	target = MHL type = annex_everything  }
+			every_state = { limit = { is_core_of = MOT  } add_core_of = ROOT  }
+			declare_war_on = { 	target = LYY type = annex_everything  }
+			declare_war_on = { 	target = BRF type = annex_everything  }
+			every_state = { limit = { is_core_of = LYY  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SNE type = annex_everything  }
+			every_state = { limit = { is_core_of = SNE  } add_core_of = ROOT  }
+			declare_war_on = { 	target = ABY type = annex_everything  }
+			every_state = { limit = { is_core_of = ABY  } add_core_of = ROOT  }
+			country_event = { id = super.11 days = 10  }
+		}
+	}
+
+	#提瓦特解放战争
+	Liberate_Teyvat_War = {
+		icon = GFX_Wish_Stone
+		allowed = { OR = { original_tag = FON original_tag = NAT original_tag = SNE } }
+		fire_only_once = no
+		cost = 1648
+		visible = { always = yes  }
+		complete_effect = {
+			custom_effect_tooltip = Spend_One_Million_Mora   add_to_variable = { var = dx value = -1 }
+			country_event = { id = Teyvat.1  }
+			add_timed_idea = { idea = For_Sea  days = 365  }
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = PRC  }
+			leave_faction = yes
+			create_faction = For_Teyvat
+			declare_war_on = { 	target = INA type = annex_everything  }
+			declare_war_on = { 	target = SAN type = annex_everything  }
+			declare_war_on = { 	target = ASA type = annex_everything  }
+			declare_war_on = { 	target = TSU type = annex_everything  }
+			every_state = { limit = { is_core_of = INA  } add_core_of = ROOT  }
+			declare_war_on = { 	target = FON type = annex_everything  }
+			every_state = { limit = { is_core_of = FON  } add_core_of = ROOT  }
+			declare_war_on = { 	target = NAT type = annex_everything  }
+			every_state = { limit = { is_core_of = NAT  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SUM type = annex_everything  }
+			every_state = { limit = { is_core_of = SUM  } add_core_of = ROOT  }
+			declare_war_on = { 	target = VAN type = annex_everything  }
+			every_state = { limit = { is_core_of = VAN  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SGD type = annex_everything  }
+			every_state = { limit = { is_core_of = SGD  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SDH type = annex_everything  }
+			every_state = { limit = { is_core_of = SDH  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SGS type = annex_everything  }
+			every_state = { limit = { is_core_of = SGS  } add_core_of = ROOT  }
+			declare_war_on = { 	target = MOT type = annex_everything  }
+			declare_war_on = { 	target = LAW type = annex_everything  }
+			declare_war_on = { 	target = SPI type = annex_everything  }
+			declare_war_on = { 	target = RAG type = annex_everything  }
+			declare_war_on = { 	target = ANR type = annex_everything  }
+			declare_war_on = { 	target = DVA type = annex_everything  }
+			declare_war_on = { 	target = FAV type = annex_everything  }
+			declare_war_on = { 	target = GUN type = annex_everything  }
+			declare_war_on = { 	target = SDS type = annex_everything  }
+			declare_war_on = { 	target = MHL type = annex_everything  }
+			every_state = { limit = { is_core_of = MOT  } add_core_of = ROOT  }
+			declare_war_on = { 	target = LYY type = annex_everything  }
+			declare_war_on = { 	target = BRF type = annex_everything  }
+			every_state = { limit = { is_core_of = LYY  } add_core_of = ROOT  }
+			declare_war_on = { 	target = SNE type = annex_everything  }
+			every_state = { limit = { is_core_of = SNE  } add_core_of = ROOT  }
+			declare_war_on = { 	target = ABY type = annex_everything  }
+			every_state = { limit = { is_core_of = ABY  } add_core_of = ROOT  }
+			country_event = { id = super.11 days = 10  }
+		}
+	}
+	#助兴决议
+	DOT_Happy_Decison_01 = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	}
+		fire_only_once = yes
+		cost = 1
+		complete_effect = { set_country_flag = DOT_Happy_Decison_01 }
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_HSR = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		# visible = { has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = HSR } }
+			HSR = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			HSR = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			HSR = { change_tag_from = ROOT }
+			HSR = { news_event = { id = HSR_News.1  days = 10 }	}
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_PRC = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = PRC } }
+			PRC = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			PRC = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			PRC = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_SOV = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		# visible = { has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = SOV } }
+			SOV = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			SOV = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			SOV = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_FRA = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = FRA } }
+			FRA = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			FRA = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			FRA = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_USA = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = USA } }
+			USA = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			USA = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			USA = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_ENG = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = ENG } }
+			ENG = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			ENG = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			ENG = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_GER = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = GER } }
+			GER = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			GER = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			GER = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_JAP = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = JAP } }
+			JAP = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			JAP = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			JAP = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_ITA = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	has_country_flag = DOT_Happy_Decison_01 }
+		fire_only_once = yes
+		cost = 1
+		complete_effect = {
+			random_country = { random_owned_state = { transfer_state_to = ITA } }
+			ITA = { add_equipment_to_stockpile = { type = infantry_equipment  amount = 10000  producer = ABY } }
+			ITA = { add_manpower = 2000000 army_experience = 50 add_offsite_building = { type = arms_factory level = 5 } add_offsite_building = { type = industrial_complex level = 5 } }
+			ITA = { change_tag_from = ROOT }
+		}
+		ai_will_do = { factor = 0  }
+	}
+	DOT_Happy_Decison_Focus = {
+		icon = GFX_Wish_Stone
+		available = { is_ai = no }
+		visible = {	 }
+		fire_only_once = no
+		cost = 1
+		complete_effect = {
+			load_focus_tree = generic_focus
+		}
+		ai_will_do = { factor = 0  }
+	}
+}
+
+DOT_Clothes_of_Characters = {
+	#琴
+	DOT_Change_P_of_Jean_1 = {
+		fire_only_once = no
+		cost = 0
+		icon = GFX_Wish_Stone
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Jean
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Jean
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Jean_1
+			set_portraits = {
+				character = MOT_Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean1.dds"
+				}
+			}
+			set_portraits = {
+				character = Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Jean_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Jean
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Jean
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Jean_2
+			set_portraits = {
+				character = MOT_Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean2.dds"
+				}
+			}
+			set_portraits = {
+				character = Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Jean_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Jean
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Jean
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Jean_3
+			set_portraits = {
+				character = MOT_Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean3.png"
+				}
+			}
+			set_portraits = {
+				character = Jean
+				civilian = {
+					large = "gfx/leaders/LY/Jean3.png"
+				}
+			}
+		}
+	}
+	#诺艾尔
+	DOT_Change_P_of_Noelle_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_1
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle1.dds"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_2
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle2.dds"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_3
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle3.dds"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_4
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle4.dds"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle4.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_5
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle5.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle5.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_6
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle6.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle6.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_7
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle7.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle7.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_8 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_8
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle8.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle8.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_9 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_9
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle9.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle9.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_10 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_10
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle10.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle10.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_20 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_20
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle20.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle20.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_21 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_21
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle21.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle21.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_22 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_22
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle22.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle22.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_23 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_23
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle23.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle23.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_24 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_24
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle24.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle24.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_25 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_25
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle25.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle25.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_26 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_26
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle26.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle26.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_27 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_27
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle27.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle27.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_28 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_28
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle28.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle28.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Noelle_29 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Noelle
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Noelle
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Noelle_29
+			set_portraits = {
+				character = MOT_Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle29.png"
+				}
+			}
+			set_portraits = {
+				character = Noelle
+				civilian = {
+					large = "gfx/leaders/LY/Noelle29.png"
+				}
+			}
+		}
+	}
+	#阿贝多
+	DOT_Change_P_of_Albedo_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Fake_Albedo
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Albedo_1
+			set_portraits = {
+				character = DRA_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo1.dds"
+				}
+			}
+			set_portraits = {
+				character = DRA_Fake_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo1.dds"
+				}
+			}
+			set_portraits = {
+				character = Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo1.dds"
+				}
+			}
+			set_portraits = {
+				character = DRA_Flower_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Albedo_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Fake_Albedo
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Albedo_2
+			set_portraits = {
+				character = DRA_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo2.png"
+				}
+			}
+			set_portraits = {
+				character = DRA_Fake_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo2.png"
+				}
+			}
+			set_portraits = {
+				character = Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo2.png"
+				}
+			}
+			set_portraits = {
+				character = DRA_Flower_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Albedo_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Albedo
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Fake_Albedo
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Albedo_3
+			set_portraits = {
+				character = DRA_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo3.dds"
+				}
+			}
+			set_portraits = {
+				character = DRA_Fake_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo3.dds"
+				}
+			}
+			set_portraits = {
+				character = Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo3.dds"
+				}
+			}
+			set_portraits = {
+				character = DRA_Flower_Albedo
+				civilian = {
+					large = "gfx/leaders/LY/Albedo3.dds"
+				}
+			}
+		}
+	}
+	#丽莎
+	DOT_Change_P_of_Lisa_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Lisa
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Lisa
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Lisa_1
+			set_portraits = {
+				character = DRA_Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa1.dds"
+				}
+			}
+			set_portraits = {
+				character = Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Lisa_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Lisa
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Lisa
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Lisa_2
+			set_portraits = {
+				character = DRA_Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa2.dds"
+				}
+			}
+			set_portraits = {
+				character = Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Lisa_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Lisa
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Lisa
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Lisa_3
+			set_portraits = {
+				character = DRA_Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa3.png"
+				}
+			}
+			set_portraits = {
+				character = Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Lisa_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Lisa
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Lisa
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Lisa_4
+			set_portraits = {
+				character = DRA_Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa4.dds"
+				}
+			}
+			set_portraits = {
+				character = Lisa
+				civilian = {
+					large = "gfx/leaders/LY/Lisa4.dds"
+				}
+			}
+		}
+	}
+	#砂糖
+	DOT_Change_P_of_Sucrose_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Sucrose
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Sucrose
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Sucrose_1
+			set_portraits = {
+				character = DRA_Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose1.dds"
+				}
+			}
+			set_portraits = {
+				character = Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Sucrose_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Sucrose
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Sucrose
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Sucrose_2
+			set_portraits = {
+				character = DRA_Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose2.dds"
+				}
+			}
+			set_portraits = {
+				character = Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Sucrose_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DRA_Sucrose
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Sucrose
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Sucrose_3
+			set_portraits = {
+				character = DRA_Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose3.png"
+				}
+			}
+			set_portraits = {
+				character = Sucrose
+				civilian = {
+					large = "gfx/leaders/LY/Sucrose3.png"
+				}
+			}
+		}
+	}
+	#班尼特
+	DOT_Change_P_of_Bennett_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Bennett
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Bennett
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Bennett_1
+			set_portraits = {
+				character = ANR_Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett1.dds"
+				}
+			}
+			set_portraits = {
+				character = Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Bennett_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Bennett
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Bennett
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Bennett_2
+			set_portraits = {
+				character = ANR_Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett2.dds"
+				}
+			}
+			set_portraits = {
+				character = Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Bennett_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Bennett
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Bennett
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Bennett_3
+			set_portraits = {
+				character = ANR_Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett3.dds"
+				}
+			}
+			set_portraits = {
+				character = Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Bennett_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Bennett
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Bennett
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Bennett_4
+			set_portraits = {
+				character = ANR_Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett4.dds"
+				}
+			}
+			set_portraits = {
+				character = Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett4.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Bennett_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Bennett
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Bennett
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Bennett_5
+			set_portraits = {
+				character = ANR_Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett5.png"
+				}
+			}
+			set_portraits = {
+				character = Bennett
+				civilian = {
+					large = "gfx/leaders/LY/Bennett5.png"
+				}
+			}
+		}
+	}
+
+	#菲谢尔
+	DOT_Change_P_of_Fischl_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Fischl
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Fischl
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Fischl_1
+			set_portraits = {
+				character = ANR_Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl1.dds"
+				}
+			}
+			set_portraits = {
+				character = Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Fischl_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Fischl
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Fischl
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Fischl_2
+			set_portraits = {
+				character = ANR_Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl2.dds"
+				}
+			}
+			set_portraits = {
+				character = Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Fischl_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Fischl
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Fischl
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Fischl_3
+			set_portraits = {
+				character = ANR_Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl3.dds"
+				}
+			}
+			set_portraits = {
+				character = Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Fischl_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Fischl
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Fischl
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Fischl_4
+			set_portraits = {
+				character = ANR_Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl4.png"
+				}
+			}
+			set_portraits = {
+				character = Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl4.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Fischl_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Fischl
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Fischl
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Fischl_5
+			set_portraits = {
+				character = ANR_Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl5.png"
+				}
+			}
+			set_portraits = {
+				character = Fischl
+				civilian = {
+					large = "gfx/leaders/LY/Fischl5.png"
+				}
+			}
+		}
+	}
+
+	#迪奥娜
+	DOT_Change_P_of_Diona_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Diona
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diona
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diona_1
+			set_portraits = {
+				character = ANR_Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona1.dds"
+				}
+			}
+			set_portraits = {
+				character = Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Diona_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Diona
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diona
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diona_2
+			set_portraits = {
+				character = ANR_Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona2.png"
+				}
+			}
+			set_portraits = {
+				character = Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Diona_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Diona
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diona
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diona_3
+			set_portraits = {
+				character = ANR_Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona3.dds"
+				}
+			}
+			set_portraits = {
+				character = Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Diona_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Diona
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diona
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diona_4
+			set_portraits = {
+				character = ANR_Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona4.dds"
+				}
+			}
+			set_portraits = {
+				character = Diona
+				civilian = {
+					large = "gfx/leaders/LY/Diona4.dds"
+				}
+			}
+		}
+	}
+
+	#雷泽
+	DOT_Change_P_of_Razor_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Razor
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Razor
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Razor_1
+			set_portraits = {
+				character = ANR_Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor1.dds"
+				}
+			}
+			set_portraits = {
+				character = Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Razor_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Razor
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Razor
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Razor_2
+			set_portraits = {
+				character = ANR_Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor2.png"
+				}
+			}
+			set_portraits = {
+				character = Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Razor_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Razor
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Razor
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Razor_3
+			set_portraits = {
+				character = ANR_Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor3.dds"
+				}
+			}
+			set_portraits = {
+				character = Razor
+				civilian = {
+					large = "gfx/leaders/LY/Razor3.dds"
+				}
+			}
+		}
+	}
+
+	#芭芭拉
+	DOT_Change_P_of_Barbara_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Barbara
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Barbara
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Barbara_1
+			set_portraits = {
+				character = FAV_Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara1.dds"
+				}
+			}
+			set_portraits = {
+				character = Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Barbara_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Barbara
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Barbara
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Barbara_2
+			set_portraits = {
+				character = FAV_Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara2.dds"
+				}
+			}
+			set_portraits = {
+				character = Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Barbara_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Barbara
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Barbara
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Barbara_3
+			set_portraits = {
+				character = FAV_Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara3.png"
+				}
+			}
+			set_portraits = {
+				character = Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Barbara_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Barbara
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Barbara
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Barbara_4
+			set_portraits = {
+				character = FAV_Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara4.png"
+				}
+			}
+			set_portraits = {
+				character = Barbara
+				civilian = {
+					large = "gfx/leaders/LY/Barbara4.png"
+				}
+			}
+		}
+	}
+
+	#罗莎莉亚
+
+	#安柏
+	DOT_Change_P_of_Amber_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber1
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Amber_1
+			set_portraits = {
+				character = DVA_Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber1.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Amber1
+				civilian = {
+					large = "gfx/leaders/LY/Amber1.dds"
+				}
+			}
+			set_portraits = {
+				character = Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Amber_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber1
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Amber_2
+			set_portraits = {
+				character = DVA_Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber2.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Amber1
+				civilian = {
+					large = "gfx/leaders/LY/Amber2.dds"
+				}
+			}
+			set_portraits = {
+				character = Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Amber_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber1
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Amber_3
+			set_portraits = {
+				character = DVA_Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber3.png"
+				}
+			}
+			set_portraits = {
+				character = DVA_Amber1
+				civilian = {
+					large = "gfx/leaders/LY/Amber3.png"
+				}
+			}
+			set_portraits = {
+				character = Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Amber_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Amber1
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Amber_4
+			set_portraits = {
+				character = DVA_Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber4.png"
+				}
+			}
+			set_portraits = {
+				character = DVA_Amber1
+				civilian = {
+					large = "gfx/leaders/LY/Amber4.png"
+				}
+			}
+			set_portraits = {
+				character = Amber
+				civilian = {
+					large = "gfx/leaders/LY/Amber4.png"
+				}
+			}
+		}
+	}
+
+	#迪卢克
+	DOT_Change_P_of_Diluc_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = RAG_Diluc
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diluc
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diluc_1
+			set_portraits = {
+				character = RAG_Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc1.dds"
+				}
+			}
+			set_portraits = {
+				character = Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Diluc_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = RAG_Diluc
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diluc
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diluc_2
+			set_portraits = {
+				character = RAG_Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc2.png"
+				}
+			}
+			set_portraits = {
+				character = Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Diluc_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = RAG_Diluc
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Diluc
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Diluc_3
+			set_portraits = {
+				character = RAG_Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc3.png"
+				}
+			}
+			set_portraits = {
+				character = Diluc
+				civilian = {
+					large = "gfx/leaders/LY/Diluc3.png"
+				}
+			}
+		}
+	}
+
+	#优菈
+	DOT_Change_P_of_Eula_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_1
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula1.dds"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula1.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_2
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula2.png"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_3
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula3.dds"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_4
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula4.png"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula4.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_5
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula5.png"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula5.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_6
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula6.png"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula6.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Eula_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Eula
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Eula
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Eula_7
+			set_portraits = {
+				character = LAW_Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula7.png"
+				}
+			}
+			set_portraits = {
+				character = Eula
+				civilian = {
+					large = "gfx/leaders/LY/Eula7.png"
+				}
+			}
+		}
+	}
+
+	#温迪
+	DOT_Change_P_of_Venti_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_1
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_2
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti2.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_3
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_4
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti4.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_5
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti5.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_6
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti6.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_7
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/Venti7.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Venti_God = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = ANR_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FAV_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = DVA_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = LAW_Venti
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = MOT_Windy
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Venti_God
+			set_portraits = {
+				character = ANR_Venti
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+			set_portraits = {
+				character = FAV_Venti
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+			set_portraits = {
+				character = DVA_Venti
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+			set_portraits = {
+				character = LAW_Venti
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+			set_portraits = {
+				character = MOT_Windy
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+			set_portraits = {
+				character = Venti
+				civilian = {
+					large = "gfx/leaders/LY/VentiGod.dds"
+				}
+			}
+		}
+	}
+
+	#钟离
+	DOT_Change_P_of_Morax_0 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_0
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli.dds"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_1
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli1.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli1.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_2
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli2.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_3
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli3.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_4
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli4.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli4.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_5
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli5.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli5.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_6
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli6.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli6.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_7
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli7.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/Zhongli7.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Morax_God = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = LYY_Morax
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Morax
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Zhongli_God
+			set_portraits = {
+				character = LYY_Morax
+				civilian = {
+					large = "gfx/leaders/LY/ZhongliGod.png"
+				}
+			}
+			set_portraits = {
+				character = Morax
+				civilian = {
+					large = "gfx/leaders/LY/ZhongliGod.png"
+				}
+			}
+		}
+	}
+
+	#雷电
+	DOT_Change_P_of_Raiden_0 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_0
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden.dds"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_1
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden1.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden1.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_2
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden2.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_3
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden3.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_4
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden4.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden4.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_5
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden5.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden5.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_6
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden6.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/Raiden6.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Raiden_God = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = INA_Raiden
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Raiden
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Raiden_God
+			set_portraits = {
+				character = INA_Raiden
+				civilian = {
+					large = "gfx/leaders/LY/RaidenGod.png"
+				}
+			}
+			set_portraits = {
+				character = Raiden
+				civilian = {
+					large = "gfx/leaders/LY/RaidenGod.png"
+				}
+			}
+		}
+	}
+
+	#纳西妲
+	DOT_Change_P_of_Nahida_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_1
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_2
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida2.png"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_3
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida3.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida3.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_4
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida4.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida4.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_5
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida5.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida5.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_6
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida6.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida6.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_7
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida7.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida7.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_8 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_8
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida8.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida8.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_9 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_9
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida9.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/Nahida9.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Nahida_God = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = SUM_Nahida
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Nahida
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Nahida_God
+			set_portraits = {
+				character = SUM_Nahida
+				civilian = {
+					large = "gfx/leaders/LY/NahidaGod.dds"
+				}
+			}
+			set_portraits = {
+				character = Nahida
+				civilian = {
+					large = "gfx/leaders/LY/NahidaGod.dds"
+				}
+			}
+		}
+	}
+
+	#芙宁娜
+	DOT_Change_P_of_Furina_0 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_0
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina.dds"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina.dds"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina.dds"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina.dds"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_1 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_1
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina1.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina1.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina1.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina1.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_2 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_2
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina2.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina2.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina2.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina2.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_3 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_3
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina3.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina3.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina3.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina3.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_4 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_4
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina4.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina4.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina4.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina4.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_5 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_5
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina5.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina5.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina5.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina5.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_6 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_6
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina6.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina6.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina6.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina6.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_7 = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_7
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina7.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/Furina7.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/Furina7.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/Furina7.png"
+				}
+			}
+		}
+	}
+	DOT_Change_P_of_Furina_God = {
+		fire_only_once = no
+		cost = 0
+		visible = {
+			always = no #等水与正义出来再说
+			is_ai = no
+			OR = {
+				has_country_leader = {
+					ruling_only = yes
+					character = FON_Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = Furina
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina1
+				}
+				has_country_leader = {
+					ruling_only = yes
+					character = FOD_Furina2
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = DOT_COC_tt_Furina_God
+			set_portraits = {
+				character = FON_Furina
+				civilian = {
+					large = "gfx/leaders/LY/FurinaGod.png"
+				}
+			}
+			set_portraits = {
+				character = Furina
+				civilian = {
+					large = "gfx/leaders/LY/FurinaGod.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina1
+				civilian = {
+					large = "gfx/leaders/LY/FurinaGod.png"
+				}
+			}
+			set_portraits = {
+				character = FOD_Furina2
+				civilian = {
+					large = "gfx/leaders/LY/FurinaGod.png"
+				}
+			}
+		}
+	}
+}
