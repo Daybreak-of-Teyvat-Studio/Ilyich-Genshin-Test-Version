@@ -19,8 +19,8 @@ on_actions = {
 			clear_variable = resourceincome
 			clear_variable = resourceexpenses
 			clear_variable = allexpenses
-			clear_variable = nmn		
-			set_variable = { nmn = 0 }
+			clear_variable = DOT_Mora_nmn		
+			set_variable = { DOT_Mora_nmn = 0 }
 			#各类资源进口价格
 			set_variable = { chromium_import = resource_imported@chromium}
 			divide_variable = { var = chromium_import value = 100 }			
@@ -122,27 +122,27 @@ on_actions = {
 			multiply_variable = { var = Core_outcome value = temp_mora_cost_daily }
 
 			set_variable = { allexpenses = 0 } #总支出
-			set_variable = { nmn1 = modifier@mora_cost_daily }
+			set_variable = { DOT_Mora_nmn1 = modifier@mora_cost_daily }
 			add_to_variable = { var = allexpenses value = resourceexpenses } #资源进口总支出
 			add_to_variable = { var = allexpenses value = ms } #陆军
 			add_to_variable = { var = allexpenses value = io } #工业支出
 			add_to_variable = { var = allexpenses value = Core_outcome } #行政管理
-			add_to_variable = { var = allexpenses value = nmn1 } #来自支出
+			add_to_variable = { var = allexpenses value = DOT_Mora_nmn1 } #来自支出
 			
-			set_variable = { overcome = nmn } #净收入
+			set_variable = { overcome = DOT_Mora_nmn } #净收入
 			# 收税
-			set_variable = { nmn2 = modifier@mora_gain_daily }
-			add_to_variable = { var = nmn value = tax } #民工税收
-			add_to_variable = { var = nmn value = resourceincome } #资源总收入
-			add_to_variable = { var = nmn value = Core_income } #民税
-			add_to_variable = { var = nmn value = nmn2 } #来自词条的收入
+			set_variable = { DOT_Mora_nmn2 = modifier@mora_gain_daily }
+			add_to_variable = { var = DOT_Mora_nmn value = tax } #民工税收
+			add_to_variable = { var = DOT_Mora_nmn value = resourceincome } #资源总收入
+			add_to_variable = { var = DOT_Mora_nmn value = Core_income } #民税
+			add_to_variable = { var = DOT_Mora_nmn value = DOT_Mora_nmn2 } #来自词条的收入
 			
 			# 收入
-			set_variable = { DOT_overcome = nmn } #净收入
-			subtract_from_variable = { var = nmn value = allexpenses } #总收入
+			set_variable = { DOT_overcome = DOT_Mora_nmn } #净收入
+			subtract_from_variable = { var = DOT_Mora_nmn value = allexpenses } #总收入
 		    
 			#国库
-			add_to_variable = { var = dx value = nmn  } #国库储备    
+			add_to_variable = { var = dx value = DOT_Mora_nmn  } #国库储备    
 			#国债			
 			set_variable = { DOT_interest = debttotal } # 国债利息
 			multiply_variable = { var = DOT_interest value = 0.035 }
