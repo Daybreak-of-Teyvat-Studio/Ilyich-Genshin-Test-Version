@@ -516,7 +516,7 @@ LAW_DC_Seek_for_Help = {
 			base = 1
 			modifier = {
 				set_temp_variable = { LAW_linshibianliang1 = LAW_Num_of_Investment }
-				multiply_variable = { LAW_linshibianliang1 = 5 }
+				multiply_temp_variable = { LAW_linshibianliang1 = 5 }	# [修复] ai_will_do 触发器区只接受 *_temp_variable 系列；multiply_variable 作用于持久变量
 				add = var:LAW_linshibianliang1
 			}
 		}
@@ -1472,8 +1472,8 @@ LAW_DC_Organize_Noble = {
 			check_variable = { LAW_Whole_Noble_Power < 1 }
 		}
 		timeout_effect = {
-			uncomplete_national_focus = LAW_Eula_End_Nobles
-			complete_national_focus = LAW_Eula_Stable_Nobles
+			uncomplete_national_focus = { focus = LAW_Eula_End_Nobles }
+			complete_national_focus = { focus = LAW_Eula_Stable_Nobles }
 			every_owned_state = {
 				add_manpower = -100000
 			}
@@ -1961,11 +1961,13 @@ LAW_Preparation_Before_War = {
 				army_speed_factor = -0.2
 				org_loss_when_moving = 1
 			}
-			targeted_modifier = {
-				tag = MOT
-				attack_bonus_against = 0.2
-			}
+			# [修复] targeted_modifier 是 decision 顶层键（原版 decisions/GRE.txt 用法），不能放在 modifier 块内，已移至 modifier 之后
 		}
+
+				targeted_modifier = {
+					tag = MOT
+					attack_bonus_against = 0.2
+				}
 	}
 	LAW_HigherResist_of_LAW = {
 		days_remove = 30

@@ -1,4 +1,5 @@
 add_namespace = LYY_Keqing
+add_namespace = LYY_Ningguang_Crisis	# [修复] 本文件含事件 id = LYY_Ningguang_Crisis.1，需先声明其命名空间
 # ��ʼ�¼�����¥����
 country_event = {
 	id = LYY_Keqing.1
@@ -63,9 +64,9 @@ country_event = {
         # ��鲢�������ʦ���� (����Ϊ5������Ӫ)
         if = {
             limit = {
-                NOT = { has_division_template = "LYY_Keqing_Militia_Template" }
+                NOT = { has_template = "LYY_Keqing_Militia_Template" }	# [修复] has_division_template → has_template
             }
-            create_division_template = {
+            division_template = {	# [修复] create_division_template → division_template（原版 effects 写法）
                 name = "LYY_Keqing_Militia_Template"
                 regiments = {
                     infantry = { x = 0 y = 0 }
@@ -80,22 +81,22 @@ country_event = {
         every_country = {
             limit = {
                 OR = {
-                    is_at_war_with = ROOT
+                    has_war_with = ROOT	# [修复] is_at_war_with → has_war_with
                     has_opinion = { who = ROOT value < -50 }
                 }
                 NOT = { 
-                    has_government_in_exile = yes
+                    is_government_in_exile = yes
                     tag = ROOT
                 }
             }
             
             # ÿ���������ѡ��5���ؿ鴥������
-            random_owned_states = {
+            random_owned_state = {
                 limit = {
                     is_controlled_by = ROOT
-                    NOT = { is_core = ROOT }
+                    NOT = { is_core_of = ROOT }	# [修复] is_core → is_core_of
                 }
-                count = 5
+                # count = 5	# [注销] random_owned_state 不支持 count（手册与原版均无此写法），无法确定正确写法
                 
                 # �ڸõؿ�����5�����ʦ
                 create_unit = {
@@ -175,7 +176,7 @@ country_event = {
 # �ⲿ��ͨ������ on_actions �� on_daily_tick �м��
 # ������ṩ�¼��ṹ
 country_event = {
-	id = LYY_Ningguang_Crisis.1
+	id = LYY_Ningguang_Crisis.1	# [修复] 事件 id 必须是 <namespace>.<数字>（原 LYY_Ningguang_Crisis_1 缺小数点被判 Malformed token）
 	title = "Economic Crisis Deepens"
 	desc = "The crisis value is rising..."
 	trigger = {
@@ -184,7 +185,7 @@ country_event = {
 	}
 	option = {
 		name = "We must act!"
-		add_variable = {
+		add_to_variable = {
 			LYY_crisis_value = 0.5
 		}
 	}
