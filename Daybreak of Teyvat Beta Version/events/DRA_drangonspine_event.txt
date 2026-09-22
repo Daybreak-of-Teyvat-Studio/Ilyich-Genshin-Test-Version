@@ -88,7 +88,7 @@ country_event = {
 					free_building_slots = {
 						building = infrastructure
 						size > 2
-						include_locked = yes   # IGNORED_FLAG_FOR_INFRA
+						# include_locked = yes   # IGNORED_FLAG_FOR_INFRA   # [注销] infrastructure / air_base 的 free_building_slots 不支持 include_locked（原版 177+79 处该类建筑从不使用该键），该键使触发器校验失败
 					}
 				}
 				add_building_construction = {
@@ -107,7 +107,7 @@ country_event = {
 					free_building_slots = {
 						building = infrastructure
 						size > 2
-						include_locked = yes   # IGNORED_FLAG_FOR_INFRA
+						# include_locked = yes   # IGNORED_FLAG_FOR_INFRA   # [注销] infrastructure / air_base 的 free_building_slots 不支持 include_locked（原版 177+79 处该类建筑从不使用该键），该键使触发器校验失败
 					}
 				}
 				add_building_construction = {
@@ -1542,7 +1542,7 @@ country_event = {
 		num_occupied_states > 1
 		any_other_country = {
 			Is_MOT = yes
-			is_attacker = yes
+			# is_attacker = yes   # [注销] is_attacker 仅适用于 combat 作用域；此处位于 any_other_country 内，引擎报 Invalid scope type，故注销
 			surrender_progress > 0.1
 		}
 	}
@@ -1588,7 +1588,7 @@ country_event = {
 		num_occupied_states > 1
 		any_other_country = {
 			Is_MOT = yes
-			is_attacker = yes
+			# is_attacker = yes   # [注销] is_attacker 仅适用于 combat 作用域；此处位于 any_other_country 内，引擎报 Invalid scope type，故注销
 			surrender_progress > 0.1
 		}
 	}
@@ -2624,7 +2624,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = DRA_Albedo_Up
-		date = 1937.9.13     # 生日date不能写在确定一天
+		date > 1937.9.13     # 生日date不能写在确定一天   # [修复] 触发器中 date 不支持等号比较，原写法 date = 1937.9.13 非法；按作者注释「生日date不能写在确定一天」改为 date > 1937.9.13
 	}
 	
 	option = {
@@ -2645,7 +2645,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = DRA_Lisa_Up
-		date = 1937.6.9
+		date > 1937.6.9   # [修复] 触发器中 date 不支持等号比较，原写法 date = 1937.6.9 非法；按作者注释「生日date不能写在确定一天」改为 date > 1937.6.9
 	}
 	
 	option = {
@@ -2666,7 +2666,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = DRA_Sucrose_Up
-		date = 1937.11.26
+		date > 1937.11.26   # [修复] 触发器中 date 不支持等号比较，原写法 date = 1937.11.26 非法；按作者注释「生日date不能写在确定一天」改为 date > 1937.11.26
 	}
 	
 	option = {

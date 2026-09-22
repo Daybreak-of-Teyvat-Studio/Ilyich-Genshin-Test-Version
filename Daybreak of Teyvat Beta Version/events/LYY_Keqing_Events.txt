@@ -1,6 +1,5 @@
 add_namespace = LYY_Keqing
 add_namespace = LYY_Ningguang_Crisis	# [修复] 本文件含事件 id = LYY_Ningguang_Crisis.1，需先声明其命名空间
-# ��ʼ�¼�����¥����
 country_event = {
 	id = LYY_Keqing.1
 	title = LYY_Keqing.1.t
@@ -8,49 +7,37 @@ country_event = {
 	picture = GFX_report_event_keqing_speech
 	is_triggered_only = yes
 	option = {
-		name = LYY_Keqing.1.a		# ѡ���ı���"Ϊ���ս��"
-		# --- 1. ȷ���쵼����ִ���� ---
-		# ȷ��������Ϊ��ɫ����
+		name = LYY_Keqing.1.a
+		# --- 1. ---
 		promote_character = LYY_KeQing
-		# �趨����֧���ʣ������Ͷ�������������/�������壩100%
 		set_political_party = {
 			ideology = communism
 			popularity = 100
 		}
-		# ������λ
 		promote_character = LYY_KeQing
 		set_politics = {
 			ruling_party = communism
 			elections_allowed = no
 		}
-		# �������ר���������ʣ���ҫ���µĺ���
-		# Ч�����ȶ���+10%��½������+10%��������������+10% (����common/country_leader_traits�ж����id)
+		# id
 		add_country_leader_trait = {
 			trait = LYY_trait_shining_red_star
 		}
-		# --- 2. ���������������� ---
-		# ���Ϊ�����Ǹ�������
+		# --- 2. ---
 		set_cosmetic_tag = LYY_SEVEN_STARS_FRONT
-		# --- 3. �趨���һ������� ---
-		# �ı�Ҫ�󣺻����ȶ���40%��ս��֧�ֶ�80%
-		# ע�⣺set_ָ����ֱ���趨��ǰֵ
+		# --- 3. ---
 		set_stability = 0.4
 		set_war_support = 0.8
-		# �ı�Ҫ�󣺿��в� 3
 		set_research_slots = 3
-		# --- 4. �������徫�� (Debuffs) ---
-		# ���񣺾��尵��ӿ (�ȶ���-40%����Ԯ��-30%��ս��֧�ֶ�-30%)
+		# --- 4. (Debuffs) ---
 		add_ideas = LYY_idea_old_clan_undercurrents
-		# ���񣺻�������֮ʦ (½����֯��-30%���ƻ��ٶ�-40%��½������-30%)
 		add_ideas = LYY_idea_soulless_army
-		# --- 5. �趨������ó���ƶ� ---
-		# �ı�Ҫ�󣺷��ѵľ�����ϵ�����������Ը����㣨������
-		add_ideas = LYY_split_economic_system		# �Զ��徭�÷�����������д
-		add_ideas = closed_economy		# ó�׷������Ը����� (ԭ��id)��������д
+		# --- 5. ---
+		add_ideas = LYY_split_economic_system
+		add_ideas = closed_economy
 	}
 }
 
-# ��������� - ���˸��ر������壬����Ϊ5�����ÿ���������5���ؿ�
 country_event = {
     id = LYY_Keqing.5
     title = LYY_Keqing.5.t
@@ -61,7 +48,6 @@ country_event = {
     hidden = no
     option = {
         name = "LYY_Keqing.5.a"
-        # ��鲢�������ʦ���� (����Ϊ5������Ӫ)
         if = {
             limit = {
                 NOT = { has_template = "LYY_Keqing_Militia_Template" }	# [修复] has_division_template → has_template
@@ -77,12 +63,11 @@ country_event = {
                 }
             }
         }
-        # ���˸��ر������壺Ϊÿ����ս���޵Ĺ��ң����5���ؿ鱬���������
         every_country = {
             limit = {
                 OR = {
                     has_war_with = ROOT	# [修复] is_at_war_with → has_war_with
-                    has_opinion = { who = ROOT value < -50 }
+                    has_opinion = { target = ROOT value < -50 }   # [修复] has_opinion 的键是 target 而非 who
                 }
                 NOT = { 
                     is_government_in_exile = yes
@@ -90,7 +75,6 @@ country_event = {
                 }
             }
             
-            # ÿ���������ѡ��5���ؿ鴥������
             random_owned_state = {
                 limit = {
                     is_controlled_by = ROOT
@@ -98,30 +82,25 @@ country_event = {
                 }
                 # count = 5	# [注销] random_owned_state 不支持 count（手册与原版均无此写法），无法确定正确写法
                 
-                # �ڸõؿ�����5�����ʦ
                 create_unit = {
-                    # PREV ָ�� every_country �еĹ��ң����õؿ��ԭ��/�й���������ϡ����塱���߼�
-                    # �����ϣ�����ɵĵ�λ���� ROOT��ռ�췽�������Ϊ owner = ROOT
+                    # PREV
+                    # owner = ROOT
                     owner = PREV
                     template = "LYY_Keqing_Militia_Template"
                     amount = 5
-                    location = THIS # �ڵ�ǰѡ�еĵؿ�����
+                    # location = THIS # # [注销] create_unit 无 location 键（手册键为 division/owner/count/prioritize_location/allow_spawning_on_enemy_provs 等）；单位默认生成于当前 state，故直接注销
                 }
                 
-                # ���ӵֿ��������η���90����Ч�ڣ�
                 add_state_modifier = {
                     name = resistance_target
                     days = 90
                 }
             }
-            # ��Ǹù����ѱ�������
             set_country_flag = uprising_triggered
         }
         
-        # ��Ǳ��¼��ѷ���
         set_country_flag = uprising_happened
         
-        # ����ս��֧�ֶ�
         add_war_support = 0.05
         ai_chance = {
             factor = 1.0
@@ -129,7 +108,6 @@ country_event = {
     }
 }
 
-# ���������� - �ж��¼�
 country_event = {
 	id = LYY_Keqing.10
 	title = LYY_Keqing.10.t
@@ -139,7 +117,6 @@ country_event = {
 		has_country_flag = LYY_enable_wooing_ganyu
 	}
 	immediate = {
-		# ������Ҫ���ӵı����߼�����Ϊֱ���ж�
 		if = {
 			limit = {
 				check_variable = {
@@ -172,15 +149,12 @@ country_event = {
 	}
 }
 
-# ��������Σ�� (�򵥿��)
-# �ⲿ��ͨ������ on_actions �� on_daily_tick �м��
-# ������ṩ�¼��ṹ
 country_event = {
 	id = LYY_Ningguang_Crisis.1	# [修复] 事件 id 必须是 <namespace>.<数字>（原 LYY_Ningguang_Crisis_1 缺小数点被判 Malformed token）
 	title = "Economic Crisis Deepens"
 	desc = "The crisis value is rising..."
 	trigger = {
-		tag = LYY		# ����������ԭTAG
+		tag = LYY		# TAG
 		has_country_flag = LYY_ningguang_new_deal_active
 	}
 	option = {
@@ -191,8 +165,7 @@ country_event = {
 	}
 }
 
-# ===== ����-����������� =====
-# ��£�����¼�
+# ===== =====
 country_event = {
 	id = LYY_Keqing.11
 	title = LYY_Keqing.11.t
@@ -203,7 +176,6 @@ country_event = {
 		has_country_flag = LYY_enable_wooing_ganyu
 	}
 	immediate = {
-		# ��ʼ����������ֵ����Χ0-100��50Ϊ������
 		if = {
 			limit = {
 				NOT = { has_variable = LYY_ganyu_toward_immortals }
@@ -218,7 +190,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.11.a
-		# ���е���������ÿ�������Կ��������
 		set_variable = {
 			LYY_ganyu_propaganda_active = 1
 		}
@@ -227,7 +198,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.11.b
-		# �ƻ��Է���ʩ���Եз���ɹ�ҵ���
 		set_variable = {
 			LYY_ganyu_sabotage_active = 1
 		}
@@ -236,7 +206,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.11.c
-		# �߽���ģ�ͨ����͸�����з�����
 		set_variable = {
 			LYY_ganyu_infiltration_active = 1
 		}
@@ -245,7 +214,6 @@ country_event = {
 	}
 }
 
-# �����������ɹ��¼�
 country_event = {
 	id = LYY_Keqing.12
 	title = LYY_Keqing.12.t
@@ -256,7 +224,6 @@ country_event = {
 		has_country_flag = LYY_wooing_ganyu_active
 	}
 	immediate = {
-		# �ж��ɹ����ʣ����ڸ�������
 		if = {
 			limit = {
 				check_variable = {
@@ -271,7 +238,6 @@ country_event = {
 					LYY_ganyu_toward_keqing > 50
 				}
 			}
-			# 40%���ʳɹ�
 			random_list = {
 				40 = {
 					set_country_flag = LYY_ganyu_connected_success
@@ -290,7 +256,6 @@ country_event = {
 		trigger = {
 			has_country_flag = LYY_ganyu_connected_success
 		}
-		# ͣս�ɹ����������ͬ��
 		set_country_flag = LYY_ganyu_allied
 		white_peace = GYP
 		GYP = {
@@ -305,14 +270,12 @@ country_event = {
 		trigger = {
 			has_country_flag = LYY_ganyu_connected_failed
 		}
-		# ���ѣ�����ܾ�����
 		add_stability = -0.1
 		add_war_support = -0.1
 		custom_effect_tooltip = LYY_ganyu_alliance_failed
 	}
 }
 
-# ���깲�����¼�
 country_event = {
 	id = LYY_Keqing.13
 	title = LYY_Keqing.13.t
@@ -324,7 +287,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.13.a
-		# �齨����ͬ��
 		if = {
 			limit = {
 				GYP = {
@@ -341,7 +303,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.13.b
-		# ���ǿ��ͬ�ˣ�Ч������
 		if = {
 			limit = {
 				GYP = {
@@ -358,14 +319,13 @@ country_event = {
 		}
 		add_political_power = 150
 		add_stability = 0.08
-		add_timed_idea = {
-			idea = LYY_keqing_ganyu_strong_alliance
-			days = 360
-		}
+		# add_timed_idea = {   # [注销] add_timed_idea 引用的 idea LYY_keqing_ganyu_strong_alliance 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+			# idea = LYY_keqing_ganyu_strong_alliance   # [注销] add_timed_idea 引用的 idea LYY_keqing_ganyu_strong_alliance 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+			# days = 360   # [注销] add_timed_idea 引用的 idea LYY_keqing_ganyu_strong_alliance 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+		# }   # [注销] add_timed_idea 引用的 idea LYY_keqing_ganyu_strong_alliance 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
 	}
 }
 
-# Я�ֹ�һͳ�¼�
 country_event = {
 	id = LYY_Keqing.14
 	title = LYY_Keqing.14.t
@@ -381,19 +341,17 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.14.a
-		# ����������˿���50%�������������󴥷�
 		add_manpower = 10000
 		add_stability = 0.1
 		add_war_support = 0.1
-		add_timed_idea = {
-			idea = LYY_hand_in_hand_buff
-			days = 360
-		}
+		# add_timed_idea = {   # [注销] add_timed_idea 引用的 idea LYY_hand_in_hand_buff 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+			# idea = LYY_hand_in_hand_buff   # [注销] add_timed_idea 引用的 idea LYY_hand_in_hand_buff 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+			# days = 360   # [注销] add_timed_idea 引用的 idea LYY_hand_in_hand_buff 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
+		# }   # [注销] add_timed_idea 引用的 idea LYY_hand_in_hand_buff 在全 9 个 MOD 与原版中均未定义；无法确定作者本意，整体注销
 		custom_effect_tooltip = LYY_keqing_ganyu_unified_bonus
 	}
 }
 
-# ���ƹ�ı���¼�����ƽ�ϲ�·�ߣ�
 country_event = {
 	id = LYY_Keqing.20
 	title = LYY_Keqing.20.t
@@ -402,13 +360,12 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = LYY_Keqing.20.a
-		# ��ƽ�ϲ�·��
 		hidden_effect = {
 			every_state = {
 				limit = {
 					is_core_of = GYP
 				}
-				set_state_controller = ROOT
+				set_state_controller_to = ROOT   # [修复] 手册：set_state_controller = <state> 是「在指定 state 上」的国家作用域效果；此处在 every_state（state 作用域）内应使用 set_state_controller_to = <country>（原版 common/decisions/GER.txt 即如此在 every_state 内使用）
 			}
 		}
 		GYP = {
@@ -422,14 +379,12 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.20.b
-		# �������ˣ����ɸ�������
 		add_political_power = 200
 		add_stability = 0.1
 		custom_effect_tooltip = LYY_keqing_alliance_expansion
 	}
 }
 
-# �߳�����Ӱ�¼�����ϴ·�ߣ�
 country_event = {
 	id = LYY_Keqing.21
 	title = LYY_Keqing.21.t
@@ -438,7 +393,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = LYY_Keqing.21.a
-		# �ñ����ܵ������쵼�˼���
 		hidden_effect = {
 			if = {
 				limit = {
@@ -454,7 +408,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.21.b
-		# ���ڴ���������Ȩ��
 		add_political_power = 150
 		add_stability = 0.2
 		add_war_support = 0.1
@@ -462,7 +415,6 @@ country_event = {
 	}
 }
 
-# ��½�Թ�ʢ�¼���ͳһ�¼���
 country_event = {
 	id = LYY_Keqing.22
 	title = LYY_Keqing.22.t
@@ -471,7 +423,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = LYY_Keqing.22.a
-		# ��������쵼
 		set_cosmetic_tag = LYY_LIYUE_FEDERATION
 		set_party_name = {
 			ideology = communism
@@ -481,16 +432,13 @@ country_event = {
 		add_political_power = 200
 		add_stability = 0.2
 		custom_effect_tooltip = LYY_keqing_leads_federation
-		# ��ȫ�������������ʤ��
 		every_other_country = {
 			news_event = { id = LYY_News.Keqing_Victory days = 3 }
 		}
 	}
 	option = {
 		name = LYY_Keqing.22.b
-		# ����Ϳ��繲ͬ�쵼����
 		set_cosmetic_tag = LYY_LIYUE_FEDERATION
-		# ���ɷֲ������絳50%�����굳50%
 		hidden_effect = {
 			set_party_name = {
 				ideology = communism
@@ -501,14 +449,12 @@ country_event = {
 		add_political_power = 250
 		add_stability = 0.25
 		custom_effect_tooltip = LYY_keqing_ganyu_joint_leadership
-		# ��ȫ����������������������ʤ��
 		every_other_country = {
 			news_event = { id = LYY_News.Keqing_Victory days = 3 }
 		}
 	}
 }
 
-# ���ظ������¼�����ѡ��ս·�ߣ�
 country_event = {
 	id = LYY_Keqing.23
 	title = LYY_Keqing.23.t
@@ -517,7 +463,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = LYY_Keqing.23.a
-		# �ܾ�����깲��Ȩ����������ս
 		if = {
 			limit = {
 				GYP = {
@@ -539,7 +484,6 @@ country_event = {
 	}
 	option = {
 		name = LYY_Keqing.23.b
-		# ά��ͬ�ˣ������Ž�
 		add_political_power = 200
 		add_stability = 0.1
 		custom_effect_tooltip = LYY_keqing_ganyu_maintain_alliance

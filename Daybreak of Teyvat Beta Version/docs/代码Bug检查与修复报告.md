@@ -162,7 +162,7 @@ HOI4 按「路径+文件名」合并/覆盖：MOD 里放一个与原版同名的
 - `common/ideologies/00_ideologies.txt`：`send_volunteers_size`、`industrial_capacity_factor`、`week_manpower` —— 这几个本身是合法修饰符，但**意识形态的 `modifiers` 块只接受有限子集**，需换成该块允许的写法。
 
 ### B. 6 字符「国家 TAG」（约 54 处，**最严重**）
-`events/LYY_Ganyu_Events.txt` 把 `LYY_KEQ`/`LYY_SHH`/`LYY_NGL`/`LYY_JMG` 当国家 TAG 用，另外 `LYY_CloudRetainer`/`LYY_MoonCarver`/`LYY_MountainShaper`/`LYY_MadamePing` 也同理。HOI4 的 TAG **必须是 3 个字母**。
+`events/LYY_Ganyu_Events.txt` 把 `KQP`/`SHP`/`NGP`/`CYG` 当国家 TAG 用，另外 `LYY_CloudRetainer`/`LYY_MoonCarver`/`LYY_MountainShaper`/`LYY_MadamePing` 也同理。HOI4 的 TAG **必须是 3 个字母**。
 **方案**：(a) 新建 3 字母 TAG（`KEQ`/`SHH`/`NGL`/`JMG`…）并全局替换；(b) 若这些本不是国家，改用 `has_country_flag` / 变量表达。
 
 ### C. 引用但从未定义的 `scripted_effects`（5 个）

@@ -103,91 +103,93 @@ on_actions = {
 			# 阶段结束
 			# 氢弹计划
 			FROM = {
-				limit = { 
-					From = { is_ai = yes }
-					has_global_flag = DOT_nuke_east_wind_10
-				}
-				add_manpower = -1450815
-				# set_manpower = 0
-				# add_dynamic_modifier = { modifier = DOT_nuke_modifier_02 days = 1000 }
-				remove_building = {
-					type = industrial_complex
-					level = 9.0
-				}
-				remove_building = {
-					type = infrastructure
-					level = 9.0
-				}
-				remove_building = {
-					type = arms_factory
-					level = 9.0
-				}
-				remove_building = {
-					type = dockyard
-					level = 9.0
-				}
-				remove_building = {
-					type = air_base
-					level = 9.0
-				}
-				remove_building = {
-					type = rail_way
-					level = 9.0
-				}
-				remove_building = {
-					type = bunker
-					level = 9.0
-				}
-				remove_building = {
-					type = coastal_bunker
-					level = 9.0
-				}
-				remove_building = {
-					type = anti_air_building
-					level = 9.0
-				}
-				remove_building = {
-					type = stronghold_network
-					level = 9.0
-				}
-				remove_building = {
-					type = synthetic_refinery
-					level = 9.0
-				}
-				remove_building = {
-					type = fuel_silo
-					level = 9.0
-				}
-				remove_building = {
-					type = radar_station
-					level = 9.0
-				}
-				remove_building = {
-					type = nuclear_reactor
-					level = 9.0
-				}
-				
-				damage_units = {
-					# state = FROM
-					province = FROM
-					damage = 9.2
-					org_damage = 9.2
-					str_damage = 9.2
-					ratio = yes
-					army = yes
-					navy = yes
-					limit = { not = { has_global_flag = DOT_nuke_east_wind_04 } }
-				}
-				damage_units = {
-					state = FROM
-					# province = FROM
-					damage = 9.2
-					org_damage = 9.2
-					str_damage = 9.2
-					ratio = yes
-					army = yes
-					navy = yes
-					limit = { has_global_flag = DOT_nuke_east_wind_04 }
+				if = {   # [修复] 原 limit 直接置于效果块中非法（引擎报 Invalid effect limit），改为 if 包裹其后的效果
+					limit = {
+						# owner = { is_ai = yes }   # [修复] FROM 为州作用域，is_ai 属国家作用域触发，故经 owner 取其所有者
+						has_global_flag = DOT_nuke_east_wind_10
+					}
+					add_manpower = -1450815
+					# set_manpower = 0
+					# add_dynamic_modifier = { modifier = DOT_nuke_modifier_02 days = 1000 }
+					remove_building = {
+						type = industrial_complex
+						level = 9.0
+					}
+					remove_building = {
+						type = infrastructure
+						level = 9.0
+					}
+					remove_building = {
+						type = arms_factory
+						level = 9.0
+					}
+					remove_building = {
+						type = dockyard
+						level = 9.0
+					}
+					remove_building = {
+						type = air_base
+						level = 9.0
+					}
+					remove_building = {
+						type = rail_way
+						level = 9.0
+					}
+					remove_building = {
+						type = bunker
+						level = 9.0
+					}
+					remove_building = {
+						type = coastal_bunker
+						level = 9.0
+					}
+					remove_building = {
+						type = anti_air_building
+						level = 9.0
+					}
+					remove_building = {
+						type = stronghold_network
+						level = 9.0
+					}
+					remove_building = {
+						type = synthetic_refinery
+						level = 9.0
+					}
+					remove_building = {
+						type = fuel_silo
+						level = 9.0
+					}
+					remove_building = {
+						type = radar_station
+						level = 9.0
+					}
+					remove_building = {
+						type = nuclear_reactor
+						level = 9.0
+					}
+					
+					damage_units = {
+						# state = FROM
+						province = FROM
+						damage = 9.2
+						org_damage = 9.2
+						str_damage = 9.2
+						ratio = yes
+						army = yes
+						navy = yes
+						limit = { not = { has_global_flag = DOT_nuke_east_wind_04 } }
+					}
+					damage_units = {
+						state = FROM
+						# province = FROM
+						damage = 9.2
+						org_damage = 9.2
+						str_damage = 9.2
+						ratio = yes
+						army = yes
+						navy = yes
+						limit = { has_global_flag = DOT_nuke_east_wind_04 }
+					}
 				}
 			# 阶段结束
 			}
