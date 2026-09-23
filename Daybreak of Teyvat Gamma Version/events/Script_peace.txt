@@ -1,0 +1,69 @@
+add_namespace = scriptpeaceconference
+
+country_event = { #设置首页1
+	id = scriptpeaceconference.1
+	title = scriptpeaceconference.1.t
+	desc = scriptpeaceconference.1.d
+	is_triggered_only = yes
+	option = {
+		name = scriptpeaceconference.1.a #脚本和谈开关
+		country_event = { id = scriptpeaceconference.2 }
+	}
+	option = {
+		name = scriptpeaceconference.1.b #简易战争结语设置
+		country_event = { id = scriptpeaceconference.3 }
+	}
+}
+country_event = { #脚本和谈开关
+	id = scriptpeaceconference.2
+	title = scriptpeaceconference.2.t
+	desc = scriptpeaceconference.2.d
+	is_triggered_only = yes
+	option = {
+		name = scriptpeaceconference.2.a #关
+		trigger = {
+			NOT = { has_global_flag = scriptpeaceconference_scriptpeaceconference }
+		}
+		set_global_flag = scriptpeaceconference_scriptpeaceconference
+		country_event = { id = scriptpeaceconference.1 }
+	}
+	option = {
+		name = scriptpeaceconference.2.b #开
+		trigger = {
+			has_global_flag = scriptpeaceconference_scriptpeaceconference
+		}
+		clr_global_flag = scriptpeaceconference_scriptpeaceconference
+		country_event = { id = scriptpeaceconference.1 }
+	}
+	option = {
+		name = scriptpeaceconference.2.c #现状
+		country_event = { id = scriptpeaceconference.1 }
+	}
+}
+
+country_event = { #简易战争结语
+	id = scriptpeaceconference.3
+	title = scriptpeaceconference.3.t
+	desc = scriptpeaceconference.3.d
+	is_triggered_only = yes
+	option = {
+		name = scriptpeaceconference.3.a #开
+		trigger = {
+			NOT = { has_global_flag = scriptpeaceconference_warsummary }
+		}
+		set_global_flag = scriptpeaceconference_warsummary
+		country_event = { id = scriptpeaceconference.1 }
+	}
+	option = {
+		name = scriptpeaceconference.3.b #关
+		trigger = {
+			has_global_flag = scriptpeaceconference_warsummary
+		}
+		clr_global_flag = scriptpeaceconference_warsummary
+		country_event = { id = scriptpeaceconference.1 }
+	}
+	option = {
+		name = scriptpeaceconference.3.c #现状
+		country_event = { id = scriptpeaceconference.1 }
+	}
+}
