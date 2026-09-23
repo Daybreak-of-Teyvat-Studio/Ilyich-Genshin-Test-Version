@@ -1,0 +1,441 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			# FROM = { clr_country_flag = show_trashtalk_chat }
+		}
+	}
+	on_capitulation = {
+		effect = {
+			FROM = {
+				if = {
+					limit = {
+						is_ai = yes
+						NOT = {	#dont use nonideology name when talking about civil wars
+							original_tag = ROOT
+						}
+					}
+					random_list = {
+						50 = {
+							trashtalk_cycle_variables = yes
+							set_variable = {
+								global.trashtalk_own_country_tag_box1 = THIS.id
+							}
+							set_variable = {
+								global.trashtalk_other_country_tag_box1 = ROOT.id
+							}
+							random_list = {
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 1
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 2
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 3
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 4
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 5
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 6
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 7
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 8
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 9
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 10
+									}
+								}
+							}
+						}
+						50 = {
+							#nothing
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = yes
+					NOT = {
+						original_tag = FROM
+					}
+				}
+				random_list = {
+					75 = {
+						#nothing
+					}
+					25 = {
+						trashtalk_cycle_variables = yes
+						set_variable = {
+							global.trashtalk_own_country_tag_box1 = THIS.id
+						}
+						set_variable = {
+							global.trashtalk_other_country_tag_box1 = FROM.id
+						}
+						random_list = {
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 21
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 22
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 23
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 24
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 25
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 26
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 27
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 28
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 29
+								}
+							}
+							10 = {
+								set_variable = {
+									global.trashtalk_box_1_message = 30
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					is_ai = yes
+					has_doctrine = new_mobile_warfare
+					NOT = {
+						original_tag = FROM
+					}
+				}
+				random_list = {
+					93 = {
+						#nothing
+					}
+					7 = {	#Blitz your Krieg
+						trashtalk_cycle_variables = yes
+						set_variable = {
+							global.trashtalk_own_country_tag_box1 = THIS.id
+						}
+						set_variable = {
+							global.trashtalk_other_country_tag_box1 = FROM.id
+						}
+						set_variable = {
+							global.trashtalk_box_1_message = 11
+						}
+					}
+				}
+			}
+		}
+	}
+	on_monthly = {
+		effect = {
+			if = {
+				limit = {
+					is_ai = yes
+					has_war = yes
+					any_enemy_country = {	#has any war that ISNT a civil war
+						NOT = {
+							original_tag = PREV
+						}
+						OR = {	#non-ideology names of warlords are mostly all "China"
+							SOV_is_chinese_tag = no
+							PREV = {
+								SOV_is_chinese_tag = no
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						surrender_progress < 0.05
+						OR = {
+							any_enemy_country = {
+								is_major = yes
+								surrender_progress > 0.1
+								has_capitulated = no
+							}
+							AND = {	#if you are at war with a major, dont direct your comments towards a weaker enemy you have
+								NOT = {
+									any_enemy_country = {
+										is_major = yes
+									}
+								}
+								any_enemy_country = {
+									surrender_progress > 0.1
+									has_capitulated = no
+								}
+							}
+						}
+					}
+					random_list = {
+						5 = {
+							#nothing, this number is basically every X+1 months, country can boast about (winning) war
+						}
+						1 = {
+							# set_country_flag = {	#could be used to block rare RNG giving repeated events
+							# 	flag = had_trashtalk_message
+							# 	days = 120
+							# }
+							trashtalk_cycle_variables = yes
+							set_variable = {
+								global.trashtalk_own_country_tag_box1 = THIS.id
+							}
+							#setup to determine most appropriate enemy country to target
+							if = {
+								limit = {
+									any_enemy_country = {
+										is_major = yes
+										#you can target a smaller country if the major isnt losing
+										surrender_progress > 0.1
+										has_capitulated = no
+									}
+								}
+								random_enemy_country = {
+									limit = {
+										is_major = yes
+										#dont target the wrong major if theyre fighting multiple
+										surrender_progress > 0.1
+										has_capitulated = no
+									}
+									set_variable = {
+										global.trashtalk_other_country_tag_box1 = THIS.id
+									}
+								}
+								else = {
+									random_enemy_country = {
+										limit = {
+											surrender_progress > 0.1
+											has_capitulated = no
+										}
+										set_variable = {
+											global.trashtalk_other_country_tag_box1 = THIS.id
+										}
+									}	
+								}
+							}
+							random_list = {	#Country is winning
+								10 = {	#Soon Y will by speaking X
+									set_variable = {
+										global.trashtalk_box_1_message = 12
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 13
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 14
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 15
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 16
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 17
+									}
+								}
+								3 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 18
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 19
+									}
+								}
+								3 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 20
+									}
+								}
+							}
+						}
+					}
+				}
+				if = {	#Country can be slightly losing, impatience/taunting
+					limit = {
+						surrender_progress > 0.05
+						surrender_progress < 0.3
+					}
+					random_list = {	#Country can be slightly losing, impatience/taunting
+						1 = {
+							trashtalk_cycle_variables = yes
+							set_variable = {
+								global.trashtalk_own_country_tag_box1 = THIS.id
+							}
+							#setup to determine most appropriate enemy country to target
+							if = {
+								limit = {
+									any_enemy_country = {
+										is_major = yes
+										has_capitulated = no	#should be unnecessary, but just to be sure
+									}
+								}
+								random_enemy_country = {
+									limit = {
+										is_major = yes
+										has_capitulated = no
+									}
+									set_variable = {
+										global.trashtalk_other_country_tag_box1 = THIS.id
+									}
+								}
+								else = {
+									random_enemy_country = {
+										limit = {
+											has_capitulated = no
+										}
+										set_variable = {
+											global.trashtalk_other_country_tag_box1 = THIS.id
+										}
+									}	
+								}
+							}
+							random_list = {
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 18
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 20
+									}
+								}
+							}
+						}
+						5 = {
+							#nothing
+						}
+					}
+				}
+				if = {	#Country complaining about an ally
+					limit = {
+						any_allied_country = {
+							surrender_progress > 0.3
+							has_capitulated = no		#sanity check
+						}
+					}
+					random_list = {
+						4 = {
+							#Nothing
+						}
+						8 = {
+							modifier = {
+								factor = 0
+								num_faction_members < 6
+							}
+							#Nothing, extra chance for nothing if many allies might comment too
+						}
+						8 = {
+							modifier = {
+								factor = 0
+								num_faction_members < 11
+							}
+							#Nothing, extra chance for nothing if many allies might comment too
+						}
+						1 = {
+							trashtalk_cycle_variables = yes
+							set_variable = {
+								global.trashtalk_own_country_tag_box1 = THIS.id
+							}
+							random_allied_country = {
+								limit = {
+									surrender_progress > 0.3
+									has_capitulated = no		#sanity check
+								}
+								set_variable = {
+									global.trashtalk_other_country_tag_box1 = THIS.id
+								}
+							}
+							random_list = {
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 31
+									}
+								}
+								10 = {
+									set_variable = {
+										global.trashtalk_box_1_message = 32
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1602 @@
+focus_tree = {
+	id = kynnast_focus
+
+	country = {
+		factor = 0
+        modifier = {
+            add = 10
+            tag = KNA
+        }
+	}
+
+	default = no
+
+	continuous_focus_position = { x = 20 y = 2000 }
+	#应许之地
+	focus = {
+		id = KNA_promised_land
+		##icon = 
+		cost = 1.00
+		x = 8
+		y = 0
+		completion_reward = {
+			custom_effect_tooltip = kna_tooltip_2
+			add_political_power = 200
+		}
+	}
+	#内忧外患
+	focus = {
+		id = KNA_domestic_trouble_and_foreign_invasion
+		icon = GFX_KNA_domestic_trouble_and_foreign_invasion
+		cost = 4.00
+		x = 8
+		y = 1
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = kna_tooltip_3
+				has_country_flag = kna_focus_14
+			}
+		}
+		prerequisite = {
+			focus = KNA_promised_land
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = scattered_collection_of_tribes
+				add_idea = scattered_collection_of_tribes_with_the_sense_of_concern
+			}
+			KNA_kaya = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_stonehide_lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_thunderhelm_lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_Frostarm_Lawachurl = {
+				add_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			clr_country_flag = KNA_RAG_1
+			clr_country_flag = KNA_RAG_2
+			set_country_flag = kna_decision_1 #开启other_spark决议
+			hidden_effect = {
+				news_event = {
+					id = kna_story.7
+					days = 1
+				}
+			}
+		}
+	}
+	#卷个屁
+	focus = {
+		id = Roll_your_butt
+		cost = 1.00
+		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
+		x = 3
+		y = 2
+		allow_branch = {
+			not = {
+				has_country_flag = kna_focus_15
+			}
+		}
+		available = {
+			always = no 
+		}
+		prerequisite = {
+			focus = KNA_domestic_trouble_and_foreign_invasion
+		}
+		mutually_exclusive = {
+			focus = study_hard
+			focus = KNA_Presbyterian_Church
+		}
+		completion_reward = {
+		}
+	}
+	#拼命学！  ##这是领导人线 
+	focus = {
+		id = study_hard
+		icon = GFX_study_hard
+		cost = 5.00
+		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
+		x = -3
+		y = 2
+		allow_branch = {
+			not = {
+				has_country_flag = kna_focus_15
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = kna_tooltip_4
+				or = {
+					has_country_flag = kna_decision_2
+					has_country_flag = kna_focus_6
+				}
+				
+			}
+			
+		}
+		mutually_exclusive = {
+			focus = Roll_your_butt
+			focus = KNA_Presbyterian_Church
+		}
+		prerequisite = {
+			focus = KNA_domestic_trouble_and_foreign_invasion
+		}
+		completion_reward = {
+			set_country_flag = KNA_focus_4  #学风建设圆满完成，减工厂加科研#米子传事件
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_hardly_foreign
+			}
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_no_foreign
+			}
+			clr_country_flag = kna_focus_6
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	#外聘艾拉·马斯克
+	focus = {
+		id = Ella_Musk_External_Hire
+		icon = GFX_Ella_Musk_External_Hire
+		cost = 3.00
+		relative_position_id = study_hard 
+		x = 0 
+		y = 1
+		prerequisite = {
+			focus = study_hard
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_10
+			custom_effect_tooltip = KNA_Ella_Musk_External_Hire_loc
+			show_ideas_tooltip = KNA_Ella_Musk
+		}
+	}
+	#我们是语言学大师
+	focus = {
+		id = We_are_the_master_of_linguistics
+		icon = GFX_We_are_the_master_of_linguistics
+		cost = 6.00
+		relative_position_id = Ella_Musk_External_Hire
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Ella_Musk_External_Hire
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_old_study_foreign
+			}
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_hardly_foreign
+			}
+		}
+	}
+	#这是新生
+	focus = {
+		id = This_is_newborn
+		icon = GFX_This_is_newborn
+		cost = 1.00
+		relative_position_id = We_are_the_master_of_linguistics
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = We_are_the_master_of_linguistics
+		}
+		prerequisite = {
+			focus = find_Godot
+
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = die_reborn
+		}
+	}
+	#割掉腐肉
+	focus = {
+		id = Cut_off_the_carrion
+		icon = GFX_Cut_off_the_carrion
+		cost = 1.00
+		relative_position_id = This_is_newborn
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = This_is_newborn
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = Looking_around_the_World
+			}
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_in_a_dilemma
+			}
+		}
+	}
+	#土法治疗
+	focus = {
+		id = Indigenous_therapy
+		cost = 1.00
+		relative_position_id = Cut_off_the_carrion
+		x = -2
+		y = 1
+		available = {
+			always = no 
+		}
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		completion_reward = {
+			add_manpower = 10000000
+			add_ideas = Empirical_Methodology
+		}
+		mutually_exclusive = {
+			focus = Scientific_therapy
+		}
+	}
+	#寻找新神
+	focus = {
+		id = Searching_for_New_God
+		cost = 1.00
+		relative_position_id = Indigenous_therapy
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			MOT = {
+				remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_old_study_foreign
+				}
+				create_wargoal = {
+					type = take_state_focus
+					generator = 16
+					target = KNA
+				}
+			}
+			create_wargoal = {
+				type = take_state_focus
+				generator = 1
+				target = MOT 
+			}
+			set_country_flag = kna_focus_13
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	#末裔领袖
+	focus = {
+		id = leader_of_last_descendant
+		icon = GFX_leader_of_last_descendant
+		cost = 1.00
+		x = 13
+		y = 13
+		allow_branch = {
+		has_country_flag = kna_focus_13
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			add_ideas = orthodox_kynnast
+		}
+	}
+	#凯亚的神之眼?
+	focus = {
+		id = the_vision_of_Kaya
+		cost = 1.00
+		relative_position_id = leader_of_last_descendant
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = leader_of_last_descendant 
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = Sword_pointing_west
+			}
+		}
+	}
+	#嘟嘟莲的奥义----凯亚的突破材料
+	focus = {
+		id = The_secret_of_Calla_Lily
+		cost = 1.00
+		relative_position_id = the_vision_of_Kaya
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = the_vision_of_Kaya
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = The_Genshin_being
+			}
+		}
+	}
+	#我即冰神
+	focus = {
+		id = I_am_God_of_Cryo
+		cost = 1.00
+		relative_position_id = The_secret_of_Calla_Lily
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = The_secret_of_Calla_Lily 
+		}
+		completion_reward = {
+			add_manpower = 1000000
+			set_country_flag = KNA_focus_flag2
+			add_ideas = KNA_God_Creator
+			ABY = {
+				remove_wargoal = {
+					type = all 
+					target = KNA 
+				}
+			}
+		}
+	}
+	#科学疗法
+	focus = {
+		id = Scientific_therapy
+		icon = GFX_Scientific_therapy
+		cost = 1.00
+		relative_position_id = Cut_off_the_carrion
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Cut_off_the_carrion
+		}
+		mutually_exclusive = {
+			focus = Indigenous_therapy
+		}
+		completion_reward = {
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism 
+				trait = Scientific_research_is_equally_important
+			}
+		}
+	}
+	#回归理性
+	focus = {
+		id = return_to_rationality
+		icon = GFX_return_to_rationality
+		cost = 1.00
+		relative_position_id = Scientific_therapy
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = Scientific_therapy
+		}
+		completion_reward = {
+			add_research_slot = 1
+			remove_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = Scientific_research_is_equally_important
+			}
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism 
+				trait = Two_Hands_on_Scientific_Research_and_Industry
+			}
+		}
+	}
+	#封建迷信要不得
+	focus = {
+		id = superstition_is_not_acceptable
+		icon = GFX_superstition_is_not_acceptable
+		cost = 1.00
+		relative_position_id = return_to_rationality
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = return_to_rationality
+		}
+		completion_reward = {
+			remove_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_old_study_foreign
+				}
+			start_civil_war = {
+				ruling_party = communism
+				ideology = fascism
+				size = 0.6
+				keep_all_characters = yes
+				states = all 
+				states_filter = {
+					#is_captial = no 
+				}
+			}
+		}
+	}
+	#集合学者
+	focus = {
+		id = gather_scholars
+		icon = GFX_gather_scholars
+		cost = 1.00
+		relative_position_id = superstition_is_not_acceptable
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = superstition_is_not_acceptable
+		}
+		completion_reward = {
+			hidden_effect = {
+			set_country_flag = kna_focus_12
+			mark_focus_tree_layout_dirty = yes
+			}
+			custom_effect_tooltip = KNA_focus_2
+			add_ideas = Study_Knowledge_Research_1
+		}
+	}
+#	#集结号
+	focus = {
+		id = The_Assembly
+		icon = GFX_The_Assembly
+		cost = 3.00
+		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
+		x = 0
+		y = 3
+		completion_reward = {
+			add_political_power = 150
+			add_ideas = Political_The_Assembly
+			add_ideas = thousand_a_voice
+			add_state_core = 17
+			remove_ideas = {
+				inflation_level_0
+				DOT_Treasury_1
+			}
+			division_template = {
+					name = "丘丘先锋步兵"
+					regiments = {
+						infantry = {
+							x = 0 
+							y = 0
+						}
+						infantry = {
+							x = 0
+							y = 1
+						}
+						infantry = {
+							x = 0
+							y = 2
+						}
+					}
+				}
+			17 = {
+				create_unit = {
+				    division = "name=\"丘丘先锋步兵\"division_template=\"丘丘先锋步兵\"start_experience_factor=0.5"
+					owner = KNA
+					count = 6
+				}
+			}
+		}
+	}
+	#寻找戈多
+	focus = {
+		id = find_Godot
+		icon = GFX_find_Godot
+		cost = 3.00
+		relative_position_id = The_Assembly
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = The_Assembly
+		}
+		completion_reward = {
+			add_political_power = 150
+			country_event = kna.1
+			set_country_flag = kna_flag_11 #一个事件
+			set_country_flag = KNA_focus_1  #开启抢地决议
+			add_trait = {
+				character = KNA_kaya
+				ideology = marxism
+				trait = KNA_in_a_dilemma
+			}
+		}
+	}
+	#拍拍身上的灰
+	focus = {
+		id = pat_the_ashes
+		icon = GFX_pat_the_ashes
+		cost = 3.00
+		relative_position_id = The_Assembly
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = find_Godot
+		}
+		completion_reward = {
+			add_political_power = 150
+			remove_ideas = scattered_collection_of_tribes
+			add_ideas = the_four_modernizations_1
+			17 = {
+				add_building_construction = {
+				type = arms_factory 
+				level = 2 
+				instant_build = yes 
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			17 = {
+				add_building_construction = {
+				type = industrial_complex 
+				level = 2 
+				instant_build = yes 
+				}
+				add_extra_state_shared_building_slots = 2
+			}
+			set_variable_to_random = {
+    			var = random_num
+				min = 1
+    			max = 10
+			}
+		}
+	}
+	#打扫干净屋子再请客
+	focus = {
+		id = clean_the_house_before_inviting_guests
+		cost = 3.00
+		relative_position_id = pat_the_ashes
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = pat_the_ashes
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_timed_idea = {
+				idea = clean_the_house 
+				days = 90
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_1
+				add_idea = the_four_modernizations_2
+			}
+		}
+	}
+	#韬光养晦
+	focus = {
+		id = hide_capacities
+		cost = 3.00
+		relative_position_id = clean_the_house_before_inviting_guests
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = clean_the_house_before_inviting_guests
+		}
+		completion_reward = {
+			set_country_flag = kna_focus_5
+			add_political_power = 150
+			add_trait = {
+				character = KNA_kaya 
+				ideology = marxism
+				trait = for_the_people_of_kynnast
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_2
+				add_idea = the_four_modernizations_3
+			}
+		}
+	}
+	#卧薪尝胆
+	focus = {
+		id = licking_the_wounds
+		cost = 3.00
+		relative_position_id = hide_capacities
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = hide_capacities
+		}
+		completion_reward = {
+			add_political_power = 250
+			hidden_effect = {
+				country_event = {##开启事件，更新国策树
+					id = kna.20
+					days = 4
+				}
+			}
+			custom_effect_tooltip = kna_tooltip_1
+		}
+	}
+	#生育是头等大事_1
+	focus = {
+		id = fertility_is_a_top_priority_1
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_3
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#重工业是关键_1
+	focus = {
+		id = heavy_industry_is_key_1
+		cost = 5.00
+		relative_position_id = fertility_is_a_top_priority_1
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = fertility_is_a_top_priority_1
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#补给不可或缺_1
+	focus = {
+		id = supply_is_indispensable_1
+		cost = 5.00
+		relative_position_id = heavy_industry_is_key_1
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = heavy_industry_is_key_1
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#生育是头等大事_2
+	focus = {
+		id = fertility_is_a_top_priority_2
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_7
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#补给不可或缺_2
+	focus = {
+		id = supply_is_indispensable_2
+		cost = 5.00
+		relative_position_id = fertility_is_a_top_priority_2
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = fertility_is_a_top_priority_2
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#重工业是关键_2
+	focus = {
+		id = heavy_industry_is_key_2
+		cost = 5.00
+		relative_position_id = supply_is_indispensable_2
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = supply_is_indispensable_2
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#补给不可或缺_3
+	focus = {
+		id = supply_is_indispensable_3
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_8
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#生育是头等大事_3
+	focus = {
+		id = fertility_is_a_top_priority_3
+		cost = 5.00
+		relative_position_id = supply_is_indispensable_3
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = supply_is_indispensable_3
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#重工业是关键_3
+	focus = {
+		id = heavy_industry_is_key_3
+		cost = 5.00
+		relative_position_id = fertility_is_a_top_priority_3
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = fertility_is_a_top_priority_3
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#补给不可或缺_4
+	focus = {
+		id = supply_is_indispensable_4
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_9
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#重工业是关键_4
+	focus = {
+		id = heavy_industry_is_key_4
+		cost = 5.00
+		relative_position_id = supply_is_indispensable_4
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = supply_is_indispensable_4
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#生育是头等大事_4
+	focus = {
+		id = fertility_is_a_top_priority_4
+		cost = 5.00
+		relative_position_id = heavy_industry_is_key_4
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = heavy_industry_is_key_4
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#重工业是关键_5
+	focus = {
+		id = heavy_industry_is_key_5
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_10
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#补给不可或缺_5
+	focus = {
+		id = supply_is_indispensable_5
+		cost = 5.00
+		relative_position_id = heavy_industry_is_key_5
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = heavy_industry_is_key_5
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#生育是头等大事_5
+	focus = {
+		id = fertility_is_a_top_priority_5
+		cost = 5.00
+		relative_position_id = supply_is_indispensable_5
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = supply_is_indispensable_5
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#重工业是关键_6
+	focus = {
+		id = heavy_industry_is_key_6
+		cost = 5.00
+		relative_position_id = licking_the_wounds
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = kna_focus_11
+		}
+		prerequisite = {
+			focus = licking_the_wounds
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = develop_heavy_industry 
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_4
+				add_idea = the_four_modernizations_5
+			}
+		}
+	}
+	#生育是头等大事_6
+	focus = {
+		id = fertility_is_a_top_priority_6
+		cost = 5.00
+		relative_position_id = heavy_industry_is_key_6
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = heavy_industry_is_key_6
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = Born_more_and_born_better
+				days = 150
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_3
+				add_idea = the_four_modernizations_4
+			}
+		}
+	}
+	#补给不可或缺_6
+	focus = {
+		id = supply_is_indispensable_6
+		cost = 5.00
+		relative_position_id = fertility_is_a_top_priority_6
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = fertility_is_a_top_priority_6
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = do_large_scale_supply
+				days = 150
+			}
+			17 = {
+				add_extra_state_shared_building_slots = 5
+			}
+			swap_ideas = {
+				remove_idea = the_four_modernizations_5
+				add_idea = the_four_modernizations_6
+			}
+		}
+	}
+	#生而为人
+	focus = {
+		id = we_also_the_people
+		relative_position_id = licking_the_wounds
+		cost = 5.00
+		x = 0
+		y = 8
+		allow_branch = {
+			or = { 
+				has_country_flag = kna_focus_3
+				has_country_flag = kna_focus_7
+				has_country_flag = kna_focus_8
+				has_country_flag = kna_focus_9
+				has_country_flag = kna_focus_10
+				has_country_flag = kna_focus_11
+			}
+		}
+		prerequisite = {
+			focus = supply_is_indispensable_1
+			focus = supply_is_indispensable_2
+			focus = supply_is_indispensable_3
+			focus = supply_is_indispensable_4
+			focus = supply_is_indispensable_5
+			focus = supply_is_indispensable_6
+		}
+		completion_reward = {
+			add_manpower = 1100000
+			add_timed_idea = {
+				idea = not_defined_by_anyone 
+				days = 150
+			}
+		}
+	}
+	#来一场久违的胜利吧
+	focus = {
+		id = lets_have_a_long_lost_victory
+		cost = 3.00
+		relative_position_id = we_also_the_people
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = we_also_the_people
+		}
+		completion_reward = {
+			set_country_flag = KNA_focus_flag3
+			KNA_kaya = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_stonehide_lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_thunderhelm_lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+			KNA_Frostarm_Lawachurl = {
+				remove_trait = {
+					trait = KNA_throes_of_failure
+					slot = field_marshal
+					#days = 120
+				}
+			}
+		}
+	}
+	#钢板一块
+	focus = {
+		id = A_piece_of_steel_plate
+		cost = 1.00
+		x = 8
+		y = 20
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				has_country_flag = kna_focus_15
+			}
+		}
+		prerequisite = {
+			focus = I_am_God_of_Cryo
+			focus = better_than_all_of
+			focus = KNA_be_perpendicular_and_horizontal
+		}
+		prerequisite = {
+			focus = lets_have_a_long_lost_victory
+		}
+		completion_reward = {
+			set_country_flag = KNA_focus_flag4
+			add_ideas = a_great_country
+		}
+	}
+	#总结经验
+	focus = {
+		id = sum_up_experience
+		cost = 1.00
+		x = 21
+		y = 8
+		allow_branch = {
+		has_country_flag = kna_focus_12
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	#形成理论
+	focus = {
+		id = form_theory
+		cost = 1.00
+		relative_position_id = sum_up_experience
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = sum_up_experience
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_1
+				add_idea = Study_Knowledge_Research_2
+			}
+		}
+	}
+	#群众路线
+	focus = {
+		id = the_mass_line
+		cost = 20.00
+		relative_position_id = form_theory
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_command_power = 150
+		}
+	}
+	#宁有种乎？
+	focus = {
+		id = born_with_their_standing
+		cost = 1.00
+		relative_position_id = the_mass_line
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = the_mass_line 
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+	}
+	#谁主沉浮
+	focus = {
+		id = which_takes_the_lead
+		cost = 1.00
+		relative_position_id = born_with_their_standing
+		x = 0
+		y = 2
+		prerequisite ={
+			focus = born_with_their_standing
+		}
+		completion_reward = {
+			army_experience = 100
+			navy_experience = 10
+			air_experience = 10
+		}
+	}
+	#众生度尽，方证本哉
+	focus = {
+		id = all_living_cross_over_then_shows_what_is_me
+		cost = 1.00
+		relative_position_id = which_takes_the_lead
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = which_takes_the_lead
+		}
+	}
+	#唯我独尊
+	focus = {
+		id = better_than_all_of
+		cost = 1.00
+		relative_position_id = all_living_cross_over_then_shows_what_is_me
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = all_living_cross_over_then_shows_what_is_me
+		}
+		completion_reward = {
+			every_unit_leader = {
+				gain_xp = 15
+			}
+		}
+	}
+	#自我革命  ##这条路发展技术，同时带来稳定度和战争支持度的大幅削减
+	focus = {
+		id = self_revolution
+		cost = 20.00
+		relative_position_id = form_theory
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = form_theory
+		}
+		completion_reward = {
+			add_political_power = 200
+			set_country_flag = kna_flag_8 #开启提升稳定度和战争支持度的决议
+		}
+	}
+	#主观能动性
+	focus = {
+		id = subjective_initiative
+		cost = 1.00
+		relative_position_id = self_revolution
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = self_revolution
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_2
+				add_idea = Study_Knowledge_Research_3
+			}
+		}
+	}
+	#更根本的客观规律
+	focus = {
+		id = more_fundamental_objective_laws
+		cost = 1.00
+		relative_position_id = subjective_initiative
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = subjective_initiative
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Study_Knowledge_Research_3
+				add_idea = Study_Knowledge_Research_4
+			}
+		}
+	}
+	#丘丘长老会
+	focus = {
+		id = KNA_Presbyterian_Church 
+		cost = 1.00
+		relative_position_id = KNA_domestic_trouble_and_foreign_invasion
+		x = 13
+		y = 2
+		offset = {
+			x = -6
+			y = 0
+			trigger = {
+				has_country_flag = kna_focus_15
+			}
+		}
+		allow_branch = {
+			has_country_flag = kna_focus_6
+		}
+		mutually_exclusive = {
+			focus = study_hard
+			focus = Roll_your_butt
+		}
+		prerequisite = { 
+			focus = KNA_domestic_trouble_and_foreign_invasion
+		}
+		completion_reward = {
+			set_country_flag = kna_focus_15
+			mark_focus_tree_layout_dirty = yes 
+			set_power_balance = {
+				id = KNA_power_balance
+				set_default = yes 
+			}
+			remove_ideas = scattered_collection_of_tribes_with_the_sense_of_concern
+		}
+	}
+	#影子政府
+	focus = {
+		id = KNA_shadow_government
+		cost = 1.00
+		relative_position_id = KNA_Presbyterian_Church
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_Presbyterian_Church
+		}
+		completion_reward = {
+			add_power_balance_value = {
+				id = KNA_power_balance
+				value = 0.10
+			}
+			set_country_flag = kna_decision_3 #开启决议，使内战开始时，我方将领增加
+		}
+	}
+	#拉帮结伙
+	focus = {
+		id = KNA_get_cliques
+		cost = 1.00
+		relative_position_id = KNA_shadow_government
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_shadow_government
+		}
+		completion_reward = {
+			add_political_power = 500
+			set_variable = {
+				var = kna_a #劝降将领说服力
+				value = 10
+			}
+		}
+	}
+	#大声密谋
+	focus = {
+		id = KNA_loudly_conspire
+		cost = 4.00
+		relative_position_id = KNA_get_cliques
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_get_cliques
+		}
+		completion_reward = {
+			add_to_variable = {
+				kna_a = 10
+			}
+			country_event = {
+				id = kna.24
+				days = 2
+			}
+		}
+	}
+	#种大树
+	focus = {
+		id = KNA_plant_big_trees
+		cost = 4.00
+		relative_position_id = KNA_loudly_conspire
+		x = -1
+		y = 1
+		mutually_exclusive = {
+			focus = KNA_pull_out_teeth
+		}
+		prerequisite = {
+			focus = KNA_loudly_conspire
+		}
+		completion_reward = {
+			add_political_power = 250
+			add_to_variable = {
+				kna_a = 10
+			}
+		}
+	}
+	#拔牙
+	focus = {
+		id = KNA_pull_out_teeth
+		cost = 4.00
+		relative_position_id = KNA_loudly_conspire
+		x = 1
+		y = 1
+		mutually_exclusive = {
+			focus = KNA_plant_big_trees
+		}
+		prerequisite = {
+			focus = KNA_loudly_conspire
+		}
+		completion_reward = {
+			}
+		}
+	#导火索
+	focus = {
+		id = KNA_fuse
+		cost = 4.00
+		relative_position_id = KNA_loudly_conspire
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_loudly_conspire
+		}
+		allow_branch = {
+			has_country_flag = kna_focus_16
+		}
+		completion_reward = {
+			
+		}
+	}
+	#
+	#我是顽固派 
+	focus = {
+		id = KNA_I_am_a_diehard
+		cost = 1.00
+		x = 0
+		y = 1
+		prerequisite = {
+		}
+		allow_branch = {
+			has_country_flag = temporary
+		}
+		completion_reward = {
+
+		}
+	}
+	# 暗杀计划
+	focus = {
+		id = KNA_plan_of_the_assassination
+		cost = 1.00
+		relative_position_id = KNA_I_am_a_diehard
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_I_am_a_diehard
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_9 #创建暗杀决议
+		}
+	}
+	#射人先射马
+	focus = {
+		id = KNA_Aim_first_at_the_riders_horse
+		cost = 1.00
+		relative_position_id = KNA_plan_of_the_assassination
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = KNA_plan_of_the_assassination
+		}
+		completion_reward = {
+			set_country_flag = kna_flag_1 #加快暗杀首相决议
+		}
+	}
+	#不成功，便成仁
+	focus = {
+		id = KNA_die_for_a_righteous
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -3
+		y = 2
+		prerequisite = {
+			focus = KNA_Aim_first_at_the_riders_horse
+		}
+		mutually_exclusive = {
+			focus = KNA_Knife_holder_on_neck
+		}
+	}
+	#刀架在脖子上
+	focus = {
+		id = KNA_Knife_holder_on_neck
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -1
+		y = 2
+		prerequisite = {
+			focus = KNA_Aim_first_at_the_riders_horse
+		}
+		mutually_exclusive = {
+			focus = KNA_die_for_a_righteous
+		}
+	}
+	#祖宗之法不可变   #此线，通过外交手段，将盟友拉入战争泥潭，最终自己获得最大利益
+	focus = {
+		id = KNA_Ancestral_law_is_immutable
+		cost = 1.00
+		relative_position_id = KNA_Aim_first_at_the_riders_horse
+		x = -2
+		y = 3
+		prerequisite = {
+			focus = KNA_die_for_a_righteous
+			focus = KNA_Knife_holder_on_neck
+		}
+	}
+	#当众行刑
+	focus = {
+		id = KNA_Execution_in_public
+		cost = 1.00
+		relative_position_id = KNA_Ancestral_law_is_immutable
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Ancestral_law_is_immutable
+		}
+	}
+	#清算党羽
+	focus = {
+		id = KNA_Liquidate_party_members
+		cost = 1.00
+		relative_position_id = KNA_Execution_in_public
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Execution_in_public
+		}
+	}
+	#弱国的外交是依附
+	focus = {
+		id = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		cost = 1.00
+		relative_position_id = KNA_Liquidate_party_members
+		x = 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Liquidate_party_members
+		}
+	}
+	#笑里藏刀
+	focus = {
+		id = KNA_hide_a_dagger_in_a_smile
+		cost = 1.00
+		relative_position_id = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		x= 0
+		y = 2
+		prerequisite = {
+			focus = KNA_Diplomacy_of_Weak_Countries_is_allegiance
+		}
+	}
+	#纵横捭阖
+	focus = {
+		id = KNA_be_perpendicular_and_horizontal
+		cost = 1.00
+		relative_position_id = KNA_hide_a_dagger_in_a_smile
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = KNA_hide_a_dagger_in_a_smile
+		}
+	}
+	#天外来客
+	#focus = {
+	#	id = people_out_of_sky
+	#	cost = 1.00
+	#	x = 20
+	#	y = 3
+	#	completion_reward = {
+	#		create_country_leader = {
+	#			name = KNA_Five_day_journey
+	#			desc = "KNA_Five_day_journey_desc"
+	#			picture = GFX_KNA_Five
+	#			expire = "1965.1.1"
+	#			ideology = marxism
+	#			traits = {}
+	#	}
+	#}
+	#}
+}

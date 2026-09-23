@@ -1,0 +1,101 @@
+VAN_state_enable_have_marana = {
+	OR = {
+		state = 401
+		state = 402
+		state = 403
+		state = 404
+		state = 405
+		state = 406
+		state = 407
+		state = 408
+		state = 409
+		state = 410
+		state = 411
+		state = 412
+		state = 413
+		state = 414
+		state = 415
+		state = 416
+	}
+}
+
+VAN_is_not_solving_marana = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_is_not_solving_marana_tooltip
+		NOT = {
+			has_decision = VAN_solve_marana_state_401
+			has_decision = VAN_solve_marana_state_402
+			has_decision = VAN_solve_marana_state_403
+			has_decision = VAN_solve_marana_state_404
+			has_decision = VAN_solve_marana_state_405
+			has_decision = VAN_solve_marana_state_406
+			has_decision = VAN_solve_marana_state_407
+			has_decision = VAN_solve_marana_state_408
+			has_decision = VAN_solve_marana_state_409
+			has_decision = VAN_solve_marana_state_410
+			has_decision = VAN_solve_marana_state_411
+			has_decision = VAN_solve_marana_state_412
+			has_decision = VAN_solve_marana_state_413
+			has_decision = VAN_solve_marana_state_414
+			has_decision = VAN_solve_marana_state_415
+			has_decision = VAN_solve_marana_state_416
+		}
+	}
+}
+
+VAN_has_no_marana = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_has_no_marana_tooltip
+		NOT = {
+			any_state = {
+				VAN_state_enable_have_marana = yes
+				has_dynamic_modifier = { modifier = VAN_Marana_state_dynamic_modifier }
+			}
+		}
+	}
+}
+
+VAN_all_state_once_have_marana = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_has_no_marana_tooltip # 隐藏的effect，tooltip可忽略
+		NOT = {
+			any_state = {
+				VAN_state_enable_have_marana = yes
+				NOT = { has_state_flag = VAN_state_once_has_marana }
+			}
+		}
+	}
+}
+
+VAN_is_independent = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_is_independent_tooltip
+		NOT = {
+			OR = {
+				is_puppet_of = SUM
+				has_autonomy_state = auto_SUM_New_Sumeru
+			}
+		}
+	}
+}
+
+VAN_political_thoughts_akademiya_enough = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_political_thoughts_akademiya_enough_tooltip
+		check_variable = { VAN_political_thoughts_akademiya = 50 compare = greater_than_or_equals }
+	}
+}
+
+VAN_political_thoughts_aranism_enough = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_political_thoughts_aranism_enough_tooltip
+		check_variable = { VAN_political_thoughts_aranism = 50 compare = greater_than_or_equals }
+	}
+}
+
+VAN_unit_not_greater_than_limit = {
+	custom_trigger_tooltip = {
+		tooltip = VAN_unit_not_greater_than_limit_tooltip
+		check_variable = { num_divisions = VAN_max_division compare = less_than_or_equals }
+	}
+}
