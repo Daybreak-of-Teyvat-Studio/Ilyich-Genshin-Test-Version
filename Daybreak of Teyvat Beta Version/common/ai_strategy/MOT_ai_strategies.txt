@@ -340,12 +340,12 @@ ANR_VS_RAG = {
 	}
 	enable = {
 		tag = ANR
-		has_war_with = ANR
+		has_war_with = RAG          # [修复] 原为 has_war_with = ANR（自己打自己，恒假），按块名应为与 RAG 交战
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = front_control
-		tag = ANR
+		tag = RAG                   # [修复] 原为 tag = ANR
 		execution_type = careful
 		manual_attack = yes
 		execute_order = yes
@@ -404,20 +404,21 @@ DRA_Prepare_War_with_RAG = {
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = front_unit_request
-		tag = LAW
+		tag = RAG                   # [修复] 原为 LAW，与块名/条件不符（复制自 DRA_Prepare_War_with_LAW 时漏改）
 		value = 40
 	}
 	ai_strategy = {
 		type = prepare_for_war
-		id = LAW
+		id = RAG                    # [修复] 原为 LAW
 		value = 200
 	}
 }
-DRA_VS_LAW = {
+DRA_VS_RAG = {                  # [修复] 原误写为 DRA_VS_LAW（与上一块同名→被覆盖），按块内容应为对 RAG 作战
 	allowed = { tag = DRA }
 	enable = {
 		tag = DRA
-		LAW = { exists = yes }
+		LAW = { exists = no }       # [修复] 原为 LAW = { exists = yes }（与块名不符）；雪山打完 LAW 后才轮到 RAG
+		RAG = { exists = yes }      # [修复] 新增：本块针对 RAG
 		date > 1939.1.1
 		has_global_flag = MOT_Civil_War_Begun
 	}
@@ -456,11 +457,13 @@ DRA_Prepare_War_with_MOT = {
 		value = 200
 	}
 }
-DRA_VS_LAW = {
+DRA_VS_MOT = {                  # [修复] 原误写为 DRA_VS_LAW（与前面两块同名→被覆盖），按块内容应为对 MOT 作战
 	allowed = { tag = DRA }
 	enable = {
 		tag = DRA
-		LAW = { exists = yes }
+		LAW = { exists = no }       # [修复] 原为 LAW = { exists = yes }
+		RAG = { exists = no }       # [修复] 新增：前两个目标都不存在时才轮到 MOT
+		MOT = { exists = yes }      # [修复] 新增：本块针对 MOT
 		date > 1939.1.1
 		has_global_flag = MOT_Civil_War_Begun
 	}
@@ -491,7 +494,7 @@ MOT_Civil_War_Construction_Ratio = {
 	ai_strategy = { type = building_target id = arms_factory value = 200 }
 }
 ###雪山的建设计划变化
-MOT_Civil_War_Construction_Ratio = {
+DRA_Civil_War_Construction_Ratio_1 = {      # [修复] 原误写为 MOT_Civil_War_Construction_Ratio（与上一块同名→被覆盖）
 	enable = {
 		original_tag = DRA
 		date < 1938.1.1
@@ -500,7 +503,7 @@ MOT_Civil_War_Construction_Ratio = {
 		
 	ai_strategy = { type = building_target id = industrial_complex value = 200 }
 }
-MOT_Civil_War_Construction_Ratio = {
+DRA_Civil_War_Construction_Ratio_2 = {      # [修复] 原误写为 MOT_Civil_War_Construction_Ratio（与前两块同名→被覆盖）
 	enable = {
 		original_tag = DRA
 		date > 1938.1.1

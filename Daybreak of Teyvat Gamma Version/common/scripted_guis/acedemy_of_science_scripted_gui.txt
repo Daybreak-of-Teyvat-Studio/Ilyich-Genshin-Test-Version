@@ -3,8 +3,10 @@ scripted_gui = {
 	acedemy_of_science_decision_ui = {
 		context_type = player_context
 		window_name = "acedemy_of_science_decision_ui_window"
-		parent_window_token = technology_tab
-		#parent_window_name = technology_tab
+		# [修复] 原第6行 parent_window_token = technology_tab 使引擎去科技页找宿主容器，
+		#        但本 scripted_gui 未绑定任何 decision_category，也无需挂到科技页；
+		#        去掉后窗口按玩家上下文正常实例化（窗口本体已在
+		#        interface/DVA_acedemy_of_science_scripted_gui.gui 中定义）。
 
 		visible = {
             has_country_flag = DVA_start_research_plan_flag
