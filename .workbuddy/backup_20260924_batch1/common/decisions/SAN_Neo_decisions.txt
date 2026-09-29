@@ -1,0 +1,713 @@
+
+# ========================================================================
+# 珊瑚宫决议组 BY 桂花糕
+# ========================================================================
+
+#add_to_variable = { var = SAN_prestige value = 10 }
+#add_to_variable = { var = SAN_prestige value = -10 }
+
+# 心海的锦囊妙计
+SAN_Kokomi_Trick_decision_categories = {
+	SAN_Kokomi_Trick_decision_01 = {
+		icon = GFX_DOT_Decision_Icon_01
+		available = {
+			# has_completed_focus = SAN_Kokomi_Trick_02
+		}
+		visible = {
+		}
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 1
+		cost = 10
+		ai_will_do = { base = 2.0 }
+		modifier = {
+			war_support_factor = 0.2
+			army_attack_speed_factor = 0.5
+			army_morale_factor = 0.3
+			army_org_factor = -0.1
+			breakthrough_factor = 0.3
+			experience_gain_army_unit_factor = 0.5
+			initiative_factor = 0.3
+			stability_factor = -0.1
+		}
+		complete_effect = {
+			subtract_from_variable = { var = SAN_prestige value = 100 }
+			# custom_effect_tooltip = SAN_prestige_Add
+			custom_effect_tooltip = SAN_prestige_Les
+			add_political_power = 20
+			add_stability = -0.10
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = arms_factory level = 1 instant_build = yes
+				}
+			}
+		}		
+	}
+	SAN_Kokomi_Trick_decision_02 = {
+		icon = GFX_DOT_Decision_Icon_01
+		available = {
+			# has_completed_focus = SAN_Kokomi_Trick_03
+		}
+		visible = {
+		}
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 1
+		cost = 10
+		ai_will_do = { base = 2.0 }
+		modifier = {
+			enemy_justify_war_goal_time = 0.5
+			faction_trade_opinion_factor = 0.5
+			justify_war_goal_time = -0.5
+			opinion_gain_monthly_factor = 0.3
+			annex_cost_factor = -0.5
+			autonomy_gain = 5
+			legitimacy_gain_factor = 1
+			compliance_growth_on_our_occupied_states = 0.5
+			stability_factor = -0.1
+		}
+		complete_effect = {
+			subtract_from_variable = { var = SAN_prestige value = 100 }
+			custom_effect_tooltip = SAN_prestige_Les
+			add_political_power = 20
+			add_stability = -0.10
+		}		
+	}
+	SAN_Kokomi_Trick_decision_03 = {
+		icon = GFX_DOT_Decision_Icon_01
+		available = {
+			# has_completed_focus = SAN_Kokomi_Trick_04
+		}
+		visible = {
+		}
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 1
+		cost = 10
+		ai_will_do = { base = 2.0 }
+		modifier = {
+			consumer_goods_factor = -0.2
+			equipment_upgrade_xp_cost = -0.5
+			production_factory_efficiency_gain_factor = 0.5 
+			production_factory_start_efficiency_factor = 0.5 
+			production_factory_max_efficiency_factor = 0.5 
+			line_change_production_efficiency_factor = 0.3
+			fuel_gain_factor_from_states = 0.5 
+			stability_factor = -0.1
+		}
+		complete_effect = {
+			subtract_from_variable = { var = SAN_prestige value = 100 }
+			custom_effect_tooltip = SAN_prestige_Les
+			add_political_power = 20
+			add_stability = -0.10
+			random_owned_controlled_state = {
+				add_building_construction = { 
+					type = industrial_complex level = 1 instant_build = yes
+				}
+			}
+			add_manpower = 5000
+		}		
+	}
+	SAN_Kokomi_Trick_decision_04 = {
+		icon = GFX_DOT_Decision_Icon_02
+		available = { #失败条件
+			check_variable = { SAN_prestige > 999 }
+		}
+		visible = {
+			tag = SAN
+		}
+		fire_only_once = no
+		activation = { #自动触发的条件
+			tag = SAN
+		}
+		days_re_enable = 1
+		days_remove = 1
+		days_mission_timeout = 90 #失败时间
+		timeout_effect = { #失败效果
+			subtract_from_variable = { var = SAN_prestige value = 5 }
+			custom_effect_tooltip = SAN_prestige_Les
+			add_manpower = -1000
+			hidden_effect = { }
+		}		
+	}
+}
+
+# 组1：望泷内政与军事整固 (对应初期负面精神去除与基础强化)
+SAN_internal_reform_category = {
+	# 1. 肃清军队腐败
+	SAN_decision_purge_army_corruption = {
+		icon = eng_install_government
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_the_resistance_begins }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_army_corruption
+			add_stability = 0.05
+		}
+	}
+	# 2. 征召外籍劳工
+	SAN_decision_foreign_labor = {
+		icon = eng_install_government
+		cost = 75
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_foreign_mercenary_outreach }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_worker_shortage
+			add_manpower = 5000
+		}
+	}
+	# 3. 简化战略文书
+	SAN_decision_simplify_strategy = {
+		icon = eng_install_government
+		cost = 25
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_strategic_pockets_doctrine }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_planingtoomuch
+			add_command_power = 10
+		}
+	}
+	# 4. 举行现人神升座大典
+	SAN_decision_ascension_ceremony = {
+		icon = eng_install_government
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_shrine_maiden_volunteers }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_Too_young
+			add_political_power = 50
+		}
+	}
+	# 5. 经济结构重组
+	SAN_decision_economic_reconstruction = {
+		icon = eng_install_government
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_pearl_rationing_program }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_devalue_the_inmuase
+			add_stability = 0.05
+		}
+	}
+	# 6. 海祇民兵正规化
+	SAN_decision_militia_regularization = {
+		icon = eng_install_government
+		cost = 40
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_mobilize_watatsumi_militia }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_watatsumi_militia
+		}
+	}
+	# 7. 推行标准锻造法
+	SAN_decision_forge_standardization = {
+		icon = eng_install_government
+		cost = 60
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_weapon_forging_standardization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_standardized_forging
+		}
+	}
+	# 8. 强化海祇虔诚
+	SAN_decision_strengthen_faith = {
+		icon = eng_install_government
+		cost = 30
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_shrine_maiden_volunteers }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_piety_of_watatsumi
+		}
+	}
+	# 9. 五郎亲自督导训练
+	SAN_decision_gorou_supervision = {
+		icon = eng_install_government
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_gorou_army_reforms }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_gorou_general
+		}
+	}
+	# 10. 加固近海防波堤
+	SAN_decision_fortify_watatsumi = {
+		icon = eng_install_government
+		cost = 40
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_resistance_fortification_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_omikami_protection
+		}
+	}
+}
+
+# 组2：战时动员与资源开发 (对应军事与工业Idea获得)
+SAN_war_mobilization_category = {
+	# 11. 动员神之眼持有者
+	SAN_decision_mobilize_vision_users = {
+		icon = generic_research
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_vision_vanguard_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_vision_vanguard
+		}
+	}
+	# 12. 八酝山地游击演习
+	SAN_decision_yashiori_guerilla = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 40
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_yashiori_island_pacification }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_partisan_warfare
+		}
+	}
+	# 13. 招募浪人剑客
+	SAN_decision_recruit_ronin = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 60
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_kazuha_vanguard_strategic_unit }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_ronin_mercenaries
+			add_manpower = 2000
+		}
+	}
+	# 14. 组建现人神禁卫军
+	SAN_decision_establish_divine_guard = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_centralized_command_structure }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_elite_divine_guard
+		}
+	}
+	# 15. 整合白夜高压水术
+	SAN_decision_hydro_tech_research = {
+		icon = generic_research
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_higi_village_relief_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_high_pressure_hydro
+		}
+	}
+	# 16. 海雾隐蔽演练
+	SAN_decision_sea_fog_tactics = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_naval_ambush_tactics }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_naval_ambush
+		}
+	}
+	# 17. 清籁雷暴训练
+	SAN_decision_seirai_storm_training = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 70
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_storm_rider_training_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_storm_riders
+		}
+	}
+	# 18. 重启御影炉心
+	SAN_decision_tatarasuna_restart = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 120
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_seize_mikage_furnace_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_tatarasuna_engine
+		}
+	}
+	# 19. 确立海祇海洋主权
+	SAN_decision_naval_dominance = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 150
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_wartime_propaganda_expansion }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_watatsumi_hegemony
+		}
+	}
+	# 20. 珍珠出口专卖
+	SAN_decision_pearl_export = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 40
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_ore_extraction_modernization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_pearl_monopoly
+		}
+	}
+}
+
+# 组3：群岛整合与旧域治理 (对应领土治理Idea获得)
+SAN_regional_governance_category = {
+	# 21. 清籁电网铺设
+	SAN_decision_seirai_grid = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_amakumo_energy_harnessing_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_seirai_storm_harnessing
+		}
+	}
+	# 22. 鹤观雷达部署
+	SAN_decision_tsurumi_radar = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_tsurumi_island_reconnaissance_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_tsurumi_fog_radar
+		}
+	}
+	# 23. 净化邪眼残余
+	SAN_decision_purify_delusions = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 150
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_dispel_fog_over_tsurumi_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_Delusion
+			add_stability = 0.1
+		}
+	}
+	# 24. 崇神抑制工程
+	SAN_decision_tatarigami_suppression = {
+		icon = generic_construction
+		cost = 60
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_save_ruu_soul_strategic_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			random_owned_state = { add_building_construction = { type = infrastructure level = 2 } }
+		}
+	}
+	# 25. 奥罗巴斯血枝研究
+	SAN_decision_hydro_mastery_ritual = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_kapatcir_restless_energy_containment }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_hydro_mastery
+		}
+	}
+	# 26. 选拔新代地走官
+	SAN_decision_new_jizhashi = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 90
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_moshiri_ritual_site_reform }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_jizhashi_spirit
+		}
+	}
+	# 27. 离岛通商特区
+	SAN_decision_ritou_trade_zone = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 70
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_mt_kanna_mining_exploration }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_liberal_market
+		}
+	}
+	# 28. 建设地底工业枢纽
+	SAN_decision_enkanomiya_hub = {
+		icon = generic_production
+		cost = 110
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_enkanomiya_industrial_complex }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_subterranean_complex
+		}
+	}
+	# 29. 相位折叠实验
+	SAN_decision_phasing_experiment = {
+		icon = generic_construction
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_shirakoro_peak_observation_post }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_evernight_phasing
+		}
+	}
+	# 30. 总指挥部扩建
+	SAN_decision_hq_expansion = {
+		icon = generic_construction
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_riftstalker_containment_tactics }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_command_power = 20
+		}
+	}
+}
+
+# 组4：白夜遗产与真理追寻 (对应白夜科技Idea获得)
+SAN_white_night_legacy_category = {
+	# 31. 卸下太阳之子的枷锁
+	SAN_decision_break_sun_child_chains = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_enkanomiya_exploration_project }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			remove_ideas = SAN_legacy_of_sun_child
+			add_political_power = 50
+		}
+	}
+	# 32. 解读《日月前事》
+	SAN_decision_read_forbidden_history = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 200
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_search_for_before_sun_and_moon_action }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_abyssal_wisdom
+			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+	# 33. 点燃恒星之核
+	SAN_decision_ignite_helios = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 150
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_dainichi_mikoshi_reactivation_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_dainichi_energy
+		}
+	}
+	# 34. 龙蜥生物驯化
+	SAN_decision_vishap_domestication = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_jizhashi_training_reforms }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_vishap_taming
+		}
+	}
+	# 35. 举行蛇心大祭
+	SAN_decision_serpent_heart_ceremony = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 60
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_vishap_containment_measures }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_serpents_heart_ritual
+		}
+	}
+	# 36. 公开真实历史
+	SAN_decision_reveal_forbidden_truth = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_evernight_temple_archeology }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_forbidden_history
+		}
+	}
+	# 37. 编撰白夜作战条令
+	SAN_decision_white_night_tactics_book = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 70
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_serpents_heart_ritual_study }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_white_night_doctrine
+		}
+	}
+	# 38. 研制深海潜航甲
+	SAN_decision_abyss_armor_project = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 120
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_abyss_technology_integration }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_tech_bonus = { bonus = 0.3 uses = 2 category = armor }
+		}
+	}
+	# 39. 时间之执政祈祷
+	SAN_decision_chronos_prayer = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 90
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_enkanomiya_industrial_complex }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_stability = 0.1
+		}
+	}
+	# 40. 渊下防卫动员
+	SAN_decision_abyss_mobilization = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_ancient_vessel_restoration }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_manpower = 3000
+		}
+	}
+}
+
+# 组5：现人神意志与万政合流 (对应政治路线Idea获得)
+SAN_political_path_category = {
+	# 41. 强化大蛇正统 (路线A)
+	SAN_decision_orobashi_orthodoxy = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_post_war_future_debate }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_orobashi_orthodoxy
+		}
+	}
+	# 42. 神职官僚整肃 (路线A)
+	SAN_decision_clerical_admin_reform = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_divine_authority_consolidation }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_clerical_admin
+		}
+	}
+	# 43. 共和宪章宣誓 (路线B)
+	SAN_decision_republic_oath = {
+		icon = GFX_DOT_Decision_Icon_01
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_enforced_orobashi_orthodoxy }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_republic_spirit
+		}
+	}
+	# 44. 召开诸岛议会 (路线B)
+	SAN_decision_island_parliament_session = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_clerical_administrative_overhaul }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_multi_island_parliament
+		}
+	}
+	# 45. 输出革命意志 (路线C)
+	SAN_decision_export_revolution = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 100
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_holy_expansionist_doctrine }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_revolutionary_logic
+		}
+	}
+	# 46. 工业集体化运动 (路线C)
+	SAN_decision_industry_collectivization = {
+		icon = GFX_DOT_Decision_Icon_02
+		cost = 80
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_radical_industrial_collectivization }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_collectivized_forges
+		}
+	}
+	# 47. 发起神圣征讨
+	SAN_decision_holy_crusade_start = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_holy_expansionist_doctrine }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_holy_crusade
+		}
+	}
+	# 48. 宽容信仰宣言
+	SAN_decision_religious_tolerance = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_freedom_of_worship_proclamation }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_freedom_of_worship
+		}
+	}
+	# 49. 缔结深渊秘密契约
+	SAN_decision_abyss_secret_contract = {
+		icon = GFX_DOT_Decision_Icon_03
+		cost = 50
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_watatsumi_eternal_dominance_plan }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_abyss_alliance
+		}
+	}
+	# 50. 宣告逆天行道
+	SAN_decision_defy_the_order = {
+		icon = generic_army
+		cost = 200
+		fire_only_once = yes
+		available = { has_completed_focus = SAN_democratic_council_strategy }
+		complete_effect = {
+			add_to_variable = { var = SAN_prestige value = 10 }
+			add_ideas = SAN_defiance_celestia
+			add_war_support = 0.2
+		}
+	}
+}

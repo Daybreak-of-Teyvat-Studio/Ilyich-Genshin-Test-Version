@@ -1,0 +1,124 @@
+==========================================================================
+Nilou PMX -> HOI4 .mesh
+==========================================================================
+源: Nilou  顶点 27022  三角 34230  材质 32  骨骼 601  贴图 10
+
+骨架对齐（分三步定 s / R / t）：
+  scale = 0.393944   (源骨架身高 16.366 -> HOI4 6.447)
+  R = [[ 1.     -0.      0.    ]
+       [ 0.      0.9989  0.0468]
+       [-0.     -0.0468  0.9989]]
+  t = [0.     0.0421 0.3358]
+  关节落点自检（源 -> 期望）：
+      左つま先     -> LeftToeBase    落点 ( 0.212, 0.057,-0.129)  期望 ( 1.136, 0.057, 0.007)  偏差 0.933
+      左足首      -> LeftFoot       落点 ( 0.119, 0.435, 0.371)  期望 ( 0.881, 0.459, 0.421)  偏差 0.764
+      左ひざ      -> LeftLeg        落点 ( 0.248, 2.414, 0.112)  期望 ( 0.667, 2.038, 0.123)  偏差 0.563
+      左足       -> LeftUpLeg      落点 ( 0.368, 4.314,-0.051)  期望 ( 0.436, 3.456, 0.088)  偏差 0.872
+      センター     -> Hip            落点 (-0.000, 3.511, 0.173)  期望 ( 0.000, 3.984, 0.087)  偏差 0.481
+      上半身      -> back_mid       落点 (-0.000, 4.735,-0.151)  期望 ( 0.000, 4.531, 0.068)  偏差 0.299
+      頭        -> head           落点 ( 0.000, 6.505,-0.022)  期望 ( 0.000, 6.505, 0.034)  偏差 0.055
+      左手首      -> LeftHand       落点 ( 1.974, 4.745, 0.122)  期望 ( 2.364, 4.649,-0.092)  偏差 0.454
+
+锚点残差（最终变换）：mean=0.5686  max=0.9333   (HOI4 身高 7.42)
+
+变换后顶点包围盒：
+    X: [ -2.5466,   2.5466]  跨度  5.0932
+    Y: [  0.0111,   7.9939]  跨度  7.9828
+    Z: [ -1.3937,   2.1539]  跨度  3.5476
+    参考：HOI4 模型 Y 跨度 ~7.42（脚 y≈0，头顶 y≈7.42）
+
+材质 32 个，排除装饰件后保留 27 个（去掉 后髮+/星目/白目/肌2/髮+）
+
+分组结果：
+    body   材质 16 个 二重,体,体2,体饰,前摆,前蝴蝶结,头纱,头纱饰,头饰,新規,神之眼AL,肌1,肌3,蝴蝶结,裙,首 三角 20906
+    face   材质 7 个 口舌,目,眉,睫,颜,颜2,齿                          三角 3188
+    hair   材质 3 个 后髮,髮,髮绳                                  三角 3198
+
+构建贴图图集（gutter=8 px）：
+  [body] 贴图 5 张 -> 图集 2048x2048  (占用 1584x1056)
+  [face] 贴图 2 张 -> 图集 1024x2048  (占用 528x1056)
+  [hair] 贴图 1 张 -> 图集 1024x1024  (占用 784x784)
+
+贴图输出名：body=nilou_body_diffuse.dds, face=nilou_face_diffuse.dds, hair=nilou_hair_diffuse.dds  共享 nilou_nospec.dds / nilou_flat_normal.dds
+
+  骨骼映射：名字规则 305，层级继承 296，位置兜底 0，共 601 根
+  刚性跟随：498 根骨沿父链继承了祖先的位移（眼睛/睫毛/翅膀/长发等）
+  部位链 センター     锚点 y=[3.511 4.735 6.505]  dy(y)=[ 0.473 -0.204  0.   ]  覆盖源骨 11
+  部位链 左足       锚点 y=[0.057 0.435 2.414 4.314]  dy(y)=[ 0.     0.024 -0.375 -0.858]  覆盖源骨 8
+  部位链 右足       锚点 y=[0.057 0.435 2.414 4.314]  dy(y)=[ 3.046e-07  2.387e-02 -3.754e-01 -8.580e-01]  覆盖源骨 8
+
+★ 绑定姿态对齐（bind conform）—— 把网格拉到 HOI4 骨架的 rest 姿态
+    参与对齐的源骨 95 / 601；顶点位移 |d| 中位 0.2600  P99 0.9165  最大 0.9333
+    腿部几何 x 剖面（对齐后；骨架是 0.44 / 0.67 / 0.88 / 1.14）：
+      LeftUpLeg      n=   843  质心 (  0.572,  2.765,  0.041)   骨架 x= 0.436  差  0.136
+      LeftLeg        n=   561  质心 (  0.806,  1.159,  0.274)   骨架 x= 0.667  差  0.138
+      LeftFoot       n=   330  质心 (  0.987,  0.268,  0.369)   骨架 x= 0.881  差  0.105
+      LeftToeBase    n=   700  质心 (  1.096,  0.139, -0.064)   骨架 x= 1.136  差 -0.039
+      RightUpLeg     n=   256  质心 ( -0.536,  2.831,  0.038)   骨架 x=-0.436  差 -0.100
+      RightLeg       n=   563  质心 ( -0.806,  1.157,  0.275)   骨架 x=-0.667  差 -0.138
+      RightFoot      n=   330  质心 ( -0.987,  0.268,  0.369)   骨架 x=-0.881  差 -0.105
+      RightToeBase   n=   700  质心 ( -1.096,  0.139, -0.064)   骨架 x=-1.136  差  0.039
+    变换后顶点包围盒：
+        X: [ -2.6149,   2.6149]  跨度  5.2298
+        Y: [  0.0111,   7.9939]  跨度  7.9828
+        Z: [ -1.1562,   2.3914]  跨度  3.5476
+
+生成 draw call：
+    [body] 眼球层前推顶点 82 个
+    body   顶点   16704 三角   20906  Y:[  0.011,  7.994]  X:[ -2.615,  2.615]  贴图 nilou_body_diffuse.dds
+    [face] 眼球层前推顶点 170 个
+    face   顶点    2249 三角    3188  Y:[  6.327,  7.326]  X:[ -0.425,  0.425]  贴图 nilou_face_diffuse.dds
+    hair   顶点    2755 三角    3198  Y:[  3.368,  7.601]  X:[ -1.163,  1.163]  贴图 nilou_hair_diffuse.dds
+
+各 HOI4 骨骼受影响顶点数（全部 draw call 合计）：
+    Root                        0
+    Hip                      6195
+    LeftUpLeg                 926
+    LeftLeg                   677
+    LeftFoot                  378
+    LeftToeBase               483
+    back_mid                 1846
+    LeftShoulder              349
+    LeftArm                   404
+    LeftForeArm               116
+    LeftForeArmRoll           361
+    LeftHand                  847
+    Left_Hand_node              0
+    Left_Hand_node_2            0
+    Left_Hand_node_3            0
+    Left_Hand_node_4            0
+    head                     8103
+    RightShoulder             359
+    RightArm                  404
+    RightForeArm              116
+    RightForeArmRoll          362
+    RightHand                 848
+    Right_Hand_node             0
+    Right_Hand_node_2           0
+    Right_Hand_node_3           0
+    Right_Hand_node_4           0
+    mid_back_node               0
+    RightUpLeg                375
+    RightLeg                  678
+    RightFoot                 379
+    RightToeBase              483
+    Root_node_1                 0
+    Root_node_2                 0
+
+✔ 无顶点绑到「动画里会被隐藏」的骨上（检查了 8 根）
+
+skeleton 复用 PRC_infantry.mesh：33 根骨（Root ... Root_node_2）
+    与内置 HOI4_REST 的最大偏差 = 0.00006（应 < 0.01；跳过 1 根退化 tx 的骨）
+
+写出 C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\scripts\..\models_out\Nilou\Nilou_infantry.mesh（2068362 bytes）
+
+写出贴图：
+    nilou_body_diffuse.dds              2048x2048  DXT5   5592560 bytes (alpha=True)
+    nilou_face_diffuse.dds              1024x2048  DXT5   2796352 bytes (alpha=True)
+    nilou_hair_diffuse.dds              1024x1024  DXT5   1398256 bytes (alpha=True)
+    nilou_nospec.dds                      4x4   DXT5      (透明 spec)
+    nilou_flat_normal.dds                 4x4   DXT5      (平坦 normal)
+
+回读自检（用 pdx_data 解析刚写出的文件）：
+    skeleton 骨骼 33 根
+    mesh 节点 3，合计顶点 21708，三角 27292

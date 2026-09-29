@@ -1,0 +1,79 @@
+==============================================================================
+heightmap 柔化   apply=True
+==============================================================================
+原始 BMP: w=4096 h=2048 bpp=8 comp=0 dataoff=1078 size=8389686
+biHeight=2048 (bottom-up)
+读入阵列 (2048, 4096) dtype=uint8
+陆地 572469 px (6.824%)  海洋 7816139 px
+原陆地灰度 min=97 max=200 mean=125.57
+陆地连通块 90 个：1px=0  2-4px=0  5-20px=11  21-100px=31  >100px=48
+最大 8 块像素数: [310276, 141935, 39619, 8697, 7750, 6063, 5631, 4964]
+
+海面距离场: max=1660.3 px
+海面剖面锚点: r=[1.0, 2.0, 6.0, 11.0, 21.0] -> [92.0, 90.0, 70.0, 50.0, 30.0] ；r=41 处平滑收到 10
+
+------------------------------------------------------------------------------
+校验
+------------------------------------------------------------------------------
+陆地: min=96 max=187 mean=120.84  | 低于 96 的像素 = 0
+沿海陆地(d==1): 像素 30191 个, min=96 max=96, 全部==96: True
+海面: min=10 max=92  | 高于 92 的像素 = 0
+
+对照 .workbuddy\DOT MAP 3.0.bmp（紫=陆地 #9644C0，黑=海洋 #051412）:
+   参照图: 陆地 572469 px  海洋 7816139 px
+   掩膜与参照图逐像素一致: True
+   参照图'海洋'像素中灰度 > 92 的: 0
+   参照图'陆地'像素中灰度 < 96 的: 0
+
+海面按距岸整数圈的中位灰度（对照用户规格）:
+   r=1    n=43788     median= 92.0  mean=91.71  min=91 max=92
+   r=2    n=37726     median= 89.0  mean=88.66  min=86 max=90
+   r=3    n=25642     median= 84.0  mean=83.56  min=82 max=85
+   r=4    n=23149     median= 79.0  mean=79.06  min=78 max=80
+   r=5    n=29721     median= 75.0  mean=73.68  min=71 max=75
+   r=6    n=20203     median= 69.0  mean=68.76  min=67 max=70
+   r=7    n=22781     median= 65.0  mean=64.93  min=63 max=66
+   r=8    n=21466     median= 61.0  mean=60.63  min=58 max=62
+   r=9    n=18942     median= 57.0  mean=56.43  min=54 max=58
+   r=10   n=18813     median= 53.0  mean=52.51  min=51 max=54
+   r=11   n=16121     median= 49.0  mean=49.47  min=49 max=50
+   r=12   n=18538     median= 48.0  mean=47.49  min=46 max=48
+   r=13   n=18739     median= 45.0  mean=45.24  min=44 max=46
+   r=14   n=16721     median= 43.0  mean=43.11  min=42 max=44
+   r=15   n=16156     median= 41.0  mean=41.25  min=40 max=42
+   r=16   n=15592     median= 39.0  mean=39.25  min=38 max=40
+   r=17   n=16830     median= 37.0  mean=37.33  min=36 max=38
+   r=18   n=16155     median= 35.0  mean=35.18  min=34 max=36
+   r=19   n=15490     median= 33.0  mean=33.28  min=32 max=34
+   r=20   n=14732     median= 31.0  mean=31.37  min=30 max=32
+   r=21   n=16637     median= 29.0  mean=29.18  min=28 max=30
+   r=22   n=14360     median= 27.0  mean=27.34  min=26 max=28
+   r=23   n=14140     median= 26.0  mean=25.57  min=25 max=26
+   r=24   n=14797     median= 24.0  mean=23.68  min=23 max=24
+   r=25   n=15347     median= 22.0  mean=22.27  min=21 max=23
+   r=26   n=15386     median= 21.0  mean=20.62  min=20 max=21
+   r=27   n=13550     median= 19.0  mean=19.33  min=19 max=20
+   r=28   n=13474     median= 18.0  mean=17.87  min=17 max=18
+   r=29   n=14966     median= 17.0  mean=16.69  min=16 max=17
+   r=30   n=13782     median= 16.0  mean=15.68  min=15 max=16
+   r=31   n=14769     median= 15.0  mean=14.62  min=14 max=15
+   r=32   n=7227626   median= 10.0  mean=10.02  min=10 max=14
+
+相邻像素落差: 纵向 max=15  横向 max=15
+   |Δ| >= 1   : 1826253 对
+   |Δ| >= 2   : 1020267 对
+   |Δ| >= 3   : 549730 对
+   |Δ| >= 5   : 135452 对
+   |Δ| >= 8   : 15088 对
+   |Δ| >= 16  : 0 对
+   |Δ|>3 且不在海岸线的像素: 336786  |  与陆地相邻海面在 r>1 处落差>3 的: 77159
+
+输出直方图（非零）: 共 167 个灰阶, 10..187
+   10:7148910   30:8716     50:7508     70:7610     90:15283    93:0        96:60266    97:35216   
+
+预览: preview_full.png ；preview_coast_zoom.png（crop y=64 x=1728, 2x 放大）
+
+！！目标被拒写（PermissionError），已改写到 C:/Program Files (x86)/Steam/steamapps/common/HOI4 MOD Github/Ilyich-Genshin-Test-Version/Daybreak of Teyvat Gamma Version/map/heightmap_new_new.bmp
+已写入 C:/Program Files (x86)/Steam/steamapps/common/HOI4 MOD Github/Ilyich-Genshin-Test-Version/Daybreak of Teyvat Gamma Version/map/heightmap_new_new.bmp (8389686 bytes)
+
+耗时 6.4 s

@@ -1,0 +1,48 @@
+根据这张原始地图，生成地图。你可以调用我本地的PS软件。
+生成文件均为bmp格式，24位
+land map
+用合适的颜色标注海洋和陆地：
+- 陆地：#9644C0
+- 海洋：#051412
+原始地图的051412颜色处即为海洋，同时，你需要优化地图，确保所有的海洋都处于连通状态。具体做法，你可以打通两块海洋之间陆地的最窄处，你单次打通涂抹的像素不可以大于4，禁止生成大片的海洋豁口。陆地内部的微小封闭暗点（≤8 像素）转为陆地。
+地图为24位位图格式。
+检查小岛屿。要求最小陆地（岛屿）大小为 8 像素。所以地图中不可以有地块小于8像素，如果有，可以与临近的岛屿或陆地建立细小的连接，如果临近没有岛屿或陆地则直接视为海洋移除。
+terrain map
+同时生成一份terrain map。原始地图中黄褐色的区域为沙漠，灰色区域为山丘、山地，绿色区域为森林、草地。存在建筑的区域为城市。
+配色方案：
+- 平原：#FF8142  
+- 森林：#59C755  
+- 山丘：#F8FF99  
+- 热带丛林：#7FBF00  
+- 草地：#4C6023  
+- 山地：#7C877D  
+- 沙漠：#FF3F00  
+- 海洋：#0000FF   
+- 城市：#9B00FF 
+height map
+同时生成一份height map
+其中94代表海平面，255代表最高山峰。所有10像素以内的沿海地区的海拔为95-100之间。height map的每一个像素之间应该平滑过渡，
+This image sets the height of the map, with 94 being sea level, and 255 the tallest mountain.
+How To Make One
+This can be done by hand, or loaded in from cartographic data (just drag and drop). Alternatively, the program can generate one, using the terrain input map. In the bottom left there are several sliders to fine tune the generation algorithm:
+Desert Smoothing:	Changes how flat desserts are.
+Plains Roughness:	Large scale plains features, how big are valleys and hills.
+Plains Noise:	Small scale plains features, how bumpy are plains.
+Hills Height:		Hills biome height amplification.
+Mountain Height:	Mountain biome height amplification.
+Mountain Noise:	Small scales mountain features, how bumpy are mountains.
+制作river map，最后将文件压缩导出
+教程如下：
+rivers.bmp 是一个8位索引位图文件，用于确定河流的位置。河流的宽度为恰好一个像素，且仅沿正交方向延伸：像素之间不呈对角连接。由于河流被视为一级铁路，过长的河流可能导致游戏运行变慢或出现不稳定现象。河流地图是一个与省份位图尺寸相同的8位索引位图。
+要正确渲染，每条河流必须恰好有一个默认为绿色的起始标记。在这种情况下，河流被视为一个连续的河像素块：与红色流入源或黄色流出源相连的像素被视为与主流相同的河流。只有河流的“主干”部分应包含绿色的源像素，通过红色流入连接的任何分支都不应包含该像素。
+Colours used in rivers.bmp
+Index 索引	Colour 颜色	Function 功能
+0	(0, 255, 0)	The source of a river
+河流的源头
+1	(255, 0, 0)	Flow-in source. Used to join multiple 'source' paths into one river.
+流入源。用于将多个“源”路径合并为一条河流。
+2	(255, 252, 0)	Flow-out source. Used to branch outwards from one river.
+出流源。用于从一条河流向外分流。	
+11	(0, 0, 100)	River with widest texture.
+河流纹理。
+注意：地图的河流一律使用11	(0, 0, 100)	River with widest texture.使河流尽量宽大。

@@ -1,0 +1,123 @@
+==========================================================================
+Columbina PMX -> HOI4 .mesh
+==========================================================================
+源: Columbina  顶点 55943  三角 80794  材质 26  骨骼 742  贴图 15
+
+骨架对齐（分三步定 s / R / t）：
+  scale = 0.384931   (源骨架身高 16.750 -> HOI4 6.447)
+  R = [[ 1.     -0.      0.    ]
+       [-0.      0.9991  0.0433]
+       [-0.     -0.0433  0.9991]]
+  t = [ 0.     -0.0452  0.4214]
+  关节落点自检（源 -> 期望）：
+      左つま先     -> LeftToeBase    落点 ( 0.167, 0.057, 0.047)  期望 ( 1.136, 0.057, 0.007)  偏差 0.969
+      左足首      -> LeftFoot       落点 ( 0.119, 0.460, 0.453)  期望 ( 0.881, 0.459, 0.421)  偏差 0.763
+      左ひざ      -> LeftLeg        落点 ( 0.247, 2.431, 0.202)  期望 ( 0.667, 2.038, 0.123)  偏差 0.580
+      左足       -> LeftUpLeg      落点 ( 0.366, 4.323, 0.047)  期望 ( 0.436, 3.456, 0.088)  偏差 0.871
+      センター     -> Hip            落点 (-0.000, 4.072, 0.059)  期望 ( 0.000, 3.984, 0.087)  偏差 0.092
+      上半身      -> back_mid       落点 (-0.000, 4.743,-0.052)  期望 ( 0.000, 4.531, 0.068)  偏差 0.243
+      頭        -> head           落点 ( 0.000, 6.505, 0.083)  期望 ( 0.000, 6.505, 0.034)  偏差 0.050
+      左手首      -> LeftHand       落点 ( 1.896, 4.618, 0.226)  期望 ( 2.364, 4.649,-0.092)  偏差 0.566
+
+锚点残差（最终变换）：mean=0.5680  max=0.9693   (HOI4 身高 7.42)
+
+变换后顶点包围盒：
+    X: [ -2.4449,   2.4449]  跨度  4.8898
+    Y: [ -0.0466,   7.8513]  跨度  7.8979
+    Z: [ -0.7792,   2.7088]  跨度  3.4880
+    参考：HOI4 模型 Y 跨度 ~7.42（脚 y≈0，头顶 y≈7.42）
+
+材质 26 个，排除装饰件后保留 22 个（去掉 星目/白目/肌2/髮+）
+
+分组结果：
+    body   材质 13 个 体,头饰,头饰2,带,披肩,披肩饰,披风,披风饰,肌,袖,袖饰,裙,鞋      三角 52000
+    face   材质 7 个 口舌,目,眼罩,睫眉,颜,颜2,齿                        三角 4492
+    hair   材质 2 个 髮,髮饰                                     三角 12285
+
+构建贴图图集（gutter=8 px）：
+  [body] 贴图 4 张 -> 图集 2048x2048  (占用 1584x1056)
+  [face] 贴图 3 张 -> 图集 1024x2048  (占用 528x1584)
+  [hair] 贴图 1 张 -> 图集 1024x1024  (占用 784x784)
+
+贴图输出名：body=columbina_body_diffuse.dds, face=columbina_face_diffuse.dds, hair=columbina_hair_diffuse.dds  共享 columbina_nospec.dds / columbina_flat_normal.dds
+
+  骨骼映射：名字规则 239，层级继承 503，位置兜底 0，共 742 根
+  刚性跟随：637 根骨沿父链继承了祖先的位移（眼睛/睫毛/翅膀/长发等）
+  部位链 センター     锚点 y=[4.072 4.743 6.505]  dy(y)=[-0.088 -0.212  0.   ]  覆盖源骨 11
+  部位链 左足       锚点 y=[0.057 0.46  2.431 4.323]  dy(y)=[ 0.000e+00 -5.990e-04 -3.924e-01 -8.674e-01]  覆盖源骨 9
+  部位链 右足       锚点 y=[0.057 0.46  2.431 4.323]  dy(y)=[-1.019e-08 -5.990e-04 -3.924e-01 -8.674e-01]  覆盖源骨 9
+
+★ 绑定姿态对齐（bind conform）—— 把网格拉到 HOI4 骨架的 rest 姿态
+    参与对齐的源骨 97 / 742；顶点位移 |d| 中位 0.1560  P99 0.9693  最大 0.9693
+    腿部几何 x 剖面（对齐后；骨架是 0.44 / 0.67 / 0.88 / 1.14）：
+      LeftUpLeg      n=   380  质心 (  0.552,  2.710,  0.038)   骨架 x= 0.436  差  0.116
+      LeftLeg        n=   854  质心 (  0.808,  1.178,  0.325)   骨架 x= 0.667  差  0.140
+      LeftFoot       n=  3909  质心 (  1.053,  0.071,  0.512)   骨架 x= 0.881  差  0.171
+      LeftToeBase    n=  1186  质心 (  1.173,  0.006, -0.091)   骨架 x= 1.136  差  0.038
+      RightUpLeg     n=   416  质心 ( -0.547,  2.753,  0.038)   骨架 x=-0.436  差 -0.110
+      RightLeg       n=   878  质心 ( -0.785,  1.346,  0.318)   骨架 x=-0.667  差 -0.118
+      RightFoot      n=  3909  质心 ( -1.053,  0.071,  0.512)   骨架 x=-0.881  差 -0.171
+      RightToeBase   n=  1186  质心 ( -1.173,  0.006, -0.091)   骨架 x=-1.136  差 -0.038
+    变换后顶点包围盒：
+        X: [ -2.6770,   2.6770]  跨度  5.3540
+        Y: [ -0.0466,   7.8513]  跨度  7.8979
+        Z: [ -0.8288,   2.7325]  跨度  3.5614
+
+生成 draw call：
+    body   顶点   34103 三角   52000  Y:[ -0.047,  7.851]  X:[ -2.677,  2.677]  贴图 columbina_body_diffuse.dds
+    [face] 眼球层前推顶点 130 个
+    face   顶点    3060 三角    4492  Y:[  6.332,  7.265]  X:[ -0.393,  0.393]  贴图 columbina_face_diffuse.dds
+    hair   顶点    9570 三角   12285  Y:[  2.039,  7.489]  X:[ -1.702,  1.702]  贴图 columbina_hair_diffuse.dds
+
+各 HOI4 骨骼受影响顶点数（全部 draw call 合计）：
+    Root                        0
+    Hip                      2286
+    LeftUpLeg                 698
+    LeftLeg                  1158
+    LeftFoot                 4181
+    LeftToeBase              1272
+    back_mid                10157
+    LeftShoulder              893
+    LeftArm                  1751
+    LeftForeArm               170
+    LeftForeArmRoll           467
+    LeftHand                 1536
+    Left_Hand_node              0
+    Left_Hand_node_2            0
+    Left_Hand_node_3            0
+    Left_Hand_node_4            0
+    head                    16814
+    RightShoulder             847
+    RightArm                 1750
+    RightForeArm              170
+    RightForeArmRoll          467
+    RightHand                1536
+    Right_Hand_node             0
+    Right_Hand_node_2           0
+    Right_Hand_node_3           0
+    Right_Hand_node_4           0
+    mid_back_node               0
+    RightUpLeg                734
+    RightLeg                 1182
+    RightFoot                4181
+    RightToeBase             1272
+    Root_node_1                 0
+    Root_node_2                 0
+
+✔ 无顶点绑到「动画里会被隐藏」的骨上（检查了 8 根）
+
+skeleton 复用 PRC_infantry.mesh：33 根骨（Root ... Root_node_2）
+    与内置 HOI4_REST 的最大偏差 = 0.00006（应 < 0.01；跳过 1 根退化 tx 的骨）
+
+写出 C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\scripts\..\models_out\Columbina\Columbina_infantry.mesh（4568222 bytes）
+
+写出贴图：
+    columbina_body_diffuse.dds          2048x2048  DXT5   5592560 bytes (alpha=True)
+    columbina_face_diffuse.dds          1024x2048  DXT5   2796352 bytes (alpha=True)
+    columbina_hair_diffuse.dds          1024x1024  DXT5   1398256 bytes (alpha=True)
+    columbina_nospec.dds                  4x4   DXT5      (透明 spec)
+    columbina_flat_normal.dds             4x4   DXT5      (平坦 normal)
+
+回读自检（用 pdx_data 解析刚写出的文件）：
+    skeleton 骨骼 33 根
+    mesh 节点 3，合计顶点 46733，三角 68777

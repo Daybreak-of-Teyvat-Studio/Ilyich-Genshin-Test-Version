@@ -1,0 +1,96 @@
+==========================================================================
+heightmap 海面重塑（陆地不动）
+==========================================================================
+输入: C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\map\heightmap.bmp
+输出: C:/Program Files (x86)/Steam/steamapps/common/HOI4 MOD Github/Ilyich-Genshin-Test-Version/Daybreak of Teyvat Gamma Version/map/heightmap_v3.bmp
+规格: 贴岸 92；d=2 -> 90；d=5 -> 70；d=10 -> 50；d=20 -> 30；d=40 处平滑收到 10
+BMP: w=4096 h=2048 bpp=8 comp=0 dataoff=1078 size=8389686
+
+陆地 572469 px  海洋 7816139 px
+原图: 陆地 min=100 max=240 mean=127.31 | 海面 min=89 max=89
+海面距离场 max = 1660.3 px
+
+--------------------------------------------------------------------------
+校验
+--------------------------------------------------------------------------
+陆地逐像素未变: True
+陆地: min=100 max=240  低于 96 的像素 = 0
+沿海陆地(d_land==1): 30191 px, min=100 max=100, 全部==96: False
+海面: min=10 max=92  高于 92 的像素 = 0
+海陆相邻对的落差取值集合 = [8]
+
+海面按距岸整数圈 r 的实测灰度（对照规格）:
+   r=1    n=43788     规格=92.0  实测 median= 92.0 mean=91.71 min=91 max=92  |Δmedian|=0.00
+   r=2    n=37726     规格=90.0  实测 median= 88.0 mean=87.82 min=84 max=90  |Δmedian|=2.00
+   r=3    n=25642     规格=83.3  实测 median= 82.0 mean=81.18 min=79 max=83  |Δmedian|=1.33
+   r=4    n=23149     规格=76.7  实测 median= 76.0 mean=75.63 min=74 max=77  |Δmedian|=0.67
+   r=5    n=29721     规格=70.0  实测 median= 70.0 mean=68.84 min=67 max=70  |Δmedian|=0.00
+   r=6    n=20203     规格=66.0  实测 median= 65.0 mean=64.76 min=63 max=66  |Δmedian|=1.00
+   r=7    n=22781     规格=62.0  实测 median= 61.0 mean=60.93 min=59 max=62  |Δmedian|=1.00
+   r=8    n=21466     规格=58.0  实测 median= 57.0 mean=56.63 min=54 max=58  |Δmedian|=1.00
+   r=9    n=18942     规格=54.0  实测 median= 53.0 mean=52.43 min=50 max=54  |Δmedian|=1.00
+   r=10   n=18813     规格=50.0  实测 median= 49.0 mean=49.21 min=48 max=50  |Δmedian|=1.00
+   r=11   n=16121     规格=48.0  实测 median= 47.0 mean=47.47 min=47 max=48  |Δmedian|=1.00
+   r=12   n=18538     规格=46.0  实测 median= 46.0 mean=45.49 min=44 max=46  |Δmedian|=0.00
+   r=13   n=18739     规格=44.0  实测 median= 43.0 mean=43.24 min=42 max=44  |Δmedian|=1.00
+   r=14   n=16721     规格=42.0  实测 median= 41.0 mean=41.11 min=40 max=42  |Δmedian|=1.00
+   r=15   n=16156     规格=40.0  实测 median= 39.0 mean=39.25 min=38 max=40  |Δmedian|=1.00
+   r=16   n=15592     规格=38.0  实测 median= 37.0 mean=37.25 min=36 max=38  |Δmedian|=1.00
+   r=17   n=16830     规格=36.0  实测 median= 35.0 mean=35.33 min=34 max=36  |Δmedian|=1.00
+   r=18   n=16155     规格=34.0  实测 median= 33.0 mean=33.18 min=32 max=34  |Δmedian|=1.00
+   r=19   n=15490     规格=32.0  实测 median= 31.0 mean=31.28 min=30 max=32  |Δmedian|=1.00
+   r=20   n=14732     规格=30.0  实测 median= 29.0 mean=29.37 min=28 max=30  |Δmedian|=1.00
+   r=21   n=16637     规格=28.1  实测 median= 27.0 mean=27.23 min=26 max=28  |Δmedian|=1.05
+   r=22   n=14360     规格=26.2  实测 median= 26.0 mean=25.50 min=25 max=26  |Δmedian|=0.20
+   r=23   n=14140     规格=24.4  实测 median= 24.0 mean=23.73 min=23 max=24  |Δmedian|=0.45
+   r=24   n=14797     规格=22.8  实测 median= 22.0 mean=22.41 min=21 max=23  |Δmedian|=0.80
+   r=25   n=15347     规格=21.2  实测 median= 21.0 mean=20.68 min=20 max=21  |Δmedian|=0.25
+   r=26   n=15386     规格=19.8  实测 median= 19.0 mean=19.32 min=19 max=20  |Δmedian|=0.80
+   r=27   n=13550     规格=18.4  实测 median= 18.0 mean=17.82 min=17 max=18  |Δmedian|=0.45
+   r=28   n=13474     规格=17.2  实测 median= 17.0 mean=16.68 min=16 max=17  |Δmedian|=0.20
+   r=29   n=14966     规格=16.1  实测 median= 16.0 mean=15.61 min=15 max=16  |Δmedian|=0.05
+   r=30   n=13782     规格=15.0  实测 median= 15.0 mean=14.68 min=14 max=15  |Δmedian|=0.00
+   r=31   n=14769     规格=14.1  实测 median= 14.0 mean=13.73 min=13 max=14  |Δmedian|=0.05
+   r=32   n=13359     规格=13.2  实测 median= 13.0 mean=12.96 min=12 max=13  |Δmedian|=0.20
+   r=33   n=13595     规格=12.5  实测 median= 12.0 mean=12.00 min=12 max=12  |Δmedian|=0.45
+   r=34   n=14039     规格=11.8  实测 median= 12.0 mean=11.58 min=11 max=12  |Δmedian|=0.20
+   r=35   n=12366     规格=11.2  实测 median= 11.0 mean=11.00 min=11 max=11  |Δmedian|=0.25
+   r=36   n=13528     规格=10.8  实测 median= 11.0 mean=10.90 min=10 max=11  |Δmedian|=0.20
+   r=37   n=12686     规格=10.4  实测 median= 10.0 mean=10.00 min=10 max=10  |Δmedian|=0.45
+   r=38   n=13967     规格=10.2  实测 median= 10.0 mean=10.00 min=10 max=10  |Δmedian|=0.20
+   r=39   n=12803     规格=10.1  实测 median= 10.0 mean=10.00 min=10 max=10  |Δmedian|=0.05
+   r=40   n=7121283   规格=10.0  实测 median= 10.0 mean=10.00 min=10 max=10  |Δmedian|=0.00
+
+海面改动统计:
+   改动像素 7816139 (占海面 100.00%)
+   灰度变化 min=-79 max=3 mean=-76.08
+   按距岸圈统计变化量:
+     r=1   n=43788    Δ min=2 max=3 mean=2.71
+     r=2   n=37726    Δ min=-5 max=1 mean=-1.18
+     r=3   n=25642    Δ min=-10 max=-6 mean=-7.82
+     r=5   n=29721    Δ min=-22 max=-19 mean=-20.16
+     r=8   n=21466    Δ min=-35 max=-31 mean=-32.37
+     r=10  n=18813    Δ min=-41 max=-39 mean=-39.79
+     r=15  n=16156    Δ min=-51 max=-49 mean=-49.75
+     r=20  n=14732    Δ min=-61 max=-59 mean=-59.63
+     r=25  n=15347    Δ min=-69 max=-68 mean=-68.32
+     r=30  n=13782    Δ min=-75 max=-74 mean=-74.32
+     r=40  n=7121283  Δ min=-79 max=-79 mean=-79.00
+
+相邻像素落差: 纵向 max=23 横向 max=24
+   |Δ| >= 1   : 1670492 对
+   |Δ| >= 2   : 1058804 对
+   |Δ| >= 3   : 665326 对
+   |Δ| >= 5   : 285874 对
+   |Δ| >= 8   : 104665 对
+   |Δ| >= 16  : 2087 对
+
+直方图: 非零灰阶 170 个, 范围 10..240
+   10:7162040   30:9956     50:9758     70:16636    90:15283    92:30991    96:0       
+
+预览: preview_full.png / coast_before_after.png (crop y=64 x=1728, 1.5x)
+已备份当前 heightmap -> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\.workbuddy\backup_20260924_heightmap\heightmap_presea_20260924_115641.bmp (8389686 bytes)
+已写出 C:/Program Files (x86)/Steam/steamapps/common/HOI4 MOD Github/Ilyich-Genshin-Test-Version/Daybreak of Teyvat Gamma Version/map/heightmap_v3.bmp (8389686 bytes)
+回读校验: 与内存结果逐像素一致 = True
+
+耗时 4.6 s

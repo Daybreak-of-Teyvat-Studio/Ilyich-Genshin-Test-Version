@@ -1,0 +1,244 @@
+#提瓦特黎明
+on_actions = {
+	#开局设定
+	on_startup = {
+		effect = {
+			every_country = {
+				# add_ideas = DOT_Ban_AI_Expand_Army_1
+				# limit = { is_ai = yes }
+				# add_ideas = Children_of_the_Original_Person
+			}
+			FON = {
+				set_variable = { FON_Percent_of_Preparation = 0 }
+			}
+			NAT = {
+				set_variable = { NAT-ABY-Index = 40 }
+			}
+			every_state = {
+				add_resource = { type = coal amount = 2 }
+			}
+			# 科技
+			every_country = {
+				set_technology = {
+					Ilyich_Ruin_tech = 1
+				}
+			}
+			# 模块装备 PL
+			every_country={
+				limit = { is_ai = no }
+				create_equipment_variant = {
+					name = "归终机-34型"
+					type = medium_tank_chassis_0
+					modules = {
+						main_armament_slot = tank_heavy_machine_gun
+						turret_type_slot = tank_medium_two_man_tank_turret
+						suspension_type_slot = tank_christie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_diesel_engine
+						special_type_slot_1 = sloped_armor
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 0
+						tank_nsb_armor_upgrade = 0
+					}
+					icon = GFX_antiair5_medium
+				}
+				create_equipment_variant = {
+					name = "闲云机-34型"
+					type = small_plane_airframe_0
+					modules = {
+						fixed_main_weapon_slot = light_mg_4x
+						fixed_auxiliary_weapon_slot_1 = empty
+						engine_type_slot = engine_1_1x
+						special_type_slot_1 = empty
+						special_type_slot_2 = empty
+					}
+					icon = GFX_antiair5_medium
+				}
+				create_equipment_variant = {
+					name = "耕地机-34型"
+					type = Ruin_Giant_equipment_1
+					modules = {
+						main_armament_slot = tank_heavy_machine_gun
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 0
+						tank_nsb_armor_upgrade = 0
+					}
+					icon = GFX_Ilyich_Ruin_tech
+				}
+			}
+			# 模块装备 AI
+			every_country={
+				limit = { is_ai = yes }
+				set_technology = {
+					#海军
+					#空军
+					early_bombs = 1 engines_1 = 1 aa_hmg = 1
+					#陆军
+				}
+				create_equipment_variant = {
+					name = "归终机-34型"
+					type = medium_tank_chassis_0
+					modules = {
+						main_armament_slot = tank_auto_cannon
+						turret_type_slot = tank_medium_two_man_tank_turret
+						suspension_type_slot = tank_christie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_diesel_engine
+						special_type_slot_1 = sloped_armor
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 8
+						tank_nsb_armor_upgrade = 8
+					}
+					icon = GFX_antiair5_medium
+				}
+				create_equipment_variant = {
+					name = "闲云机-34型"
+					type = small_plane_airframe_0
+					modules = {
+						fixed_main_weapon_slot = heavy_mg_4x
+						fixed_auxiliary_weapon_slot_1 = empty
+						engine_type_slot = engine_1_1x
+						special_type_slot_1 = empty
+						special_type_slot_2 = empty
+					}
+					icon = GFX_antiair5_medium
+				}
+				create_equipment_variant = {
+					name = "闲云机-26型"
+					type = small_plane_airframe_0
+					modules = {
+						fixed_main_weapon_slot = bomb_locks
+						fixed_auxiliary_weapon_slot_1 = empty
+						engine_type_slot = engine_1_1x
+						special_type_slot_1 = empty
+						special_type_slot_2 = empty
+					}
+					icon = GFX_antiair5_medium
+				}
+				create_equipment_variant = {
+					name = "耕地机-34型"
+					type = Ruin_Giant_equipment_1
+					modules = {
+						main_armament_slot = tank_heavy_machine_gun
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 8
+						tank_nsb_armor_upgrade = 8
+					}
+					icon = GFX_Ilyich_Ruin_tech
+				}
+			}
+			# 模块装备 耕地机
+		}
+	}
+	#每日
+	#	on_daily = {
+	#		effect = {
+	#        }
+	#    }
+	on_monthly = {
+		effect = {
+			every_country = {
+				limit = {
+					is_ai = yes
+					NOT = { has_country_flag = idea_Teyvat_People }
+				}
+				add_ideas = idea_Teyvat_People
+				set_country_flag = idea_Teyvat_People
+			}
+		}
+	}
+	#每当某个国家/地区被释放时
+	#	on_release_as_free = {
+	#		effect = {
+	#			# PRC = { load_focus_tree = generic_focus }
+	#		}
+	#	}
+	#	on_liberate = {
+	#		effect = {
+	#			# PRC = { load_focus_tree = generic_focus }
+	#		}
+	#	}
+	#	on_puppet = {
+	#		effect = {
+	#			# PRC = { load_focus_tree = generic_focus }
+	#		}
+	#	}
+	#	on_release_as_puppet = {
+	#		effect = {
+	#			# PRC = { load_focus_tree = generic_focus }
+	#		}
+	#	}
+	#战争结语
+	#ROOT是胜者
+	#FROM是败者
+	on_capitulation = {
+		effect = {
+			#满足下面任一limit里面的条件才会刷战争结语
+			#璃月
+			IF = {
+				limit = {
+					#只要败者是璃月势力就触发
+					FROM = {
+						Is_LYY = yes
+					}
+				}
+				#触发窗口
+				set_global_flag = sp_warpeace_show_gui
+				FROM = { save_global_event_target_as = winning_country }
+				ROOT = { save_global_event_target_as = losing_country }
+				add_to_variable = { global.sp_warpeace_dirty = 1 }
+			}
+			#古领灭后相应势力吞并丘丘人
+			IF = {
+				limit = {
+					FROM = {
+						original_tag = GUN
+					}
+				}
+				ROOT = { country_event = Knights.204 }
+			}
+			#蒙德内战用
+			IF = {
+				limit = {
+					#胜败双方都必须是蒙德势力，即蒙德内战中触发
+					AND = {
+						FROM = {
+							OR = {
+								original_tag = MOT
+								original_tag = DVA
+								original_tag = FAV
+								original_tag = RAG
+								original_tag = DRA
+								original_tag = GUN
+								original_tag = SPI
+								original_tag = LAW
+								original_tag = ANR
+							}
+						}
+						ROOT = {
+							OR = {
+								original_tag = MOT
+								original_tag = DVA
+								original_tag = FAV
+								original_tag = RAG
+								original_tag = DRA
+								original_tag = GUN
+								original_tag = SPI
+								original_tag = LAW
+								original_tag = ANR
+							}
+						}
+					}
+				}
+				set_global_flag = sp_warpeace_show_gui
+				FROM = { save_global_event_target_as = winning_country }
+				ROOT = { save_global_event_target_as = losing_country }
+				add_to_variable = { global.sp_warpeace_dirty = 1 }
+			}
+		}
+	}
+}

@@ -1,0 +1,47 @@
+输入 terrain.bmp  mode已按数组读取 shape=(2048, 4096, 3)
+
+=== 精确匹配到的颜色 ===
+   (0, 0, 255)        -> idx 15  (ocean    texture 9  )  7806475 px
+   (27, 27, 27)       -> idx 6   (mountain texture 11 )  209215 px
+   (76, 96, 35)       -> idx 9   (marsh    texture 6  )  138926 px
+   (124, 135, 125)    -> idx 11  (mountain texture 11 )  78650 px
+   (89, 199, 85)      -> idx 1   (forest   texture 4  )  31152 px
+   (255, 129, 66)     -> idx 0   (plains   texture 1  )  27077 px
+   (128, 128, 128)    -> idx 13  (urban    texture 10 )  25867 px
+   (127, 191, 0)      -> idx 21  (jungle   texture 4  )  25294 px
+   (255, 63, 0)       -> idx 3   (desert   texture 9  )  24390 px
+   (248, 255, 153)    -> idx 17  (hills    texture 2  )  9082 px
+   (155, 0, 255)      -> idx 13  (urban    texture 10 )  3662 px
+   (0, 255, 255)      -> idx 14  (lakes    texture 255)  791 px
+
+未精确匹配（抗锯齿/混色）像素 = 8027  (0.0957%)
+   已按最近邻已知像素归类，最大填充半径 = 3.00 px
+
+=== 重建后的索引构成 ===
+   idx 15  ocean    texture 9      7806650 px
+   idx 6   mountain texture 11      211149 px
+   idx 9   marsh    texture 6       140533 px
+   idx 11  mountain texture 11       79262 px
+   idx 13  urban    texture 10       31951 px
+   idx 1   forest   texture 4        31421 px
+   idx 0   plains   texture 1        27359 px
+   idx 21  jungle   texture 4        25394 px
+   idx 3   desert   texture 9        24969 px
+   idx 17  hills    texture 2         9124 px
+   idx 14  lakes    texture 255        796 px
+   陆地合计（不含 ocean）= 581958 px
+
+  输出字节数 = 8389682 （期望 1074 + 8388608 = 8389682）
+
+=== 写出 ===
+   写出失败 terrain.bmp: PermissionError [Errno 13] Permission denied: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\HOI4 MOD Github\\Ilyich-Genshin-Test-Version\\Daybreak of Teyvat Gamma Version\\map\\terrain.bmp'
+   写出成功: terrain_8bit.bmp (8389682 bytes)
+   写出成功: terrain_8bit_graycity.bmp (8389682 bytes)
+
+   terrain_8bit.bmp             mode=P   4096x2048 bpp=8 off=1074 clrUsed=255 | 索引逐像素一致=True | palette[13]=(155, 0, 255)(期望(155, 0, 255))
+   terrain_8bit_graycity.bmp    mode=P   4096x2048 bpp=8 off=1074 clrUsed=255 | 索引逐像素一致=True | palette[13]=(128, 128, 128)(期望(128, 128, 128))
+
+   预览: before_gamma.png / after_gamma.png ；画面差异 = 33894 px (0.4040%)
+   差异集中在 y=402..1736 x=1482..2826（即城市色块）
+
+   备份 -> .workbuddy/backup_20260924_terrain/terrain_24bit_0924_124914.bmp

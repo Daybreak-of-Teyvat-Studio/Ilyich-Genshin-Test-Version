@@ -1,0 +1,81 @@
+============================================================================
+1) 语法：括号配平
+============================================================================
+  [ ok ] DOT_All_Entity.gfx 括号配平（深度归零）
+  [ ok ] DOT_All_Entity.asset 括号配平（深度归零）
+
+============================================================================
+2) gfx：pdxmesh 定义与文件存在性
+============================================================================
+  [ ok ] pdxmesh "Dvalin_mesh" -> file 存在 (3848643 B)，动画 1 组
+  [ ok ] pdxmesh "Keqing_infantry_mesh" -> file 存在 (1516287 B)，动画 27 组
+  [ ok ] pdxmesh "Amber_infantry_mesh" -> file 存在 (3103918 B)，动画 27 组
+  [ ok ] pdxmesh "Furina_infantry_mesh" -> file 存在 (3244643 B)，动画 27 组
+  [ ok ] pdxmesh "Citlali_infantry_mesh" -> file 存在 (3416672 B)，动画 27 组
+  [ ok ] pdxmesh "Kokomi_infantry_mesh" -> file 存在 (2125145 B)，动画 27 组
+  [ ok ] pdxmesh "Vysna_infantry_mesh" -> file 存在 (4286618 B)，动画 27 组
+  [ ok ] pdxmesh "Odetta_infantry_mesh" -> file 存在 (6885476 B)，动画 27 组
+  [ ok ] pdxmesh "Tianli_infantry_mesh" -> file 存在 (4192816 B)，动画 27 组
+  [ ok ] pdxmesh "Ruin Guard_mesh" -> file 存在 (2249695 B)，动画 27 组
+  [ ok ] pdxmesh "DOT_Aranara_mesh" -> file 存在 (92984 B)，动画 27 组
+  [ ok ] pdxmesh "wulang_mesh" -> file 存在 (1321981 B)，动画 27 组
+  [ ok ] pdxmesh "xiaogong_mesh" -> file 存在 (3249134 B)，动画 27 组
+  [info] pdxmesh "DOT_infantry_cavalry_horse_mesh" -> file 不存在: gfx/models/units/cavalry_horse.mesh（非 Vysna，MOD 既有问题，不在本次范围）
+  [ ok ] pdxmesh "DOT_infantry_weapon_mesh" -> file 存在 (40562 B)，动画 0 组
+  [ ok ] pdxmesh "DOT_sabre_mesh" -> file 存在 (208291 B)，动画 0 组
+  [ ok ] pdxmesh "DOT_sabre_holder_mesh" -> file 存在 (4704 B)，动画 0 组
+  [ ok ] pdxmesh "LYY_sabre_mesh" -> file 存在 (111427 B)，动画 0 组
+  [ ok ] pdxmesh "LYY_sabre_holder_mesh" -> file 存在 (4704 B)，动画 0 组
+  [ ok ] pdxmesh "MOT_sabre_mesh" -> file 存在 (1981963 B)，动画 0 组
+  [ ok ] pdxmesh "MOT_sabre_holder_mesh" -> file 存在 (4704 B)，动画 0 组
+  [ ok ] pdxmesh "HM_sabre_mesh" -> file 存在 (148029 B)，动画 0 组
+  [ ok ] pdxmesh "HM_sabre_holder_mesh" -> file 存在 (4703 B)，动画 0 组
+  [ ok ] pdxmesh "JS_sabre_mesh" -> file 存在 (279489 B)，动画 0 组
+  [ ok ] pdxmesh "JS_sabre_holder_mesh" -> file 存在 (860 B)，动画 0 组
+  [info] pdxmesh "LYY_generic_carrier_mesh" -> file 不存在: gfx/models/units/ships/LYY_generic_carrier.mesh（非 Vysna，MOD 既有问题，不在本次范围）
+
+  （MOD + 游戏本体共声明 2313 个名字，用于跨文件实体引用检查）
+  （mesh 骨架 33 根骨）
+
+============================================================================
+3) asset：实体定义 / 动画 id / 挂点骨名 / 引用实体
+============================================================================
+
+  ── entity "Vysna_infantry_entity"
+  [ ok ] pdxmesh = "Vysna_infantry_mesh"（已定义）
+  [ ok ] state 引用的 3 个 animation 全部有定义
+        （提示）propagate_state 引用的名字不在 attach 列表：['infantry']（原版即如此，非错误）
+  [ ok ] scale = 0.80
+  [ ok ] attach 的 9 个目标实体均在 MOD 中已定义
+  [ ok ] attach 挂点骨名全部存在于 mesh 骨架（Left_Hand_node, Left_Hand_node_2, Right_Hand_node, Right_Hand_node_2, Right_Hand_node_3, Right_Hand_node_4, Root_node_1, Root_node_2, mid_back_node）
+        （提示）以下挂点位于会被 s=0 隐藏的骨上，属原版"收起该装备"的设计：Left_Hand_node, Left_Hand_node_2, Right_Hand_node, Right_Hand_node_2, Right_Hand_node_3, Right_Hand_node_4, mid_back_node
+
+  ── entity "SNE_infantry_0_entity"
+  [ ok ] clone 自 "Vysna_infantry_entity"（继承全部定义）
+
+  ── entity "SNE_infantry_1_entity"
+  [ ok ] clone 自 "Vysna_infantry_entity"（继承全部定义）
+
+  ── entity "SNE_infantry_2_entity"
+  [ ok ] clone 自 "Vysna_infantry_entity"（继承全部定义）
+
+  ── entity "SNE_infantry_3_entity"
+  [ ok ] clone 自 "Vysna_infantry_entity"（继承全部定义）
+
+============================================================================
+4) mesh：是否有顶点绑到「动画里会被 s=0 隐藏」的骨
+============================================================================
+  对 8 根骨做了检查（42 个 GER_infantry*.anim 的隐藏统计）
+    Left_Hand_node_2       被隐藏 40/42 个动画   mesh 引用 无
+    Right_Hand_node_2      被隐藏 40/42 个动画   mesh 引用 无
+    Right_Hand_node_3      被隐藏 40/42 个动画   mesh 引用 无
+    Right_Hand_node_4      被隐藏 40/42 个动画   mesh 引用 无
+    mid_back_node          被隐藏 39/42 个动画   mesh 引用 无
+    Left_Hand_node         被隐藏 31/42 个动画   mesh 引用 无
+    Right_Hand_node        被隐藏 15/42 个动画   mesh 引用 无
+    Left_Hand_node_3       被隐藏 11/42 个动画   mesh 引用 无
+  [ ok ] 没有任何顶点绑到会被隐藏的骨上 —— 所有几何都会在所有动画里显示
+
+============================================================================
+总判定：全部通过 ✔
+============================================================================

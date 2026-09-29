@@ -1,0 +1,124 @@
+==========================================================================
+Kokomi PMX -> HOI4 .mesh
+==========================================================================
+源: Sangonomiya Kokomi  顶点 22187  三角 28800  材质 35  骨骼 392  贴图 11
+
+骨架对齐（分三步定 s / R / t）：
+  scale = 0.389072   (源骨架身高 16.571 -> HOI4 6.447)
+  R = [[ 1.     -0.      0.0006]
+       [ 0.      0.9989  0.0475]
+       [-0.0006 -0.0475  0.9989]]
+  t = [ 0.0002 -0.0607  0.3435]
+  关节落点自检（源 -> 期望）：
+      左つま先     -> LeftToeBase    落点 ( 0.352, 0.057,-0.114)  期望 ( 1.136, 0.057, 0.007)  偏差 0.793
+      左足首      -> LeftFoot       落点 ( 0.242, 0.373, 0.377)  期望 ( 0.881, 0.459, 0.421)  偏差 0.647
+      左ひざ      -> LeftLeg        落点 ( 0.310, 2.366, 0.055)  期望 ( 0.667, 2.038, 0.123)  偏差 0.490
+      左足       -> LeftUpLeg      落点 ( 0.371, 4.292,-0.052)  期望 ( 0.436, 3.456, 0.088)  偏差 0.850
+      センター     -> Hip            落点 ( 0.000, 3.362, 0.181)  期望 ( 0.000, 3.984, 0.087)  偏差 0.629
+      上半身      -> back_mid       落点 (-0.000, 4.717,-0.154)  期望 ( 0.000, 4.531, 0.068)  偏差 0.289
+      頭        -> head           落点 (-0.000, 6.505,-0.024)  期望 ( 0.000, 6.505, 0.034)  偏差 0.058
+      左手首      -> LeftHand       落点 ( 2.015, 4.754, 0.119)  期望 ( 2.364, 4.649,-0.092)  偏差 0.421
+
+锚点残差（最终变换）：mean=0.5263  max=0.8501   (HOI4 身高 7.42)
+
+变换后顶点包围盒：
+    X: [ -2.5999,   2.6000]  跨度  5.1998
+    Y: [ -0.0860,   7.8203]  跨度  7.9063
+    Z: [ -0.7232,   2.7876]  跨度  3.5107
+    参考：HOI4 模型 Y 跨度 ~7.42（脚 y≈0，头顶 y≈7.42）
+
+材质 35 个，排除装饰件后保留 29 个（去掉 前髪+/手/星目/白目/目光/髮+）
+
+分组结果：
+    body   材质 18 个 二重,体,前摆,后摆,头饰,带1,手套,手珍珠,神之眼AL,神之眼框,肌,胸前宝石,腰后结,蝴蝶结,袖子,袖子边,装饰,齒 三角 17192
+    face   材质 6 个 口舌,目,眉,睫,顏1,顏2                           三角 2582
+    hair   材质 5 个 侧髪,前髪,后髪,后髪辫,髮                           三角 3164
+
+构建贴图图集（gutter=8 px）：
+  [body] 贴图 4 张 -> 图集 2048x2048  (占用 1584x1056)
+  [face] 贴图 2 张 -> 图集 1024x2048  (占用 528x1056)
+  [hair] 贴图 1 张 -> 图集 1024x1024  (占用 784x784)
+
+贴图输出名：body=kokomi_body_diffuse.dds, face=kokomi_face_diffuse.dds, hair=kokomi_hair_diffuse.dds  共享 kokomi_nospec.dds / kokomi_flat_normal.dds
+
+  骨骼映射：名字规则 213，层级继承 179，位置兜底 0，共 392 根
+  刚性跟随：288 根骨沿父链继承了祖先的位移（眼睛/睫毛/翅膀/长发等）
+  部位链 センター     锚点 y=[3.362 4.717 6.505]  dy(y)=[ 0.622 -0.186  0.   ]  覆盖源骨 12
+  部位链 左足       锚点 y=[0.057 0.373 2.366 4.292]  dy(y)=[ 0.     0.086 -0.327 -0.836]  覆盖源骨 8
+  部位链 右足       锚点 y=[0.057 0.375 2.365 4.292]  dy(y)=[-3.434e-04  8.416e-02 -3.267e-01 -8.359e-01]  覆盖源骨 8
+
+★ 绑定姿态对齐（bind conform）—— 把网格拉到 HOI4 骨架的 rest 姿态
+    参与对齐的源骨 96 / 392；顶点位移 |d| 中位 0.2614  P99 0.9363  最大 0.9363
+    腿部几何 x 剖面（对齐后；骨架是 0.44 / 0.67 / 0.88 / 1.14）：
+      LeftUpLeg      n=   268  质心 (  0.512,  2.998,  0.040)   骨架 x= 0.436  差  0.076
+      LeftLeg        n=   134  质心 (  0.787,  1.221,  0.292)   骨架 x= 0.667  差  0.120
+      LeftFoot       n=   189  质心 (  1.012,  0.167,  0.397)   骨架 x= 0.881  差  0.131
+      LeftToeBase    n=   417  质心 (  1.055,  0.159, -0.032)   骨架 x= 1.136  差 -0.080
+      RightUpLeg     n=   268  质心 ( -0.512,  2.998,  0.040)   骨架 x=-0.436  差 -0.076
+      RightLeg       n=   134  质心 ( -0.787,  1.221,  0.292)   骨架 x=-0.667  差 -0.119
+      RightFoot      n=   190  质心 ( -1.012,  0.167,  0.397)   骨架 x=-0.881  差 -0.131
+      RightToeBase   n=   415  质心 ( -1.055,  0.159, -0.032)   骨架 x=-1.136  差  0.080
+    变换后顶点包围盒：
+        X: [ -2.6197,   2.6197]  跨度  5.2394
+        Y: [ -0.0863,   7.8203]  跨度  7.9066
+        Z: [ -0.6653,   2.8454]  跨度  3.5107
+
+生成 draw call：
+    [body] 眼球层前推顶点 710 个
+    body   顶点   13329 三角   17192  Y:[ -0.086,  7.820]  X:[ -2.620,  2.620]  贴图 kokomi_body_diffuse.dds
+    [face] 眼球层前推顶点 164 个
+    face   顶点    1757 三角    2582  Y:[  6.326,  7.333]  X:[ -0.431,  0.431]  贴图 kokomi_face_diffuse.dds
+    hair   顶点    2643 三角    3164  Y:[  2.496,  7.800]  X:[ -1.294,  1.298]  贴图 kokomi_hair_diffuse.dds
+
+各 HOI4 骨骼受影响顶点数（全部 draw call 合计）：
+    Root                        0
+    Hip                      2425
+    LeftUpLeg                 362
+    LeftLeg                   208
+    LeftFoot                  277
+    LeftToeBase               443
+    back_mid                 2901
+    LeftShoulder              436
+    LeftArm                   572
+    LeftForeArm               776
+    LeftForeArmRoll             7
+    LeftHand                 1620
+    Left_Hand_node              0
+    Left_Hand_node_2            0
+    Left_Hand_node_3            0
+    Left_Hand_node_4            0
+    head                     5660
+    RightShoulder             440
+    RightArm                  581
+    RightForeArm              776
+    RightForeArmRoll            6
+    RightHand                1631
+    Right_Hand_node             0
+    Right_Hand_node_2           0
+    Right_Hand_node_3           0
+    Right_Hand_node_4           0
+    mid_back_node               0
+    RightUpLeg                357
+    RightLeg                  208
+    RightFoot                 277
+    RightToeBase              441
+    Root_node_1                 0
+    Root_node_2                 0
+
+✔ 无顶点绑到「动画里会被隐藏」的骨上（检查了 8 根）
+
+skeleton 复用 PRC_infantry.mesh：33 根骨（Root ... Root_node_2）
+    与内置 HOI4_REST 的最大偏差 = 0.00006（应 < 0.01；跳过 1 根退化 tx 的骨）
+
+写出 C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\scripts\..\models_out\Kokomi\Kokomi_infantry.mesh（1697804 bytes）
+
+写出贴图：
+    kokomi_body_diffuse.dds             2048x2048  DXT5   5592560 bytes (alpha=True)
+    kokomi_face_diffuse.dds             1024x2048  DXT5   2796352 bytes (alpha=True)
+    kokomi_hair_diffuse.dds             1024x1024  DXT5   1398256 bytes (alpha=True)
+    kokomi_nospec.dds                     4x4   DXT5      (透明 spec)
+    kokomi_flat_normal.dds                4x4   DXT5      (平坦 normal)
+
+回读自检（用 pdx_data 解析刚写出的文件）：
+    skeleton 骨骼 33 根
+    mesh 节点 3，合计顶点 17729，三角 22938

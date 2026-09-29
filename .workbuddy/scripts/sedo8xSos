@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+"""验证「眼球 UV 采样点是否落在图集 gutter 里」这一假说。
+
+不用逐点采样，而是把 目/瞳 材质的三角在 (u,v) 平面上画出来，
+再标出该贴图在 atlas 中的 cell 内区边界，看三角形顶点是否越出内区
+（越出 = 采到 gutter = 采到边缘像素颜色 = 灰白）。
+只读。"""
+import os
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+
+from pmx_parse import PMX                      # noqa: E402
+
+SRC = r"C:\Users\XIANGZIYUAN\vysna_work\薇斯纳"
+pmx = PMX(os.path.join(SRC, "薇斯纳.pmx"))
+UV = np.array(pmx.v_uv, np.float64)
+faces = np.array(pmx.faces, np.int64)
+
+# 与 vysna_build 一致的 face 组保留/排除
+EXCLUDE = ["结晶", "头饰", "照れ", "袜s", "翼+", "髮+", "肌2", "披肩s",
+           "裙+", "颜3", "颜4"]
+FG = {"颜", "颜2", "睫", "眉", "白目", "目", "瞳", "目光", "鼻线", "口舌",
+      "齿", "星目", "照れ"}
+
+segs = {}
+acc = 0
+for mt in pmx.materials:
+    nm = mt["name"]
+    cnt = mt["face_count"] // 3
+    if not any(k in nm for k in EXCLUDE) and nm in FG:
+        segs[nm] = (acc, cnt, mt["tex"])
+        acc += cnt
+
+out = []
+out.append("眼部材质 UV 范围（源 UV，0..1）与「越界/贴边」检查")
+out.append("=" * 88)
+out.append("%-5s %9s %9s %9s %9s %-28s" % ("材质", "u_min", "u_max", "v_min", "v_max", "落在 0.02 边距内"))
+for nm in ["白目", "目", "瞳", "目光", "星目"]:
+    a, n, ti = segs[nm]
+    f = faces[3 * a:3 * (a + n)]
+    u, v = UV[f, 0], UV[f, 1]
+    edge = ((u < 0.02) | (u > 0.98) | (v < 0.02) | (v > 0.98))
+    out.append("%-5s %9.4f %9.4f %9.4f %9.4f   %d / %d 个顶点 (%.1f%%)"
+               % (nm, u.min(), u.max(), v.min(), v.max(),
+                  edge.sum(), len(u), edge.mean() * 100))
+
+# 画出 目/瞳 的 UV 三角分布
+out.append("")
+out.append("把 目 / 瞳 / 白目 的 UV 三角形画到同一张 uv 图上（供目视）")
+img = Image.new("RGB", (600, 600), (16, 16, 20))
+d = ImageDraw.Draw(img)
+d.rectangle([0, 0, 599, 599], outline=(90, 90, 90))
+
+
+def to_px(u, v):
+    return (u * 599, (1.0 - v) * 599)          # v 向上
+
+
+COL = {"白目": (255, 120, 120), "目": (120, 220, 120), "瞳": (120, 160, 255),
+       "目光": (255, 240, 120), "星目": (230, 120, 255)}
+for nm in ["白目", "目", "瞳", "目光", "星目"]:
+    a, n, ti = segs[nm]
+    T = faces[3 * a:3 * (a + n)].reshape(-1, 3)
+    for t in T:
+        pts = [to_px(UV[i, 0], UV[i, 1]) for i in t]
+        d.polygon(pts, outline=COL[nm])
+    # 标出整体包围盒
+    f = faces[3 * a:3 * (a + n)]
+    u, v = UV[f, 0], UV[f, 1]
+    d.rectangle([to_px(u.min(), v.max()), to_px(u.max(), v.min())], outline=COL[nm])
+p_uv = os.path.join(HERE, "report_eye_uv.png")
+i = 2
+while os.path.exists(p_uv):
+    p_uv = os.path.join(HERE, "report_eye_uv_%d.png" % i)
+    i += 1
+img.save(p_uv)
+
+txt = "\n".join(out)
+print(txt)
+p = os.path.join(HERE, "report_eye_uv.txt")
+i = 2
+while os.path.exists(p):
+    p = os.path.join(HERE, "report_eye_uv_%d.txt" % i)
+    i += 1
+open(p, "w", encoding="utf-8").write(txt + "\n" + "\nUV 图: %s\n" % p_uv)
+print("\n-> %s" % p)
+print("-> %s" % p_uv)

@@ -1,0 +1,143 @@
+What Does It Do?
+The land map tells the generator where the sea, lake, and land are on your map. The size of this image also defines the resolution of your map.
+
+How To Make One
+There are two ways to make a land map. You can draw it by hand and drag it into the program, or you can generate one from a height map, such as cartographic data.
+
+By Hand:
+Draw out your map, colouring the sea, lake, and land in the appropriate  colour:
+-Land:#9644C0
+-Sea :#051412
+-Lake:#00FF00
+
+Don't worry if you get the colour slightly off, as the program can correct for this. However, it is important to save your image as a 24-bit bitmap, before loading it into the generator.
+
+From Height Map:
+If you have height data for your map already, you can turn it into a land map automatically. The height map options are in the bottom right of the tab. First click "Open File" and find your height map. Sea level sets the greyscale value along the coast. Coast smoothing rounds off sharp corners and erodes small islands and peninsulas. Invert will replace land for sea and sea for land in the final land map.
+
+Once you have filled in these settings click "Generate", and your land map should appear in the display.
+
+Check For Small Islands
+This setting can be found in the bottom left. HOI4 has a minimum province size of 8 pixels. Currently, the generator makes all small islands a province, which can be a problem if the island is smaller than 8 pixels. Enabling "check for small islands", will check for these islands when you drag in your land map. If any are found, the land map will be rendered invalid, however it will be displayed to you with said islands circled in red for you to correct.
+
+
+What Does It Do?
+The terrain input map tells the generator where the various biomes are on your map (not to be confused with the terrain map, which defines map textures).
+
+How To Make One
+The generator can make a basic once for you, clicking "generate plains world" will make all land a plains biome. You can save this as a base to add more biomes, using the below colour scheme:
+
+-Plains 	:#FF8142
+-Forest 	:#59C755
+-Hills  	:#F8FF99
+-Jungle  	:#7FBF00
+-Marsh   	:#4C6023
+-Mountain	:#7C877D
+-Desert  	:#FF3F00
+-Ocean	:#0000FF
+-Lakes	:#00FFFF	
+-Urban   	:#9B00FF
+
+Colour correction will be applied when you drag and drop your image, so don't worry about getting the colours exact. This image must be a 24-bit bitmap, and the same size as the land map.
+
+What Does It Do?
+The province size map defines the size of provinces in your mod. The image is greyscale, and ranges from full back to white. Provinces generated on white areas will be set to the maximum size, provinces on black areas will be set to the minimum size, and provinces in between will be scaled depending on its greyscale value.
+
+This only sets the size of land provinces. Sea and lake provinces are scaled by their coastal distance, however you still have control over their size at the bottom right of the tab.
+
+Size values use an arbitrary scale, and it is recommended that you use the default sizes first and adjust the values accordingly.
+
+How To Make One
+Any greyscale image will do, as long as its saved as a 24-bit image and the same size as the land map. Alternatively, the generator can make one for you, with two preset options:
+
+Mercator Distribution: 	Mimics a globes map projection, so that equatorial provinces are 			smaller than polar provinces. This is a good base image to save 			and edit to you needs.
+
+Uniform Distribution: 	A simple uniform province size map, good for mods which are not 			on a global scale.
+
+What Does It Do?
+Boundaries force provinces and states to align to your own custom borders
+
+How To Make One
+The image should be white other than black boundary lines, a pixel with a brightness less than 10 will be considered a boundary. The lines should be one pixel thick, an continuous.
+
+This map is entirely optional, but if you want to add one make sure it is a 24-bit image and the same size as the land map. 
+
+
+What Does It Do?
+The image displayed is simply to allow you to visualize the states that have been generated, and is not used for anything in HOI4. The output of this tab is a list of text files, each defining a state. The states generated are blank, and gives you a base from which to add more information.
+
+How To Make One
+Click "Generate", and provinces will be grouped together into states. "State Size" varies the average number of provinces per state, and "State Variation" changes how regular/misshapen you want the states to be.
+
+Be sure to double check your output path, as 100's if not 1000's of files will be created upon saving.
+
+What Does It Do?
+This image sets the height of the map, with 94 being sea level, and 255 the tallest mountain.
+
+How To Make One
+This can be done by hand, or loaded in from cartographic data (just drag and drop). Alternatively, the program can generate one, using the terrain input map. In the bottom left there are several sliders to fine tune the generation algorithm:
+
+Desert Smoothing:	Changes how flat desserts are.
+Plains Roughness:	Large scale plains features, how big are valleys and hills.
+Plains Noise:	Small scale plains features, how bumpy are plains.
+Hills Height:		Hills biome height amplification.
+Mountain Height:	Mountain biome height amplification.
+Mountain Noise:	Small scales mountain features, how bumpy are mountains.
+
+Once you have picked your settings, click "Generate" to make your height map. The "Sea Level Indicator" will draw in the ocean where it will appear in game, so you can evaluate your coast line. (The sea will not be present when you save your image).
+
+Adjust Height Map Scale
+This lets you adjust the sea level and maximum height of your map. "Force Coast Align with Land Map" edits the height map so that it forces it to create the same coast line as the land map, it is recommend to leave this option on.
+
+Clicking "Update" will apply your changes to the height map.
+
+What Does It Do?
+Encoded in this image is the surface angle of the map, and tells HOI4 how to apply shadow and highlights.
+
+How To Make One
+The world normal is based off the height map, but there a few settings you can adjust.
+
+Normal Smoothing: 	How sharp/blurred are the shadows/highlights.
+Gradient Limit:	What's the maximum brightness/shadow.
+
+"Update" applies these changes to your world normal.
+
+What Does It Do?
+The land colour across your map is defined by this image. (Called colormap_rgb_cityemissivemask_a.dds in the base game)
+
+How To Make One
+Any image file can be used as a colour map, to load one simply drag it into the program. If you don't have one then it can be generated. There are two sliders that change the appearance of your colour map:
+
+Desert Moisture: 	Changes how yellow and dry deserts appear.
+Forest Moisture:	Changes how green and lush forests/jungles appear.
+
+"Generate" uses these settings to draw a colour map.
+
+Format Issues
+This program saves files as bitmaps, however the colour map needs to be in a DDS format to be compatible with the game.You can use an online conversion tool (https://www.aconvert.com/image/bmp-to-dds/) or an image editor to convert the file. Once converted, the image should be completely transparent.
+
+What Does It Do?
+Rivers, water sources, and deltas are defined with this map
+
+How To Make One
+This file can be made by hand, however HOI4 is very fussy with the colour table layout within the bitmap file. So if you do make it by hand, load it into this program first, then save it again. This assures your image is in the correct format.
+
+Otherwise, you can generate one. Define how many rivers you want, and how wobblily you want them (River Random Wander), and click "Generate". If "Add to Existing Rivers" is enabled, the previous river map will not be overwritten, and will have the extra rivers added to the existing ones. It is also possible to load in a hand drawn river map, and generate a few more on top of it.
+
+What Does It Do?
+This map tells HOI4 what texture to use on the map
+
+How To Make One
+This file can be made by hand, however HOI4 is very fussy with the colour table layout within the bitmap file. So if you do make it by hand, load it into this program first, then save it again. This assures your image is in the correct format.
+
+Generation still uses an old algorithm, so to get a really nice looking map, you might want to save the generated one as a base and edit in some extra detail.
+
+
+What Does It Do?
+This tab will install your mod into HOI4 for you. It is recommended that you stick to a resolution of (5632 x 2048) for this to go smoothly
+
+How To Install
+Give your mod a name and link the program to your DDS converted colour map (see Colour Map for more information). Next just click "Export to Game" and wait for the complete message. You may be prompted to locate your mod folder, this is normally found in "...Documents\Paradox Interactive\Hearts of Iron IV\mod".
+
+How To Run
+Open the HOI4 launcher, and click on the mods tab. You should see your mod in the list, tick it and run the game.

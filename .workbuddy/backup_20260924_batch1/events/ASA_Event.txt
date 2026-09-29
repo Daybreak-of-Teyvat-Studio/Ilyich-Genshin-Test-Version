@@ -1,0 +1,195 @@
+###########################
+# ASA Events
+###########################
+
+add_namespace = ASA
+
+# ASA
+
+country_event = {
+	id = ASA.1
+	title = ASA.1.t
+	desc = ASA.1.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	trigger = {  ASA = { has_government = genshin } }
+	
+	mean_time_to_happen = { days = 1 }		
+	option = { # INA
+	name = ASA.1.a
+	INA = {  set_autonomy = { target = ASA  autonomous_state =  autonomy_puppet } }
+	news_event = { id = Teyvat_News.11  days = 1 }
+		}
+	}
+
+country_event = {
+	id = ASA.2
+	title = ASA.2.t
+	desc = ASA.2.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	trigger = {  ASA = { has_government = democratic } }	
+	
+	mean_time_to_happen = { days = 1 }		
+	option = { # SAN
+	name = SAN.1.a
+	SAN = {  set_autonomy = { target = ASA  autonomous_state =  autonomy_puppet } }
+	news_event = { id = Teyvat_News.12  days = 1 }
+		}
+	}
+
+country_event = {
+	id = ASA.3
+	title = ASA.3.t
+	desc = ASA.3.d
+	picture = GFX_event_ASA
+	fire_only_once = yes
+	trigger = {  
+	    NOT = { has_government = genshin }
+		ASA = { genshin > 0.6 }
+	}	
+	
+	mean_time_to_happen = { days = 1 }		
+	option = { # 
+	name = Viva_Genshin
+	set_politics = {
+	ruling_party = genshin
+	elections_allowed = no
+		    }
+		}
+	}
+
+####天守阁之变###
+
+country_event = {
+	id = ASA.4
+	title = ASA.4.t
+	desc = ASA.4.d
+	picture = GFX_event_INA03
+	fire_only_once = yes
+	is_triggered_only = yes
+	mean_time_to_happen = { days = 1 }
+	option = { #和平，处死九条
+	name = SAN_Viva_Peace
+	set_truce = { target = INA  days = 360 }
+	white_peace = INA  white_peace = { tag = INA  message = EXAMPLE }
+	SAN = { 
+	    set_state_owner = 268
+		set_state_owner = 269
+		set_state_owner = 270
+		set_state_owner = 271
+		set_state_owner = 273
+		set_state_owner = 274
+		set_state_owner = 316
+		set_state_owner = 317
+		set_state_owner = 318
+		set_state_owner = 321
+		set_state_owner = 322
+		set_state_owner = 323
+		set_state_owner = 344
+		set_state_controller = 268
+		set_state_controller = 269
+		set_state_controller = 270
+		set_state_controller = 271
+		set_state_controller = 273
+		set_state_controller = 274
+		set_state_controller = 316
+		set_state_controller = 317
+		set_state_controller = 318
+		set_state_controller = 321
+		set_state_controller = 322
+		set_state_controller = 323
+		set_state_controller = 344
+		} 	
+	}
+	option = { #战争
+	name = SAN_Viva_War
+	add_to_variable = { var = dx value = 1 }
+	custom_effect_tooltip = Get_One_Million_Mora	
+	}
+}
+	
+country_event = {
+	id = ASA.5
+	title = ASA.5.t
+	desc = ASA.5.d
+	picture = GFX_event_INA04
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {  
+	original_tag = INA
+	INA = { 
+		controls_state = 275
+		controls_state = 276
+		controls_state = 278
+		controls_state = 279
+		controls_state = 280
+		controls_state = 281
+		controls_state = 282
+		controls_state = 319
+		controls_state = 320
+		controls_state = 324
+		} 
+	}		
+	mean_time_to_happen = { days = 1 }		
+	option = { #和平，处死心海等人
+	name = INA_Viva_Peace
+	set_truce = { target = SAN  days = 360 }
+	white_peace = SAN   white_peace = { tag = SAN  message = EXAMPLE }
+	news_event = { id = Teyvat_News.22  days = 10 }
+	INA = { 
+	    set_state_owner = 275
+		set_state_owner = 276
+		set_state_owner = 278
+		set_state_owner = 279
+		set_state_owner = 280
+		set_state_owner = 281
+		set_state_owner = 282
+		set_state_owner = 319
+		set_state_owner = 320
+		set_state_owner = 324
+		set_state_controller = 275
+		set_state_controller = 276
+		set_state_controller = 278
+		set_state_controller = 279
+		set_state_controller = 280
+		set_state_controller = 281
+		set_state_controller = 282
+		set_state_controller = 319
+		set_state_controller = 320
+		set_state_controller = 324
+		} 
+	
+	}		   
+	option = { #战争，只处死万叶
+	name = INA_Viva_War
+	add_to_variable = { var = dx value = 1 } custom_effect_tooltip = Get_One_Million_Mora	
+	}
+	}
+
+country_event = {
+	id = ASA.6
+	title = ASA.4.t
+	desc = ASA.4.d
+	picture = GFX_event_INA03
+	hidden = yes
+	fire_only_once = yes
+	is_triggered_only = no
+	trigger = {
+		or = {
+			SAN = { owns_state = 256 controls_state = 256 }
+			INA = { exists = no }
+		}
+	}
+	mean_time_to_happen = { days = 1 }
+	option = { #和平，处死九条
+		name = SAN_Viva_Peace
+		SAN = { unlock_national_focus = SAN_tenshukaku_offensive_arrangements }
+	}
+	option = { #战争
+		name = SAN_Viva_War
+		SAN = { unlock_national_focus = SAN_tenshukaku_offensive_arrangements }
+	}
+}
+
+

@@ -1,0 +1,44 @@
+效果 · create_entity
+定义
+支持的作用域:任意（any）
+支持的目标:any
+描述
+在地图上创建实体。
+create_entity = {
+  entity = entity_name #gfx entry 
+  id = 123 # can be ommitted. if given you can use this id to access entity in later times. will replace existing entity if it exists
+  var = var_name # can be ommitted. if given the id will be stored in this value so the entity can be accessed in later times 
+  # position can be set using following. you can specify a province/state or can enter a manual coordinate. you can do both and the coordinate will shift the state/province coordinate 
+  x = 42 
+  y = 21 
+  province = 123 
+  state = 42 
+  z = 3 #if wanted you can specify a z to shift height of the entity
+  rotation = 1.2 # angle in radians 
+  scale = 10.0 # scale of entity 
+  min_zoom = 100.0 # min zoom needed to show entity 
+  visible = scripted_trigger_name # a scripted trigger name to show or hide an entity. scope is player country}
+实战 · 配合 · 坑
+实战内容由 AI 生成,并已对照 vanilla 命令词表校验 —— 请当作起点而非权威依据。上方的定义节才是游戏自带文档原文。
+
+实战用法
+create_entity 常用于在地图上动态生成装饰性或功能性实体，例如在某国完成特定国策后在首都省份召唤一个纪念碑模型，或在事件触发时于指定坐标生成战场特效标记。下面是一个在事件中于特定省份生成实体并将其 id 存入变量的典型片段：
+
+immediate = {
+    create_entity = {
+        entity = my_monument_entity
+        province = 3614
+        var = my_monument_id
+        rotation = 0.0
+        scale = 1.0
+        visible = my_monument_visible_trigger
+    }
+}
+配合关系
+[set_entity_position](/wiki/effect/set_entity_position)：实体创建后可随时调用此命令将其移动到新坐标，常用于需要跟随战线变化的动态标记。
+[set_entity_animation](/wiki/effect/set_entity_animation)：配合使用可在实体生成后立即播放指定动画，使视觉表现更生动。
+[destroy_entity](/wiki/effect/destroy_entity)：通过 var 或 id 记录实体后，在另一个触发器或事件里销毁它，实现"生成—显示—销毁"的完整生命周期管理。
+[set_entity_rotation](/wiki/effect/set_entity_rotation)：在生成后根据脚本逻辑动态修正朝向，适合需要面向特定目标的实体。
+常见坑
+entity 字段填写的是 GFX 条目名称，不是模型文件名。新手常把 .mesh 文件路径或本地化名直接填进去，导致游戏找不到条目而静默失败，实体不会出现在地图上，也不会报错提示。
+省份坐标系与手动坐标系可以叠加但方向容易搞错：x/z 是相对于 province/state 中心的偏移量，若同时指定了省份又填了很大的手动坐标偏移，实体会被推到意想不到的位置，甚至移出地图边界。建议调试时先只用 province，确认位置后再微调偏移值。

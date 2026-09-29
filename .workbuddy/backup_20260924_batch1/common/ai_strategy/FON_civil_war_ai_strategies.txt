@@ -1,0 +1,747 @@
+# ================================================
+# 枫丹内战 AI 兵力调动策略
+# ================================================
+
+# ================================================
+# 势力一：FOD - 枫丹帝国（旧贵族）
+# 初始部署：向PBF边境集结兵力
+# ================================================
+FOD_initial_deployment = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		NOT = {
+			has_war_with = PBF
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向PBF边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		id = PBF
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = HZH
+		value = 9999
+	}
+}
+
+
+
+
+
+FOD_after1 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = PBF
+			}
+			country_exists = HZH
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOD_Norther_threat
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = HZH
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+FOD_after2 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = PBF
+			}
+			country_exists = FOM
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOD_Norther_threat
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOM
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+
+
+
+FOD_second_1 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			country_exists = HZH
+			has_war_with = HZH
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 全面突击 HZH
+	ai_strategy = {
+		type = front_control
+		id = HZH
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	# 步兵编制优先上前线
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 80
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	# 向前线增派大量步兵
+	ai_strategy = {
+		type = front_unit_request
+		id = HZH
+		value = 80
+	}
+
+	# 集中突破加成
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 30
+	}
+
+	# 重点推进枫丹核心区
+	ai_strategy = {
+		type = force_concentration_target_weight
+		area = FON_fontaine_core
+		value = 60
+	}
+}
+
+FOD_second_2 = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		AND = {
+			country_exists = FOM
+			has_war_with = FOM
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 全面突击 FOM
+	ai_strategy = {
+		type = front_control
+		id = FOM
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	# 步兵编制优先上前线
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 80
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	# 向前线增派大量步兵
+	ai_strategy = {
+		type = front_unit_request
+		id = FOM
+		value = 80
+	}
+
+	# 集中突破加成
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 30
+	}
+
+	# 重点推进枫丹核心区
+	ai_strategy = {
+		type = force_concentration_target_weight
+		area = FON_fontaine_core
+		value = 60
+	}
+}
+
+# 开战后策略
+FOD_civil_war_offense = {
+	allowed = {
+		tag = FOD
+	}
+	enable = {
+		has_war_with = PBF
+	}
+	abort_when_not_enabled = yes
+
+	# 保持原有策略
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+
+	# ===== 全力进攻策略（纯步兵猛攻模式）=====
+
+	# 前线全面突击：rush 执行模式，强制进攻
+	ai_strategy = {
+		type = front_control
+		id = PBF
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	# 编制优先级：主力进攻步兵 > 炮兵支援师 > 警卫师
+	# 让AI优先将精锐步兵编制派往PBF前线
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 80
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	# 向前线增派大量步兵部队
+	ai_strategy = {
+		type = front_unit_request
+		id = PBF
+		value = 80
+	}
+
+	# 集中突破加成：步兵波次猛攻
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 30
+	}
+
+	# 重点推进枫丹核心区
+	ai_strategy = {
+		type = force_concentration_target_weight
+		area = FON_fontaine_core
+		value = 60
+	}
+
+	# 全力保证步兵装备供应
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 60
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 40
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = infantry_equipment
+		value = 5
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = artillery_equipment
+		value = 2
+	}
+
+	# 全力生产步兵比例
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 100
+	}
+
+	# 保持较低的驻军需求，把部队送上战场
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = -5
+	}
+}
+
+
+# ================================================
+# 势力二：FOM - 枫丹革命（梅洛彼得堡）
+# 初始部署：向HZH边境集结兵力
+# ================================================
+FOM_after1 = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = HZH
+			}
+			country_exists = FOD
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOM_The_Fontaine_Revolution
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOD
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+FOM_after2 = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = HZH
+			}
+			country_exists = PBF
+		}
+		
+	}
+	abort = {
+		has_completed_focus = FOM_The_Fontaine_Revolution
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = PBF
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+
+FOM_initial_deployment = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		NOT = {
+			has_completed_focus = FOM_Axiom_will_eventually_have_a_day_of_defense
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向HZH边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		id = HZH
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+# 开战后策略 — 全力猛攻（其他势力存在时速战速决）
+FOM_civil_war_offense = {
+	allowed = {
+		tag = FOM
+	}
+	enable = {
+		AND = {
+			has_war_with = HZH
+			OR = {
+				country_exists = FON
+				country_exists = PBF
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 前线全面突击 HZH
+	ai_strategy = {
+		type = front_control
+		id = HZH
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	# 重点进攻核心区
+	ai_strategy = {
+		type = area_priority
+		id = FON_fontaine_core
+		value = 100
+	}
+
+	# 同时抢占工业区
+	ai_strategy = {
+		type = area_priority
+		id = FON_fontaine_industrial
+		value = 80
+	}
+
+	# 编制优先级：主力步兵优先上前线
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 80
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	# 向前线增派大量步兵
+	ai_strategy = {
+		type = front_unit_request
+		id = HZH
+		value = 80
+	}
+
+	# 集中突破加成
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 30
+	}
+
+	# 全力保证步兵装备供应
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 30
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = infantry_equipment
+		value = 3
+	}
+}
+
+
+# ================================================
+# 势力三：HZH - 壁炉之家（愚人众）
+# 初始部署：向FOM边境集结兵力
+# ================================================
+HZH_after1 = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOM
+			}
+			country_exists = FOD
+		}
+		
+	}
+	abort = {
+		has_completed_focus = HZH_Father_Fontaine
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOD
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+HZH_after2 = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOM
+			}
+			country_exists = PBF
+		}
+		
+	}
+	abort = {
+		has_completed_focus = HZH_Father_Fontaine
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = PBF
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+
+
+HZH_initial_deployment = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		NOT = {
+			has_war_with = FOM
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向FOM边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOM
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+# 开战后策略 — 全力猛攻（其他势力存在时速战速决）
+HZH_civil_war_basic = {
+	allowed = {
+		tag = HZH
+	}
+	enable = {
+		AND = {
+			has_war_with = FOM
+			OR = {
+				country_exists = FON
+				country_exists = PBF
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 前线全面突击 FOM
+	ai_strategy = {
+		type = front_control
+		id = FOM
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	# 编制优先级：主力步兵优先上前线
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 100
+	}
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 80
+	}
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	# 向前线增派大量步兵
+	ai_strategy = {
+		type = front_unit_request
+		id = FOM
+		value = 80
+	}
+
+	# 集中突破加成
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 30
+	}
+
+	# 全力保证步兵装备供应
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 30
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = infantry_equipment
+		value = 3
+	}
+}
+
+
+# ================================================
+# 势力四：PBF - 枫丹社会党
+# 初始部署：向FOD边境集结兵力
+# ================================================
+PBF_after1 = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOD
+			}
+			country_exists = HZH
+		}
+		
+	}
+	abort = {
+		has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = HZH
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+PBF_after2 = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		AND = {
+			NOT = {
+				country_exists = FOD
+			}
+			country_exists = FOM
+		}
+		
+	}
+	abort = {
+		has_completed_focus = PBF_The_unfulfilled_aspirations_of_our_forefathers
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOM
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+
+PBF_initial_deployment = {
+	allowed = {
+		tag = PBF
+	}
+	enable = {
+		NOT = {
+			has_completed_focus = PBF_Rose_Society
+		}
+	}
+	abort_when_not_enabled = yes
+
+	# 向FOD边境集结兵力
+	ai_strategy = {
+		type = prepare_for_war
+		id = FOD
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FON
+		value = 9999
+	}
+}
+
+

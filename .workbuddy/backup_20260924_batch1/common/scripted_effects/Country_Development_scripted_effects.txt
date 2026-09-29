@@ -1,0 +1,919 @@
+development_initialization = {
+	set_variable = { Industry_development_var = 0 }   # 现有发展值
+	set_variable = { Industry_development_monthly_effect = 20 }   # 每月增长
+
+	set_variable = { agricultural_development_var = 0 }   # 现有发展值
+	set_variable = { agricultural_development_monthly_effect = 20 }   # 每月增长
+
+    set_variable = { Army_development_var = 0 }   # 现有发展值
+	set_variable = { Army_development_monthly_effect = 20 }   # 每月增长
+
+	set_variable = { Research_development_var = 0 }   # 现有发展值
+	set_variable = { Research_development_monthly_effect = 20 }   # 每月增长
+
+	set_variable = { Government_Control_development_var = 0 }   # 现有发展值
+	set_variable = { Government_Control_development_monthly_effect = 20 }   # 每月增长
+
+	set_variable = { Country_Scale_development_var = 0 }   # 现有发展值
+	set_variable = { Country_Scale_development_monthly_effect = 20 }   # 每月增长
+}
+
+update_development = {
+	add_to_variable = {
+		var = Industry_development_var
+		value = modifier@Industry_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = Industry_development_var
+		value = Industry_development_monthly_effect
+	}
+	Industry_improve = yes
+
+	add_to_variable = {
+		var = agricultural_development_var
+		value = modifier@agricultural_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = agricultural_development_var
+		value = agricultural_development_monthly_effect
+	}
+	agricultural_improve = yes
+
+	add_to_variable = {
+		var = Army_development_var
+		value = modifier@Army_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = Army_development_var
+		value = Army_development_monthly_effect
+	}
+	Army_improve = yes
+
+	add_to_variable = {
+		var = Research_development_var
+		value = modifier@Research_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = Research_development_var
+		value = Research_development_monthly_effect
+	}
+	Research_improve = yes
+
+	add_to_variable = {
+		var = Government_Control_development_var
+		value = modifier@Government_Control_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = Government_Control_development_var
+		value = Government_Control_development_monthly_effect
+	}
+	Government_Control_improve = yes
+
+	add_to_variable = {
+		var = Country_Scale_development_var
+		value = modifier@Country_Scale_development_monthly_modifier    # 其他月度动态（减少）
+	}
+	add_to_variable = {
+		var = Country_Scale_development_var
+		value = Country_Scale_development_monthly_effect
+	}
+	Country_Scale_improve = yes
+
+}
+
+#    100   400   900   1600   2500
+
+Industry_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_Government_Industry1
+				check_variable = {
+				var = Industry_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Industry1
+				add_idea = DOT_Government_Industry2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Industry2
+				check_variable = {
+				var = Industry_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Industry2
+				add_idea = DOT_Government_Industry3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Industry3
+				check_variable = {
+				var = Industry_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Industry3
+				add_idea = DOT_Government_Industry4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Industry4
+				check_variable = {
+				var = Industry_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Industry4
+				add_idea = DOT_Government_Industry5
+			}
+			country_event = {
+				
+			}
+		}
+	}
+}
+
+agricultural_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_Government_Agri1
+				check_variable = {
+				var = agricultural_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Agri1
+				add_idea = DOT_Government_Agri2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Agri2
+				check_variable = {
+				var = agricultural_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Agri2
+				add_idea = DOT_Government_Agri3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Agri3
+				check_variable = {
+				var = agricultural_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Agri3
+				add_idea = DOT_Government_Agri4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Agri4
+				check_variable = {
+				var = agricultural_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Agri4
+				add_idea = DOT_Government_Agri5
+			}
+			country_event = {
+				
+			}
+		}
+	}
+}
+
+Army_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_Government_Army1
+				check_variable = {
+				var = Army_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Army1
+				add_idea = DOT_Government_Army2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Army2
+				check_variable = {
+				var = Army_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Army2
+				add_idea = DOT_Government_Army3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Army3
+				check_variable = {
+				var = Army_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Army3
+				add_idea = DOT_Government_Army4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Army4
+				check_variable = {
+				var = Army_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Army4
+				add_idea = DOT_Government_Army5
+			}
+			country_event = {
+				
+			}
+		}
+	}
+}
+
+Research_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_Government_Research1
+				check_variable = {
+				var = Research_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Research1
+				add_idea = DOT_Government_Research2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Research2
+				check_variable = {
+				var = Research_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Research2
+				add_idea = DOT_Government_Research3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Research3
+				check_variable = {
+				var = Research_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Research3
+				add_idea = DOT_Government_Research4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Research4
+				check_variable = {
+				var = Research_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Research4
+				add_idea = DOT_Government_Research5
+			}
+			country_event = {
+				
+			}
+		}
+	}
+}
+
+Government_Control_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control1
+				check_variable = {
+				var = Government_Control_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control1
+				add_idea = DOT_Government_Control2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control2
+				check_variable = {
+				var = Government_Control_development_var
+				value = 240
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control2
+				add_idea = DOT_Government_Control3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control3
+				check_variable = {
+				var = Government_Control_development_var
+				value = 440
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control3
+				add_idea = DOT_Government_Control4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control4
+				check_variable = {
+				var = Government_Control_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control4
+				add_idea = DOT_Government_Control5
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control5
+				check_variable = {
+				var = Government_Control_development_var
+				value = 1050
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control5
+				add_idea = DOT_Government_Control6
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control6
+				check_variable = {
+				var = Government_Control_development_var
+				value = 1550
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control6
+				add_idea = DOT_Government_Control7
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_Government_Control7
+				check_variable = {
+				var = Government_Control_development_var
+				value = 1600
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_Government_Control7
+				add_idea = DOT_Government_Control8
+			}
+			country_event = {
+				
+			}
+		}
+		
+	}
+}
+
+Country_Scale_improve = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_idea = DOT_MOTGovernment_Size1
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_MOTGovernment_Size1
+				add_idea = DOT_MOTGovernment_Size2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_MOTGovernment_Size2
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_MOTGovernment_Size2
+				add_idea = DOT_MOTGovernment_Size3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_MOTGovernment_Size3
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_MOTGovernment_Size3
+				add_idea = DOT_MOTGovernment_Size4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_MOTGovernment_Size4
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_MOTGovernment_Size4
+				add_idea = DOT_MOTGovernment_Size5
+			}
+			country_event = {
+				
+			}
+		}
+
+		if = {
+			limit = {
+				has_idea = DOT_LYYGovernment_Size1
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_LYYGovernment_Size1
+				add_idea = DOT_LYYGovernment_Size2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_LYYGovernment_Size2
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_LYYGovernment_Size2
+				add_idea = DOT_LYYGovernment_Size3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_LYYGovernment_Size3
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_LYYGovernment_Size3
+				add_idea = DOT_LYYGovernment_Size4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_LYYGovernment_Size4
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_LYYGovernment_Size4
+				add_idea = DOT_LYYGovernment_Size5
+			}
+			country_event = {
+				
+			}
+		}
+
+		if = {
+			limit = {
+				has_idea = DOT_INAGovernment_Size1
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_INAGovernment_Size1
+				add_idea = DOT_INAGovernment_Size2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_INAGovernment_Size2
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_INAGovernment_Size2
+				add_idea = DOT_INAGovernment_Size3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_INAGovernment_Size3
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_INAGovernment_Size3
+				add_idea = DOT_INAGovernment_Size4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_INAGovernment_Size4
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_INAGovernment_Size4
+				add_idea = DOT_INAGovernment_Size5
+			}
+			country_event = {
+				
+			}
+		}
+
+		if = {
+			limit = {
+				has_idea = DOT_SUMGovernment_Size1
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_SUMGovernment_Size1
+				add_idea = DOT_SUMGovernment_Size2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_SUMGovernment_Size2
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_SUMGovernment_Size2
+				add_idea = DOT_SUMGovernment_Size3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_SUMGovernment_Size3
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_SUMGovernment_Size3
+				add_idea = DOT_SUMGovernment_Size4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_SUMGovernment_Size4
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_SUMGovernment_Size4
+				add_idea = DOT_SUMGovernment_Size5
+			}
+			country_event = {
+				
+			}
+		}
+
+		if = {
+			limit = {
+				has_idea = DOT_geneGovernment_Size1
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 100
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_geneGovernment_Size1
+				add_idea = DOT_geneGovernment_Size2
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_geneGovernment_Size2
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 300
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_geneGovernment_Size2
+				add_idea = DOT_geneGovernment_Size3
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_geneGovernment_Size3
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 700
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_geneGovernment_Size3
+				add_idea = DOT_geneGovernment_Size4
+			}
+			country_event = {
+				
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DOT_geneGovernment_Size4
+				check_variable = {
+				var = Country_Scale_development_var
+				value = 1500
+				compare = greater_than_or_equals
+			    }
+			}
+			swap_ideas = {
+				remove_idea = DOT_geneGovernment_Size4
+				add_idea = DOT_geneGovernment_Size5
+			}
+			country_event = {
+				
+			}
+		}
+	}
+}
+
+
+
+Industry_development_add = {
+	add_to_variable = { Industry_development_var = Industry_development_add_var }   # 总值增加
+	Industry_improve = yes
+	custom_effect_tooltip = Industry_development_add_tt
+}
+
+Industry_development_monthly_add = {
+	add_to_variable = { Industry_development_monthly_effect = Industry_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = Industry_development_monthly_add_tt
+}
+
+agricultural_development_add = {
+	add_to_variable = { agricultural_development_var = agricultural_development_add_var }   # 总值增加
+	agricultural_improve = yes
+	custom_effect_tooltip = agricultural_development_add_tt
+}
+
+agricultural_development_monthly_add = {
+	add_to_variable = { agricultural_development_monthly_effect = agricultural_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = agricultural_development_monthly_add_tt
+}
+
+Army_development_add = {
+	add_to_variable = { Army_development_var = Army_development_add_var }   # 总值增加
+	Army_improve = yes
+	custom_effect_tooltip = Army_development_add_tt
+}
+
+Army_development_monthly_add = {
+	add_to_variable = { Army_development_monthly_effect = Army_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = Army_development_monthly_add_tt
+}
+
+Research_development_add = {
+	add_to_variable = { Research_development_var = Research_development_add_var }   # 总值增加
+	Research_improve = yes
+	custom_effect_tooltip = Research_development_add_tt
+}
+
+Research_development_monthly_add = {
+	add_to_variable = { Research_development_monthly_effect = Research_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = Research_development_monthly_add_tt
+}
+
+Government_Control_development_add = {
+	add_to_variable = { Government_Control_development_var = Government_Control_development_add_var }   # 总值增加
+	Government_Control_improve = yes
+	custom_effect_tooltip = Government_Control_development_add_tt
+}
+
+Government_Control_development_monthly_add = {
+	add_to_variable = { Government_Control_development_monthly_effect = Government_Control_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = Government_Control_development_monthly_add_tt
+}
+
+Country_Scale_development_add = {
+	add_to_variable = { Country_Scale_development_var = Country_Scale_development_add_var }   # 总值增加
+	Country_Scale_improve = yes
+	custom_effect_tooltip = Country_Scale_development_add_tt
+}
+
+Country_Scale_development_monthly_add = {
+	add_to_variable = { Country_Scale_development_monthly_effect = Country_Scale_development_monthly_effect_add_var }  # 月度增长增加
+	custom_effect_tooltip = Country_Scale_development_monthly_add_tt
+}
+

@@ -1,0 +1,47 @@
+=== 一、map 目录副本 vs hoi4lint 存档 逐字节比对 ===
+  terrain_final5.bmp
+    map  : 25,165,878 字节  bpp=24  偏移=54  色槽=0  md5=72650e7179cc39410b5254c5d86987e7
+    存档 : md5=72650e7179cc39410b5254c5d86987e7   逐字节一致=True
+  terrain_final5_8bit.bmp
+    map  : 8,389,682 字节  bpp=8  偏移=1074  色槽=255  md5=da41be90263b336b194630a9b23fef25
+    存档 : md5=da41be90263b336b194630a9b23fef25   逐字节一致=True
+
+=== 二、生成调色板校正版（像素零改动，仅第 13 号色槽 155,0,255 -> 128,128,128）===
+  色板基址 54，项数 255
+  idx13 调色板由 (155, 0, 255) 改为 (128, 128, 128)
+  map 下同名文件已存在（沙箱禁止覆盖），改写到 .workbuddy
+  写出 C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\terrain_final5_8bit_fixed.bmp
+    8,389,682 字节  bpp=8  偏移=1074  色槽=255  md5=bf9a736784db109a2196bddd496c6049
+  像素区与原件逐字节一致 = True
+
+=== 三、索引直方图（对照 00_terrain.txt 已定义编号）===
+  [map/final5_8bit] 用到 11 个索引；未定义编号 = 无
+      idx   0      34,929 px   plains    调色板色=(255, 129, 66)
+      idx   1      33,850 px   forest    调色板色=(89, 199, 85)
+      idx   3         860 px   desert    调色板色=(255, 63, 0)
+      idx   6     238,977 px   mountain  调色板色=(27, 27, 27)
+      idx   9     142,239 px   marsh     调色板色=(76, 96, 35)
+      idx  11      90,000 px   mountain  调色板色=(124, 135, 125)
+      idx  13       3,662 px   urban     调色板色=(155, 0, 255)
+      idx  14         948 px   lakes     调色板色=(0, 255, 255)
+      idx  15   7,806,748 px   ocean     调色板色=(0, 0, 255)
+      idx  17      10,345 px   hills     调色板色=(248, 255, 153)
+      idx  21      26,050 px   jungle    调色板色=(127, 191, 0)
+  [final5_8bit_fixed] 用到 11 个索引；未定义编号 = 无
+      idx   0      34,929 px   plains    调色板色=(255, 129, 66)
+      idx   1      33,850 px   forest    调色板色=(89, 199, 85)
+      idx   3         860 px   desert    调色板色=(255, 63, 0)
+      idx   6     238,977 px   mountain  调色板色=(27, 27, 27)
+      idx   9     142,239 px   marsh     调色板色=(76, 96, 35)
+      idx  11      90,000 px   mountain  调色板色=(124, 135, 125)
+      idx  13       3,662 px   urban     调色板色=(128, 128, 128)
+      idx  14         948 px   lakes     调色板色=(0, 255, 255)
+      idx  15   7,806,748 px   ocean     调色板色=(0, 0, 255)
+      idx  17      10,345 px   hills     调色板色=(248, 255, 153)
+      idx  21      26,050 px   jungle    调色板色=(127, 191, 0)
+
+=== 四、预览渲染 ===
+  PIL 载入 terrain_final5_8bit.bmp mode=P size=(4096, 2048)
+    -> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\preview\final5_8bit_preview.png
+  PIL 载入 terrain_final5_8bit_fixed.bmp mode=P size=(4096, 2048)
+    -> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\preview\final5_8bit_fixed_preview.png

@@ -1,0 +1,68 @@
+=== 0. 备份 ===
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\backup_20260924_1538\terrain.bmp  已存在，跳过
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\backup_20260924_1538\cities.bmp  已存在，跳过
+  [terrain.bmp] 像素体后还有 2 个多余字节，文件长 8,388,752，off+W*H = 8,388,750；本次按 off+W*H 截断写出
+
+=== 1. 输入 ===
+  terrain.bmp 8,388,752 B  4096x2048 bpp=8 off=142 clrUsed=22 色槽=22
+  cities.bmp  8,389,686 B  off=1078 clrUsed=256
+  城市掩膜（cities.bmp 索引 15）= 26,839 px
+
+=== 2. 改动前索引直方图 ===
+   idx   0      33,912 px  色=(255, 129, 66)
+   idx   1      30,953 px  色=(89, 199, 85)
+   idx   2       5,324 px  色=(0, 0, 0)
+   idx   3         857 px  色=(255, 63, 0)
+   idx   6     230,410 px  色=(27, 27, 27)
+   idx   9     133,204 px  色=(108, 198, 0)
+   idx  11     107,497 px  色=(124, 135, 125)
+   idx  13       3,662 px  色=(155, 0, 255)
+   idx  14         782 px  色=(0, 255, 255)
+   idx  15   7,805,978 px  色=(0, 0, 255)
+   idx  17       9,137 px  色=(248, 255, 153)
+   idx  21      26,892 px  色=(127, 191, 0)
+
+=== 3. 变换明细 ===
+  森林 idx1     30,953 px -> 平原 0
+  沼泽 idx9    133,204 px -> 平原 0
+  丛林 idx21    26,892 px -> 平原 0
+  紫色 idx13     3,662 px -> 平原 0
+  灰色 idx11 ∩ 城市掩膜    26,637 px -> 城市 13
+  灰色 idx11 其余           80,860 px -> 保持 11（山地）
+  城市掩膜未被灰覆盖             202 px  只报不改
+  实际改动像素合计 = 221,348
+  校验：期望 = 221,348  （g1+g9+g21+g13 互斥，hit ⊂ g11 且与它们不相交）
+
+=== 4. 调色板 ===
+  idx13 城市显示色 (155, 0, 255) -> (128, 128, 128)
+  （其余色槽一字不动；游戏的 terrain 判定读索引、不读调色板色）
+
+=== 5. 写出 ===
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\map\terrain_04.bmp 被拒写，改写到 C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\map\terrain_04_1790236069.bmp
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\map\terrain_04_1790236069.bmp  8,388,750 B
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\terrain_04.bmp  8,388,750 B
+  回读 bpp=8 off=142 clrUsed=22  尺寸=4096x2048
+  回读索引与内存逐像素一致 = True
+  回读调色板 idx13 = (128, 128, 128)  期望 (128, 128, 128)  一致 = True
+  调色板其余项未被改动 = True
+  头声明字节 8,388,750 与实物一致 = True
+
+=== 6. 改动后索引直方图 ===
+   idx   0     228,623 px  plains    色=(255, 129, 66)
+   idx   2       5,324 px  hills     色=(0, 0, 0)
+   idx   3         857 px  desert    色=(255, 63, 0)
+   idx   6     230,410 px  mountain  色=(27, 27, 27)
+   idx  11      80,860 px  mountain  色=(124, 135, 125)
+   idx  13      26,637 px  urban     色=(128, 128, 128)
+   idx  14         782 px  lakes     色=(0, 255, 255)
+   idx  15   7,805,978 px  ocean     色=(0, 0, 255)
+   idx  17       9,137 px  hills     色=(248, 255, 153)
+  未定义索引 = 无
+  像素总数 = 8,388,608（应为 8,388,608）
+
+=== 7. 预览 ===
+  全图 -> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\preview\terrain_04_preview.png
+  最大城市块 2,751 px，中心 y=487 x=1835
+  城市放大 -> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\preview\terrain_04_city_zoom.png
+  改动区标注（红）-> C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\preview\terrain_04_changed.png
+  改动像素 221,348，占全图 2.64%，占陆地 0.027

@@ -1,0 +1,1451 @@
+# 公社重工 风龙领陆军MIO
+DVA_MIO_Army = {
+    
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+    allowed = { original_tag = DVA }
+    available = {
+        FROM = {
+            has_completed_focus = DVA_Razor2
+            has_completed_focus = DVA_Raymond3
+        }
+    }
+    #加成范围为（除装甲车外）全陆军装备
+    equipment_type = {
+        infantry_equipment
+        artillery_equipment
+		support_equipment
+        mio_cat_eq_all_light_tank
+        mio_cat_eq_all_medium_tank
+        mio_cat_eq_all_heavy_tank
+        mio_cat_eq_all_tank_destroyers
+		motorized_equipment
+		mechanized_equipment
+		motorized_rocket_equipment
+    }
+    research_categories = {
+        infantry_weapons
+		mio_cat_all_artillery_equipment
+        support_tech
+		mio_cat_tech_all_armor_and_modules
+		mio_cat_tech_light_armor_and_modules
+		mio_cat_tech_medium_armor_and_modules
+		mio_cat_tech_heavy_armor_and_modules
+		mio_cat_all_artillery_equipment
+		mio_cat_tech_all_motorized_mechanized
+		mot_rockets
+		cat_anti_tank
+		cat_anti_air
+		night_vision
+    }
+    #初始特质，加可靠性和科研
+    initial_trait = {
+		name = DVA_MIO_Army_Trait_0
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.1
+		}
+        equipment_bonus = {
+            reliability = 0.05
+        }
+    }
+    ##特质树上面的文字，先随便放点东西
+    #英勇-对应步兵装备
+    tree_header_text = {
+        text = DVA_MIO_Army_Text1
+        x = 1
+    }
+    #团结-对应支援装备
+    tree_header_text = {
+        text = DVA_MIO_Army_Text2
+        x = 3
+    }
+    #真理-对应火炮
+    tree_header_text = {
+        text = DVA_MIO_Army_Text3
+        x = 5
+    }
+    #公正-对应坦克
+    tree_header_text = {
+        text = DVA_MIO_Army_Text4
+        x = 7
+    }
+    #勤勉-对应产能加成
+    tree_header_text = {
+        text = DVA_MIO_Army_Text5
+        x = 9
+    }
+    ##以下为特质树：
+    #特质名称是临时拟定的
+    #步兵
+    trait = {
+        token = DVA_MIO_Army_Trait_101
+        name = DVA_MIO_Army_Trait_101
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=1 y=0 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_102
+        name = DVA_MIO_Army_Trait_102
+        icon = GFX_generic_mio_trait_icon_defense
+        position = { x=1 y=1 }
+        all_parents = { DVA_MIO_Army_Trait_101 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            defense = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_103
+        name = DVA_MIO_Army_Trait_103
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        position = { x=1 y=2 }
+        all_parents = { DVA_MIO_Army_Trait_102 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            breakthrough = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_111
+        name = DVA_MIO_Army_Trait_111
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        position = { x=1 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_103 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            hard_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_112
+        name = DVA_MIO_Army_Trait_112
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        position = { x=1 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_111 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            ap_attack = 0.25
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_113
+        name = DVA_MIO_Army_Trait_113
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        position = { x=1 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_112 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            hard_attack = 0.1
+            ap_attack = 0.25
+            breakthrough = 0.07
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_121
+        name = DVA_MIO_Army_Trait_121
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=0 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_103 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            soft_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_122
+        name = DVA_MIO_Army_Trait_122
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=0 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_121 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            reliability = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_123
+        name = DVA_MIO_Army_Trait_123
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=0 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_122 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            defense = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_131
+        name = DVA_MIO_Army_Trait_131
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=0 y=6 }
+        all_parents = { DVA_MIO_Army_Trait_113 DVA_MIO_Army_Trait_123 }
+        limit_to_equipment_type = { infantry_weapons }
+        equipment_bonus = {
+            defense = 0.15
+            build_cost_ic = -0.05
+        }
+    }
+    #支援
+    trait = {
+        token = DVA_MIO_Army_Trait_201
+        name = DVA_MIO_Army_Trait_201
+        icon = GFX_generic_mio_trait_icon_fuel_consumption
+        position = { x=3 y=0 }
+        limit_to_equipment_type = {
+            support_equipment
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_202
+        name = DVA_MIO_Army_Trait_202
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x=3 y=1 }
+        all_parents = { DVA_MIO_Army_Trait_201 }
+        limit_to_equipment_type = {
+            support_equipment
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            reliability = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_211
+        name = DVA_MIO_Army_Trait_211
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=3 y=2 }
+        all_parents = { DVA_MIO_Army_Trait_202 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            fuel_consumption = -0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_212
+        name = DVA_MIO_Army_Trait_212
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=3 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_211 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            maximum_speed = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_213
+        name = DVA_MIO_Army_Trait_213
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=3 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_212 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            breakthrough = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_214
+        name = DVA_MIO_Army_Trait_214
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=3 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_212 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            maximum_speed = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_221
+        name = DVA_MIO_Army_Trait_221
+        icon = GFX_generic_mio_trait_icon_defense
+        position = { x=2 y=2 }
+        all_parents = { DVA_MIO_Army_Trait_203 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            defense = 0.05
+            breakthrough = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_222
+        name = DVA_MIO_Army_Trait_222
+        icon = GFX_generic_mio_trait_icon_defense
+        position = { x=2 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_221 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            hardness = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_223
+        name = DVA_MIO_Army_Trait_223
+        icon = GFX_generic_mio_trait_icon_defense
+        position = { x=2 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_222 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            defense = 0.05
+            breakthrough = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_224
+        name = DVA_MIO_Army_Trait_224
+        icon = GFX_generic_mio_trait_icon_defense
+        position = { x=2 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_223 }
+        limit_to_equipment_type = {
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            hardness = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_231
+        name = DVA_MIO_Army_Trait_231
+        icon = GFX_generic_mio_trait_icon_hardness
+        position = { x=2 y=6 }
+        all_parents = { DVA_MIO_Army_Trait_224 DVA_MIO_Army_Trait_214 }
+        limit_to_equipment_type = {
+            support_equipment
+            mechanized_equipment
+            motorized_equipment
+        }
+        equipment_bonus = {
+            fuel_consumption = -0.1
+            build_cost_ic = -0.05
+        }
+    }
+    #火炮
+    trait = {
+        token = DVA_MIO_Army_Trait_301
+        name = DVA_MIO_Army_Trait_301
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=5 y=0 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_311
+        name = DVA_MIO_Army_Trait_311
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        all_parents = { DVA_MIO_Army_Trait_301 }
+        position = { x=5 y=1 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_312
+        name = DVA_MIO_Army_Trait_312
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        all_parents = { DVA_MIO_Army_Trait_311 }
+        position = { x=5 y=2 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            defense = 0.03
+            breakthrough = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_313
+        name = DVA_MIO_Army_Trait_313
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        all_parents = { DVA_MIO_Army_Trait_312 }
+        position = { x=5 y=3 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_314
+        name = DVA_MIO_Army_Trait_314
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        all_parents = { DVA_MIO_Army_Trait_313 }
+        position = { x=5 y=4 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            defense = 0.03
+            breakthrough = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_315
+        name = DVA_MIO_Army_Trait_315
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        all_parents = { DVA_MIO_Army_Trait_314 }
+        position = { x=5 y=5 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_321
+        name = DVA_MIO_Army_Trait_321
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_301 }
+        position = { x=4 y=1 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            hard_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_322
+        name = DVA_MIO_Army_Trait_322
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_321 }
+        position = { x=4 y=2 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            ap_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_323
+        name = DVA_MIO_Army_Trait_323
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_322 }
+        position = { x=4 y=3 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            hard_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_324
+        name = DVA_MIO_Army_Trait_324
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_323 }
+        position = { x=4 y=4 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            ap_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_325
+        name = DVA_MIO_Army_Trait_325
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_324 }
+        position = { x=4 y=5 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            hard_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_331
+        name = DVA_MIO_Army_Trait_331
+        icon = GFX_generic_mio_trait_icon_anti_air_attack
+        all_parents = { DVA_MIO_Army_Trait_301 }
+        position = { x=6 y=1 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            anti_air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_332
+        name = DVA_MIO_Army_Trait_332
+        icon = GFX_generic_mio_trait_icon_anti_air_attack
+        all_parents = { DVA_MIO_Army_Trait_331 }
+        position = { x=6 y=2 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            anti_air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_333
+        name = DVA_MIO_Army_Trait_333
+        icon = GFX_generic_mio_trait_icon_anti_air_attack
+        all_parents = { DVA_MIO_Army_Trait_332 }
+        position = { x=6 y=3 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            anti_air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_334
+        name = DVA_MIO_Army_Trait_334
+        icon = GFX_generic_mio_trait_icon_anti_air_attack
+        all_parents = { DVA_MIO_Army_Trait_333 }
+        position = { x=6 y=4 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            anti_air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_335
+        name = DVA_MIO_Army_Trait_335
+        icon = GFX_generic_mio_trait_icon_anti_air_attack
+        all_parents = { DVA_MIO_Army_Trait_334 }
+        position = { x=6 y=5 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            anti_air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_341
+        name = DVA_MIO_Army_Trait_341
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        any_parent = { DVA_MIO_Army_Trait_315 DVA_MIO_Army_Trait_325 DVA_MIO_Army_Trait_335 }
+        position = { x=5 y=6 }
+        limit_to_equipment_type = {
+            artillery_equipment
+            rocket_artillery_equipment
+        }
+        equipment_bonus = {
+            soft_attack = 0.03
+            defense = 0.04
+            breakthrough = 0.04
+            ap_attack = 0.1
+            anti_air_attack = 0.05
+        }
+    }
+    #装甲
+    trait = {
+        token = DVA_MIO_Army_Trait_401
+        name = DVA_MIO_Army_Trait_401
+        icon = GFX_generic_mio_trait_icon_hardness
+        position = { x=7 y=0 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            armor_value = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_402
+        name = DVA_MIO_Army_Trait_402
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        all_parents = { DVA_MIO_Army_Trait_401 }
+        position = { x=7 y=1 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            soft_attack = 0.05
+            ap_attack = 0.1
+            hard_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_411
+        name = DVA_MIO_Army_Trait_411
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_402 }
+        position = { x=7 y=2 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            breakthrough = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_412
+        name = DVA_MIO_Army_Trait_412
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_411 }
+        position = { x=7 y=3 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            armor_value = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_413
+        name = DVA_MIO_Army_Trait_413
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_412 }
+        position = { x=7 y=4 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            breakthrough = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_414
+        name = DVA_MIO_Army_Trait_414
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_413 }
+        position = { x=7 y=5 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            armor_value = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_421
+        name = DVA_MIO_Army_Trait_421
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_402 }
+        position = { x=8 y=2 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            reliability = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_422
+        name = DVA_MIO_Army_Trait_422
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_421 }
+        position = { x=8 y=3 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            build_cost_ic = -0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_423
+        name = DVA_MIO_Army_Trait_423
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_422 }
+        position = { x=8 y=4 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            defense = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_424
+        name = DVA_MIO_Army_Trait_424
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_423 }
+        position = { x=8 y=5 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            build_cost_ic = -0.02
+            maximum_speed = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_431
+        name = DVA_MIO_Army_Trait_431
+        icon = GFX_generic_mio_trait_icon_breakthrough
+        all_parents = { DVA_MIO_Army_Trait_414 DVA_MIO_Army_Trait_424 }
+        position = { x=7 y=6 }
+        limit_to_equipment_type = {
+            mio_cat_eq_all_light_tank
+            mio_cat_eq_all_medium_tank
+            mio_cat_eq_all_heavy_tank
+            mio_cat_eq_all_tank_destroyers
+        }
+        equipment_bonus = {
+            armor_value = 0.05
+            breakthrough = 0.04
+            defense = 0.05
+            soft_attack = 0.05
+        }
+    }
+    #产能
+    trait = {
+        token = DVA_MIO_Army_Trait_501
+        name = DVA_MIO_Army_Trait_501
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=9 y=0 }
+        production_bonus = {
+            production_efficiency_cap_factor = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_502
+        name = DVA_MIO_Army_Trait_502
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=9 y=1 }
+        all_parents = { DVA_MIO_Army_Trait_501 }
+        production_bonus = {
+            production_resource_need_factor = -0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_503
+        name = DVA_MIO_Army_Trait_503
+        icon = GFX_generic_mio_trait_icon_ap_attack
+        position = { x=9 y=2 }
+        all_parents = { DVA_MIO_Army_Trait_502 }
+        production_bonus = {
+            production_efficiency_gain_factor = 0.15
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_511
+        name = DVA_MIO_Army_Trait_511
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=9 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_503 }
+        production_bonus = {
+            production_efficiency_gain_factor = 0.15
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_512
+        name = DVA_MIO_Army_Trait_512
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=9 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_511 }
+        production_bonus = {
+            production_capacity_factor = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_513
+        name = DVA_MIO_Army_Trait_513
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=9 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_512 }
+        production_bonus = {
+            production_efficiency_cap_factor = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_521
+        name = DVA_MIO_Army_Trait_521
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=10 y=3 }
+        all_parents = { DVA_MIO_Army_Trait_503 }
+        production_bonus = {
+            production_efficiency_gain_factor = 0.2
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_522
+        name = DVA_MIO_Army_Trait_522
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=10 y=4 }
+        all_parents = { DVA_MIO_Army_Trait_521 }
+        organization_modifier = {
+            military_industrial_organization_research_bonus = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_523
+        name = DVA_MIO_Army_Trait_523
+        icon = GFX_generic_mio_trait_icon_resources
+        position = { x=10 y=5 }
+        all_parents = { DVA_MIO_Army_Trait_522 }
+        organization_modifier = {
+            military_industrial_organization_design_team_change_cost = -0.25
+        }
+    }
+    trait = {
+        token = DVA_MIO_Army_Trait_531
+        name = DVA_MIO_Army_Trait_531
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=9 y=6 }
+        all_parents = { DVA_MIO_Army_Trait_513 DVA_MIO_Army_Trait_523 }
+        production_bonus = {
+            production_resource_need_factor = -0.1
+            military_industrial_organization_research_bonus = 0.05
+            production_efficiency_cap_factor = 0.04
+        }
+    }
+}
+
+#风龙船厂 风龙领海军MIO
+DVA_MIO_Navy = {
+	icon = GFX_idea_generic_naval_manufacturer_1
+    allowed = { original_tag = DVA }
+    available = {
+        FROM = {
+            has_completed_focus = DVA_Raymond2
+            has_completed_focus = DVA_Raymond3
+        }
+    }
+    #加成范围为全海军装备
+    equipment_type = {
+		capital_ship
+		screen_ship
+		submarine
+		mio_cat_eq_all_carrier
+    }
+    research_categories = {
+		naval_equipment
+    }
+    #初始特质，加可靠性和科研
+    initial_trait = {
+		name = DVA_MIO_Navy_Trait_0
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.1
+		}
+        equipment_bonus = {
+            reliability = 0.05
+        }
+    }
+    ##特质树上面的文字，先随便放点东西
+    #潜艇 幼狼之精神
+    tree_header_text = {
+        text = DVA_MIO_Navy_Text1
+        x = 2
+    }
+    #战列 狮牙之威武
+    tree_header_text = {
+        text = DVA_MIO_Navy_Text2
+        x = 6
+    }
+    #航母 自由之哲学
+    tree_header_text = {
+        text = DVA_MIO_Navy_Text3
+        x = 10
+    }
+    #潜艇线特质
+    trait = {
+        token = DVA_MIO_Navy_Trait_101
+        name = DVA_MIO_Navy_Trait_101
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=0 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			surface_visibility = -0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_102
+        name = DVA_MIO_Navy_Trait_102
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=1 }
+        all_parents = { DVA_MIO_Navy_Trait_101 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			torpedo_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_103
+        name = DVA_MIO_Navy_Trait_103
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=2 }
+        all_parents = { DVA_MIO_Navy_Trait_102 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			sub_visibility = -0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_104
+        name = DVA_MIO_Navy_Trait_104
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=3 }
+        all_parents = { DVA_MIO_Navy_Trait_103 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			torpedo_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_105
+        name = DVA_MIO_Navy_Trait_105
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=4 }
+        all_parents = { DVA_MIO_Navy_Trait_104 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_106
+        name = DVA_MIO_Navy_Trait_106
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=2 y=5 }
+        all_parents = { DVA_MIO_Navy_Trait_105 }
+        limit_to_equipment_type = { submarine }
+        equipment_bonus = {
+			torpedo_attack = 0.1
+        }
+    }
+    #战列线特质
+    trait = {
+        token = DVA_MIO_Navy_Trait_201
+        name = DVA_MIO_Navy_Trait_201
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=0 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+			lg_attack = 0.05
+			hg_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_202
+        name = DVA_MIO_Navy_Trait_202
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=1 }
+        all_parents = { DVA_MIO_Navy_Trait_201 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+			armor_value = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_203
+        name = DVA_MIO_Navy_Trait_203
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=2 }
+        all_parents = { DVA_MIO_Navy_Trait_202 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+            max_strength = 0.05
+            naval_range = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_204
+        name = DVA_MIO_Navy_Trait_204
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=3 }
+        all_parents = { DVA_MIO_Navy_Trait_203 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+			armor_value = 0.03
+			patrol_coordination = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_205
+        name = DVA_MIO_Navy_Trait_205
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=4 }
+        all_parents = { DVA_MIO_Navy_Trait_204 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+			lg_attack = 0.05
+			hg_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_206
+        name = DVA_MIO_Navy_Trait_206
+        icon = GFX_generic_mio_trait_icon_armor_value
+        position = { x=6 y=5 }
+        all_parents = { DVA_MIO_Navy_Trait_205 }
+        limit_to_equipment_type = { capital_ship }
+        equipment_bonus = {
+			armor_value = 0.04
+            max_strength = 0.05
+            naval_range = 0.1
+        }
+    }
+    #航母线特质
+    trait = {
+        token = DVA_MIO_Navy_Trait_301
+        name = DVA_MIO_Navy_Trait_301
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=0 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+			anti_air_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_302
+        name = DVA_MIO_Navy_Trait_302
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=1 }
+        all_parents = { DVA_MIO_Navy_Trait_301 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+            naval_range = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_303
+        name = DVA_MIO_Navy_Trait_303
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=2 }
+        all_parents = { DVA_MIO_Navy_Trait_302 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+			armor_value = 0.05
+			naval_speed = 0.05
+			fuel_consumption = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_304
+        name = DVA_MIO_Navy_Trait_304
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=3 }
+        all_parents = { DVA_MIO_Navy_Trait_303 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+			anti_air_attack = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_305
+        name = DVA_MIO_Navy_Trait_305
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=4 }
+        all_parents = { DVA_MIO_Navy_Trait_304 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+            naval_range = 0.1
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_306
+        name = DVA_MIO_Navy_Trait_306
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=10 y=5 }
+        all_parents = { DVA_MIO_Navy_Trait_305 }
+        limit_to_equipment_type = { mio_cat_eq_all_carrier }
+        equipment_bonus = {
+			armor_value = 0.05
+			naval_speed = 0.05
+			fuel_consumption = -0.05
+        }
+    }
+}
+
+DVA_MIO_Air = {
+    
+	icon = GFX_idea_generic_air_manufacturer_1
+    allowed = { original_tag = DVA }
+    available = {
+        FROM = {
+            has_completed_focus = DVA_Amber02
+            has_completed_focus = DVA_Raymond3
+        }
+    }
+    #加成范围为全空军装备
+    equipment_type = {
+		mio_cat_eq_all_small_plane
+		mio_cat_eq_all_medium_plane
+		mio_cat_eq_all_large_plane
+    }
+    research_categories = {
+        air_equipment
+    }
+    initial_trait = {
+		name = DVA_MIO_Air_Trait_0
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.1
+		}
+        equipment_bonus = {
+            reliability = 0.05
+        }
+    }
+    tree_header_text = {
+        text = DVA_MIO_Air_Text1
+        x = 2
+    }
+    tree_header_text = {
+        text = DVA_MIO_Air_Text2
+        x = 5
+    }
+    tree_header_text = {
+        text = DVA_MIO_Air_Text3
+        x = 8
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_101
+        name = DVA_MIO_Air_Trait_101
+        icon = GFX_generic_mio_trait_icon_soft_attack
+        position = { x=2 y=0 }
+		mutually_exclusive = { DVA_MIO_Air_Trait_201 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+			air_agility = 0.05
+            air_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_111
+        name = DVA_MIO_Navy_Trait_111
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=3 y=1 }
+        all_parents = { DVA_MIO_Air_Trait_101 }
+        limit_to_equipment_type = { small_plane_cas_airframe mio_cat_eq_only_tactical_bomber }
+        equipment_bonus = {
+            air_range = 0.05
+			air_ground_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_112
+        name = DVA_MIO_Navy_Trait_112
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=3 y=2 }
+        all_parents = { DVA_MIO_Air_Trait_111 }
+        limit_to_equipment_type = { small_plane_cas_airframe mio_cat_eq_only_tactical_bomber }
+        equipment_bonus = {
+            maximum_speed = 0.05
+			air_ground_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_113
+        name = DVA_MIO_Navy_Trait_113
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=3 y=3 }
+        all_parents = { DVA_MIO_Air_Trait_112 }
+        limit_to_equipment_type = { small_plane_cas_airframe mio_cat_eq_only_tactical_bomber }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_114
+        name = DVA_MIO_Navy_Trait_114
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=3 y=4 }
+        all_parents = { DVA_MIO_Air_Trait_113 }
+        limit_to_equipment_type = { small_plane_cas_airframe mio_cat_eq_only_tactical_bomber }
+        equipment_bonus = {
+            maximum_speed = 0.05
+			air_ground_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_115
+        name = DVA_MIO_Navy_Trait_115
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=3 y=5 }
+        all_parents = { DVA_MIO_Air_Trait_114 }
+        limit_to_equipment_type = { small_plane_cas_airframe mio_cat_eq_only_tactical_bomber }
+        equipment_bonus = {
+            air_range = 0.05
+            maximum_speed = 0.05
+			air_ground_attack = 0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_121
+        name = DVA_MIO_Navy_Trait_121
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=1 y=1 }
+        all_parents = { DVA_MIO_Air_Trait_101 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+            maximum_speed = 0.03
+			air_defence = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_122
+        name = DVA_MIO_Navy_Trait_122
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=1 y=2 }
+        all_parents = { DVA_MIO_Air_Trait_121 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+            air_attack = 0.03
+            air_agility = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_123
+        name = DVA_MIO_Navy_Trait_123
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=1 y=3 }
+        all_parents = { DVA_MIO_Air_Trait_122 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+            maximum_speed = 0.03
+			air_defence = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_124
+        name = DVA_MIO_Navy_Trait_124
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=1 y=4 }
+        all_parents = { DVA_MIO_Air_Trait_123 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+            air_attack = 0.03
+            air_agility = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Navy_Trait_125
+        name = DVA_MIO_Navy_Trait_125
+        icon = GFX_generic_mio_trait_icon_maximum_speed
+        position = { x=1 y=5 }
+        all_parents = { DVA_MIO_Air_Trait_124 }
+        limit_to_equipment_type = { mio_cat_eq_only_light_fighter_no_cv medium_plane_fighter_airframe medium_plane_scout_plane_airframe }
+        equipment_bonus = {
+            build_cost_ic = -0.05
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_201
+        name = DVA_MIO_Air_Trait_201
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x=5 y=0 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            reliability = 0.05
+            build_cost_ic = -0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_202
+        name = DVA_MIO_Air_Trait_202
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x=5 y=1 }
+        all_parents = { DVA_MIO_Air_Trait_201 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_attack = 0.02
+            air_ground_attack = 0.02
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_211
+        name = DVA_MIO_Air_Trait_211
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=4 y=2 }
+        all_parents = { DVA_MIO_Air_Trait_202 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_attack = 0.02
+            air_ground_attack = 0.02
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_212
+        name = DVA_MIO_Air_Trait_212
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=4 y=3 }
+        all_parents = { DVA_MIO_Air_Trait_211 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_attack = 0.02
+            air_ground_attack = 0.02
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_213
+        name = DVA_MIO_Air_Trait_213
+        icon = GFX_generic_mio_trait_icon_air_ground_attack
+        position = { x=4 y=4 }
+        all_parents = { DVA_MIO_Air_Trait_212 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_attack = 0.04
+            air_ground_attack = 0.04
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_221
+        name = DVA_MIO_Air_Trait_221
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=5 y=2 }
+        all_parents = { DVA_MIO_Air_Trait_202 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_defence = 0.03
+			air_agility = 0.03
+			maximum_speed = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_222
+        name = DVA_MIO_Air_Trait_222
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=5 y=3 }
+        all_parents = { DVA_MIO_Air_Trait_221 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_defence = 0.03
+			air_agility = 0.03
+			maximum_speed = 0.03
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_223
+        name = DVA_MIO_Air_Trait_223
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=5 y=4 }
+        all_parents = { DVA_MIO_Air_Trait_222 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+            air_defence = 0.04
+			air_agility = 0.04
+			maximum_speed = 0.04
+        }
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_231
+        name = DVA_MIO_Air_Trait_231
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=6 y=2 }
+        all_parents = { DVA_MIO_Air_Trait_202 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+			air_range = 0.1
+        }
+		production_bonus = {
+			production_efficiency_gain_factor = 0.05
+		}
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_232
+        name = DVA_MIO_Air_Trait_232
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=6 y=3 }
+        all_parents = { DVA_MIO_Air_Trait_231 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+			air_range = 0.1
+        }
+		production_bonus = {
+			production_efficiency_gain_factor = 0.05
+		}
+    }
+    trait = {
+        token = DVA_MIO_Air_Trait_233
+        name = DVA_MIO_Air_Trait_233
+        icon = GFX_generic_mio_department_icon_plane_fighter_engine
+        position = { x=6 y=4 }
+        all_parents = { DVA_MIO_Air_Trait_232 }
+        limit_to_equipment_type = { small_plane_cas_airframe }
+        equipment_bonus = {
+			air_range = 0.1
+        }
+		production_bonus = {
+			production_efficiency_gain_factor = 0.1
+		}
+    }
+}

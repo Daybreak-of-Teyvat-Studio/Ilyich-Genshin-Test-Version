@@ -1,0 +1,57 @@
+terrain.bmp   (2048, 4096, 3) 24bit RGB
+terrain_02    (2048, 4096) 8bit index
+
+=== 源掩膜（terrain_02） ===
+  城市 索引13 : 26839 px，41 个连通块
+  沼泽 索引9  : 10042 px，16 个连通块
+  两者互斥: True
+
+=== 转移掩膜（限制在 terrain.bmp 的陆地区域） ===
+  城市写入 26682 px ；因落在 terrain 海洋而跳过 157 px
+  沼泽写入 9947 px ；因落在 terrain 海洋而跳过 95 px
+
+  城市写入覆盖到的原地类:
+     marsh                       5816
+     mountain(27,27,27)          9473
+     mountain(124,135,125)       7701
+     desert                         2
+     plains                       690
+     forest                      1545
+     jungle                       349
+     hills                        978
+     lakes                        128
+  沼泽写入覆盖到的原地类:
+     marsh                       4766
+     mountain(27,27,27)           475
+     mountain(124,135,125)       2727
+     desert                         8
+     plains                       767
+     forest                       864
+     jungle                        92
+     hills                        217
+     lakes                         31
+
+=== 合成结果 ===
+  改动像素 31863 ，应等于 36629 ：False
+  改动集合 == 转移掩膜 ：False
+  城市像素 3662 -> 30344
+  沼泽像素 142239 -> 141604
+  山地(27,27,27) 238977 -> 229029
+
+=== 落盘 ===
+  terrain_merged.bmp  25165878 bytes  off=54  4096x2048 bpp=24
+  回读与内存图逐像素一致: True
+  24 位图中未映射到索引的颜色: 无
+  terrain_merged_8bit.bmp  8389682 bytes  off=1074  bpp=8  clrUsed=255
+  回读 mode=P，与内存索引图一致: True
+  索引分布: [(0, 33472), (1, 31441), (3, 850), (9, 141604), (11, 79572), (13, 30344), (14, 789), (15, 7806748), (17, 9150), (21, 25609), (27, 229029)]
+
+=== 覆盖权限探测 ===
+  terrain.bmp        r+b -> 被拦 PermissionError
+  terrain_02.bmp     r+b -> 被拦 PermissionError
+
+=== 预览 ===
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\.workbuddy\terrain_merge_preview\run_0924_140210\full_before_after.png
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\.workbuddy\terrain_merge_preview\run_0924_140210\source_vs_after.png
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\.workbuddy\terrain_merge_preview\run_0924_140210\zoom_largest_city.png
+  最大城市块 2751 px  bbox y=460..512 x=1794..1881

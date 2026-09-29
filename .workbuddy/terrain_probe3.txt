@@ -1,0 +1,388 @@
+===== 搜 terrain 定义（common/terrain 等）=====
+  C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\map -> ['terrain', 'terrain.bmp']
+  C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV\common\terrain -> ['00_terrain.txt']
+  C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV\map -> ['terrain', 'terrain.bmp']
+  C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV\common -> ['terrain']
+
+===== C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV\common\terrain\00_terrain.txt =====
+
+##################################################################
+### Terrain Categories
+###
+###
+
+categories =  {
+	unknown = {
+		color = { 255 0 0 }
+	}
+
+	ocean = {
+		naval_terrain = yes
+		color = { 40 83 176 }
+		movement_cost = 1.0
+		is_water = yes
+		sound_type = sea
+		naval_mine_hit_chance = -0.75
+		minimum_seazone_dominance = 250 #It's, uh. Well it makes sense in math. If there's time I'll add a util function so that these numbers are game-representative.
+	}
+	
+	lakes = {
+		color = { 58 91 255 }
+		movement_cost = 1.0
+		is_water = yes
+		sound_type = sea
+	}
+	
+	forest = {
+		color = { 89 199 85 }
+		movement_cost = 1.5
+		#combat_width = -0.20
+		combat_width = 60
+		combat_support_width = 30
+		ai_terrain_importance_factor = 5.0
+		match_value = 5
+		sound_type = forest
+		buildings_max_level = {
+			bunker = 4
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.15
+			#movement = -0.2
+		}
+
+		enemy_army_bonus_air_superiority_factor = -0.1
+		
+		supply_flow_penalty_factor = 0.08
+		
+		truck_attrition_factor = 0.2
+	}
+
+	hills = {
+		color = { 248 255 153 }
+		movement_cost = 1.5
+		#combat_width = -0.33
+		combat_width = 70
+		combat_support_width = 35
+		ai_terrain_importance_factor = 3.0
+		match_value = 2
+		sound_type = desert
+		buildings_max_level = {
+			bunker = 5
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.25
+			#movement = -0.2
+		}
+		enemy_army_bonus_air_superiority_factor = -0.05
+		
+		supply_flow_penalty_factor = 0.1
+		
+		truck_attrition_factor = 0.2
+	}
+	
+	mountain = {
+		color = { 157 192 208 }
+		movement_cost = 2.0
+		attrition = 0.3
+		#combat_width = -0.66
+		combat_width = 50
+		combat_support_width = 25
+		ai_terrain_importance_factor = 10.0
+		match_value = 10
+		sound_type = desert
+		buildings_max_level = {
+			bunker = 4
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.5
+			#movement = -0.4
+		}
+
+		enemy_army_bonus_air_superiority_factor = -0.10
+		
+		supply_flow_penalty_factor = 0.12
+		
+		truck_attrition_factor = 1.0
+	}
+	
+	plains = {
+		color = { 255 129 66 }
+		movement_cost = 1.0
+		ai_terrain_importance_factor = 0.1
+		combat_width = 70
+		combat_support_width = 35
+		match_value = 0.5
+		sound_type = plains
+		buildings_max_level = {
+			bunker = 5
+			coastal_bunker = 6
+		}
+	}
+	
+	urban = {
+		color = { 120 120 120 }
+		movement_cost = 1.2
+		ai_terrain_importance_factor = 4.0
+		combat_width = 80
+		combat_support_width = 40
+		match_value = 4
+		sound_type = plains
+		buildings_max_level = {
+			bunker = 5
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.3
+			#movement = -0.2
+		}
+
+		enemy_army_bonus_air_superiority_factor = -0.50
+				
+		supply_flow_penalty_factor = -0.2
+	}
+	
+	jungle = {
+		color = { 127 191 0 }
+		movement_cost = 1.5
+		attrition = 0.2
+		# combat_width = -0.25
+		combat_width = 60
+		combat_support_width = 30
+
+		ai_terrain_importance_factor = 6.0
+		match_value = 6
+		sound_type = forest
+		buildings_max_level = {
+			bunker = 3
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.3
+			#movement = -0.3
+		}
+
+		enemy_army_bonus_air_superiority_factor = -0.25
+		
+		sickness_chance = 1.0
+		
+		supply_flow_penalty_factor = 0.16
+		
+		truck_attrition_factor = 3.0
+	}	
+	
+	marsh = {
+		color = { 76 96 35 }
+		movement_cost = 2.0
+		attrition = 0.35
+		# combat_width = -0.25
+		combat_width = 50
+		combat_support_width = 25
+		ai_terrain_importance_factor = 8.0
+		match_value = 8
+		sound_type = forest
+		buildings_max_level = {
+			bunker = 3
+			coastal_bunker = 6
+		}
+
+		units = {
+			attack = -0.4
+			#movement = -0.4
+		}
+		
+		sickness_chance = 1.0
+		
+		supply_flow_penalty_factor = 0.16
+		
+		truck_attrition_factor = 4.0
+	}
+	
+	desert = {
+		color = { 255 127 0 }
+		movement_cost = 1.05
+		attrition = 0.15
+		combat_width = 70
+		combat_support_width = 35
+		ai_terrain_importance_factor = 8.0
+		match_value = 8
+		sound_type = desert
+		buildings_max_level = {
+			bunker = 4
+			coastal_bunker = 6
+		}
+		
+		sickness_chance = 1.0
+		
+		supply_flow_penalty_factor = 0.14
+		
+		truck_attrition_factor = 0.5
+	}
+	
+	water_fjords = {
+		naval_terrain = yes
+		color = { 75 162 198 }
+		movement_cost = 1.0
+		is_water = yes
+		sound_type = sea
+		
+		battle_cruiser = {
+			units = {
+				attack = -0.2
+				movement = -0.2
+				defence = -0.2
+			}
+			navy_fuel_consumption_factor = 0.2
+		}
+		battleship = {
+			units = {
+				attack = -0.2
+				movement = -0.2
+				defence = -0.2
+			}
+			navy_fuel_consumption_factor = 0.2
+		}
+		heavy_cruiser = {
+			units = {
+				attack = -0.2
+				movement = -0.2
+				defence = -0.2
+			}
+			navy_fuel_consumption_factor = 0.2
+		}
+		carrier = {
+			units = {
+				attack = -0.2
+				movement = -0.2
+				defence = -0.2
+			}
+			navy_fuel_consumption_factor = 0.2
+		}
+
+		navy_visibility = -0.2
+		positioning = -0.15
+		minimum_seazone_dominance = 100
+	}
+	
+	water_shallow_sea = {
+		naval_terrain = yes
+		color = { 56 118 217 } 
+		movement_cost = 1.0
+		is_water = yes
+		sound_type = sea
+		
+		submarine = {
+			navy_visibility = 0.33
+		}
+		positioning = -0.05
+		naval_mine_hit_chance = -0.5
+		minimum_seazone_dominance = 100
+	}
+	
+	water_deep_ocean = {
+		naval_terrain = yes
+		color = { 2 38 150 }
+		movement_cost = 1.0
+		is_water = yes
+		sound_type = sea
+		
+		destroyer = {
+			units = {
+				attack = -0.2
+				movement = -0.2
+				defence = -0.2
+			}
+		}
+		light_cruiser = {
+			units = {
+				attack = -0.1
+				movement = -0.1
+				defence = -0.1
+			}
+		}
+		submarine = {
+			navy_visibility = -0.15
+			units = {
+				movement = -0.25
+			}
+		}
+
+		naval_mine_hit_chance = -0.95
+		minimum_seazone_dominance = 250
+	}
+}
+	
+
+
+##################################################################
+### Graphical terrain
+###		type	=	refers to the terrain defined above, "terrain category"'s 
+### 	color 	= 	index in bitmap color table (see terrain.bmp)
+###
+
+terrain = {
+	terrain_0					= { type = plains			color = { 	0	 } texture = 1 }
+	terrain_1					= { type = forest			color = { 	1	 } texture = 4 } 
+	desert_mountain				= { type = hills			color = { 	2	 } texture = 3 }
+	desert						= { type = desert			color = { 	3	 } texture = 9 }
+		
+	terrain_4					= { type = forest			color = { 	4	 } texture = 5 }
+	terrain_5					= { type = plains	 		color = { 	5	 } texture = 0 }
+	terrain_6					= { type = mountain			color = { 	6	 } texture = 11 }
+	terrain_7					= { type = desert			color = { 	7	 } texture = 12 }
+	desert_hills				= { type = desert			color = { 	8	 } texture = 14 }
+	terrain_9					= { type = marsh			color = { 	9	 } texture = 6 }
+	terrain_10					= { type = mountain   		color = { 	10	 } texture = 13 }
+			
+	desert						= { type = mountain			color = { 	11	 } texture = 11 }
+	desert						= { type = desert			color = { 	12	 } texture = 8 }
+		
+	forest_13					= { type = urban			color = { 	13	 } texture = 10 spawn_city = yes }
+	forest_14					= { type = lakes			color = { 	14	 } texture = 255 }
+	ocean_15					= { type = ocean			color = { 	15	 } texture = 9 } 
+		
+	snow_16						= { type = mountain			color = { 	16	 } texture = 11  perm_snow = yes }
+	plains_17					= { type = plains			color = { 	19	 } texture = 0  perm_snow = yes }
+	
+	hills_blend					= { type = hills			color = { 	17	 } texture = 2 }
+	mountain_variation_sand	 	= { type = mountain			color = { 	18	 } texture = 7 }
+	mountain_variation_grass 	= { type = mountain			color = { 	20	 } texture = 7 }
+	jungle_18					= { type = jungle			color = { 	21	 } texture = 4 }
+	jungle_blend_18				= { type = jungle			color = { 	22	 } texture = 5 }
+	
+	jungle_blend_18				= { type = mountain			color = { 	27	 } texture = 7 }
+	desert_mountain_tops		= { type = mountain			color = { 	31	 } texture = 15 }
+	
+}
+
+
+===== 地形颜色 × 高度 交叉统计 =====
+  heightmap (2048, 4096) terrain (2048, 4096, 3)
+
+  #0000FF rgb(  0,  0,255)  7806775 px | h: min 10 p1  10 p5  10 p25  10 p50  10 p75  10 p95  34 p99  86 max132
+  #7C877D rgb(124,135,125)   155447 px | h: min 15 p1  96 p5  96 p25 102 p50 119 p75 137 p95 153 p99 162 max178
+  #4C6023 rgb( 76, 96, 35)   147703 px | h: min 14 p1  75 p5  93 p25  96 p50  98 p75 105 p95 121 p99 139 max165
+  #FF8142 rgb(255,129, 66)   118772 px | h: min 16 p1  97 p5 102 p25 122 p50 130 p75 140 p95 149 p99 154 max165
+  #F8FF99 rgb(248,255,153)    70398 px | h: min 16 p1  96 p5  99 p25 138 p50 153 p75 165 p95 176 p99 179 max187
+  #59C755 rgb( 89,199, 85)    45454 px | h: min 54 p1  96 p5  96 p25 103 p50 113 p75 125 p95 139 p99 147 max158
+  #7FBF00 rgb(127,191,  0)    37119 px | h: min 96 p1  96 p5  98 p25 111 p50 119 p75 126 p95 139 p99 145 max158
+  #9B00FF rgb(155,  0,255)     3662 px | h: min 58 p1  62 p5  66 p25  82 p50  96 p75  97 p95  98 p99  99 max115
+  #00FFFF rgb(  0,255,255)     2372 px | h: min 96 p1  96 p5  98 p25 116 p50 129 p75 140 p95 149 p99 154 max162
+  #FF3F00 rgb(255, 63,  0)      906 px | h: min 96 p1  96 p5  97 p25 102 p50 108 p75 116 p95 124 p99 130 max141
+
+===== 高度带 × 地形颜色 占比 =====
+  高度带           0,0,255 124,135,125 76,96,35 255,129,66 248,255,153 89,199,85 127,191,0 155,0,255 0,255,255 255,63,0
+   94-109         2.25%   25.48%   51.14%    4.78%    3.02%    8.68%    3.43%    0.86%    0.13%    0.23%   共219814 px
+  110-129         0.06%   28.24%   12.57%   28.36%    3.43%   11.92%   14.56%    0.00%    0.60%    0.25%   共156631 px
+  130-144         0.02%   30.44%    2.70%   43.41%   10.66%    6.31%    5.73%    0.00%    0.71%    0.01%   共110916 px
+  145-154         0.00%   33.25%    1.35%   32.94%   29.31%    1.47%    0.94%    0.00%    0.73%    0.00%   共44736 px
+  155-164         0.00%   24.32%    0.22%    4.32%   70.91%    0.08%    0.04%    0.00%    0.11%    0.00%   共21830 px
+  165-174         0.00%    4.87%    0.01%    0.01%   95.12%    0.00%    0.00%    0.00%    0.00%    0.00%   共14007 px
+  175-199         0.00%    0.24%    0.00%    0.00%   99.76%    0.00%    0.00%    0.00%    0.00%    0.00%   共4535 px
