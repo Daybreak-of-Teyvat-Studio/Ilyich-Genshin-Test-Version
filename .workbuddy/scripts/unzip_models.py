@@ -1,59 +1,41 @@
 # -*- coding: utf-8 -*-
-"""重新解压 PRC_infantry.zip 与 薇斯纳.zip（含 zip 中文名 cp437->gbk 还原）。
-结果与日志写入 .workbuddy/vysna_work/ 。
-"""
 import os
 import zipfile
 
-ROOT = r"C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version"
-BAK = os.path.join(ROOT, "Daybreak of Teyvat Gamma Version", ".backup")
-WORK = r"C:\Users\XIANGZIYUAN\vysna_work"          # 工作区外，避开写保护
-LOG = os.path.join(ROOT, ".workbuddy", "scripts", "report_unzip.txt")
+BASE = r"C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\Daybreak of Teyvat Gamma Version\.backup"
+OUTDIR = r"C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\vysna_work"
+LOG = r"C:\Program Files (x86)\Steam\steamapps\common\HOI4 MOD Github\Ilyich-Genshin-Test-Version\.workbuddy\report_unzip.txt"
 
+os.makedirs(OUTDIR, exist_ok=True)
 lines = []
 
-
-def fix_name(info):
-    """zip 里中文名若未标 UTF-8，Python 会按 cp437 解；还原成 gbk。"""
-    if info.flag_bits & 0x800:
-        return info.filename
-    try:
-        raw = info.filename.encode("cp437")
-    except UnicodeEncodeError:
-        return info.filename
-    for enc in ("gbk", "utf-8", "big5"):
+for name in ["PRC_infantry.zip", "薇斯纳.zip"]:
+    src = os.path.join(BASE, name)
+    dst = os.path.join(OUTDIR, os.path.splitext(name)[0])
+    os.makedirs(dst, exist_ok=True)
+    z = zipfile.ZipFile(src)
+    lines.append(f"### {name} -> {dst}")
+    raw = z.namelist()
+    for info in z.infolist():
         try:
-            return raw.decode(enc)
-        except UnicodeDecodeError:
-            continue
-    return info.filename
-
-
-def do_zip(zpath, outdir, tag):
-    lines.append("=" * 70)
-    lines.append(f"[{tag}] {zpath}")
-    if not os.path.isfile(zpath):
-        lines.append("  !! 文件不存在")
-        return
-    os.makedirs(outdir, exist_ok=True)
-    with zipfile.ZipFile(zpath) as z:
-        for info in z.infolist():
-            name = fix_name(info)
-            lines.append(f"  {info.file_size:>10}  {name}")
+            # zip 里的中文名可能是 cp437 误解码，尝试还原
+            nm = info.filename
+            if not (info.flag_bits & 0x800):
+                try:
+                    nm = info.filename.encode("cp437").decode("gbk")
+                except Exception:
+                    nm = info.filename
+            target = os.path.join(dst, nm.replace("/", os.sep))
             if info.is_dir():
+                os.makedirs(target, exist_ok=True)
                 continue
-            target = os.path.join(outdir, name.replace("/", os.sep))
             os.makedirs(os.path.dirname(target), exist_ok=True)
-            with z.open(info) as src, open(target, "wb") as dst:
-                dst.write(src.read())
-    lines.append(f"  -> 解压到 {outdir}")
+            with z.open(info) as fsrc, open(target, "wb") as fdst:
+                fdst.write(fsrc.read())
+            lines.append(f"  OK  {nm}")
+        except Exception as e:
+            lines.append(f"  ERR {info.filename}: {e!r}")
+    lines.append("")
 
-
-do_zip(os.path.join(BAK, "PRC_infantry.zip"),
-       os.path.join(WORK, "PRC_infantry"), "PRC")
-do_zip(os.path.join(BAK, "薇斯纳.zip"),
-       os.path.join(WORK, "薇斯纳"), "VYSNA")
-
-with open(LOG, "w", encoding="utf-8") as f:
-    f.write("\n".join(lines))
-print("done ->", LOG)
+open(LOG, "w", encoding="utf-8").write("\n".join(lines))
+print("OK ->", LOG)
