@@ -28,6 +28,13 @@
 | 手册 | `docs/DOT_HOI4_Modding_Skills.md`（32844 行） |
 
 ## 工作区特性
+- ⚠️ **工作区会被外部副本整份覆盖，且已多次回滚掉我做过的事** →
+  **任何"我做过的事"都必须先 grep/ls 核实当前状态，绝不能凭上下文记忆答复用户**。
+  实测：2026-10-03 用户两次要求加 ABY，第一次改好的 trigger 被回滚成 `tag = BRF`。
+- ⚠️ **文件会被合并改名**（2026-10-03 起实测）→ 校验脚本**禁止写死文件名/固定计数**，
+  要按内容特征自动定位（`find_rel(候选目录, 特征串)`）+逐个英灵查项，不能数总数。
+  当前 15 英灵已并入：`common/units/Ilyich_Hero.txt`、`common/scripted_effects/Ilyich_Hero_effects.txt`、
+  `events/Ilyich_Hero_Event.txt`、`interface/Ilyich_Hero.gfx`、`localisation/<语>/Ilyich_Tech_l_<语>.yml`。
 - 工作区会被外部副本**整份覆盖**；**外部进程还会并发插行**（实测往 3 个 focus 文件插了 221 行 `icon`）→ 动手前先重扫当前状态 + 先备份。
 - **本工作区的地图/资产类产物统一放 `Gamma Version\.workbuddy\mapgen\`**（用户 2026-09-22 明确要求，
   含脚本、日志、中间数组、终版 BMP、README、校验记录，不再放 `C:\Users\XIANGZIYUAN\hoi4lint\`）。
