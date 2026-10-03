@@ -50,6 +50,15 @@
 - 曾同时加载 9 个 MOD（Beta、Gamma、Ilyich Build Landmark / DoT / Peace Negotiation / Tech and Model / Wish System / Nuke Enhancement、ugc_3187424293）；语言 `l_simp_chinese`。
 
 ## 方法论（要点，细则见技能）
+0. ⚠️ **模型（gfx）改动必读：`gfx` 的绑定是两层文件，缺一即崩**
+   `xxx.gfx` = **定义层**（`pdxmesh = { name= file= animation={id=type=} }`）；
+   `xxx.asset` = **引用层**（`entity = { name= pdxmesh="<名字>" }`，只写名字）。
+   引用了没定义的 pdxmesh → **单位隐形**，成批缺失会**闪退**。
+   `animation={id=}` 是白名单，`.asset` 里 `state={animation="x"}` 的每个 id 都得在里面。
+   链子：`common/units/sub_unit 名` → 引擎查 `gfx/entities/*` 里的 `<sub_unit名>_entity`
+   （找不到退回 `_0_entity`~`_3_entity`）→ 其 `pdxmesh` → 定义层 → mesh。
+   交付前跑 `hoi4lint/audit_pdxmesh.py`（三向对账）+ `verify_gfx_syntax.py`（括号/clone 链/动画 id）。
+   ⚠️ `gfx` **不在 replace_path 里** → MOD 的 `file=` 路径找不到时会落到原版，查文件必须连原版一起查。
 1. **以 error.log 为准**；日志按帧重复 → 先按 (文件, 行) 去重（17 MB → 532 条）。
 2. 日志**覆盖全部已加载 MOD** → 用 `os.walk(MOD)` 建「相对路径 → 全路径」索引过滤（825 处里 499 处属 Beta）。
 3. 脚本用「行号 + 内容」**双断言**，**dry-run 必须 0 MISS** 才 `--apply`；改完三校验：**BOM 保留 / CRLF 减少量 == 删行数 / 括号 depth 不变**。幂等靠「先从 backup 还原再干净跑一次」。
@@ -58,6 +67,14 @@
 6. ⚠️ **区分「纯语法修复」vs「改变玩法的修复」**：后者（补回丢失子单位/分类、改国策树、AI 装备设计、改 state flag 名）**先报告作者拍板** —— 作者常故意放坏来禁用内容。
 7. 「未定义」必须**跨全部已加载 MOD + 原版**搜一遍再定论。
 8. token 合法性双裁判：手册 key 表 + `vanilla_tokens.pkl`（配 `difflib`）。**只有 `Unexpected token: X` 才证明键被移除**。
+9. ⚠️ **别信自制网格预览**：`make_landmark_previews.py` 把所有面（含背面）当实心片画，
+   几十万面叠成实心色块 → 好模型也看成球（群玉阁被误判好几轮）。
+   验收用 `lm_render_png.py`（**背面剔除 + Lambert + 正交三视图**）
+   或 `lm_dens2d.py`+`lm_dens_png.py`（直接投影原始顶点成 2D 密度图，最可靠）。
+10. ⚠️ CAD 建筑模型**不能按厚度剔「薄片」**：屋檐/栏板/瓦当/斗拱天生就是薄片，
+    按 Z 厚度筛垃圾会把塔身整个剔掉（群玉阁 11782 个部件就是这么没的）。
+11. ⚠️ 算水平半径**必须用重心化后的包围盒中心** `(lo+hi)/2`；用原始 blend 的中心去算
+    已重心化的 OBJ，半径会算出 max=88（远超半宽 37）→ 误判「三角形乱连」。
 
 ## 已知不可修复
 - `events/LYY_Ganyu_Events.txt`、`LYY_Keqing_Events.txt`、`LYY_News.txt`、`common/country_leader/LYY_traits.txt` 的中文注释**编码被彻底损坏**（字面量 `U+FFFD`，最早的 `backup_MOD` 就已损坏）→ 原文永久丢失，只能清理不能还原；batch31 已清除（全库 0 残留）。
