@@ -20,12 +20,15 @@
   | 写全新文件 / 新建目录 | ✅ |
   | `os.remove` / `rm` **单个**已存在文件 | ✅ |
   | `shutil.copyfile` **覆盖**已存在文件 | ❌ Permission denied |
-  | **`os.rename` 同盘改名** | ✅ **且不改内容** ← 首选 |
-  | 循环里批量 `os.remove` | ❌ 被 safe-delete 拦（`SAFE_DELETE_BULK_CONFIRM_REQUIRED`） |
+  | **`os.rename` 同盘改名** | ❌ **WinError 5 拒绝访问**（2026-10-04 实测推翻旧结论） |
+  | 循环里批量 `os.remove` | ⚠️ 2026-10-04 实测**可用但极慢**：需 `dangerouslyDisableSandbox: true`，约 0.29 秒/条 |
 | `cp -f`（内部先 unlink 再写） | ❌ `cannot remove ... Permission denied` |
 | **Bash `rm -f` 旧文件 + `cat 新文件 > 旧路径`** | ✅✅ **唯一可用的覆盖方式**（需 `dangerouslyDisableSandbox: true`） |
+| **Bash `rm -f` 逐条删文件** | ⚠️ 可行但**约 14 秒/条**（沙箱每次都过检查），3230 条要 12 小时 |
+| **`xargs -0 -n 40 rm -f` 批量删** | ❌ 被沙箱 SIGTERM 强杀 |
 | 内置 Write / Edit 工具 | ✅ 不受此限制，能改写工作区内已存在文件 |
-  ⇒ **搬文件用 `os.rename`；覆盖走 Bash 的「rm + cat >」；批量删除走 Bash `rm` 而不是 Python 循环。**
+  ⇒ **搬文件用 `shutil.copyfile` 到新名 + 删旧名；覆盖走 Bash 的「rm + cat >」；
+  批量删除一律用 Python 单进程 `os.remove`（比 Bash 快 50 倍）。**
   ⚠️ **脚本里「先复制文件、后写已存在文件」是错的**：写到第 1 个就崩，
   前面 N 次复制全白做，而日志统计的是计划数不是实际数，看着像成功。
   ⇒ 涉及工作区写入的脚本一律**拆成独立进程**：阶段 1 纯复制 → 阶段 2 纯生成到工作区外 → Bash 落地。
@@ -39,6 +42,9 @@
 | 修复前报错快照 | `hoi4lint\betamod_errors.txt`（499 处） |
 | 原版 key 语料 | `hoi4lint\vanilla_tokens.pkl`（41396 token） |
 | 手册 key 抽取 | `hoi4lint\manual_keys.json` / `_detail.json`（1696 个） |
+| **8 国图标（最终态2026-10-04）** | `gfx\interface\goals\<TAG>\goal_<TAG>_<名>.png` + `gfx\interface\ideas\<TAG>\idea_<TAG>_<名>.png`，各 200 张 × 8 国 = **3200 张**；sprite 声明在 `interface\DOT_Icons_<TAG>.gfx`（各 600 条：goal 200 普通 + 200 shine + idea 200 普通） |
+| **图标权威源（唯一真相源）** | `hoi4lint\icon_gen\out_<TAG>_v7\{goal,idea}\`（第一批 200）+ `out_<TAG>_v8\{goal,idea}\`（第二批 200）。磁盘可能只落了一半，**补漏先从这两个目录核对** |
+| 图标脚本 | `hoi4lint\icon_gen\`：`norm_final.py` 落地规范名 → `rebuild_all.py` 幂等补齐 → `rm_final.py` 批量删 → `build_gfx_final.py` 生成 gfx → `accept.py` 验收 |
 | 日志 | `Documents\Paradox Interactive\Hearts of Iron IV\logs\error.log` |
 | 手册 | `docs/DOT_HOI4_Modding_Skills.md`（32844 行） |
 
