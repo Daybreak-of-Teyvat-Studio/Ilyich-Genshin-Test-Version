@@ -2,6 +2,18 @@
 
 > HOI4 1.19 的可复用知识已收进技能 `hoi4-mod-bug-triage`。本文件只记**本项目特有**的路径、环境与状态。
 
+## ⭐ goal 图标默认风格（2026-10-06 用户钦定，优先级最高）
+**用户明确要求：之后生成 goal 图标一律走 v7 链路，不要再自创风格。**
+权威口径文件 = `hoi4lint\icon_gen\USAGE_v7_style.md`（参数、主题表、命名、判重全在里面）。
+链路：`topics_<tag>.py` → `batch_v7.py --tag <TAG> --topics topics_<tag>` → `gen_v7.render()`
+（多层金属珐琅框 + 珍珠链/云纹角饰 + **全彩高饱和主体**）→ 落 `out_<TAG>_v7\` → 再部署进 MOD。
+- 尺寸 goal **96×87** / idea 64×64；subject 0.80、ex_glow/halo 0.62、contrast 1.08、bright 1.06；
+  版式 `SHAPES=('medallion','shield','hex','diamond')`。
+- v8 批（`batch_v8.py` + `topics2_*`）**同风格**，FON 那 200 张 `goal_FON_*`/`goal_Fon_*` 就是 v7+v8。
+- ⚠️ **已否决、不要再主动用的路线**：`geo_frame.py` 几何框星环、`base12.py` 素材库染色底面、
+  `tone_schemes.py` 多色调、单色浮雕主体。`fon9.py`（底图01.png 现成徽章）仅在用户点名该底图时用。
+- 用户下指令的最简形式：**「用 v7 链路给 &lt;TAG&gt; 生成 N 张 goal 图标」**。
+
 ## 环境
 - 文件 I/O 走 Python 绝对路径：`C:/Users/XIANGZIYUAN/.workbuddy/binaries/python/versions/3.13.12/python.exe`；**Bash 工具能返回 stdout，PowerShell 会吞 stdout**；bash 的 coreutils（`ls`/`cd`/`grep`/`dirname`）时好时坏，不要依赖。
 - ⚠️ **只有 `versions\3.13.12` 这个解释器带第三方库**（numpy 2.5.3 / Pillow 12.3.0 / scipy 1.18.1）；
@@ -45,6 +57,9 @@
 | **8 国图标（最终态2026-10-04）** | `gfx\interface\goals\<TAG>\goal_<TAG>_<名>.png` + `gfx\interface\ideas\<TAG>\idea_<TAG>_<名>.png`，各 200 张 × 8 国 = **3200 张**；sprite 声明在 `interface\DOT_Icons_<TAG>.gfx`（各 600 条：goal 200 普通 + 200 shine + idea 200 普通） |
 | **图标权威源（唯一真相源）** | `hoi4lint\icon_gen\out_<TAG>_v7\{goal,idea}\`（第一批 200）+ `out_<TAG>_v8\{goal,idea}\`（第二批 200）。磁盘可能只落了一半，**补漏先从这两个目录核对** |
 | 图标脚本 | `hoi4lint\icon_gen\`：`norm_final.py` 落地规范名 → `rebuild_all.py` 幂等补齐 → `rm_final.py` 批量删 → `build_gfx_final.py` 生成 gfx → `accept.py` 验收 |
+| **goal 图标权威风格文档** | `hoi4lint\icon_gen\USAGE_v7_style.md`（v7 链路口径，用户 2026-10-06 钦定） |
+| v7/v8 产物目录 | `hoi4lint\icon_gen\out_<TAG>_v7\{goal,idea}\`（各 100+100）、`out_<TAG>_v8\`（各 100+100）；8 国齐备 |
+| 主题清单 | `topics_<tag>.py` / `topics2_<tag>.py` / `topics3_<tag>.py` 各 100 条，tag ∈ LYY MOT INA SUM FON NAT NDK SNE |
 | 日志 | `Documents\Paradox Interactive\Hearts of Iron IV\logs\error.log` |
 | 手册 | `docs/DOT_HOI4_Modding_Skills.md`（32844 行） |
 
