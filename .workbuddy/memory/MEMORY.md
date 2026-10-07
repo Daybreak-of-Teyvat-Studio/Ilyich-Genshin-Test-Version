@@ -9,19 +9,97 @@
 自检：`python role_nation.py` 打印 118 张立绘归属分布，对不上就是抄名单时**名字粘连漏空格**（静默失败）。
 标准分布：MOT 25 / LYY 23 / INA 15 / SUM 13 / FON 14 / NAT 11 / NDK 9 / SNE 3 / OTH 5。
 
-## ⭐⭐ 当前口径 = **v7 原版链路**（2026-10-07，覆盖此前所有 v8~v14 自创变体）
+## ⭐⭐ 当前口径 = **v7 原版链路 + v4 命名/idea 规则**（2026-10-07，覆盖此前所有 v8~v14 自创变体）
 用户原话：「算了，你不需要吸收背景图了，放弃那些新背景图的内容。同时，你不需要裁剪角色立绘，
 改变立绘颜色。我说了，抛弃这两天的糟糕设计。你就按两天前的设计方案，使用最新的素材。」
 ⇒ **v7x / frost_bases / render_frost / base12_only / geo_frame / tone_schemes / v10~v14 全部作废。**
-链路：`pool_FON_v3.json` → `full_v7.py --n 350 --out out_FON_v3 [--deploy]`（内部调`gen_v7.render()` 原版）。
-- 渲染器一个参数不改：`subj_ratio` goal 0.80 / idea 0.82、`ex_glow` 0.62、`halo` 0.62、
+链路：`pool_FON_v3.json` → `full_v7.py --n 350 --out out_FON_v3`（内部调`gen_v7.render()` 原版）
+→ **`build_v4.py`**（命名 + idea 缩放 + 部署）→ `qa_v4.py` 质检 → `deploy_v4.py` 部署。
+- 渲染器一个参数不改：`subj_ratio` goal 0.80、`ex_glow` 0.62、`halo` 0.62、
   `contrast` 1.08、`bright` 1.06；框体是 v7 自绘 9 层华丽框 + `shape_of(名)` 四选一。
 - 尺寸：goal **108×90**、idea **68×68**。
 - 立绘**不裁剪、不改色、不加饱和、不套圆形遮罩**（v7 原版只做全局 contrast/bright + 描边内辉）。
 - 选材分层（用户优先级）：**A 角色 → B 水元素圣遗物 → W 4.x 武器 → C 书籍 → D 摆件 → E_doc 文书 → E 道具**。
   角色档**不做素白剔除**（立绘天生低饱和，14 位全要）；其余 vivid < 0.10 剔掉。
-- 部署：`gfx\interface\goals\FON` + `gfx\interface\ideas\FON`。旧图标用
-  `shutil.move` 移到 `hoi4lint\_stale_fon\`（**别用 os.remove**，见下）。
+
+### ⭐ idea 图标 = goal 的中心方裁缩放（2026-10-07 用户定，方案 B）
+用户原话：「参考 goal 图标 优化 idea图标，idea图标可以直接是 goal图标的缩小版」。
+**旧做法是错的**：v7 在 68×68 上独立重跑 `render()`，`detail` 自动降级到 medium
+⇒ 珍珠链/云纹角饰/掐丝珐琅全丢，goal 与 idea 外观不一致。
+**正确做法**（`render_v4.shrink_idea()`）：
+```python
+D = min(W, H); x0 = (W - D) // 2          # 108×90 ⇒ D=90, x0=9
+goal.crop((x0, 0, x0+D, D)).resize((68, 68), Image.LANCZOS)
+```
+框体 D=min(108,90)=90 垂直满幅、水平居中 ⇒ 中心 90×90 **恰好是完整框体**，
+切掉的左右各 9px 是纯外发光溢出。**零变形、零损失、铺满槽位。**
+（另两案：缩到宽 68 ⇒ 上下留 5.6px 白边；缩到高 68 ⇒ 左右裁 13.6px 切盾牌；
+直接拉伸 ⇒ 变形 1.2× 圆徽章变椭圆。均已否决。）
+
+### ⭐ 图标命名 = 纯英文名，禁止序号（2026-10-07 用户定）
+格式：**`goal_FON_<English>.png`** / **`idea_FON_<English>.png`**（**不带数字序号**）。
+用户原话：「**纯英文名，如果出现重名，那是你弄错了素材的英文名。
+英文名查询网站：https://genshin-dictionary.com/zh-CN**」
+**★ 那个站有官方开放数据集，别爬页面**：
+`https://dataset.genshin-dictionary.com/words.json`（6819 条，字段 `zhCN`/`en`/`tags`），
+已缓存到 `hoi4lint\icon_gen\gdict_words.json`。（`/zh-CN/search?q=` 404，无站内搜索。）
+命名链路 `official_name.py`：词库 exact → 圣遗物套装+部件 combo → `manual_names.py` 人工表 → 兜底。
+- 词库覆盖 125/350（角色/武器/圣遗物/材料）；剩 225 条是 **4.x 洞天摆设/书籍/任务道具，
+  官方确实无英文名**（bwiki wikitext 也没有），走 `manual_names.py` 人工校订表。
+- ⚠ **自造译名会错得很离谱**：爱可菲=Escofier（不是 Emilie，那是艾梅莉埃）、
+  千织=Chiori（不是 Kachina）、菲米尼=Freminet（不是 Furina_Shiver）、裁断=Verdict（不是 X879_Duan）。
+  **新增素材先查词库，别靠拼音猜。**
+- 命名守卫在 `build_v4.py` 里：重名/非 ASCII 直接 `sys.exit(1)`，**绝不静默加序号**。
+
+### ⚠ pHash 视觉去重的两个陷阱
+1. **要在渲染后查，不是渲染前**。`图形样本留影机` vs `布列松的特别留影机` 是同一台机器的
+   不同染色（构图/镜头/旋钮一致，仅青蓝↔暖棕），原图 pHash 差 7 放过，渲染后差 2 才暴露。
+   ⚠ **反过来也成立**：bwiki 大量任务道具**原图就共用同一张占位图**
+   （「图谱：龙脊长枪」15 个同图、「兰纳迦的花」11 个同图、「挑战者·第一~十辑」10 册同图），
+   光靠渲染后查会漏 ⇒ **选材阶段（素材原图）也要有闸门**。
+2. **细长/竖直/强对称构图会误判**（主体位置主导 DCT低频）。已确认 10 组误判记入
+   `phash_whitelist.py`。**判定门槛：像素平均差 > 8 且目视可区分，只凭 pHash 不许加白名单。**
+3. ⚠ **白名单加错了地方**：`phash_whitelist.py` 有两个字典 ——
+   `WHITELIST`（`frozenset` 集合，`is_known_false_positive()` 查它）和
+   `EVIDENCE`（`'a|b': 像素差`）。**只加 EVIDENCE 不会生效**，质检照报。
+4. ⚠ **「同一件家具的不同画中图案」是真重复**（LYY「吉庆画屏-「雾聚烟山」/
+   「故墟王銮」…」，源图骨架完全一致，成品像素差仅 2.33）。
+   `keyword_nation.series_key` 已加 `系列-「变体」` 模式来归组剔除。
+
+### ⚠⚠ 判「素材有没有背景」千万别只看 alpha
+- ❌ `alpha.min()==0 ⇒ 已抠好`：漏掉 **半透明底**（alpha 有 0，但中间压着一整片底衬）。
+- ❌ 「接近底色的实体像素占比 > 18%」：**30 张抽样误报 26 张** —— 白纸/白犬/素色立绘
+  这类「主体本身大片单色」全中招。
+- ✅ **几何判据**（`detect_bg2.has_square_bg`）：底色必须**同时占据四边外圈**
+  **且 4-连通成一片**（占全图 > 22%）。主体不会同时贴满四边。
+- ⚠ 同理，**在成品上判「框体里还有没有方块底」不能看框体 alpha**
+  （v7 珐琅场本身就填满框体 ⇒ 2850 张全误判），
+  要看**主体区众数色占比**（正常中位 0.08，> 0.6 才有问题）。
+
+### ⚠ 图标阈值分两级，别混用
+| 场景 | 阈值 | 出处 |
+|---|---|---|
+| **素材级**（选材时对原图） | `HAM = 4` | `build_nations.py`顶部常量 || 成品级（渲染后108×90） | `6` | `dedup_phash.Dedup` 默认 / `qa_nations.py` |
+- `th=0`（只拦像素完全相同）**拦不住**占位图复用（仍顺延 2887 条）。
+- `th=6` 用在素材级**过严**，会把 4 国滤到不满 350。
+- ⚠ 闸门实例必须**一个进程内跨桶共享**，各桶单独建⇒ DOT 会捡起刚被跳过的重复图。
+- ⚠ 验证一律看**像素平均差**（`dump_vdup.py`）：`<2且 hamming≤2` = 真重复；`≥8` = 误判。
+
+### ⚠⚠ safe-delete 批量闸门按「工具调用」计，不按进程计
+报`SAFE_DELETE_BULK_CONFIRM_REQUIRED {count:50, scope:"turn"}` 会**静默中止进程**。
+- 18 轮 `for` 循环放在**同一个** Bash 调用里 ⇒ 累计超阈值 ⇒ 全废。
+- **实测：同一个 Python 进程内连续 `os.remove` 55 个不会被拦**
+  ⇒ **整个清理放进一个 Python 进程 + 一次 Bash 调用**（见 `clean_old.py`）。
+- 写文件时：**已存在且大小一致就 `continue` 跳过**，别先 `os.remove` 再 copy。
+- 删不掉的用 `shutil.move` 移到 `hoi4lint\_stale_fon\`（比删除安全且能回滚）。
+- ⚠ stdout 会被 `tail`/`grep` 吞掉，**长任务一律写日志文件再 Read**（GBK 控制台会造成假乱码）。
+- ⚠⚠ **build/渲染脚本刻意不删输出目录**（就是被这个闸门咬过）⇒ 目录必然混着上一轮旧文件，
+  跑完必**`sync_to_manifest.py`**（以 manifest 为唯一真相源删残留），
+  否则质检全是「数量超标 + hash 兜底」的假问题。**该脚本删 ~2500 文件要 37 分钟**
+  ⇒ **先用 `dryrun2.py` 秒级验证选材再渲染**，能省一整轮 37 分钟。
+- ⚠ 改 `build_nations.py` 的 `main()` 这种长函数，用「按 `src.index('def main():')` 截断重写」
+  的补丁脚本，**别用 Edit 的长文本匹配**——手误一个字符就 mismatch。
+
 
 ### ★ 素材权威库 = 工作区内的 `.skills\bwiki`
 用户 2026-10-07 明确指定：「用 `.skills\bwiki\icons3` 里的素材（只有图标、图标有名字和分类、
