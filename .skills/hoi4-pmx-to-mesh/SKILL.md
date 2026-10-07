@@ -532,6 +532,61 @@ animation 全部有定义 → attach 目标实体在 MOD 中已定义 → **atta
 
 ---
 
+## 8b. ★把一个模型做成「英雄单位」（仿既有英雄建档）
+
+模型能显示 ≠ 有英雄单位。英雄单位是**五层各自独立的注册，缺一层都不出单位**。
+正确做法是**先找 MOD 里已有的一个英雄照着抄**（本例抄刻晴 `Ilyich_Keqing`），逐层对齐：
+
+| 层 | 文件 | 内容与要点 |
+|---|---|---|
+| ① sub_unit | `common/units/<英雄文件>.txt` | 照抄既有 sub_unit，只改 id + `abbreviation`。`active = no` 是这类单位的惯例（不给玩家直接建造，只由事件召唤） |
+| ② division_template | `common/scripted_effects/<英雄效果>.txt` | `Ilyich_<X>_Division = { division_template = { name = "<X>" priority=2 is_locked=yes division_cap=1 regiments = { Ilyich_<X> = { x=0 y=0 } } support = { engineer = {x=0 y=0} } } }` |
+| ③ 召唤事件 | `events/<新文件>.txt` | 见下方模板。**`fire_only_once = yes` + `trigger` + 无 `is_triggered_only` ⇒ 引擎会在条件满足时自动 fire**（这是既有英雄的触发方式，照抄） |
+| ④ 图标 spriteType | `interface/<英雄图标>.gfx` | `GFX_unit_<id>_icon_{medium,medium_white,small}` 三件；textureFile 直接抄既有英雄的（本例都指 `unit_Ruin.dds`） |
+| ⑤ 本地化 | `localisation/{simp_chinese,english}/*.yml` | `<id>:"<名字>·英灵"`（中）/`"<Name> · Heroic Spirit"`（英）。**中英两份都要** |
+
+**事件模板**：
+```
+country_event = {
+	id = <NS>.<N>
+	title = <既有标题key>       # 抄既有英雄（本例 DOT_Tech.3.t）
+	desc  = <既有desc key>
+	picture = <既有图 key>
+	fire_only_once = yes
+	trigger = { tag = <TAG> }   # 原属国
+	option = {
+		name = <既有选项 key>
+		<X>_Division = yes                        # 调 ② 的模板
+		random_owned_controlled_state = {
+			limit = { ROOT = { has_full_control_of_state = PREV } }
+			create_unit = { division = "name = \"\" division_template = \"<X>\" start_experience_factor = 0.5 start_equipment_factor = 0.9" owner = ROOT count = 1 }
+		}
+	}
+}
+```
+
+**★模型实体 → 英雄 sub_unit 的绑定，不靠 sub_unit 里的任何字段**，靠 `gfx/entities/*.asset`
+的**命名约定**：`<TAG>_infantry_<N>_entity` / `<TAG>_artillery_<N>_entity` / `<TAG>_cavalry_<N>_entity`
+（`N = 0..3`），内容为 `entity = { clone = "<角色>_infantry_entity"  name = "<TAG>_infantry_0_entity" }`。
+- ⚠ **无数字后缀的 `<TAG>_infantry_entity` 不生效**。实测某 MOD 里五个角色 asset 尾部都留了
+  这种半成品（`SAN_infantry_entity` 等），真正生效的是 `_0~_3` 那批。
+- 所以「模型做完了但是没单位」先查这层：`<TAG>_infantry_0_entity` 是否指向了本角色。
+
+**验证清单**（每一层都要断言 True，本例 5 角色 × 7 项 = 35 项全绿）：
+sub_unit 存在 → division_template 存在 → 事件里 `division_template = "<X>"` → 事件 `trigger tag` →
+图标 `GFX_unit_<id>_icon_medium` → 中英本地化 → pdxmesh 存在。
+另附：**事件 id 全局唯一性检查**（跨 `events/` 全目录扫 `id = X.Y`）、**各文件括号配平**。
+
+**踩坑**：
+- 同名 `<TAG>` 被两个角色占用会互相顶掉（本例 SNE 已给薇斯纳，少女就得换 NDK）；
+  **先枚举全 MOD 的 `<TAG>_infantry_N_entity` 看谁占了谁**，再定 trigger 的 tag。
+- 抄来的 `fire_only_once = yes` 事件若同时给多个 tag，`OR = { tag = A tag = B }` 写法合法，
+  但要确认这些 tag 的模型克隆不冲突。
+- 修既有英雄的触发时，**先 grep 谁 fire 它**（`grep -rn "<id>" --include=*.txt`）——
+  可能是 `common/decisions/` 或 `common/national_focus/` 里主动 fire，也可能是自动触发，别猜。
+
+---
+
 ## 9. 交付前的最后三件事
 
 1. **从"部署后"的文件再渲染一次**（不是从产物目录），确认部署这一跳没出错。
