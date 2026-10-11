@@ -1,0 +1,270 @@
+##############################################################################
+# 纳塔（NAT）剧本 —— 动态修正总表
+#
+# 本文件由以下三个旧文件合并而成（2026-10-08）：
+#   NAT_abyss_dynamic_modifiers.txt  → 深渊侵蚀度 七档（NAT-ABY-Index，开局 40）
+#   NAT_grace_dynamic_modifiers.txt  → 火神恩情   七档（MVK-Prestige-Index，开局 50）
+#   NAT_war_dynamic_modifiers.txt    → 深渊战况   五档（NAT-War-Index，开局 0）
+#
+# 档位判定统一为「直接读取变量 + 区间互斥 + 首档 has_variable 守卫」，
+# 因此实时生效，不依赖 flag 同步。
+# 配套的 NAT_ABY_T1..T7 / NAT_MVK_T1..T7 / NAT_WAR_T1..T5 flag
+# 由 NAT_Abyss_Sync / NAT_Grace_Sync / NAT_War_Sync 每日或每周刷新，
+# 仅供决议面板的「档位名」scripted localisation 显示使用。
+#
+# 修饰符名称全部取自 HOI4 官方 List of modifiers 白名单。
+##############################################################################
+
+
+# ============================================================================
+# 第一部分 · 深渊侵蚀度（NAT-ABY-Index）
+# 越低越好：≤ −60 熄灭 / > 100 深渊化
+# ============================================================================
+NAT_Abyss_Tier_Quenched = {
+	icon = GFX_idea_NAT_Dark_Purple_Obsidian_Ring
+	enable = {
+		has_variable = NAT-ABY-Index
+		NOT = { check_variable = { NAT-ABY-Index > -60 } }
+	}
+	stability_factor = 0.15
+	research_speed_factor = 0.20
+	army_attack_factor = 0.10
+	political_power_factor = 0.10
+}
+
+# 档位 2 · 沉眠（−59 ~ −20）
+NAT_Abyss_Tier_Dormant = {
+	icon = GFX_idea_NAT_Dark_Purple_Obsidian_Shard
+	enable = {
+		check_variable = { NAT-ABY-Index > -60 }
+		NOT = { check_variable = { NAT-ABY-Index > -20 } }
+	}
+	stability_factor = 0.10
+	research_speed_factor = 0.10
+	army_org_factor = 0.10
+}
+
+# 档位 3 · 压制（−19 ~ 0）
+NAT_Abyss_Tier_Suppressed = {
+	icon = GFX_idea_NAT_Cyan_Obsidian_Ring
+	enable = {
+		check_variable = { NAT-ABY-Index > -20 }
+		NOT = { check_variable = { NAT-ABY-Index > 0 } }
+	}
+	stability_factor = 0.05
+	army_org_factor = 0.05
+}
+
+# 档位 4 · 渗入（1 ~ 30）
+NAT_Abyss_Tier_Seeping = {
+	icon = GFX_idea_NAT_Bright_Yellow_Obsidian_Ring
+	enable = {
+		check_variable = { NAT-ABY-Index > 0 }
+		NOT = { check_variable = { NAT-ABY-Index > 30 } }
+	}
+	stability_factor = -0.03
+}
+
+# 档位 5 · 警戒（31 ~ 60，开局档）
+NAT_Abyss_Tier_Alert = {
+	icon = GFX_idea_NAT_Searing_Hidden_Phosphorus_Flame
+	enable = {
+		check_variable = { NAT-ABY-Index > 30 }
+		NOT = { check_variable = { NAT-ABY-Index > 60 } }
+	}
+	stability_factor = -0.08
+	consumer_goods_factor = 0.05
+	army_org_factor = -0.05
+}
+
+# 档位 6 · 蔓延（61 ~ 100）
+NAT_Abyss_Tier_Spread = {
+	icon = GFX_idea_NAT_Eroded_Scale_Feather
+	enable = {
+		check_variable = { NAT-ABY-Index > 60 }
+		NOT = { check_variable = { NAT-ABY-Index > 100 } }
+	}
+	stability_factor = -0.15
+	consumer_goods_factor = 0.10
+	production_speed_buildings_factor = -0.10
+	army_attack_factor = -0.10
+}
+
+# 档位 7 · 深渊化（> 100）
+NAT_Abyss_Tier_Abyssed = {
+	icon = GFX_idea_NAT_Eroded_Horn
+	enable = {
+		check_variable = { NAT-ABY-Index > 100 }
+	}
+	stability_factor = -0.25
+	consumer_goods_factor = 0.15
+	production_speed_buildings_factor = -0.20
+	army_attack_factor = -0.15
+	army_org_factor = -0.10
+	political_power_factor = -0.30
+	conscription_factor = -0.15
+}
+
+# ============================================================================
+# 第二部分 · 火神的恩情（MVK-Prestige-Index）
+# 越高越好：≤ 14 离心 / ≥ 110 赫布里穆
+# ============================================================================
+NAT_Grace_Tier_Drifting = {
+	icon = GFX_idea_NAT_Graffiti_Covered_Cracked_Stone
+	enable = {
+		has_variable = MVK-Prestige-Index
+		NOT = { check_variable = { MVK-Prestige-Index > 14 } }
+	}
+	stability_factor = -0.20
+	political_power_factor = -0.30
+	army_org_factor = -0.20
+	war_support_factor = -0.10
+}
+
+# 档位 2 · 裂痕（15 ~ 29）
+NAT_Grace_Tier_Rift = {
+	icon = GFX_idea_NAT_Cold_Cracked_Shellshard
+	enable = {
+		check_variable = { MVK-Prestige-Index > 14 }
+		NOT = { check_variable = { MVK-Prestige-Index > 29 } }
+	}
+	stability_factor = -0.12
+	army_org_factor = -0.10
+	war_support_factor = -0.05
+}
+
+# 档位 3 · 弥合（30 ~ 44）
+NAT_Grace_Tier_Mending = {
+	icon = GFX_idea_NAT_Ashen_Aratiku_Wood
+	enable = {
+		check_variable = { MVK-Prestige-Index > 29 }
+		NOT = { check_variable = { MVK-Prestige-Index > 44 } }
+	}
+	stability_factor = -0.04
+}
+
+# 档位 4 · 归心（45 ~ 59）—— 分叉点一门槛
+NAT_Grace_Tier_Aligned = {
+	icon = GFX_idea_NAT_Long_Nights_Oath_Crown_of_Sage
+	enable = {
+		check_variable = { MVK-Prestige-Index > 44 }
+		NOT = { check_variable = { MVK-Prestige-Index > 59 } }
+	}
+	stability_factor = 0.05
+	war_support_factor = 0.05
+}
+
+# 档位 5 · 同心（60 ~ 79）—— 吞并议程门槛
+NAT_Grace_Tier_United = {
+	icon = GFX_idea_NAT_Saurian_Crowned_Warriors_Golden_Whistle
+	enable = {
+		check_variable = { MVK-Prestige-Index > 59 }
+		NOT = { check_variable = { MVK-Prestige-Index > 79 } }
+	}
+	stability_factor = 0.12
+	army_org_factor = 0.10
+	industrial_capacity_factory = 0.05
+}
+
+# 档位 6 · 共主（80 ~ 109）
+NAT_Grace_Tier_Sovereign = {
+	icon = GFX_idea_NAT_Scroll_of_the_Hero_of_Cinder_City_Crown_of_Sage
+	enable = {
+		check_variable = { MVK-Prestige-Index > 79 }
+		NOT = { check_variable = { MVK-Prestige-Index > 109 } }
+	}
+	stability_factor = 0.15
+	army_org_factor = 0.12
+	industrial_capacity_factory = 0.10
+	industrial_capacity_dockyard = 0.10
+	production_speed_arms_factory_factor = 0.10
+}
+
+# 档位 7 · 赫布里穆（≥ 110）
+NAT_Grace_Tier_Hebrimur = {
+	icon = GFX_idea_NAT_Blazing_Sacrificial_Hearts_Resolve
+	enable = {
+		check_variable = { MVK-Prestige-Index > 109 }
+	}
+	stability_factor = 0.20
+	army_org_factor = 0.15
+	army_morale_factor = 0.15
+	research_speed_factor = 0.10
+	industrial_capacity_factory = 0.12
+	production_speed_arms_factory_factor = 0.15
+}
+
+# ============================================================================
+# 第三部分 · 深渊战况（NAT-War-Index）
+# 战况越差越接近崩溃，由 on_weekly_NAT 的 NAT_War_Weekly_Tick 推进或回落
+# ============================================================================
+NAT_War_Tier_Calm = {
+	icon = GFX_idea_NAT_Azure_Obsidian_Shard
+	enable = {
+		has_variable = NAT-War-Index
+		NOT = { check_variable = { NAT-War-Index > 19 } }
+	}
+	stability_factor = 0.05
+	war_support_weekly_factor = 0.10
+	industrial_capacity_factory = 0.05
+}
+
+# 档位 2 · 骚扰（20–39）—— 前线摩擦不断
+NAT_War_Tier_Skirmish = {
+	icon = GFX_idea_NAT_Common_Obsidian
+	enable = {
+		has_variable = NAT-War-Index
+		check_variable = { NAT-War-Index > 19 }
+		NOT = { check_variable = { NAT-War-Index > 39 } }
+	}
+	stability_factor = -0.02
+	war_support_weekly_factor = -0.05
+	production_speed_arms_factory_factor = -0.05
+}
+
+# 档位 3 · 拉锯（40–59）—— 双方寸土必争
+NAT_War_Tier_Attrition = {
+	icon = GFX_idea_NAT_Cinder_City_Glow
+	enable = {
+		has_variable = NAT-War-Index
+		check_variable = { NAT-War-Index > 39 }
+		NOT = { check_variable = { NAT-War-Index > 59 } }
+	}
+	stability_factor = -0.05
+	war_support_weekly_factor = -0.15
+	production_speed_arms_factory_factor = -0.10
+	production_speed_industrial_complex_factor = -0.08
+	army_org_regain_factor = -0.10
+}
+
+# 档位 4 · 焦土（60–79）—— 玛薇卡火山重燃，全境皆战
+NAT_War_Tier_Scorched = {
+	icon = GFX_idea_NAT_Eroded_Sunfire
+	enable = {
+		has_variable = NAT-War-Index
+		check_variable = { NAT-War-Index > 59 }
+		NOT = { check_variable = { NAT-War-Index > 79 } }
+	}
+	stability_factor = -0.10
+	war_support_weekly_factor = -0.30
+	production_speed_arms_factory_factor = -0.18
+	production_speed_industrial_complex_factor = -0.15
+	army_org_regain_factor = -0.20
+	supply_consumption_factor = 0.15
+}
+
+# 档位 5 · 崩溃（> 79）—— 泰拉将回想起葬火之战的恐怖
+NAT_War_Tier_Collapse = {
+	icon = GFX_idea_NAT_Delirious_Divinity_of_the_Sacred_Lord
+	enable = {
+		has_variable = NAT-War-Index
+		check_variable = { NAT-War-Index > 79 }
+	}
+	stability_factor = -0.18
+	war_support_weekly_factor = -0.50
+	production_speed_arms_factory_factor = -0.30
+	production_speed_industrial_complex_factor = -0.25
+	army_org_regain_factor = -0.30
+	supply_consumption_factor = 0.30
+	local_resources_factor = -0.15
+}

@@ -1,0 +1,85 @@
+######################################################################################
+# 纳塔（NAT）决议分类 —— 本文件只放分类元信息，决议本体在 NAT_Neo_decisions.txt
+#
+# 同名 category 在两处定义会被引擎按加载顺序覆盖，因此这里只声明
+# decisions 文件里【没有同名容器】的 6 个：
+#   Council（两大机制仪表盘，visible_when_empty 常驻）
+#   Tribe_Deep（六族深耕）/ Rift（裂隙与夜神）/ Grand（终局与路线）
+#   War（战备）/ Ceasefire（停战）
+# 而 Grace / Abyss / Econ / Tribe / Dragon / Fire 六个分类的容器与其
+# 100 个决议同处一个文件，不在此重复声明。
+######################################################################################
+
+##############################################################################
+# 纳塔（NAT）剧本 v2 —— 决议分类
+# 现有 30 个决议此前全部堆在默认分类里，本文件把它们与新决议归入 7 个分类。
+# 首个分类「焱庭议事厅」用 visible_when_empty = yes，把两大核心机制常驻显示。
+
+# ------------------------------------------------------------------
+# 0. 焱庭议事厅 —— 两大核心机制仪表盘（常驻可见，无决议也显示）
+# ------------------------------------------------------------------
+NAT_Council_category = {
+	icon = generic_political_actions
+	allowed = { tag = NAT }
+	visible = { tag = NAT }
+	visible_when_empty = yes
+	priority = { base = 200 }
+}
+
+# ------------------------------------------------------------------
+# 1-6 号分类（焱庭恩情 / 深渊应对 / 燃素经济 / 部族事务 / 龙族与秘源 /
+#            归火圣夜巡礼）的容器与其 100 个决议同处 NAT_Neo_decisions.txt，
+#            此处不重复声明。
+# ------------------------------------------------------------------
+
+# ============================================================
+# v3 新增分类
+# ============================================================
+NAT_Tribe_Deep_Category = {
+	icon = generic_political_rally
+	allowed = { tag = NAT }
+	visible = {
+		has_country_flag = NAT_Call_Tribal_Council
+	}
+	priority = 90
+}
+
+NAT_Rift_Category = {
+	icon = generic_protection
+	allowed = { tag = NAT }
+	visible = { always = yes }
+	priority = 92
+}
+
+NAT_Grand_Category = {
+	icon = generic_nationalism
+	allowed = { tag = NAT }
+	visible = {
+		or = {
+			has_country_flag = NAT_Focus_Finisher_Abyss_Quenched
+			check_variable = { NAT-Anance-Index > 2 }
+		}
+	}
+	priority = 110
+}
+
+# ============================================================
+# 战争体系分类（v3 新增）
+# ============================================================
+NAT_War_Category = {
+	icon = generic_political_rally
+	allowed = { tag = NAT }
+	visible = {
+		has_country_flag = NAT_Call_Tribal_Council
+	}
+	priority = 105
+}
+
+NAT_Ceasefire_Category = {
+	icon = generic_nationalism
+	allowed = { tag = NAT }
+	visible = {
+		has_country_flag = NAT_War_Active
+	}
+	priority = 106
+}

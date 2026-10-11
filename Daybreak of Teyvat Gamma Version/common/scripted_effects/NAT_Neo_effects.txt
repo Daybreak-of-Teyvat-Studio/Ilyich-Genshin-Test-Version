@@ -1,0 +1,1102 @@
+##############################################################################
+# 纳塔（NAT）剧本 v2 —— 公共脚本效果库
+# 铁律：所有对 NAT-ABY-Index / MVK-Prestige-Index 的改动一律走本文件的宏，
+#       宏内部会同步档位 flag（供决议面板与 scripted localisation 读取）。
+#       禁止在国策/决议/事件里直接写 add_to_variable（会导致面板不同步）。
+##############################################################################
+
+# ==============================================================
+# 一、档位同步（把数值写成一组建布尔 country flag）
+# ==============================================================
+
+# 深渊侵蚀度 7 档同步
+NAT_Abyss_Sync = {
+	# 先清掉旧的档位标记
+	clr_country_flag = NAT_ABY_T1
+	clr_country_flag = NAT_ABY_T2
+	clr_country_flag = NAT_ABY_T3
+	clr_country_flag = NAT_ABY_T4
+	clr_country_flag = NAT_ABY_T5
+	clr_country_flag = NAT_ABY_T6
+	clr_country_flag = NAT_ABY_T7
+
+	if = {
+		limit = { check_variable = { NAT-ABY-Index > 100 } }
+		set_country_flag = NAT_ABY_T7
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 60 } }
+		set_country_flag = NAT_ABY_T6
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 30 } }
+		set_country_flag = NAT_ABY_T5
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 0 } }
+		set_country_flag = NAT_ABY_T4
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > -20 } }
+		set_country_flag = NAT_ABY_T3
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > -60 } }
+		set_country_flag = NAT_ABY_T2
+	}
+	else = {
+		set_country_flag = NAT_ABY_T1
+	}
+}
+
+# 火神的恩情 7 档同步
+NAT_Grace_Sync = {
+	clr_country_flag = NAT_MVK_T1
+	clr_country_flag = NAT_MVK_T2
+	clr_country_flag = NAT_MVK_T3
+	clr_country_flag = NAT_MVK_T4
+	clr_country_flag = NAT_MVK_T5
+	clr_country_flag = NAT_MVK_T6
+	clr_country_flag = NAT_MVK_T7
+
+	if = {
+		limit = { check_variable = { MVK-Prestige-Index > 109 } }
+		set_country_flag = NAT_MVK_T7
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 79 } }
+		set_country_flag = NAT_MVK_T6
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 59 } }
+		set_country_flag = NAT_MVK_T5
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 44 } }
+		set_country_flag = NAT_MVK_T4
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 29 } }
+		set_country_flag = NAT_MVK_T3
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 14 } }
+		set_country_flag = NAT_MVK_T2
+	}
+	else = {
+		set_country_flag = NAT_MVK_T1
+	}
+}
+
+# ==============================================================
+# 二、两大变量的加减宏（唯一合法入口）
+# ==============================================================
+
+# —— 深渊侵蚀度 ——
+NAT_Abyss_Add_1 = {
+	add_to_variable = { var = NAT-ABY-Index value = 1 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_3 = {
+	add_to_variable = { var = NAT-ABY-Index value = 3 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_40 = {
+	add_to_variable = { var = NAT-ABY-Index value = 40 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_5 = {
+	add_to_variable = { var = NAT-ABY-Index value = 5 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_8 = {
+	add_to_variable = { var = NAT-ABY-Index value = 8 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_10 = {
+	add_to_variable = { var = NAT-ABY-Index value = 10 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_15 = {
+	add_to_variable = { var = NAT-ABY-Index value = 15 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_20 = {
+	add_to_variable = { var = NAT-ABY-Index value = 20 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_30 = {
+	add_to_variable = { var = NAT-ABY-Index value = 30 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_12 = {
+	add_to_variable = { var = NAT-ABY-Index value = 12 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Add_25 = {
+	add_to_variable = { var = NAT-ABY-Index value = 25 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_2 = {
+	add_to_variable = { var = NAT-ABY-Index value = -2 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_3 = {
+	add_to_variable = { var = NAT-ABY-Index value = -3 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_5 = {
+	add_to_variable = { var = NAT-ABY-Index value = -5 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_7 = {
+	add_to_variable = { var = NAT-ABY-Index value = -7 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_12 = {
+	add_to_variable = { var = NAT-ABY-Index value = -12 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_8 = {
+	add_to_variable = { var = NAT-ABY-Index value = -8 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_10 = {
+	add_to_variable = { var = NAT-ABY-Index value = -10 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_15 = {
+	add_to_variable = { var = NAT-ABY-Index value = -15 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_20 = {
+	add_to_variable = { var = NAT-ABY-Index value = -20 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_25 = {
+	add_to_variable = { var = NAT-ABY-Index value = -25 }
+	NAT_Abyss_Sync = yes
+}
+NAT_Abyss_Sub_30 = {
+	add_to_variable = { var = NAT-ABY-Index value = -30 }
+	NAT_Abyss_Sync = yes
+}
+
+# —— 火神的恩情 ——
+NAT_Grace_Add_40 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 40 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_40 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -40 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_3 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 3 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_5 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 5 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_6 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 6 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_8 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 8 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_10 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 10 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_12 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 12 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_15 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 15 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_20 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 20 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Add_25 = {
+	add_to_variable = { var = MVK-Prestige-Index value = 25 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_3 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -3 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_5 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -5 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_10 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -10 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_15 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -15 }
+	NAT_Grace_Sync = yes
+}
+NAT_Grace_Sub_20 = {
+	add_to_variable = { var = MVK-Prestige-Index value = -20 }
+	NAT_Grace_Sync = yes
+}
+
+# ==============================================================
+# 三、古名系统（英雄记忆）
+# ==============================================================
+
+NAT_Anance_Add_1 = {
+	add_to_variable = { var = NAT-Anance-Index value = 1 }
+}
+NAT_Anance_Add_2 = {
+	add_to_variable = { var = NAT-Anance-Index value = 2 }
+}
+NAT_Anance_Add_3 = {
+	add_to_variable = { var = NAT-Anance-Index value = 3 }
+}
+
+# ==============================================================
+# 四、月度结算（深渊侵蚀度）
+#       挂载点：common/on_actions/DOT_NAT_on_actions.txt 的 on_monthly_NAT
+# ==============================================================
+
+NAT_ABY_Monthly_Tick = {
+	# —— 4.1 自然漂移（档位越高涨得越快）——
+	if = {
+		limit = { check_variable = { NAT-ABY-Index > 100 } }
+		add_to_variable = { var = NAT-ABY-Index value = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 60 } }
+		add_to_variable = { var = NAT-ABY-Index value = 3 }
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 30 } }
+		add_to_variable = { var = NAT-ABY-Index value = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 0 } }
+		add_to_variable = { var = NAT-ABY-Index value = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > -60 } }
+		add_to_variable = { var = NAT-ABY-Index value = -1 }
+	}
+	else = {
+		add_to_variable = { var = NAT-ABY-Index value = -3 }
+	}
+
+	# —— 4.2 路线丙「秘源核心」：科研快，但深渊在啃噬 ——
+	if = {
+		limit = { has_ideas = NAT_Secret_Source_Core }
+		add_to_variable = { var = NAT-ABY-Index value = 1 }
+	}
+
+	# —— 4.3 古龙系古名：每 3 个古名，地脉每 90 天自我修复 3 点 ——
+	if = {
+		limit = {
+			check_variable = { NAT-Anance-Index > 5 }
+			NOT = { has_country_flag = NAT_Anance_Heal_CD }
+		}
+		set_country_flag = { flag = NAT_Anance_Heal_CD days = 90 }
+		add_to_variable = { var = NAT-ABY-Index value = -3 }
+	}
+
+	# —— 4.4 燃素天网：90 天内侵蚀度不再自然上涨（用 flag 表示窗口期）——
+	if = {
+		limit = { has_country_flag = NAT_Ember_Net_Window }
+		add_to_variable = { var = NAT-ABY-Index value = -4 }
+	}
+
+	# —— 4.5 深渊之潮：侵蚀度 > 30 时滚动触发（冷却 180 天）——
+	if = {
+		limit = {
+			check_variable = { NAT-ABY-Index > 30 }
+			NOT = { has_country_flag = NAT_Abyss_Tide_CD }
+		}
+		set_country_flag = { flag = NAT_Abyss_Tide_CD days = 180 }
+		random_list = {
+			45 = {
+				country_event = { id = NAT_Event.500 days = 2 random_days = 8 }
+			}
+			55 = {
+				country_event = { id = NAT_Event.501 days = 2 random_days = 8 }
+			}
+		}
+	}
+
+	# —— 4.6 七级深渊化 —— 深渊之蚀宣战（只触发一次）——
+	if = {
+		limit = {
+			check_variable = { NAT-ABY-Index > 140 }
+			NOT = { has_country_flag = NAT_Abyss_War_Triggered }
+		}
+		NAT_Abyss_War_Trigger = yes
+	}
+
+	NAT_Abyss_Sync = yes
+}
+
+# 深渊之蚀宣战（统一入口：决议「深渊侵蚀中」主动引爆 / 侵蚀度 > 140 自动引爆）
+NAT_Abyss_War_Trigger = {
+	set_country_flag = NAT_Abyss_War_Triggered
+	every_owned_state = {
+		limit = { is_core_of = NAT }
+		add_resistance = 0.10
+	}
+	# 直接宣战，不依赖玩家点击事件选项（事件 210 仅作叙事弹窗）
+	NAT_Declare_Abyss_War = yes
+	country_event = { id = NAT_Event.210 days = 1 }
+	NAT_Abyss_Sync = yes
+}
+
+# ==============================================================
+# 五、月度结算（火神的恩情 / 部族）
+# ==============================================================
+
+NAT_GRACE_Monthly_Tick = {
+	# —— 5.1 自然漂移 ——
+	if = {
+		limit = { check_variable = { MVK-Prestige-Index > 109 } }
+		add_to_variable = { var = MVK-Prestige-Index value = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 79 } }
+		add_to_variable = { var = MVK-Prestige-Index value = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 59 } }
+		add_to_variable = { var = MVK-Prestige-Index value = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 44 } }
+		add_to_variable = { var = MVK-Prestige-Index value = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 29 } }
+		add_to_variable = { var = MVK-Prestige-Index value = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index > 14 } }
+		add_to_variable = { var = MVK-Prestige-Index value = -1 }
+	}
+	else = {
+		add_to_variable = { var = MVK-Prestige-Index value = -2 }
+	}
+
+	# —— 5.2 部族离心（恩情 < 30）：随机一族拒绝输诚 ——
+	if = {
+		limit = {
+			check_variable = { MVK-Prestige-Index < 30 }
+			NOT = { has_country_flag = NAT_Tribe_Strain_CD }
+		}
+		set_country_flag = { flag = NAT_Tribe_Strain_CD days = 90 }
+		random_list = {
+			35 = { country_event = { id = NAT_Event.150 days = 3 random_days = 10 } }
+			65 = { }
+		}
+	}
+
+	# —— 5.3 部族叛乱（恩情 < 15）——
+	if = {
+		limit = {
+			check_variable = { MVK-Prestige-Index < 15 }
+			has_country_flag = NAT_Tribe_Strain_Active
+			NOT = { has_country_flag = NAT_Tribe_Revolt_CD }
+		}
+		set_country_flag = { flag = NAT_Tribe_Revolt_CD days = 120 }
+		random_list = {
+			45 = { country_event = { id = NAT_Event.160 days = 3 random_days = 10 } }
+			55 = { }
+		}
+	}
+
+	# —— 5.4 六盟崩解宣战（恩情 <= 0 且已有部族在闹）——
+	if = {
+		limit = {
+			check_variable = { MVK-Prestige-Index < 1 }
+			has_country_flag = NAT_Tribe_Strain_Active
+			NOT = { has_country_flag = NAT_Covenant_Collapse_Done }
+		}
+		NAT_Covenant_Collapse = yes
+	}
+
+	NAT_Grace_Sync = yes
+}
+
+# 六盟崩解：全部脱离的部族组成联军向纳塔宣战
+NAT_Covenant_Collapse = {
+	set_country_flag = NAT_Covenant_Collapse_Done
+	country_event = { id = NAT_Event.170 days = 1 }
+}
+
+# ==============================================================
+# 六、部族辅助效果
+# ==============================================================
+
+# 判定某个竞逐之盟是否仍隶属于纳塔（玩家侧安全写法：用国家存在性 + 自治类型）
+NAT_Tribe_Check_Is_Subject = {
+	# 供上层 if 使用；此处保留空实现以便将来扩展
+}
+
+# 给部族加离心计数（连续 3 次离心则进入叛乱阶段）
+NAT_Tribe_Add_Strain = {
+	add_to_variable = { var = NAT-Tribe-Strain value = 1 }
+	if = {
+		limit = { check_variable = { NAT-Tribe-Strain > 2 } }
+		set_country_flag = NAT_Tribe_Strain_Active
+	}
+}
+
+# 吞并一个竞逐之盟的通用收益
+NAT_Annex_Reward = {
+	add_ideas = NAT_Fire_Covenant_Six_Tribes
+	add_stability = -0.06
+	NAT_Abyss_Add_5 = yes
+	NAT_Grace_Add_8 = yes
+	add_to_variable = { var = NAT-Annexed-Count value = 1 }
+}
+
+# ==============================================================
+# 七、日报同步（保证面板实时）
+# ==============================================================
+
+NAT_Daily_Display_Sync = {
+	NAT_Abyss_Sync = yes
+	NAT_Grace_Sync = yes
+}
+
+# ==============================================================
+# 八、五大新机制（配合 v3 新增的 121 格国策 / 80 个事件）
+#   NAT-Phyton-Stock   燃素储备（六部族供火总量）
+#   NAT-Anance-Index   古名数量（英雄记忆）
+#   NAT-Spirit-Index   大灵回应度（花羽会圣灵）
+#   NAT-Tribe-Strain   部族离心累计
+#   NAT-Rift-Index     深渊裂隙数（待封印）
+#   NAT-Dragon-Pact    龙缘（与人龙共治度）
+# ==============================================================
+
+# —— 燃素储备：四方向 ——
+NAT_Phyton_Add_5 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = 5 }
+}
+NAT_Phyton_Add_10 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = 10 }
+}
+NAT_Phyton_Add_20 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = 20 }
+}
+NAT_Phyton_Add_40 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = 40 }
+}
+NAT_Phyton_Sub_5 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = -5 }
+}
+NAT_Phyton_Sub_10 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = -10 }
+}
+NAT_Phyton_Sub_20 = {
+	add_to_variable = { var = NAT-Phyton-Stock value = -20 }
+}
+
+# —— 大灵回应度 ——
+NAT_Spirit_Add_5 = {
+	add_to_variable = { var = NAT-Spirit-Index value = 5 }
+}
+NAT_Spirit_Add_10 = {
+	add_to_variable = { var = NAT-Spirit-Index value = 10 }
+}
+NAT_Spirit_Add_15 = {
+	add_to_variable = { var = NAT-Spirit-Index value = 15 }
+}
+NAT_Spirit_Add_20 = {
+	add_to_variable = { var = NAT-Spirit-Index value = 20 }
+}
+NAT_Spirit_Add_25 = {
+	add_to_variable = { var = NAT-Spirit-Index value = 25 }
+}
+NAT_Spirit_Sub_5 = {
+	add_to_variable = { var = NAT-Spirit-Index value = -5 }
+}
+NAT_Spirit_Sub_10 = {
+	add_to_variable = { var = NAT-Spirit-Index value = -10 }
+}
+
+# —— 深渊裂隙：每有一个未封印裂隙，月度侵蚀度 +1 ——
+NAT_Rift_Open = {
+	add_to_variable = { var = NAT-Rift-Index value = 1 }
+	if = {
+		limit = { check_variable = { NAT-Rift-Index > 6 } }
+		add_to_variable = { var = NAT-ABY-Index value = 6 }
+		NAT_Abyss_Sync = yes
+	}
+	else = {
+		add_to_variable = { var = NAT-ABY-Index value = 3 }
+		NAT_Abyss_Sync = yes
+	}
+}
+NAT_Rift_Sealed = {
+	if = {
+		limit = { check_variable = { NAT-Rift-Index > 0 } }
+		add_to_variable = { var = NAT-Rift-Index value = -1 }
+	}
+	NAT_Abyss_Sub_8 = yes
+}
+
+# —— 龙缘 ——
+NAT_Dragon_Pact_Add_10 = {
+	add_to_variable = { var = NAT-Dragon-Pact value = 10 }
+}
+NAT_Dragon_Pact_Add_20 = {
+	add_to_variable = { var = NAT-Dragon-Pact value = 20 }
+}
+NAT_Dragon_Pact_Sub_10 = {
+	add_to_variable = { var = NAT-Dragon-Pact value = -10 }
+}
+
+# —— 部族羁绊：一次性给某族 + 恩情 ——
+NAT_Tribe_Bless_NCP = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NCP
+}
+NAT_Tribe_Bless_NCE = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NCE
+}
+NAT_Tribe_Bless_NPS = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NPS
+}
+NAT_Tribe_Bless_NSC = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NSC
+}
+NAT_Tribe_Bless_NFF = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NFF
+}
+NAT_Tribe_Bless_NMN = {
+	NAT_Grace_Add_6 = yes
+	set_country_flag = NAT_Tribe_Blessed_NMN
+}
+
+# ==============================================================
+# 九、v3 月度追加结算
+#   燃素储备每月按路线不同消耗/产出
+#   大灵回应度每月自然回归
+#   裂隙每月带来侵蚀
+#   龙缘每月解锁机龙支援
+# ==============================================================
+
+NAT_V3_Monthly_Tick = {
+	# 燃素储备：≥ 60 则每月额外 −1 侵蚀度（燃素天网自持）
+	if = {
+		limit = { check_variable = { NAT-Phyton-Stock > 59 } }
+		add_to_variable = { var = NAT-ABY-Index value = -2 }
+	}
+	# 燃素储备见底则每月 +1 侵蚀（炉火失控）
+	else_if = {
+		limit = { check_variable = { NAT-Phyton-Stock < 10 } }
+		add_to_variable = { var = NAT-ABY-Index value = 1 }
+	}
+
+	# 大灵回应度：> 40 时古名自愈加剧
+	if = {
+		limit = { check_variable = { NAT-Spirit-Index > 39 } }
+		add_to_variable = { var = NAT-ABY-Index value = -2 }
+	}
+
+	# 未封印裂隙每月侵蚀
+	if = {
+		limit = { check_variable = { NAT-Rift-Index > 0 } }
+		add_to_variable = { var = NAT-ABY-Index value = 2 }
+	}
+
+	# 龙缘 ≥ 40：每月触发一次「龙群巡护」事件
+	if = {
+		limit = {
+			check_variable = { NAT-Dragon-Pact > 39 }
+			NOT = { has_country_flag = NAT_Dragon_Patrol_CD }
+		}
+		set_country_flag = { flag = NAT_Dragon_Patrol_CD days = 120 }
+		country_event = { id = NAT_Event.620 days = 2 random_days = 6 }
+	}
+
+	# 恩情高时龙缘缓慢自然增长（人龙共治）
+	if = {
+		limit = { check_variable = { MVK-Prestige-Index > 59 } }
+		add_to_variable = { var = NAT-Dragon-Pact value = 1 }
+	}
+
+	NAT_Abyss_Sync = yes
+	NAT_Grace_Sync = yes
+}
+
+# ==============================================================
+# 十、v3 事件/决议调用的组合效果
+# ==============================================================
+
+# 深渊界门出现（裂隙 +1，并可能触发魔物事件）
+NAT_Rift_Spawn = {
+	NAT_Rift_Open = yes
+	random_list = {
+		30 = { country_event = { id = NAT_Event.610 days = 1 } }
+		70 = { }
+	}
+}
+
+# 封印一个深渊界门（裂隙 −1，经验与稳定）
+NAT_Rift_Seal = {
+	NAT_Rift_Sealed = yes
+	army_experience = 20
+	add_stability = 0.02
+}
+
+# 取得一个古名（大灵承认）
+NAT_Gain_Anance = {
+	NAT_Anance_Add_2 = yes
+	add_to_variable = { var = NAT-Anance-Index value = 1 }
+	hidden_effect = {
+		set_country_flag = { flag = NAT_Anance_Recent days = 60 }
+	}
+}
+
+# 永久失去一个古名（重构地脉的代价）
+NAT_Lose_Anance = {
+	if = {
+		limit = { check_variable = { NAT-Anance-Index > 0 } }
+		add_to_variable = { var = NAT-Anance-Index value = -1 }
+	}
+	add_to_variable = { var = NAT-Anance-Index value = -2 }
+	NAT_Spirit_Sub_10 = yes
+	NAT_Abyss_Add_5 = yes
+}
+
+# 授予临时idea（带天数）
+NAT_Temp_Idea_30 = {
+	add_ideas = NAT_Temp_Crimson_Festival
+}
+
+# 六族总动员：一次性大额恩情 + 全族羁绊
+NAT_All_Tribes_Unite = {
+	NAT_Grace_Add_20 = yes
+	add_stability = 0.05
+	add_war_support = 0.05
+}
+
+# 火神恩情归零的最终惩罚（六盟崩解后）
+NAT_Covenant_Collapse_War = {
+	set_country_flag = NAT_Covenant_Collapse_Done
+	country_event = { id = NAT_Event.170 days = 1 }
+}
+
+# ==============================================================
+# 十一、战争体系（纳塔 vs 深渊 / 纳塔 vs 六盟叛军）
+#
+# 设计原则：
+#   1. 宣战必须带**明确的战争目标**（wargoal），不允许裸 declare_war_on；
+#      否则战后和平会议拿不到任何州，赢了也是白赢。
+#   2. 每一场战争都有「战线推进 → 消耗 → 结算」三段，
+#      由 on_weekly_NAT 的 NAT_War_Weekly_Tick 驱动。
+#   3. 战争状态本身要对玩家可见：新增 5 档「深渊战况」动态修正，
+#      由 NAT-War-Index 变量驱动（0 平时 / 20 骚扰 / 40 拉锯 / 60 焦土 / 80 崩溃）。
+#   4. 停战不是免费的：停战期间侵蚀度仍按月累积，玩家要主动压。
+# ==============================================================
+
+# --------------------------------------------------------------
+# 11.1 宣战入口（全部正规化：先 create_wargoal，再 declare_war_on）
+# --------------------------------------------------------------
+
+# 深渊之蚀（HIP）：开局无领地，开战时从烬寂海撕裂而出 ——
+# 夺取 state 292 作为滩头据点，随即以「夺回祖地」为名向四周（纳塔）宣战。
+# ⚠ 只对深渊之蚀开战：深渊教团（ABY）与丘丘部落联盟（HIL）不再被卷入，
+#   避免一次宣战把三个深渊侧国家全部拖进战争。
+NAT_Declare_Abyss_War = {
+	set_country_flag = NAT_Abyss_Total_War
+	set_country_flag = NAT_War_Active
+	set_country_flag = NAT_War_vs_Abyss
+	add_war_support = 0.20
+	add_stability = -0.03
+	set_variable = { var = NAT-War-Index value = 20 }
+	if = {
+		limit = {
+			country_exists = HIP
+			NOT = { has_war_with = HIP }
+		}
+		# 深渊之蚀在纳塔腹地撕开裂口：292 转交 HIP（owner + controller）
+		292 = { transfer_state_to = HIP }
+		HIP = { set_capital = { state = 292 } }
+		HIP = {
+			create_wargoal = {
+				type = take_core_state
+				target = NAT
+			}
+		}
+		declare_war_on = { target = HIP type = take_core_state }
+	}
+	NAT_Abyss_Sync = yes
+}
+
+# 六盟崩解：六个竞逐之盟组成联军，以「恢复自治」为共同目标
+# 注意不是吞并 —— 他们要的是离开纳塔，赢了就得走
+NAT_Declare_Covenant_War = {
+	set_country_flag = NAT_Covenant_Broken
+	set_country_flag = NAT_War_Active
+	set_country_flag = NAT_War_vs_Covenant
+	add_war_support = 0.15
+	add_stability = -0.05
+	set_variable = { var = NAT-War-Index value = 20 }
+}
+
+# 为每个仍在的竞逐之盟挂上「民族独立」战争目标
+NAT_Covenant_Append_Wargoals = {
+	if = {
+		limit = { country_exists = NCP }
+		NCP = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+	if = {
+		limit = { country_exists = NCE }
+		NCE = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+	if = {
+		limit = { country_exists = NPS }
+		NPS = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+	if = {
+		limit = { country_exists = NSC }
+		NSC = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+	if = {
+		limit = { country_exists = NFF }
+		NFF = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+	if = {
+		limit = { country_exists = NMN }
+		NMN = {
+			create_wargoal = { type = take_core_state target = NAT }
+			declare_war_on = { target = NAT type = take_core_state }
+		}
+	}
+}
+
+# 主动宣战恩情最高的那个部族（用于「恩情断绝」路线，撕毁盟约先发制人）
+NAT_Declare_Purge_War = {
+	set_country_flag = NAT_War_Active
+	set_country_flag = NAT_War_vs_Covenant
+	add_war_support = 0.10
+	set_variable = { var = NAT-War-Index value = 20 }
+	# 目标是「吞并」——玩家主动撕毁盟约，要的是彻底解决
+	if = {
+		limit = {
+			country_exists = NCP
+			NOT = { has_war_with = NCP }
+		}
+		NCP = { create_wargoal = { type = annex_everything target = NAT } }
+		declare_war_on = { target = NCP type = annex_everything }
+	}
+}
+
+# --------------------------------------------------------------
+# 11.2 战线周结算（on_weekly_NAT 挂载）
+# 每周根据「当前战争状态」推进一次：拉锯 / 侵蚀加深 / 战线推进
+# --------------------------------------------------------------
+
+NAT_War_Weekly_Tick = {
+	if = {
+		limit = { has_country_flag = NAT_War_Active }
+		NAT_War_Progress = yes
+	}
+	if = {
+		limit = { NOT = { has_country_flag = NAT_War_Active } }
+		NAT_War_Ceasefire_Tick = yes
+	}
+	NAT_War_Sync = yes
+}
+
+# 战争推进：每周把「战况指数」往目标方向推
+NAT_War_Progress = {
+	# —— 目标：胜利方由「谁的战争支持更高」粗略决定 ——
+	# 纳塔在深渊战争中天然占优（主场+六族），但侵蚀度会拖后腿
+	if = {
+		limit = {
+			has_country_flag = NAT_War_vs_Abyss
+			has_war_with = ABY
+		}
+		NAT_War_Progress_Abyss = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = NAT_War_vs_Covenant
+			OR = { has_war_with = NCP has_war_with = NCE has_war_with = NPS has_war_with = NSC has_war_with = NFF has_war_with = NMN }
+		}
+		NAT_War_Progress_Covenant = yes
+	}
+}
+
+# 深渊战线：侵蚀度越高，深渊推进越快；侵蚀度被压住，深渊被反推
+NAT_War_Progress_Abyss = {
+	if = {
+		limit = { check_variable = { NAT-ABY-Index > 79 } }
+		NAT_War_Advance_4 = yes
+		add_stability = -0.01
+		every_owned_state = {
+			limit = { is_core_of = NAT }
+			add_resistance = 0.01
+		}
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 59 } }
+		NAT_War_Advance_3 = yes
+		add_stability = -0.005
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 39 } }
+		NAT_War_Advance_2 = yes
+	}
+	else_if = {
+		limit = { check_variable = { NAT-ABY-Index > 19 } }
+		NAT_War_Advance_1 = yes
+	}
+	else = {
+		# 侵蚀度被压到极低 → 反推
+		NAT_War_Retreat_3 = yes
+		NAT_Abyss_Sub_2 = yes
+		add_war_support = 0.01
+	}
+}
+
+# 六盟战线：恩情越高，六盟越难打；恩情崩溃则一路溃退
+NAT_War_Progress_Covenant = {
+	if = {
+		limit = { check_variable = { MVK-Prestige-Index < 20 } }
+		NAT_War_Advance_3 = yes
+		every_owned_state = {
+			limit = { is_core_of = NAT }
+			add_resistance = 0.02
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index < 40 } }
+		NAT_War_Advance_2 = yes
+	}
+	else_if = {
+		limit = { check_variable = { MVK-Prestige-Index < 60 } }
+		NAT_War_Advance_1 = yes
+	}
+	else = {
+		NAT_War_Retreat_2 = yes
+		add_war_support = 0.01
+	}
+}
+
+# 战况指数前进（带上限 100）
+# 说明：HOI4 的 scripted effect 不支持参数传递（无 $param$ 语法），
+#       故按步长拆成具名宏 NAT_War_Advance_N / NAT_War_Retreat_N。
+NAT_War_Advance_1 = {
+	if = { limit = { check_variable = { NAT-War-Index < 100 } } add_to_variable = { var = NAT-War-Index value = 1 } }
+	NAT_War_Crisis_Check = yes
+}
+NAT_War_Advance_2 = {
+	if = { limit = { check_variable = { NAT-War-Index < 100 } } add_to_variable = { var = NAT-War-Index value = 2 } }
+	NAT_War_Crisis_Check = yes
+}
+NAT_War_Advance_3 = {
+	if = { limit = { check_variable = { NAT-War-Index < 100 } } add_to_variable = { var = NAT-War-Index value = 3 } }
+	NAT_War_Crisis_Check = yes
+}
+NAT_War_Advance_4 = {
+	if = { limit = { check_variable = { NAT-War-Index < 100 } } add_to_variable = { var = NAT-War-Index value = 4 } }
+	NAT_War_Crisis_Check = yes
+}
+
+# 战况指数 >= 80 触发一次「总崩溃」事件（每场战争仅一次）
+NAT_War_Crisis_Check = {
+	if = {
+		limit = { check_variable = { NAT-War-Index > 80 } }
+		if = {
+			limit = { NOT = { has_country_flag = NAT_War_Crisis_Fired } }
+			set_country_flag = NAT_War_Crisis_Fired
+			country_event = { id = NAT_Event.790 days = 1 }
+		}
+	}
+}
+
+# 战况指数后退
+NAT_War_Retreat_2 = {
+	if = { limit = { check_variable = { NAT-War-Index > 2 } } add_to_variable = { var = NAT-War-Index value = -2 } }
+}
+NAT_War_Retreat_3 = {
+	if = { limit = { check_variable = { NAT-War-Index > 3 } } add_to_variable = { var = NAT-War-Index value = -3 } }
+}
+
+# --------------------------------------------------------------
+# 11.3 停战线
+# --------------------------------------------------------------
+
+# 停战：侵蚀度低于阈值 + 完成对应国策后，可主动停火
+NAT_Ceasefire = {
+	clr_country_flag = NAT_War_Active
+	clr_country_flag = NAT_War_vs_Abyss
+	clr_country_flag = NAT_War_vs_Covenant
+	clr_country_flag = NAT_War_Crisis_Fired
+	set_variable = { var = NAT-War-Index value = 0 }
+	set_country_flag = NAT_Ceasefire_Signed
+	# 停战必然让深渊回卷：这是停战的代价
+	NAT_Abyss_Add_10 = yes
+	# 与深渊休战：教团与本体停战（若存在）
+	if = { limit = { country_exists = HIP has_war_with = HIP } HIP = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = ABY has_war_with = ABY } ABY = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = HIL has_war_with = HIL } HIL = { end_war = { target = NAT } } }
+	# 与六盟停战（若存在）
+	if = { limit = { country_exists = NCP has_war_with = NCP } NCP = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = NCE has_war_with = NCE } NCE = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = NPS has_war_with = NPS } NPS = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = NSC has_war_with = NSC } NSC = { end_war = { target = NAT } } }
+	if = { limit = { country_exists = NFF has_war_with = NFF } NFF = { end_war = { target = NAT } } }
+	add_war_support = -0.05
+	NAT_War_Sync = yes
+}
+
+# 无战事时的月度回落：战况指数缓慢恢复（硝烟散去）
+NAT_War_Ceasefire_Tick = {
+	if = {
+		limit = { check_variable = { NAT-War-Index > 0 } }
+		NAT_War_Retreat_2 = yes
+	}
+	# 停战期间深渊仍在侵蚀
+	NAT_Abyss_Add_1 = yes
+}
+
+# --------------------------------------------------------------
+# 11.4 战争结算（由事件调用）
+# --------------------------------------------------------------
+
+# 深渊战线胜利结算：侵蚀度重挫 + 深渊势力瓦解奖励
+NAT_War_Abyss_Victory = {
+	clr_country_flag = NAT_War_Active
+	clr_country_flag = NAT_War_vs_Abyss
+	clr_country_flag = NAT_War_Crisis_Fired
+	set_variable = { var = NAT-War-Index value = 0 }
+	NAT_Abyss_Sub_30 = yes
+	NAT_Spirit_Add_20 = yes
+	add_war_support = 0.15
+	add_stability = 0.10
+	# 若本体已被击退，写入 ABY-Defeated（解锁 ABY 树的终局分支）
+	if = {
+		limit = { country_exists = ABY }
+		ABY = { set_variable = { ABY-Defeated = 1 } }
+	}
+}
+
+# 深渊战线失败结算：侵蚀度暴涨 + 国土沦陷
+NAT_War_Abyss_Defeat = {
+	clr_country_flag = NAT_War_Active
+	clr_country_flag = NAT_War_vs_Abyss
+	clr_country_flag = NAT_War_Crisis_Fired
+	set_variable = { var = NAT-War-Index value = 0 }
+	NAT_Abyss_Add_40 = yes
+	add_war_support = -0.20
+	add_stability = -0.15
+	every_owned_state = {
+		limit = { is_core_of = NAT }
+		add_resistance = 0.15
+		add_state_modifier = { modifier = NAT_ABYS_CORRUPTED all = yes life = 1825 }
+	}
+}
+
+# 六盟叛军胜利结算（六盟独立）：恩情暴跌、割让、路线受挫
+NAT_War_Covenant_Defeat = {
+	clr_country_flag = NAT_War_Active
+	clr_country_flag = NAT_War_vs_Covenant
+	clr_country_flag = NAT_Covenant_Broken
+	clr_country_flag = NAT_War_Crisis_Fired
+	set_variable = { var = NAT-War-Index value = 0 }
+	NAT_Grace_Sub_40 = yes
+	add_war_support = -0.25
+	add_stability = -0.12
+	# 失去一个部族的羁绊
+	every_owned_state = {
+		limit = { is_core_of = NAT }
+		add_resistance = 0.05
+	}
+}
+
+# 六盟叛军失败结算（尽数吞并或重归）：恩情大涨、六族羁绊加固
+NAT_War_Covenant_Victory = {
+	clr_country_flag = NAT_War_Active
+	clr_country_flag = NAT_War_vs_Covenant
+	clr_country_flag = NAT_Covenant_Broken
+	clr_country_flag = NAT_War_Crisis_Fired
+	set_variable = { var = NAT-War-Index value = 0 }
+	NAT_Grace_Add_40 = yes
+	add_war_support = 0.20
+	add_stability = 0.12
+}
+
+# --------------------------------------------------------------
+# 11.5 战况档位同步（把 NAT-War-Index 写成 5 档 flag，供动态修正读取）
+# --------------------------------------------------------------
+
+NAT_War_Sync = {
+	if = {
+		limit = { check_variable = { NAT-War-Index > 79 } }
+		set_country_flag = NAT_WAR_T5
+		clr_country_flag = NAT_WAR_T1
+		clr_country_flag = NAT_WAR_T2
+		clr_country_flag = NAT_WAR_T3
+		clr_country_flag = NAT_WAR_T4
+	}
+	else_if = {
+		limit = { check_variable = { NAT-War-Index > 59 } }
+		set_country_flag = NAT_WAR_T4
+		clr_country_flag = NAT_WAR_T1
+		clr_country_flag = NAT_WAR_T2
+		clr_country_flag = NAT_WAR_T3
+		clr_country_flag = NAT_WAR_T5
+	}
+	else_if = {
+		limit = { check_variable = { NAT-War-Index > 39 } }
+		set_country_flag = NAT_WAR_T3
+		clr_country_flag = NAT_WAR_T1
+		clr_country_flag = NAT_WAR_T2
+		clr_country_flag = NAT_WAR_T4
+		clr_country_flag = NAT_WAR_T5
+	}
+	else_if = {
+		limit = { check_variable = { NAT-War-Index > 19 } }
+		set_country_flag = NAT_WAR_T2
+		clr_country_flag = NAT_WAR_T1
+		clr_country_flag = NAT_WAR_T3
+		clr_country_flag = NAT_WAR_T4
+		clr_country_flag = NAT_WAR_T5
+	}
+	else = {
+		clr_country_flag = NAT_WAR_T1
+		clr_country_flag = NAT_WAR_T2
+		clr_country_flag = NAT_WAR_T3
+		clr_country_flag = NAT_WAR_T4
+		clr_country_flag = NAT_WAR_T5
+	}
+}
