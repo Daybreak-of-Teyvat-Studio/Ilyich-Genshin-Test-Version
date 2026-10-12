@@ -1100,3 +1100,134 @@ NAT_War_Sync = {
 		clr_country_flag = NAT_WAR_T5
 	}
 }
+
+# ###########################################################
+# 深渊纳塔 —— 关键宏
+#   1) NAT_Abyss_Set_Leader_Gustot             任命古斯托特为纳塔元首
+#   2) NAT_Abyss_Natlan_Absorb_HIP             吞并深渊之蚀（HIP）并使其进攻决议失效
+#   3) NAT_Abyss_Natlan_Purge_Tribes           对仍存在的六大部族宣战吞并
+#   4) NAT_Abyss_Natlan_Declare_Neighbor_Wars  吞并六族后对所有邻国宣战
+# 领袖 API 依据原版 ENG.txt / AST.txt 的真实用法：
+#   create_country_leader { name desc picture expire ideology traits }
+#   picture 必须是 GFX_ 名（原版用 GFX_portrait_xxx），不是贴图路径。
+# ###########################################################
+
+# 把纳塔的元首换成古斯托特（深渊本体）。
+NAT_Abyss_Set_Leader_Gustot = {
+	# 卸下现任火神，让古斯托特成为唯一元首
+	create_country_leader = {
+		name = "Gustot"
+		desc = NAT_Gustot_desc
+		picture = "gfx/leaders/HSR/Gustot.png"
+		expire = "1999.1.1"
+		ideology = fascism
+		traits = { }
+	}
+	# 古斯托特同时是纳塔的火神与深渊的本体
+	add_country_leader_trait = { name = NAT_Abyssal_Sovereign }
+	# 深渊纳塔仍是 NAT 这个国家，不改变 tag、不改变国家颜色
+	set_cosmetic_tag = NAT
+	add_stability = 0.05
+}
+
+# 吞并深渊之蚀（HIP）。深渊纳塔既是深渊本体，就不再需要这根独立的触须。
+NAT_Abyss_Natlan_Absorb_HIP = {
+	# 关键：打上「已吞并」旗标 —— 触发深渊之蚀进攻的决议靠它失效
+	set_country_flag = NAT_Abyss_HIP_Absorbed
+	if = {
+		limit = { HIP = { exists = yes } }
+		# 吞并深渊之蚀（收编其部队）
+		annex_country = { target = HIP transfer_troops = yes }
+	}
+	add_political_power = 25
+	add_manpower = 100000
+}
+
+# 深渊纳塔成立后：若六大部族仍存在，则对它们宣战并吞并。
+NAT_Abyss_Natlan_Purge_Tribes = {
+	if = {
+		limit = {
+			NCP = { exists = yes }
+			NOT = { NCP = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NCP type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NCP
+	}
+	if = {
+		limit = {
+			NCE = { exists = yes }
+			NOT = { NCE = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NCE type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NCE
+	}
+	if = {
+		limit = {
+			NPS = { exists = yes }
+			NOT = { NPS = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NPS type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NPS
+	}
+	if = {
+		limit = {
+			NSC = { exists = yes }
+			NOT = { NSC = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NSC type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NSC
+	}
+	if = {
+		limit = {
+			NFF = { exists = yes }
+			NOT = { NFF = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NFF type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NFF
+	}
+	if = {
+		limit = {
+			NMN = { exists = yes }
+			NOT = { NMN = { has_war_with = NAT } }
+		}
+		# 深渊纳塔对仍存在的部族宣战，以武力并入自身
+		declare_war_on = { target = NMN type = annex_everything }
+		add_war_support = 0.05
+		set_country_flag = NAT_Abyss_Purging_NMN
+	}
+	add_war_support = 0.05
+}
+
+# 吞并六大部族之后：对所有邻国宣战。
+NAT_Abyss_Natlan_Declare_Neighbor_Wars = {
+	# 深渊纳塔的第一场对外战争：四境征伐
+	every_neighbor_country = {
+		limit = {
+			NOT = { tag = NAT }
+			NOT = { is_subject_of = NAT }
+			NOT = { has_war_with = NAT }
+		}
+		# 宣战吞并（对邻国一律吞并）
+		NAT = { declare_war_on = { target = THIS type = annex_everything } }
+	}
+	add_war_support = 0.10
+	add_stability = 0.05
+	set_country_flag = NAT_Abyss_Expansion_Begun
+}
+
+# 深渊之蚀进攻是否仍然可发动：供决策的 visible 块调用。
+# 一旦深渊纳塔已吞并深渊之蚀，就不再允许深渊之蚀发动进攻。
+NAT_Abyss_HIP_Offensive_Blocked = {
+	# 供 visible 块取反使用：返回真 = 已被吞并，进攻决议失效
+	has_country_flag = NAT_Abyss_HIP_Absorbed
+}

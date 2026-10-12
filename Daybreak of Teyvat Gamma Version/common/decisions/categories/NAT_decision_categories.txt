@@ -18,11 +18,24 @@
 # ------------------------------------------------------------------
 # 0. 焱庭议事厅 —— 两大核心机制仪表盘（常驻可见，无决议也显示）
 # ------------------------------------------------------------------
+# ------------------------------------------------------------------
+# 归火圣夜巡礼（NAT_Decisions）—— 两大核心机制的仪表盘
+# 该容器与其决议同处 NAT_Neo_decisions.txt，此处只补分类元信息，
+# 使「归火圣夜巡礼」的分类描述（含当前深渊/恩情数值与当前档位国家修正）
+# 能显示在决议界面上。
+# ------------------------------------------------------------------
+NAT_Decisions = {
+	icon = generic_political_actions
+	allowed = { tag = NAT }
+	visible = { tag = NAT }
+	priority = { base = 200 }
+}
+
 NAT_Council_category = {
 	icon = generic_political_actions
 	allowed = { tag = NAT }
 	visible = { tag = NAT }
-	visible_when_empty = yes
+	# visible_when_empty = yes
 	priority = { base = 200 }
 }
 
@@ -82,4 +95,27 @@ NAT_Ceasefire_Category = {
 		has_country_flag = NAT_War_Active
 	}
 	priority = 106
+}
+
+# ============================================================
+# 部族分宗（六团异议国策树的第一个国策解锁）
+# 由纳塔与六大部族共享；纳塔与六族共用同一棵国策树，故旗标两边同时写入。
+# ============================================================
+NAT_Dissent_Decisions = {
+	icon = generic_political_actions
+	allowed = {
+		OR = {
+			tag = NAT
+			tag = NCP
+			tag = NCE
+			tag = NPS
+			tag = NSC
+			tag = NFF
+			tag = NMN
+		}
+	}
+	visible = {
+		has_country_flag = NAT_Dissent_Council
+	}
+	priority = { base = 130 }
 }
