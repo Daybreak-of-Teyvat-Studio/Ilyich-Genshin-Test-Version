@@ -215,3 +215,6 @@ TNO 版工具链顺序、通用调试方法论全部在该文件。两条最易�
 - 7 个 `add_ideas` 指向 focus id；194 处 `\N` 转义（非 NAT 文件）。
 - `events/LYY_*`、`common/country_leader/LYY_traits.txt` 中文注释编码彻底损坏（U+FFFD，最早 backup 即坏）⇒ 原文永久丢失。
 - error.log 里 `add_tech_bonus: Unknown technology category`（MOT/RAG/SAN/SNE/NAT events）为既有问题，待单独处理。
+- **GUN 吞并他国 state 已主动禁用**（用户 10-13 要求 # 注释）：`GUN_Decisions.txt` L738 `transfer_state_to = GUN`
+  与 `NewMOT_Knights_event.txt` Knights.169–175 共 7 行 `GUN = { set_state_owner = 94/120/26/21/118/113 }` 及 `annex_country = { target = MHL }` 已注释。
+  未动 `GUN_Build_*`、Knights.44（他国吞 GUN）、Knights.204（GUN 战败吞 MHL，疑似 scope bug，见 2026-10-13 日志）。
