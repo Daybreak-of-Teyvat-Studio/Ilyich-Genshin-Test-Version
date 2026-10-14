@@ -80,19 +80,23 @@
 - **数量口径（2026-10-14 用户明确）：国策/决议/事件/精神的数量要求一律为「下限」，可超不可低。**
 - `BRF` 黑岩厂=**唯一野牌**（不设独立树）。MOD 已有占位内战线 `LYY_FC_Ganyu/Keqing/Ningguang/Shenhe`（loc 标"尚不可用"）。
 - **两条新约束（2026-10-14 用户口径）**：① **游戏不显示子意识形态** ⇒ 全部只用 5 种基础意识形态 `set_politics`，禁写「子 xxx」；② **内战因帝君驾崩引发 ⇒ 帝君全程不出场**（不复活/不现身/不发话），涉及帝君者一律写"遗诏/遗泽/他留下的制度"。设计文档已按此改写（S3 超事件改为「帝君的遗诏」）。
-- **实装进度（2026-10-14 完成六方）**：**KQP/LYY/GYP/SHP/YLH/CYG 六方全部落地**，合计 **国策 304 / 决议 94 / 事件 336（6×56，段 2001–7056 互不重叠）/ 精神 73 / 动态修正档 60**。全树 `LYY_Neo_Focus.txt` = **422 focus / 花括号 2802:2802**，6 块均在 `focus_tree` 内。备份 `hoi4lint\backup_civilwar\`。
-- **⭐ 合流架构（2026-10-14 夜起，取代分派系落盘）**：生成器 = `hoi4lint\_civilwar\cw_engine.py`（+ `cw_enrich.py` 修正扩充表 + `data_<tag>.py` 六份数据表；`data_kqp.py` 只是把 **`gen_kqp.py` 的数据表**适配成统一 schema，**数据不搬家**，gen_kqp 有 `__main__` 守卫可安全 import）。旧 `faction_engine.py`/`gen_kqp.py` 保留但**弃用**。输出 9 个**合并**文件（旧的 48 个分派系文件已备份后删除）：
+- **实装进度（2026-10-14 完成六方 / 同夜再完成「战后层」）**：**KQP/LYY/GYP/SHP/YLH/CYG 六方内战 + 战后两套剧本全部落地**。内战 304 国策 / 94 决议 / 336 事件（6×56，段 2001–7056）/ 73 精神 / 60 档；**战后 326 / 76 / 336（段 8001–13056）/ 81 / 60**；合计 **国策 630 / 决议 170 / 事件 672 / 精神 154 / 动态修正 120 / 新闻 20**。全树 `LYY_Neo_Focus.txt` = **748 focus（原树 118 + 新增 630）/ 花括号 4972:4972**，12 块（六方 × 内战/战后）均在 `focus_tree` 内。备份 `hoi4lint\backup_civilwar\`。
+- **⭐ 战后层（第二轮，2026-10-14 夜）要诀**：① 战后树**纵向下移**（非右移）——`POST_ROOT_Y = 22`、子树 y∈[22,34]，内战 y∈[2,16]，两层不重叠而横向仍在本派系列内；块标记 `# == <TAG> POST-WAR focus tree BEGIN/END ==`，与内战块同文件、可幂等重跑；② 战后**根国策 `available`** = `has_completed_focus = <本方首个内战国策>` ＋ 6 个 `owns_state`（121/150/177/170/456/658）；六方首个内战国策 id = `KQP_CivilWar_Dawn` / `LYY_CivilWar_Tianquan` / `GYP_CivilWar_Moonlit` / `SHP_CivilWar_Lone_Crane` / `YLH_CivilWar_Childe` / `CYG_CivilWar_Valley`；③ 根国策 `completion_reward` 内一次性接 `<TAG>PW_Init`（初始化战后两轴＋挂载 10 个动态修正）与 `LYY_PW_News_Begin`；④ 战后档位/共振 id 一律带 **`PW`** 标记（`<TAG>_PWCombo_*`），与内战层隔离；⑤ **新闻**：`events/LYY_CW_news.txt`，命名空间 **`LYY_News`**（已在 `events/LYY_Event_Script.txt` 声明，**勿重复 add_namespace**），id 9001–9010（内战）/ 9011–9020（战后），由 `LYY_CW_News_Begin` / `LYY_PW_News_Begin` **全局旗守卫**的脚本效果按 days 排程发射；⑥ 生成器 `post_<tag>.py` 六份（`post_kqp.py` 为模板）。设计文档见 **`LYY_CivilWar_Design.md` 附录 C**。
+- **⭐⚠ cost 口径（用户 2026-10-14 23:08 明确）**：**只把六方新增国策的 cost 由 7 改为 6.0，原树 118 个既有国策保持 7**。`build_focus_file()` 里**只对新增块字符串**做 `re.sub(r"cost = 7(?![0-9.])", "cost = 6.0", block)`，**绝不对整份 `cur` 做全局替换**（首版全局替换把原树也改了，已回退）。现分层：原树 118 个 = `cost = 7`，六方新增 630 个 = `cost = 6.0`。原树权威基准副本 `hoi4lint\_civilwar\base_original_LYY_Neo_Focus.txt`（取自最早备份 `backup_civilwar\20261014_132428\`，sha256 前 16 位 `51567e96d9686067`），一键还原脚本 `restore_original_cost.py`。
+- **⭐⚠ 多表合流 id 冲突铁律（2026-10-14 血泪）**：六个独立数据表合流时，**任何跨表的全局 id（双轴变量名 / 动态修正 id / 精神 id / 决议 id / 类别 id / 宏前缀）必须带层别标记**，不能靠「名字看起来不一样」。本轮战后表与内战表重名 8 处（`GYP_Rite_Tier_1..5`、`GYP-Rite-Index`、`CYG-Soil-Index`、`LYY_Spirit_Tianquan_Eternal`、`GYP_Spirit_Moonlit_Secretariat`、`YLH_Spirit_Five_Envoys`）⇒ 合并文件里后定义者**静默覆盖**前者。修复法：只改战后一侧加 `PW` 标记，再整仓重生成。扫描器 `_civilwar\scan_collisions.py`。
+- **⭐ 合流架构（2026-10-14 夜起，取代分派系落盘）**：生成器 = `hoi4lint\_civilwar\cw_engine.py`（+ `cw_enrich.py` 修正扩充表 + `cw_news.py` 新闻表 + `data_<tag>.py` 六份内战数据表 + `post_<tag>.py` 六份战后数据表；`data_kqp.py` 只是把 **`gen_kqp.py` 的数据表**适配成统一 schema，**数据不搬家**，gen_kqp 有 `__main__` 守卫可安全 import）。旧 `faction_engine.py`/`gen_kqp.py` 保留但**弃用**。输出 **10 个合并**文件（旧的 48 个分派系文件已备份后删除）：
   | 内容 | 合并文件 |
   |---|---|
-  | 六子树（一条 focus_tree，各 `TAG focus tree BEGIN/END` 分块） | `common/national_focus/LYY_Neo_Focus.txt` |
-  | 决议（6 个 category 块）/ 类别（6 定义） | `common/decisions/LYY_CW_decisions.txt` / `categories/LYY_CW_categories.txt` |
-  | 事件（336 段，同 NS `LYY_Event`，**勿重复 add_namespace**） | `events/LYY_CW_events.txt` |
-  | 精神（**单个** `ideas={country={...}}` 顶层块，73 条） | `common/ideas/LYY_CW_ideas.txt` |
-  | 动态修正（84 块 = 60 档 + 24 共振态） | `common/dynamic_modifiers/LYY_CW_dynamic_modifiers.txt` |
-  | 脚本宏（108 个） | `common/scripted_effects/LYY_CW_effects.txt` |
-  | 机制挂载（**单文件**：`on_startup` 初始化 + `on_monthly` 保活） | `common/on_actions/LYY_CW_on_actions.txt` |
-  | 本地化（2467 键，BOM+CRLF） | `localisation/simp_chinese/LYY_CW_l_simp_chinese.yml` |
-  校验器 = `verify_merged.py`（花括号/唯一性/定义==挂载/loc 编码），**全绿**。
+  | 六方 × 内战/战后共 12 子树（一条 focus_tree，各 `TAG focus tree` / `TAG POST-WAR focus tree` 分块） | `common/national_focus/LYY_Neo_Focus.txt` |
+  | 决议（12 个 category 块 = 六方 × 内战/战后）/ 类别（12 定义） | `common/decisions/LYY_CW_decisions.txt` / `categories/LYY_CW_categories.txt` |
+  | 事件（**672** 段，同 NS `LYY_Event`，**勿重复 add_namespace**） | `events/LYY_CW_events.txt` |
+  | 新闻（**20** 段，NS `LYY_News`，9001–9020） | `events/LYY_CW_news.txt` |
+  | 精神（**单个** `ideas={country={...}}` 顶层块，**154** 条） | `common/ideas/LYY_CW_ideas.txt` |
+  | 动态修正（**168** 块 = 120 档 + 24 内战共振 + 24 战后共振态） | `common/dynamic_modifiers/LYY_CW_dynamic_modifiers.txt` |
+  | 脚本宏（**218** 个，含两组新闻发射器） | `common/scripted_effects/LYY_CW_effects.txt` |
+  | 机制挂载（**单文件**：`on_startup` 初始化 + `on_monthly` 保活，含战后守卫） | `common/on_actions/LYY_CW_on_actions.txt` |
+  | 本地化（**5017** 键，BOM+CRLF） | `localisation/simp_chinese/LYY_CW_l_simp_chinese.yml` |
+  校验器（**四件，全绿**）= `verify_requirements.py`（逐条对照用户 5 项要求）/ `verify_merged.py`（花括号/唯一性/定义==挂载/loc 编码）/ `global_check.py`（跨派系 + 事件区间 + 命名空间，**已按合并布局重写**）/ `scan_collisions.py`（内战 × 战后 id 冲突扫描）。另有 `make_overview.py`（生成 `LYY_CivilWar_Overview.md`）/ `restore_original_cost.py`（原树 cost 还原）。
 - **⭐ 机制挂载写法**：`on_actions` 内用「**一个 `every_country` + limit 为 `OR={tag=…}` + 按 tag 的 `if`**」，避免同一 hook 内重复 `every_country` key。**保活钩子已由 `on_daily` 改为 `on_monthly`**（原版 1.19.3 有 `on_monthly`，vanilla 用 31 处）。`add_dynamic_modifier` 挂载集合必须==定义集合。
 - **⭐ 文案「十条规则」（用户 10-14 夜二次下发，最高优先级的写作口径；规范原文 `.skills\Darwin Skills.md`）**：① 禁立靶子/虚假对比/对称排比（`不是X而是Y`、`既X又Y`、`不仅…而且…`）；② 删硬转折与空洞程度词；③ 删套话开场（值得注意的是/先说结论/众所周知/话说在前头…）；④ 禁表演性拆词（「所谓」/「把某词拆开」）；⑤ 禁会议式编号（第一/其一/首先，）；⑥ 清大厂黑话（赋能/抓手/闭环/链路/底层逻辑）与情绪标签（扎心/狂飙/拉爆/残酷…）；⑦ 删无分级最字（最+核心/关键/根本…）与追问词（到底/究竟）；⑧ 去名词化（进行X→X、作出决定→决定、造成影响→影响）；⑨ 语气平等（必须→需要、务必→要），不居高临下；⑩ 少破折号（`——`→`，`）与滥用引号（2–4 字短概念去引号）。**只改风格：事实/数据/专名一律不动。**
 - **⭐ 文风管线 `cw_engine.py::style()`（10-14 夜二次重写，取代旧保守版）**：常量在文件顶部（`_FAKE`/`_RATHER`/`_BARE_ERSHI`/`_JIYOU`/`_BUJIN`/`_OPENERS`/`_NUMBERING`/`_DEL_ALWAYS`/`_DEL_DIIDAO`/`_NOMINAL_RE`/`_JARGON`/`_EMOTION`/`_DEGREE_DEL`/`_DEGREE_MAP`/`_MAXFIX`/`_DASH`/`_QUOTE_TERM`），`lint()` 做同口径体检（`style_report()` 打印原稿/残留对比）。**结果 1875 条样本 802 处命中 → 残留 0**；另跑标点异常扫描全 0。报告文件 `Daybreak of Teyvat Gamma Version\LYY_CivilWar_StyleRules.md`。

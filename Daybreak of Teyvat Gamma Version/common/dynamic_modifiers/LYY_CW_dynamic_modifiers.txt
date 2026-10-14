@@ -1,6 +1,6 @@
 ############################################################
 # 璃月内战 · 六方特殊机制动态修正（合并文件）
-# 每一方双轴：轴 A / 轴 B 各 5 档 + 双轴共振 4 态
+# 每方两套双轴：内战双轴（各 5 档 + 4 共振）+ 战后双轴（各 5 档 + 4 共振）
 ############################################################
 
 # ==================== 刻晴 · 七星革命委员会（KQP） ====================
@@ -192,6 +192,183 @@ KQP_Combo_B_High = {
 }
 
 
+# ==================== 刻晴 · 七星革命委员会（KQP） · 战后 ====================
+# 双轴变量：KQP-Renew-Index / KQP-World-Index
+# ---------- 共和之基 ----------
+KQP_Renew_Tier_1 = {
+	icon = GFX_goal_LYY_Fragile_Wooden_Plank
+	enable = {
+		has_variable = KQP-Renew-Index
+		NOT = { check_variable = { KQP-Renew-Index > 20 } }
+	}
+	stability_factor = -0.08
+	political_power_gain = -0.08
+	industrial_capacity_factory = -0.05
+}
+
+KQP_Renew_Tier_2 = {
+	icon = GFX_goal_LYY_Bamboo_Segment
+	enable = {
+		has_variable = KQP-Renew-Index
+		check_variable = { KQP-Renew-Index > 20 }
+		NOT = { check_variable = { KQP-Renew-Index > 40 } }
+	}
+	stability_factor = 0.03
+	political_power_gain = 0.03
+}
+
+KQP_Renew_Tier_3 = {
+	icon = GFX_goal_LYY_Cuihua_Wood
+	enable = {
+		has_variable = KQP-Renew-Index
+		check_variable = { KQP-Renew-Index > 40 }
+		NOT = { check_variable = { KQP-Renew-Index > 60 } }
+	}
+	stability_factor = 0.06
+	industrial_capacity_factory = 0.06
+	research_speed_factor = 0.03
+}
+
+KQP_Renew_Tier_4 = {
+	icon = GFX_goal_LYY_White_Iron_Chunk
+	enable = {
+		has_variable = KQP-Renew-Index
+		check_variable = { KQP-Renew-Index > 60 }
+		NOT = { check_variable = { KQP-Renew-Index > 80 } }
+	}
+	stability_factor = 0.1
+	industrial_capacity_factory = 0.1
+	consumer_goods_factor = 0.03
+}
+
+KQP_Renew_Tier_5 = {
+	icon = GFX_goal_LYY_Jade_Gem_Rock
+	enable = {
+		has_variable = KQP-Renew-Index
+		check_variable = { KQP-Renew-Index > 80 }
+	}
+	stability_factor = 0.12
+	industrial_capacity_factory = 0.15
+	consumer_goods_factor = -0.05
+	political_power_gain = -0.05
+}
+
+# ---------- 寰宇之望 ----------
+KQP_World_Tier_1 = {
+	icon = GFX_goal_LYY_Anemo_Sigil
+	enable = {
+		has_variable = KQP-World-Index
+		NOT = { check_variable = { KQP-World-Index > 20 } }
+	}
+	opinion_gain_monthly_factor = -0.1
+	trade_opinion_factor = -0.08
+	political_power_gain = -0.05
+}
+
+KQP_World_Tier_2 = {
+	icon = GFX_goal_LYY_Electro_Crystal
+	enable = {
+		has_variable = KQP-World-Index
+		check_variable = { KQP-World-Index > 20 }
+		NOT = { check_variable = { KQP-World-Index > 40 } }
+	}
+	opinion_gain_monthly_factor = 0.03
+}
+
+KQP_World_Tier_3 = {
+	icon = GFX_goal_LYY_Loach_Gem
+	enable = {
+		has_variable = KQP-World-Index
+		check_variable = { KQP-World-Index > 40 }
+		NOT = { check_variable = { KQP-World-Index > 60 } }
+	}
+	opinion_gain_monthly_factor = 0.06
+	trade_opinion_factor = 0.05
+	industrial_capacity_factory = 0.05
+}
+
+KQP_World_Tier_4 = {
+	icon = GFX_goal_LYY_Magical_Crystal_Chunk
+	enable = {
+		has_variable = KQP-World-Index
+		check_variable = { KQP-World-Index > 60 }
+		NOT = { check_variable = { KQP-World-Index > 80 } }
+	}
+	opinion_gain_monthly_factor = 0.1
+	trade_opinion_factor = 0.05
+	stability_factor = -0.03
+}
+
+KQP_World_Tier_5 = {
+	icon = GFX_goal_LYY_Dragon_Lords_Crown
+	enable = {
+		has_variable = KQP-World-Index
+		check_variable = { KQP-World-Index > 80 }
+	}
+	opinion_gain_monthly_factor = 0.12
+	faction_trade_opinion_factor = 0.08
+	industrial_capacity_factory = 0.08
+	stability_factor = -0.05
+}
+
+# ---------- 双轴共振 ----------
+KQP_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = KQP-Renew-Index
+		has_variable = KQP-World-Index
+		check_variable = { KQP-Renew-Index > 60 }
+		check_variable = { KQP-World-Index > 60 }
+	}
+	stability_factor = 0.08
+	industrial_capacity_factory = 0.08
+	opinion_gain_monthly_factor = 0.08
+	research_speed_factor = -0.05
+}
+
+KQP_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = KQP-Renew-Index
+		has_variable = KQP-World-Index
+		check_variable = { KQP-Renew-Index < 40 }
+		check_variable = { KQP-World-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	industrial_capacity_factory = -0.08
+	opinion_gain_monthly_factor = -0.08
+}
+
+KQP_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = KQP-Renew-Index
+		has_variable = KQP-World-Index
+		check_variable = { KQP-Renew-Index > 60 }
+		check_variable = { KQP-World-Index < 40 }
+	}
+	stability_factor = 0.1
+	industrial_capacity_factory = 0.1
+	opinion_gain_monthly_factor = -0.1
+	trade_opinion_factor = -0.05
+}
+
+KQP_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = KQP-Renew-Index
+		has_variable = KQP-World-Index
+		check_variable = { KQP-Renew-Index < 40 }
+		check_variable = { KQP-World-Index > 60 }
+	}
+	opinion_gain_monthly_factor = 0.12
+	trade_opinion_factor = 0.08
+	stability_factor = -0.08
+	industrial_capacity_factory = -0.05
+}
+
+
 # ==================== 凝光 · 天权临时政府（LYY） ====================
 # 双轴变量：LYY-Wealth-Index / LYY-Law-Index
 # ---------- 财货 ----------
@@ -376,6 +553,182 @@ LYY_Combo_B_High = {
 }
 
 
+# ==================== 凝光 · 天权临时政府（LYY） · 战后 ====================
+# 双轴变量：LYY-Port-Index / LYY-Mandate-Index
+# ---------- 商港 ----------
+LYY_Port_Tier_1 = {
+	icon = GFX_goal_LYY_Fragile_Wooden_Plank
+	enable = {
+		has_variable = LYY-Port-Index
+		NOT = { check_variable = { LYY-Port-Index > 20 } }
+	}
+	industrial_capacity_factory = -0.1
+	opinion_gain_monthly_factor = -0.08
+	stability_factor = -0.05
+}
+
+LYY_Port_Tier_2 = {
+	icon = GFX_goal_LYY_Bamboo_Segment
+	enable = {
+		has_variable = LYY-Port-Index
+		check_variable = { LYY-Port-Index > 20 }
+		NOT = { check_variable = { LYY-Port-Index > 40 } }
+	}
+	industrial_capacity_factory = 0.05
+	trade_opinion_factor = 0.03
+}
+
+LYY_Port_Tier_3 = {
+	icon = GFX_goal_LYY_Loach_Gem
+	enable = {
+		has_variable = LYY-Port-Index
+		check_variable = { LYY-Port-Index > 40 }
+		NOT = { check_variable = { LYY-Port-Index > 60 } }
+	}
+	industrial_capacity_factory = 0.1
+	trade_opinion_factor = 0.05
+	stability_factor = 0.05
+}
+
+LYY_Port_Tier_4 = {
+	icon = GFX_goal_LYY_Magical_Crystal_Chunk
+	enable = {
+		has_variable = LYY-Port-Index
+		check_variable = { LYY-Port-Index > 60 }
+		NOT = { check_variable = { LYY-Port-Index > 80 } }
+	}
+	industrial_capacity_factory = 0.15
+	opinion_gain_monthly_factor = 0.05
+	stability_factor = -0.03
+}
+
+LYY_Port_Tier_5 = {
+	icon = GFX_goal_LYY_Brilliant_Diamond_Gemstone
+	enable = {
+		has_variable = LYY-Port-Index
+		check_variable = { LYY-Port-Index > 80 }
+	}
+	industrial_capacity_factory = 0.2
+	faction_trade_opinion_factor = 0.08
+	consumer_goods_factor = -0.05
+	stability_factor = -0.05
+}
+
+# ---------- 天授 ----------
+LYY_Mandate_Tier_1 = {
+	icon = GFX_goal_LYY_Faded_Handwriting_Notes
+	enable = {
+		has_variable = LYY-Mandate-Index
+		NOT = { check_variable = { LYY-Mandate-Index > 20 } }
+	}
+	stability_factor = -0.1
+	drift_defence_factor = -0.1
+}
+
+LYY_Mandate_Tier_2 = {
+	icon = GFX_goal_LYY_Cor_Lapis
+	enable = {
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Mandate-Index > 20 }
+		NOT = { check_variable = { LYY-Mandate-Index > 40 } }
+	}
+	stability_factor = 0.03
+	drift_defence_factor = 0.05
+}
+
+LYY_Mandate_Tier_3 = {
+	icon = GFX_goal_LYY_Stone_Book_Compendium
+	enable = {
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Mandate-Index > 40 }
+		NOT = { check_variable = { LYY-Mandate-Index > 60 } }
+	}
+	stability_factor = 0.05
+	political_power_gain = 0.03
+}
+
+LYY_Mandate_Tier_4 = {
+	icon = GFX_goal_LYY_Mysterious_Stone_Slab
+	enable = {
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Mandate-Index > 60 }
+		NOT = { check_variable = { LYY-Mandate-Index > 80 } }
+	}
+	stability_factor = 0.1
+	drift_defence_factor = 0.1
+	industrial_capacity_factory = -0.05
+}
+
+LYY_Mandate_Tier_5 = {
+	icon = GFX_goal_LYY_Jade_Gem_Rock
+	enable = {
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Mandate-Index > 80 }
+	}
+	stability_factor = 0.12
+	drift_defence_factor = 0.15
+	industrial_capacity_factory = -0.1
+	research_speed_factor = -0.05
+}
+
+# ---------- 双轴共振 ----------
+LYY_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = LYY-Port-Index
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Port-Index > 60 }
+		check_variable = { LYY-Mandate-Index > 60 }
+	}
+	industrial_capacity_factory = 0.08
+	stability_factor = 0.08
+	opinion_gain_monthly_factor = 0.08
+	research_speed_factor = -0.05
+}
+
+LYY_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = LYY-Port-Index
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Port-Index < 40 }
+		check_variable = { LYY-Mandate-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	industrial_capacity_factory = -0.08
+	opinion_gain_monthly_factor = -0.08
+}
+
+LYY_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = LYY-Port-Index
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Port-Index > 60 }
+		check_variable = { LYY-Mandate-Index < 40 }
+	}
+	industrial_capacity_factory = 0.15
+	stability_factor = -0.1
+	war_support_factor = -0.05
+	drift_defence_factor = -0.05
+}
+
+LYY_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = LYY-Port-Index
+		has_variable = LYY-Mandate-Index
+		check_variable = { LYY-Port-Index < 40 }
+		check_variable = { LYY-Mandate-Index > 60 }
+	}
+	stability_factor = 0.1
+	drift_defence_factor = 0.1
+	industrial_capacity_factory = -0.08
+	trade_opinion_factor = -0.05
+}
+
+
 # ==================== 甘雨 · 月海亭（GYP） ====================
 # 双轴变量：GYP-Rite-Index / GYP-Benevolence-Index
 # ---------- 礼制 ----------
@@ -557,6 +910,179 @@ GYP_Combo_B_High = {
 	stability_factor = -0.08
 	weekly_manpower = 0.08
 	opinion_gain_monthly_factor = 0.05
+}
+
+
+# ==================== 甘雨 · 月海亭（GYP） · 战后 ====================
+# 双轴变量：GYP-PWRite-Index / GYP-Bond-Index
+# ---------- 礼统 ----------
+GYP_PWRite_Tier_1 = {
+	icon = GFX_goal_LYY_Scribbled_Book_Page
+	enable = {
+		has_variable = GYP-PWRite-Index
+		NOT = { check_variable = { GYP-PWRite-Index > 20 } }
+	}
+	stability_factor = -0.1
+	drift_defence_factor = -0.1
+}
+
+GYP_PWRite_Tier_2 = {
+	icon = GFX_goal_LYY_Bamboo_Segment
+	enable = {
+		has_variable = GYP-PWRite-Index
+		check_variable = { GYP-PWRite-Index > 20 }
+		NOT = { check_variable = { GYP-PWRite-Index > 40 } }
+	}
+	stability_factor = 0.03
+}
+
+GYP_PWRite_Tier_3 = {
+	icon = GFX_goal_LYY_Jiheng_Sutra
+	enable = {
+		has_variable = GYP-PWRite-Index
+		check_variable = { GYP-PWRite-Index > 40 }
+		NOT = { check_variable = { GYP-PWRite-Index > 60 } }
+	}
+	stability_factor = 0.08
+	political_power_gain = 0.05
+}
+
+GYP_PWRite_Tier_4 = {
+	icon = GFX_goal_LYY_Stone_Book_Compendium
+	enable = {
+		has_variable = GYP-PWRite-Index
+		check_variable = { GYP-PWRite-Index > 60 }
+		NOT = { check_variable = { GYP-PWRite-Index > 80 } }
+	}
+	stability_factor = 0.12
+	research_speed_factor = -0.05
+	political_power_gain = 0.05
+}
+
+GYP_PWRite_Tier_5 = {
+	icon = GFX_goal_LYY_Archaic_Petra_Crown_of_Sage
+	enable = {
+		has_variable = GYP-PWRite-Index
+		check_variable = { GYP-PWRite-Index > 80 }
+	}
+	stability_factor = 0.15
+	research_speed_factor = -0.1
+	consumer_goods_factor = 0.06
+	war_support_factor = -0.05
+}
+
+# ---------- 仙凡 ----------
+GYP_Bond_Tier_1 = {
+	icon = GFX_goal_LYY_Mist_Grass
+	enable = {
+		has_variable = GYP-Bond-Index
+		NOT = { check_variable = { GYP-Bond-Index > 20 } }
+	}
+	stability_factor = -0.08
+	research_speed_factor = -0.05
+}
+
+GYP_Bond_Tier_2 = {
+	icon = GFX_goal_LYY_Snow_Mountain_Scenery_Painting
+	enable = {
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-Bond-Index > 20 }
+		NOT = { check_variable = { GYP-Bond-Index > 40 } }
+	}
+	stability_factor = 0.03
+	research_speed_factor = 0.02
+}
+
+GYP_Bond_Tier_3 = {
+	icon = GFX_goal_LYY_Magical_Crystal_Chunk
+	enable = {
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-Bond-Index > 40 }
+		NOT = { check_variable = { GYP-Bond-Index > 60 } }
+	}
+	stability_factor = 0.08
+	research_speed_factor = 0.03
+}
+
+GYP_Bond_Tier_4 = {
+	icon = GFX_goal_LYY_Mount_Aozang_Peak
+	enable = {
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-Bond-Index > 60 }
+		NOT = { check_variable = { GYP-Bond-Index > 80 } }
+	}
+	stability_factor = 0.1
+	research_speed_factor = 0.05
+	consumer_goods_factor = -0.03
+}
+
+GYP_Bond_Tier_5 = {
+	icon = GFX_goal_LYY_Dragon_Lords_Crown
+	enable = {
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-Bond-Index > 80 }
+	}
+	stability_factor = 0.12
+	army_defence_factor = 0.08
+	research_speed_factor = 0.06
+	political_power_gain = -0.05
+}
+
+# ---------- 双轴共振 ----------
+GYP_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = GYP-PWRite-Index
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-PWRite-Index > 60 }
+		check_variable = { GYP-Bond-Index > 60 }
+	}
+	stability_factor = 0.1
+	political_power_gain = 0.08
+	research_speed_factor = 0.05
+	consumer_goods_factor = 0.03
+}
+
+GYP_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = GYP-PWRite-Index
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-PWRite-Index < 40 }
+		check_variable = { GYP-Bond-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	research_speed_factor = -0.05
+	drift_defence_factor = -0.08
+}
+
+GYP_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = GYP-PWRite-Index
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-PWRite-Index > 60 }
+		check_variable = { GYP-Bond-Index < 40 }
+	}
+	stability_factor = 0.1
+	political_power_gain = 0.1
+	research_speed_factor = -0.05
+	opinion_gain_monthly_factor = -0.05
+}
+
+GYP_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = GYP-PWRite-Index
+		has_variable = GYP-Bond-Index
+		check_variable = { GYP-PWRite-Index < 40 }
+		check_variable = { GYP-Bond-Index > 60 }
+	}
+	stability_factor = 0.05
+	army_defence_factor = 0.08
+	research_speed_factor = 0.05
+	political_power_gain = -0.05
 }
 
 
@@ -745,6 +1271,183 @@ SHP_Combo_B_High = {
 	stability_factor = 0.1
 	army_attack_factor = -0.08
 	research_speed_factor = -0.05
+}
+
+
+# ==================== 申鹤 · 绝云间（SHP） · 战后 ====================
+# 双轴变量：SHP-Cultivation-Index / SHP-Mortal-Index
+# ---------- 清修 ----------
+SHP_Cultivation_Tier_1 = {
+	icon = GFX_goal_LYY_Sturdy_Bone_Shard
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		NOT = { check_variable = { SHP-Cultivation-Index > 20 } }
+	}
+	stability_factor = -0.08
+	army_org_factor = -0.05
+	political_power_gain = -0.05
+}
+
+SHP_Cultivation_Tier_2 = {
+	icon = GFX_goal_LYY_Agnidus_Agate_Chunk
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		check_variable = { SHP-Cultivation-Index > 20 }
+		NOT = { check_variable = { SHP-Cultivation-Index > 40 } }
+	}
+	stability_factor = 0.03
+	army_org_factor = 0.03
+}
+
+SHP_Cultivation_Tier_3 = {
+	icon = GFX_goal_LYY_Agnidus_Agate_Gemstone
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		check_variable = { SHP-Cultivation-Index > 40 }
+		NOT = { check_variable = { SHP-Cultivation-Index > 60 } }
+	}
+	stability_factor = 0.06
+	army_org_factor = 0.05
+	research_speed_factor = 0.03
+}
+
+SHP_Cultivation_Tier_4 = {
+	icon = GFX_goal_LYY_Gilded_Scale
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		check_variable = { SHP-Cultivation-Index > 60 }
+		NOT = { check_variable = { SHP-Cultivation-Index > 80 } }
+	}
+	stability_factor = 0.1
+	drift_defence_factor = 0.08
+	consumer_goods_factor = 0.03
+}
+
+SHP_Cultivation_Tier_5 = {
+	icon = GFX_goal_LYY_Sanctifying_Unction
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		check_variable = { SHP-Cultivation-Index > 80 }
+	}
+	stability_factor = 0.12
+	army_org_factor = 0.1
+	consumer_goods_factor = 0.05
+	political_power_gain = -0.05
+}
+
+# ---------- 尘缘 ----------
+SHP_Mortal_Tier_1 = {
+	icon = GFX_goal_LYY_Scribbled_Book_Page
+	enable = {
+		has_variable = SHP-Mortal-Index
+		NOT = { check_variable = { SHP-Mortal-Index > 20 } }
+	}
+	opinion_gain_monthly_factor = -0.1
+	trade_opinion_factor = -0.08
+	industrial_capacity_factory = -0.05
+}
+
+SHP_Mortal_Tier_2 = {
+	icon = GFX_goal_LYY_Electro_Crystal
+	enable = {
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Mortal-Index > 20 }
+		NOT = { check_variable = { SHP-Mortal-Index > 40 } }
+	}
+	opinion_gain_monthly_factor = 0.03
+}
+
+SHP_Mortal_Tier_3 = {
+	icon = GFX_goal_LYY_Loach_Gem
+	enable = {
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Mortal-Index > 40 }
+		NOT = { check_variable = { SHP-Mortal-Index > 60 } }
+	}
+	opinion_gain_monthly_factor = 0.06
+	trade_opinion_factor = 0.05
+	industrial_capacity_factory = 0.05
+}
+
+SHP_Mortal_Tier_4 = {
+	icon = GFX_goal_LYY_Magical_Crystal_Chunk
+	enable = {
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Mortal-Index > 60 }
+		NOT = { check_variable = { SHP-Mortal-Index > 80 } }
+	}
+	opinion_gain_monthly_factor = 0.1
+	trade_opinion_factor = 0.05
+	stability_factor = -0.03
+}
+
+SHP_Mortal_Tier_5 = {
+	icon = GFX_goal_LYY_Dragon_Lords_Crown
+	enable = {
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Mortal-Index > 80 }
+	}
+	opinion_gain_monthly_factor = 0.12
+	faction_trade_opinion_factor = 0.08
+	industrial_capacity_factory = 0.08
+	stability_factor = -0.05
+}
+
+# ---------- 双轴共振 ----------
+SHP_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Cultivation-Index > 60 }
+		check_variable = { SHP-Mortal-Index > 60 }
+	}
+	stability_factor = 0.08
+	army_org_factor = 0.05
+	industrial_capacity_factory = 0.08
+	research_speed_factor = -0.05
+}
+
+SHP_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Cultivation-Index < 40 }
+		check_variable = { SHP-Mortal-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	army_org_factor = -0.08
+	opinion_gain_monthly_factor = -0.08
+}
+
+SHP_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Cultivation-Index > 60 }
+		check_variable = { SHP-Mortal-Index < 40 }
+	}
+	stability_factor = 0.1
+	army_org_factor = 0.08
+	opinion_gain_monthly_factor = -0.1
+	trade_opinion_factor = -0.05
+}
+
+SHP_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = SHP-Cultivation-Index
+		has_variable = SHP-Mortal-Index
+		check_variable = { SHP-Cultivation-Index < 40 }
+		check_variable = { SHP-Mortal-Index > 60 }
+	}
+	opinion_gain_monthly_factor = 0.12
+	industrial_capacity_factory = 0.08
+	war_support_factor = 0.05
+	stability_factor = -0.08
 }
 
 
@@ -940,6 +1643,182 @@ YLH_Combo_B_High = {
 }
 
 
+# ==================== 公子 · 至冬干涉军（YLH） · 战后 ====================
+# 双轴变量：YLH-North-Index / YLH-Sea-Index
+# ---------- 北援 ----------
+YLH_North_Tier_1 = {
+	icon = GFX_goal_LYY_Sturdy_Bone_Shard
+	enable = {
+		has_variable = YLH-North-Index
+		NOT = { check_variable = { YLH-North-Index > 20 } }
+	}
+	industrial_capacity_factory = -0.08
+	political_power_gain = -0.05
+	stability_factor = -0.05
+}
+
+YLH_North_Tier_2 = {
+	icon = GFX_goal_LYY_White_Iron_Chunk
+	enable = {
+		has_variable = YLH-North-Index
+		check_variable = { YLH-North-Index > 20 }
+		NOT = { check_variable = { YLH-North-Index > 40 } }
+	}
+	industrial_capacity_factory = 0.03
+}
+
+YLH_North_Tier_3 = {
+	icon = GFX_goal_LYY_Fillet_Blade
+	enable = {
+		has_variable = YLH-North-Index
+		check_variable = { YLH-North-Index > 40 }
+		NOT = { check_variable = { YLH-North-Index > 60 } }
+	}
+	industrial_capacity_factory = 0.06
+	political_power_gain = 0.03
+}
+
+YLH_North_Tier_4 = {
+	icon = GFX_goal_LYY_Enhancement_Ore
+	enable = {
+		has_variable = YLH-North-Index
+		check_variable = { YLH-North-Index > 60 }
+		NOT = { check_variable = { YLH-North-Index > 80 } }
+	}
+	industrial_capacity_factory = 0.1
+	army_attack_factor = 0.05
+	political_power_gain = -0.03
+}
+
+YLH_North_Tier_5 = {
+	icon = GFX_goal_LYY_Legacy_Of_Gunsnhild
+	enable = {
+		has_variable = YLH-North-Index
+		check_variable = { YLH-North-Index > 80 }
+	}
+	industrial_capacity_factory = 0.15
+	army_attack_factor = 0.08
+	political_power_gain = -0.08
+	stability_factor = -0.05
+}
+
+# ---------- 海权 ----------
+YLH_Sea_Tier_1 = {
+	icon = GFX_goal_LYY_Faded_Handwriting_Notes
+	enable = {
+		has_variable = YLH-Sea-Index
+		NOT = { check_variable = { YLH-Sea-Index > 20 } }
+	}
+	naval_damage_factor = -0.1
+	trade_opinion_factor = -0.08
+	stability_factor = -0.05
+}
+
+YLH_Sea_Tier_2 = {
+	icon = GFX_goal_LYY_Instructions_Pocket_Anchor
+	enable = {
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-Sea-Index > 20 }
+		NOT = { check_variable = { YLH-Sea-Index > 40 } }
+	}
+	naval_damage_factor = 0.03
+}
+
+YLH_Sea_Tier_3 = {
+	icon = GFX_goal_LYY_Wind_Blessed_Harpastum
+	enable = {
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-Sea-Index > 40 }
+		NOT = { check_variable = { YLH-Sea-Index > 60 } }
+	}
+	naval_damage_factor = 0.06
+	trade_opinion_factor = 0.05
+	industrial_capacity_dockyard = 0.05
+}
+
+YLH_Sea_Tier_4 = {
+	icon = GFX_goal_LYY_Vortex_Vanquisher
+	enable = {
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-Sea-Index > 60 }
+		NOT = { check_variable = { YLH-Sea-Index > 80 } }
+	}
+	naval_damage_factor = 0.1
+	trade_opinion_factor = 0.05
+	navy_max_range_factor = 0.08
+	stability_factor = -0.03
+}
+
+YLH_Sea_Tier_5 = {
+	icon = GFX_goal_LYY_Primordial_Jade_Winged_Spear
+	enable = {
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-Sea-Index > 80 }
+	}
+	naval_damage_factor = 0.15
+	navy_max_range_factor = 0.1
+	trade_opinion_factor = 0.08
+	stability_factor = -0.05
+}
+
+# ---------- 双轴共振 ----------
+YLH_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = YLH-North-Index
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-North-Index > 60 }
+		check_variable = { YLH-Sea-Index > 60 }
+	}
+	stability_factor = 0.06
+	industrial_capacity_factory = 0.08
+	opinion_gain_monthly_factor = 0.05
+	political_power_gain = -0.05
+}
+
+YLH_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = YLH-North-Index
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-North-Index < 40 }
+		check_variable = { YLH-Sea-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	industrial_capacity_factory = -0.08
+	trade_opinion_factor = -0.08
+}
+
+YLH_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = YLH-North-Index
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-North-Index > 60 }
+		check_variable = { YLH-Sea-Index < 40 }
+	}
+	industrial_capacity_factory = 0.08
+	army_attack_factor = 0.05
+	opinion_gain_monthly_factor = -0.08
+	naval_damage_factor = -0.05
+}
+
+YLH_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = YLH-North-Index
+		has_variable = YLH-Sea-Index
+		check_variable = { YLH-North-Index < 40 }
+		check_variable = { YLH-Sea-Index > 60 }
+	}
+	naval_damage_factor = 0.08
+	trade_opinion_factor = 0.08
+	industrial_capacity_factory = -0.05
+	stability_factor = -0.05
+}
+
+
 # ==================== 蓝砚 · 沉玉谷（CYG） ====================
 # 双轴变量：CYG-Soil-Index / CYG-Will-Index
 # ---------- 水土 ----------
@@ -1126,5 +2005,185 @@ CYG_Combo_B_High = {
 	stability_factor = 0.08
 	local_resources_factor = -0.05
 	consumer_goods_factor = 0.05
+}
+
+
+# ==================== 蓝砚 · 沉玉谷（CYG） · 战后 ====================
+# 双轴变量：CYG-PWSoil-Index / CYG-Spirit-Index
+# ---------- 水土 ----------
+CYG_PW_Soil_Tier_1 = {
+	icon = GFX_goal_LYY_Fragile_Wooden_Plank
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		NOT = { check_variable = { CYG-PWSoil-Index > 20 } }
+	}
+	stability_factor = -0.1
+	industrial_capacity_factory = -0.08
+	consumer_goods_factor = 0.05
+}
+
+CYG_PW_Soil_Tier_2 = {
+	icon = GFX_goal_LYY_White_Radish
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		check_variable = { CYG-PWSoil-Index > 20 }
+		NOT = { check_variable = { CYG-PWSoil-Index > 40 } }
+	}
+	industrial_capacity_factory = 0.03
+	stability_factor = 0.03
+}
+
+CYG_PW_Soil_Tier_3 = {
+	icon = GFX_goal_LYY_Violetgrass
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		check_variable = { CYG-PWSoil-Index > 40 }
+		NOT = { check_variable = { CYG-PWSoil-Index > 60 } }
+	}
+	industrial_capacity_factory = 0.05
+	stability_factor = 0.05
+	research_speed_factor = 0.05
+}
+
+CYG_PW_Soil_Tier_4 = {
+	icon = GFX_goal_LYY_Glaze_Lily
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		check_variable = { CYG-PWSoil-Index > 60 }
+		NOT = { check_variable = { CYG-PWSoil-Index > 80 } }
+	}
+	industrial_capacity_factory = 0.1
+	stability_factor = 0.08
+	consumer_goods_factor = -0.03
+}
+
+CYG_PW_Soil_Tier_5 = {
+	icon = GFX_goal_LYY_Mist_Grass_Pollen
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		check_variable = { CYG-PWSoil-Index > 80 }
+	}
+	industrial_capacity_factory = 0.15
+	stability_factor = 0.12
+	research_speed_factor = 0.05
+	war_support_factor = -0.03
+}
+
+# ---------- 山心 ----------
+CYG_PW_Spirit_Tier_1 = {
+	icon = GFX_goal_LYY_Crushed_Fruit_Shard
+	enable = {
+		has_variable = CYG-Spirit-Index
+		NOT = { check_variable = { CYG-Spirit-Index > 20 } }
+	}
+	stability_factor = -0.1
+	army_org_factor = -0.05
+	conscription_factor = -0.05
+}
+
+CYG_PW_Spirit_Tier_2 = {
+	icon = GFX_goal_LYY_Bamboo_Shoot
+	enable = {
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-Spirit-Index > 20 }
+		NOT = { check_variable = { CYG-Spirit-Index > 40 } }
+	}
+	stability_factor = 0.03
+	army_org_factor = 0.03
+}
+
+CYG_PW_Spirit_Tier_3 = {
+	icon = GFX_goal_LYY_Sweet_Flower
+	enable = {
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-Spirit-Index > 40 }
+		NOT = { check_variable = { CYG-Spirit-Index > 60 } }
+	}
+	stability_factor = 0.05
+	army_org_factor = 0.05
+	drift_defence_factor = 0.05
+}
+
+CYG_PW_Spirit_Tier_4 = {
+	icon = GFX_goal_LYY_Mist_Grass
+	enable = {
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-Spirit-Index > 60 }
+		NOT = { check_variable = { CYG-Spirit-Index > 80 } }
+	}
+	stability_factor = 0.1
+	army_defence_factor = 0.08
+	conscription_factor = 0.05
+	drift_defence_factor = 0.1
+}
+
+CYG_PW_Spirit_Tier_5 = {
+	icon = GFX_goal_LYY_Hurricane_Seed
+	enable = {
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-Spirit-Index > 80 }
+	}
+	stability_factor = 0.12
+	army_defence_factor = 0.12
+	conscription_factor = 0.1
+	drift_defence_factor = 0.15
+	research_speed_factor = -0.05
+}
+
+# ---------- 双轴共振 ----------
+CYG_PWCombo_Both_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-PWSoil-Index > 60 }
+		check_variable = { CYG-Spirit-Index > 60 }
+	}
+	stability_factor = 0.08
+	industrial_capacity_factory = 0.08
+	opinion_gain_monthly_factor = 0.08
+	research_speed_factor = -0.05
+}
+
+CYG_PWCombo_Both_Low = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-PWSoil-Index < 40 }
+		check_variable = { CYG-Spirit-Index < 40 }
+	}
+	stability_factor = -0.1
+	political_power_gain = -0.08
+	industrial_capacity_factory = -0.08
+	opinion_gain_monthly_factor = -0.08
+}
+
+CYG_PWCombo_A_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-PWSoil-Index > 60 }
+		check_variable = { CYG-Spirit-Index < 40 }
+	}
+	stability_factor = 0.1
+	industrial_capacity_factory = 0.1
+	opinion_gain_monthly_factor = -0.1
+	trade_opinion_factor = -0.05
+}
+
+CYG_PWCombo_B_High = {
+	icon = GFX_goal_LYY_Intertwined_Fate
+	enable = {
+		has_variable = CYG-PWSoil-Index
+		has_variable = CYG-Spirit-Index
+		check_variable = { CYG-PWSoil-Index < 40 }
+		check_variable = { CYG-Spirit-Index > 60 }
+	}
+	opinion_gain_monthly_factor = 0.12
+	trade_opinion_factor = 0.08
+	stability_factor = -0.08
+	industrial_capacity_factory = -0.05
 }
 
