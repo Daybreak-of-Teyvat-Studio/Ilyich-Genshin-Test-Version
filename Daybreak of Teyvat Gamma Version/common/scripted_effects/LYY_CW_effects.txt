@@ -1,0 +1,904 @@
+############################################################
+# 璃月内战 · 六方公共脚本效果库（合并文件）
+# 铁律：任何一方对自身双轴变量的改动，一律走本文件对应的宏。
+############################################################
+
+# ==================== 刻晴 · 七星革命委员会（KQP） ====================
+KQP_A_Up_3 = {
+	add_to_variable = { KQP-Reform-Index = 3 }
+	add_to_variable = { KQP-Inertia-Index = -3 }
+}
+KQP_B_Up_3 = {
+	add_to_variable = { KQP-Inertia-Index = 3 }
+	add_to_variable = { KQP-Reform-Index = -3 }
+}
+KQP_A_Up_5 = {
+	add_to_variable = { KQP-Reform-Index = 5 }
+	add_to_variable = { KQP-Inertia-Index = -5 }
+}
+KQP_B_Up_5 = {
+	add_to_variable = { KQP-Inertia-Index = 5 }
+	add_to_variable = { KQP-Reform-Index = -5 }
+}
+KQP_A_Up_8 = {
+	add_to_variable = { KQP-Reform-Index = 8 }
+	add_to_variable = { KQP-Inertia-Index = -8 }
+}
+KQP_B_Up_8 = {
+	add_to_variable = { KQP-Inertia-Index = 8 }
+	add_to_variable = { KQP-Reform-Index = -8 }
+}
+KQP_A_Up_10 = {
+	add_to_variable = { KQP-Reform-Index = 10 }
+	add_to_variable = { KQP-Inertia-Index = -10 }
+}
+KQP_B_Up_10 = {
+	add_to_variable = { KQP-Inertia-Index = 10 }
+	add_to_variable = { KQP-Reform-Index = -10 }
+}
+KQP_A_Up_12 = {
+	add_to_variable = { KQP-Reform-Index = 12 }
+	add_to_variable = { KQP-Inertia-Index = -12 }
+}
+KQP_B_Up_12 = {
+	add_to_variable = { KQP-Inertia-Index = 12 }
+	add_to_variable = { KQP-Reform-Index = -12 }
+}
+KQP_A_Up_15 = {
+	add_to_variable = { KQP-Reform-Index = 15 }
+	add_to_variable = { KQP-Inertia-Index = -15 }
+}
+KQP_B_Up_15 = {
+	add_to_variable = { KQP-Inertia-Index = 15 }
+	add_to_variable = { KQP-Reform-Index = -15 }
+}
+KQP_A_Up_20 = {
+	add_to_variable = { KQP-Reform-Index = 20 }
+	add_to_variable = { KQP-Inertia-Index = -20 }
+}
+KQP_B_Up_20 = {
+	add_to_variable = { KQP-Inertia-Index = 20 }
+	add_to_variable = { KQP-Reform-Index = -20 }
+}
+KQP_A_Up_25 = {
+	add_to_variable = { KQP-Reform-Index = 25 }
+	add_to_variable = { KQP-Inertia-Index = -25 }
+}
+KQP_B_Up_25 = {
+	add_to_variable = { KQP-Inertia-Index = 25 }
+	add_to_variable = { KQP-Reform-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+KQP_CivilWar_Init = {
+	set_variable = { KQP-Reform-Index = 30 }
+	set_variable = { KQP-Inertia-Index = 70 }
+	add_dynamic_modifier = { modifier = KQP_Reform_Tier_1 }
+	add_dynamic_modifier = { modifier = KQP_Reform_Tier_2 }
+	add_dynamic_modifier = { modifier = KQP_Reform_Tier_3 }
+	add_dynamic_modifier = { modifier = KQP_Reform_Tier_4 }
+	add_dynamic_modifier = { modifier = KQP_Reform_Tier_5 }
+	add_dynamic_modifier = { modifier = KQP_Inertia_Tier_1 }
+	add_dynamic_modifier = { modifier = KQP_Inertia_Tier_2 }
+	add_dynamic_modifier = { modifier = KQP_Inertia_Tier_3 }
+	add_dynamic_modifier = { modifier = KQP_Inertia_Tier_4 }
+	add_dynamic_modifier = { modifier = KQP_Inertia_Tier_5 }
+	add_dynamic_modifier = { modifier = KQP_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = KQP_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = KQP_Combo_A_High }
+	add_dynamic_modifier = { modifier = KQP_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+KQP_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = KQP-Reform-Index } }
+		KQP_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Reform_Tier_1 } } }
+		add_dynamic_modifier = { modifier = KQP_Reform_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Reform_Tier_2 } } }
+		add_dynamic_modifier = { modifier = KQP_Reform_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Reform_Tier_3 } } }
+		add_dynamic_modifier = { modifier = KQP_Reform_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Reform_Tier_4 } } }
+		add_dynamic_modifier = { modifier = KQP_Reform_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Reform_Tier_5 } } }
+		add_dynamic_modifier = { modifier = KQP_Reform_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Inertia_Tier_1 } } }
+		add_dynamic_modifier = { modifier = KQP_Inertia_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Inertia_Tier_2 } } }
+		add_dynamic_modifier = { modifier = KQP_Inertia_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Inertia_Tier_3 } } }
+		add_dynamic_modifier = { modifier = KQP_Inertia_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Inertia_Tier_4 } } }
+		add_dynamic_modifier = { modifier = KQP_Inertia_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Inertia_Tier_5 } } }
+		add_dynamic_modifier = { modifier = KQP_Inertia_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = KQP_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = KQP_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = KQP_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = KQP_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = KQP_Combo_B_High }
+	}
+}
+
+# ==================== 凝光 · 天权临时政府（LYY） ====================
+LYY_A_Up_3 = {
+	add_to_variable = { LYY-Wealth-Index = 3 }
+	add_to_variable = { LYY-Law-Index = -3 }
+}
+LYY_B_Up_3 = {
+	add_to_variable = { LYY-Law-Index = 3 }
+	add_to_variable = { LYY-Wealth-Index = -3 }
+}
+LYY_A_Up_5 = {
+	add_to_variable = { LYY-Wealth-Index = 5 }
+	add_to_variable = { LYY-Law-Index = -5 }
+}
+LYY_B_Up_5 = {
+	add_to_variable = { LYY-Law-Index = 5 }
+	add_to_variable = { LYY-Wealth-Index = -5 }
+}
+LYY_A_Up_8 = {
+	add_to_variable = { LYY-Wealth-Index = 8 }
+	add_to_variable = { LYY-Law-Index = -8 }
+}
+LYY_B_Up_8 = {
+	add_to_variable = { LYY-Law-Index = 8 }
+	add_to_variable = { LYY-Wealth-Index = -8 }
+}
+LYY_A_Up_10 = {
+	add_to_variable = { LYY-Wealth-Index = 10 }
+	add_to_variable = { LYY-Law-Index = -10 }
+}
+LYY_B_Up_10 = {
+	add_to_variable = { LYY-Law-Index = 10 }
+	add_to_variable = { LYY-Wealth-Index = -10 }
+}
+LYY_A_Up_12 = {
+	add_to_variable = { LYY-Wealth-Index = 12 }
+	add_to_variable = { LYY-Law-Index = -12 }
+}
+LYY_B_Up_12 = {
+	add_to_variable = { LYY-Law-Index = 12 }
+	add_to_variable = { LYY-Wealth-Index = -12 }
+}
+LYY_A_Up_15 = {
+	add_to_variable = { LYY-Wealth-Index = 15 }
+	add_to_variable = { LYY-Law-Index = -15 }
+}
+LYY_B_Up_15 = {
+	add_to_variable = { LYY-Law-Index = 15 }
+	add_to_variable = { LYY-Wealth-Index = -15 }
+}
+LYY_A_Up_20 = {
+	add_to_variable = { LYY-Wealth-Index = 20 }
+	add_to_variable = { LYY-Law-Index = -20 }
+}
+LYY_B_Up_20 = {
+	add_to_variable = { LYY-Law-Index = 20 }
+	add_to_variable = { LYY-Wealth-Index = -20 }
+}
+LYY_A_Up_25 = {
+	add_to_variable = { LYY-Wealth-Index = 25 }
+	add_to_variable = { LYY-Law-Index = -25 }
+}
+LYY_B_Up_25 = {
+	add_to_variable = { LYY-Law-Index = 25 }
+	add_to_variable = { LYY-Wealth-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+LYY_CivilWar_Init = {
+	set_variable = { LYY-Wealth-Index = 50 }
+	set_variable = { LYY-Law-Index = 50 }
+	add_dynamic_modifier = { modifier = LYY_Wealth_Tier_1 }
+	add_dynamic_modifier = { modifier = LYY_Wealth_Tier_2 }
+	add_dynamic_modifier = { modifier = LYY_Wealth_Tier_3 }
+	add_dynamic_modifier = { modifier = LYY_Wealth_Tier_4 }
+	add_dynamic_modifier = { modifier = LYY_Wealth_Tier_5 }
+	add_dynamic_modifier = { modifier = LYY_Law_Tier_1 }
+	add_dynamic_modifier = { modifier = LYY_Law_Tier_2 }
+	add_dynamic_modifier = { modifier = LYY_Law_Tier_3 }
+	add_dynamic_modifier = { modifier = LYY_Law_Tier_4 }
+	add_dynamic_modifier = { modifier = LYY_Law_Tier_5 }
+	add_dynamic_modifier = { modifier = LYY_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = LYY_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = LYY_Combo_A_High }
+	add_dynamic_modifier = { modifier = LYY_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+LYY_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = LYY-Wealth-Index } }
+		LYY_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Wealth_Tier_1 } } }
+		add_dynamic_modifier = { modifier = LYY_Wealth_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Wealth_Tier_2 } } }
+		add_dynamic_modifier = { modifier = LYY_Wealth_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Wealth_Tier_3 } } }
+		add_dynamic_modifier = { modifier = LYY_Wealth_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Wealth_Tier_4 } } }
+		add_dynamic_modifier = { modifier = LYY_Wealth_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Wealth_Tier_5 } } }
+		add_dynamic_modifier = { modifier = LYY_Wealth_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Law_Tier_1 } } }
+		add_dynamic_modifier = { modifier = LYY_Law_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Law_Tier_2 } } }
+		add_dynamic_modifier = { modifier = LYY_Law_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Law_Tier_3 } } }
+		add_dynamic_modifier = { modifier = LYY_Law_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Law_Tier_4 } } }
+		add_dynamic_modifier = { modifier = LYY_Law_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Law_Tier_5 } } }
+		add_dynamic_modifier = { modifier = LYY_Law_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = LYY_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = LYY_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = LYY_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = LYY_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = LYY_Combo_B_High }
+	}
+}
+
+# ==================== 甘雨 · 月海亭（GYP） ====================
+GYP_A_Up_3 = {
+	add_to_variable = { GYP-Rite-Index = 3 }
+	add_to_variable = { GYP-Benevolence-Index = -3 }
+}
+GYP_B_Up_3 = {
+	add_to_variable = { GYP-Benevolence-Index = 3 }
+	add_to_variable = { GYP-Rite-Index = -3 }
+}
+GYP_A_Up_5 = {
+	add_to_variable = { GYP-Rite-Index = 5 }
+	add_to_variable = { GYP-Benevolence-Index = -5 }
+}
+GYP_B_Up_5 = {
+	add_to_variable = { GYP-Benevolence-Index = 5 }
+	add_to_variable = { GYP-Rite-Index = -5 }
+}
+GYP_A_Up_8 = {
+	add_to_variable = { GYP-Rite-Index = 8 }
+	add_to_variable = { GYP-Benevolence-Index = -8 }
+}
+GYP_B_Up_8 = {
+	add_to_variable = { GYP-Benevolence-Index = 8 }
+	add_to_variable = { GYP-Rite-Index = -8 }
+}
+GYP_A_Up_10 = {
+	add_to_variable = { GYP-Rite-Index = 10 }
+	add_to_variable = { GYP-Benevolence-Index = -10 }
+}
+GYP_B_Up_10 = {
+	add_to_variable = { GYP-Benevolence-Index = 10 }
+	add_to_variable = { GYP-Rite-Index = -10 }
+}
+GYP_A_Up_12 = {
+	add_to_variable = { GYP-Rite-Index = 12 }
+	add_to_variable = { GYP-Benevolence-Index = -12 }
+}
+GYP_B_Up_12 = {
+	add_to_variable = { GYP-Benevolence-Index = 12 }
+	add_to_variable = { GYP-Rite-Index = -12 }
+}
+GYP_A_Up_15 = {
+	add_to_variable = { GYP-Rite-Index = 15 }
+	add_to_variable = { GYP-Benevolence-Index = -15 }
+}
+GYP_B_Up_15 = {
+	add_to_variable = { GYP-Benevolence-Index = 15 }
+	add_to_variable = { GYP-Rite-Index = -15 }
+}
+GYP_A_Up_20 = {
+	add_to_variable = { GYP-Rite-Index = 20 }
+	add_to_variable = { GYP-Benevolence-Index = -20 }
+}
+GYP_B_Up_20 = {
+	add_to_variable = { GYP-Benevolence-Index = 20 }
+	add_to_variable = { GYP-Rite-Index = -20 }
+}
+GYP_A_Up_25 = {
+	add_to_variable = { GYP-Rite-Index = 25 }
+	add_to_variable = { GYP-Benevolence-Index = -25 }
+}
+GYP_B_Up_25 = {
+	add_to_variable = { GYP-Benevolence-Index = 25 }
+	add_to_variable = { GYP-Rite-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+GYP_CivilWar_Init = {
+	set_variable = { GYP-Rite-Index = 60 }
+	set_variable = { GYP-Benevolence-Index = 40 }
+	add_dynamic_modifier = { modifier = GYP_Rite_Tier_1 }
+	add_dynamic_modifier = { modifier = GYP_Rite_Tier_2 }
+	add_dynamic_modifier = { modifier = GYP_Rite_Tier_3 }
+	add_dynamic_modifier = { modifier = GYP_Rite_Tier_4 }
+	add_dynamic_modifier = { modifier = GYP_Rite_Tier_5 }
+	add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_1 }
+	add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_2 }
+	add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_3 }
+	add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_4 }
+	add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_5 }
+	add_dynamic_modifier = { modifier = GYP_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = GYP_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = GYP_Combo_A_High }
+	add_dynamic_modifier = { modifier = GYP_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+GYP_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = GYP-Rite-Index } }
+		GYP_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Rite_Tier_1 } } }
+		add_dynamic_modifier = { modifier = GYP_Rite_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Rite_Tier_2 } } }
+		add_dynamic_modifier = { modifier = GYP_Rite_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Rite_Tier_3 } } }
+		add_dynamic_modifier = { modifier = GYP_Rite_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Rite_Tier_4 } } }
+		add_dynamic_modifier = { modifier = GYP_Rite_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Rite_Tier_5 } } }
+		add_dynamic_modifier = { modifier = GYP_Rite_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Benevolence_Tier_1 } } }
+		add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Benevolence_Tier_2 } } }
+		add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Benevolence_Tier_3 } } }
+		add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Benevolence_Tier_4 } } }
+		add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Benevolence_Tier_5 } } }
+		add_dynamic_modifier = { modifier = GYP_Benevolence_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = GYP_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = GYP_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = GYP_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = GYP_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = GYP_Combo_B_High }
+	}
+}
+
+# ==================== 申鹤 · 绝云间（SHP） ====================
+SHP_A_Up_3 = {
+	add_to_variable = { SHP-Might-Index = 3 }
+	add_to_variable = { SHP-Discipline-Index = -3 }
+}
+SHP_B_Up_3 = {
+	add_to_variable = { SHP-Discipline-Index = 3 }
+	add_to_variable = { SHP-Might-Index = -3 }
+}
+SHP_A_Up_5 = {
+	add_to_variable = { SHP-Might-Index = 5 }
+	add_to_variable = { SHP-Discipline-Index = -5 }
+}
+SHP_B_Up_5 = {
+	add_to_variable = { SHP-Discipline-Index = 5 }
+	add_to_variable = { SHP-Might-Index = -5 }
+}
+SHP_A_Up_8 = {
+	add_to_variable = { SHP-Might-Index = 8 }
+	add_to_variable = { SHP-Discipline-Index = -8 }
+}
+SHP_B_Up_8 = {
+	add_to_variable = { SHP-Discipline-Index = 8 }
+	add_to_variable = { SHP-Might-Index = -8 }
+}
+SHP_A_Up_10 = {
+	add_to_variable = { SHP-Might-Index = 10 }
+	add_to_variable = { SHP-Discipline-Index = -10 }
+}
+SHP_B_Up_10 = {
+	add_to_variable = { SHP-Discipline-Index = 10 }
+	add_to_variable = { SHP-Might-Index = -10 }
+}
+SHP_A_Up_12 = {
+	add_to_variable = { SHP-Might-Index = 12 }
+	add_to_variable = { SHP-Discipline-Index = -12 }
+}
+SHP_B_Up_12 = {
+	add_to_variable = { SHP-Discipline-Index = 12 }
+	add_to_variable = { SHP-Might-Index = -12 }
+}
+SHP_A_Up_15 = {
+	add_to_variable = { SHP-Might-Index = 15 }
+	add_to_variable = { SHP-Discipline-Index = -15 }
+}
+SHP_B_Up_15 = {
+	add_to_variable = { SHP-Discipline-Index = 15 }
+	add_to_variable = { SHP-Might-Index = -15 }
+}
+SHP_A_Up_20 = {
+	add_to_variable = { SHP-Might-Index = 20 }
+	add_to_variable = { SHP-Discipline-Index = -20 }
+}
+SHP_B_Up_20 = {
+	add_to_variable = { SHP-Discipline-Index = 20 }
+	add_to_variable = { SHP-Might-Index = -20 }
+}
+SHP_A_Up_25 = {
+	add_to_variable = { SHP-Might-Index = 25 }
+	add_to_variable = { SHP-Discipline-Index = -25 }
+}
+SHP_B_Up_25 = {
+	add_to_variable = { SHP-Discipline-Index = 25 }
+	add_to_variable = { SHP-Might-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+SHP_CivilWar_Init = {
+	set_variable = { SHP-Might-Index = 55 }
+	set_variable = { SHP-Discipline-Index = 45 }
+	add_dynamic_modifier = { modifier = SHP_Might_Tier_1 }
+	add_dynamic_modifier = { modifier = SHP_Might_Tier_2 }
+	add_dynamic_modifier = { modifier = SHP_Might_Tier_3 }
+	add_dynamic_modifier = { modifier = SHP_Might_Tier_4 }
+	add_dynamic_modifier = { modifier = SHP_Might_Tier_5 }
+	add_dynamic_modifier = { modifier = SHP_Discipline_Tier_1 }
+	add_dynamic_modifier = { modifier = SHP_Discipline_Tier_2 }
+	add_dynamic_modifier = { modifier = SHP_Discipline_Tier_3 }
+	add_dynamic_modifier = { modifier = SHP_Discipline_Tier_4 }
+	add_dynamic_modifier = { modifier = SHP_Discipline_Tier_5 }
+	add_dynamic_modifier = { modifier = SHP_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = SHP_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = SHP_Combo_A_High }
+	add_dynamic_modifier = { modifier = SHP_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+SHP_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SHP-Might-Index } }
+		SHP_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Might_Tier_1 } } }
+		add_dynamic_modifier = { modifier = SHP_Might_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Might_Tier_2 } } }
+		add_dynamic_modifier = { modifier = SHP_Might_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Might_Tier_3 } } }
+		add_dynamic_modifier = { modifier = SHP_Might_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Might_Tier_4 } } }
+		add_dynamic_modifier = { modifier = SHP_Might_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Might_Tier_5 } } }
+		add_dynamic_modifier = { modifier = SHP_Might_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Discipline_Tier_1 } } }
+		add_dynamic_modifier = { modifier = SHP_Discipline_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Discipline_Tier_2 } } }
+		add_dynamic_modifier = { modifier = SHP_Discipline_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Discipline_Tier_3 } } }
+		add_dynamic_modifier = { modifier = SHP_Discipline_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Discipline_Tier_4 } } }
+		add_dynamic_modifier = { modifier = SHP_Discipline_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Discipline_Tier_5 } } }
+		add_dynamic_modifier = { modifier = SHP_Discipline_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = SHP_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = SHP_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = SHP_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SHP_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = SHP_Combo_B_High }
+	}
+}
+
+# ==================== 公子 · 至冬干涉军（YLH） ====================
+YLH_A_Up_3 = {
+	add_to_variable = { YLH-War-Index = 3 }
+	add_to_variable = { YLH-Blockade-Index = -3 }
+}
+YLH_B_Up_3 = {
+	add_to_variable = { YLH-Blockade-Index = 3 }
+	add_to_variable = { YLH-War-Index = -3 }
+}
+YLH_A_Up_5 = {
+	add_to_variable = { YLH-War-Index = 5 }
+	add_to_variable = { YLH-Blockade-Index = -5 }
+}
+YLH_B_Up_5 = {
+	add_to_variable = { YLH-Blockade-Index = 5 }
+	add_to_variable = { YLH-War-Index = -5 }
+}
+YLH_A_Up_8 = {
+	add_to_variable = { YLH-War-Index = 8 }
+	add_to_variable = { YLH-Blockade-Index = -8 }
+}
+YLH_B_Up_8 = {
+	add_to_variable = { YLH-Blockade-Index = 8 }
+	add_to_variable = { YLH-War-Index = -8 }
+}
+YLH_A_Up_10 = {
+	add_to_variable = { YLH-War-Index = 10 }
+	add_to_variable = { YLH-Blockade-Index = -10 }
+}
+YLH_B_Up_10 = {
+	add_to_variable = { YLH-Blockade-Index = 10 }
+	add_to_variable = { YLH-War-Index = -10 }
+}
+YLH_A_Up_12 = {
+	add_to_variable = { YLH-War-Index = 12 }
+	add_to_variable = { YLH-Blockade-Index = -12 }
+}
+YLH_B_Up_12 = {
+	add_to_variable = { YLH-Blockade-Index = 12 }
+	add_to_variable = { YLH-War-Index = -12 }
+}
+YLH_A_Up_15 = {
+	add_to_variable = { YLH-War-Index = 15 }
+	add_to_variable = { YLH-Blockade-Index = -15 }
+}
+YLH_B_Up_15 = {
+	add_to_variable = { YLH-Blockade-Index = 15 }
+	add_to_variable = { YLH-War-Index = -15 }
+}
+YLH_A_Up_20 = {
+	add_to_variable = { YLH-War-Index = 20 }
+	add_to_variable = { YLH-Blockade-Index = -20 }
+}
+YLH_B_Up_20 = {
+	add_to_variable = { YLH-Blockade-Index = 20 }
+	add_to_variable = { YLH-War-Index = -20 }
+}
+YLH_A_Up_25 = {
+	add_to_variable = { YLH-War-Index = 25 }
+	add_to_variable = { YLH-Blockade-Index = -25 }
+}
+YLH_B_Up_25 = {
+	add_to_variable = { YLH-Blockade-Index = 25 }
+	add_to_variable = { YLH-War-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+YLH_CivilWar_Init = {
+	set_variable = { YLH-War-Index = 60 }
+	set_variable = { YLH-Blockade-Index = 40 }
+	add_dynamic_modifier = { modifier = YLH_War_Tier_1 }
+	add_dynamic_modifier = { modifier = YLH_War_Tier_2 }
+	add_dynamic_modifier = { modifier = YLH_War_Tier_3 }
+	add_dynamic_modifier = { modifier = YLH_War_Tier_4 }
+	add_dynamic_modifier = { modifier = YLH_War_Tier_5 }
+	add_dynamic_modifier = { modifier = YLH_Blockade_Tier_1 }
+	add_dynamic_modifier = { modifier = YLH_Blockade_Tier_2 }
+	add_dynamic_modifier = { modifier = YLH_Blockade_Tier_3 }
+	add_dynamic_modifier = { modifier = YLH_Blockade_Tier_4 }
+	add_dynamic_modifier = { modifier = YLH_Blockade_Tier_5 }
+	add_dynamic_modifier = { modifier = YLH_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = YLH_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = YLH_Combo_A_High }
+	add_dynamic_modifier = { modifier = YLH_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+YLH_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = YLH-War-Index } }
+		YLH_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_War_Tier_1 } } }
+		add_dynamic_modifier = { modifier = YLH_War_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_War_Tier_2 } } }
+		add_dynamic_modifier = { modifier = YLH_War_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_War_Tier_3 } } }
+		add_dynamic_modifier = { modifier = YLH_War_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_War_Tier_4 } } }
+		add_dynamic_modifier = { modifier = YLH_War_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_War_Tier_5 } } }
+		add_dynamic_modifier = { modifier = YLH_War_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Blockade_Tier_1 } } }
+		add_dynamic_modifier = { modifier = YLH_Blockade_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Blockade_Tier_2 } } }
+		add_dynamic_modifier = { modifier = YLH_Blockade_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Blockade_Tier_3 } } }
+		add_dynamic_modifier = { modifier = YLH_Blockade_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Blockade_Tier_4 } } }
+		add_dynamic_modifier = { modifier = YLH_Blockade_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Blockade_Tier_5 } } }
+		add_dynamic_modifier = { modifier = YLH_Blockade_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = YLH_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = YLH_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = YLH_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = YLH_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = YLH_Combo_B_High }
+	}
+}
+
+# ==================== 蓝砚 · 沉玉谷（CYG） ====================
+CYG_A_Up_3 = {
+	add_to_variable = { CYG-Soil-Index = 3 }
+	add_to_variable = { CYG-Will-Index = -3 }
+}
+CYG_B_Up_3 = {
+	add_to_variable = { CYG-Will-Index = 3 }
+	add_to_variable = { CYG-Soil-Index = -3 }
+}
+CYG_A_Up_5 = {
+	add_to_variable = { CYG-Soil-Index = 5 }
+	add_to_variable = { CYG-Will-Index = -5 }
+}
+CYG_B_Up_5 = {
+	add_to_variable = { CYG-Will-Index = 5 }
+	add_to_variable = { CYG-Soil-Index = -5 }
+}
+CYG_A_Up_8 = {
+	add_to_variable = { CYG-Soil-Index = 8 }
+	add_to_variable = { CYG-Will-Index = -8 }
+}
+CYG_B_Up_8 = {
+	add_to_variable = { CYG-Will-Index = 8 }
+	add_to_variable = { CYG-Soil-Index = -8 }
+}
+CYG_A_Up_10 = {
+	add_to_variable = { CYG-Soil-Index = 10 }
+	add_to_variable = { CYG-Will-Index = -10 }
+}
+CYG_B_Up_10 = {
+	add_to_variable = { CYG-Will-Index = 10 }
+	add_to_variable = { CYG-Soil-Index = -10 }
+}
+CYG_A_Up_12 = {
+	add_to_variable = { CYG-Soil-Index = 12 }
+	add_to_variable = { CYG-Will-Index = -12 }
+}
+CYG_B_Up_12 = {
+	add_to_variable = { CYG-Will-Index = 12 }
+	add_to_variable = { CYG-Soil-Index = -12 }
+}
+CYG_A_Up_15 = {
+	add_to_variable = { CYG-Soil-Index = 15 }
+	add_to_variable = { CYG-Will-Index = -15 }
+}
+CYG_B_Up_15 = {
+	add_to_variable = { CYG-Will-Index = 15 }
+	add_to_variable = { CYG-Soil-Index = -15 }
+}
+CYG_A_Up_20 = {
+	add_to_variable = { CYG-Soil-Index = 20 }
+	add_to_variable = { CYG-Will-Index = -20 }
+}
+CYG_B_Up_20 = {
+	add_to_variable = { CYG-Will-Index = 20 }
+	add_to_variable = { CYG-Soil-Index = -20 }
+}
+CYG_A_Up_25 = {
+	add_to_variable = { CYG-Soil-Index = 25 }
+	add_to_variable = { CYG-Will-Index = -25 }
+}
+CYG_B_Up_25 = {
+	add_to_variable = { CYG-Will-Index = 25 }
+	add_to_variable = { CYG-Soil-Index = -25 }
+}
+
+# 机制挂载 + 初始值
+CYG_CivilWar_Init = {
+	set_variable = { CYG-Soil-Index = 30 }
+	set_variable = { CYG-Will-Index = 55 }
+	add_dynamic_modifier = { modifier = CYG_Soil_Tier_1 }
+	add_dynamic_modifier = { modifier = CYG_Soil_Tier_2 }
+	add_dynamic_modifier = { modifier = CYG_Soil_Tier_3 }
+	add_dynamic_modifier = { modifier = CYG_Soil_Tier_4 }
+	add_dynamic_modifier = { modifier = CYG_Soil_Tier_5 }
+	add_dynamic_modifier = { modifier = CYG_Will_Tier_1 }
+	add_dynamic_modifier = { modifier = CYG_Will_Tier_2 }
+	add_dynamic_modifier = { modifier = CYG_Will_Tier_3 }
+	add_dynamic_modifier = { modifier = CYG_Will_Tier_4 }
+	add_dynamic_modifier = { modifier = CYG_Will_Tier_5 }
+	add_dynamic_modifier = { modifier = CYG_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = CYG_Combo_Twin_Low }
+	add_dynamic_modifier = { modifier = CYG_Combo_A_High }
+	add_dynamic_modifier = { modifier = CYG_Combo_B_High }
+}
+
+# 月度保活（on_monthly 调用）
+CYG_CivilWar_Sync = {
+	if = {
+		limit = { NOT = { has_variable = CYG-Soil-Index } }
+		CYG_CivilWar_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Soil_Tier_1 } } }
+		add_dynamic_modifier = { modifier = CYG_Soil_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Soil_Tier_2 } } }
+		add_dynamic_modifier = { modifier = CYG_Soil_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Soil_Tier_3 } } }
+		add_dynamic_modifier = { modifier = CYG_Soil_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Soil_Tier_4 } } }
+		add_dynamic_modifier = { modifier = CYG_Soil_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Soil_Tier_5 } } }
+		add_dynamic_modifier = { modifier = CYG_Soil_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Will_Tier_1 } } }
+		add_dynamic_modifier = { modifier = CYG_Will_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Will_Tier_2 } } }
+		add_dynamic_modifier = { modifier = CYG_Will_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Will_Tier_3 } } }
+		add_dynamic_modifier = { modifier = CYG_Will_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Will_Tier_4 } } }
+		add_dynamic_modifier = { modifier = CYG_Will_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Will_Tier_5 } } }
+		add_dynamic_modifier = { modifier = CYG_Will_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = CYG_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = CYG_Combo_Twin_Low }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = CYG_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = CYG_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = CYG_Combo_B_High }
+	}
+}

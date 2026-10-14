@@ -70,4 +70,35 @@
 - error.log `add_tech_bonus: Unknown technology category`(MOT/RAG/SAN/SNE/NAT events) 既有问题待处理。
 - **GUN 吞并他国 state 已主动禁用**（用户10-13要求 # 注释）：`GUN_Decisions.txt` L738 与 `NewMOT_Knights_event.txt` Knights.169–175 共7行已注释；未动 `GUN_Build_*`、Knights.44、Knights.204。
 - **奇观 Palace 不显示（截至 10-14 未闭环）**：历经坐标/y/level/spawn_point 多轮修复均无效，已回退至最初配置（spawn_point=`nuclear_reactor_spawn`、y=9.50、state 改 `level=1`、省号 2671/1488）待用户开 1936 新局实测。
-- **模型 BUG（10-14 新浮现，待修）**：①V3 胡桃/可莉头部白色方块；②原胡桃无头发、可莉无身体；③`gfx/models/buildings/factory.mesh` 过小（需 +1/3）且外圈黑色脚手架需删。
+- **模型 BUG（10-14）**：①V3 胡桃/可莉头部白色方块；②原胡桃无头发、可莉无身体；③`gfx/models/buildings/factory.mesh` 过小+黑色脚手架。**已处理（10-14 午）**：factory=去重+放大 4/3+换干净石质贴图（备份 `hoi4lint/_tc/backup/factory_20261014_120959`）；胡桃/可莉=改用 `vysna_build` 全几何重建、图集幂二次方 1024×2048（备份 `hoi4lint/backup_full/20261014_123810`）——**待用户开新局实测**。
+
+## 7. 璃月内战支线剧本（LYY Civil War，**六方全部实装**，2026-10-14）
+- 蓝本文件：`Daybreak of Teyvat Gamma Version\LYY_CivilWar_Design.md`（六方版，~10.3 万字符 / 1086 行）。
+- **六方 ↔ tag ↔ 意识形态（用户钦定，勿改）**：刻晴 `KQP`=`communism`（启蒙共和主义）；凝光 `LYY`=`democratic`（资本主义民主，正统现政府）；甘雨 `GYP`=`neutrality`（恢复帝君旧制）；申鹤 `SHP`=`fascism`（极端仙人治国）；公子 `YLH`=`fascism`/`neutrality`（至冬干涉军）；蓝砚 `CYG`=`genshin`（极端环保/无政府，沉玉谷水土危机）。**全 MOD 仍只用 5 种意识形态**；每派 2 路线（钦定主线+暗线），共 12 条。
+- 每派规格：≥50 国策 / 10 决议 / 50 事件 / 10 精神 / 2 路线 / 1 特殊机制。**实装机制（双轴变量名不可改）**：KQP 变革度‖体制惯性（`KQP-Reform/Inertia-Index`，30/70）；LYY 财货‖律令（`LYY-Wealth/Law-Index`，50/50）；GYP 礼制‖民生（`GYP-Rite/Benevolence-Index`，60/40）；SHP 仙威‖戒律（`SHP-Might/Discipline-Index`，55/45）；YLH 战备‖封锁（`YLH-War/Blockade-Index`，60/40）；CYG 水土‖山心（`CYG-Soil/Will-Index`，30/55）。
+- 新树置于原 `LYY_Neo_Focus` 右侧：原树**实测 118 国策、根 `LYY_Rock_and_Covenant` x=40、绝对最右 x=61**（非此前以为的 346/46）。六块实装 `x` 区间**依次为 KQP 64–98 / LYY 112–150 / GYP 165–199 / SHP 214–254 / YLH 265–305 / CYG 316–350**（两两不交）。除根外全部 `relative_position_id`；**横坐标间距 ≥2** 由生成器布局算法保证（叶列唯一+父居中+**同层强制留距**）。图标全用现成 `GFX_goal_LYY_*`（语义对应，含 `LYY_Lan_Yan`）。
+- **数量口径（2026-10-14 用户明确）：国策/决议/事件/精神的数量要求一律为「下限」，可超不可低。**
+- `BRF` 黑岩厂=**唯一野牌**（不设独立树）。MOD 已有占位内战线 `LYY_FC_Ganyu/Keqing/Ningguang/Shenhe`（loc 标"尚不可用"）。
+- **两条新约束（2026-10-14 用户口径）**：① **游戏不显示子意识形态** ⇒ 全部只用 5 种基础意识形态 `set_politics`，禁写「子 xxx」；② **内战因帝君驾崩引发 ⇒ 帝君全程不出场**（不复活/不现身/不发话），涉及帝君者一律写"遗诏/遗泽/他留下的制度"。设计文档已按此改写（S3 超事件改为「帝君的遗诏」）。
+- **实装进度（2026-10-14 完成六方）**：**KQP/LYY/GYP/SHP/YLH/CYG 六方全部落地**，合计 **国策 304 / 决议 94 / 事件 336（6×56，段 2001–7056 互不重叠）/ 精神 73 / 动态修正档 60**。全树 `LYY_Neo_Focus.txt` = **422 focus / 花括号 2802:2802**，6 块均在 `focus_tree` 内。备份 `hoi4lint\backup_civilwar\`。
+- **⭐ 合流架构（2026-10-14 夜起，取代分派系落盘）**：生成器 = `hoi4lint\_civilwar\cw_engine.py`（+ `cw_enrich.py` 修正扩充表 + `data_<tag>.py` 六份数据表；`data_kqp.py` 只是把 **`gen_kqp.py` 的数据表**适配成统一 schema，**数据不搬家**，gen_kqp 有 `__main__` 守卫可安全 import）。旧 `faction_engine.py`/`gen_kqp.py` 保留但**弃用**。输出 9 个**合并**文件（旧的 48 个分派系文件已备份后删除）：
+  | 内容 | 合并文件 |
+  |---|---|
+  | 六子树（一条 focus_tree，各 `TAG focus tree BEGIN/END` 分块） | `common/national_focus/LYY_Neo_Focus.txt` |
+  | 决议（6 个 category 块）/ 类别（6 定义） | `common/decisions/LYY_CW_decisions.txt` / `categories/LYY_CW_categories.txt` |
+  | 事件（336 段，同 NS `LYY_Event`，**勿重复 add_namespace**） | `events/LYY_CW_events.txt` |
+  | 精神（**单个** `ideas={country={...}}` 顶层块，73 条） | `common/ideas/LYY_CW_ideas.txt` |
+  | 动态修正（84 块 = 60 档 + 24 共振态） | `common/dynamic_modifiers/LYY_CW_dynamic_modifiers.txt` |
+  | 脚本宏（108 个） | `common/scripted_effects/LYY_CW_effects.txt` |
+  | 机制挂载（**单文件**：`on_startup` 初始化 + `on_monthly` 保活） | `common/on_actions/LYY_CW_on_actions.txt` |
+  | 本地化（2467 键，BOM+CRLF） | `localisation/simp_chinese/LYY_CW_l_simp_chinese.yml` |
+  校验器 = `verify_merged.py`（花括号/唯一性/定义==挂载/loc 编码），**全绿**。
+- **⭐ 机制挂载写法**：`on_actions` 内用「**一个 `every_country` + limit 为 `OR={tag=…}` + 按 tag 的 `if`**」，避免同一 hook 内重复 `every_country` key。**保活钩子已由 `on_daily` 改为 `on_monthly`**（原版 1.19.3 有 `on_monthly`，vanilla 用 31 处）。`add_dynamic_modifier` 挂载集合必须==定义集合。
+- **⭐ 文案「十条规则」（用户 10-14 夜二次下发，最高优先级的写作口径；规范原文 `.skills\Darwin Skills.md`）**：① 禁立靶子/虚假对比/对称排比（`不是X而是Y`、`既X又Y`、`不仅…而且…`）；② 删硬转折与空洞程度词；③ 删套话开场（值得注意的是/先说结论/众所周知/话说在前头…）；④ 禁表演性拆词（「所谓」/「把某词拆开」）；⑤ 禁会议式编号（第一/其一/首先，）；⑥ 清大厂黑话（赋能/抓手/闭环/链路/底层逻辑）与情绪标签（扎心/狂飙/拉爆/残酷…）；⑦ 删无分级最字（最+核心/关键/根本…）与追问词（到底/究竟）；⑧ 去名词化（进行X→X、作出决定→决定、造成影响→影响）；⑨ 语气平等（必须→需要、务必→要），不居高临下；⑩ 少破折号（`——`→`，`）与滥用引号（2–4 字短概念去引号）。**只改风格：事实/数据/专名一律不动。**
+- **⭐ 文风管线 `cw_engine.py::style()`（10-14 夜二次重写，取代旧保守版）**：常量在文件顶部（`_FAKE`/`_RATHER`/`_BARE_ERSHI`/`_JIYOU`/`_BUJIN`/`_OPENERS`/`_NUMBERING`/`_DEL_ALWAYS`/`_DEL_DIIDAO`/`_NOMINAL_RE`/`_JARGON`/`_EMOTION`/`_DEGREE_DEL`/`_DEGREE_MAP`/`_MAXFIX`/`_DASH`/`_QUOTE_TERM`），`lint()` 做同口径体检（`style_report()` 打印原稿/残留对比）。**结果 1875 条样本 802 处命中 → 残留 0**；另跑标点异常扫描全 0。报告文件 `Daybreak of Teyvat Gamma Version\LYY_CivilWar_StyleRules.md`。
+- **⚠ 文风管线三个血泪坑（务必保留）**：① **`不是X，而是Y` 必须整段替换为「是Y」**——旧版只删「，而是」遇 `不再是X，而是Y` 会变病句（`…的私约一个人与…`）；② **破折号转换必须排在管线最前**——原文大量用 `——是…` 表达对比，排在对比规则后会漏 9 条；③ **程度词不能纯删**——「灯格外亮」→「灯亮」、「非常时期」→「时期」会破句，须「整词虚张者删、破句者换平实词（非常→很/格外→更/极其→极/颇为→较）」并对成语 `非常时期|手段|之时` 加负向前瞻。
+- **边界（有意保留、勿再删）**：对话祈使「记住今天」、语义性「没有谁必须服从」、可分级「最大/最好/最后一/最深处/最锋利」、非排比的「既…也是…」、专有名词与数据。
+- **⭐ 效果扩充（用户 10-14 夜要求）**：精神追加修正 73 条（2→4~5 项/条）；档位追加修正 60 条；**双轴共振动态修正 24 个**（每方 4 态 `TAG_Combo_Twin_High/Twin_Low/A_High/B_High`，`enable` 内 `check_variable` 双判 >60 / <40）；决议附加效果 94 条（含 40+ 条直推双轴的 `R<n>/I<n>`）；终局国策自动收官加成（`flag` 以 `_Final`/`_Reunify`/`_Done`/`_Open` 结尾触发）；脚本宏步长 8 档（3/5/8/10/12/15/20/25）。扩充表数据在 `cw_enrich.py`（`IDEA_EXTRA`/`TIER_EXTRA`/`COMBO`/`DEC_EXTRA`）。
+- **KQP 落地要点**（复用到其余五方）：① 国策插入 `common/national_focus/LYY_Neo_Focus.txt` 的 `# 刻晴内战国策线` 锚点，用 `KQP focus tree BEGIN/END` 包裹以便幂等重跑；② **决议文件的顶层块名必须等于 `common/decisions/categories/` 里定义的类别 id**（本轮曾写错为 `KQP_civilwar_decisions`）；③ 机制 = 动态修正 5+5 档（`enable` 区间互斥，`has_variable` 守首档）+ on_actions 挂载，变量 `KQP-Reform-Index`/`KQP-Inertia-Index`（开局 30/70）；④ 事件复用命名空间 `LYY_Event`；⑤ 事件配图用 `GFX_Civil_War_of_Liyue` / `GFX_report_event_generic_*`（vanilla interface 未被 replace_path，可用）；⑥ ⚠ **相对坐标：子国策 `x/y` 必须是「绝对 − 前置绝对」**，若同时写绝对 x 与 `relative_position_id` 会**翻倍错位**；⑦ ⚠ **事件/长文本 loc 内换行必须转义写 `\n`**（`esc()` 处理）；⑧ 布局算法 `layout()`：叶列唯一+父居中 ⇒ 同层横坐标差恒 ≥2。**通用引擎额外铁律**：⑨ **同层强制留距**收尾必开——终局节点多前置取列中点会落半列、与邻节点差 1（CYG 踩坑）；⑩ **事件选项内禁写 `ev=<自身id>`**（会自触发并虚增事件计数），改 `flag=`；⑪ 修正名/事件配图先过白名单——⚠ **原版无 `GFX_report_event_generic_navy`/`_green_politics`**，MOD 内**无任何** `GFX_report_event_generic_*`，可用者仅原版 41 个（handshake/conference/factory/military_parade/naval_treaty/riot/parliament/construction_site/rally…）；⑫ 决议图标**全库仅 `GFX_LYY_decision_01..15`** 15 个声明，六方共用；分类图标用原版 `GFX_decision_category_generic_*`/`money`/`power_struggle`。
+
+- **⚠ 工作区写保护当前已失效**：shell 子进程可直接新建/改写/删除 MOD 内文件（本轮 create/append/remove 实测全部 OK）；仍建议「先备份再改写」。
