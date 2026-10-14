@@ -1,0 +1,66 @@
+SKILL.md:4: description: 钢铁雄心4(HOI4)模组开发指南与新手引导 — 从「我要制作一个钢铁雄心4的XX mod」一句话开始，引导完成 mod 骨架搭建、新国家/新国策树/新单位/新事件等全部内容制作、地图与州数据（挪省/州重排/海洋州/地形/胜利点）、本地化、崩溃排查。当用户想制作或修改任何 
+SKILL.md:24: - **⭐ 地图迁移功能（转省 / 州合并 / 补号连号）**：可以在完成省份迁移、州合并操作的同时，**迁移其数字 id 关联的修正和本地化**——州号变动时，动态修正引用（`<州号> = { add_dynamic_modifier = … }`、`controls_state / owns_s
+SKILL.md:94: · 地图调整（挪省、改州归属、州重排）
+SKILL.md:129: | **批量挪省/均分州/海州/州名/VP/地形**（Gamma 全图改造流水线） | `references/gamma-pipeline.md` —— 多州均分紧凑度优化、海洋州创建、州名 `*` 化、VP 管理、地形三步覆盖、合并修复与从零重排 |
+SKILL.md:142: | `scripts/fill_state_gaps.py` | 补空白 state 编号（尾部填洞·陆海分离；连号 capital/buildings/本地化） |
+references\gamma-pipeline.md:1: # Gamma 州重排 / 海州 / 州名 / 胜利点 / 地形改造 实战经验
+references\gamma-pipeline.md:13: | `fix_gen_points.py` | 州级生成点从零重排 |
+references\gamma-pipeline.md:17: | `fix_vp_loc_bom.py` | 本地化 yml 全量补 BOM（幂等） |
+references\gamma-pipeline.md:101: **正确做法**：当数据严重混乱时，**放弃增量修复，写一个"从零重排"脚本**——清除该类型的全部条目，从权威源（原始文件 / state 文件）按最终规则一次性重新放置。这样只有一条规则路径，不会互相打架。
+references\gamma-pipeline.md:103: **识别信号**：同一问题连续修 2 轮以上还有残留 → 停止增量，改从零重排。
+references\gamma-pipeline.md:115: fill_state_gaps v4 的引用联动只覆盖"补号搬州"；合并的"被并州号→存留州号"映射用户指定，
+references\gamma-pipeline.md:116: 执行前先把映射表喂给引用迁移逻辑再删州。暂缓合并组记录在项目 `docs/待办合并清单.md`。
+references\gamma-pipeline.md:170: 已做两层修复：全量转 CRLF + 工具正则改 `\r?\n` 容错。
+references\gamma-pipeline.md:180: 转省把某州省份全部搬走后**必须删除该州文件**并跑补号，只搬不删 →
+references\gamma-pipeline.md:182: 规矩：每次转省批次落盘后立刻扫一遍 `provinces = { }` 空块（`fill_state_gaps.py --dry` 的空白州扫描可复用），有则当场删号补号。
+references\gamma-pipeline.md:259: ## beta→gamma id 迁移（本地化为桥，分批可迭代）
+references\gamma-pipeline.md:261: 旧版脚本（国策/决议/奇观/effect/trigger…）里的州省号全是 beta 号，以本地化为桥迁移：
+references\gamma-pipeline.md:282: **重跑 apply 的危险**：迁移过的文件里已是 gamma 号，盲跑会把 gamma 号按 beta 语义二次映射。
+references\gamma-pipeline.md:283: 后续执行必须按 Excel 逐行批准、按文件精确替换（或标记已迁移文件跳过）。
+references\gamma-pipeline.md:294: 2. id 继承：新州 ← 省重叠最大的旧州号（名字/VP 就地保留最大化）；旧→新全量映射驱动
+references\gamma-pipeline.md:297: 4. 落地后：补号（洞=旧州数−新州数）→ buildings 终版重整 → 全项自检
+references\gamma-pipeline.md:298: 实证：至冬 198 州 → 65 州，1125 省全部读出，补号 140 洞。
+references\gamma-pipeline.md:300: ## 大规模补号的三个坑（至冬 140 洞事故）
+references\gamma-pipeline.md:305: 2. **补号后本地化重复 key**：纯目标 id（被迁入但自身不搬的洞号）的旧 `*` 占位行
+references\gamma-pipeline.md:317: ## 州号空洞与补号（fill_state_gaps.py）
+references\gamma-pipeline.md:320: 「缺号必崩」不成立。但为 mod 惯例与外部工具兼容可连号：
+references\gamma-pipeline.md:325: （如 900→859）。结果：陆段连续、海段连续（尾部自然缩短）、**总体严格连号**，只动 2k 个州。
+references\gamma-pipeline.md:331: - **nudge 编辑器对缺号敏感**：游戏本体允许缺号，但 nudge 启动会弹「地图定义文件存在错误」。缺号在**两段交界**（如陆州尾 860/861 紧邻海州段）时，最优解是**邻段头部前移填补**（海州 862-902 整体前移 2 位到 860-900），全 id 连号且陆州零改动——
+references\gamma-pipeline.md:334: - **州号引用联动迁移（v4 起，"数字 id 关联的修正"自动跟着搬）**：
+references\gamma-pipeline.md:342: - **流程次序**：先转省（省 + buildings 同步 + capital 搬迁 + 名字转移）→ 再补号
+references\gamma-pipeline.md:346: ## 转省 → 补号全流程实战（稻妻 22 条批次）
+references\gamma-pipeline.md:348: 顺序：**转省（工具自动同步 buildings/VP/核心）→ 命名与 VP（按用户给的州号）→ 补号 → 检查**。
+references\gamma-pipeline.md:349: 转省把单省州清空（如 123/125）→ 触发补号 → 陆州尾部（861/860）搬到空洞号。
+references\gamma-pipeline.md:351: - 补号前置检查拦下 buildings 孤儿条目 20 条（历史错位）→ 先跑 crash_fix（吸附规则）再补号
+references\gamma-pipeline.md:353: 这要求命名/首都先于补号做，或确认脚本映射覆盖
+references\gamma-pipeline.md:354: - 补号后生成点重放必须带 **REMAP**（原始 861→123、860→125），
+references\gamma-pipeline.md:365: `--restore` / pre_redo 恢复是**全量覆盖**——回退点之后的所有操作（转省、合并、命名、VP、impassable）
+references\gamma-pipeline.md:382: **任何**要改动 `history/states/`、`map/buildings.txt` 的操作（转省/合并/补号/换位/VP/重命名），
+references\gamma-pipeline.md:393: - **大批量操作中每完成一个子步骤就备份一次**（转省一次、合并一次、补号一次各自成点）
+references\gamma-pipeline.md:409: - A 州文件：文件名=id、括号、tab、空州、缺号（附补号建议）
+references\gamma-pipeline.md:416: 省级建筑声明州随转省大范围重排，逐州对照无意义）
+references\gamma-pipeline.md:434: - 补号搬州时 **name key 行也要联动**（DOT_STATE_<old> → DOT_STATE_<new>），只改 id 行
+references\gamma-pipeline.md:441: `tools/fix_buildings_col7.py` 按同款吸附算法全量重算声明州 + 复验，转省批次后跑一遍即可。
+references\gamma-pipeline.md:443: ## 补号搬州的三处联动缺一不可（天云峠/望泷村连环丢失事故）
+references\gamma-pipeline.md:509: - ❌ 补号时海州被搬去填陆地洞 → 陆海段混串（要陆海分离配对）
+references\gamma-pipeline.md:510: - ❌ 补号/重放脚本遍历所有州时把海州也放生成点（要按「无 owner」跳过）
+references\gamma-pipeline.md:514: - ❌ 补号搬州只改 id 行不改 name 行 → 州名 key 脱节
+references\gamma-pipeline.md:515: - ❌ 补号搬州只联动 id 行 → name key 与本地化脱节
+references\map-data.md:70: 实测教训：一次州重排把 667 个州文件写坏（重建 `buildings` 块时只删掉了省级块的**首行**，
+references\map-data.md:89: **重排/搬迁类工具的必备设计**：写盘后立刻跑上面的自检并**失败即报**。另外要防三类丢省 ——
+references\map-data.md:90: 受保护/未参与重排的州也必须写盘（否则移进它的省会消失）、`definition.csv` 里有但位图无像素的省
+references\ra-notes.md:52: - **图标迁移与旧条目删除（2026-09-03）**：兵种科技图标 = `GFX_<tech_id>_medium` → `gfx/interface/technologies/<folder名>/<tech_id>.dds`（换文件夹要连路径一起改）；兵种计数器图标 = `GFX_unit_<
+references\ra-notes.md:56: - **分类限定兵种修正（sub_unit modifiers，2026-09-03）**：`common/units/unit_modifiers/unit_modifiers.txt` 注册 `(兵种|category_分类, 后缀)` 对后，可在 idea/动态修正/决议里用 `modifie
+references\user-guide.md:90: | 「改地图 / 挪省 / 州重排 / 加海岛」 | **C 地图与州** | 读 `map-data.md`、`gamma-pipeline.md` |
+references\user-guide.md:162: 6. 大改动（转省、地形、补号）一律先干跑 `--dry`，把结果给用户过目再落地。
+references\user-guide.md:176: | 挪省/改州归属/州重排 | 工具链 + 语法关。**独特功能**：省份迁移、州合并的同时，自动迁移数字 id 关联的**修正**（`<州号> = { add_dynamic_modifier }`、`controls_state` 等引用）和**本地化**（`DOT_STATE_<id>`），不
+references\user-guide.md:177: | 均分州/海州/州名/VP/地形/补号 | Gamma 流水线 | `gamma-pipeline.md` |
+scripts\check_states.py:235: # 基线对照仅限州级生成点（SL）——省级建筑声明州随转省大范围重排，逐州对照无意义
+scripts\fill_state_gaps.py:11: 5. 数字 id 关联的修正与脚本引用联动迁移（被搬州自动改号）：
+scripts\fill_state_gaps.py:18: 本脚本只为 mod 惯例连号；尾部海州段被搬到中间后号段不连续属正常现象。
+scripts\fill_state_gaps.py:110: # 结果：陆段连续、海段连续（海段尾部自然缩短）、总体连号；只动 2k 个州。
+scripts\fill_state_gaps.py:151: # ---------- 4. 州号引用联动迁移计划（修正 / 触发器 / 列表 / 数字键州作用域） ----------
+scripts\fill_state_gaps.py:234: print('\n=== 州号引用联动迁移（修正 / 触发器 / 列表 / 州作用域块） ===')
+scripts\fill_state_gaps.py:236: print('  （无引用需迁移）')
+scripts\fill_state_gaps.py:354: # 5.6 州号引用联动迁移落地（修正/触发器/列表/州作用域块；BOM/CRLF 字节级保持）
+scripts\fill_state_gaps.py:363: print(f'脚本引用迁移落地: {len(script_rewrites)} 个文件，{n_ref} 处')
