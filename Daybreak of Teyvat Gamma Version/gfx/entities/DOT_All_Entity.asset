@@ -69,12 +69,21 @@ entity = {
 	name = "LYY_sabre_entity"
 	pdxmesh = "LYY_sabre_mesh"
 	scale = 3.0
+	# 枪尖火焰锚点：flamethrower_particle 从长枪枪尖喷出。
+	# 坐标为模型本地单位（实体已 scale=3.0）。用户实测火焰方向反了 → 枪尖实际在 -Z 末端（原 +Z 假设有误）。
+	# -1.5 为占位距离，若游戏内火焰偏离枪尖，请微调此处的 z 值（或切换 x/y）。
+	locator = { name = "LYY_sabre_tip"	position = { 0.0 0.0 -1.5 } }
 	state = {
 		name = "attack"	animation = "attack"
-		# event = { time = 2.15 node="muzzle" particle = "rifle_muzzle_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = infantry_rifle_attack } }
-		# event = { time = 2.2 node="cartridge" particle = "rifle_cartridge_particle"  keep_particle = yes sound = { soundeffect = infantry_rifle_cartridge } }
-		event = { time = 2.0 node="LYY_sabre_entity" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
-		event = { time = 2.0 node="muzzle" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+	}
+	state = {
+		name = "defend"	animation = "defend"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+	}
+	state = { 
+		name = "idle"	animation = "idle"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
 	}
 }
 entity = {
