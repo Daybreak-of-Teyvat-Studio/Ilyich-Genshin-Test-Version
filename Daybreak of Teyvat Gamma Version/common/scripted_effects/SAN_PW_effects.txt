@@ -1,0 +1,262 @@
+# 珊瑚宫战后 · 脚本宏
+
+SAN_PW_Init = {
+	set_variable = { SAN-Mandate-Index = 40 }
+	set_variable = { SAN-Deep-Index = 30 }
+	set_country_flag = SAN_PW_Active
+	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
+	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
+	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
+	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
+	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
+	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
+	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
+	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
+	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
+	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
+	add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
+	add_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
+	add_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
+	add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
+}
+
+# 月度保活（on_monthly 调用）
+SAN_PW_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SAN-Mandate-Index } }
+		SAN_PW_Init = yes
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_A_High } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_B_High } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low } } }
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
+	}
+}
+
+SAN_Mandate_Add_3 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 3 }
+}
+SAN_Mandate_Sub_3 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -3 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_5 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 5 }
+}
+SAN_Mandate_Sub_5 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -5 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_8 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 8 }
+}
+SAN_Mandate_Sub_8 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -8 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_10 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 10 }
+}
+SAN_Mandate_Sub_10 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -10 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_12 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 12 }
+}
+SAN_Mandate_Sub_12 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -12 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_15 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 15 }
+}
+SAN_Mandate_Sub_15 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -15 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_20 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 20 }
+}
+SAN_Mandate_Sub_20 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -20 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Mandate_Add_25 = {
+	add_to_variable = { var = SAN-Mandate-Index value = 25 }
+}
+SAN_Mandate_Sub_25 = {
+	add_to_variable = { var = SAN-Mandate-Index value = -25 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Mandate-Index > 0 } } }
+		set_variable = { SAN-Mandate-Index = 0 }
+	}
+}
+SAN_Deep_Add_3 = {
+	add_to_variable = { var = SAN-Deep-Index value = 3 }
+}
+SAN_Deep_Sub_3 = {
+	add_to_variable = { var = SAN-Deep-Index value = -3 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_5 = {
+	add_to_variable = { var = SAN-Deep-Index value = 5 }
+}
+SAN_Deep_Sub_5 = {
+	add_to_variable = { var = SAN-Deep-Index value = -5 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_8 = {
+	add_to_variable = { var = SAN-Deep-Index value = 8 }
+}
+SAN_Deep_Sub_8 = {
+	add_to_variable = { var = SAN-Deep-Index value = -8 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_10 = {
+	add_to_variable = { var = SAN-Deep-Index value = 10 }
+}
+SAN_Deep_Sub_10 = {
+	add_to_variable = { var = SAN-Deep-Index value = -10 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_12 = {
+	add_to_variable = { var = SAN-Deep-Index value = 12 }
+}
+SAN_Deep_Sub_12 = {
+	add_to_variable = { var = SAN-Deep-Index value = -12 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_15 = {
+	add_to_variable = { var = SAN-Deep-Index value = 15 }
+}
+SAN_Deep_Sub_15 = {
+	add_to_variable = { var = SAN-Deep-Index value = -15 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_20 = {
+	add_to_variable = { var = SAN-Deep-Index value = 20 }
+}
+SAN_Deep_Sub_20 = {
+	add_to_variable = { var = SAN-Deep-Index value = -20 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_Deep_Add_25 = {
+	add_to_variable = { var = SAN-Deep-Index value = 25 }
+}
+SAN_Deep_Sub_25 = {
+	add_to_variable = { var = SAN-Deep-Index value = -25 }
+	if = {
+		limit = { NOT = { check_variable = { SAN-Deep-Index > 0 } } }
+		set_variable = { SAN-Deep-Index = 0 }
+	}
+}
+SAN_PW_News_Begin = {
+	if = {
+		limit = { NOT = { has_global_flag = SAN_PW_News_Began } }
+		set_global_flag = SAN_PW_News_Began
+		news_event = { id = SAN_PW_News.1 days = 3 }
+		news_event = { id = SAN_PW_News.2 days = 23 }
+		news_event = { id = SAN_PW_News.3 days = 43 }
+		news_event = { id = SAN_PW_News.4 days = 63 }
+		news_event = { id = SAN_PW_News.5 days = 83 }
+		news_event = { id = SAN_PW_News.6 days = 103 }
+		news_event = { id = SAN_PW_News.7 days = 123 }
+		news_event = { id = SAN_PW_News.8 days = 143 }
+		news_event = { id = SAN_PW_News.9 days = 163 }
+		news_event = { id = SAN_PW_News.10 days = 183 }
+	}
+}
