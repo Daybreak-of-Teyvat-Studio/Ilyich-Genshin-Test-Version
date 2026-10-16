@@ -17,6 +17,8 @@ HOI4 的脚本是 Clausewitz 文本（`key = value` / `key = { … }` / `#` 注�
 - 用户要求检查 / 排查 / 纠错 / 修复某个 HOI4 MOD 的代码。
 - 用户给出 `error.log`、贴出 `Invalid effect 'x'` / `Unknown trigger-type: x` / `Invalid tech` 等报错。
 - MOD 表现异常：国策/决议不生效、事件不触发、能力无效果、AI 行为怪异。
+- **「明明写了却没实装」类问题**（国策在游戏里看不到、决议随时能点、修正开局就满、机制面板缺失）——直接看
+  下面的「[内容实装铁律](#内容实装铁律新剧本--新内容一律照办2026-10-16-第三轮)」，那是按游戏表现判实装的口径。
 
 ## 第零步：如果症状是「进不去游戏 / 崩溃」（CTD），先走这条线
 
@@ -451,6 +453,65 @@ grep -n "^| has_doctrine " docs/DOT_HOI4_Modding_Skills.md
   两种写法都有（`id=KHM` 简版、`tag=JAP + ratio + priority + ordertype + execution_type` 完整版）。
 - **`ai_strategy_plans` 的 `ideas = { X }` 也可以填「顾问的 `idea_token`」**，不限于 `common/ideas/`；
   `common/characters/*.txt` 里的 `idea_token = X` 同样算数，别误报「idea 缺失」。
+
+## 内容实装铁律（新剧本 / 新内容一律照办，2026-10-16 第三轮）
+
+> 判「有没有实装」不看文件里写没写，看**游戏里能不能看到 / 点到**。以下五条都是踩过坑的硬约束，
+> 展开版见 `.skills/DOT_AI_指令.md`（一之二 / 七 / 八 / 九 / 十）。
+
+1. **一个 tag 组只写一棵 `focus_tree`**。多棵树同时命中一个国家时，HOI4 **按评分择一显示**，
+   写在后面的等于没实装（本仓踩过：SUM/SGD/SDH/SGS 写了四棵，游戏里只看到雨林那棵）。
+   正确做法（照 `LYY_Neo_Focus.txt`）：一棵树，`country = { factor = 0 modifier = { add = 100 or = { tag = SUM tag = SGD … } } }`，
+   各派/各国用**绝对 x 分块**（`# ======== <TAG> focus tree BEGIN/END ========` 横幅），
+   每个 focus 加 `available = { tag = <TAG> }`。合并移动整块时，把偏移加进**块根的绝对 x**，
+   相对坐标（`relative_position_id`）的差值会自动抵消。
+   - ⚠️ **「主国」那一块也要加 `available = { tag = … }`**。只给新块加、主块留 `available = { always = yes }`，
+     结果就是别的 tag 能点主国的国策，连带把主国的机制初始化 / 变量 / 档位修正全搅进别国。
+     自检：全文 `available = { always = yes }` 出现 **0** 次（本仓 2026-10-16 踩过这一条：雨林 324 个 focus 全漏）。
+   - 触发器**统一小写 `tag`**；大写 `TAG =` 解析器虽容忍，但别用。
+   - 自检：`focus_tree` 出现次数 == 1；每个块的 `tag = <TAG>` 计数 == 该块 `focus = {` 计数；
+     各块绝对 x 区间两两不交、从左到右；同层横坐标间距 ≥ 2。
+   - ⚠️ 算「上一块最大 x」时别把树头的 `continuous_focus_position = { x = 100 … }` 算进去
+     （否则最大值读成 100 而非真实值）；解析 id 用 `(?<![\w])id\s*=` 免得命中 `relative_position_id`。
+
+2. **新增决议必须「完成对应国策」才能点**。在决议的 `available = { }` 里加 `has_completed_focus = <某个国策>`。
+   - **门槛国策要选「每条路线都必经的节点」**（各分支 PRO 根 / `IND_Declaration` / 树根），
+     否则互斥路线里有一条永远点不到决议。
+   - 同时给机制类决议补 `visible = { has_country_flag = <X>_Active }`，没激活机制时不显示。
+
+3. **修正按国策分阶段赐予，不要开局一次挂满**。三段式：
+   `*_Init`（只 `set_variable` + `set_country_flag` + 调一次 `*_Tier_Refresh`）／
+   `*_Tier_Refresh`（先 `remove_dynamic_modifier` 全部档位，再 `if/limit` 只挂命中的那一档 + 组合档）／
+   `*_Sync`（每月兜底：变量变了就重挂）。
+   轴宏（`*_A_Up_N` / `*_B_Up_N`）里每次改完变量就追加一行 `*_Tier_Refresh = yes` —— 这样档位**随国策逐级解锁**。
+   - 修正在哪看？做一个**只读展示面板**：决议 `visible = { <档位条件> }`、`available = { always = no }`、
+     `cost = 0`、`fire_only_once = no`、`complete_effect = { add_political_power = 0 }`，一个档位一条。
+   - 工具提示里的百分比**别用 `%+d%%`**（`-0.005` 会被截成 `+0%`），小数位要保住：
+     ```python
+     def fmt_pct(fv):
+         x = fv * 100.0
+         if abs(x - round(x)) < 1e-6:
+             return "%+d%%" % int(round(x))
+         return "%+.2f%%" % x   # -0.005 → -0.50%
+     ```
+
+4. **`on_actions` 的内容必须包在 `effect = { }` 里**。`on_startup = { every_country = { … } }` 是**错的**，
+   引擎报 `Unexpected token: every_country` 并让**整个文件解析失败**（静默：游戏照常启动，机制从未初始化）。
+   正确：`on_startup = { effect = { … } }` / `on_monthly = { effect = { … } }`。自检：文件里 `effect = {` 出现 ≥ 2 次。
+   - 相关：`on_actions` 跨文件**叠加**，挂载点写错是静默的；判一个动修是否真生效，看 `add_dynamic_modifier`
+     有没有被调用。
+
+5. **生成器的字数下限用 206，不是 200**。Darwin 后处理 `style()` 会削掉 2–5 字，
+   按 200 生成 → 落地后 196–199 越界。所有 `_grow(..., lo=)` / 长度下限一律写 **206**；
+   已存在的短 desc 用定点补句脚本修（本仓 `_desert/patch_desc_len.py`），别重跑整个引擎。
+
+**校验器要跟着版式一起改**。一旦「四棵树 → 一棵树」「决议数量 → 数 `SAN_PW_dec_*`」这类版式变了，
+断言口径必须同步，否则会出现「内容是对的、校验器报错」的自扰。高频三坑：
+- 数决议条目时正则别把**只读面板条目**也算进去（用 `SAN_PW_dec_\w+` 而非 `SAN_PW_\w+`）。
+- 数 news 时新闻可能已搬去 `*_news.txt`，且触发写法是 `news_event = { id = X.N days = 1 }`，
+  断言别硬编码 `}`。
+- 跨作用域引用（`has_completed_focus = X`）会被 id 冲突扫描误报成「重复定义」——
+  扫「重复定义」时只匹配 `^\\s*(ID)\\s*=\\s*\\{` 这种**定义**形态。
 
 ## 三个反直觉点（别白改）
 

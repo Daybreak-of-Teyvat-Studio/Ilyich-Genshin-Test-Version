@@ -1,0 +1,1006 @@
+############################################################
+# 须弥 Neo · 脚本效果库
+# 铁律：对须弥双轴变量的任何改动一律走本文件的宏。
+# 档位不预挂：每一档修正由推进该轴的国策按阶段赐予（见 SUM_Neo_Tier_Refresh）。
+############################################################
+
+SUM_Neo_A_Up_3 = {
+	add_to_variable = { SUM-Oracle-Index = 3 }
+	add_to_variable = { SUM-Canon-Index = -3 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_3 = {
+	add_to_variable = { SUM-Canon-Index = 3 }
+	add_to_variable = { SUM-Oracle-Index = -3 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_5 = {
+	add_to_variable = { SUM-Oracle-Index = 5 }
+	add_to_variable = { SUM-Canon-Index = -5 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_5 = {
+	add_to_variable = { SUM-Canon-Index = 5 }
+	add_to_variable = { SUM-Oracle-Index = -5 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_8 = {
+	add_to_variable = { SUM-Oracle-Index = 8 }
+	add_to_variable = { SUM-Canon-Index = -8 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_8 = {
+	add_to_variable = { SUM-Canon-Index = 8 }
+	add_to_variable = { SUM-Oracle-Index = -8 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_10 = {
+	add_to_variable = { SUM-Oracle-Index = 10 }
+	add_to_variable = { SUM-Canon-Index = -10 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_10 = {
+	add_to_variable = { SUM-Canon-Index = 10 }
+	add_to_variable = { SUM-Oracle-Index = -10 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_12 = {
+	add_to_variable = { SUM-Oracle-Index = 12 }
+	add_to_variable = { SUM-Canon-Index = -12 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_12 = {
+	add_to_variable = { SUM-Canon-Index = 12 }
+	add_to_variable = { SUM-Oracle-Index = -12 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_15 = {
+	add_to_variable = { SUM-Oracle-Index = 15 }
+	add_to_variable = { SUM-Canon-Index = -15 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_15 = {
+	add_to_variable = { SUM-Canon-Index = 15 }
+	add_to_variable = { SUM-Oracle-Index = -15 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_20 = {
+	add_to_variable = { SUM-Oracle-Index = 20 }
+	add_to_variable = { SUM-Canon-Index = -20 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_20 = {
+	add_to_variable = { SUM-Canon-Index = 20 }
+	add_to_variable = { SUM-Oracle-Index = -20 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_A_Up_25 = {
+	add_to_variable = { SUM-Oracle-Index = 25 }
+	add_to_variable = { SUM-Canon-Index = -25 }
+	SUM_Neo_Tier_Refresh = yes
+}
+SUM_Neo_B_Up_25 = {
+	add_to_variable = { SUM-Canon-Index = 25 }
+	add_to_variable = { SUM-Oracle-Index = -25 }
+	SUM_Neo_Tier_Refresh = yes
+}
+
+# 机制初始化：只置初值，不预挂任何档位
+SUM_Neo_Init = {
+	if = {
+		limit = { NOT = { has_variable = SUM-Oracle-Index } }
+		set_variable = { SUM-Oracle-Index = 20 }
+		set_variable = { SUM-Canon-Index = 70 }
+		set_variable = { SUM-Genesis-Index = 10 }
+	}
+	clamp_variable = { var = SUM-Oracle-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-Canon-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-Genesis-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-Genesis-Index min = 0 max = 200 }
+	SUM_Neo_Tier_Refresh = yes
+}
+
+SUM_Neo_A_Up = { add_to_variable = { SUM-Oracle-Index = 5 }  SUM_Neo_Tier_Refresh = yes }
+SUM_Neo_B_Up = { add_to_variable = { SUM-Canon-Index = 5 }  SUM_Neo_Tier_Refresh = yes }
+
+# ==================== 档位重整 ====================
+# 每一档修正只在推进该轴的国策完成时被挂上，旧档同时卸下。
+SUM_Neo_Tier_Refresh = {
+	remove_dynamic_modifier = { modifier = SUM_Neo_Oracle_T1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Oracle_T2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Oracle_T3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Oracle_T4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Oracle_T5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Canon_T1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Canon_T2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Canon_T3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Canon_T4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Canon_T5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Combo_Twin_High }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Combo_Twin_Low }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Combo_A_High }
+	remove_dynamic_modifier = { modifier = SUM_Neo_Combo_B_High }
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			NOT = { check_variable = { SUM-Oracle-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Oracle_T1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			check_variable = { SUM-Oracle-Index > 20 }
+			NOT = { check_variable = { SUM-Oracle-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Oracle_T2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			check_variable = { SUM-Oracle-Index > 40 }
+			NOT = { check_variable = { SUM-Oracle-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Oracle_T3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			check_variable = { SUM-Oracle-Index > 60 }
+			NOT = { check_variable = { SUM-Oracle-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Oracle_T4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			check_variable = { SUM-Oracle-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Oracle_T5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Canon-Index
+			NOT = { check_variable = { SUM-Canon-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Canon_T1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Canon-Index > 20 }
+			NOT = { check_variable = { SUM-Canon-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Canon_T2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Canon-Index > 40 }
+			NOT = { check_variable = { SUM-Canon-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Canon_T3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Canon-Index > 60 }
+			NOT = { check_variable = { SUM-Canon-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Canon_T4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Canon-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Canon_T5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Oracle-Index > 60 }
+			check_variable = { SUM-Canon-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Combo_Twin_High }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Oracle-Index < 40 }
+			check_variable = { SUM-Canon-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Combo_Twin_Low }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Oracle-Index > 60 }
+			check_variable = { SUM-Canon-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Combo_A_High }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-Oracle-Index
+			has_variable = SUM-Canon-Index
+			check_variable = { SUM-Oracle-Index < 40 }
+			check_variable = { SUM-Canon-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_Combo_B_High }
+	}
+}
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+SUM_Neo_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SUM-Oracle-Index } }
+		SUM_Neo_Init = yes
+	}
+	SUM_Neo_Tier_Refresh = yes
+}
+
+SUM_Neo_ST_Start = {
+	set_country_flag = SUM_Route_ST
+}
+
+SUM_Neo_RP_Start = {
+	set_country_flag = SUM_Route_RP
+}
+
+SUM_Neo_GT_Start = {
+	set_country_flag = SUM_Route_GT
+}
+############################################################
+# 须弥沙漠 · 镀金沙漠 脚本效果库
+# 铁律：对本国双轴变量的任何改动一律走本文件的宏。
+# 档位不预挂：每一档修正由推进该轴的国策按阶段赐予（见 SUM_Neo_SGD_Tier_Refresh）。
+############################################################
+
+SUM_Neo_SGD_A_Up_3 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 3 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -3 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_3 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 3 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -3 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_5 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 5 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -5 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_5 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 5 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -5 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_8 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 8 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -8 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_8 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 8 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -8 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_10 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 10 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -10 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_10 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 10 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -10 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_12 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 12 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -12 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_12 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 12 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -12 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_15 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 15 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -15 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_15 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 15 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -15 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_20 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 20 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -20 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_20 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 20 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -20 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_A_Up_25 = {
+	add_to_variable = { SUM-SGD-Deshret-Index = 25 }
+	add_to_variable = { SUM-SGD-Eremite-Index = -25 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+SUM_Neo_SGD_B_Up_25 = {
+	add_to_variable = { SUM-SGD-Eremite-Index = 25 }
+	add_to_variable = { SUM-SGD-Deshret-Index = -25 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+
+# 机制初始化：只置初值，不预挂任何档位
+SUM_Neo_SGD_Init = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SGD-Deshret-Index } }
+		set_variable = { SUM-SGD-Deshret-Index = 30 }
+		set_variable = { SUM-SGD-Eremite-Index = 60 }
+	}
+	clamp_variable = { var = SUM-SGD-Deshret-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-SGD-Eremite-Index min = 0 max = 100 }
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+
+# ==================== 档位重整 ====================
+# 每一档修正只在推进该轴的国策完成时被挂上，旧档同时卸下。
+SUM_Neo_SGD_Tier_Refresh = {
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_T1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_T2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_T3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_T4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_T5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_U1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_U2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_U3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_U4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_U5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_HH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_LL }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_AH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_BH }
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			NOT = { check_variable = { SUM-SGD-Deshret-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_T1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			check_variable = { SUM-SGD-Deshret-Index > 20 }
+			NOT = { check_variable = { SUM-SGD-Deshret-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_T2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			check_variable = { SUM-SGD-Deshret-Index > 40 }
+			NOT = { check_variable = { SUM-SGD-Deshret-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_T3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			check_variable = { SUM-SGD-Deshret-Index > 60 }
+			NOT = { check_variable = { SUM-SGD-Deshret-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_T4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			check_variable = { SUM-SGD-Deshret-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_T5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Eremite-Index
+			NOT = { check_variable = { SUM-SGD-Eremite-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_U1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Eremite-Index > 20 }
+			NOT = { check_variable = { SUM-SGD-Eremite-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_U2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Eremite-Index > 40 }
+			NOT = { check_variable = { SUM-SGD-Eremite-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_U3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Eremite-Index > 60 }
+			NOT = { check_variable = { SUM-SGD-Eremite-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_U4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Eremite-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_U5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Deshret-Index > 60 }
+			check_variable = { SUM-SGD-Eremite-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_HH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Deshret-Index < 40 }
+			check_variable = { SUM-SGD-Eremite-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_LL }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Deshret-Index > 60 }
+			check_variable = { SUM-SGD-Eremite-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_AH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGD-Deshret-Index
+			has_variable = SUM-SGD-Eremite-Index
+			check_variable = { SUM-SGD-Deshret-Index < 40 }
+			check_variable = { SUM-SGD-Eremite-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGD_Combo_BH }
+	}
+}
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+SUM_Neo_SGD_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SGD-Deshret-Index } }
+		SUM_Neo_SGD_Init = yes
+	}
+	SUM_Neo_SGD_Tier_Refresh = yes
+}
+
+SUM_Neo_SGD_RA_Start = {
+	set_country_flag = SUM_SGD_Route_RA
+}
+
+SUM_Neo_SGD_RB_Start = {
+	set_country_flag = SUM_SGD_Route_RB
+}
+
+SUM_Neo_SGD_RC_Start = {
+	set_country_flag = SUM_SGD_Route_RC
+}
+############################################################
+# 须弥沙漠 · 哈德拉玛维特 脚本效果库
+# 铁律：对本国双轴变量的任何改动一律走本文件的宏。
+# 档位不预挂：每一档修正由推进该轴的国策按阶段赐予（见 SUM_Neo_SDH_Tier_Refresh）。
+############################################################
+
+SUM_Neo_SDH_A_Up_3 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 3 }
+	add_to_variable = { SUM-SDH-Storm-Index = -3 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_3 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 3 }
+	add_to_variable = { SUM-SDH-Floral-Index = -3 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_5 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 5 }
+	add_to_variable = { SUM-SDH-Storm-Index = -5 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_5 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 5 }
+	add_to_variable = { SUM-SDH-Floral-Index = -5 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_8 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 8 }
+	add_to_variable = { SUM-SDH-Storm-Index = -8 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_8 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 8 }
+	add_to_variable = { SUM-SDH-Floral-Index = -8 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_10 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 10 }
+	add_to_variable = { SUM-SDH-Storm-Index = -10 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_10 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 10 }
+	add_to_variable = { SUM-SDH-Floral-Index = -10 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_12 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 12 }
+	add_to_variable = { SUM-SDH-Storm-Index = -12 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_12 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 12 }
+	add_to_variable = { SUM-SDH-Floral-Index = -12 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_15 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 15 }
+	add_to_variable = { SUM-SDH-Storm-Index = -15 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_15 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 15 }
+	add_to_variable = { SUM-SDH-Floral-Index = -15 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_20 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 20 }
+	add_to_variable = { SUM-SDH-Storm-Index = -20 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_20 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 20 }
+	add_to_variable = { SUM-SDH-Floral-Index = -20 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_A_Up_25 = {
+	add_to_variable = { SUM-SDH-Floral-Index = 25 }
+	add_to_variable = { SUM-SDH-Storm-Index = -25 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+SUM_Neo_SDH_B_Up_25 = {
+	add_to_variable = { SUM-SDH-Storm-Index = 25 }
+	add_to_variable = { SUM-SDH-Floral-Index = -25 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+
+# 机制初始化：只置初值，不预挂任何档位
+SUM_Neo_SDH_Init = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SDH-Floral-Index } }
+		set_variable = { SUM-SDH-Floral-Index = 40 }
+		set_variable = { SUM-SDH-Storm-Index = 55 }
+	}
+	clamp_variable = { var = SUM-SDH-Floral-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-SDH-Storm-Index min = 0 max = 100 }
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+
+# ==================== 档位重整 ====================
+# 每一档修正只在推进该轴的国策完成时被挂上，旧档同时卸下。
+SUM_Neo_SDH_Tier_Refresh = {
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_T1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_T2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_T3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_T4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_T5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_U1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_U2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_U3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_U4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_U5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_HH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_LL }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_AH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_BH }
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			NOT = { check_variable = { SUM-SDH-Floral-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_T1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			check_variable = { SUM-SDH-Floral-Index > 20 }
+			NOT = { check_variable = { SUM-SDH-Floral-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_T2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			check_variable = { SUM-SDH-Floral-Index > 40 }
+			NOT = { check_variable = { SUM-SDH-Floral-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_T3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			check_variable = { SUM-SDH-Floral-Index > 60 }
+			NOT = { check_variable = { SUM-SDH-Floral-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_T4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			check_variable = { SUM-SDH-Floral-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_T5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Storm-Index
+			NOT = { check_variable = { SUM-SDH-Storm-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_U1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Storm-Index > 20 }
+			NOT = { check_variable = { SUM-SDH-Storm-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_U2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Storm-Index > 40 }
+			NOT = { check_variable = { SUM-SDH-Storm-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_U3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Storm-Index > 60 }
+			NOT = { check_variable = { SUM-SDH-Storm-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_U4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Storm-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_U5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Floral-Index > 60 }
+			check_variable = { SUM-SDH-Storm-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_HH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Floral-Index < 40 }
+			check_variable = { SUM-SDH-Storm-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_LL }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Floral-Index > 60 }
+			check_variable = { SUM-SDH-Storm-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_AH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SDH-Floral-Index
+			has_variable = SUM-SDH-Storm-Index
+			check_variable = { SUM-SDH-Floral-Index < 40 }
+			check_variable = { SUM-SDH-Storm-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SDH_Combo_BH }
+	}
+}
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+SUM_Neo_SDH_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SDH-Floral-Index } }
+		SUM_Neo_SDH_Init = yes
+	}
+	SUM_Neo_SDH_Tier_Refresh = yes
+}
+
+SUM_Neo_SDH_RA_Start = {
+	set_country_flag = SUM_SDH_Route_RA
+}
+
+SUM_Neo_SDH_RB_Start = {
+	set_country_flag = SUM_SDH_Route_RB
+}
+
+SUM_Neo_SDH_RC_Start = {
+	set_country_flag = SUM_SDH_Route_RC
+}
+############################################################
+# 须弥沙漠 · 沙丘腰带 脚本效果库
+# 铁律：对本国双轴变量的任何改动一律走本文件的宏。
+# 档位不预挂：每一档修正由推进该轴的国策按阶段赐予（见 SUM_Neo_SGS_Tier_Refresh）。
+############################################################
+
+SUM_Neo_SGS_A_Up_3 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 3 }
+	add_to_variable = { SUM-SGS-Relic-Index = -3 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_3 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 3 }
+	add_to_variable = { SUM-SGS-Pari-Index = -3 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_5 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 5 }
+	add_to_variable = { SUM-SGS-Relic-Index = -5 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_5 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 5 }
+	add_to_variable = { SUM-SGS-Pari-Index = -5 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_8 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 8 }
+	add_to_variable = { SUM-SGS-Relic-Index = -8 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_8 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 8 }
+	add_to_variable = { SUM-SGS-Pari-Index = -8 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_10 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 10 }
+	add_to_variable = { SUM-SGS-Relic-Index = -10 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_10 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 10 }
+	add_to_variable = { SUM-SGS-Pari-Index = -10 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_12 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 12 }
+	add_to_variable = { SUM-SGS-Relic-Index = -12 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_12 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 12 }
+	add_to_variable = { SUM-SGS-Pari-Index = -12 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_15 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 15 }
+	add_to_variable = { SUM-SGS-Relic-Index = -15 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_15 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 15 }
+	add_to_variable = { SUM-SGS-Pari-Index = -15 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_20 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 20 }
+	add_to_variable = { SUM-SGS-Relic-Index = -20 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_20 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 20 }
+	add_to_variable = { SUM-SGS-Pari-Index = -20 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_A_Up_25 = {
+	add_to_variable = { SUM-SGS-Pari-Index = 25 }
+	add_to_variable = { SUM-SGS-Relic-Index = -25 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+SUM_Neo_SGS_B_Up_25 = {
+	add_to_variable = { SUM-SGS-Relic-Index = 25 }
+	add_to_variable = { SUM-SGS-Pari-Index = -25 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+
+# 机制初始化：只置初值，不预挂任何档位
+SUM_Neo_SGS_Init = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SGS-Pari-Index } }
+		set_variable = { SUM-SGS-Pari-Index = 45 }
+		set_variable = { SUM-SGS-Relic-Index = 50 }
+	}
+	clamp_variable = { var = SUM-SGS-Pari-Index min = 0 max = 100 }
+	clamp_variable = { var = SUM-SGS-Relic-Index min = 0 max = 100 }
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+
+# ==================== 档位重整 ====================
+# 每一档修正只在推进该轴的国策完成时被挂上，旧档同时卸下。
+SUM_Neo_SGS_Tier_Refresh = {
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_T1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_T2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_T3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_T4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_T5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_U1 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_U2 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_U3 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_U4 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_U5 }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_HH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_LL }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_AH }
+	remove_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_BH }
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			NOT = { check_variable = { SUM-SGS-Pari-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_T1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			check_variable = { SUM-SGS-Pari-Index > 20 }
+			NOT = { check_variable = { SUM-SGS-Pari-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_T2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			check_variable = { SUM-SGS-Pari-Index > 40 }
+			NOT = { check_variable = { SUM-SGS-Pari-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_T3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			check_variable = { SUM-SGS-Pari-Index > 60 }
+			NOT = { check_variable = { SUM-SGS-Pari-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_T4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			check_variable = { SUM-SGS-Pari-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_T5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Relic-Index
+			NOT = { check_variable = { SUM-SGS-Relic-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_U1 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Relic-Index > 20 }
+			NOT = { check_variable = { SUM-SGS-Relic-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_U2 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Relic-Index > 40 }
+			NOT = { check_variable = { SUM-SGS-Relic-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_U3 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Relic-Index > 60 }
+			NOT = { check_variable = { SUM-SGS-Relic-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_U4 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Relic-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_U5 }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Pari-Index > 60 }
+			check_variable = { SUM-SGS-Relic-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_HH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Pari-Index < 40 }
+			check_variable = { SUM-SGS-Relic-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_LL }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Pari-Index > 60 }
+			check_variable = { SUM-SGS-Relic-Index < 40 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_AH }
+	}
+	if = {
+		limit = {
+			has_variable = SUM-SGS-Pari-Index
+			has_variable = SUM-SGS-Relic-Index
+			check_variable = { SUM-SGS-Pari-Index < 40 }
+			check_variable = { SUM-SGS-Relic-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SUM_Neo_SGS_Combo_BH }
+	}
+}
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+SUM_Neo_SGS_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SUM-SGS-Pari-Index } }
+		SUM_Neo_SGS_Init = yes
+	}
+	SUM_Neo_SGS_Tier_Refresh = yes
+}
+
+SUM_Neo_SGS_RA_Start = {
+	set_country_flag = SUM_SGS_Route_RA
+}
+
+SUM_Neo_SGS_RB_Start = {
+	set_country_flag = SUM_SGS_Route_RB
+}
+
+SUM_Neo_SGS_RC_Start = {
+	set_country_flag = SUM_SGS_Route_RC
+}

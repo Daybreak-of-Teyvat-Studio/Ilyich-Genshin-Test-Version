@@ -1,88 +1,7 @@
 # 珊瑚宫战后 · 脚本宏
 
-SAN_PW_Init = {
-	set_variable = { SAN-Mandate-Index = 40 }
-	set_variable = { SAN-Deep-Index = 30 }
-	set_country_flag = SAN_PW_Active
-	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
-	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
-	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
-	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
-	add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
-	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
-	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
-	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
-	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
-	add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
-	add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
-	add_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
-	add_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
-	add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
-}
 
 # 月度保活（on_monthly 调用）
-SAN_PW_Sync = {
-	if = {
-		limit = { NOT = { has_variable = SAN-Mandate-Index } }
-		SAN_PW_Init = yes
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_A_High } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_B_High } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
-	}
-	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low } } }
-		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
-	}
-}
 
 SAN_Mandate_Add_3 = {
 	add_to_variable = { var = SAN-Mandate-Index value = 3 }
@@ -244,19 +163,159 @@ SAN_Deep_Sub_25 = {
 		set_variable = { SAN-Deep-Index = 0 }
 	}
 }
-SAN_PW_News_Begin = {
+# 新闻改由国策的完成奖励逐条触发，此处不再按下日期批量发射。
+
+# 机制初始化：只置初值，不预挂任何档位
+
+# 档位重整：先卸下全部档位，再按当前轴值挂上唯一对应的一档。
+# 每一次轴变量变动（完成国策 / 点决议）都会调用它，所以档位是按国策分阶段赐予的。
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+
+# 机制初始化：只置初值，不预挂任何档位
+SAN_PW_Init = {
+	set_variable = { SAN-Mandate-Index = 40 }
+	set_variable = { SAN-Deep-Index = 30 }
+	set_country_flag = SAN_PW_Active
+	SAN_PW_Tier_Refresh = yes
+}
+
+# 档位重整：先卸下全部档位，再按当前轴值挂上唯一对应的一档。
+# 每一次轴变量变动（完成国策 / 点决议）都会调用它，所以档位是按国策分阶段赐予的。
+SAN_PW_Tier_Refresh = {
+	remove_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
+	remove_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
+	remove_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
+	remove_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
+	remove_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
 	if = {
-		limit = { NOT = { has_global_flag = SAN_PW_News_Began } }
-		set_global_flag = SAN_PW_News_Began
-		news_event = { id = SAN_PW_News.1 days = 3 }
-		news_event = { id = SAN_PW_News.2 days = 23 }
-		news_event = { id = SAN_PW_News.3 days = 43 }
-		news_event = { id = SAN_PW_News.4 days = 63 }
-		news_event = { id = SAN_PW_News.5 days = 83 }
-		news_event = { id = SAN_PW_News.6 days = 103 }
-		news_event = { id = SAN_PW_News.7 days = 123 }
-		news_event = { id = SAN_PW_News.8 days = 143 }
-		news_event = { id = SAN_PW_News.9 days = 163 }
-		news_event = { id = SAN_PW_News.10 days = 183 }
+		limit = {
+			has_variable = SAN-Mandate-Index
+			NOT = { check_variable = { SAN-Mandate-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_1 }
 	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			check_variable = { SAN-Mandate-Index > 20 }
+			NOT = { check_variable = { SAN-Mandate-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_2 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			check_variable = { SAN-Mandate-Index > 40 }
+			NOT = { check_variable = { SAN-Mandate-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_3 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			check_variable = { SAN-Mandate-Index > 60 }
+			NOT = { check_variable = { SAN-Mandate-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_4 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			check_variable = { SAN-Mandate-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Mandate_Tier_5 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Deep-Index
+			NOT = { check_variable = { SAN-Deep-Index > 20 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_1 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Deep-Index > 20 }
+			NOT = { check_variable = { SAN-Deep-Index > 40 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_2 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Deep-Index > 40 }
+			NOT = { check_variable = { SAN-Deep-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_3 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Deep-Index > 60 }
+			NOT = { check_variable = { SAN-Deep-Index > 80 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_4 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Deep-Index > 80 }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Deep_Tier_5 }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Mandate-Index > 60 }
+			check_variable = { SAN-Deep-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_High }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			has_variable = SAN-Deep-Index
+			NOT = { check_variable = { SAN-Mandate-Index > 60 } }
+			NOT = { check_variable = { SAN-Deep-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_Twin_Low }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			has_variable = SAN-Deep-Index
+			check_variable = { SAN-Mandate-Index > 60 }
+			NOT = { check_variable = { SAN-Deep-Index > 60 } }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_A_High }
+	}
+	if = {
+		limit = {
+			has_variable = SAN-Mandate-Index
+			has_variable = SAN-Deep-Index
+			NOT = { check_variable = { SAN-Mandate-Index > 60 } }
+			check_variable = { SAN-Deep-Index > 60 }
+		}
+		add_dynamic_modifier = { modifier = SAN_PW_Combo_B_High }
+	}
+}
+
+# 月度保活（变量丢失补初值；档位丢失重整）
+SAN_PW_Sync = {
+	if = {
+		limit = { NOT = { has_variable = SAN-Mandate-Index } }
+		SAN_PW_Init = yes
+	}
+	SAN_PW_Tier_Refresh = yes
 }

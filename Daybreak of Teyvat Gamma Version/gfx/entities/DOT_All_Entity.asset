@@ -70,9 +70,9 @@ entity = {
 	pdxmesh = "LYY_sabre_mesh"
 	scale = 3.0
 	# 枪尖火焰锚点：flamethrower_particle 从长枪枪尖喷出。
-	# 坐标为模型本地单位（实体已 scale=3.0）。用户实测火焰方向反了 → 枪尖实际在 -Z 末端（原 +Z 假设有误）。
-	# -1.5 为占位距离，若游戏内火焰偏离枪尖，请微调此处的 z 值（或切换 x/y）。
-	locator = { name = "LYY_sabre_tip"	position = { 0.0 0.0 -1.5 } }
+	# 由模型包围盒实测：长枪沿 Y 轴，枪尖在 y=-2.7（长端），握点为原点、短端 +0.5 是枪尾。
+	# rotation 180°（绕 X）把粒子发射方向（节点 +Y）翻转为沿枪身指向枪尖外。
+	locator = { name = "LYY_sabre_tip"	position = { 0 -2.7 0 } rotation = { 270 0 0 } }
 	state = {
 		name = "attack"	animation = "attack"
 		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
