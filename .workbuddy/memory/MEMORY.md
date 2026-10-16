@@ -6,6 +6,8 @@
 - 旧 loc 全不删；`ABY_focus.txt` 不动；focus 文件必须保留 `focus_tree` 头部。
 - **数量一律为下限**；剧本直接改原文件，禁建 `_v2`。事件 desc 200–400 字、新闻 desc 200–400 字（去空白计）。**破折号一律不用**。⚠ 生成阶段补长下限取 **206**（`style()` 后置会削 2-5 字）。
 - **内容实装**：新增剧本的事件/精神/loc/决议/类别/动修/宏/`on_actions` 一律**并入同名 `<国>_*` 文件**，禁另起 `X_Y_Desert_*` 平行文件；国策树插进该国 focus 文件内。**新闻一律由国策或事件的 `completion_reward` 触发**（`news_event = { id = NS.n days = 1 }`），禁写按日期批量发射的 `*_News_Begin` 宏。详见 `.skills\DOT_AI_指令.md`「内容实装铁律」。
+- **⭐ namespace 必须写进事件文件自身开头**（`add_namespace = X`，全库统一用 `add_namespace` 不用 `namespace`）：**禁止为 namespace 单独建文件**——独立 `namespace.txt` 对游戏**完全无效**，会导致该文件里每个事件都报 `Malformed token` 整份解析失败（须弥/璃月曾因此累计 1580 个 Malformed 报错）。新闻也随事件一并并进事件文件（见 §9）。
+- **事件文件结构固定**：`# 命名空间声明` 注释块 + 若干 `add_namespace = …` 行必须置于文件首部；新闻块（`country_event`/`news_event`）按命名空间分区接在常规事件之后。独立 `SUM_Neo_namespace.txt` / `SUM_Neo_news.txt` / `LYY_CW_news.txt` 都已退役归档（`backup_news_ns_20261016`）。
 - **一个 tag 组只写一棵 `focus_tree`**：同国多棵树是「评分择一」不是并列显示（10-16 事故：4 棵只看到 1 棵）。让 B 排在 A 右边＝同一棵树里把 B 整块绝对 x 平移到 A 之外（范例 `LYY_Neo_Focus.txt`）。**每个块每个节点都要 `available = { tag = <归属> }` —— 「主国」那块也要**，只给新块加、主块留 `always = yes` 会让别国能点主国国策并搅乱主国机制（10-16 深夜事故：雨林 324 个全漏）。触发器统一小写 `tag`。
 - **新增决议一律带 `has_completed_focus` 门槛**，取**分叉点之前的通用国策**（免锁死互斥路线）；另配 `visible = { has_country_flag = <剧本旗标> }`。
 - **机制修正按国策分阶段赐予**：`*_Init` 只置初值；`*_Tier_Refresh` 先卸全部档位再挂唯一匹配的一档，轴宏末尾调它（轴宏只被国策 `completion_reward` 调用）⇒ 档位随国策逐档解锁。每档另加**只读面板**（`visible`=该档 enable 条件，`available = { always = no }`，`cost = 0`）显示生效修正。
