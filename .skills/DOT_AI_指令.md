@@ -180,15 +180,29 @@ on_actions = {
 不要「开局把 14 个档位全挂上，靠各档 `enable` 内部互斥」。要写成三段式：
 
 ```
-<M>_Init         = { 只置轴变量初值 + clamp;  调 <M>_Tier_Refresh }
-<M>_Tier_Refresh = { remove_dynamic_modifier × 全部档位;
-                     按当前轴值 if/limit 只挂「唯一匹配的一档」+ 共振态 }
-<M>_A_Up_N / <M>_B_Up_N = { add_to_variable …;  <M>_Tier_Refresh = yes }   # 轴宏
-<M>_Sync         = { 变量丢了补初值;  <M>_Tier_Refresh = yes }              # 月度保活
+<M>_Init         = { hidden_effect = { 只置轴变量初值 + clamp;  <M>_Tier_Refresh = yes } }
+<M>_Tier_Refresh = { hidden_effect = { <M>_RF_轴A = yes  <M>_RF_轴B = yes  <M>_RF_共振 = yes } }
+<M>_RF_轴A      = { if = { limit = { has_variable = <轴变量> }
+                      if/else_if 各档: if = { limit = { NOT = { has_country_flag <档>_At } } <档>_Set = yes } } }
+<档>_Set        = { removeDM ×全部档; addDM ×本档; clr <档>_At ×全部; set_country_flag <档>_At }   # 先卸后挂
+<M>_None        = { removeDM 共振档 ×N; clr 共振_At ×N }                                          # 仅共振组
+<M>_A_Up_N / <M>_B_Up_N = { add_to_variable …;  custom_effect_tooltip = <轴变量>_Add_N }        # 轴宏：只改变量 + 可见说明，**不调 Tier_Refresh**
+<M>_Sync         = { hidden_effect = { 变量丢了补初值;  <M>_Tier_Refresh = yes } }              # on_daily 保活
 ```
 
-轴宏只被国策的 `completion_reward` 调用 ⇒ 档位就是「按国策分阶段赐予」的。
-少量直接改轴变量的地方，改完各跟一行 `<M>_Tier_Refresh = yes`。
+★ 轴宏**不得**调 `<M>_Tier_Refresh`（旧写法已废弃）。国策完成时只改变轴变量，档位由 `*_Sync` 在
+`on_daily` 统一刷新（≤1 天延迟）。理由见第十二节「动修死规矩」。
+
+**为什么必须这么写**：早期版本 `Tier_Refresh` 正文 **128 行**（14 卸 + 14 挂 + 条件），253 个国策
+每次完成都把它整段展开进 tooltip（`add_dynamic_modifier`/`remove_dynamic_modifier` **是有 tooltip 的**），
+并且每次都白跑 14 卸 14 挂。加「档位旗标卫兵」后，档位没变就是空转；正文压到 **7 行**且整体 `hidden_effect`。
+旗标卫兵让刷新**幂等**，所以连写两次 `<M>_Tier_Refresh = yes` 等于一次，紧邻重复行应清掉。
+
+**注意**：`*_Set` / `*_RF_*` 本身可以不再包 `hidden_effect`——它们只被 `Tier_Refresh` 的
+`hidden_effect` 调用，属于**传递性静音**。但若某天有人直接从国策调 `*_Set`，就会漏 tooltip。
+
+档位切换（`*_Tier_Refresh`）不再由国策直接触发，而是由 `*_Init`（开局一次）与 `*_Sync`（`on_daily`）驱动。
+国策只管把轴变量推上去，`*_Sync` 次日把档位刷新到对应档 ⇒ 国策/决议几乎不碰 `dynamic_modifier`。
 
 再配一个**只读**「机制状态」面板，把当前档位与生效修正显出来：
 
@@ -223,3 +237,139 @@ on_actions = {
   加了门槛之后引用会大量出现，按引用判会误报。
 - 新闻计数要注意新闻可能已独立成 `events/<国>_news.txt`，且触发式样带 `days = 1`
   （正则用 `news_event = \{ id = <NS>\.\d+\b`，别写死 `}`）。
+
+## 十一、Tooltip 卫生：机械效果一律 `hidden_effect`
+
+玩家把鼠标停在国策/决议上时，HOI4 会把该效果块里**每个效果都展开成一行 tooltip**，
+脚本效果会被整段插入。所以「一个 effect 带出一长串效果」会直接毁掉悬停体验。
+
+**哪些效果有 tooltip（决定要不要藏）**
+
+| 有 tooltip ⇒ 想藏才藏，或必须留 | 没有 tooltip ⇒ 藏了也没视觉变化 |
+| --- | --- |
+| `add_dynamic_modifier` / `remove_dynamic_modifier` | `add_to_variable` / `set_variable` / `clamp_variable` |
+| `add_ideas` / `remove_ideas` / `add_timed_idea` | `set_country_flag` / `clr_country_flag` |
+| `add_stability` / `add_war_support` / `add_political_power` | 各类 `*_Sync` / `*_Init` 内部状态同步 |
+| `country_event` 之外的 `custom_effect_tooltip`（显式的） | — |
+
+⇒ 真正会撑爆 tooltip 的是**动修**与**可见效果**，不是变量与旗标。
+（反证：本 MOD 若要显示「火神恩情 +5」，必须另配 `custom_effect_tooltip = MVK-Prestige-Index_Add_5`，
+变量本身不产生 tooltip。）
+
+**统一规则**
+
+1. 脚本效果里，凡是「机械链」——`*_Tier_Refresh` / `*_Sync` / `*_Init` 正文、
+   连续 ≥2 行的变量/旗标段——正文一律裹一层 `hidden_effect = { … }`。
+   ⚠ **轴宏 `<M>_A_Up_N` / `<M>_B_Up_N` 例外，不得整体包裹**：里面的轴指数变化是玩家要看的重要信息，
+   必须留在包外并各配一行 `custom_effect_tooltip = <轴变量>_Add_<N>` / `_Decrease_<N>`（见第十二节）。
+2. **`custom_effect_tooltip` 必须留在包外**，它是唯一给玩家看的说明。
+   ⚠ 本 MOD 惯用**单行双效果**写法：`add_to_variable = { var = X value = 5 } custom_effect_tooltip = X_Add_5`
+   ——这种行**不得进包**，写包裹器时要用「包体内是否出现 `custom_effect_tooltip`」做闸门。
+3. 只在 `on_actions` 里被调用的效果**不必**包（on_action 不产生 tooltip），包了是零收益的改动。
+4. 单行的 `set_country_flag` / 单行的 `add_to_variable` 也不必包——它们本来就没有 tooltip。
+
+**做法（可复用脚本）**：`C:\Users\XIANGZIYUAN\hoi4lint\wrap_hidden_effects.py`
+- R1「调用点」：在国策/决议/事件里找连续 ≥2 行的同类机械效果，就地包 `hidden_effect`（内容缩进 +1 tab），
+  顺带删掉紧邻重复的同一行 `*_Tier_Refresh = yes`（幂等，重复无意义）。
+- R2「效果体」：在 `common/scripted_effects/` 里，把**正文 100% 纯机械**（所有非空非注释行都是
+  变量/旗标/`if|else_if|else|limit|AND|OR|NOT|check_variable|has_variable|random_list` 容器，
+  且**不含**可见效果、原本没有 `hidden_effect`）的效果体整体包起来。
+- 脚本幂等、`--apply` 门控、先备份到 `hoi4lint\_backup_hidden_<时间戳>\`；
+  配套 `verify_wrap.py` 可在**内存里预演**并检查 `depth=0 / low=0 / 裸LF 未增 / 无 hidden 嵌套`。
+
+自检：落盘后重跑一次脚本应报 **0 改动**；再跑一遍「包体内是否出现 `custom_effect_tooltip`」的检查，
+新增包裹必须 **0 命中**（必要时拿备份核对，确认命中的都是**原有的** `hidden_effect`）。
+
+## 十二、★动修死规矩 / 轴指数可见 / 备份位置（2026-10-16 深夜，用户口述）
+
+### 12.1 ★ 死规矩：只有 ≤10% 的国策、决议可以改国家动态修正 `dynamic_modifier`
+
+> 用户原话：「我说了，不要什么国策决议都去引用 effect，改国家修正。`sum_neo_focus` 的这个问题非常严重。
+> 我定一个死规矩，只有 10% 的国策、决议可以改国家的动态修正 `dynamic_modifiers`。」
+
+- **禁止**让几乎每个国策/决议的 `completion_reward` 一路展开到 `add_dynamic_modifier` / `remove_dynamic_modifier`。
+- 正确链路：国策只推动**轴变量**（`add_to_variable` + `custom_effect_tooltip`）；档位修正由
+  `*_Init`（开局）与 `*_Sync`（`on_daily`）驱动的 `*_Tier_Refresh` 统一挂/卸。
+- 落地脚本：`audit_dm_refs.py`（审计引用率）、`cut_dm_from_focus_path.py`（删掉非白名单效果体里的
+  `<M>_Tier_Refresh = yes` 并清理空 `hidden_effect`）。白名单＝效果体名以 `_Init`/`_Sync`/`_Tier_Refresh`/`_Set`/`_None` 结尾。
+- 现状（本轮结果）：**56.1% → 0.4%**，剩 11 个都是「机制启用里程碑」国策。`on_actions` 同步频率
+  已由 `on_monthly` 提到 `on_daily`，保证档位 ≤1 天刷新。
+- **`common/ideas` 里的国家精神不在本规则内**（909 个 ≥4 修正块属正当写法）。
+
+### 12.2 轴指数变化必须可见
+
+> 用户原话：「`add_to_variable = { SUM-Oracle-Index = 25 }` 这类信息应该算重要信息，隐藏不太合适；
+> 移除旧修正可以用 hidden_effect 加一句文字说明。」
+
+- `add_to_variable` / `set_variable` **本身不产生 tooltip**，被 `hidden_effect` 包住就等于玩家看不到。
+- 轴指数（`*-Index` 这类驱动变量）的 `add_to_variable` **必须提到 `hidden_effect` 外**，逐条补
+  `custom_effect_tooltip = <轴变量>_Add_<N>` / `<轴变量>_Decrease_<N>`（作者惯例：加= `§G`，减= `§R`）。
+- 「移除旧修正」这类机械尾巴可以留在 `hidden_effect` 内，但**要用一句 `custom_effect_tooltip` 说明**；
+  `hidden_effect` 下信息量大时，至少留一行简短文字。
+- 脚本：`fix_axis_tooltips.py`（提包外 + 生成键 + 追加 loc，幂等）。新增 loc 键仍须 **BOM + CRLF**。
+
+### 12.3 一个决议里并列 4~9 条不同修正**不是**冗余
+
+> 用户原话：「后面四条为什么要删掉呢，后面四条信息不算冗余吧，冗余只是各种过度引用的 `effect xxx = yes`。」
+
+- 冗余＝**同一组修正被大量 `effect xxx = yes` 反复引用**；并列写 `war_support_factor`、
+  `acclimatization_hot_climate_gain_factor`、`army_breakthrough_against_major_factor` 等多条**不同**修正是正当的，禁删。
+- 因此在「收敛修正」上**不要自作主张合并**；`converge_modifiers.py` 已被否决并停用（顶部 `sys.exit(0)`）。
+
+### 12.4 备份一律放在 MOD 目录之外
+
+> 用户原话：「`.backup_nameloc_20261016_224634` 这类备份文件不要放 MOD 文件夹里面，会被重复读取。」
+
+- 游戏会把 MOD 目录里**所有**文件当数据读，落在里面的 `*.backup_*` 会造成 loc 键重复、脚本重复。
+- ⇒ 脚本生成的备份一律写 `C:\Users\XIANGZIYUAN\hoi4lint\_backup_*`，禁止落在 MOD 内。自检：MOD 内 `*.backup_*` 计数 == 0。
+
+## 十三、机制状态并入「重要信息公示」+ loc 必须带 BOM（2026-10-17，用户口述）
+
+> 用户原话：「把机制状态的信息也放到重要信息公示决议描述里面。提高重要信息公示决议组的优先级。
+> LYY 天权凝光机制状态，应该在凝光完成第一个凝光派国策才显示。璃月也需要一个重要信息公示决议组。
+> 纳塔决议的本地化 LOC 无法显示，可能是你改了纳塔 loc 的格式，修复。」
+> 追加：「把机制状态的信息也放到重要信息公示决议描述里面之后，删除单独的机制状态信息显示决议组。」
+
+### 13.1 ★ loc 文件必须带 UTF-8 BOM
+
+- `localisation/**/*.yml` 只要含非 ASCII（中文），**必须**带 UTF-8 BOM（`EF BB BF`）。缺 BOM ⇒ 整份文件被
+  HOI4 **静默丢弃**，症状是「某国决议/事件本地化**全空**」，**不是**个别键失效。
+- 本轮根因：`NAT_Neo_Script_l_simp_chinese.yml` 是 `localisation/simp_chinese/` 共 114 个 loc 里
+  **唯一缺 BOM** 的一个 ⇒ 纳塔决议 loc 全空。
+- 自检脚本 `check_loc_bom.py`（`--fix` 可补、自动备份）；写 loc 的脚本一律强制前置 `\xef\xbb\xbf`。
+- **别用裸 `\n` 往 CRLF 文件追加**（会造成混行），生成器用 `NL = "\r\n" if "\r\n" in t else "\n"`。
+
+### 13.2 机制状态不再单开面板，改写入「重要信息公示」(Info_Board) 描述
+
+- **旧态**：每套机制一个空类别 `*_mech_category`／`SAN_PW_Mechanism`，内含 14 条只读决议（2 轴×5 档 + 4 共振）。
+  第五轮**全删 17 个**（LYY 12／SUM 4／SAN 1），不再有任何独立「机制状态显示决议组」。
+- **新态**：Info_Board＝空类别（`visible_when_empty = yes` + `visible = { tag/旗标 }`，仿蒙德 `MOT_Important_Shows`，
+  **不占任何决议位**）。机制状态写进其 `_desc`：
+
+  ```
+  §Y<轴名>（变量 <VAR>）：§![?<VAR>]
+  §W[<轴>_tier_name]§!        ← 档位风格名（本轮新增）
+  §G[<轴>_tier_mods]§!        ← 该档生效修正（原有）
+  （第二轴同构）
+
+  §Y共振：§!§W[<前缀>_Combo_combo_name]§!
+  §G[<前缀>_Combo_combo_mods]§!
+  ```
+
+  无轴变量退 `DOT_Info_Board_NotStarted`，无共振退 `DOT_Info_Board_NoCombo`。
+- **门槛**：`LYY_Info_Board`（凝光）加 `visible = { tag = LYY has_completed_focus = LYY_Tianquan_Eternal }`
+  （完成第一个凝光派国策才显示）；其余五派按 tag 可见。璃月六派**内战各 1 个**新 Board。
+- **优先级**：全部 17 个 `*_Info_Board` 升到 `priority = { base = 100 }`。
+  ★注意类别优先级写法是 **`priority = { base = N }`**（**不是** `priority = N`，正则审计别写错）。
+- **scripted-loc**：`common/scripted_localisation/<国>_Info_loc.txt`，新增三类 `defined_text` 块
+  `<轴>_tier_name`／`<前缀>_Combo_combo_name`／`<前缀>_Combo_combo_mods`（原有 `<轴>_tier_mods`）。
+  档位视图 loc 命名**各国不同**（LYY `LYY_Wealth_Tier_1_View`／SUM `SUM_Neo_Oracle_T1_View`／
+  SAN `SAN_PW_Mandate_Tier_1_View`），写生成器前先核实每国的切片规则。
+- 工具：`inv_info_boards.py`（只读盘点）、`build_info_boards.py`（生成器，`--apply`）、
+  `check_info_boards.py`（desc↔scripted-loc↔loc 三向校验，忽略 `GFX_*` 精灵名噪声）。
+
+### 13.3 改架构时同步改校验脚本
+
+- 删旧面板后，`_civilwar/verify_requirements.py`、`_san/verify_san_pw.py` 里「断言面板存在」的检查会**假报红**。
+  凡删/改被校验的架构，先搜脚本里对旧结构的断言，一并改成对新结构的断言（例：改为断言「旧类别已移除 +
+  六派内战 Info_Board 齐全 + desc 含档位名/修正/共振名/共振修正」）。
