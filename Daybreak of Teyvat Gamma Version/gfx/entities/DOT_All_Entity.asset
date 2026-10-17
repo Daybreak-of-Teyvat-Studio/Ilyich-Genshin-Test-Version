@@ -58,6 +58,7 @@ entity = {
 	name = "DOT_sabre_entity"
 	pdxmesh = "DOT_sabre_mesh"
 	scale = 3.0
+	
 }
 entity = {
 	name = "DOT_sabre_holder_entity"
@@ -71,18 +72,22 @@ entity = {
 	scale = 3.0
 	# 枪尖火焰锚点：flamethrower_particle 从长枪枪尖喷出。
 	# 由模型包围盒实测：长枪沿 Y 轴，枪尖在 y=-2.7（长端），握点为原点、短端 +0.5 是枪尾。
-	# rotation 180°（绕 X）把粒子发射方向（节点 +Y）翻转为沿枪身指向枪尖外。
-	locator = { name = "LYY_sabre_tip"	position = { 0 -2.7 0 } rotation = { 0 0 0 } }
+	# 注意：实体 locator 的 rotation 对粒子方向无效（实测），方向由粒子文件
+	# LYY_flamethrower_spear.asset 的 velocity_pitch=-90 控制（沿节点 -Y = 枪尖朝外）。
+	locator = { name = "LYY_sabre_tip"	position = { 0 -2.7 0 } }
 	state = {
 		name = "attack"	animation = "attack"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
 		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
 	}
 	state = {
 		name = "defend"	animation = "defend"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
 		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
 	}
-	state = { 
+	state = {
 		name = "idle"	animation = "idle"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
 		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
 	}
 }
@@ -107,6 +112,22 @@ entity = {
 	name = "HM_sabre_entity"
 	pdxmesh = "HM_sabre_mesh"
 	scale = 3.0
+	locator = { name = "LYY_sabre_tip"	position = { 0 -2.7 0 } }
+	state = {
+		name = "attack"	animation = "attack"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+	}
+	state = {
+		name = "defend"	animation = "defend"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+	}
+	state = {
+		name = "idle"	animation = "idle"
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "LYY_flamethrower_spear_particle" sound = { soundeffect = flamethrower_start }}
+		event = { time = 8.0 node="LYY_sabre_tip" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+	}
 }
 entity = {
 	name = "HM_sabre_holder_entity"
