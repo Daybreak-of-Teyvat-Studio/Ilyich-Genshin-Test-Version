@@ -1,0 +1,204 @@
+﻿【skill 收录校验】制作者：猫妖团队（群友）。已对照原版 1.19.3 校验：
+  · 四层结构 / 主学说块结构 / tracks={...} / 激活效果顶层写法 / milestones 变量标记
+    模式 —— 与 grand_doctrines/land_grand_doctrines.txt 完全一致 ✓
+  · 轨道 mastery 的 multiplier/categories/equipment —— 与 tracks/ 目录一致 ✓
+    （陆军 armor 轨道另有 sub_units = { <子单位名> } 写法，教程未列，补充）
+  · 两处未在原版找到用例、未经验证：轨道的 background_offset 与 active 字段
+  · 文件路径注意：原版 grand_doctrines 为平铺文件（land_grand_doctrines.txt），
+    教程写的 land/ 子目录形式未验证是否被引擎加载；稳妥做法是追加进已有域文件
+    或按原版平铺命名。
+
+================================================================================
+HOI4 学说系统教程（主学说 / 轨道 / 子学说 / 精通度 / 里程碑）
+截止版本：1.19.3有 （No Compromise, No Surrender DLC）
+内容全部基于游戏本体真实语法核对（原版 4 个 grand_doctrines 文件 + 实测验证）
+================================================================================
+
+--------------------------------------------------------------------------------
+一、学说体系是什么（四层结构）
+--------------------------------------------------------------------------------
+  主学说（Grand Doctrine）
+    学说页上最大的选项，如机动作战、优势火力。花 XP 解锁后，才解锁下面的轨道。
+  轨道（Track）
+    主学说里的"栏目"，如步兵、装甲、作战。轨道本身只是容器，内容由子学说提供。
+  子学说（Subdoctrine）
+    挂在轨道根部的分支，决定这条轨道走什么路线。花 XP 解锁。
+  精通度（Mastery）
+    解锁子学说后自动积累的点数。达到阈值逐层解锁奖励。
+  里程碑（Milestone）
+    某条轨道的所有奖励全部解锁后，触发的主学说的直接加成。
+
+  层级关系：
+    主学说 → 轨道（若干条）→ 子学说（每条轨道挂一个）→ 精通度奖励（逐层）
+                                                              ↘ 里程碑（子学说全部阶段完成）
+
+  文件位置：
+    common/doctrines/grand_doctrines/   主学说定义
+    common/doctrines/tracks/            轨道定义（原版已有，一般不用自建）
+    common/doctrines/subdoctrines/      子学说定义
+    common/doctrines/folders/           学说页定义（land / naval / air / special_forces）
+
+--------------------------------------------------------------------------------
+二、主学说（Grand Doctrine）模板
+--------------------------------------------------------------------------------
+  文件：common/doctrines/grand_doctrines/land/xxx.txt
+
+TAG_grand_doctrine = {                  # 主学说 ID（全游戏唯一）
+    folder = land                       # 所属类型：land=陆军（navy/air/special_forces 同理）
+    name = TAG_grand_doctrine           # 名称本地化 key（yml 里写显示名）
+    description = TAG_grand_doctrine_desc  # 描述本地化 key
+    icon = GFX_doctrine_TAG_grand_medium  # 图标名（需注册 gfx）
+
+    available = {                       # 解锁条件（注意：主学说没有可见块！）
+		#如只有特定国家可用本学说
+        tag = TAG
+    }
+
+    xp_cost = 100                       # 解锁消耗的 XP
+    xp_type = army                      # XP 类型：army / navy / air
+
+    ai_will_do = {                      # AI 选择倾向（权重）可加各种条件判定
+        base = 1
+        modifier = {
+			factor = 95 
+			tag = TAG
+		}
+    }
+
+	# 本主学说包含哪些轨道（包含哪些子学说类型）
+    tracks = {
+		#以陆军学说为例，当本学说解锁后，可有以下类型的子学说
+		infantry #= 步兵子学说
+		combat_support #= 战场支援子学说
+		armor #= 装甲子学说
+		operations #= 作战子学说
+    }
+	#子学说类型定义
+	#陆军
+	#infantry #= 步兵子学说
+	#combat_support #= 战场支援子学说
+	#armor #= 装甲子学说
+	#operations #= 作战子学说
+	#海军
+	#submarines #= 潜艇子学说
+	#screens #= 屏卫舰子学说
+	#carriers #= 航母子学说
+	#capital_ships #= 主力舰子学说
+	#空军
+	#fighter_aircraft #= 战斗机子学说
+	#strike_aircraft #= 攻击机子学说
+	#medium_aircraft #= 中型飞机子学说
+	#heavy_aircraft #= 重型飞机子学说
+
+    # 激活效果：解锁后立即生效 ----
+    # 单位修正写在 category key 块里
+	#全局修正
+    planning_speed = 0.10               # 计划速度 +10%
+
+    enable_tactic = tactic_breakthrough # 解锁一个初始战术（用原版战术名）
+    category_all_infantry = {           # 所有步兵单位：
+        soft_attack = 0.10              #   软攻 +10%
+        defense = 0.10                  #   防御 +10%
+    }
+
+
+    # 里程碑：每个轨道一个，顺序必须和用可的子学说类型一致。比如上方tracks和原版一样支持所有陆军子学说，那么以下也按照顺序{}以及变量。
+	#这里已定义步兵、支援、装甲、作战四种子学说类型
+    milestones = {
+        {   # 第1 = infantry（步兵）轨道的里程碑
+            enable_tactic = tactic_elastic_defense #解锁"弹性防御"战术卡，这里用原版战术名，不用自己定义；想给专属战术需另建
+
+            effect = {
+                #   附带效果：给使用这个主学说的国家打一个"本里程碑已达成"的标记（变量）
+                #   为什么必须打标记？因为子学说可以中途换掉用其他的。没有标记的话，奖励状态会丢失，也可能被重复触发，打标记本质是让代码执行更稳定。标记让游戏记住：步兵轨道这份毕业奖你已经拿过了。（照抄原版固定写法，变量名换成自己的想要的前缀即可）不要与其他变量冲突。
+                if = {
+                    limit = {
+                        NOT = { has_variable = TAG_inf_milestone_var } #判断变量是否不存在
+                        #"若没有标记"触发下面的else。如需复杂判定可增加其他if。
+                    }
+                    set_variable = { TAG_inf_milestone_var = 1 } # 第一次达成：变量设为 1（= 此步兵子学说"已完成"）那么给予此轨道内的修饰符
+                }
+                else = {
+                    add_to_variable = { TAG_inf_milestone_var = 1 } #之后再次达成（变量已存在）：数值 +1（累计计数） 原版就这么写，保证标记只增不减
+                }
+            }
+        }
+        {   # 第2 = sup（支援）轨道的里程碑
+            planning_speed = 0.10 #计划准备速度 +10%
+
+            effect = {
+                #同上：给支援里程碑打标记，变量名换成 TAG_sup_milestone_var
+                # 逻辑与第 1 块完全一样（第一次设 1，之后累计 +1）
+				#若想增加则复制粘贴改一下变量即可
+                if = {
+                    limit = { NOT = { has_variable = TAG_sup_milestone_var } }
+                    set_variable = { TAG_sup_milestone_var = 1 }
+                }
+                else = {
+                    add_to_variable = { TAG_sup_milestone_var = 1 }
+                }
+            }
+        }
+		{   # 第3 = armor（装甲）轨道的里程碑
+            planning_speed = 0.10 #"计划速度"计划准备速度 +10%
+            enable_tactic = tactic_blitz #解锁"闪电战"战术卡
+
+            effect = {
+                #同上：给装甲里程碑打标记，变量名换成 TAG_arm_milestone_var
+                #逻辑与第 1 块完全一样（第一次设 1，之后累计 +1）
+                if = {
+                    limit = { NOT = { has_variable = TAG_arm_milestone_var } }
+                    set_variable = { TAG_arm_milestone_var = 1 }
+                }
+                else = {
+                    add_to_variable = { TAG_arm_milestone_var = 1 }
+                }
+            }
+        }
+		{   # 第4 = ope（作战）轨道的里程碑
+            planning_speed = 0.10 #计划准备速度 +10%
+
+            effect = {
+                #同上：给作战里程碑打标记，变量名换成 TAG_ope_milestone_var
+                #逻辑与第 1 块完全一样（第一次设 1，之后累计 +1）
+                if = {
+                    limit = { NOT = { has_variable = TAG_ope_milestone_var } }
+                    set_variable = { TAG_ope_milestone_var = 1 }
+                }
+                else = {
+                    add_to_variable = { TAG_ope_milestone_var = 1 }
+                }
+            }
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+三、轨道（Track）
+--------------------------------------------------------------------------------
+  轨道原版已有 12 个，直接引用 ID 即可，一般不需要自己建：
+    陆军：infantry / combat_support / armor / operations
+    海军：submarines / screens / carriers / capital_ships
+    空军：fighter_aircraft / strike_aircraft / medium_aircraft / heavy_aircraft
+
+  自定义轨道语法（仅当需要全新轨道时）：
+
+infantry = {                    # 轨道 ID
+    name = DOCTRINE_TRACK_INFANTRY   # 名称本地化 key
+    background = GFX_NAME            # 轨道背景图
+    background_offset = 10           # 背景横向偏移
+    frame = GFX_NAME                 # 轨道边框图
+    icon = GFX_NAME                  # 里程碑图标
+    icon_frame = GFX_NAME            # 里程碑图标外框
+
+    active = { has_political_power = 100 }   # 该轨道子学说可选的前提条件
+
+    mastery = {                    # 精通度获取规则
+        multiplier = 2.0           # 人力对精通度的贡献倍率（2 = 少一半人力需求）
+        categories = {             # 哪些单位类别贡献精通度
+            category_all_infantry
+            category_cavalry
+        }
+        equipment = { screen capital }   # 拥有这些装备类别的单位也贡献
+    }
+}
