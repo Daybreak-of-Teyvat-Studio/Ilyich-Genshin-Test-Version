@@ -34,7 +34,7 @@
 - **角色模型转换**：`肌`/`肌2` 是**皮肤层（四肢）**，不是叠加装饰，绝不能当重合层剔除（纳西妲缺手臂/腿的根因）；真正的叠加层是 `照れ/袜s/翼+/髮+/披肩s/裙+/白目/瞳/星目` 等。
 
 ## 3. 各国口径
-- **NAT**：六族 NCP/NCE/NPS/NSC/NFF/NMN；变量 `NAT-ABY-Index`(40)/`MVK-Prestige-Index`(50) 不可改名。四阶段 `autonomy_puppet`→`autonomy_NAT_State`→恩情>79 吞并→恩情<19 脱离宣战。国策171/决议69/事件88/精神205。18 个分宗决议带 `ai_will_do`（傀儡 +100，`nat_dissent_ai.py`）；分宗旗标两边都设，NAT 自己也能看到（未堵）。
+- **NAT**：六族 NCP/NCE/NPS/NSC/NFF/NMN；变量 `NAT-ABY-Index`(40)/`MVK-Prestige-Index`(50) 不可改名。四阶段 `autonomy_puppet`→`autonomy_NAT_State`→恩情>79 吞并→恩情<19 脱离宣战。国策171/决议69/事件88/精神205。18 个分宗决议带 `ai_will_do`（傀儡 +100，`nat_dissent_ai.py`）；分宗决议的 `visible`/`available` 已加 tag 门控（三阶段＝`or = { tag = NAT, tag = <族> }`，Recapture 只给 NAT，否则部族会看到「对自己宣战」）。
 - **LYY**：六派 12 路线；战后层 y∈[22,34]、id 带 `PW`、块标记 `# == <TAG> POST-WAR focus tree BEGIN/END ==`；170 决议全带门槛；六派内战 + 战后各 1 个 Info_Board。生成器 `_civilwar\cw_engine.py`。tag 限定 30 个（清单见 `2026-10-19.md`，以 `_diag_lyy_forks.py` 为准）。
 - **SAN**：三终局，分叉 `SAN_PW_The_Crossroads`；双轴 `SAN-Mandate-Index`(40)／`SAN-Deep-Index`(30)。改走 `_san\patch_pw_stage.py`。
 - **SUM**：雨林 `SUM_Neo_Focus_Tree`（起始 `SUM_PRO_Dawn_of_Sabzeruz`），沙漠 SGD/SDH/SGS 同树右侧。合计国策888／事件888／决议170／loc6602；门槛 162 个不同国策、深度 y3–y33（`map_sum_decisions.py`）。4 个 Info_Board。
