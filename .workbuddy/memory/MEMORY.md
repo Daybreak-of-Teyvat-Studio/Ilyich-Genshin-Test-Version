@@ -38,6 +38,8 @@
 - **角色模型转换**：`肌`/`肌2` 是**皮肤层（四肢）**，不是叠加装饰，绝不能当重合层剔除（纳西妲缺手臂/腿的根因）；真正的叠加层是 `照れ/袜s/翼+/髮+/披肩s/裙+/白目/瞳/星目` 等。
 
 ## 3. 各国口径
+- **胜利点口径（2026-10-22 终版）**：档位只有 **5/10/20/40**；**首都州 40**（`history/countries` 的 `capital` 是**州 id** 不是省 id）；**密度基数＝「有胜利点的州」（323 个）**，即**每 5 个有胜点州 1 个 20 点、每 3 个 1 个 10 点**，其余点与同州副点恒为 5。现状 **40×32、20×65、10×108、5×234（439 点 / 323 州）**。**禁止给无胜点州补胜点**（`eco_vp_fill.py` 勿再跑）。排序一律以**作者原始值**为准（`git archive HEAD` 导出的 `hoi4lint\_orig_head`），只把「图上不标名的分区/副本内部点」降权；**原值≥25 的州主点必为 20 档**（排除内部点），否则 SNE「至冬堡(100)」会被小国配额压成 10。工具：`eco_vp4.py`（定档，`--apply`）→ `eco_report.py` / `eco_render_vp.py`；`_vp_list.py` 出分档清单。
+- **经济已全量回滚（2026-10-22 01:35 用户指令）**：`history/states` 的 **manpower / state_category / buildings / resources 已恢复作者原始版本**，只保留胜利点改动。校验口径＝「除 `victory_points` 外与 `_orig_head` 逐字一致」。回滚后总量＝工厂 2496（军 698/民 1381/船 417）、港口 956、机场 698、基建 1386、人口 55.79 亿、州等级 `town 688 + large_town 1`。**`eco_apply2.py` 勿再跑**（会把经济改成按阶加权，且它有「用旧文本偏移量改块」的拼接 bug，曾把 5 个州的 `add_core_of = TAG` 写坏成 `add_core_of = Abuildings = {`；修复器 `fix_state_corrupt.py`）。州等级现已与胜利点档位脱钩。
 - **NAT**：六族 NCP/NCE/NPS/NSC/NFF/NMN；变量 `NAT-ABY-Index`(40)/`MVK-Prestige-Index`(50) 不可改名。四阶段 `autonomy_puppet`→`autonomy_NAT_State`→恩情>79 吞并→恩情<19 脱离宣战。国策171/决议69/事件88/精神205。18 个分宗决议带 `ai_will_do`（傀儡 +100，`nat_dissent_ai.py`）；分宗决议的 `visible`/`available` 已加 tag 门控（三阶段＝`or = { tag = NAT, tag = <族> }`，Recapture 只给 NAT，否则部族会看到「对自己宣战」）。
 - **LYY**：六派 12 路线；战后层 y∈[22,34]、id 带 `PW`、块标记 `# == <TAG> POST-WAR focus tree BEGIN/END ==`；170 决议全带门槛；六派内战 + 战后各 1 个 Info_Board。生成器 `_civilwar\cw_engine.py`。tag 限定 30 个（清单见 `2026-10-19.md`，以 `_diag_lyy_forks.py` 为准）。
 - **SAN**：三终局，分叉 `SAN_PW_The_Crossroads`；双轴 `SAN-Mandate-Index`(40)／`SAN-Deep-Index`(30)。改走 `_san\patch_pw_stage.py`。
