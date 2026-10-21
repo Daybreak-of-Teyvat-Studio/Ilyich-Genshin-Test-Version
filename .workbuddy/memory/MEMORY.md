@@ -3,6 +3,7 @@
 
 ## 0. 铁律
 - 禁恢复/回滚、禁 git 提交、禁「注释掉问题代码」。中文注释只写中文不写 ID。旧 loc 全不删；`ABY_focus.txt` 不动；focus 文件保留 `focus_tree` 头。数量一律下限；直接改原文件，禁建 `_v2`。
+- **修 bug 只修不删**：loc 同键重复不许删行（把「名称+\n§g描述」拆成 `key`/`key_desc`、空值行补正文、改行尾注释），删行＝丢作者内容，用户会退回。颜色闭合用状态机（`§X` 开／`§!` 关）判，数 `§` 奇偶是错的。
 - 事件/新闻 desc 200–400 字（去空白），生成下限取 206（`style()` 会削 2–5 字）。禁破折号（`—–―─－`）。
 - 新增事件/精神/loc/决议/类别/动修/宏/`on_actions` 一律并入同名 `<国>_*` 文件。新闻必须由国策/事件 `completion_reward` 触发（`news_event = { id = NS.n days = 1 }`），禁按日期批量发射。`add_namespace` 写在事件文件自身首部。
 - **focus 的 tag 限定＝树头白名单 + 少数关键国策**（LYY 30／SUM 18）；树头 `country = { or = { tag = … } }`，focus 级只给分叉点/终局写 `available`；缺省已删净（`strip_avail_always.py`）。
@@ -27,6 +28,7 @@
 - 前置：多个 `prerequisite = { }` 块是 AND，一块内多条 `focus =` 是 OR。
 - 决议 `icon=<裸名>`→`GFX_decision_<裸名>`，分类→`GFX_decision_category_<裸名>`；空分类要显示须 `visible_when_empty = yes`。trigger 块内 `always = no` 可让 available/visible 恒假（隐藏原版条目用）。
 - **idea 图标 `picture` 必须裸名**（游戏自动拼 `GFX_idea_`；写成 `GFX_idea_X` 会去取 `GFX_idea_GFX_idea_X` → 空白）。MIS 的 `icon =` 才写完整 sprite 名。原版 6153 条 `picture` 有 6131 条是裸名。
+- **loc 硬规则**：只认小写 `\n`（`\N` 原样显示）；`§b` 是合法深蓝码（原版在用），畸形 `§！`/`§。`/`§，`/尾部裸 `§` 都要补 `!`；同键重复＝**后加载者胜**（删被覆盖的早行不改显示）；文件必须在 `localisation/<语言>/` 且带 BOM + `l_<语言>:` 头，放 localisation 根目录不加载。
 - **解析 `.gfx` 必须 `re.I`**：属性名 `textureFile`（大写 F）与 `spriteType`（小写 s）大量并存，且要按花括号配对切块；用 `name…texturefile` 的正则近似会漏块、误报精灵缺失。
 - `annex_country={target=X transfer_troops=yes}`；`set_autonomy` 用 `autonomy_state`，history 用 `autonomous_state`。
 - `hoi4lint\vanilla_modifiers.json`(647) 是新效果硬约束；`on_actions` 跨文件叠加，挂载缺失静默。一颗 `hidden_effect` 只隐藏 tooltip、不改行为。
