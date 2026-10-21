@@ -51,7 +51,8 @@
 - loc/面板/国策：`check_loc_bom.py`、`fix_var_labels_loc.py`、`inv_info_boards.py`、`build_info_boards.py`、`check_info_boards.py`、`strip_avail_always.py`、`merge_sum_prereq.py`、`set_ai_weights.py`、`gate_lyy_route_focuses.py`、`map_sum_decisions.py`、`sum_remove_negative_spirits.py`。
 - 兵模：`bind_unit_models.py`、`fix_artillery_entities.py`、`rebuild_entities_law.py`、`dedup_entities.py`、`strip_infantry_sabre.py`、`verify_entities2.py`、`reicon_mio_by_region.py` + `verify_mio_icons.py`、`nat_dissent_ai.py`。
 - 模型：技能 `hoi4-pmx-to-mesh`（`vysna_build.py` 是唯一构建器）；本 MOD 的补丁版 `hoi4lint\nah_build.py`（+`rebuild_nahida.py`，可保留 `肌2`、带可选手臂重定向 `ARM_RETARGET`，默认关）。
-- 胜利点：`vp_apply_liyue_sumeru.py`（Gamma→Beta，一 Beta 州一点）、`vp_apply_inazuma.py`（**Beta→Gamma**，一 Gamma 州可多点）、`verify_vp_*.py`、`vp_render_gamma.py` / `vp_render_inazuma.py`。**两版省号不可互译**，桥只能靠州名 + TPS（锚点 141，LOO 中位 19px）。**写盘必须按 gid 聚合**：逐 Beta 点遍历会让同一州被处理多次，第二次 `copy2` 把已写文件当备份源，备份被污染、单州只落 1 点。
+- 胜利点：`vp_apply_liyue_sumeru.py`（Gamma→Beta，一 Beta 州一点）、`vp_apply_inazuma.py`（**Beta→Gamma**，一 Gamma 州可多点）、`vp_apply_mond.py`（带内策划表 + 投影定省）、`verify_vp_*.py`、`vp_render_gamma.py` / `vp_render_inazuma.py` / `vp_render_mond.py` / `vp_render_bbox.py`。**两版省号不可互译**，桥只能靠州名 + TPS（锚点 141，LOO 中位 19px）。**写盘必须按 gid 聚合**：逐 Beta 点遍历会让同一州被处理多次，第二次 `copy2` 把已写文件当备份源，备份被污染、单州只落 1 点；一州多点要「追加到最后一条 victory_points 之后」而不是整文件跳过。落省优先投影 Beta 胜利点省，投影点离州心 >60px 视为歪点改用州心，无素材时按建筑/面积选但必须复核与州心距离。
+- 参考图口径：`.backup/Beta_VP标注图/提瓦特大地图6.7.jpg`（25500×22500）是**多块独立区域板**拼在深海底色上、左上还有缩略小图，跨板不可坐标变换，只能逐板裁切读字（0.4 以上缩放才可读）；名字用它旁证，落省仍走 Beta/TPS。
 - 一律 dry-run 先行、`--apply` 才写、幂等、自动备份出 MOD。
 
 ## 5. 遗留
