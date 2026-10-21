@@ -26,6 +26,8 @@
 - 有 tooltip 的效果：`add_dynamic_modifier`/`remove_dynamic_modifier`、`add_ideas`/`remove_ideas`、`add_stability`；无 tooltip：`add_to_variable`/`set_variable`/`set_country_flag`。
 - 前置：多个 `prerequisite = { }` 块是 AND，一块内多条 `focus =` 是 OR。
 - 决议 `icon=<裸名>`→`GFX_decision_<裸名>`，分类→`GFX_decision_category_<裸名>`；空分类要显示须 `visible_when_empty = yes`。trigger 块内 `always = no` 可让 available/visible 恒假（隐藏原版条目用）。
+- **idea 图标 `picture` 必须裸名**（游戏自动拼 `GFX_idea_`；写成 `GFX_idea_X` 会去取 `GFX_idea_GFX_idea_X` → 空白）。MIS 的 `icon =` 才写完整 sprite 名。原版 6153 条 `picture` 有 6131 条是裸名。
+- **解析 `.gfx` 必须 `re.I`**：属性名 `textureFile`（大写 F）与 `spriteType`（小写 s）大量并存，且要按花括号配对切块；用 `name…texturefile` 的正则近似会漏块、误报精灵缺失。
 - `annex_country={target=X transfer_troops=yes}`；`set_autonomy` 用 `autonomy_state`，history 用 `autonomous_state`。
 - `hoi4lint\vanilla_modifiers.json`(647) 是新效果硬约束；`on_actions` 跨文件叠加，挂载缺失静默。一颗 `hidden_effect` 只隐藏 tooltip、不改行为。
 - **兵模**：`entity = { clone = "源" name = "<TAG>_<infantry|artillery|cavalry>_<0..3>_entity" }`，每 tag 12 个自动生效。**clone 不能覆盖 attach**（Amber 炮兵写死安柏炮手、骑兵写死安柏骑手）⇒ 每角色自建 `<角色>_artillery_entity`（炮手＝自己步兵），tag 只 clone 本阵营。悬空校验按 clone 值反查 name 集合。
