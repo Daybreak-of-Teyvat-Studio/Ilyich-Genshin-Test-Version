@@ -1,6 +1,6 @@
 # 提瓦特黎明（Daybreak of Teyvat）— HOI4 Mod 项目规则
 
-原神主题 HOI4 total conversion mod，代码为 Paradox Interactive 脚本语言（形似 Lua，对格式极其敏感）。所有工作围绕编辑 `.txt` / `.gfx` / `.yml` 文件展开。详细开发指南用 `hoi4` skill。
+原神主题 HOI4 total conversion mod，代码为 Paradox Interactive 脚本语言（形似 Lua，对格式极其敏感）。所有工作围绕编辑 `.txt` / `.gfx` / `.yml` 文件展开。详细开发指南用 `hoi4-skill-aimodding` skill（源仓库 `C:\Users\LR\Documents\GitHub\HOI4-skill-AImodding`）。
 
 ## 编辑铁律
 

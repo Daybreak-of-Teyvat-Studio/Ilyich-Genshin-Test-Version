@@ -1,0 +1,9 @@
+- [Gamma 改造进度](gamma-mod-progress.md) — **689 州、1-689 严格连号；战略区 1-9 连号（蒙德拆 4-9：风啸山坡/苍风高地/坠星山谷/明冠山地/风息山/龙脊雪山）**（删州必连号=铁律）；**判官工作流：改州/省后跑游戏按 error.log 修 buildings 到全 0**；10-18 合并 11 州+补号+建区已通过自检
+- [HOI4 skill 结构](hoi4-skill-structure.md) — hoi4-modder-cn（猫妖，v2.30；DSH 主副本=.dsh/skills，~/.zcode+~/.claude 旧副本仍 2.22）目录/版本规矩/独特功能/自检工具
+- [10-17 界面 bug 根因表](ui-bugs-interface-stale-copies.md) — DLC 图标=窗口高度、X 图标=sprite、选国顺序=version=base_game、背景预览=_small.dds+small_background.gfx；分叉 .gui 勿塞原版块
+- [州号补号只用简单迁移](state-renumber-simple-migration.md) — 删州/合并后尾部补号，禁全量迁移（用户铁律+实证教训）
+- [Gamma 工具脚本清单](gamma-tool-suite.md) — tools/ 各脚本用途与铁律（*.py 不入库）
+- [指令「数字+名字」格式规矩](user-gives-state-ids-for-names.md) — 括号=VP、无括号=州名、* 清 VP、A+B 转省、用户指令即权威
+- [改地块归属须先获批](gamma-map-change-approval.md) — 目标必须用户点名，"地理更合理"不可自行推断
+- [回复简洁不追问](user-reply-concise.md) — 回复简洁、命令无歧义；不反复追问状态（有问题用户会主动说）；skill 同
+- [改 mod 必须双副本同改](mod-dual-copy-rule.md) — 仓库+本地部署（Documents\...\mod\Daybreak of Teyvat Gamma Version）两个路径同时写，改完核对一致

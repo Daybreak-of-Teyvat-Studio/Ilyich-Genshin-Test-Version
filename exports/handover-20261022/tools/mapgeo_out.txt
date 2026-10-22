@@ -1,0 +1,45 @@
+definition: 8022 色 / 8022 省
+bmp: 4096x2048 bpp=24 comp=0 offset=54 size=25165878
+州文件: 750 州 / 省→州 8021 条
+buildings: 40876 行
+
+=== flip 判定（col7!=0 的行）===
+  共 3394 行 col7!=0（取前400测试）: 直读命中=0 / 翻转命中=0
+  317 naval 行 (1789.5,1389.5) col7=7611:
+    直读 -> 202   翻转 -> 6764
+    直读2 -> 362   翻转2 -> 1520
+
+=== 全量审计 ===
+  flip=False: 不匹配 1705 行
+    L1343 state=317 air_base x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1344 state=317 fuel_silo x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1345 state=317 radar_station x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1346 state=317 nuclear_reactor_spawn x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1347 state=317 rocket_site_spawn x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1348 state=317 synthetic_refinery x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1349 state=317 stronghold_network x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L1350 state=317 anti_air_building x=1805.93 z=1381.67 col7=0 → 实为州732省7611
+    L3192 state=463 anti_air_building x=1631.61 z=924.05 col7=0 → 实为州711省7765
+    L8009 state=336 arms_factory x=1560.01 z=1240.84 col7=0 → 实为州15省47
+    L8013 state=336 coastal_bunker x=1560.01 z=1240.84 col7=0 → 实为州15省47
+    L12366 state=177 floating_harbor x=2283.95 z=1724.95 col7=729 → 实为州747省7481
+  flip=True: 不匹配 40550 行
+    L1 state=177 arms_factory x=2277.04 z=1719.3 col7=0 → 实为州735省5116
+    L2 state=1 air_base x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L3 state=1 fuel_silo x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L4 state=1 radar_station x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L5 state=1 nuclear_reactor_spawn x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L6 state=1 rocket_site_spawn x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L7 state=1 synthetic_refinery x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L8 state=1 stronghold_network x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L9 state=1 anti_air_building x=1911.29 z=1403.73 col7=0 → 实为州664省765
+    L10 state=1 anti_air_building x=1892.27 z=1392.76 col7=0 → 实为州669省890
+    L11 state=1 anti_air_building x=1908.3 z=1389.43 col7=0 → 实为州664省1076
+    L12 state=266 air_base x=2243.32 z=1487.84 col7=0 → 实为州284省4297
+
+=== 坏行修复坐标搜索（目标：落在 317 州的省）===
+Traceback (most recent call last):
+  File "C:\Users\LR\Documents\GitHub\Ilyich-Genshin-Test-Version\tools\mapgeo.py", line 133, in <module>
+    p = px(x, z, FLIP)
+                 ^^^^
+NameError: name 'FLIP' is not defined

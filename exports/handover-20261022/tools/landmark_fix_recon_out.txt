@@ -1,0 +1,167 @@
+======================================================================
+【A】原版 gfx/entities/landmarks.asset 头 60 行
+   ###############################
+   ######	    Big Ben      ######
+   ###############################
+   
+   entity = {
+   	name = "building_landmark_big_ben"
+   	pdxmesh = "landmark_big_ben_mesh"
+   
+   	default_state = "idle"
+   	state = { name = "idle"				animation = "idle"       		animation_blend_time = 0.3 animation_speed = 1.0 looping = no }
+   
+   	scale = 0.3
+   
+   }
+   
+   #DESTROYED
+   entity = {
+   	name = "building_landmark_big_ben_destroyed"
+   	pdxmesh = "landmark_big_ben_destroyed_mesh"
+   
+   	default_state = "idle"
+   	state = { name = "idle"				animation = "idle"       		animation_speed = 0.1 looping = no next_state = "destroy"
+   			event = { time = 0 node="watch_explode" particle = "building_explode_effect" keep_particle = yes }
+   	}
+   	state = { name = "destroy"			animation = "destroy" 			animation_blend_time = 0.0  animation_speed = 1.0 looping = no
+   			event = { time = 0 node="watch_explode" particle = "ship_hit_effect_big_particle"  keep_particle = yes }
+   			event = { time = 0 node="pre_explode1" particle = "ship_explosion_particle"  keep_particle = yes }
+   			event = { time = 2.1 node="pre_explode2" particle = "ship_explosion_particle"  keep_particle = yes }
+   			event = { time = 1.1 node="explosion" particle = "ship_hit_effect_big_particle"  keep_particle = yes }
+   			event = { time = 1.1 node="explosion1" particle = "ship_hit_effect_big_particle"  keep_particle = yes }
+   			#event = { time = 2.1 node="impact1" particle = "building_explode_effect" keep_particle = yes }
+   			event = { time = 4.1 node="impact1" particle = "building_explode_effect" keep_particle = yes }
+   			event = { time = 9.7 node="impact2" particle = "vehicle_explode_effect" keep_particle = yes }
+   			event = { time = 2 node="damaged_smoke" particle = "bunker_smoke_effect"  keep_particle = yes trigger_once = yes }
+   			event = { time = 2 node="fire1" particle = "ship_damaged_smoke_particle"  keep_particle = yes trigger_once = yes }
+   			event = { time = 2 node="fire2" particle = "ship_damaged_smoke_particle"  keep_particle = yes trigger_once = yes }
+   			event = { time = 11.1 node="fire3" particle = "ship_damaged_smoke_particle"  keep_particle = yes trigger_once = yes }
+   			event = { time = 11.5 node="fire4" particle = "ship_damaged_smoke_particle"  keep_particle = yes trigger_once = yes }
+   			event = { time = 2 node="watch" particle = "bunker_smoke_effect"  keep_particle = yes trigger_once = yes }
+   			event = { time = 0 sound = { soundeffect = "building_landmark_big_ben_destroyed_test" }}
+   	}
+   
+   
+   	scale = 0.3
+   
+   }
+   
+   ###############################
+   ######	   Colosseum     ######
+   ###############################
+   
+   entity = {
+   	name = "building_landmark_colosseum"
+   	pdxmesh = "landmark_colosseum_mesh"
+   
+   	default_state = "idle"
+   	state = { name = "idle"				animation = "idle"       		animation_blend_time = 0.3 animation_speed = 1.0 looping = no }
+   
+   	scale = 0.3
+   
+
+======================================================================
+【B】原版 common/buildings 里有没有 entity = 字段
+  ★ 原版建筑定义里没有 entity = 字段
+
+======================================================================
+【C】原版 .asset 里 building_ 前缀 entity 名单（前 30）
+   building_dockyard_1
+   building_dockyard_2
+   building_dockyard_3
+   building_air_base
+   building_naval_base_spawn
+   building_naval_gun_battery
+   building_naval_supply_hub
+   building_naval_headquarters
+   building_naval_base_1
+   building_naval_base_2
+   building_naval_base_3
+   building_nuclear_facility
+   building_nuclear_facility_destroyed
+   building_air_facility
+   building_air_facility_destroyed
+   building_naval_facility
+   building_naval_facility_destroyed
+   building_land_facility
+   building_land_facility_destroyed
+   building_electronics_facility
+   building_rocket_facility
+   building_special_project_facility_spawn
+   building_landmark_spawn
+   building_locks_spawn
+   building_dam_spawn
+   building_dam
+   building_bunker
+   building_bunker_destroyed
+   building_coastal_bunker
+   building_coastal_bunker_destroyed
+  共 107 个
+
+======================================================================
+【D】gamma 里谁引用 sanghe / forbidden_city 的 mesh（找注册处）
+  --- "sanghe" ---
+  --- "landmark_forbidden_city_mesh" ---
+    gfx\entities\DOT_buildings.asset: pdxmesh = "landmark_forbidden_city_mesh"
+  --- "pdxmesh" ---
+    gfx\entities\DOT_Aether.asset: pdxmesh = "Aether_infantry_mesh"
+    gfx\entities\DOT_Aether.asset: pdxmesh = "Aether_infantry_mesh"
+    gfx\entities\DOT_Aether.asset: pdxmesh = "infantry_cavalry_horse_mesh"
+    gfx\entities\DOT_Aether.asset: pdxmesh = "infantry_cavalry_horse_frame_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_infantry_cavalry_horse_mesh"
+    gfx\entities\DOT_All_Entity.asset: # 天空之枪 pdxmesh = "DOT_infantry_weapon_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_infantry_weapon_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_infantry_weapon_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_infantry_weapon_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_sabre_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "DOT_sabre_holder_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "LYY_sabre_mesh"
+    gfx\entities\DOT_All_Entity.asset: pdxmesh = "LYY_sabre_holder_mesh"
+
+======================================================================
+【E】DVA_focustree 里两处引用上下文
+  --- landmark_institute_of_tower @ 37246 ---
+    scholar
+    			}
+    			hidden_effect = {
+    				Research_Up = yes
+    			}
+    			custom_effect_tooltip = DOT_Government_Research_Up_tt
+    			add_research_slot = 1
+    			433 = {
+    				add_building_construction = {
+    					type = landmark_institute_of_tower
+    					level = 1
+    					instant_build = yes
+    					province = 442
+    				}
+    			}
+    		}
+    	}
+    	focus = {
+    		id = DVA
+  --- landmark_Lei_Line_research_center @ 84849 ---
+    	always = no 
+    				}
+    			}
+    			else = {
+    				always = no
+    			}
+    		}
+    		
+    		allow_branch = {
+    			has_government = communism
+    		}
+    
+    		completion_reward = {
+    			229 = {
+    				add_building_construction = {
+    					type = landmark_Lei_Line_research_center
+    					level = 1
+    					instant_build = yes
+    					province = 4540
+    				}
+    			}
+    		}
+    	}

@@ -1,0 +1,44 @@
+SKILL.md:3: version: 2.00
+SKILL.md:24: - **⭐ 地图迁移功能（转省 / 州合并 / 简单迁移补号）**：可以在完成省份迁移、州合并操作的同时，**迁移其数字 id 关联的修正和本地化**——州号变动时，动态修正引用（`<州号> = { add_dynamic_modifier = … }`、`controls_state / owns_state / h
+SKILL.md:25: **⚠ 补号只准用「简单迁移」（尾部补号）——把号尾最后几个州填进空出的号位；严禁「全量迁移」级联重排大批州号。详见 `references/gamma-pipeline.md`「州号空洞与补号」。**
+SKILL.md:42: 制作者：猫妖    版本：v2.00
+SKILL.md:115: - **🚫 州号「全量迁移」是本 skill 明令禁止的操作**（用户铁律）：删除/合并州后出现的空号，**绝不允许级联重排成百上千个州号**（如把 1-700 整体前移填洞）。正确做法是**「简单迁移」（尾部补号）**：只把号尾最后几个州搬进空出的号位，带 5 点引用联动（①loc 键 ②airports/rocke
+SKILL.md:131: | **批量挪省/均分州/海州/州名/VP/地形/补号**（Gamma 全图改造流水线） | `references/gamma-pipeline.md` —— 多州均分紧凑度优化、海洋州创建、州名 `*` 化、VP 管理、地形三步覆盖、合并修复与**简单迁移补号**（含「禁全量迁移」铁律） |
+SKILL.md:132: | 适配基础游戏新版本（stale override） | `references/version-adapt.md` |
+SKILL.md:144: | `scripts/fill_state_gaps.py` | **简单迁移补号**（唯一合法补号法）：删州/合并后的空号由号尾州填洞，联动迁移 id/name key/capital/buildings/脚本引用；绝不做全量迁移 |
+SKILL.md:180: 2. 判断任务层级：单位数值 / 图标 / 编制 / 本地化 / 3D 模型 / 地图与州数据 / 建筑高程 / 版本适配。
+SKILL.md:188: 8. 适配新版本：shadow 检测 → 重建 stale override → 保留独有内容（见 version-adapt）。
+SKILL.md:210: version-adapt.md          # 基础游戏版本适配
+SKILL.md:225: ## 版本递增规矩
+SKILL.md:227: 每次对 skill 有实质更新，版本号必须提升：
+SKILL.md:235: 同时更新三处版本号：frontmatter `version`、首次使用向导横幅、开源说明。
+SKILL.md:239: - 本 skill 名为 **hoi4-modder-cn**，由**猫妖**制作，当前版本 **v2.00**，欢迎自由使用、修改与分发。
+references\buildings-height.md:43: **失败版本记录（为什么是 90 分位 + 海占比这两道闸）**：
+references\buildings-height.md:45: | 版本 | 规则 | 结果 |
+references\gamma-pipeline.md:118: **合并后必须接「简单迁移补号」**（空位 ← 号尾州；见下节「州号空洞与补号」）——合并删文件与补号是连续两步，别忘第二步。
+references\gamma-pipeline.md:300: （整片重绘是一次性大工程、用户点名启动——与「禁全量迁移」不冲突；日常删州/合并一律走简单迁移）
+references\gamma-pipeline.md:322: ## 州号空洞与补号：只准「简单迁移」（★ 铁律，2026-10-14 用户明令）
+references\gamma-pipeline.md:324: ### 禁令：不做「全量迁移」
+references\gamma-pipeline.md:327: 用户原话：「**不要全量迁移，你把最后的 706-709 改成 63,65,66,67 不就行了？**」
+references\gamma-pipeline.md:329: - 实证代价（2026-10-13）：删 41 个海州后我交了一版全量迁移 → **debug 都进不去**，由用户找人修回。
+references\gamma-pipeline.md:330: - 为什么禁：全量迁移牵动几百个州的 loc/airports/引用/首都/buildings，出错面大、无法逐条核对、回滚困难；
+references\gamma-pipeline.md:331: 简单迁移只动 k 个州，可逐条验证。
+references\gamma-pipeline.md:333: ### 唯一合法补号法：「简单迁移」（尾部补号）
+references\gamma-pipeline.md:337: | 场景 | 空位 | 简单迁移动作 | 结果 |
+references\gamma-pipeline.md:361: - **nudge 编辑器对缺号敏感**：游戏本体允许缺号（原版 1.19.3 的 1-1079 有 112 个缺号），但 nudge 启动会弹「地图定义文件存在错误」。缺号在**两段交界**（如陆州尾 860/861 紧邻海州段）时，最优解是**邻段头部前移填补**（海州 862-902 整体前移 2 位到 860-
+references\gamma-pipeline.md:553: - ❌ 删州/合并后用「全量迁移」级联重排几百州 → 用户铁律禁止（曾致 debug 都进不去）；只准简单迁移（尾部 k 个州补空位）
+references\gamma-pipeline.md:554: - ❌ 简单迁移漏迁 airports / rocketsites 键 → 旧键滞留成重复键（5 点联动第 2 点）
+references\grand-doctrine-tutorial-主学说教程.txt:13: 截止版本：1.19.3有 （No Compromise, No Surrender DLC）
+references\ra-notes.md:219: - **误删后的恢复手法（2026-09-17）**：先查 git 有没有可取的版本——`git -C <mod> show HEAD:<相对路径>`（GitHub Desktop 自带的 git 在 `C:\Users\LR\AppData\Local\GitHubDesktop\app-*\resources\ap
+references\ra-notes.md:220: - **本项目 git 现状**：仓库在 mod 根目录，用户按版本提交（`9.6`/`9.5`/`0.1`…），工作区常年有大量未提交改动 → **不要用 `git checkout/restore` 去"撤销某个文件"，会把该文件里其它未提交的改动一起丢掉**；要精确回退只能手改或克隆孪生块。
+references\ra-notes.md:291: - **⚠️ 批量脚本改坏文件后的处理次序**：①停止在坏文件上继续补丁（越补越碎）；②用 `git show HEAD:<相对路径>` 取最后一次提交的原始版（本项目用户按版本提交，HEAD 往往不含本轮改动，但结构完整）；③把本轮改动写成**可重放的脚本**（加民工门槛、加前置、加授予），在原始版上重跑一遍；④核对
+references\task-roadmaps.md:109: | 1 | 组织定义 | `common/military_industrial_organization/organizations/<TAG>_organization.txt`：`<组织id> = { allowed = {...} visible / available / icon / initial_sta
+references\task-roadmaps.md:111: | 3 | 图标 | 组织图标与 trait 图标按版本放 `gfx/interface/mio/`（或 flags/goals），在块内引用 | 可后补 |
+references\task-roadmaps.md:137: - 条目 `KEY:0 "文本"`（版本号可省略为 `KEY: "文本"`，**同一 mod 内风格统一**）；**必须 UTF-8 with BOM**
+references\unit-categories-参考.txt:6: #         这个原版本身的截断历史 key，与 category_bus）。
+references\user-guide.md:176: | 挪省/改州归属/州重排 | 工具链 + 语法关。**独特功能**：省份迁移、州合并的同时，自动迁移数字 id 关联的**修正**（`<州号> = { add_dynamic_modifier }`、`controls_state` 等引用）和**本地化**（`DOT_STATE_<id>`），不留悬空引用。**删州
+references\user-guide.md:177: | 均分州/海州/州名/VP/地形/补号 | Gamma 流水线（补号=简单迁移，禁全量迁移） | `gamma-pipeline.md` |
+references\user-guide.md:181: | 适配游戏新版本 | stale override | `version-adapt.md` |
+references\user-guide.md:190: - 「游戏更新后 mod 坏了」→ 版本适配（stale override 重建）
+references\version-adapt.md:1: # 版本适配（adapt to latest version）
+references\version-adapt.md:8: 2. 对每个 stale override：复制基础游戏当前版本文件覆盖 mod 旧副本，再把 mod 独有内容**原样插回**。
