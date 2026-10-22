@@ -27,6 +27,16 @@
 - 多个 `prerequisite` 块是 AND，块内多条 focus 是 OR。决议 `icon=<裸名>`→`GFX_decision_<裸名>`；空分类须 `visible_when_empty`。
 - **idea 的 `picture` 必须裸名**（写 `GFX_idea_X` 会取到 `GFX_idea_GFX_idea_X` 而空白）；MIS `icon=` 才写完整 sprite 名。
 - loc 只认小写 `\n`；同键重复＝后加载者胜；须在 `localisation/<语言>/`。解析 `.gfx` 要 `re.I`。
+- **★建筑/奇观坐标（`map/buildings.txt`、`map/buildings_landmark.txt`）**：行格式 `州id;建筑;x;y;z;旋转;?`，
+  第一字段是**州 id（1..689）不是省 id**；**z 轴与位图行相反**：`row = 2048 - z`；
+  **`y = heightmap[row][x] * 0.1`**（陆地灰度 92~216 → y 9.2~21.6，MOD 惯用 9.50＝灰度 95 平地）。
+  600 条真实行校验：`row=H-z` 误差中位 0.06，`row=z` 误差中位 8.26。海省灰度恒 10、陆地无 10 ⇒ 灰度 10 判海。
+  宫殿模型落点由 `common/buildings/DOT_buildings.txt` 里的 `spawn_point`（＝该州 `nuclear_reactor_spawn` 行）决定。
+  工具 `tools/fix_palace_height.py`。
+- **英日文地名 loc**：`tools/loc_i18n_build.py` 生成 `DOT_Names_en/jp_l_*.yml`（州名＋胜利点＋战略区，1180 键全覆盖）；
+  译名优先原神官方词典（`https://dataset.genshin-dictionary.com/words.json`，字段 zhCN/en/ja），再人工意译表
+  `tools/loc_en_fill.tsv`＋`tools/loc_extra.tsv`；日文兜底＝opencc `s2t` + 自建 `T2JP` 转新字体（opencc 无 t2jp）。
+  脚本读「已有译文」时必须排除自身输出文件，否则重跑会清空。
 - `annex_country={target=X transfer_troops=yes}`；`set_autonomy` 用 `autonomy_state`，history 用 `autonomous_state`。`hoi4lint\vanilla_modifiers.json`(647) 是硬约束。
 
 ## 4 当前口径
