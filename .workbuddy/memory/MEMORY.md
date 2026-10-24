@@ -42,7 +42,9 @@
 ## 5 当前口径
 - 胜利点只 5/10/20/40（439 点/323 州），首都州 40；原值≥25 的主点必为 20 档。
 - 经济：每国工厂 10–100、人口 4–40 千万整千；现工厂 944／港口 115／机场 98。补给只给最高胜点 ≥10 的州（205 条）；铁路 439 胜点进网 431。
-- **可控角色**：璃月／SAN／须弥／纳塔**不得招募非可控角色**（名单 `tools/char_playable.py`）；**须弥只动 `SUM - Sumeru.txt`**；保留 `LYY_Morax`／`LYY_Marchosius`。现 276 条违规 0。
+- **可控角色**：璃月／SAN／须弥／纳塔**不得招募非可控角色**（名单 `tools/char_playable.py`）；**须弥只动 `SUM - Sumeru.txt`**；保留 `LYY_Morax`／`LYY_Marchosius`／**`SUM_Azar`**（见下条）。现 279 条违规 0。
+- **★删 `recruit_character` 前必验「会不会失国」**：这些国家都没有 `set_country_leader`，领导人＝按招募顺序第一个 `country_leader.ideology` 所属 group 等于 `set_politics.ruling_party` 的角色。两个已踩过的坑：**SUM 开局 ruling=neutrality，唯一符合的是 `SUM_Azar`（oligarchism）**，`SUM_Nahida` 是 wisdom→genshin 当不了；**SAN 开局 ruling=democratic，唯一符合的是 `SAN_Kokomi`（conservatism）**，四个 Kokomi 变体分别是 eternity/Rosism/Black_Rosism/anarchism。工具 `recruit_integrity.py`（四层总核，判领导人要用 `finditer` 取**全部** country_leader，只取第一个会误报）、`fix_sum_leader.py`、`leader_cover_bak.py`。
+- **★create→character 转换的验收标准**：不能只看「角色在不在」，要按 create 的 **kind** 逐一核槽位（`createtochar_slots.py`）。`create_corps_commander` 漏建**不报错**，只会静默少一个将领 —— `SAN_Gorou` 就是这么丢了（10-25 已补建）。块命名归一用「纯字母数字子串包含」，不要剥 `^[a-z]{2,5}_` 前缀（会把 `Ying_A` 剥成 `a`）。
 - **countries 只招募同 TAG 前缀角色**（`X - *.txt` 只能 `X_`）。MOT 系 34 处 `create_*` 已于 10-24 全改为 character + `recruit_character`（GUN 新建 `GUN_Characters.txt`）。
 - **★跨 tag 招募判据（用户 10-24 23:59 拍板）＝看角色块所在文件**：`X - *.txt` 只能招募写在 `X_Characters.txt` 里的块，不看 ID 前缀、不管角色设定国籍；原版 `<TAG>.txt` 同算对应文件。`ANR_characters.txt` 里 `Venti`/`Mona`/`Razor`/`Kayae` 无前缀也属 ANR。
 - `recruit_character` 大小写不敏感，大小写变体并存 ⇒ `already assigned`（LYY 13／NAT 5 条未清）。
