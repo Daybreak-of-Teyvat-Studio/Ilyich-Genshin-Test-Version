@@ -12,7 +12,7 @@
 - **★所有 WorkBuddy 产物统一放 `C:\Users\XIANGZIYUAN\.workbuddy\workspace\`，家目录根下不再新建任何目录/文件**。
 
 ## 1 编码（最易致命）
-- **loc `.yml` 必须 UTF-8 BOM + CRLF**（缺 BOM 整份静默丢弃）；**`history/states/*.txt` 必须无 BOM + CRLF**（带 BOM→州库空→闪退）。
+- **loc `.yml` 必须 UTF-8 BOM + CRLF**（缺 BOM 整份静默丢弃）；**`key: "值"` 不带 `:0` 版本号是合法写法**（原版 11.9 万行如此），别当错误批量改；**`history/states/*.txt` 必须无 BOM + CRLF**（带 BOM→州库空→闪退）。
 - `common/ideas|characters|country_leader/*.txt`、`history/countries/*.txt`、`map/supply_nodes.txt`、`railways.txt`、战略区 txt、`weatherpositions.txt`、`.asset` 一律无 BOM + CRLF（BOM 让首行变 `Unexpected token: ideas`/`characters`）。
 - 脚本无 BOM+CRLF；Edit 同一文件多处改动必须串行。
 
@@ -28,7 +28,10 @@
 - **★可控角色口径**：名单只取萌娘百科各地区页「可控角色」（`char_playable.py`），蒙德整体不参与。三个坑：①角色可能定义在**别国文件**里（`SAN_Gorou` 在 `INA_Characters.txt`）⇒ 判重必须**全局扫 51 个角色文件**，否则 `Multiple character have the tag`；②同名异写归一（`Kaveh=Cavy`、`Kirara=Momoka`），变体 ID 单字母前缀要剥（`SAN_B_Kokomi`）；③同一角色多变体只要有**一个**带 advisor 就算有内阁身份。
 - **★内阁顾问体系**：每个非蒙德角色都要有 `advisor` 块，`traits` 只放**一个专属称号特质**（称号英文 PascalCase，如「浅蔚轻行」→`Verdant_Strider`）。槽位六类混搭：`political_advisor`／`army_chief`／`navy_chief`／`air_chief`／`high_command`／`theorist`；后两者 `slot_ledger` 是 `invalid`，**必须显式写 `ledger`**。`cost = removal_cost = 100`、`ai_will_do = { factor = 1 }`、`allowed = { always = yes }`。三件套：`DOT_Char_Title_Traits.txt`(221 条)／`.gfx`／`_l_simp_chinese.yml`；称号表 `char_titles.py`（改称号只改这里再跑 `gen_title_traits.py`）。**同角色两个 `advisor` 块 → `tries to cumulate 2 times the same advisor type`**。
 - **★`advisor.idea_token` 只是标识符**：原版大量 token 无对应 idea（`AFG_hares_muzafar`），效果由 `traits` 承担。自定义 idea 类别必须在 `common/idea_tags/00_idea.txt` 注册（未注册→`unknown category`、整份静默丢弃），新增类别**不写 `character_slot`**。
-- **★肖像四字段**：每角色 `civilian={large small}` + `army={large small}`，1149 角色零空。`large` 156×210 走 `gfx/leaders/<TAG>/` 现成图，缺了才用 `Backups/`；`small` **优先 `gfx/interface/cabinet/`**（65×67 金框卡牌，10-24 起 580 角色），cabinet 无图才退 `DOT_PP/idea_*.png`。**禁止新建肖像目录/Backups 副本**（`DOT_Chars` 已删）。**角色肖像是全游戏唯一可直接写图片路径、不需 sprite 的地方**；`advisor` 块没有 picture，内阁头像就是 `army.small`；idea 的 `picture` 必须**裸名**。缺立绘去 `.skills/bwiki/`（`icons*/<中文名>头像.png` 256²）→ 3:4 竖切＋元素色渐变；**绝不拿 DOT_PP 放大充 large**。
+- **★肖像四字段**：每角色 `civilian={large small}` + `army={large small}`，1149 角色零空。`large` 156×210 走 `gfx/leaders/<TAG>/` 现成图，缺了才用 `Backups/`；`small` 优先级＝**cabinet 65×67 → cabinet 156×210 裁 65×67（存 `cabinet/gen/DOT_<名>.png`）→ `DOT_PP/idea_*.png` → **立绘裁 64×64 存 `cabinet/gen/DOT_<名>.png`（裁切框＝0.78×图高、水平居中贴顶，实测通吃半身/特写/全身）→ 立绘是原版 `portrait_europe_generic_*` 的用式大将那张 `cabinet/Undecided.dds`**（式大将＝`history/general/DOT_advisors.txt` 的 `Shiki_Taishou`，全库无同名图）。cabinet 里 `yelan/Yaoyao/xianglin.png` 是斜拍残图（白底大片留白／卡片被切边），已改用 DOT_PP 同名正图。**禁止新建肖像目录/Backups 副本**（`DOT_Chars` 已删）。**角色肖像是全游戏唯一可直接写图片路径、不需 sprite 的地方**；`advisor` 块没有 picture，内阁头像就是 `army.small`；idea 的 `picture` 必须**裸名**。缺立绘去 `.skills/bwiki/`（`icons*/<中文名>头像.png` 256²）→ 3:4 竖切＋元素色渐变；**绝不拿 DOT_PP 放大充 large**。
+- **★★`Gunnhildr.dds` 口径（2026-10-24 用户两次拍板）**：`large = "gfx/leaders/LY/Gunnhildr.dds"` 是**有意为之的无名 NPC 占位大图，一律不许动**（现 72 块／144 槽）；但 `small` **绝不能**指 `Gunnhildr.dds` 或任何 `gfx/leaders/` 大图，必须用该角色在 cabinet／DOT_PP 里已有的对应小图；作者原本给这批人配的就是通用无名像（`MOT_Man_Knight1/2/3`、`MOT_Woman_Nun1`、`MOT_*_Citizen*`、`MOT_*_Yurenzhong1`、`SUM_Man_Scholar1`、`LAW 用 Undecided.dds`），**这就是"对应图片"**，别裁立绘造 `DOT_Gunnhildr.png`（已尝试过两轮、均被否）。这 72 人 cabinet／DOT_PP 无一人有专属图。
+- **★★造 gen 图前必须先穷举匹配（2026-10-24 用户两次点名）**：`cabinet/gen/DOT_*.png` 只允许在「cabinet 与 DOT_PP 都没有」时才造。匹配三步缺一不可：①**递归**扫 `cabinet/` 全目录（`LYY/`、`VAN/`、`NDK/`、`DVA/`、`FON/`、`KNA/`、`PRI/` 都有小图）；②剥角色 ID **尾号**（`SGD_Candace02`→`candace`、`Cyno02`）与 **`DOT_` 前缀**（gen 名与 cabinet 裸名不比同一层）；③别名表（`Miko→INA_miko`、`Scaramouche→sanbing`、`Nico→idea_MOT_Nicole`、`Rosaria`≠`Rosalyn`）。误造后果：23 张重复图（Candace02／Cyno02／Ying／Nahida_Puppet／Bennett_N／Raiden／Lanyan…）已全部改回现成图、移出 MOD，gen 103→80。工具 `gen_reaudit.py`／`gen_fuzzy.py`／`gen_users.py`／`gen_repoint.py`。
+- **★同角色多变体共用同一张小图**：`SGD_Candace02`／`candace02`／`SDH_Candace` 都是 candace，共用一张。归一＝去 TAG 前缀→去变体后缀（`_N/_M/_A/_H/_02/_03/_plus/_commander/_marshal/_puppet`）→去尾号→小写；拼写完全不同的别名再按 `large` basename 分组（`Momoka=Kirara=qiliangliang`、`Buer=纳西妲`）。**裁图前必先查重**：同一立绘只该有 1 个 `cabinet/gen/` 文件（dHash=0 即重复，`gen_dup.py`；共用 84 组、合并 5 个冗余）。KNA 丘丘人各兵种立绘虽同但形象完全不同，**不可互换**；cabinet 与 DOT_PP 混用的 70 组是图源风格选择（DOT_PP 圆头像在 65×67 更清晰），不属重复造图。引用大小写须与磁盘一致（`DOT_buer`→`DOT_Buer`，Linux 会挂）。
 - **★cabinet 小图只按角色 ID 匹配，绝不看 `large` 名**（large 多为借图：蒙德 15 个 NPC 的 large 是 `Ying.dds`，按 large 匹配会全配成「荧」）。优先级：ID 原名→归一裸名→别名片（`Momoka→Kirara→qiliangliang`、`Kaveh→Cavy`、`Wanderer→sanbing`、`Heizou→luyeyuanpingzang`）→加任意 TAG 前缀（`ASA_Miko→INA_miko`）。只收 58–74 px 方图。工具 `cabinet_apply.py`／`revert_bad_small.py`。
 - **★`country_leader` 块不支持 `visible`**（只认 ideology／traits／expire／desc／id），多变体靠事件 `set_country_leader` 切换。
 - 多个 `prerequisite` 块是 AND，块内多条 focus 是 OR。决议 `icon=<裸名>`→`GFX_decision_<裸名>`；空分类须 `visible_when_empty`。loc 只认小写 `\n`；同键重复＝后加载者胜。解析 `.gfx` 要 `re.I`。
@@ -50,9 +53,11 @@
 - **NAT**：六族 NCP/NCE/NPS/NSC/NFF/NMN；`NAT-ABY-Index`(40)／`MVK-Prestige-Index`(50) 不可改名；四阶段 autonomy_puppet→NAT_State→恩情>79 吞并→<19 脱离。
 - **LYY** 六派 12 线（战后层 y22–34、id 带 `PW`）；**SAN** 三终局（`SAN_PW_The_Crossroads`）；**SUM** 888 国策/170 决议，`SUM_PRO_*` 共享序章，只重建国策用 `regen_focus_only.py`。
 - **兵模**：`clone` 每 tag 12 个、不能覆盖 attach；三件套 `*_sabre_infantry_rider`／`*_sabre_cavalry_rifle_combined`／`*_sabre_cavalry_entity`；模型走技能 `hoi4-pmx-to-mesh`（`肌/肌2` 是皮肤层，绝不能当装饰剔除）。
+- **★可控角色招募口径**（2026-10-24 用户三次纠偏）：璃月／SAN／须弥／纳塔国家**不得在 `history/countries` 招募非可控角色**；名单只取 `tools/char_playable.py`（璃月 22／须弥 14／纳塔 11）。**须弥只调 `SUM - Sumeru.txt`**，SDH/SFG/SGC/SGD/SGS/SKD/VAN/VLM 一律不动；**璃月保留 `LYY_Morax`（摩拉克斯）与 `LYY_Marchosius`（马科修斯）**，审计脚本 `EXCEPT` 已列白。现 276 条招募违规 0。
+- **★`recruit_character` 大小写不敏感**：`LYY_KeQing` 与 `LYY_Keqing` 同时招募同一人 ⇒ `already assigned` 警告（LYY 13／NAT 5 条，**用户未点头前不动**）。角色块只写在 `common/characters`，`history/countries` 里写错大小写不报 Unknown。
 
 ## 6 排布与清理口径
-- **★不要那么多无用空行**（2026-10-24 用户明确）：块内空行全删；标量赋值并成一类连排（`capital`/`oob`/`set_stability`…）；`recruit_character` 同类连排；**只在语句类型切换处留 1 空行**；注释行不参与分组。`compact_blank.py --apply`（幂等；characters 顶层深度 1、countries 0）。已把 4301 行空行压到 1737。
+- **★不要那么多无用空行**（2026-10-24 用户明确）：块内空行全删；标量赋值并成一类连排（`capital`/`oob`/`set_stability`…）；`recruit_character` 同类连排且**每个国家文件只准集中在一处**（`group_recruit.py --apply`，2026-10-24 已把 37 个文件散成 2–10 处的全部合并，920 条不变）；**只在语句类型切换处留 1 空行**；注释行不参与分组。`compact_blank.py --apply`（幂等；characters 顶层深度 1、countries 0）。已把 4301 行空行压到 1737。
 - 缩进一律 tab 按括号层级；行尾注释随行；无 BOM + CRLF。注释掉的废弃块（`#create_country_leader = { … }`）直接删，`history/countries` 已清 5 处。
 - 蒙德系 TAG（称号特质跳过）：`MOT`/`NEWMOT`/`DVA`/`FAV`/`GUN`/`ANR`/`DRA`/`LAW`/`RAG`/`SPI`。
 
