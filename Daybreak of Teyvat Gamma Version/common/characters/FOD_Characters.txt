@@ -20,10 +20,24 @@ characters = {
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Tartuffe
+			idea_token = FOD_Tartuffe_political_advisor
 			allowed = { always = yes }
+			visible = {
+				has_completed_focus = FOD_Rule_over_everything
+				NOT = {
+					has_country_flag = FOD_Tartuffe_retire_flag
+				}
+			}
+			available = {
+				is_country_leader = no
+				has_completed_focus = FOD_Rule_over_everything
+				NOT = {
+					has_country_flag = FOD_Tartuffe_retire_flag
+				}
+			}
 			traits = {
 				Sanctimonious_Hypocrite
+				backroom_backstabber
 			}
 			cost = 100
 			removal_cost = 100
@@ -64,12 +78,21 @@ characters = {
 			ideology = aristocratic_conservatism
 			desc = FOD_Furina1_desc
 			traits = {
+				FOD_Lone_Girl_on_the_Throne
 			}
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Furina1
+			idea_token = FOD_Furina1_political_advisor
 			allowed = { always = yes }
+			visible = {
+				NOT = {
+					has_country_flag = FOD_civil_furina_flag
+				}
+			}
+			available = {
+				is_country_leader = no
+			}
 			traits = {
 				Endless_Solo
 			}
@@ -97,12 +120,21 @@ characters = {
 			ideology = fraternalism
 			desc = FOD_Furina2_desc
 			traits = {
+				popular_figurehead
 			}
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Furina2
+			idea_token = FOD_Furina2_political_advisor
 			allowed = { always = yes }
+			visible = {
+				has_country_flag = FOD_civil_furina_flag
+				has_country_flag = FOD_Furina_retire_flag
+			}
+			available = {
+				is_country_leader = no
+				has_country_flag = FOD_Furina_retire_flag
+			}
 			traits = {
 				Endless_Solo
 			}
@@ -113,7 +145,13 @@ characters = {
 			}
 		}
 		field_marshal = {
-			traits = { Hydro_Vision }
+			visible = {
+				has_country_flag = FOD_civil_furina_flag
+			}
+			traits = {
+				Hydro_Vision
+				career_officer
+			}
 			skill = 5
 			attack_skill = 3
 			defense_skill = 2
@@ -138,12 +176,20 @@ characters = {
 			ideology = fraternalism
 			desc = FOD_Pauleau_desc
 			traits = {
+				FOD_Constitutional_Steersman
+				silent_workhorse
 			}
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Pauleau
+			idea_token = FOD_Pauleau_political_advisor
 			allowed = { always = yes }
+			visible = {
+				always = yes
+			}
+			available = {
+				is_country_leader = no
+			}
 			traits = {
 				Voice_of_the_Court
 			}
@@ -154,7 +200,13 @@ characters = {
 			}
 		}
 		corps_commander = {
-			traits = { Hydro_Vision career_officer }
+			visible = {
+				always = yes
+			}
+			traits = {
+				Hydro_Vision
+				career_officer
+			}
 			skill = 3
 			attack_skill = 3
 			defense_skill = 3
@@ -177,10 +229,18 @@ characters = {
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Neuvillette
+			idea_token = FOD_Neuvillette_political_advisor
 			allowed = { always = yes }
+			visible = {
+				has_completed_focus = FOD_Return_of_the_Tides
+			}
+			available = {
+				is_country_leader = no
+				has_completed_focus = FOD_Return_of_the_Tides
+			}
 			traits = {
 				Ordainer_of_Justice
+				compassionate_gentleman
 			}
 			cost = 100
 			removal_cost = 100
@@ -189,16 +249,18 @@ characters = {
 			}
 		}
 		field_marshal = {
+			visible = {
+				has_completed_focus = FOD_Return_of_the_Tides
+			}
 			traits = {
+				Hydro_Vision
+				organizer
 			}
 			skill = 5
 			attack_skill = 4
 			defense_skill = 3
 			planning_skill = 4
 			logistics_skill = 5
-			visible = {
-				has_completed_focus = FOD_Return_of_the_Tides
-			}
 		}
 	}
 
@@ -214,27 +276,57 @@ characters = {
 				small = "gfx/interface/ideas/DOT_PP/idea_FON_Chevreuse.png"
 			}
 		}
-		corps_commander = {
-			traits = {
-			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 4
-			logistics_skill = 3
-		}
 		advisor = {
-			slot = army_chief
-			idea_token = FOD_Chevreuse
+			slot = political_advisor
+			idea_token = FOD_Chevreuse_political_advisor
 			allowed = { always = yes }
+			visible = {
+				always = yes
+			}
+			available = {
+				is_country_leader = no
+			}
 			traits = {
-				Vigilant_Flame
+				FOD_Rose_and_Musket
 			}
 			cost = 100
 			removal_cost = 100
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = FOD_Chevreuse_army_chief
+			allowed = { always = yes }
+			visible = {
+				always = yes
+			}
+			available = {
+				is_country_leader = no
+			}
+			traits = {
+				Vigilant_Flame
+				army_chief_defensive_2
+			}
+			cost = 100
+			removal_cost = 100
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		corps_commander = {
+			visible = {
+				always = yes
+			}
+			traits = {
+				career_officer
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 4
+			logistics_skill = 3
 		}
 	}
 
@@ -250,20 +342,18 @@ characters = {
 				small = "gfx/interface/cabinet/FON/Escoffier.png"
 			}
 		}
-		corps_commander = {
-			traits = {
-			}
-			skill = 4
-			attack_skill = 3
-			defense_skill = 3
-			planning_skill = 2
-			logistics_skill = 4
-		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Escoffier
+			idea_token = FOD_Escoffier_political_advisor
 			allowed = { always = yes }
+			visible = {
+				always = yes
+			}
+			available = {
+				is_country_leader = no
+			}
 			traits = {
+				FOD_Escoffier_Logistics
 				Sweet_As_A_Macaron
 			}
 			cost = 100
@@ -271,6 +361,20 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		corps_commander = {
+			visible = {
+				always = yes
+			}
+			traits = {
+				logistics_wizard
+				career_officer
+			}
+			skill = 4
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 4
 		}
 	}
 
@@ -286,20 +390,18 @@ characters = {
 				small = "gfx/interface/ideas/DOT_PP/idea_FON_Chiori.png"
 			}
 		}
-		corps_commander = {
-			traits = {
-			}
-			skill = 3
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 1
-			logistics_skill = 3
-		}
 		advisor = {
 			slot = political_advisor
-			idea_token = FOD_Chiori
+			idea_token = FOD_Chiori_political_advisor
 			allowed = { always = yes }
+			visible = {
+				always = yes
+			}
+			available = {
+				is_country_leader = no
+			}
 			traits = {
+				FOD_Economic_Expert
 				Brocade_Bloom
 			}
 			cost = 100
@@ -307,6 +409,20 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+		}
+		corps_commander = {
+			visible = {
+				always = yes
+			}
+			traits = {
+				trait_engineer
+				organizer
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 3
 		}
 	}
 	#==== 名单补齐角色（元素色头像 + 顾问效果） ====
