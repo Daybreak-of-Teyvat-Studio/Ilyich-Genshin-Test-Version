@@ -53,6 +53,9 @@ print(f'映射: 州 {len(MAP_S)} 条，省 {len(MAP_P)} 条'
 TOKEN_RE = re.compile(r'\b(owns_state|controls_state|has_full_control_of|transfer_state|state)\s*=\s*(\d+)\b')
 LIST_RE = re.compile(r'\b(states)\s*=\s*\{([^{}]*)\}')
 PROV_RE = re.compile(r'\b(province|province_id)\s*=\s*(\d+)\b')
+CTRL_PROV_RE = re.compile(r'\b(controls_province|owns_province)\s*=\s*(\d+)\b')
+PLIST_RE = re.compile(r'\b(provinces|path)\s*=\s*\{([^{}]*)\}')
+SETPN_RE = re.compile(r'(set_province_name\s*=\s*\{[^}]*?\bid\s*=\s*)(\d+)')
 NUMKEY_RE = re.compile(r'^([ \t]*)(\d+)[ \t]*=[ \t]*\{')
 MARKERS = ('add_dynamic_modifier', 'set_state_owner', 'set_state_controller', 'transfer_state',
            'add_building_construction', 'add_manpower', 'set_demilitarized_zone',
@@ -113,6 +116,20 @@ for root, dirs, files in os.walk(MOD):
             v = int(m.group(2))
             if v in MAP_P:
                 edits.append((m.start(2), m.end(2), str(MAP_P[v]), f'{m.group(1)}={v}→{MAP_P[v]}'))
+        for m in CTRL_PROV_RE.finditer(cmt):
+            v = int(m.group(2))
+            if v in MAP_P:
+                edits.append((m.start(2), m.end(2), str(MAP_P[v]), f'{m.group(1)}={v}→{MAP_P[v]}'))
+        for m in PLIST_RE.finditer(cmt):
+            nums = [int(x) for x in m.group(2).split() if x.isdigit()]
+            if any(v in MAP_P for v in nums):
+                new_inner = ' '.join(str(MAP_P.get(v, v)) for v in nums)
+                edits.append((m.start(), m.end(), f'{m.group(1)} = {{ {new_inner} }}',
+                              f'{m.group(1)}[{m.group(2).strip()[:40]}]→[{new_inner[:40]}]'))
+        for m in SETPN_RE.finditer(cmt):
+            v = int(m.group(2))
+            if v in MAP_P:
+                edits.append((m.start(2), m.end(2), str(MAP_P[v]), f'set_province_name id {v}→{MAP_P[v]}'))
         for m in NUMKEY_RE.finditer(cmt):
             k = int(m.group(2))
             if k in MAP_S and block_state_scope(cmt, m.end() - 1):
