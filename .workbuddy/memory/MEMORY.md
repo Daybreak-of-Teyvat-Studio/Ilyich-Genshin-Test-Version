@@ -14,6 +14,7 @@
 - loc `.yml` = UTF-8 BOM + CRLF（缺 BOM 整份静默丢弃）；`key: "值"` 不带 `:0` 是合法写法，别批量改。
 - `common/ideas|characters|country_leader|idea_tags`、`history/{countries,states}`、`map/supply_nodes|railways`、战略区 txt、`weatherpositions.txt`、`.asset` = **无 BOM + CRLF**（BOM 让首行变 `Unexpected token: characters`）。
 - 脚本无 BOM + CRLF；Edit 同文件多处改动必须串行。
+- **★禁混用「字节读 + newline 写」**：`raw.decode()` 读入后原文仍是 `\r\n`，再用 `open(..., newline='\r\n')` 写 ⇒ 每个换行变 `\r\r\n`（10-28 一次性污染 63 个 state + 12 个 asset）。要么全程字节（`open(wb)` 写 `encode()`），要么文本读（默认 `\r\n`→`\n`）+ `newline='\r\n'` 写。改完必须查 `b'\r\r\n' not in data` 与 `BOM`。
 
 ## 2 环境
 - Python = `…\binaries\python\envs\default\Scripts\python.exe`；Bash 优于 PowerShell。
