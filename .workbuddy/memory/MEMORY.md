@@ -9,12 +9,15 @@
 - 机制三件套 `*_Init` 置初值 → `*_Tier_Refresh` 卸全档挂唯一档 → `on_daily` 的 `*_Sync` 保鲜；轴指数变化放 `hidden_effect` 外＋逐条 `custom_effect_tooltip`。
 - `dynamic_modifier` ≤10%；备份一律出 MOD（`hoi4lint/_backup_*`）。
 - **★产物统一放 `C:\Users\XIANGZIYUAN\.workbuddy\workspace\`，家目录根下不新建**。
+- **★只许在当前磁盘状态上做增量补丁（用户 10-29 19:02 明令）**：禁止拿 `_backup_*` 整份回写覆盖；用户会随时手改文件（删块、改名、调位置），旧备份里没有这些改动。删/补都按「块」定位（name 精确匹配），改前另存**新**快照（`_backup_*_<时间戳>`），改后用块名集合 diff 自证没丢块。
+- **★别把用户的「手改」当损坏**：文件「被回退／块消失」先问一句，绝不按「磁盘有文件就补」自动补回。
 
 ## 1 编码（最易致命）
 - loc `.yml` = UTF-8 BOM + CRLF（缺 BOM 整份静默丢弃）；`key: "值"` 不带 `:0` 是合法写法，别批量改。
 - `common/ideas|characters|country_leader|idea_tags`、`history/{countries,states}`、`map/supply_nodes|railways`、战略区 txt、`weatherpositions.txt`、`.asset` = **无 BOM + CRLF**（BOM 让首行变 `Unexpected token: characters`）。
 - 脚本无 BOM + CRLF；Edit 同文件多处改动必须串行。
 - **★禁混用「字节读 + newline 写」**：`raw.decode()` 读入后原文仍是 `\r\n`，再用 `open(..., newline='\r\n')` 写 ⇒ 每个换行变 `\r\r\n`（10-28 一次性污染 63 个 state + 12 个 asset）。要么全程字节（`open(wb)` 写 `encode()`），要么文本读（默认 `\r\n`→`\n`）+ `newline='\r\n'` 写。改完必须查 `b'\r\r\n' not in data` 与 `BOM`。
+- **★反向坑：文本读 + 二进制写会吃掉 CRLF**（10-29 19:00 中招）。`open(p,encoding='utf-8').read()` 的 universal-newlines 已把 `\r\n` 变成 `\n`，再 `open(p,'wb').write(s.encode())` ⇒ 整份文件变裸 LF，编辑器里显示「全文改动」。正解：`open(p,'rb').read().decode('utf-8')` 读入（保留 `\r\n`），改完 `encode()` 后 `wb` 写；或改完统一 `b.replace(b'\n', b'\r\n')` 并断言 `b.count(b'\r')==0` 再替换。
 
 ## 2 环境
 - Python = `…\binaries\python\envs\default\Scripts\python.exe`；Bash 优于 PowerShell。
