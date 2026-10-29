@@ -61,7 +61,9 @@
   DDS 只重编码 mask 覆盖的 4x4 块（`dds_patch.py`），其余块原始压缩字节保留，免得把好区域二次压缩。
   **判外观只用 `render_mesh_pixel.py`（逐像素 UV + Z-buffer）**；`render_mesh_tex.py` 是每三角取平均色，
   会把三角色差画成横向色带，容易误判成贴图接缝。hoi4lint 里 `_backup_*` 系列为各轮备份。
-- **武器族口径**：`<前缀>_sword_sabre[_holder].mesh` + `_diffuse/_normal/_spec.dds`，主 mesh Y 跨度统一 **3.2167**（×scale 2.9 = 9.33），刃尖 −Y、柄尾 +Y。现役：BH/HPY/JS/SL/MOT/DG(薙草)/CD(裁断斧)/HM(护摩)。**holder 不能无脑切 −Y 端 18%**——刃在 −Y 时会切出刀尖，用 `weapon_holder_cut.py --keep "y>=…"` 按区间取柄部。改名必须连 **mesh 内部串**一起改（材质名带 u32 长度前缀），工具 `rename_dot2bh.py`、预览 `render_mesh_tex.py`、四层核验 `verify_sabre_family.py`。
+- **武器族口径**：`<前缀>_sword_sabre[_holder].mesh` + `_diffuse/_normal/_spec.dds`，主 mesh Y 跨度统一 **3.2167**（×scale 2.9 = 9.33），刃尖 −Y、柄尾 +Y。现役：BH/HPY/JS/SL/MOT/DG(薙草)/CD(裁断斧)/HM(护摩)/GH(贯虹)/CG(苍古)。**asset 主 2.9、holder 2.1**；holder 与 BH/SL/CD 一致＝本体副本，`holder_full.py` 只改 shape 名（对象名无长度前缀，可字节替换）。新增武器注册：gfx 里 pdxmesh 插在 CD holder 块后、asset 末尾追加 entity，见 `install_gh_cg.py`。
+- **`.blend` 转武器**（GH 用的新路，`.blend` 喂不进 PMX/FBX 管线）：`gh_dump.py` 用 Blender 无头合并全部 MESH 导出 npz（世界坐标＋逐角点 UV/法线＋逐三角材质号，**别绕 FBX/OBJ，会丢 UV 与分离法线**）→ `weapon_blend_prefix.py` 分组减面／缩放／图集／写盘。两个新坑：①**纯程序化材质（零贴图）要自建色板图集**，且必须按「渲出来的颜色」定色——照抄 metallic=1 的 Base Color 会得到白板；②**DDS 行序与 UV 的 V 方向相反**，图集格子要按行镜像写入，否则整组颜色上下对调。
+- **减面判据别只看三角数，要看面积保有率**：二次误差对平面恒为 0，减面器会优先塌掉薄片内部、只留轮廓 ⇒ 刃中间破洞。薄片/平面件按**逐材质拍死三角预算**，别用面积加权。**holder 不能无脑切 −Y 端 18%**——刃在 −Y 时会切出刀尖，用 `weapon_holder_cut.py --keep "y>=…"` 按区间取柄部。改名必须连 **mesh 内部串**一起改（材质名带 u32 长度前缀），工具 `rename_dot2bh.py`、预览 `render_mesh_tex.py`、四层核验 `verify_sabre_family.py`。
 - **★模型"大面积没颜色"先查 `.gfx` 的 `file =` 路径大小写**，别先怀疑贴图。材质里是裸名（`X_diffuse.dds`），按「mesh 注册路径 + 裸名」去贴图库做**字符串精确匹配**；`.gfx` 写成 `DOT_weapon` 而磁盘是 `DOT_Weapon` ⇒ 打开 .mesh 因 Windows 不区分大小写仍成功，但贴图查找落空 ⇒ **静默退回默认白材质，error.log 不报**。判据：游戏里模型**没有任何暖色**（连图集里的米色护手都是中性灰）= 没吃贴图。18 处已于 10-29 修正。改色前必须先确认这条，否则贴图改多少都白费。
 
 ## 6 排布与清理
