@@ -62,6 +62,7 @@
   **判外观只用 `render_mesh_pixel.py`（逐像素 UV + Z-buffer）**；`render_mesh_tex.py` 是每三角取平均色，
   会把三角色差画成横向色带，容易误判成贴图接缝。hoi4lint 里 `_backup_*` 系列为各轮备份。
 - **武器族口径**：`<前缀>_sword_sabre[_holder].mesh` + `_diffuse/_normal/_spec.dds`，主 mesh Y 跨度统一 **3.2167**（×scale 2.9 = 9.33），刃尖 −Y、柄尾 +Y。现役：BH/HPY/JS/SL/MOT/DG(薙草)/CD(裁断斧)/HM(护摩)。**holder 不能无脑切 −Y 端 18%**——刃在 −Y 时会切出刀尖，用 `weapon_holder_cut.py --keep "y>=…"` 按区间取柄部。改名必须连 **mesh 内部串**一起改（材质名带 u32 长度前缀），工具 `rename_dot2bh.py`、预览 `render_mesh_tex.py`、四层核验 `verify_sabre_family.py`。
+- **★模型"大面积没颜色"先查 `.gfx` 的 `file =` 路径大小写**，别先怀疑贴图。材质里是裸名（`X_diffuse.dds`），按「mesh 注册路径 + 裸名」去贴图库做**字符串精确匹配**；`.gfx` 写成 `DOT_weapon` 而磁盘是 `DOT_Weapon` ⇒ 打开 .mesh 因 Windows 不区分大小写仍成功，但贴图查找落空 ⇒ **静默退回默认白材质，error.log 不报**。判据：游戏里模型**没有任何暖色**（连图集里的米色护手都是中性灰）= 没吃贴图。18 处已于 10-29 修正。改色前必须先确认这条，否则贴图改多少都白费。
 
 ## 6 排布与清理
 - **不要无用空行**：块内空行全删；标量连排；`recruit_character` 同类连排且**每文件只集中一处**；只在语句类型切换留 1 空行；注释行不参与分组。
