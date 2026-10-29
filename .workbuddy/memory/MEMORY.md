@@ -41,6 +41,8 @@
 - `map/buildings.txt` 行 `州id;建筑id;x;y;z;旋转`，**第一字段是州 id**；z 轴与位图行相反（`row = H - z`）；`y = heightmap[row][x] * 0.1`。
 - `nuclear_reactor_spawn` 的 8 个 `*_Palace` 行列必须等于本州该行；收尾 `fix_showcase_positions.py --apply`。
 - 建筑等级不得超 `00_buildings.txt` 的 `level_cap`：infrastructure 5、air/naval_base 10、arms/industrial/dockyard 20、anti_air 5、radar 6、rocket/synthetic 3。
+- **★Palace / 地标落点只认 `map/buildings.txt`**（`map/buildings_landmark.txt` 是自己维护的坐标表，引擎不读）。Palace 的 `spawn_point = nuclear_reactor_spawn`（DOT_Palace 例外，用 special_project_facility_spawn），所以「宫殿站哪」＝该州那条 `<州id>;nuclear_reactor_spawn` 行的 x/y/z；另有 `<州id>;<X>_Palace` 行可显式钉住（历史版本里两行逐位相同）。核落点：positions.txt 拿省中心 (x,z) → provinces.bmp 反查省色 → definition.csv；`y = heightmap[row][x]*0.1`，`row = H - z`。工具 `palace_move_coords.py`／`verify_palace_coords.py`。
+- **省建筑 / 州建筑判据**：`level_cap` 里**有 `province_max` = 省建筑**（每省独立计数）；只写 `state_max` 才是州建筑（每州一个）；`shares_slots = yes` 才占州民用槽（landmark 不写）。`show_on_map` 语义随之变「每州数量」。state 文件里州建筑写 `buildings` 顶级（引擎自选省），写进 `<省id> = { … }` 则位置钉死在该省。
 - 战略区：**区内省集 4-邻接连通是硬要求**（不连通静默崩在 `Loaded 8022 provinces`，error.log 不报）；id 不许空洞；纯陆区不写 `naval_terrain`；`provinces` 不能有 0 号省。
 
 ## 5 当前口径
@@ -54,6 +56,12 @@
 - `recruit_character` 大小写不敏感，大小写变体并存 ⇒ `already assigned`（LYY 13／NAT 5 条未清）。
 - NAT 六族 NCP/NCE/NPS/NSC/NFF/NMN；LYY 六派 12 线；SAN 三终局；SUM 888 国策/170 决议，只重建国策用 `regen_focus_only.py`。
 - 兵模：`clone` 每 tag 12 个、不能覆盖 attach；三件套 `*_sabre_*`；`肌/肌2` 是皮肤层不能剔除。
+- **武器「大面积没颜色」先查贴图、别先怀疑材质**：多数是源资产 PBR 靠金属反射呈色、diffuse 近白。
+  别整张调色 —— 用网格三角的 UV **栅格化 mask** 精确圈出问题区域再染（`fix_bh_blade.py`），
+  DDS 只重编码 mask 覆盖的 4x4 块（`dds_patch.py`），其余块原始压缩字节保留，免得把好区域二次压缩。
+  **判外观只用 `render_mesh_pixel.py`（逐像素 UV + Z-buffer）**；`render_mesh_tex.py` 是每三角取平均色，
+  会把三角色差画成横向色带，容易误判成贴图接缝。hoi4lint 里 `_backup_*` 系列为各轮备份。
+- **武器族口径**：`<前缀>_sword_sabre[_holder].mesh` + `_diffuse/_normal/_spec.dds`，主 mesh Y 跨度统一 **3.2167**（×scale 2.9 = 9.33），刃尖 −Y、柄尾 +Y。现役：BH/HPY/JS/SL/MOT/DG(薙草)/CD(裁断斧)/HM(护摩)。**holder 不能无脑切 −Y 端 18%**——刃在 −Y 时会切出刀尖，用 `weapon_holder_cut.py --keep "y>=…"` 按区间取柄部。改名必须连 **mesh 内部串**一起改（材质名带 u32 长度前缀），工具 `rename_dot2bh.py`、预览 `render_mesh_tex.py`、四层核验 `verify_sabre_family.py`。
 
 ## 6 排布与清理
 - **不要无用空行**：块内空行全删；标量连排；`recruit_character` 同类连排且**每文件只集中一处**；只在语句类型切换留 1 空行；注释行不参与分组。
