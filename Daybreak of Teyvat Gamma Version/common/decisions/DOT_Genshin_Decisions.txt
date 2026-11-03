@@ -193,8 +193,14 @@ political_actions = {
 		cost = 300
 		visible = { always = yes }
 		complete_effect = {
-			declare_war_on = { 	target = INA  type = annex_everything }
-			declare_war_on = { 	target = SAN  type = annex_everything }
+			if = {
+				limit = { NOT = { tag = INA } }
+				declare_war_on = { 	target = INA  type = annex_everything }
+			}
+			if = {
+				limit = { NOT = { tag = SAN } }
+				declare_war_on = { 	target = SAN  type = annex_everything }
+			}
 		}
 		ai_will_do = { factor = 1  }
 	}
