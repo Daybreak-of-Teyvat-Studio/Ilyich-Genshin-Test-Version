@@ -3541,3 +3541,93 @@ DVA_set_advisor_var13 = {
 		set_variable = { DVA_ascended_advisor_1 = 13 }
 	}
 }
+
+
+# ==== 拓荒战争（2026-11-08）====
+DVA_th_refresh_controllers = {
+	clear_array = DVA.DVA_th_controllers
+	for_each_scope_loop = {
+		array = DVA.DVA_th_states
+		if = {
+			limit = {
+				controller = { NOT = { tag = DVA } }
+				NOT = {
+					controller = {
+						is_in_array = { array = DVA.DVA_th_controllers value = THIS }
+					}
+				}
+			}
+			controller = {
+				add_to_array = { array = DVA.DVA_th_controllers value = THIS }
+			}
+		}
+	}
+}
+
+DVA_th_peace_out = {
+	for_each_scope_loop = {
+		array = DVA.lw_target_allies
+		if = {
+			limit = { has_war_with = DVA }
+			white_peace = { tag = DVA }
+			every_subject_country = {
+				limit = { has_war_with = DVA }
+				white_peace = { tag = DVA }
+			}
+		}
+	}
+	if = {
+		limit = { has_variable = DVA.lw_target }
+		white_peace = { tag = var:DVA.lw_target }
+	}
+}
+
+DVA_th_clear_variables = {
+	hidden_effect = {
+		clear_array = DVA.lw_states
+		clear_array = DVA.lw_target_allies
+		clear_variable = DVA.pre_lw_faction_leader
+		clear_variable = DVA.lw_target
+		DVA_th_refresh_controllers = yes
+		set_rule = { can_join_factions = yes }
+	}
+}
+
+DVA_th_re_add_to_old_faction = {
+	if = {
+		limit = {
+			has_variable = pre_lw_faction_leader
+			NOT = { has_war_with = var:pre_lw_faction_leader }
+			var:pre_lw_faction_leader = {
+				exists = yes
+				is_subject = no
+				has_capitulated = no
+				is_faction_leader = yes
+			}
+		}
+		set_rule = { can_join_factions = yes }
+		var:pre_lw_faction_leader = { add_to_faction = ROOT }
+	}
+}
+
+# 女士南下: 7 个 SDS 核心州 HIL -> SDS
+DVA_signora_take_states = {
+	every_state = {
+		limit = {
+			OR = {
+				state = 393
+				state = 398
+				state = 407
+				state = 408
+				state = 410
+				state = 418
+			}
+			is_owned_by = HIL
+		}
+		transfer_state_to = SDS
+	}
+	SDS = {
+		set_capital = 407
+	}
+	set_global_flag = DVA_signora_arrived
+}

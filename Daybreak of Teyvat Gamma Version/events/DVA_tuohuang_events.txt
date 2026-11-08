@@ -1,0 +1,138 @@
+namespace = DVA_tuohuang_events
+
+# 拓荒战争事件链（2026-11-08）
+# .1 战胜通知(发起国) / .2 谈和请求(目标国) / .3 结算(hidden) / .4 目标拒绝 / .6 失败台阶
+# .10 女士南下 / .11 拓荒完成
+
+country_event = {
+	id = DVA_tuohuang_events.1
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.1.t
+	desc = DVA_tuohuang_events.1.desc
+	picture = GFX_report_event_soldiers_marching
+
+	option = {
+		name = DVA_tuohuang_events.1.a
+		custom_effect_tooltip = DVA_TUOHUANG_PEACE_TT
+		hidden_effect = {
+			var:lw_target = {
+				country_event = { id = DVA_tuohuang_events.2 hours = 2 }
+			}
+		}
+	}
+	option = {
+		name = DVA_tuohuang_events.1.b
+		add_war_support = 0.05
+		DVA_th_clear_variables = yes
+		DVA_th_re_add_to_old_faction = yes
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.2
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.2.t
+	desc = DVA_tuohuang_events.2.desc
+	picture = GFX_report_event_diplomacy_negative
+
+	option = {
+		name = DVA_tuohuang_events.2.a
+		FROM = {
+			country_event = { id = DVA_tuohuang_events.3 hours = 2 }
+		}
+	}
+	option = {
+		name = DVA_tuohuang_events.2.b
+		add_stability = -0.03
+		FROM = {
+			country_event = { id = DVA_tuohuang_events.4 hours = 2 }
+		}
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.3
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DVA_th_peace_out = yes
+		for_each_scope_loop = {
+			array = lw_states
+			owner = {
+				transfer_state_to = ROOT
+			}
+		}
+		add_to_variable = { DVA_tuohuang_wars_won = 1 }
+		DVA_th_clear_variables = yes
+		DVA_th_re_add_to_old_faction = yes
+		if = {
+			limit = {
+				check_variable = { DVA_tuohuang_wars_won > 0 }
+				NOT = { has_global_flag = DVA_signora_arrived }
+			}
+			country_event = { id = DVA_tuohuang_events.10 hours = 6 }
+		}
+		if = {
+			limit = {
+				all_of_scopes = {
+					array = DVA_th_states
+					is_owned_by = DVA
+				}
+			}
+			set_global_flag = DVA_tuohuang_done
+			country_event = { id = DVA_tuohuang_events.11 hours = 6 }
+		}
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.4
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.4.t
+	desc = DVA_tuohuang_events.4.desc
+	picture = GFX_report_event_diplomacy_negative
+	option = {
+		name = DVA_tuohuang_events.4.a
+		add_war_support = 0.03
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.6
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.6.t
+	desc = DVA_tuohuang_events.6.desc
+	picture = GFX_report_event_soldiers_marching
+	option = {
+		name = DVA_tuohuang_events.6.a
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.10
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.10.t
+	desc = DVA_tuohuang_events.10.desc
+	picture = GFX_report_event_snow
+
+	immediate = {
+		DVA_signora_take_states = yes
+	}
+
+	option = {
+		name = DVA_tuohuang_events.10.a
+	}
+}
+
+country_event = {
+	id = DVA_tuohuang_events.11
+	is_triggered_only = yes
+	title = DVA_tuohuang_events.11.t
+	desc = DVA_tuohuang_events.11.desc
+	picture = GFX_report_event_generic
+	option = {
+		name = DVA_tuohuang_events.11.a
+		set_country_flag = DVA_mondstadt_snezhnaya_war_path
+	}
+}

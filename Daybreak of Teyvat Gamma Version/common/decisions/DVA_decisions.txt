@@ -567,225 +567,8 @@ DVA_mass_of_dvalin_category = {
 	#中部地区-风龙废墟60 76
 
 	#清剿中部遗迹守卫
-	DVA_hunt_down_central_humanoid_ruin_machines = {
-
-		icon = GFX_decision_generic_protection
-
-		available = {
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_central_humanoid_ruin_machines
-			divisions_in_state = {
-				state = 60
-				size > 5
-			}
-			divisions_in_state = {
-				state = 76
-				size > 4
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_remove = 7
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 60
-				size < 6
-			}
-			divisions_in_state = {
-				state = 76
-				size < 5
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 60
-			} 
-		}
-
-		visible = {
-			has_country_flag = DVA_central_humanoid_ruin_machines
-		}
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 60
-					size > 5
-				}
-				divisions_in_state = {
-					state = 76
-					size > 4
-				}
-			}
-		}
-
-		##
-
-		complete_effect = {		
-			hidden_effect = {
-				MOT = {
-					country_event = dva.2
-				}
-			}
-			activate_mission = DVA_maintain_stability_of_central_region
-		}
-
-		remove_effect = {
-			army_experience = 10
-			add_manpower = -1000
-			add_political_power = -25
-			add_stability = -0.025
-			add_days_mission_timeout = {
-				mission = DVA_maintain_stability_of_central_region
-				days = -50
-			}
-		}
-	}
-
 	#维稳中部地区
-	DVA_maintain_stability_of_central_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = yes
-
-		activation = {
-			always = no
-		}
-
-		visible = {
-			has_country_flag = DVA_central_humanoid_ruin_machines
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 60
-				size < 6
-			}
-			divisions_in_state = {
-				state = 76
-				size < 5
-			}
-		}
-
-		cancel_effect = {
-			set_country_flag = DVA_maintaining
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 60
-				state = 76
-			} 
-		}
-
-		#is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_central_humanoid_ruin_machines
-			add_timed_idea = {
-				idea = DVA_lack_of_military_pay
-				days = 180
-			}
-		}
-	}
-
 	#征兆中部民兵
-	DVA_recruit_central_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_central_humanoid_ruin_machines }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			OR = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-				add_to_variable = { DVA_num_of_militia = 1 }
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 60 76 }
-				create_unit = {
-					division = "name = \"1. 风龙废墟民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"2. 风龙废墟民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
-
 	#第一阶段-清剿魔物-2
 
 	#信任度决议
@@ -1037,1372 +820,30 @@ DVA_mass_of_dvalin_category = {
 	#北部地区-61 83 84
 
 	#悬赏北部丘丘人
-	DVA_post_a_reward_of_hilichurls_in_the_northern_countryside = {
-
-		icon = generic_oppression
-		
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_country_flag = DVA_northern_hilichurls
-			divisions_in_state = {
-				state = 61
-				size > 3
-			}
-			divisions_in_state = {
-				state = 83
-				size > 3
-			}
-			divisions_in_state = {
-				state = 84
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 61
-				state = 83
-				state = 84
-			}
-		}
-
-		cost = 0
-		days_re_enable = 7
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 61
-					size > 3
-				}
-				divisions_in_state = {
-					state = 83
-					size > 3
-				}
-				divisions_in_state = {
-					state = 84
-					size > 3
-				}
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_northern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_northern_hilichurls
-		}
-
-		fire_only_once = no
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_northern_region
-		}
-	}
-
 	#清剿北部丘丘人
-	DVA_hunt_down_northern_hilichurls = {
-
-		icon = generic_prepare_civil_war
-
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_northern_hilichurls
-			divisions_in_state = {
-				state = 61
-				size > 3
-			}
-			divisions_in_state = {
-				state = 83
-				size > 3
-			}
-			divisions_in_state = {
-				state = 84
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_remove = 15
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 61
-				size < 4
-			}
-			divisions_in_state = {
-				state = 83
-				size < 4
-			}
-			divisions_in_state = {
-				state = 84
-				size < 4
-			}
-			
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 61
-				state = 83
-				state = 84
-			} 
-		}
-		visible = {
-			NOT = { 
-				has_active_mission = DVA_maintain_stability_of_northern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_northern_hilichurls
-		}
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 61
-					size > 3
-				}
-				divisions_in_state = {
-					state = 83
-					size > 3
-				}
-				divisions_in_state = {
-					state = 84
-					size > 3
-				}
-			}
-		}
-
-		#is_good = yes
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_northern_region
-		}
-
-		remove_effect = {
-			army_experience = 10
-			DVA_hunt_down_monsters_north = yes
-		}
-	}
-
 	#维稳北部地区
-	DVA_maintain_stability_of_northern_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_northern_hilichurls
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = yes
-
-		activation = {
-			always = no
-		}
-
-		visible = {
-			has_country_flag = DVA_northern_hilichurls
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 61
-				size < 4
-			}
-			divisions_in_state = {
-				state = 83
-				size < 4
-			}
-			divisions_in_state = {
-				state = 84
-				size < 4
-			}
-		}
-
-		cancel_effect = {
-			set_country_flag = DVA_maintaining
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 61
-				state = 83
-				state = 84
-			} 
-		}
-
-		#is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_northern_hilichurls
-		}
-	}
 	#征兆北部民兵
-	DVA_recruit_northern_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_northern_hilichurls }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_northern_hilichurls
-			}
-			OR = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-				add_to_variable = { DVA_num_of_militia = 1 }
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 61 83 84 }
-				create_unit = {
-					division = "name = \"1. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"2. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"3. 西风山民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
-
 	#东北部地区-蒙森湾63 77 85
 	#悬赏东北部丘丘人
-	DVA_post_a_reward_of_hilichurls_in_the_northeastern_countryside = {
-
-		icon = generic_oppression
-		
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_country_flag = DVA_northeastern_hilichurls
-			divisions_in_state = {
-				state = 62
-				size > 3
-			}
-			divisions_in_state = {
-				state = 77
-				size > 3
-			}
-			divisions_in_state = {
-				state = 85
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 62
-				state = 77
-				state = 85
-			}
-		}
-
-		cost = 0
-		days_re_enable = 7
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 62
-					size > 3
-				}
-				divisions_in_state = {
-					state = 77
-					size > 3
-				}
-				divisions_in_state = {
-					state = 85
-					size > 3
-				}
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_northeastern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		fire_only_once = no
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_northeastern_region
-		}
-	}
-
 	#清剿东北部丘丘人
-	DVA_hunt_down_northeastern_hilichurls = {
-
-		icon = generic_prepare_civil_war
-
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_northeastern_hilichurls
-			divisions_in_state = {
-				state = 62
-				size > 3
-			}
-			divisions_in_state = {
-				state = 77
-				size > 3
-			}
-			divisions_in_state = {
-				state = 85
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_remove = 15
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 62
-				size < 4
-			}
-			divisions_in_state = {
-				state = 77
-				size < 4
-			}
-			divisions_in_state = {
-				state = 85
-				size < 4
-			}		
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 62
-				state = 77
-				state = 85
-			} 
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_northeastern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 59	
-					size > 4
-				}
-			}
-		}
-
-		#is_good = yes
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_northeastern_region
-		}
-
-		remove_effect = {
-			army_experience = 10
-			DVA_hunt_down_monsters_northeast = yes
-		}
-	}
-
 	#维稳东北部地区
-	DVA_maintain_stability_of_northeastern_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_northeastern_hilichurls
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = yes
-
-		activation = {
-			always = no
-		}
-
-		visible = {
-			has_country_flag = DVA_northeastern_hilichurls
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 62
-				size < 4
-			}
-			divisions_in_state = {
-				state = 77
-				size < 4
-			}
-			divisions_in_state = {
-				state = 85
-				size < 4
-			}
-		}
-
-		cancel_effect = {
-			set_country_flag = DVA_maintaining
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 62
-				state = 77
-				state = 85
-			} 
-		}
-
-		#is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_northeastern_hilichurls
-		}
-	}
 	#征兆东北部民兵
-	DVA_recruit_northeastern_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_northeastern_hilichurls }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_northeastern_hilichurls
-			}
-			OR = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-				add_to_variable = { DVA_num_of_militia = 1 }
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 63 77 85 }
-				create_unit = {
-					division = "name = \"1. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"2. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"3. 蒙森湾民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
-
 	#东部地区-明冠山地64
 	#悬赏东部丘丘人
-	DVA_post_a_reward_of_hilichurls_in_the_eastern_countryside = {
-
-		icon = generic_oppression
-		
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_country_flag = DVA_eastern_hilichurls
-			divisions_in_state = {
-				state = 64
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 64
-			}
-		}
-
-		cost = 0
-		days_re_enable = 7
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 64	
-					size > 3
-				}
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_eastern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_eastern_hilichurls
-		}
-
-		fire_only_once = no
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_eastern_region
-		}
-	}
-
 	#清剿东部丘丘人
-	DVA_hunt_down_eastern_hilichurls = {
-
-		icon = generic_prepare_civil_war
-
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_eastern_hilichurls
-			divisions_in_state = {
-				state = 64
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_remove = 15
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 64
-				size < 4
-			}
-			
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 64
-			} 
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_eastern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_eastern_hilichurls
-		}
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 64	
-					size > 3
-				}
-			}
-		}
-
-		#is_good = yes
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_eastern_region
-		}
-
-		remove_effect = {
-			army_experience = 10
-			DVA_hunt_down_monsters_east = yes
-		}
-	}
-
 	#维稳东部地区
-	DVA_maintain_stability_of_eastern_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_eastern_hilichurls
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = yes
-
-		activation = {
-			always = no
-		}
-
-		visible = {
-			has_country_flag = DVA_eastern_hilichurls
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 64
-				size < 4
-			}
-		}
-
-		cancel_effect = {
-			set_country_flag = DVA_maintaining
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 64
-			} 
-		}
-
-		#is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_eastern_hilichurls
-		}
-	}
 	#征兆东部民兵
-	DVA_recruit_eastern_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_eastern_hilichurls }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_eastern_hilichurls
-			}
-			OR = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-				add_to_variable = { DVA_num_of_militia = 1 }
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 64 }
-				create_unit = {
-					division = "name = \"1. 明冠山地民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
-
-
 	#南部地区-特瓦林谷74 75 78
 	#悬赏南部丘丘人
-	DVA_post_a_reward_of_hilichurls_in_the_southern_countryside = {
-
-		icon = generic_oppression
-		
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_country_flag = DVA_southern_hilichurls
-			divisions_in_state = {
-				state = 74
-				size > 3
-			}
-			divisions_in_state = {
-				state = 450
-				size > 3
-			}
-			divisions_in_state = {
-				state = 78
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 74
-				state = 450
-				state = 78
-			} 
-		}
-
-		cost = 0
-		days_re_enable = 7
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 74
-					size > 3
-				}
-				divisions_in_state = {
-					state = 450
-					size > 3
-				}
-				divisions_in_state = {
-					state = 78
-					size > 3
-				}
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_southern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_southern_hilichurls
-		}
-
-		fire_only_once = no
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_southern_region
-		}
-	}
-
 	#清剿南部丘丘人
-	DVA_hunt_down_southern_hilichurls = {
-
-		icon = generic_prepare_civil_war
-
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-			has_country_flag = DVA_southern_hilichurls
-			divisions_in_state = {
-				state = 74
-				size > 3
-			}
-			divisions_in_state = {
-				state = 450
-				size > 3
-			}
-			divisions_in_state = {
-				state = 78
-				size > 3
-			}
-			NOT = {
-				has_country_flag = DVA_maintaining
-			}
-		}
-
-		days_remove = 15
-		days_re_enable = 7
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 74
-				size < 4
-			}
-			divisions_in_state = {
-				state = 450
-				size < 4
-			}
-			divisions_in_state = {
-				state = 78
-				size < 4
-			}		
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 74
-				state = 450
-				state = 78
-			} 
-		}
-
-		visible = {
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_southern_region
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			has_country_flag = DVA_southern_hilichurls
-		}
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 74
-					size > 3
-				}
-				divisions_in_state = {
-					state = 450
-					size > 3
-				}
-				divisions_in_state = {
-					state = 78
-					size > 3
-				}
-			}
-		}
-
-		#is_good = yes
-
-		complete_effect = {
-			activate_mission = DVA_maintain_stability_of_southern_region
-		}
-
-		remove_effect = {
-			army_experience = 10
-			DVA_hunt_down_monsters_south = yes
-		}
-	}
-
 	#维稳南部地区
-	DVA_maintain_stability_of_southern_region = {
-
-		icon = generic_ignite_civil_war
-
-		available = {
-			NOT = {
-				has_country_flag = DVA_southern_hilichurls
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = yes
-
-		activation = {
-			always = no
-		}
-
-		visible = {
-			has_country_flag = DVA_southern_hilichurls
-		}
-
-		cancel_trigger = {
-			divisions_in_state = {
-				state = 74
-				size < 4
-			}
-			divisions_in_state = {
-				state = 450
-				size < 4
-			}
-			divisions_in_state = {
-				state = 78
-				size < 4
-			}
-		}
-
-		cancel_effect = {
-			set_country_flag = DVA_maintaining
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 74
-				state = 450
-				state = 78
-			} 
-		}
-
-		#is_good = yes
-
-		timeout_effect = {
-			clr_country_flag = DVA_southern_hilichurls
-		}
-	}
 	#征兆南部民兵
-	DVA_recruit_southern_militia = {
-		icon = generic_civil_support
-
-		available = {
-			NOT = { has_country_flag = DVA_southern_hilichurls }
-			has_equipment = { infantry_equipment > @DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER }
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_southern_hilichurls
-			}
-			OR = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		fire_only_once = yes
-
-		cost = 0
-
-		#
-
-		complete_effect = {
-			if = {
-				limit = {
-					not = {
-						has_country_flag = DVA_militia_recruited
-					}
-				}
-				division_template = {
-					name = "风龙领民兵"
-					
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 0 y = 3 }
-						militia = { x = 0 y = 4 }
-					}
-					support = {
-						#
-					}
-					priority = 1
-					is_locked = yes
-					allow_new_equipment=yes
-					allow_foreign_equipment=yes
-				}
-				set_country_flag = DVA_militia_recruited
-				add_to_variable = { DVA_num_of_militia = 1 }
-			}
-			random_owned_controlled_state = {
-				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 74 75 78 }
-				create_unit = {
-					division = "name = \"1. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"2. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-				create_unit = {
-					division = "name = \"3. 特瓦林谷民兵\" division_template = \"风龙领民兵\" start_experience_factor = 0.5" 
-					owner = DVA
-				}
-			}
-		}
-	}
-
 	#解放民兵
-	DVA_release_militia = {
-		icon = generic_political_discourse
-
-		available = {
-			has_country_flag = DVA_militia_recruited
-		}
-		visible = {
-			NOT = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-		}
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			base = 10
-			modifier = {
-				NOT = {
-					has_war = yes
-				}
-				factor = 10
-			}
-		}
-		cost = 0
-		
-		complete_effect = {
-			add_manpower = var:DVA_num_of_militia
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = var:DVA_num_of_militia
-			}
-			army_experience = 50
-			delete_unit_template_and_units = { division_template = "风龙领民兵" }
-			clr_country_flag = DVA_militia_recruited
-		}
-	}
-
 	#重新集结部队
-	DVA_regroup_troops = {
-
-		icon = generic_civil_support
-		
-		available = {
-			has_completed_focus = DVA_Deal_With_Mass_Of_Dvalin
-			has_country_flag = DVA_maintaining
-		}
-
-		cost = 0
-		days_remove = 7
-		days_re_enable = 0
-
-		ai_will_do = {
-			factor = 0
-		}
-
-		visible = {
-			has_country_flag = DVA_maintaining
-			NOT = {
-				has_active_mission = DVA_maintain_stability_of_northern_region
-				has_active_mission = DVA_maintain_stability_of_northeastern_region
-				has_active_mission = DVA_maintain_stability_of_eastern_region
-				has_active_mission = DVA_maintain_stability_of_southern_region
-				has_active_mission = DVA_maintain_stability_of_central_region
-			}
-		}
-
-		fire_only_once = no
-
-		remove_effect = {
-			clr_country_flag = DVA_maintaining
-			custom_effect_tooltip = DVA_maintaining_tt
-		}
-	}
-
 	#第二阶段-保境安民，震慑宵小
 
 	#驱逐愚人众先遣队
-	DVA_drive_off_Fatui_Skirmisher = {
-
-		icon = GFX_decision_category_border_conflicts
-		
-		available = {
-			has_completed_focus = DVA_one_flew_over_stormterrors_lair
-			NOT = {
-				has_war_with = SNE
-			}
-			divisions_in_border_state = {
-				size > 7
-				state = 676
-				border_state = 81
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-			}
-			NOT = {
-				81 = {
-					is_controlled_by = ROOT
-				}
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 76
-			}
-		}
-
-		cost = 0
-
-		days_remove = 14
-		days_re_enable = 30
-
-		ai_will_do = {
-			base = 10
-			modifier = { 
-				has_war = no
-				factor = 10
-			}
-		}
-
-		remove_effect = {
-			SFS = {
-				declare_war_on = {
-					target = DVA
-					type = annex_everything
-				}
-			}
-		}
-	}
 	#镇压各路盗匪
-	DVA_pacify_bandits_anywhere = {
-
-		icon = generic_prepare_civil_war
-		
-		available = {
-			NOT = {
-				has_war_with = SNE
-			}
-			62 = {
-				is_controlled_by = ROOT
-			}
-			79 = {
-				is_controlled_by = ROOT
-			}
-			80 = {
-				is_controlled_by = ROOT
-			}
-			81 = {
-				is_controlled_by = ROOT
-			}
-			82 = {
-				is_controlled_by = ROOT
-			}
-			divisions_in_state = {
-				state = 62
-				size > 2
-			}
-			divisions_in_state = {
-				state = 79
-				size > 2
-			}
-			divisions_in_state = {
-				state = 80
-				size > 2
-			}
-			divisions_in_state = {
-				state = 76
-				size > 2
-			}
-			divisions_in_state = {
-				state = 676
-				size > 2
-			}
-		}
-
-		visible = {
-			NOT = {
-				has_country_flag = DVA_northern_hilichurls
-				has_country_flag = DVA_northeastern_hilichurls
-				has_country_flag = DVA_eastern_hilichurls
-				has_country_flag = DVA_southern_hilichurls
-				has_country_flag = DVA_central_humanoid_ruin_machines
-				has_country_flag = DVA_militia_recruited
-			}
-		}
-
-		cost = 0
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 200
-				divisions_in_state = {
-					state = 62	
-					size > 2
-				}
-				divisions_in_state = {
-					state = 79	
-					size > 2
-				}
-				divisions_in_state = {
-					state = 80	
-					size > 2
-				}
-				divisions_in_state = {
-					state = 76	
-					size > 2
-				}
-				divisions_in_state = {
-					state = 676	
-					size > 2
-				}
-			}
-		}
-
-		fire_only_once = yes
-
-		complete_effect = {
-			clr_country_flag = DVA_dvalin_mass_flag
-		}
-	}
 }
 
 #火种计划
@@ -8330,3 +6771,137 @@ DVA_annex_category = {
 		}
 	}
 }
+
+	DVA_start_tuohuang = {
+		target_root_trigger = {
+			original_tag = DVA
+		}
+
+		target_array = ROOT.DVA_th_controllers
+
+		target_trigger = {
+			is_in_array = {
+				array = ROOT.DVA_th_controllers
+				value = FROM
+			}
+			any_of_scopes = {
+				array = ROOT.DVA_th_states
+				is_controlled_by = FROM
+			}
+		}
+
+		visible = {
+			NOT = { has_global_flag = DVA_tuohuang_done }
+		}
+
+		available = {
+			NOT = {
+				is_ally_with = FROM
+				has_war_with = FROM
+				has_non_aggression_pact_with = FROM
+				FROM = { is_guaranteed_by = DVA }
+			}
+			custom_trigger_tooltip = {
+				tooltip = is_not_engaged_in_a_limited_war
+				NOT = { has_variable = lw_target }
+			}
+		}
+
+		highlight_states = {
+			highlight_states_trigger = {
+				is_in_array = { array = ROOT.DVA_th_states value = THIS }
+				is_controlled_by = FROM
+			}
+		}
+
+		cost = 20
+
+		complete_effect = {
+			clear_variable = pre_lw_faction_leader
+			if = {
+				limit = {
+					is_in_faction = yes
+					is_faction_leader = no
+				}
+				faction_leader = {
+					set_variable = { ROOT.pre_lw_faction_leader = THIS }
+				}
+				leave_faction = yes
+			}
+			set_rule = { can_join_factions = no }
+
+			clear_array = lw_states
+			clear_variable = lw_target
+			clear_array = lw_target_allies
+
+			for_each_scope_loop = {
+				array = DVA_th_states
+				if = {
+					limit = { is_controlled_by = FROM }
+					add_to_array = { array = ROOT.lw_states value = THIS }
+				}
+			}
+
+			set_variable = { lw_target = FROM }
+
+			if = {
+				limit = { var:lw_target = { is_subject = yes } }
+				var:lw_target = {
+					overlord = {
+						add_to_array = { array = ROOT.lw_target_allies value = THIS }
+					}
+				}
+			}
+
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+
+			activate_mission = DVA_th_mission
+		}
+	}
+
+	DVA_th_mission = {
+		visible = { always = yes }
+		is_good = no
+
+		available = {
+			all_of_scopes = {
+				array = ROOT.lw_states
+				is_controlled_by = ROOT
+			}
+		}
+
+		fire_only_once = no
+		activation = { always = no }
+
+		cancel_trigger = {
+			OR = {
+				exists = no
+				has_capitulated = yes
+				surrender_progress > var:global.lw_surrender_threshold
+			}
+		}
+
+		days_mission_timeout = 365
+
+		complete_effect = {
+			country_event = { id = DVA_tuohuang_events.1 hours = 2 }
+		}
+
+		cancel_effect = {
+			if = {
+				limit = { surrender_progress > var:global.lw_surrender_threshold }
+				var:lw_target = {
+					country_event = { id = DVA_tuohuang_events.6 hours = 2 }
+				}
+			}
+		}
+
+		timeout_effect = {
+			var:lw_target = {
+				country_event = { id = DVA_tuohuang_events.6 hours = 2 }
+			}
+		}
+	}
