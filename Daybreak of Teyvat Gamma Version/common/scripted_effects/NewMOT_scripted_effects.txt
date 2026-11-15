@@ -35,7 +35,7 @@ LAW_Reform_Icy_Power5 = {
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
 LAW_Reform_Icy_Power61 = {
-	set_temp_variable = { LAW_Need_of_Icy_Power = 200 }
+	set_temp_variable = { LAW_Need_of_Icy_Power = 100 }
 	IF = {
 		limit = {
 			has_idea = LAW_Labour_Union1
@@ -78,11 +78,12 @@ LAW_Reform_Icy_Power61 = {
 		custom_effect_tooltip = LAW_tt_End_Bonus_for_LAW_Congress_of_Corporation3
 		subtract_from_temp_variable = { LAW_Need_of_Icy_Power = 50 }
 	}
+	clamp_temp_variable = { var = LAW_Need_of_Icy_Power min = 0 max = 100000 }
 	custom_effect_tooltip = LAW_tt_End_Icy_Power
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
 LAW_Reform_Icy_Power62 = {
-	set_temp_variable = { LAW_Need_of_Icy_Power = 150 }
+	set_temp_variable = { LAW_Need_of_Icy_Power = 75 }
 	IF = {
 		limit = {
 			has_idea = LAW_Call_of_Tide1
@@ -111,11 +112,12 @@ LAW_Reform_Icy_Power62 = {
 		custom_effect_tooltip = LAW_tt_End_Bonus_for_LAW_Support_Futurism
 		subtract_from_temp_variable = { LAW_Need_of_Icy_Power = 50 }
 	}
+	clamp_temp_variable = { var = LAW_Need_of_Icy_Power min = 0 max = 100000 }
 	custom_effect_tooltip = LAW_tt_End_Icy_Power
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
 LAW_Reform_Icy_Power63 = {
-	set_temp_variable = { LAW_Need_of_Icy_Power = 400 }
+	set_temp_variable = { LAW_Need_of_Icy_Power = 150 }
 	IF = {
 		limit = {
 			has_idea = LAW_Youth_League_Tide1
@@ -200,11 +202,12 @@ LAW_Reform_Icy_Power63 = {
 		custom_effect_tooltip = LAW_tt_End_Bonus_for_LAW_Icy_Judge_Court3
 		subtract_from_temp_variable = { LAW_Need_of_Icy_Power = 100 }
 	}
+	clamp_temp_variable = { var = LAW_Need_of_Icy_Power min = 0 max = 100000 }
 	custom_effect_tooltip = LAW_tt_End_Icy_Power
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
 LAW_Reform_Icy_Power64 = {
-	set_temp_variable = { LAW_Need_of_Icy_Power = 200 }
+	set_temp_variable = { LAW_Need_of_Icy_Power = 100 }
 	IF = {
 		limit = {
 			has_idea = LAW_Knights_of_Ice1
@@ -247,11 +250,12 @@ LAW_Reform_Icy_Power64 = {
 		custom_effect_tooltip = LAW_tt_End_Bonus_for_LAW_Winter_System3
 		subtract_from_temp_variable = { LAW_Need_of_Icy_Power = 50 }
 	}
+	clamp_temp_variable = { var = LAW_Need_of_Icy_Power min = 0 max = 100000 }
 	custom_effect_tooltip = LAW_tt_End_Icy_Power
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
 LAW_Reform_Icy_Power65 = {
-	set_temp_variable = { LAW_Need_of_Icy_Power = 100 }
+	set_temp_variable = { LAW_Need_of_Icy_Power = 50 }
 	custom_effect_tooltip = LAW_tt_End_Icy_Power
 	subtract_from_variable = { LAW_Whole_Icy_Power = LAW_Need_of_Icy_Power }
 }
@@ -511,6 +515,40 @@ LAW_Monthly_Var_Change = {
 	add_to_variable = { LAW_Whole_Icy_Power = modifier@ice_power_gain }
 	add_to_variable = { LAW_Whole_Fool_Power = modifier@fool_power_gain }
 }
+#劳伦斯数值上下限（每日由 on_daily_LAW 调用，防止出现负数/超过上限）
+LAW_Clamp_Vars = {
+	#旧存档兼容：以下三个变量此前没有初始化
+	IF = {
+		limit = {
+			NOT = { has_variable = LAW_Whole_Fool_Angry }
+		}
+		set_variable = { LAW_Whole_Fool_Angry = 0 }
+	}
+	IF = {
+		limit = {
+			NOT = { has_variable = LAW_Whole_Noble_Power }
+		}
+		set_variable = { LAW_Whole_Noble_Power = 0 }
+	}
+	IF = {
+		limit = {
+			NOT = { has_variable = LAW_Num_of_Advance }
+		}
+		set_variable = { LAW_Num_of_Advance = 0 }
+	}
+	clamp_variable = { var = LAW_Whole_Icy_Power min = 0 max = 100000 }
+	clamp_variable = { var = LAW_Whole_Fool_Power min = 0 max = 100000 }
+	clamp_variable = { var = LAW_Whole_Fool_Angry min = 0 max = 100 }
+	clamp_variable = { var = LAW_Whole_Noble_Angry min = 0 max = 100 }
+	clamp_variable = { var = LAW_Whole_Noble_Power min = 0 max = 100 }
+	clamp_variable = { var = LAW_Noble_STST min = 0 max = 100 }
+	clamp_variable = { var = LAW_Noble_Radical min = 0 max = 100 }
+	clamp_variable = { var = LAW_Var_Stablizing min = 0 max = LAW_Var_Max_Stablizing }
+	clamp_variable = { var = LAW_Num_of_Unstable_States min = 0 max = LAW_Var_Max_States }
+	clamp_variable = { var = LAW_Num_of_Investment min = 0 max = 999 }
+	clamp_variable = { var = LAW_Num_of_Advance min = 0 max = 999 }
+	clamp_variable = { var = LAW_Num_of_Crowns min = 0 max = 999 }
+}
 #优菈战后精神升级
 LAW_Upgrade_National_Levels = {
 	IF = {
@@ -553,6 +591,7 @@ LAW_Start_All_Vars = {
 	set_variable = { LAW_Level_of_ST = 0 }
 	set_variable = { LAW_Whole_Icy_Power = 0 }
 	set_variable = { LAW_Whole_Fool_Power = 0 }
+	set_variable = { LAW_Whole_Fool_Angry = 0 }
 	set_variable = { LAW_Whole_Noble_Angry = 100 }
 	set_variable = { LAW_Noble_STST = 10 }
 	set_variable = { LAW_Noble_Radical = 0 }
@@ -569,6 +608,8 @@ LAW_Start_All_Vars = {
 	set_variable = { LAW_Cost_of_Decisions3 = 25 }
 	set_variable = { LAW_Cost_of_Decisions4 = 25 }
 	set_variable = { LAW_Num_of_Crowns = 0 }
+	set_variable = { LAW_Whole_Noble_Power = 0 }
+	set_variable = { LAW_Num_of_Advance = 0 }
 	set_variable = { LAW_State_Corruption = 100 }
 	set_variable = { LAW_State_Efficiency = 0 }
 	set_variable = { LAW_State_Population = 0 }
