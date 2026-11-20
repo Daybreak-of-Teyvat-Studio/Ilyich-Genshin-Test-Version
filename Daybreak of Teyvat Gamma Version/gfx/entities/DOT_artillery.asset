@@ -1,0 +1,35 @@
+# 仅替换火炮本体，帧实体/步兵沿用各国原有配置
+# 由 DOT_artillery.mesh（gfx/models/buildings）驱动
+
+entity = {
+	name = "DOT_artillery_gun_entity"
+	pdxmesh = "DOT_artillery_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"				animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "retreat"			animation = "idle" 	 				animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "training"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "death"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "support_attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "defend"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "move"				animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "retreat"			animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	
+	scale = 1.4
+}
