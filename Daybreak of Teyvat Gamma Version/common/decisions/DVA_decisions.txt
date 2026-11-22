@@ -1,4 +1,4 @@
-@DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
+﻿@DVA_HUNT_HILICHURLS_EQUIPMENT_COST_TRIGGER = 499
 @DVA_SHIP_CONSTRUCTION_COST_TRIGGER1 = 90
 @DVA_SHIP_CONSTRUCTION_COST_TRIGGER2 = 60
 @DVA_SHIP_CONSTRUCTION_COST_TRIGGER3 = 90
@@ -6772,27 +6772,28 @@ DVA_annex_category = {
 	}
 }
 
-DVA_tuohuang_cat = {
-	DVA_start_tuohuang = {
+DVA_pioneering_cat = {
+	DVA_start_pioneering = {
 		target_root_trigger = {
 			original_tag = DVA
 		}
 
-		target_array = ROOT.DVA_th_controllers
+		target_array = ROOT.DVA_pioneering_controllers
 
 		target_trigger = {
+			FROM = { NOT = { tag = SDS } }
 			is_in_array = {
-				array = ROOT.DVA_th_controllers
+				array = ROOT.DVA_pioneering_controllers
 				value = FROM
 			}
 			any_of_scopes = {
-				array = ROOT.DVA_th_states
+				array = ROOT.DVA_pioneering_states
 				is_controlled_by = FROM
 			}
 		}
 
 		visible = {
-			NOT = { has_global_flag = DVA_tuohuang_done }
+			NOT = { has_global_flag = DVA_pioneering_done }
 		}
 
 		available = {
@@ -6810,7 +6811,7 @@ DVA_tuohuang_cat = {
 
 		highlight_states = {
 			highlight_states_trigger = {
-				is_in_array = { array = ROOT.DVA_th_states value = THIS }
+				is_in_array = { array = ROOT.DVA_pioneering_states value = THIS }
 				is_controlled_by = FROM
 			}
 		}
@@ -6836,7 +6837,7 @@ DVA_tuohuang_cat = {
 			clear_array = lw_target_allies
 
 			for_each_scope_loop = {
-				array = DVA_th_states
+				array = DVA_pioneering_states
 				if = {
 					limit = { is_controlled_by = FROM }
 					add_to_array = { array = ROOT.lw_states value = THIS }
@@ -6859,11 +6860,20 @@ DVA_tuohuang_cat = {
 				type = annex_everything
 			}
 
-			activate_mission = DVA_th_mission
+			if = {
+				limit = {
+					NOT = { has_global_flag = DVA_pioneering_invasion_started }
+				}
+				set_global_flag = DVA_pioneering_invasion_started
+				set_variable = { DVA_invasion_extensions = 0 }
+				activate_mission = DVA_pioneering_invasion_mission
+			}
+
+			activate_mission = DVA_pioneering_mission
 		}
 	}
 
-	DVA_th_mission = {
+	DVA_pioneering_mission = {
 		visible = { always = yes }
 		is_good = no
 
@@ -6888,22 +6898,188 @@ DVA_tuohuang_cat = {
 		days_mission_timeout = 365
 
 		complete_effect = {
-			country_event = { id = DVA_tuohuang_events.1 hours = 2 }
+			country_event = { id = DVA_pioneering_events.1 hours = 2 }
 		}
 
 		cancel_effect = {
 			if = {
 				limit = { surrender_progress > var:global.lw_surrender_threshold }
 				var:lw_target = {
-					country_event = { id = DVA_tuohuang_events.6 hours = 2 }
+					country_event = { id = DVA_pioneering_events.6 hours = 2 }
 				}
 			}
 		}
 
 		timeout_effect = {
 			var:lw_target = {
-				country_event = { id = DVA_tuohuang_events.6 hours = 2 }
+				country_event = { id = DVA_pioneering_events.6 hours = 2 }
 			}
+		}
+	}
+	# 收复失地——女士登陆后的有限战争（180 天，take_states）
+	DVA_pioneering_start_reconquest = {
+		icon = generic_army_support
+		allowed = { original_tag = DVA }
+		visible = {
+			has_global_flag = DVA_signora_arrived
+			NOT = { has_global_flag = DVA_pioneering_reconquest_over }
+		}
+		available = {
+			SDS = { exists = yes }
+			NOT = { has_war_with = SDS }
+			custom_trigger_tooltip = {
+				tooltip = is_not_engaged_in_a_limited_war
+				NOT = { has_variable = lw_target }
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_in_array = { array = ROOT.DVA_pioneering_sds_states value = THIS }
+			}
+		}
+		cost = 40
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			clear_array = lw_states
+			clear_array = lw_target_allies
+			set_variable = { lw_target = SDS }
+			for_each_scope_loop = {
+				array = DVA_pioneering_sds_states
+				if = {
+					limit = { is_controlled_by = SDS }
+					add_to_array = { array = ROOT.lw_states value = THIS }
+				}
+			}
+			declare_war_on = {
+				target = SDS
+				type = take_states
+			}
+			activate_mission = DVA_pioneering_reconquest_mission
+		}
+	}
+
+	# 收复战倒计时（180 天）
+	DVA_pioneering_reconquest_mission = {
+		visible = { always = yes }
+		is_good = no
+		available = {
+			all_of_scopes = {
+				array = ROOT.lw_states
+				is_controlled_by = ROOT
+			}
+		}
+		fire_only_once = yes
+		activation = { always = no }
+		cancel_trigger = {
+			OR = {
+				exists = no
+				has_capitulated = yes
+				surrender_progress > var:global.lw_surrender_threshold
+			}
+		}
+		days_mission_timeout = 180
+		complete_effect = {
+			country_event = { id = DVA_pioneering_events.12 hours = 2 }
+		}
+		cancel_effect = {
+			if = {
+				limit = { surrender_progress > var:global.lw_surrender_threshold }
+				country_event = { id = DVA_pioneering_events.13 hours = 2 }
+			}
+		}
+		timeout_effect = {
+			country_event = { id = DVA_pioneering_events.13 hours = 2 }
+		}
+	}
+
+	# 入侵倒计时（初始 30 天）
+	DVA_pioneering_invasion_mission = {
+		visible = { always = yes }
+		is_good = no
+		allowed = { original_tag = DVA }
+		activation = { always = no }
+		fire_only_once = no
+		days_mission_timeout = 30
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = { DVA_invasion_extensions > 0 }
+				}
+				subtract_from_variable = { DVA_invasion_extensions = 1 }
+				activate_mission = DVA_pioneering_invasion_extension_mission
+			}
+			else = {
+				set_global_flag = DVA_signora_arrived
+				country_event = { id = DVA_pioneering_events.10 hours = 6 }
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	# 入侵倒计时（续期 25 天）
+	DVA_pioneering_invasion_extension_mission = {
+		visible = { always = yes }
+		is_good = no
+		allowed = { original_tag = DVA }
+		activation = { always = no }
+		fire_only_once = no
+		days_mission_timeout = 25
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = { DVA_invasion_extensions > 0 }
+				}
+				subtract_from_variable = { DVA_invasion_extensions = 1 }
+				activate_mission = DVA_pioneering_invasion_extension_mission
+			}
+			else = {
+				set_global_flag = DVA_signora_arrived
+				country_event = { id = DVA_pioneering_events.10 hours = 6 }
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	# 拖延登陆：每控制一个新的 HIL 州可点一次，+1 次续期余额（25 天）
+	DVA_pioneering_extend_invasion = {
+		icon = generic_army_support
+		allowed = { original_tag = DVA }
+		visible = {
+			has_global_flag = DVA_pioneering_invasion_started
+			NOT = { has_global_flag = DVA_pioneering_done }
+			NOT = { has_global_flag = DVA_signora_arrived }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = DVA_PIONEERING_NEW_STATE_TT
+				any_controlled_state = {
+					is_owned_by = HIL
+					NOT = { has_state_flag = DVA_deadline_counted }
+				}
+			}
+		}
+		cost = 0
+		days_re_enable = 0
+		fire_only_once = no
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			random_controlled_state = {
+				limit = {
+					is_owned_by = HIL
+					NOT = { has_state_flag = DVA_deadline_counted }
+				}
+				set_state_flag = DVA_deadline_counted
+			}
+			add_to_variable = { DVA_invasion_extensions = 1 }
 		}
 	}
 }
