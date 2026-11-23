@@ -1,6 +1,8 @@
 add_namespace = FON
 add_namespace = FON_water
 add_namespace = FON_civil_war
+add_namespace = FON_cw_rear
+add_namespace = FON_cw_fatigue
 
 
 #############################
@@ -822,3 +824,76 @@ country_event = {
 		PBF = { declare_war_on = { target = FOD type = annex_everything } }
 	}
 }
+
+# 内战厌战
+country_event = {
+	id = FON_cw_fatigue.1
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		if = {
+			limit = {
+				is_ai = yes
+				has_war = yes
+				any_enemy_country = {
+					OR = {
+						tag = FOD
+						tag = FOM
+						tag = HZH
+						tag = PBF
+					}
+				}
+			}
+			add_ideas = FON_AI_war_fatigue_1
+		}
+	}
+}
+country_event = {
+	id = FON_cw_fatigue.2
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		if = {
+			limit = {
+				is_ai = yes
+				has_war = yes
+				any_enemy_country = {
+					OR = {
+						tag = FOD
+						tag = FOM
+						tag = HZH
+						tag = PBF
+					}
+				}
+			}
+			add_ideas = FON_AI_war_fatigue_2
+		}
+	}
+}
+
+
+
+
+# FOD 后方登陆场
+country_event = {
+	id = FON_cw_rear.1
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		if = {
+			limit = {
+				is_ai = yes
+				has_war_with = PBF
+				PBF = { exists = yes }
+				NOT = { has_country_flag = FON_cw_rear_opened }
+				NOT = { controls_state = 43 }
+				PBF = { surrender_progress < 0.5 }
+			}
+			FON_open_pbf_rear_front = yes
+		}
+	}
+}
+

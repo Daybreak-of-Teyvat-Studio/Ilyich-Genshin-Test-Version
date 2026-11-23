@@ -1,6 +1,25 @@
 on_actions = {
     on_capitulation_immediate = {
         effect = {
+            # 内战结束：清掉 AI 厌战 idea 与后方登陆旗（输家被吞并，赢家要清）
+            if = {
+                limit = { has_idea = FON_AI_war_fatigue }
+                remove_ideas = FON_AI_war_fatigue
+            }
+            if = {
+                limit = { has_country_flag = FON_cw_rear_opened }
+                clr_country_flag = FON_cw_rear_opened
+            }
+            FROM = {
+                if = {
+                    limit = { has_idea = FON_AI_war_fatigue }
+                    remove_ideas = FON_AI_war_fatigue
+                }
+                if = {
+                    limit = { has_country_flag = FON_cw_rear_opened }
+                    clr_country_flag = FON_cw_rear_opened
+                }
+            }
             # === 第一阶段：内部对战（HZH vs FOM / PBF vs FOD）===
             # 不限AI/玩家，投降即被吞并
             if = {
@@ -180,6 +199,25 @@ on_actions = {
                     flag = FON_cw_startup
                     value = 1
                     days = 5
+                }
+                # 内战厌战：开战 120 天后只给 AI 挂隐藏 idea1
+                country_event = { days = 120 id = FON_cw_fatigue.1 }
+                FROM = { country_event = { days = 120 id = FON_cw_fatigue.1 } }
+                # 300 天后给 AI 挂隐藏 idea2
+                country_event = { days = 300 id = FON_cw_fatigue.2 }
+                FROM = { country_event = { days = 300 id = FON_cw_fatigue.2 } }
+
+
+
+                # FOD vs PBF：200 天后给 AI FOD 开后方登陆场，破地峡僵持
+                if = {
+                    limit = {
+                        OR = {
+                            AND = { tag = FOD FROM = { tag = PBF } }
+                            AND = { tag = PBF FROM = { tag = FOD } }
+                        }
+                    }
+                    FOD = { country_event = { days = 200 id = FON_cw_rear.1 } }
                 }
             }
         }
