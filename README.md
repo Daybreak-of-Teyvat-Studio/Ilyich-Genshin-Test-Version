@@ -25,18 +25,18 @@
 4. 请不要随意修改网页端的仓库设置
 
 ## 文档指路
-- [第一次进入开发请看这里](GithubDocs/FirstToStart.md)
+- [第一次进入开发请看这里](.GithubDocs/FirstToStart.md)
 
-- [如何上传我的修改](GithubDocs/HowToPush.md)
+- [如何上传我的修改](.GithubDocs/HowToPush.md)
 
-- [如何对git仓库的代码进行调试](GithubDocs/DebugTheRepo.md)
+- [如何对git仓库的代码进行调试](.GithubDocs/DebugTheRepo.md)
 
-- [一些定位、修复问题的技巧](GithubDocs/Debug.md)
+- [一些定位、修复问题的技巧](.GithubDocs/Debug.md)
 
-- [自测试相关](GithubDocs/SelfTest.md)
+- [自测试相关](.GithubDocs/SelfTest.md)
 
-- [可能遇到的一些git操作问题](GithubDocs/GitTutorial.md)
+- [可能遇到的一些git操作问题](.GithubDocs/GitTutorial.md)
 
-- [一些更灵活的进阶操作（非必须）](GithubDocs/UseVSCode.md)
+- [一些更灵活的进阶操作（非必须）](.GithubDocs/UseVSCode.md)
 
-- [变更代码合并方式](GithubDocs/RebaseMerge.md)
+- [变更代码合并方式](.GithubDocs/RebaseMerge.md)
